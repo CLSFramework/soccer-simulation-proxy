@@ -27,7 +27,7 @@ jobs:
       uses: docker/setup-buildx-action@v2
 
     - name: Pull Docker image
-      run: docker pull naderzare/ubuntu-grpc-thrift:latest
+      run: docker pull naderzare/ubuntu22-grpc-thrift:latest
 
     - name: Print
       run: |

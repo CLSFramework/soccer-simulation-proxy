@@ -29,20 +29,11 @@ jobs:
     - name: Pull Docker image
       run: docker pull naderzare/ubuntu22-grpc-thrift:latest
 
-    - name: Print
-      run: |
-        pwd
-        ls
-
     # Step 3: Run the build.sh script inside the Docker container
     - name: Build project
       run: |
-        docker run --rm -v ${{ github.workspace }}:/workspace naderzare/ubuntu-grpc-thrift:latest \
+        docker run --rm -v ${{ github.workspace }}:/workspace naderzare/ubuntu22-grpc-thrift:latest \
         bash -c "ls && cd /workspace/utils && ls && chmod +x build.sh && ./build.sh && pwd && ldd ../build/bin/sample_player && cd /workspace/utils/app-image && chmod +x create_app_images.sh && ./create_app_images.sh"
-
-    # Step 4: List files in app-image directory (for debugging)
-    - name: List files in app-image directory
-      run: ls -l ${{ github.workspace }}/utils/app-image
 
     # Step 5: Upload the tar.gz file as a release asset
     - name: Create GitHub Release
@@ -51,6 +42,29 @@ jobs:
         files: ${{ github.workspace }}/utils/app-image/soccer-simulation-proxy.tar.gz
         tag_name: ${{ github.event.inputs.version }}
         name: "Version ${{ github.event.inputs.version }}"
+        body: ${{ github.event.inputs.release_notes }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Prepare 
+      run: bash -c "rm -rf ${{ github.workspace }}/build ${{ github.workspace }}/utils/librc* ${{ github.workspace }}/utils/app-image/soccer-simulation-proxy"
+      
+    - name: Pull Docker image ubuntu 20
+      run: docker pull naderzare/ubuntu-grpc-thrift:latest
+
+    # Step 3: Run the build.sh script inside the Docker container
+    - name: Build project ubuntu 20
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/workspace naderzare/ubuntu-grpc-thrift:latest \
+        bash -c "ls && cd /workspace/utils && ls && chmod +x build.sh && ./build.sh && pwd && ldd ../build/bin/sample_player && cd /workspace/utils/app-image && chmod +x create_app_images.sh && ./create_app_images.sh"
+
+    # Step 5: Upload the tar.gz file as a release asset
+    - name: Create GitHub Release ubuntu 20
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ${{ github.workspace }}/utils/app-image/soccer-simulation-proxy.tar.gz
+        tag_name: u20-${{ github.event.inputs.version }}
+        name: "Version u20 ${{ github.event.inputs.version }}"
         body: ${{ github.event.inputs.release_notes }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

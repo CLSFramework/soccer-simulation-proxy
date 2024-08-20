@@ -15,10 +15,12 @@ jobs:
 
     steps:
     - name: List files in app-image directory2
-      run: ls -l /workspace/
+      run: ls -l ${{ github.workspace }}
     - name: List files in app-image directory3
-      run: ls -l /workspace/utils
+      run: ls -l ${{ github.workspace }}/utils
     - name: List files in app-image directory4
+      run: ls -l ${{ github.workspace }}/utils/app-image
+    - name: List files in app-image directory5
       run: ls -l /workspace/utils/app-image
     # Step 1: Checkout the repository code
     - name: Checkout code

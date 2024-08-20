@@ -11,7 +11,7 @@ on:
       release_notes:
         description: 'Release notes or description for this version'
         required: false
-        default: 'No release notes provided.'
+        default: '## Release Note:'
 
 jobs:
   build:

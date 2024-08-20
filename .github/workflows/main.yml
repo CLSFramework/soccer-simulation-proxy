@@ -1,13 +1,18 @@
 name: Build and Create AppImage
 
-# Define a manual trigger
+# Define a manual trigger with input for version
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version for the release'
+        required: true
+        default: 'v2.0.0'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
     # Step 1: Checkout the repository code
     - name: Checkout code
@@ -22,19 +27,25 @@ jobs:
 
     - name: Print
       run: |
-        pwd \
+        pwd
         ls
+
     # Step 3: Run the build.sh script inside the Docker container
     - name: Build project
       run: |
         docker run --rm -v ${{ github.workspace }}:/workspace naderzare/ubuntu-grpc-thrift:latest \
         bash -c "ls && cd /workspace/utils && ls && chmod +x build.sh && ./build.sh && pwd && ldd ../build/bin/sample_player && cd /workspace/utils/app-image && chmod +x create_app_images.sh && ./create_app_images.sh"
-    # Step 4: Upload the tar.gz file as a release asset
+
+    # Step 4: List files in app-image directory (for debugging)
+    - name: List files in app-image directory
+      run: ls -l /workspace/utils/app-image
+
+    # Step 5: Upload the tar.gz file as a release asset
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
         files: /workspace/utils/app-image/soccer-simulation-proxy.tar.gz
-        tag_name: v2.0.0
-        release_name: "Version 2.0.0"
+        tag_name: ${{ github.event.inputs.version }}
+        name: "Version ${{ github.event.inputs.version }}"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

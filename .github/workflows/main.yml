@@ -1,0 +1,37 @@
+name: Build and Create AppImage
+
+# Define a manual trigger
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # Step 1: Checkout the repository code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Pull Docker image from Docker Hub
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
+
+    - name: Pull Docker image
+      run: docker pull naderzare/ubuntu-grpc-thrift:latest
+
+    - name: Print
+      run: |
+        pwd \
+        ls
+    # Step 3: Run the build.sh script inside the Docker container
+    - name: Build project
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/workspace naderzare/ubuntu-grpc-thrift:latest \
+        bash -c "ls && cd /workspace/utils && ls && chmod +x build.sh && ./build.sh"
+
+    # Step 4: Run the create_app_images.sh script inside the Docker container
+    - name: Create AppImage
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/workspace naderzare/ubuntu-grpc-thrift:latest \
+        bash -c "cd /workspace/utils/app-image && chmod +x create_app_images.sh && ./create_app_images.sh"

@@ -45,26 +45,3 @@ jobs:
         body: ${{ github.event.inputs.release_notes }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Prepare 
-      run: bash -c "rm -rf ${{ github.workspace }}/build ${{ github.workspace }}/utils/librc* ${{ github.workspace }}/utils/app-image/soccer-simulation-proxy"
-      
-    - name: Pull Docker image ubuntu 20
-      run: docker pull naderzare/ubuntu-grpc-thrift:latest
-
-    # Step 3: Run the build.sh script inside the Docker container
-    - name: Build project ubuntu 20
-      run: |
-        docker run --rm -v ${{ github.workspace }}:/workspace naderzare/ubuntu-grpc-thrift:latest \
-        bash -c "ls && cd /workspace/utils && ls && chmod +x build.sh && ./build.sh && pwd && ldd ../build/bin/sample_player && cd /workspace/utils/app-image && chmod +x create_app_images.sh && ./create_app_images.sh"
-
-    # Step 5: Upload the tar.gz file as a release asset
-    - name: Create GitHub Release ubuntu 20
-      uses: softprops/action-gh-release@v1
-      with:
-        files: ${{ github.workspace }}/utils/app-image/soccer-simulation-proxy.tar.gz
-        tag_name: u20-${{ github.event.inputs.version }}
-        name: "Version u20 ${{ github.event.inputs.version }}"
-        body: ${{ github.event.inputs.release_notes }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

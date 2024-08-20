@@ -29,6 +29,8 @@ LIBC_PATH=$(ldd $BUILD_PWD/sample_player | grep libc.so | awk '{ print $3 }')
 LIB_THRIFT_PATH=$(ldd $BUILD_PWD/sample_player | grep libthrift-0.1 | awk '{ print $3 }')
 LIB_SSL_PATH=$(ldd $BUILD_PWD/sample_player | grep libssl.so | awk '{ print $3 }')
 LIB_CRYPTO_PATH=$(ldd $BUILD_PWD/sample_player | grep libcrypto.so | awk '{ print $3 }')
+LIB_PTHREAD_PATH=$(ldd $BUILD_PWD/sample_player | grep libpthread.so | awk '{ print $3 }')
+LIB_DL_PATH=$(ldd $BUILD_PWD/sample_player | grep libdl.so | awk '{ print $3 }')
 
 echo "LIBRCSC_PATH=" $LIBRCSC_PATH
 echo "LIBZ_PATH=" $LIBZ_PATH
@@ -39,6 +41,8 @@ echo "LIBC_PATH=" $LIBC_PATH
 echo "LIB_THRIFT_PATH=" $LIB_THRIFT_PATH
 echo "LIB_SSL_PATH=" $LIB_SSL_PATH
 echo "LIB_CRYPTO_PATH=" $LIB_CRYPTO_PATH
+echo "LIB_PTHREAD_PATH=" $LIB_PTHREAD_PATH
+echo "LIB_DL_PATH=" $LIB_DL_PATH
 
 echo "Start to create app image for player"
 /opt/linuxdeploy/AppRun --appdir ./$PLAYER_APP_IMAGE_DIR_NAME \
@@ -52,6 +56,8 @@ echo "Start to create app image for player"
                                 -l $LIB_THRIFT_PATH \
                                 -l $LIB_SSL_PATH \
                                 -l $LIB_CRYPTO_PATH \
+                                -l $LIB_PTHREAD_PATH \
+                                -l $LIB_DL_PATH \
                                 -d $APP_IMAGE_DIR/sample_player.desktop \
                                 -i $APP_IMAGE_DIR/sample_player.png \
                                 --output appimage 
@@ -60,14 +66,7 @@ echo "Start to create app image for coach"
 /opt/linuxdeploy/AppRun --appdir ./$COACH_APP_IMAGE_DIR_NAME \
                                 -e $BUILD_PWD/sample_coach \
                                 -l $LIBRCSC_PATH \
-                                -l $LIBZ_PATH \
-                                -l $LIBSTDCPP_PATH \
-                                -l $LIBM_PATH \
-                                -l $LIBGCC_PATH \
-                                -l $LIBC_PATH \
                                 -l $LIB_THRIFT_PATH \
-                                -l $LIB_SSL_PATH \
-                                -l $LIB_CRYPTO_PATH \
                                 -d $APP_IMAGE_DIR/sample_coach.desktop \
                                 -i $APP_IMAGE_DIR/sample_coach.png \
                                 --output appimage 

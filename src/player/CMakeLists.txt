@@ -1,9 +1,22 @@
-add_executable(sample_player
-  ../grpc/state_generator.cpp
-  ../grpc/service.pb.cc
-  ../grpc/service.grpc.pb.cc
-  ../grpc/grpc_agent.cpp
-  ../grpc/grpc_agent_player.cpp
+# List of Thrift source files
+set(THRIFT_SOURCES
+        ../thrift-generated/Game.cpp
+        ../thrift-generated/soccer_service_types.cpp
+        ../thrift-client/thrift_state_generator.cpp
+        ../thrift-client/thrift_client.cpp
+        ../thrift-client/thrift_client_player.cpp
+)
+
+# List of gRPC source files
+set(GRPC_SOURCES
+        ../grpc-generated/service.pb.cc
+        ../grpc-generated/service.grpc.pb.cc
+        ../grpc-client/state_generator.cpp
+        ../grpc-client/grpc_client.cpp
+        ../grpc-client/grpc_client_player.cpp
+)
+
+set (COMMON_SOURCES
   basic_actions/basic_actions.cpp
   basic_actions/bhv_before_kick_off.cpp
   basic_actions/bhv_emergency.cpp
@@ -111,29 +124,53 @@ add_executable(sample_player
   main_player.cpp
   )
 
-# add_dependencies(sample_player generate_proto)
+if (USE_THRIFT AND USE_GRPC)
+  add_executable(sample_player
+          ${GRPC_SOURCES}
+          ${THRIFT_SOURCES}
+          ${COMMON_SOURCES}
+  )
+elseif (USE_THRIFT)
+  add_executable(sample_player
+          ${THRIFT_SOURCES}
+          ${COMMON_SOURCES}
+  )
+elseif (USE_GRPC)
+  add_executable(sample_player
+          ${GRPC_SOURCES}
+          ${COMMON_SOURCES}
+  )
+else()
+  message(FATAL_ERROR "Neither USE_GRPC nor USE_THRIFT is defined. One must be enabled.")
+endif()
 
 target_include_directories(sample_player
   PRIVATE
-    ${PROJECT_SOURCE_DIR}/../grpc/
-    ${PROJECT_SOURCE_DIR}/src/
-    ${PROJECT_SOURCE_DIR}/src/player
-    ${PROJECT_SOURCE_DIR}/src/player/planner
-    ${PROJECT_SOURCE_DIR}/src/player/setplay
-    ${PROJECT_BINARY_DIR}
+        # Include gRPC directories only if gRPC is enabled
+        $<$<BOOL:${USE_GRPC}>:${PROJECT_SOURCE_DIR}/../idl/grpc/>
+        ${PROJECT_SOURCE_DIR}/src/
+        ${PROJECT_SOURCE_DIR}/src/player
+        ${PROJECT_SOURCE_DIR}/src/player/planner
+        ${PROJECT_SOURCE_DIR}/src/player/setplay
+        ${PROJECT_BINARY_DIR}
   PUBLIC
-    ${Boost_INCLUDE_DIRS}
-    ${LIBRCSC_INCLUDE_DIR}
+        ${Boost_INCLUDE_DIRS}
+        ${LIBRCSC_INCLUDE_DIR}
   )
 
 target_link_libraries(sample_player
   PRIVATE
-    ${_GRPC_GRPCPP}
+        # Link Thrift library only if Thrift is enabled
+        $<$<BOOL:${USE_THRIFT}>:${THRIFT_LIBRARY}>
+
+        # Link gRPC++ library only if gRPC is enabled
+        $<$<BOOL:${USE_GRPC}>:${_GRPC_GRPCPP}>
+        pthread
   PUBLIC
-    ${LIBRCSC_LIB}
-    Boost::system
-    ZLIB::ZLIB
-    Threads::Threads
+        ${LIBRCSC_LIB}
+        Boost::system
+        ZLIB::ZLIB
+        Threads::Threads
   )
 
 set_target_properties(sample_player

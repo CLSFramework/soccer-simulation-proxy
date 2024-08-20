@@ -8,21 +8,34 @@ enum ViewWidth {
   WIDE = 2;
 }
 
-message Vector2D {
+message RpcVector2D  {
   float x = 1;
   float y = 2;
   float dist = 3;
   float angle = 4;
 }
 
+message RegisterRequest {
+  AgentType agent_type = 1;
+  string team_name = 2;
+  int32 uniform_number = 3;
+}
+
+message RegisterResponse {
+  int32 client_id = 1;
+  AgentType agent_type = 2;
+  string team_name = 3;
+  int32 uniform_number = 4;
+}
+
 message Ball {
-  Vector2D position = 1;
-  Vector2D relative_position = 2;
-  Vector2D seen_position = 3;
-  Vector2D heard_position = 4;
-  Vector2D velocity = 5;
-  Vector2D seen_velocity = 6;
-  Vector2D heard_velocity = 7;
+  RpcVector2D  position = 1;
+  RpcVector2D  relative_position = 2;
+  RpcVector2D  seen_position = 3;
+  RpcVector2D  heard_position = 4;
+  RpcVector2D  velocity = 5;
+  RpcVector2D  seen_velocity = 6;
+  RpcVector2D  heard_velocity = 7;
   int32 pos_count = 8;
   int32 seen_pos_count = 9;
   int32 heard_pos_count = 10;
@@ -42,7 +55,7 @@ enum Side {
 }
 
 enum LoggerLevel{
-  None = 0;
+  NoneLevel = 0;
   SYSTEM = 0x00000001;
   SENSOR = 0x00000002;
   WORLD = 0x00000004;
@@ -69,11 +82,11 @@ enum LoggerLevel{
 }
 
 message Player {
-  Vector2D position = 1;
-  Vector2D seen_position = 2;
-  Vector2D heard_position = 3;
-  Vector2D velocity = 4;
-  Vector2D seen_velocity = 5;
+  RpcVector2D  position = 1;
+  RpcVector2D  seen_position = 2;
+  RpcVector2D  heard_position = 3;
+  RpcVector2D  velocity = 4;
+  RpcVector2D  seen_velocity = 5;
   int32 pos_count = 6;
   int32 seen_pos_count = 7;
   int32 heard_pos_count = 8;
@@ -102,11 +115,11 @@ message Player {
 }
 
 message Self {
-  Vector2D position = 1;
-  Vector2D seen_position = 2;
-  Vector2D heard_position = 3;
-  Vector2D velocity = 4;
-  Vector2D seen_velocity = 5;
+  RpcVector2D  position = 1;
+  RpcVector2D  seen_position = 2;
+  RpcVector2D  heard_position = 3;
+  RpcVector2D  velocity = 4;
+  RpcVector2D  seen_velocity = 5;
   int32 pos_count = 6;
   int32 seen_pos_count = 7;
   int32 heard_pos_count = 8;
@@ -154,7 +167,7 @@ message InterceptInfo {
   int32 dash_steps = 4;
   float dash_power = 5;
   float dash_dir = 6;
-  Vector2D final_self_position = 7;
+  RpcVector2D  final_self_position = 7;
   float final_ball_dist = 8;
   float final_stamina = 9;
   float value = 10;
@@ -240,14 +253,13 @@ message WorldModel {
   int32 our_team_score = 28;
   int32 their_team_score = 29;
   bool is_penalty_kick_mode = 30;
-  map<int32, Vector2D> helios_home_positions = 31;
+  map<int32, RpcVector2D> helios_home_positions = 31;
 }
 
 message State {
-  AgentType agent_type = 1;
+  RegisterResponse register_response = 1;
   WorldModel world_model = 2;
   WorldModel full_world_model = 3;
-  
 }
 
 enum AgentType {
@@ -257,7 +269,7 @@ enum AgentType {
 }
 
 message InitMessage {
-  AgentType agent_type = 1;
+  RegisterResponse register_response = 1;
   bool debug_mode = 2;
 }
 
@@ -298,15 +310,15 @@ message ChangeView {
 }
 
 message BallMessage {
-  Vector2D ball_position = 1;
-  Vector2D ball_velocity = 2;
+  RpcVector2D  ball_position = 1;
+  RpcVector2D  ball_velocity = 2;
 }
 
 message PassMessage {
   int32 receiver_uniform_number = 1;
-  Vector2D receiver_point = 2;
-  Vector2D ball_position = 3;
-  Vector2D ball_velocity = 4;
+  RpcVector2D  receiver_point = 2;
+  RpcVector2D  ball_position = 3;
+  RpcVector2D  ball_velocity = 4;
 }
 
 message InterceptMessage {
@@ -317,17 +329,17 @@ message InterceptMessage {
 
 message GoalieMessage {
   int32 goalie_uniform_number = 1;
-  Vector2D goalie_position = 2;
+  RpcVector2D  goalie_position = 2;
   float goalie_body_direction = 3;
 }
 
 message GoalieAndPlayerMessage {
   int32 goalie_uniform_number = 1;
-  Vector2D goalie_position = 2;
+  RpcVector2D  goalie_position = 2;
   float goalie_body_direction = 3;
 
   int32 player_uniform_number = 4;
-  Vector2D player_position = 5;
+  RpcVector2D  player_position = 5;
 }
 
 message OffsideLineMessage {
@@ -346,7 +358,7 @@ message SetplayMessage {
 }
 
 message PassRequestMessage {
-  Vector2D target_point = 1;
+  RpcVector2D  target_point = 1;
 }
 
 message StaminaMessage {
@@ -362,66 +374,66 @@ message StaminaCapacityMessage {
 }
 
 message DribbleMessage {
-  Vector2D target_point = 1;
+  RpcVector2D  target_point = 1;
   int32 queue_count = 2;
 }
 
 message BallGoalieMessage {
-  Vector2D ball_position = 1;
-  Vector2D ball_velocity = 2;
-  
-  Vector2D goalie_position = 3;
+  RpcVector2D  ball_position = 1;
+  RpcVector2D  ball_velocity = 2;
+
+  RpcVector2D  goalie_position = 3;
   float goalie_body_direction = 4;
 }
 
 message OnePlayerMessage {
   int32 uniform_number = 1;
-  Vector2D position = 2;
+  RpcVector2D  position = 2;
 }
 
 message TwoPlayerMessage {
   int32 first_uniform_number = 1;
-  Vector2D first_position = 2;
-  
+  RpcVector2D  first_position = 2;
+
   int32 second_uniform_number = 3;
-  Vector2D second_position = 4;
+  RpcVector2D  second_position = 4;
 }
 
 message ThreePlayerMessage {
   int32 first_uniform_number = 1;
-  Vector2D first_position = 2;
-  
+  RpcVector2D  first_position = 2;
+
   int32 second_uniform_number = 3;
-  Vector2D second_position = 4;
+  RpcVector2D  second_position = 4;
 
   int32 third_uniform_number = 5;
-  Vector2D third_position = 6;
+  RpcVector2D  third_position = 6;
 }
 
 message SelfMessage {
-  Vector2D self_position = 1;
+  RpcVector2D  self_position = 1;
   float self_body_direction = 2;
   float self_stamina = 3;
 }
 
 message TeammateMessage {
   int32 uniform_number = 1;
-  Vector2D position = 2;
+  RpcVector2D  position = 2;
   float body_direction = 3;
 }
 
 message OpponentMessage {
   int32 uniform_number = 1;
-  Vector2D position = 2;
+  RpcVector2D  position = 2;
   float body_direction = 3;
 }
 
 message BallPlayerMessage {
-  Vector2D ball_position = 1;
-  Vector2D ball_velocity = 2;
+  RpcVector2D  ball_position = 1;
+  RpcVector2D  ball_velocity = 2;
 
   int32 uniform_number = 3;
-  Vector2D player_position = 4;
+  RpcVector2D  player_position = 4;
   float body_direction = 5;
 }
 
@@ -449,7 +461,7 @@ message Say {
     TeammateMessage teammate_message = 20;
     OpponentMessage opponent_message = 21;
     BallPlayerMessage ball_player_message = 22;
-  }  
+  }
 }
 
 message PointTo {
@@ -477,20 +489,20 @@ message AddText{
 
 message AddPoint{
   LoggerLevel level = 1;
-  Vector2D point = 2;
+  RpcVector2D  point = 2;
   string color = 3;
 }
 
 message AddLine{
   LoggerLevel level = 1;
-  Vector2D start = 2;
-  Vector2D end = 3;
+  RpcVector2D  start = 2;
+  RpcVector2D  end = 3;
   string color = 4;
 }
 
 message AddArc{
   LoggerLevel level = 1;
-  Vector2D center = 2;
+  RpcVector2D  center = 2;
   float radius = 3;
   float start_angle = 4;
   float span_angel = 5;
@@ -499,7 +511,7 @@ message AddArc{
 
 message AddCircle{
   LoggerLevel level = 1;
-  Vector2D center = 2;
+  RpcVector2D  center = 2;
   float radius = 3;
   string color = 4;
   bool fill = 5;
@@ -507,9 +519,9 @@ message AddCircle{
 
 message AddTriangle{
   LoggerLevel level = 1;
-  Vector2D point1 = 2;
-  Vector2D point2 = 3;
-  Vector2D point3 = 4;
+  RpcVector2D  point1 = 2;
+  RpcVector2D  point2 = 3;
+  RpcVector2D  point3 = 4;
   string color = 5;
   bool fill = 6;
 }
@@ -526,7 +538,7 @@ message AddRectangle{
 
 message AddSector{
   LoggerLevel level = 1;
-  Vector2D center = 2;
+  RpcVector2D  center = 2;
   float min_radius = 3;
   float max_radius = 4;
   float start_angle = 5;
@@ -537,7 +549,7 @@ message AddSector{
 
 message AddMessage{
   LoggerLevel level = 1;
-  Vector2D position = 2;
+  RpcVector2D  position = 2;
   string message = 3;
   string color = 4;
 }
@@ -561,34 +573,34 @@ message DebugClient {
 }
 
 message Body_GoToPoint { // todo more variables
-  Vector2D target_point = 1;
+  RpcVector2D  target_point = 1;
   float distance_threshold = 2;
   float max_dash_power = 3;
 }
 
 message Body_SmartKick { // todo more variables
-  Vector2D target_point = 1;
+  RpcVector2D  target_point = 1;
   float first_speed = 2;
   float first_speed_threshold = 3;
   int32 max_steps = 4;
 }
 
 message Bhv_BeforeKickOff {
-  Vector2D point = 1;
+  RpcVector2D  point = 1;
 }
 
 message Bhv_BodyNeckToBall {
 }
 
 message Bhv_BodyNeckToPoint {
-  Vector2D point = 1;
+  RpcVector2D  point = 1;
 }
 
 message Bhv_Emergency {
 }
 
 message Bhv_GoToPointLookBall {
-  Vector2D target_point = 1;
+  RpcVector2D  target_point = 1;
   float distance_threshold = 2;
   float max_dash_power = 3;
 }
@@ -598,7 +610,7 @@ message Bhv_NeckBodyToBall {
 }
 
 message Bhv_NeckBodyToPoint {
-  Vector2D point = 1;
+  RpcVector2D  point = 1;
   float angle_buf = 2;
 }
 
@@ -612,7 +624,7 @@ message Body_ClearBall {
 }
 
 message Body_Dribble {
-  Vector2D target_point = 1;
+  RpcVector2D  target_point = 1;
   float distance_threshold = 2;
   float dash_power = 3;
   int32 dash_count = 4;
@@ -620,23 +632,23 @@ message Body_Dribble {
 }
 
 message Body_GoToPointDodge {
-  Vector2D target_point = 1;
+  RpcVector2D  target_point = 1;
   float dash_power = 2;
 }
 
 message Body_HoldBall {
   bool do_turn = 1;
-  Vector2D turn_target_point = 2;
-  Vector2D kick_target_point = 3;
+  RpcVector2D  turn_target_point = 2;
+  RpcVector2D  kick_target_point = 3;
 }
 
 message Body_Intercept {
   bool save_recovery = 1;
-  Vector2D face_point = 2;
+  RpcVector2D  face_point = 2;
 }
 
 message Body_KickOneStep {
-  Vector2D target_point = 1;
+  RpcVector2D  target_point = 1;
   float first_speed = 2;
   bool force_mode = 3;
 }
@@ -649,7 +661,7 @@ message Body_StopDash {
 }
 
 message Body_TackleToPoint {
-  Vector2D target_point = 1;
+  RpcVector2D  target_point = 1;
   float min_probability = 2;
   float min_speed = 3;
 }
@@ -663,12 +675,12 @@ message Body_TurnToBall {
 }
 
 message Body_TurnToPoint {
-  Vector2D target_point = 1;
+  RpcVector2D  target_point = 1;
   int32 cycle = 2;
 }
 
 message Focus_MoveToPoint {
-  Vector2D target_point = 1;
+  RpcVector2D  target_point = 1;
 }
 
 message Focus_Reset {
@@ -707,7 +719,7 @@ message Neck_TurnToPlayerOrScan {
 }
 
 message Neck_TurnToPoint {
-  Vector2D target_point = 1;
+  RpcVector2D  target_point = 1;
 }
 
 message Neck_TurnToRelative {
@@ -854,14 +866,14 @@ message CoachActions {
 message DoKickOff {}
 
 message DoMoveBall {
-  Vector2D position = 1;
-  Vector2D velocity = 2;
+  RpcVector2D  position = 1;
+  RpcVector2D  velocity = 2;
 }
 
 message DoMovePlayer {
   bool our_side = 1;
   int32 uniform_number = 2;
-  Vector2D position = 3;
+  RpcVector2D  position = 3;
   float body_direction = 4;
 }
 
@@ -894,7 +906,7 @@ message TrainerActions {
 }
 
 message ServerParam {
-  AgentType agent_type = 1;
+  RegisterResponse register_response = 1;
   float inertia_moment = 2;
   float player_size = 3;
   float player_decay = 4;
@@ -1001,16 +1013,16 @@ message ServerParam {
   bool synch_mode = 105;
   int32 synch_offset = 106;
   int32 synch_micro_sleep = 107;
-  int32 point_to_ban = 108; 
-  int32 point_to_duration = 109; 
+  int32 point_to_ban = 108;
+  int32 point_to_duration = 109;
   int32 player_port = 110;
   int32 trainer_port = 111;
   int32 online_coach_port = 112;
   bool verbose_mode = 113;
-  int32 coach_send_vi_step = 114; 
-  string replay_file = 115; 
+  int32 coach_send_vi_step = 114;
+  string replay_file = 115;
   string landmark_file = 116;
-  bool send_comms = 117; 
+  bool send_comms = 117;
   bool text_logging = 118;
   bool game_logging = 119;
   int32 game_log_version = 120;
@@ -1023,55 +1035,55 @@ message ServerParam {
   bool use_text_log_dated = 127;
   bool use_game_log_dated = 128;
   string log_date_format = 129;
-  bool log_times = 130; 
-  bool record_message = 131; 
-  int32 text_log_compression = 132; 
+  bool log_times = 130;
+  bool record_message = 131;
+  int32 text_log_compression = 132;
   int32 game_log_compression = 133;
-  bool use_profile = 134; 
+  bool use_profile = 134;
   float tackle_dist = 135;
   float tackle_back_dist = 136;
   float tackle_width = 137;
   float tackle_exponent = 138;
-  int32 tackle_cycles = 139; 
+  int32 tackle_cycles = 139;
   float tackle_power_rate = 140;
-  int32 freeform_wait_period = 141; 
-  int32 freeform_send_period = 142; 
+  int32 freeform_wait_period = 141;
+  int32 freeform_send_period = 142;
   bool free_kick_faults = 143;
   bool back_passes = 144;
-  bool proper_goal_kicks = 145; 
-  float stopped_ball_vel = 146; 
-  int32 max_goal_kicks = 147; 
+  bool proper_goal_kicks = 145;
+  float stopped_ball_vel = 146;
+  int32 max_goal_kicks = 147;
   int32 clang_del_win = 148;
   int32 clang_rule_win = 149;
-  bool auto_mode = 150;    
-  int32 kick_off_wait = 151; 
-  int32 connect_wait = 152;  
-  int32 game_over_wait = 153; 
-  string team_l_start = 154; 
+  bool auto_mode = 150;
+  int32 kick_off_wait = 151;
+  int32 connect_wait = 152;
+  int32 game_over_wait = 153;
+  string team_l_start = 154;
   string team_r_start = 155;
-  bool keepaway_mode = 156; 
-  float keepaway_length = 157; 
-  float keepaway_width = 158;  
-  bool keepaway_logging = 159; 
+  bool keepaway_mode = 156;
+  float keepaway_length = 157;
+  float keepaway_width = 158;
+  bool keepaway_logging = 159;
   string keepaway_log_dir = 160;
   string keepaway_log_fixed_name = 161;
   bool keepaway_log_fixed = 162;
   bool keepaway_log_dated = 163;
-  int32 keepaway_start = 164; 
-  int32 nr_normal_halfs = 165;     
-  int32 nr_extra_halfs = 166;      
-  bool penalty_shoot_outs = 167; 
-  int32 pen_before_setup_wait = 168; 
-  int32 pen_setup_wait = 169;        
-  int32 pen_ready_wait = 170;        
-  int32 pen_taken_wait = 171;        
-  int32 pen_nr_kicks = 172;          
-  int32 pen_max_extra_kicks = 173;   
-  float pen_dist_x = 174;         
-  bool pen_random_winner = 175;    
-  bool pen_allow_mult_kicks = 176; 
-  float pen_max_goalie_dist_x = 177; 
-  bool pen_coach_moves_players = 178; 
+  int32 keepaway_start = 164;
+  int32 nr_normal_halfs = 165;
+  int32 nr_extra_halfs = 166;
+  bool penalty_shoot_outs = 167;
+  int32 pen_before_setup_wait = 168;
+  int32 pen_setup_wait = 169;
+  int32 pen_ready_wait = 170;
+  int32 pen_taken_wait = 171;
+  int32 pen_nr_kicks = 172;
+  int32 pen_max_extra_kicks = 173;
+  float pen_dist_x = 174;
+  bool pen_random_winner = 175;
+  bool pen_allow_mult_kicks = 176;
+  float pen_max_goalie_dist_x = 177;
+  bool pen_coach_moves_players = 178;
   string module_dir = 179;
   float ball_stuck_area = 180;
   string coach_msg_file = 181;
@@ -1107,8 +1119,8 @@ message ServerParam {
   float long_kick_power_factor = 211;
   int32 long_kick_delay = 212;
   int32 max_monitors = 213;
-  float catchable_area = 214; 
-  float real_speed_max = 215; 
+  float catchable_area = 214;
+  float real_speed_max = 215;
   float pitch_half_length = 216;
   float pitch_half_width = 217;
   float our_penalty_area_line_x = 218;
@@ -1119,7 +1131,7 @@ message ServerParam {
 }
 
 message PlayerParam {
-  AgentType agent_type = 1;
+  RegisterResponse register_response = 1;
   int32 player_types = 2;
   int32 subs_max = 3;
   int32 pt_max = 4;
@@ -1149,11 +1161,10 @@ message PlayerParam {
   float foul_detect_probability_delta_factor = 28;
   float catchable_area_l_stretch_min = 29;
   float catchable_area_l_stretch_max = 30;
-  
 }
 
 message PlayerType {
-  AgentType agent_type = 1;
+  RegisterResponse register_response = 1;
   int32 id = 2;
   float stamina_inc_max = 3;
   float player_decay = 4;
@@ -1192,9 +1203,6 @@ message PlayerType {
 message Empty {
 }
 
-message InitMessageFromServer {
-}
-
 service Game {
   rpc GetPlayerActions(State) returns (PlayerActions) {}
   rpc GetCoachActions(State) returns (CoachActions) {}
@@ -1203,6 +1211,6 @@ service Game {
   rpc SendServerParams(ServerParam) returns (Empty) {}
   rpc SendPlayerParams(PlayerParam) returns (Empty) {}
   rpc SendPlayerType(PlayerType) returns (Empty) {} //should be PlayerTypes
-  rpc GetInitMessage(Empty) returns (InitMessageFromServer) {}
-  rpc SendByeCommand(Empty) returns (Empty) {}
+  rpc Register(RegisterRequest) returns (RegisterResponse) {}
+  rpc SendByeCommand(RegisterResponse) returns (Empty) {}
 }

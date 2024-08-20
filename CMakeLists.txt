@@ -13,21 +13,26 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
 endif()
+
 set(CMAKE_CXX_FLAGS "-W -Wall")
 
-# GRPC
-# list(APPEND CMAKE_PREFIX_PATH "${GRPC_LIB_PATH}")
-# set(LIBRARY_PATH "${GRPC_LIB_PATH}/lib")
-# link_directories(${LIBRARY_PATH})
-find_package(absl CONFIG REQUIRED)
-find_package(Protobuf CONFIG REQUIRED)
-find_package(gRPC CONFIG REQUIRED)
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${Protobuf_INCLUDE_DIRS}")
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${gRPC_INCLUDE_DIRS}")
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${absl_INCLUDE_DIRS}")
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I${GRPC_LIB_PATH}/include")
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -L${GRPC_LIB_PATH}/lib")
-set(_GRPC_GRPCPP gRPC::grpc++)
+# Define options for selecting the RPC framework
+option(USE_GRPC "Use gRPC as the RPC framework" ON)
+option(USE_THRIFT "Use Thrift as the RPC framework" ON)
+
+if (USE_GRPC)
+  add_compile_definitions(USE_GRPC)
+  message(STATUS "Using gRPC as the RPC framework")
+endif()
+
+if (USE_THRIFT)
+  add_compile_definitions(USE_THRIFT)
+  message(STATUS "Using Thrift as the RPC framework")
+endif()
+
+if(NOT USE_GRPC AND NOT USE_THRIFT)
+  message(FATAL_ERROR "At least one of gRPC or Thrift must be enabled.")
+endif()
 
 # check librcsc
 set(LIBRCSC_INSTALL_DIR "$ENV{HOME}/.local;$ENV{HOME}/local" CACHE PATH "The path where librcsc is installed.")
@@ -87,9 +92,34 @@ message(STATUS "  LIBRCSC_INCLUDE_DIR=${LIBRCSC_INCLUDE_DIR}")
 message(STATUS "Build settings:")
 message(STATUS "  BUILD_TYPE=${CMAKE_BUILD_TYPE}")
 
+if (USE_THRIFT)
+  add_subdirectory(idl/thrift)
+endif ()
+
 # sub directories
-add_subdirectory(grpc)
+if (USE_GRPC)
+  add_subdirectory(idl/grpc)
+  find_package(Protobuf CONFIG REQUIRED)
+  if (NOT Protobuf_FOUND)
+    message(FATAL_ERROR "Protobuf not found. Please install Protobuf or specify the correct path.")
+  endif()
+  find_package(gRPC CONFIG REQUIRED)
+  if (NOT gRPC_FOUND)
+    message(FATAL_ERROR "gRPC not found. Please install gRPC or specify the correct path.")
+  endif()
+  # Find and verify gRPC dependencies
+  find_package(absl CONFIG REQUIRED)
+  if (NOT absl_FOUND)
+    message(FATAL_ERROR "absl (Abseil) not found. Please install Abseil or specify the correct path.")
+  endif()
+  # Set the gRPC++ target
+  set(_GRPC_GRPCPP gRPC::grpc++)
+  include_directories(include src/grpc-generated)
+endif ()
+
 add_subdirectory(src)
 
-include_directories("${GRPC_LIB_PATH}/include/google/protobuf")
-add_definitions("${GRPC_LIB_PATH}/include/google/protobuf")
+if (USE_GRPC)
+  include_directories("${GRPC_LIB_PATH}/include/google/protobuf")
+  add_definitions("${GRPC_LIB_PATH}/include/google/protobuf")
+endif ()

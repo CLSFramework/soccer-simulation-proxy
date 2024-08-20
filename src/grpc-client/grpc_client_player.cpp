@@ -1,4 +1,4 @@
-#include "grpc_agent_player.h"
+#include "grpc_client_player.h"
 #include "state_generator.h"
 #include "player/basic_actions/body_go_to_point.h"
 #include "player/basic_actions/body_smart_kick.h"
@@ -78,18 +78,20 @@ using std::chrono::milliseconds;
 #define LOGV(x)
 #endif
 
-GrpcAgentPlayer::GrpcAgentPlayer()
+GrpcClientPlayer::GrpcClientPlayer()
 {
-    agent_type = protos::AgentType::PlayerT;
+    M_agent_type = protos::AgentType::PlayerT;
 }
 
-void GrpcAgentPlayer::init(rcsc::PlayerAgent *agent,
-                           std::string target,
-                           int port,
-                           bool use_same_grpc_port,
-                           bool add_20_to_grpc_port_if_right_side)
+void GrpcClientPlayer::init(rcsc::PlayerAgent *agent,
+                            std::string target,
+                            int port,
+                            bool use_same_grpc_port,
+                            bool add_20_to_grpc_port_if_right_side)
 {
     M_agent = agent;
+    M_unum = agent->world().self().unum();
+    M_team_name = agent->world().ourTeamName();
     if (add_20_to_grpc_port_if_right_side)
         if (M_agent->world().ourSide() == rcsc::SideID::RIGHT)
             port += 20;
@@ -99,18 +101,19 @@ void GrpcAgentPlayer::init(rcsc::PlayerAgent *agent,
         port += M_agent->world().self().unum();
     }
 
-    this->target = target + ":" + std::to_string(port);
+    this->M_target = target + ":" + std::to_string(port);
     sample_communication = Communication::Ptr(new SampleCommunication());
 }
 
-void GrpcAgentPlayer::getActions() const
+void GrpcClientPlayer::getActions()
 {
     auto agent = M_agent;
     State state = generateState();
-    state.set_agent_type(protos::AgentType::PlayerT);
+    protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);
+    state.set_allocated_register_response(response);
     protos::PlayerActions actions;
     ClientContext context;
-    Status status = stub_->GetPlayerActions(&context, state, &actions);
+    Status status = M_stub_->GetPlayerActions(&context, state, &actions);
 
     if (!status.ok())
     {
@@ -168,7 +171,7 @@ void GrpcAgentPlayer::getActions() const
         }
         case PlayerAction::kChangeView:
         {
-            const rcsc::ViewWidth view_width = GrpcAgent::convertViewWidth(action.change_view().view_width());
+            const rcsc::ViewWidth view_width = GrpcClient::convertViewWidth(action.change_view().view_width());
             agent->doChangeView(view_width);
             break;
         }
@@ -189,7 +192,7 @@ void GrpcAgentPlayer::getActions() const
         }
         case PlayerAction::kAttentionTo:
         {
-            const rcsc::SideID side = GrpcAgent::convertSideID(action.attention_to().side());
+            const rcsc::SideID side = GrpcClient::convertSideID(action.attention_to().side());
             agent->doAttentionto(side, action.attention_to().unum());
             break;
         }
@@ -207,7 +210,7 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kBodyGoToPoint:
         {
             const auto &bodyGoToPoint = action.body_go_to_point();
-            const auto &targetPoint = GrpcAgent::convertVector2D(bodyGoToPoint.target_point());
+            const auto &targetPoint = GrpcClient::convertVector2D(bodyGoToPoint.target_point());
             Body_GoToPoint(targetPoint, bodyGoToPoint.distance_threshold(), bodyGoToPoint.max_dash_power()).execute(agent);
             body_action_done++;
             break;
@@ -215,7 +218,7 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kBodySmartKick:
         {
             const auto &bodySmartKick = action.body_smart_kick();
-            const auto &targetPoint = GrpcAgent::convertVector2D(bodySmartKick.target_point());
+            const auto &targetPoint = GrpcClient::convertVector2D(bodySmartKick.target_point());
             Body_SmartKick(targetPoint, bodySmartKick.first_speed(), bodySmartKick.first_speed_threshold(), bodySmartKick.max_steps()).execute(agent);
             body_action_done++;
             break;
@@ -223,7 +226,7 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kBhvBeforeKickOff:
         {
             const auto &bhvBeforeKickOff = action.bhv_before_kick_off();
-            const auto &point = GrpcAgent::convertVector2D(bhvBeforeKickOff.point());
+            const auto &point = GrpcClient::convertVector2D(bhvBeforeKickOff.point());
             Bhv_BeforeKickOff(point).execute(agent);
             break;
         }
@@ -236,7 +239,7 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kBhvBodyNeckToPoint:
         {
             const auto &bhvBodyNeckToPoint = action.bhv_body_neck_to_point();
-            const auto &targetPoint = GrpcAgent::convertVector2D(bhvBodyNeckToPoint.point());
+            const auto &targetPoint = GrpcClient::convertVector2D(bhvBodyNeckToPoint.point());
             Bhv_BodyNeckToPoint(targetPoint).execute(agent);
             body_action_done++;
             break;
@@ -249,7 +252,7 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kBhvGoToPointLookBall:
         {
             const auto &bhvGoToPointLookBall = action.bhv_go_to_point_look_ball();
-            const auto &targetPoint = GrpcAgent::convertVector2D(bhvGoToPointLookBall.target_point());
+            const auto &targetPoint = GrpcClient::convertVector2D(bhvGoToPointLookBall.target_point());
             Bhv_GoToPointLookBall(targetPoint, bhvGoToPointLookBall.distance_threshold(), bhvGoToPointLookBall.max_dash_power()).execute(agent);
             body_action_done++;
             break;
@@ -263,7 +266,7 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kBhvNeckBodyToPoint:
         {
             const auto &bhvNeckBodyToPoint = action.bhv_neck_body_to_point();
-            const auto &targetPoint = GrpcAgent::convertVector2D(bhvNeckBodyToPoint.point());
+            const auto &targetPoint = GrpcClient::convertVector2D(bhvNeckBodyToPoint.point());
             Bhv_NeckBodyToPoint(targetPoint, bhvNeckBodyToPoint.angle_buf()).execute(agent);
             break;
         }
@@ -287,7 +290,7 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kBodyDribble:
         {
             const auto &bodyDribble = action.body_dribble();
-            const auto &targetPoint = GrpcAgent::convertVector2D(bodyDribble.target_point());
+            const auto &targetPoint = GrpcClient::convertVector2D(bodyDribble.target_point());
             Body_Dribble(
                 targetPoint,
                 bodyDribble.distance_threshold(),
@@ -301,7 +304,7 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kBodyGoToPointDodge:
         {
             const auto &bodyGoToPointDodge = action.body_go_to_point_dodge();
-            const auto &targetPoint = GrpcAgent::convertVector2D(bodyGoToPointDodge.target_point());
+            const auto &targetPoint = GrpcClient::convertVector2D(bodyGoToPointDodge.target_point());
             Body_GoToPointDodge(
                 targetPoint,
                 bodyGoToPointDodge.dash_power())
@@ -312,8 +315,8 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kBodyHoldBall:
         {
             const auto &bodyHoldBall = action.body_hold_ball();
-            const auto &turnTargetPoint = GrpcAgent::convertVector2D(bodyHoldBall.turn_target_point());
-            const auto &kickTargetPoint = GrpcAgent::convertVector2D(bodyHoldBall.kick_target_point());
+            const auto &turnTargetPoint = GrpcClient::convertVector2D(bodyHoldBall.turn_target_point());
+            const auto &kickTargetPoint = GrpcClient::convertVector2D(bodyHoldBall.kick_target_point());
             Body_HoldBall(
                 bodyHoldBall.do_turn(),
                 turnTargetPoint,
@@ -325,7 +328,7 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kBodyIntercept:
         {
             const auto &bodyIntercept = action.body_intercept();
-            const auto &facePoint = GrpcAgent::convertVector2D(bodyIntercept.face_point());
+            const auto &facePoint = GrpcClient::convertVector2D(bodyIntercept.face_point());
             Body_Intercept(
                 bodyIntercept.save_recovery(),
                 facePoint)
@@ -336,7 +339,7 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kBodyKickOneStep:
         {
             const auto &bodyKickOneStep = action.body_kick_one_step();
-            const auto &targetPoint = GrpcAgent::convertVector2D(bodyKickOneStep.target_point());
+            const auto &targetPoint = GrpcClient::convertVector2D(bodyKickOneStep.target_point());
             Body_KickOneStep(
                 targetPoint,
                 bodyKickOneStep.first_speed(),
@@ -363,7 +366,7 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kBodyTackleToPoint:
         {
             const auto &bodyTackleToPoint = action.body_tackle_to_point();
-            const auto &targetPoint = GrpcAgent::convertVector2D(bodyTackleToPoint.target_point());
+            const auto &targetPoint = GrpcClient::convertVector2D(bodyTackleToPoint.target_point());
             Body_TackleToPoint(
                 targetPoint,
                 bodyTackleToPoint.min_probability(),
@@ -393,7 +396,7 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kBodyTurnToPoint:
         {
             const auto &bodyTurnToPoint = action.body_turn_to_point();
-            const auto &targetPoint = GrpcAgent::convertVector2D(bodyTurnToPoint.target_point());
+            const auto &targetPoint = GrpcClient::convertVector2D(bodyTurnToPoint.target_point());
             Body_TurnToPoint(
                 targetPoint,
                 bodyTurnToPoint.cycle())
@@ -404,7 +407,7 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kFocusMoveToPoint:
         {
             const auto &focusMoveToPoint = action.focus_move_to_point();
-            const auto &targetPoint = GrpcAgent::convertVector2D(focusMoveToPoint.target_point());
+            const auto &targetPoint = GrpcClient::convertVector2D(focusMoveToPoint.target_point());
             rcsc::Focus_MoveToPoint(
                 targetPoint)
                 .execute(agent);
@@ -497,7 +500,7 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kNeckTurnToPoint:
         {
             const auto &neckTurnToPoint = action.neck_turn_to_point();
-            const auto &targetPoint = GrpcAgent::convertVector2D(neckTurnToPoint.target_point());
+            const auto &targetPoint = GrpcClient::convertVector2D(neckTurnToPoint.target_point());
             Neck_TurnToPoint(
                 targetPoint)
                 .execute(agent);
@@ -514,7 +517,7 @@ void GrpcAgentPlayer::getActions() const
         case PlayerAction::kViewChangeWidth:
         {
             const auto &viewChangeWidth = action.view_change_width();
-            const rcsc::ViewWidth view_width = GrpcAgent::convertViewWidth(viewChangeWidth.view_width());
+            const rcsc::ViewWidth view_width = GrpcClient::convertViewWidth(viewChangeWidth.view_width());
             View_ChangeWidth(
                 view_width)
                 .execute(agent);
@@ -635,7 +638,7 @@ void GrpcAgentPlayer::getActions() const
     }
 }
 
-void GrpcAgentPlayer::addSayMessage(protos::Say sayMessage) const
+void GrpcClientPlayer::addSayMessage(protos::Say sayMessage) const
 {
     auto agent = M_agent;
     switch (sayMessage.message_case())
@@ -643,17 +646,17 @@ void GrpcAgentPlayer::addSayMessage(protos::Say sayMessage) const
     case protos::Say::kBallMessage:
     {
         const auto &ballMessage = sayMessage.ball_message();
-        const auto &ballPosition = GrpcAgent::convertVector2D(ballMessage.ball_position());
-        const auto &ballVelocity = GrpcAgent::convertVector2D(ballMessage.ball_velocity());
+        const auto &ballPosition = GrpcClient::convertVector2D(ballMessage.ball_position());
+        const auto &ballVelocity = GrpcClient::convertVector2D(ballMessage.ball_velocity());
         agent->addSayMessage(new rcsc::BallMessage(ballPosition, ballVelocity));
         break;
     }
     case protos::Say::kPassMessage:
     {
         const auto &passMessage = sayMessage.pass_message();
-        const auto &receiverPoint = GrpcAgent::convertVector2D(passMessage.receiver_point());
-        const auto &ballPosition = GrpcAgent::convertVector2D(passMessage.ball_position());
-        const auto &ballVelocity = GrpcAgent::convertVector2D(passMessage.ball_velocity());
+        const auto &receiverPoint = GrpcClient::convertVector2D(passMessage.receiver_point());
+        const auto &ballPosition = GrpcClient::convertVector2D(passMessage.ball_position());
+        const auto &ballVelocity = GrpcClient::convertVector2D(passMessage.ball_velocity());
         agent->addSayMessage(new rcsc::PassMessage(passMessage.receiver_uniform_number(),
                                                    receiverPoint,
                                                    ballPosition,
@@ -671,7 +674,7 @@ void GrpcAgentPlayer::addSayMessage(protos::Say sayMessage) const
     case protos::Say::kGoalieMessage:
     {
         const auto &goalieMessage = sayMessage.goalie_message();
-        const auto &goaliePosition = GrpcAgent::convertVector2D(goalieMessage.goalie_position());
+        const auto &goaliePosition = GrpcClient::convertVector2D(goalieMessage.goalie_position());
         agent->addSayMessage(new rcsc::GoalieMessage(goalieMessage.goalie_uniform_number(),
                                                      goaliePosition,
                                                      goalieMessage.goalie_body_direction()));
@@ -680,8 +683,8 @@ void GrpcAgentPlayer::addSayMessage(protos::Say sayMessage) const
     case protos::Say::kGoalieAndPlayerMessage:
     {
         const auto &goalieAndPlayerMessage = sayMessage.goalie_and_player_message();
-        const auto &goaliePosition = GrpcAgent::convertVector2D(goalieAndPlayerMessage.goalie_position());
-        const auto &playerPosition = GrpcAgent::convertVector2D(goalieAndPlayerMessage.player_position());
+        const auto &goaliePosition = GrpcClient::convertVector2D(goalieAndPlayerMessage.goalie_position());
+        const auto &playerPosition = GrpcClient::convertVector2D(goalieAndPlayerMessage.player_position());
         agent->addSayMessage(new rcsc::GoalieAndPlayerMessage(goalieAndPlayerMessage.goalie_uniform_number(),
                                                               goaliePosition,
                                                               goalieAndPlayerMessage.goalie_body_direction(),
@@ -716,7 +719,7 @@ void GrpcAgentPlayer::addSayMessage(protos::Say sayMessage) const
     case protos::Say::kPassRequestMessage:
     {
         const auto &passRequestMessage = sayMessage.pass_request_message();
-        const auto &targetPoint = GrpcAgent::convertVector2D(passRequestMessage.target_point());
+        const auto &targetPoint = GrpcClient::convertVector2D(passRequestMessage.target_point());
         agent->addSayMessage(new rcsc::PassRequestMessage(targetPoint));
         break;
     }
@@ -741,31 +744,31 @@ void GrpcAgentPlayer::addSayMessage(protos::Say sayMessage) const
     case protos::Say::kDribbleMessage:
     {
         const auto &dribbleMessage = sayMessage.dribble_message();
-        const auto &targetPoint = GrpcAgent::convertVector2D(dribbleMessage.target_point());
+        const auto &targetPoint = GrpcClient::convertVector2D(dribbleMessage.target_point());
         agent->addSayMessage(new rcsc::DribbleMessage(targetPoint, dribbleMessage.queue_count()));
         break;
     }
     case protos::Say::kBallGoalieMessage:
     {
         const auto &ballGoalieMessage = sayMessage.ball_goalie_message();
-        const auto &ballPosition = GrpcAgent::convertVector2D(ballGoalieMessage.ball_position());
-        const auto &ballVelocity = GrpcAgent::convertVector2D(ballGoalieMessage.ball_velocity());
-        const auto &goaliePosition = GrpcAgent::convertVector2D(ballGoalieMessage.goalie_position());
+        const auto &ballPosition = GrpcClient::convertVector2D(ballGoalieMessage.ball_position());
+        const auto &ballVelocity = GrpcClient::convertVector2D(ballGoalieMessage.ball_velocity());
+        const auto &goaliePosition = GrpcClient::convertVector2D(ballGoalieMessage.goalie_position());
         agent->addSayMessage(new rcsc::BallGoalieMessage(ballPosition, ballVelocity, goaliePosition, ballGoalieMessage.goalie_body_direction()));
         break;
     }
     case protos::Say::kOnePlayerMessage:
     {
         const auto &onePlayerMessage = sayMessage.one_player_message();
-        const auto &playerPosition = GrpcAgent::convertVector2D(onePlayerMessage.position());
+        const auto &playerPosition = GrpcClient::convertVector2D(onePlayerMessage.position());
         agent->addSayMessage(new rcsc::OnePlayerMessage(onePlayerMessage.uniform_number(), playerPosition));
         break;
     }
     case protos::Say::kTwoPlayerMessage:
     {
         const auto &twoPlayersMessage = sayMessage.two_player_message();
-        const auto &player1Position = GrpcAgent::convertVector2D(twoPlayersMessage.first_position());
-        const auto &player2Position = GrpcAgent::convertVector2D(twoPlayersMessage.second_position());
+        const auto &player1Position = GrpcClient::convertVector2D(twoPlayersMessage.first_position());
+        const auto &player2Position = GrpcClient::convertVector2D(twoPlayersMessage.second_position());
         agent->addSayMessage(new rcsc::TwoPlayerMessage(twoPlayersMessage.first_uniform_number(),
                                                         player1Position,
                                                         twoPlayersMessage.second_uniform_number(),
@@ -775,9 +778,9 @@ void GrpcAgentPlayer::addSayMessage(protos::Say sayMessage) const
     case protos::Say::kThreePlayerMessage:
     {
         const auto &threePlayersMessage = sayMessage.three_player_message();
-        const auto &player1Position = GrpcAgent::convertVector2D(threePlayersMessage.first_position());
-        const auto &player2Position = GrpcAgent::convertVector2D(threePlayersMessage.second_position());
-        const auto &player3Position = GrpcAgent::convertVector2D(threePlayersMessage.third_position());
+        const auto &player1Position = GrpcClient::convertVector2D(threePlayersMessage.first_position());
+        const auto &player2Position = GrpcClient::convertVector2D(threePlayersMessage.second_position());
+        const auto &player3Position = GrpcClient::convertVector2D(threePlayersMessage.third_position());
         agent->addSayMessage(new rcsc::ThreePlayerMessage(threePlayersMessage.first_uniform_number(),
                                                           player1Position,
                                                           threePlayersMessage.second_uniform_number(),
@@ -789,42 +792,42 @@ void GrpcAgentPlayer::addSayMessage(protos::Say sayMessage) const
     case protos::Say::kSelfMessage:
     {
         const auto &selfMessage = sayMessage.self_message();
-        const auto &selfPosition = GrpcAgent::convertVector2D(selfMessage.self_position());
+        const auto &selfPosition = GrpcClient::convertVector2D(selfMessage.self_position());
         agent->addSayMessage(new rcsc::SelfMessage(selfPosition, selfMessage.self_body_direction(), selfMessage.self_stamina()));
         break;
     }
     case protos::Say::kTeammateMessage:
     {
         const auto &teammateMessage = sayMessage.teammate_message();
-        const auto &teammatePosition = GrpcAgent::convertVector2D(teammateMessage.position());
+        const auto &teammatePosition = GrpcClient::convertVector2D(teammateMessage.position());
         agent->addSayMessage(new rcsc::TeammateMessage(teammateMessage.uniform_number(), teammatePosition, teammateMessage.body_direction()));
         break;
     }
     case protos::Say::kOpponentMessage:
     {
         const auto &opponentMessage = sayMessage.opponent_message();
-        const auto &opponentPosition = GrpcAgent::convertVector2D(opponentMessage.position());
+        const auto &opponentPosition = GrpcClient::convertVector2D(opponentMessage.position());
         agent->addSayMessage(new rcsc::OpponentMessage(opponentMessage.uniform_number(), opponentPosition, opponentMessage.body_direction()));
         break;
     }
     case protos::Say::kBallPlayerMessage:
     {
         const auto &ballPlayerMessage = sayMessage.ball_player_message();
-        const auto &ballPosition = GrpcAgent::convertVector2D(ballPlayerMessage.ball_position());
-        const auto &ballVelocity = GrpcAgent::convertVector2D(ballPlayerMessage.ball_velocity());
-        const auto &playerPosition = GrpcAgent::convertVector2D(ballPlayerMessage.player_position());
+        const auto &ballPosition = GrpcClient::convertVector2D(ballPlayerMessage.ball_position());
+        const auto &ballVelocity = GrpcClient::convertVector2D(ballPlayerMessage.ball_velocity());
+        const auto &playerPosition = GrpcClient::convertVector2D(ballPlayerMessage.player_position());
         agent->addSayMessage(new rcsc::BallPlayerMessage(ballPosition, ballVelocity, ballPlayerMessage.uniform_number(), playerPosition, ballPlayerMessage.body_direction()));
         break;
     }
     default:
     {
-        std::cout << "GrpcAgent: unknown say message" << std::endl;
+        std::cout << "GrpcClient: unknown say message" << std::endl;
         break;
     }
     }
 }
 
-State GrpcAgentPlayer::generateState() const
+State GrpcClientPlayer::generateState() const
 {
     const rcsc::WorldModel &wm = M_agent->world();
     WorldModel *worldModel = StateGenerator::convertWorldModel(wm);
@@ -834,13 +837,13 @@ State GrpcAgentPlayer::generateState() const
     return state;
 }
 
-void GrpcAgentPlayer::addHomePosition(protos::WorldModel *res) const
+void GrpcClientPlayer::addHomePosition(protos::WorldModel *res) const
 {
     for (int i = 1; i < 12; i++)
     {
         auto map = res->mutable_helios_home_positions();
         auto home_pos = Strategy::i().getPosition(i);
-        auto vec_msg = protos::Vector2D();
+        auto vec_msg = protos::RpcVector2D();
         vec_msg.set_x(home_pos.x);
         vec_msg.set_y(home_pos.y);
         (*map)[i] = vec_msg;

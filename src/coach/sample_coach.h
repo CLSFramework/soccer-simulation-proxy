@@ -29,7 +29,14 @@
 
 #include <rcsc/coach/coach_agent.h>
 #include <rcsc/types.h>
-#include "grpc/grpc_agent_coach.h"
+#ifdef USE_THRIFT
+#include "thrift-client/thrift_client_coach.h"
+#endif
+#ifdef USE_GRPC
+#include "grpc-client/grpc_client_coach.h"
+#endif
+#include "rpc-client/rpc-client.h"
+#include "rpc-client/rpc-agent.h"
 #include <vector>
 
 
@@ -39,7 +46,7 @@ class PlayerType;
 
 
 class SampleCoach
-    : public rcsc::CoachAgent {
+    : public rcsc::CoachAgent, public RpcAgent{
 private:
     typedef std::vector< const rcsc::PlayerType * > PlayerTypePtrCont;
 
@@ -48,12 +55,6 @@ private:
 
     rcsc::TeamGraphic M_team_graphic;
 
-    GrpcAgentCoach M_grpc_agent = GrpcAgentCoach();
-    int M_first_grpc_port;
-    bool M_use_same_grpc_port;
-    bool M_add_20_to_grpc_port_if_right_side;
-    std::string M_grpc_server_address;
-
 public:
 
     SampleCoach();
@@ -61,10 +62,20 @@ public:
     virtual
     ~SampleCoach();
 
-    void SetFirstGrpcPort(int port) { M_first_grpc_port = port; }
-    void SetUseSameGrpcPort(bool use_same_grpc_port) { M_use_same_grpc_port = use_same_grpc_port; }
-    void SetAdd20ToGrpcPortIfRightSide(bool add_20_to_grpc_port_if_right_side) { M_add_20_to_grpc_port_if_right_side = add_20_to_grpc_port_if_right_side; }
-    void SetGrpcIp(std::string grpc_server_address) { M_grpc_server_address = grpc_server_address; }
+    void SetRpcType(bool use_thrift){
+        M_use_thrift = use_thrift;
+        if (use_thrift){
+#ifdef USE_THRIFT
+            M_rpc_client = new ThriftClientCoach();
+#endif
+        }
+        else
+        {
+#ifdef USE_GRPC
+            M_rpc_client = new GrpcClientCoach();
+#endif
+        }
+    }
     
     void doSubstitute();
     void sayPlayerTypes();

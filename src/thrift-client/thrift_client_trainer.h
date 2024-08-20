@@ -1,10 +1,10 @@
-#include "grpc_agent.h"
+#include "thrift_client.h"
 
-class GrpcAgentTrainer : public GrpcAgent {
+class ThriftClientTrainer : public ThriftAgent {
     rcsc::TrainerAgent * M_agent;
     
     public:
-    GrpcAgentTrainer() ;
+    ThriftClientTrainer() ;
 
     void init(rcsc::TrainerAgent * agent,
               std::string target="localhost",
@@ -12,6 +12,6 @@ class GrpcAgentTrainer : public GrpcAgent {
               bool use_same_grpc_port=true,
               bool add_20_to_grpc_port_if_right_side=false);
 
-    void getActions() const;
-    State generateState() const;
+    void getActions();
+    soccer::State generateState() const;
 };

@@ -1,4 +1,4 @@
-#include "grpc_agent_trainer.h"
+#include "grpc_client_trainer.h"
 // #include "state_generator.h"
 
 #include <rcsc/player/say_message_builder.h>
@@ -21,18 +21,20 @@ using std::chrono::milliseconds;
 #define LOGV(x)
 #endif
 
-GrpcAgentTrainer::GrpcAgentTrainer()
+GrpcClientTrainer::GrpcClientTrainer()
 {
-    agent_type = protos::AgentType::TrainerT;
+    M_agent_type = protos::AgentType::TrainerT;
 }
 
-void GrpcAgentTrainer::init(rcsc::TrainerAgent *agent,
-                            std::string target,
-                            int port,
-                            bool use_same_grpc_port,
-                            bool add_20_to_grpc_port_if_right_side)
+void GrpcClientTrainer::init(rcsc::TrainerAgent *agent,
+                             std::string target,
+                             int port,
+                             bool use_same_grpc_port,
+                             bool add_20_to_grpc_port_if_right_side)
 {
     M_agent = agent;
+    M_unum = 13;
+    M_team_name = agent->world().ourTeamName();
     if (add_20_to_grpc_port_if_right_side)
         if (M_agent->world().ourSide() == rcsc::SideID::RIGHT)
             port += 20;
@@ -42,17 +44,18 @@ void GrpcAgentTrainer::init(rcsc::TrainerAgent *agent,
         port += 13;
     }
 
-    this->target = target + ":" + std::to_string(port);
+    this->M_target = target + ":" + std::to_string(port);
 }
 
-void GrpcAgentTrainer::getActions() const
+void GrpcClientTrainer::getActions()
 {
     auto agent = M_agent;
     State state = generateState();
-    state.set_agent_type(protos::AgentType::TrainerT);
+    protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);
+    state.set_allocated_register_response(response);
     protos::TrainerActions actions;
     ClientContext context;
-    Status status = stub_->GetTrainerActions(&context, state, &actions);
+    Status status = M_stub_->GetTrainerActions(&context, state, &actions);
     if (!status.ok())
     {
         std::cout << status.error_code() << ": " << status.error_message()
@@ -73,8 +76,8 @@ void GrpcAgentTrainer::getActions() const
         case TrainerAction::kDoMoveBall:
         {
             const auto &doMoveBall = action.do_move_ball();
-            const auto &ballPosition = GrpcAgent::convertVector2D(doMoveBall.position());
-            const auto &ballVelocity = doMoveBall.has_velocity() ? GrpcAgent::convertVector2D(doMoveBall.velocity()) : rcsc::Vector2D(0, 0);
+            const auto &ballPosition = GrpcClient::convertVector2D(doMoveBall.position());
+            const auto &ballVelocity = doMoveBall.has_velocity() ? GrpcClient::convertVector2D(doMoveBall.velocity()) : rcsc::Vector2D(0, 0);
             agent->doMoveBall(ballPosition, ballVelocity);
             break;
         }
@@ -82,7 +85,7 @@ void GrpcAgentTrainer::getActions() const
         {
             const auto &doMovePlayer = action.do_move_player();
             const auto &unum = doMovePlayer.uniform_number();
-            const auto &position = GrpcAgent::convertVector2D(doMovePlayer.position());
+            const auto &position = GrpcClient::convertVector2D(doMovePlayer.position());
             const auto &body = rcsc::AngleDeg(doMovePlayer.body_direction());
             std::string team_name = "";
             if (doMovePlayer.our_side())
@@ -271,7 +274,7 @@ void GrpcAgentTrainer::getActions() const
     }
 }
 
-State GrpcAgentTrainer::generateState() const
+State GrpcClientTrainer::generateState() const
 {
     auto &wm = M_agent->world();
     // WorldModel * worldModel = StateGenerator::convertCoachWorldModel(wm);

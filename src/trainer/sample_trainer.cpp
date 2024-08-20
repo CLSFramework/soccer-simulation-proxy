@@ -70,13 +70,6 @@ SampleTrainer::~SampleTrainer()
 bool
 SampleTrainer::initImpl( CmdLineParser & cmd_parser )
 {
-    M_grpc_agent.init(
-        this,
-        M_grpc_server_address,
-        M_first_grpc_port,
-        M_use_same_grpc_port,
-        M_add_20_to_grpc_port_if_right_side
-    );
 
     bool result = TrainerAgent::initImpl( cmd_parser );
 
@@ -117,12 +110,35 @@ SampleTrainer::initImpl( CmdLineParser & cmd_parser )
 void
 SampleTrainer::actionImpl()
 {
-    // connect to grpc server
+    // connect to thrift-client server
     bool connectedToGrpcServer = false;
-    while (M_grpc_agent.is_connected == false)
+    if (!M_rpc_client->isConnected()){
+        if (M_use_thrift){
+#ifdef USE_THRIFT
+            dynamic_cast<ThriftClientTrainer*>(M_rpc_client)->init(
+                    this,
+                    M_rpc_server_address,
+                    M_first_rpc_port,
+                    M_use_same_rpc_port,
+                    M_add_20_to_rpc_port_if_right_side);
+#endif
+        }
+        else
+        {
+#ifdef USE_GRPC
+            dynamic_cast<GrpcClientTrainer*>(M_rpc_client)->init(
+                    this,
+                    M_rpc_server_address,
+                    M_first_rpc_port,
+                    M_use_same_rpc_port,
+                    M_add_20_to_rpc_port_if_right_side);
+#endif
+        }
+    }
+    while (M_rpc_client->isConnected() == false)
     {
         std::cout<<"Connecting to GRPC server..."<<std::endl;
-        connectedToGrpcServer = M_grpc_agent.connectToGrpcServer();
+        connectedToGrpcServer = M_rpc_client->connectToGrpcServer();
         if (connectedToGrpcServer == false) {
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
@@ -136,8 +152,8 @@ SampleTrainer::actionImpl()
 
     //////////////////////////////////////////////////////////////////
     // Add your code here.
-    M_grpc_agent.sendParams(this->config().offlineLogging());
-    M_grpc_agent.getActions();
+    M_rpc_client->sendParams(this->config().offlineLogging());
+    M_rpc_client->getActions();
     return;
     //sampleAction();
     //recoverForever();
@@ -148,7 +164,7 @@ SampleTrainer::actionImpl()
 void
 SampleTrainer::handleExit()
 {
-    M_grpc_agent.sendByeCommand();
+    M_rpc_client->sendByeCommand();
     TrainerAgent::handleExit();
 }
 

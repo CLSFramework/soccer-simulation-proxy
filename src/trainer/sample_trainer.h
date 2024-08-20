@@ -28,16 +28,20 @@
 #define SAMPLE_TRAINER_H
 
 #include <rcsc/trainer/trainer_agent.h>
-#include "grpc/grpc_agent_trainer.h"
+#ifdef USE_THRIFT
+#include "thrift-client/thrift_client_trainer.h"
+#endif
+#ifdef USE_GRPC
+#include "grpc-client/grpc_client_trainer.h"
+#endif
+
+#include "rpc-client/rpc-client.h"
+#include "rpc-client/rpc-agent.h"
+
 
 class SampleTrainer
-    : public rcsc::TrainerAgent {
-private:
-    GrpcAgentTrainer M_grpc_agent = GrpcAgentTrainer();
-    int M_first_grpc_port;
-    bool M_use_same_grpc_port;
-    bool M_add_20_to_grpc_port_if_right_side;
-    std::string M_grpc_server_address;
+    : public rcsc::TrainerAgent, public RpcAgent{
+
 public:
 
     SampleTrainer();
@@ -45,10 +49,20 @@ public:
     virtual
     ~SampleTrainer();
 
-    void SetFirstGrpcPort(int port) { M_first_grpc_port = port; }
-    void SetUseSameGrpcPort(bool use_same_grpc_port) { M_use_same_grpc_port = use_same_grpc_port; }
-    void SetAdd20ToGrpcPortIfRightSide(bool add_20_to_grpc_port_if_right_side) { M_add_20_to_grpc_port_if_right_side = add_20_to_grpc_port_if_right_side; }
-    void SetGrpcIp(std::string grpc_server_address) { M_grpc_server_address = grpc_server_address; }
+    void SetRpcType(bool use_thrift){
+        M_use_thrift = use_thrift;
+        if (use_thrift){
+#ifdef USE_THRIFT
+            M_rpc_client = new ThriftClientTrainer();
+#endif
+        }
+        else
+        {
+#ifdef USE_GRPC
+            M_rpc_client = new GrpcClientTrainer();
+#endif
+        }
+    }
 
 protected:
 

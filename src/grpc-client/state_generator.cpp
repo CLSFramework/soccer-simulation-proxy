@@ -48,9 +48,9 @@ protos::ViewWidth StateGenerator::convertViewWidth(rcsc::ViewWidth::Type viewWid
  * @param vector2D The rcsc::Vector2D object to be converted.
  * @return The converted protos::Vector2D object.
  */
-protos::Vector2D *StateGenerator::convertVector2D(rcsc::Vector2D vector2D)
+protos::RpcVector2D *StateGenerator::convertVector2D(rcsc::Vector2D vector2D)
 {
-    auto res = new protos::Vector2D();
+    auto res = new protos::RpcVector2D();
     res->set_x(static_cast<float>(vector2D.x));
     res->set_y(static_cast<float>(vector2D.y));
     res->set_dist(static_cast<float>(vector2D.r()));

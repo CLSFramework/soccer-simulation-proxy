@@ -1,4 +1,4 @@
-#include "grpc_agent_coach.h"
+#include "grpc_client_coach.h"
 // #include "state_generator.h"
 
 #include <rcsc/player/say_message_builder.h>
@@ -6,7 +6,7 @@
 #include "coach/sample_coach.h"
 #include <chrono>
 #include <rcsc/common/logger.h>
-#include "grpc/state_generator.h"
+#include "grpc-client/state_generator.h"
 
 using std::chrono::duration;
 using std::chrono::duration_cast;
@@ -23,18 +23,20 @@ using std::chrono::milliseconds;
 #define LOGV(x)
 #endif
 
-GrpcAgentCoach::GrpcAgentCoach()
+GrpcClientCoach::GrpcClientCoach()
 {
-    agent_type = protos::AgentType::CoachT;
+    M_agent_type = protos::AgentType::CoachT;
 }
 
-void GrpcAgentCoach::init(rcsc::CoachAgent *agent,
-                          std::string target,
-                          int port,
-                          bool use_same_grpc_port,
-                          bool add_20_to_grpc_port_if_right_side)
+void GrpcClientCoach::init(rcsc::CoachAgent *agent,
+                           std::string target,
+                           int port,
+                           bool use_same_grpc_port,
+                           bool add_20_to_grpc_port_if_right_side)
 {
     M_agent = agent;
+    M_unum = 12;
+    M_team_name = agent->world().ourTeamName();
     if (add_20_to_grpc_port_if_right_side)
         if (M_agent->world().ourSide() == rcsc::SideID::RIGHT)
             port += 20;
@@ -44,17 +46,18 @@ void GrpcAgentCoach::init(rcsc::CoachAgent *agent,
         port += 13;
     }
 
-    this->target = target + ":" + std::to_string(port);
+    this->M_target = target + ":" + std::to_string(port);
 }
 
-void GrpcAgentCoach::getActions() const
+void GrpcClientCoach::getActions()
 {
     auto agent = M_agent;
     State state = generateState();
-    state.set_agent_type(protos::AgentType::CoachT);
+    protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);
+    state.set_allocated_register_response(response);
     protos::CoachActions actions;
     ClientContext context;
-    Status status = stub_->GetCoachActions(&context, state, &actions);
+    Status status = M_stub_->GetCoachActions(&context, state, &actions);
     if (!status.ok())
     {
         std::cout << status.error_code() << ": " << status.error_message()
@@ -97,7 +100,7 @@ void GrpcAgentCoach::getActions() const
     }
 }
 
-State GrpcAgentCoach::generateState() const
+State GrpcClientCoach::generateState() const
 {
     auto &wm = M_agent->world();
     protos::WorldModel *worldModel = StateGenerator::convertCoachWorldModel(wm);

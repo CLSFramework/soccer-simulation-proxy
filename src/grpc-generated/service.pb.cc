@@ -20,7 +20,7 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = ::PROTOBUF_NAMESPACE_ID::internal;
 namespace protos {
 template <typename>
-PROTOBUF_CONSTEXPR Vector2D::Vector2D(
+PROTOBUF_CONSTEXPR RpcVector2D::RpcVector2D(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.x_)*/ 0
 
@@ -31,16 +31,62 @@ PROTOBUF_CONSTEXPR Vector2D::Vector2D(
   , /*decltype(_impl_.angle_)*/ 0
 
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct Vector2DDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR Vector2DDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~Vector2DDefaultTypeInternal() {}
+struct RpcVector2DDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RpcVector2DDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~RpcVector2DDefaultTypeInternal() {}
   union {
-    Vector2D _instance;
+    RpcVector2D _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Vector2DDefaultTypeInternal _Vector2D_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RpcVector2DDefaultTypeInternal _RpcVector2D_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR RegisterRequest::RegisterRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.team_name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.agent_type_)*/ 0
+
+  , /*decltype(_impl_.uniform_number_)*/ 0
+
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct RegisterRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RegisterRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~RegisterRequestDefaultTypeInternal() {}
+  union {
+    RegisterRequest _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RegisterRequestDefaultTypeInternal _RegisterRequest_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR RegisterResponse::RegisterResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.team_name_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.client_id_)*/ 0
+
+  , /*decltype(_impl_.agent_type_)*/ 0
+
+  , /*decltype(_impl_.uniform_number_)*/ 0
+
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct RegisterResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RegisterResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~RegisterResponseDefaultTypeInternal() {}
+  union {
+    RegisterResponse _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RegisterResponseDefaultTypeInternal _RegisterResponse_default_instance_;
 template <typename>
 PROTOBUF_CONSTEXPR Ball::Ball(
     ::_pbi::ConstantInitialized): _impl_{
@@ -418,10 +464,9 @@ PROTOBUF_CONSTEXPR State::State(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.register_response_)*/nullptr
   , /*decltype(_impl_.world_model_)*/nullptr
-  , /*decltype(_impl_.full_world_model_)*/nullptr
-  , /*decltype(_impl_.agent_type_)*/ 0
-} {}
+  , /*decltype(_impl_.full_world_model_)*/nullptr} {}
 struct StateDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StateDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~StateDefaultTypeInternal() {}
@@ -435,11 +480,11 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 template <typename>
 PROTOBUF_CONSTEXPR InitMessage::InitMessage(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.agent_type_)*/ 0
-
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.register_response_)*/nullptr
   , /*decltype(_impl_.debug_mode_)*/ false
-
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+} {}
 struct InitMessageDefaultTypeInternal {
   PROTOBUF_CONSTEXPR InitMessageDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~InitMessageDefaultTypeInternal() {}
@@ -2359,7 +2404,9 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 template <typename>
 PROTOBUF_CONSTEXPR ServerParam::ServerParam(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.replay_file_)*/ {
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.replay_file_)*/ {
     &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
   }
 
@@ -2419,8 +2466,7 @@ PROTOBUF_CONSTEXPR ServerParam::ServerParam(
     &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
   }
 
-  , /*decltype(_impl_.agent_type_)*/ 0
-
+  , /*decltype(_impl_.register_response_)*/nullptr
   , /*decltype(_impl_.inertia_moment_)*/ 0
 
   , /*decltype(_impl_.player_size_)*/ 0
@@ -2832,8 +2878,7 @@ PROTOBUF_CONSTEXPR ServerParam::ServerParam(
   , /*decltype(_impl_.penalty_area_length_)*/ 0
 
   , /*decltype(_impl_.goal_width_)*/ 0
-
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+} {}
 struct ServerParamDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ServerParamDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~ServerParamDefaultTypeInternal() {}
@@ -2847,8 +2892,9 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 template <typename>
 PROTOBUF_CONSTEXPR PlayerParam::PlayerParam(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.agent_type_)*/ 0
-
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.register_response_)*/nullptr
   , /*decltype(_impl_.player_types_)*/ 0
 
   , /*decltype(_impl_.subs_max_)*/ 0
@@ -2906,8 +2952,7 @@ PROTOBUF_CONSTEXPR PlayerParam::PlayerParam(
   , /*decltype(_impl_.catchable_area_l_stretch_min_)*/ 0
 
   , /*decltype(_impl_.catchable_area_l_stretch_max_)*/ 0
-
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+} {}
 struct PlayerParamDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PlayerParamDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PlayerParamDefaultTypeInternal() {}
@@ -2921,8 +2966,9 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 template <typename>
 PROTOBUF_CONSTEXPR PlayerType::PlayerType(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.agent_type_)*/ 0
-
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.register_response_)*/nullptr
   , /*decltype(_impl_.id_)*/ 0
 
   , /*decltype(_impl_.stamina_inc_max_)*/ 0
@@ -2988,8 +3034,7 @@ PROTOBUF_CONSTEXPR PlayerType::PlayerType(
   , /*decltype(_impl_.cycles_to_reach_max_speed_)*/ 0
 
   , /*decltype(_impl_.player_speed_max_)*/ 0
-
-  , /*decltype(_impl_._cached_size_)*/{}} {}
+} {}
 struct PlayerTypeDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PlayerTypeDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~PlayerTypeDefaultTypeInternal() {}
@@ -3013,38 +3058,48 @@ struct EmptyDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EmptyDefaultTypeInternal _Empty_default_instance_;
-template <typename>
-PROTOBUF_CONSTEXPR InitMessageFromServer::InitMessageFromServer(
-    ::_pbi::ConstantInitialized) {}
-struct InitMessageFromServerDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR InitMessageFromServerDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~InitMessageFromServerDefaultTypeInternal() {}
-  union {
-    InitMessageFromServer _instance;
-  };
-};
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InitMessageFromServerDefaultTypeInternal _InitMessageFromServer_default_instance_;
 }  // namespace protos
-static ::_pb::Metadata file_level_metadata_service_2eproto[127];
+static ::_pb::Metadata file_level_metadata_service_2eproto[128];
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_service_2eproto[6];
 static constexpr const ::_pb::ServiceDescriptor**
     file_level_service_descriptors_service_2eproto = nullptr;
 const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
     protodesc_cold) = {
     ~0u,  // no _has_bits_
-    PROTOBUF_FIELD_OFFSET(::protos::Vector2D, _internal_metadata_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcVector2D, _internal_metadata_),
     ~0u,  // no _extensions_
     ~0u,  // no _oneof_case_
     ~0u,  // no _weak_field_map_
     ~0u,  // no _inlined_string_donated_
     ~0u,  // no _split_
     ~0u,  // no sizeof(Split)
-    PROTOBUF_FIELD_OFFSET(::protos::Vector2D, _impl_.x_),
-    PROTOBUF_FIELD_OFFSET(::protos::Vector2D, _impl_.y_),
-    PROTOBUF_FIELD_OFFSET(::protos::Vector2D, _impl_.dist_),
-    PROTOBUF_FIELD_OFFSET(::protos::Vector2D, _impl_.angle_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcVector2D, _impl_.x_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcVector2D, _impl_.y_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcVector2D, _impl_.dist_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcVector2D, _impl_.angle_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::protos::RegisterRequest, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::protos::RegisterRequest, _impl_.agent_type_),
+    PROTOBUF_FIELD_OFFSET(::protos::RegisterRequest, _impl_.team_name_),
+    PROTOBUF_FIELD_OFFSET(::protos::RegisterRequest, _impl_.uniform_number_),
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::protos::RegisterResponse, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::protos::RegisterResponse, _impl_.client_id_),
+    PROTOBUF_FIELD_OFFSET(::protos::RegisterResponse, _impl_.agent_type_),
+    PROTOBUF_FIELD_OFFSET(::protos::RegisterResponse, _impl_.team_name_),
+    PROTOBUF_FIELD_OFFSET(::protos::RegisterResponse, _impl_.uniform_number_),
     PROTOBUF_FIELD_OFFSET(::protos::Ball, _impl_._has_bits_),
     PROTOBUF_FIELD_OFFSET(::protos::Ball, _internal_metadata_),
     ~0u,  // no _extensions_
@@ -3395,13 +3450,13 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     ~0u,  // no _inlined_string_donated_
     ~0u,  // no _split_
     ~0u,  // no sizeof(Split)
-    PROTOBUF_FIELD_OFFSET(::protos::State, _impl_.agent_type_),
+    PROTOBUF_FIELD_OFFSET(::protos::State, _impl_.register_response_),
     PROTOBUF_FIELD_OFFSET(::protos::State, _impl_.world_model_),
     PROTOBUF_FIELD_OFFSET(::protos::State, _impl_.full_world_model_),
-    ~0u,
     0,
     1,
-    ~0u,  // no _has_bits_
+    2,
+    PROTOBUF_FIELD_OFFSET(::protos::InitMessage, _impl_._has_bits_),
     PROTOBUF_FIELD_OFFSET(::protos::InitMessage, _internal_metadata_),
     ~0u,  // no _extensions_
     ~0u,  // no _oneof_case_
@@ -3409,8 +3464,10 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     ~0u,  // no _inlined_string_donated_
     ~0u,  // no _split_
     ~0u,  // no sizeof(Split)
-    PROTOBUF_FIELD_OFFSET(::protos::InitMessage, _impl_.agent_type_),
+    PROTOBUF_FIELD_OFFSET(::protos::InitMessage, _impl_.register_response_),
     PROTOBUF_FIELD_OFFSET(::protos::InitMessage, _impl_.debug_mode_),
+    0,
+    ~0u,
     ~0u,  // no _has_bits_
     PROTOBUF_FIELD_OFFSET(::protos::Dash, _internal_metadata_),
     ~0u,  // no _extensions_
@@ -4717,7 +4774,7 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     ~0u,  // no _split_
     ~0u,  // no sizeof(Split)
     PROTOBUF_FIELD_OFFSET(::protos::TrainerActions, _impl_.actions_),
-    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::protos::ServerParam, _impl_._has_bits_),
     PROTOBUF_FIELD_OFFSET(::protos::ServerParam, _internal_metadata_),
     ~0u,  // no _extensions_
     ~0u,  // no _oneof_case_
@@ -4725,7 +4782,7 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     ~0u,  // no _inlined_string_donated_
     ~0u,  // no _split_
     ~0u,  // no sizeof(Split)
-    PROTOBUF_FIELD_OFFSET(::protos::ServerParam, _impl_.agent_type_),
+    PROTOBUF_FIELD_OFFSET(::protos::ServerParam, _impl_.register_response_),
     PROTOBUF_FIELD_OFFSET(::protos::ServerParam, _impl_.inertia_moment_),
     PROTOBUF_FIELD_OFFSET(::protos::ServerParam, _impl_.player_size_),
     PROTOBUF_FIELD_OFFSET(::protos::ServerParam, _impl_.player_decay_),
@@ -4947,7 +5004,229 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     PROTOBUF_FIELD_OFFSET(::protos::ServerParam, _impl_.penalty_area_half_width_),
     PROTOBUF_FIELD_OFFSET(::protos::ServerParam, _impl_.penalty_area_length_),
     PROTOBUF_FIELD_OFFSET(::protos::ServerParam, _impl_.goal_width_),
-    ~0u,  // no _has_bits_
+    0,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    PROTOBUF_FIELD_OFFSET(::protos::PlayerParam, _impl_._has_bits_),
     PROTOBUF_FIELD_OFFSET(::protos::PlayerParam, _internal_metadata_),
     ~0u,  // no _extensions_
     ~0u,  // no _oneof_case_
@@ -4955,7 +5234,7 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     ~0u,  // no _inlined_string_donated_
     ~0u,  // no _split_
     ~0u,  // no sizeof(Split)
-    PROTOBUF_FIELD_OFFSET(::protos::PlayerParam, _impl_.agent_type_),
+    PROTOBUF_FIELD_OFFSET(::protos::PlayerParam, _impl_.register_response_),
     PROTOBUF_FIELD_OFFSET(::protos::PlayerParam, _impl_.player_types_),
     PROTOBUF_FIELD_OFFSET(::protos::PlayerParam, _impl_.subs_max_),
     PROTOBUF_FIELD_OFFSET(::protos::PlayerParam, _impl_.pt_max_),
@@ -4985,7 +5264,37 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     PROTOBUF_FIELD_OFFSET(::protos::PlayerParam, _impl_.foul_detect_probability_delta_factor_),
     PROTOBUF_FIELD_OFFSET(::protos::PlayerParam, _impl_.catchable_area_l_stretch_min_),
     PROTOBUF_FIELD_OFFSET(::protos::PlayerParam, _impl_.catchable_area_l_stretch_max_),
-    ~0u,  // no _has_bits_
+    0,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    PROTOBUF_FIELD_OFFSET(::protos::PlayerType, _impl_._has_bits_),
     PROTOBUF_FIELD_OFFSET(::protos::PlayerType, _internal_metadata_),
     ~0u,  // no _extensions_
     ~0u,  // no _oneof_case_
@@ -4993,7 +5302,7 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     ~0u,  // no _inlined_string_donated_
     ~0u,  // no _split_
     ~0u,  // no sizeof(Split)
-    PROTOBUF_FIELD_OFFSET(::protos::PlayerType, _impl_.agent_type_),
+    PROTOBUF_FIELD_OFFSET(::protos::PlayerType, _impl_.register_response_),
     PROTOBUF_FIELD_OFFSET(::protos::PlayerType, _impl_.id_),
     PROTOBUF_FIELD_OFFSET(::protos::PlayerType, _impl_.stamina_inc_max_),
     PROTOBUF_FIELD_OFFSET(::protos::PlayerType, _impl_.player_decay_),
@@ -5027,16 +5336,42 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     PROTOBUF_FIELD_OFFSET(::protos::PlayerType, _impl_.real_speed_max2_),
     PROTOBUF_FIELD_OFFSET(::protos::PlayerType, _impl_.cycles_to_reach_max_speed_),
     PROTOBUF_FIELD_OFFSET(::protos::PlayerType, _impl_.player_speed_max_),
+    0,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
     ~0u,  // no _has_bits_
     PROTOBUF_FIELD_OFFSET(::protos::Empty, _internal_metadata_),
-    ~0u,  // no _extensions_
-    ~0u,  // no _oneof_case_
-    ~0u,  // no _weak_field_map_
-    ~0u,  // no _inlined_string_donated_
-    ~0u,  // no _split_
-    ~0u,  // no sizeof(Split)
-    ~0u,  // no _has_bits_
-    PROTOBUF_FIELD_OFFSET(::protos::InitMessageFromServer, _internal_metadata_),
     ~0u,  // no _extensions_
     ~0u,  // no _oneof_case_
     ~0u,  // no _weak_field_map_
@@ -5047,137 +5382,140 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
 
 static const ::_pbi::MigrationSchema
     schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-        { 0, -1, -1, sizeof(::protos::Vector2D)},
-        { 12, 37, -1, sizeof(::protos::Ball)},
-        { 54, 92, -1, sizeof(::protos::Player)},
-        { 122, 166, -1, sizeof(::protos::Self)},
-        { 202, 220, -1, sizeof(::protos::InterceptInfo)},
-        { 230, -1, -1, sizeof(::protos::InterceptTable)},
-        { 248, 258, -1, sizeof(::protos::WorldModel_OurPlayersDictEntry_DoNotUse)},
-        { 260, 270, -1, sizeof(::protos::WorldModel_TheirPlayersDictEntry_DoNotUse)},
-        { 272, 282, -1, sizeof(::protos::WorldModel_HeliosHomePositionsEntry_DoNotUse)},
-        { 284, 323, -1, sizeof(::protos::WorldModel)},
-        { 354, 365, -1, sizeof(::protos::State)},
-        { 368, -1, -1, sizeof(::protos::InitMessage)},
-        { 378, -1, -1, sizeof(::protos::Dash)},
-        { 388, -1, -1, sizeof(::protos::Turn)},
-        { 397, -1, -1, sizeof(::protos::Kick)},
-        { 407, -1, -1, sizeof(::protos::Tackle)},
-        { 417, -1, -1, sizeof(::protos::Catch)},
-        { 425, -1, -1, sizeof(::protos::Move)},
-        { 435, -1, -1, sizeof(::protos::TurnNeck)},
-        { 444, -1, -1, sizeof(::protos::ChangeView)},
-        { 453, 463, -1, sizeof(::protos::BallMessage)},
-        { 465, 477, -1, sizeof(::protos::PassMessage)},
-        { 481, -1, -1, sizeof(::protos::InterceptMessage)},
-        { 492, 503, -1, sizeof(::protos::GoalieMessage)},
-        { 506, 519, -1, sizeof(::protos::GoalieAndPlayerMessage)},
-        { 524, -1, -1, sizeof(::protos::OffsideLineMessage)},
-        { 533, -1, -1, sizeof(::protos::DefenseLineMessage)},
-        { 542, -1, -1, sizeof(::protos::WaitRequestMessage)},
-        { 550, -1, -1, sizeof(::protos::SetplayMessage)},
-        { 559, 568, -1, sizeof(::protos::PassRequestMessage)},
-        { 569, -1, -1, sizeof(::protos::StaminaMessage)},
-        { 578, -1, -1, sizeof(::protos::RecoveryMessage)},
-        { 587, -1, -1, sizeof(::protos::StaminaCapacityMessage)},
-        { 596, 606, -1, sizeof(::protos::DribbleMessage)},
-        { 608, 620, -1, sizeof(::protos::BallGoalieMessage)},
-        { 624, 634, -1, sizeof(::protos::OnePlayerMessage)},
-        { 636, 648, -1, sizeof(::protos::TwoPlayerMessage)},
-        { 652, 666, -1, sizeof(::protos::ThreePlayerMessage)},
-        { 672, 683, -1, sizeof(::protos::SelfMessage)},
-        { 686, 697, -1, sizeof(::protos::TeammateMessage)},
-        { 700, 711, -1, sizeof(::protos::OpponentMessage)},
-        { 714, 727, -1, sizeof(::protos::BallPlayerMessage)},
-        { 732, -1, -1, sizeof(::protos::Say)},
-        { 763, -1, -1, sizeof(::protos::PointTo)},
-        { 773, -1, -1, sizeof(::protos::PointToOf)},
-        { 781, -1, -1, sizeof(::protos::AttentionTo)},
-        { 791, -1, -1, sizeof(::protos::AttentionToOf)},
-        { 799, -1, -1, sizeof(::protos::AddText)},
-        { 809, 820, -1, sizeof(::protos::AddPoint)},
-        { 823, 835, -1, sizeof(::protos::AddLine)},
-        { 839, 853, -1, sizeof(::protos::AddArc)},
-        { 859, 872, -1, sizeof(::protos::AddCircle)},
-        { 877, 891, -1, sizeof(::protos::AddTriangle)},
-        { 897, -1, -1, sizeof(::protos::AddRectangle)},
-        { 912, 928, -1, sizeof(::protos::AddSector)},
-        { 936, 948, -1, sizeof(::protos::AddMessage)},
-        { 952, -1, -1, sizeof(::protos::Log)},
-        { 970, -1, -1, sizeof(::protos::DebugClient)},
-        { 979, 990, -1, sizeof(::protos::Body_GoToPoint)},
-        { 993, 1005, -1, sizeof(::protos::Body_SmartKick)},
-        { 1009, 1018, -1, sizeof(::protos::Bhv_BeforeKickOff)},
-        { 1019, -1, -1, sizeof(::protos::Bhv_BodyNeckToBall)},
-        { 1027, 1036, -1, sizeof(::protos::Bhv_BodyNeckToPoint)},
-        { 1037, -1, -1, sizeof(::protos::Bhv_Emergency)},
-        { 1045, 1056, -1, sizeof(::protos::Bhv_GoToPointLookBall)},
-        { 1059, -1, -1, sizeof(::protos::Bhv_NeckBodyToBall)},
-        { 1068, 1078, -1, sizeof(::protos::Bhv_NeckBodyToPoint)},
-        { 1080, -1, -1, sizeof(::protos::Bhv_ScanField)},
-        { 1088, -1, -1, sizeof(::protos::Body_AdvanceBall)},
-        { 1096, -1, -1, sizeof(::protos::Body_ClearBall)},
-        { 1104, 1117, -1, sizeof(::protos::Body_Dribble)},
-        { 1122, 1132, -1, sizeof(::protos::Body_GoToPointDodge)},
-        { 1134, 1145, -1, sizeof(::protos::Body_HoldBall)},
-        { 1148, 1158, -1, sizeof(::protos::Body_Intercept)},
-        { 1160, 1171, -1, sizeof(::protos::Body_KickOneStep)},
-        { 1174, -1, -1, sizeof(::protos::Body_StopBall)},
-        { 1182, -1, -1, sizeof(::protos::Body_StopDash)},
-        { 1191, 1202, -1, sizeof(::protos::Body_TackleToPoint)},
-        { 1205, -1, -1, sizeof(::protos::Body_TurnToAngle)},
-        { 1214, -1, -1, sizeof(::protos::Body_TurnToBall)},
-        { 1223, 1233, -1, sizeof(::protos::Body_TurnToPoint)},
-        { 1235, 1244, -1, sizeof(::protos::Focus_MoveToPoint)},
-        { 1245, -1, -1, sizeof(::protos::Focus_Reset)},
-        { 1253, -1, -1, sizeof(::protos::Neck_ScanField)},
-        { 1261, -1, -1, sizeof(::protos::Neck_ScanPlayers)},
-        { 1269, -1, -1, sizeof(::protos::Neck_TurnToBallAndPlayer)},
-        { 1280, -1, -1, sizeof(::protos::Neck_TurnToBallOrScan)},
-        { 1289, -1, -1, sizeof(::protos::Neck_TurnToBall)},
-        { 1297, -1, -1, sizeof(::protos::Neck_TurnToGoalieOrScan)},
-        { 1306, -1, -1, sizeof(::protos::Neck_TurnToLowConfTeammate)},
-        { 1314, -1, -1, sizeof(::protos::Neck_TurnToPlayerOrScan)},
-        { 1325, 1334, -1, sizeof(::protos::Neck_TurnToPoint)},
-        { 1335, -1, -1, sizeof(::protos::Neck_TurnToRelative)},
-        { 1344, -1, -1, sizeof(::protos::View_ChangeWidth)},
-        { 1353, -1, -1, sizeof(::protos::View_Normal)},
-        { 1361, -1, -1, sizeof(::protos::View_Synch)},
-        { 1369, -1, -1, sizeof(::protos::View_Wide)},
-        { 1377, -1, -1, sizeof(::protos::HeliosGoalie)},
-        { 1385, -1, -1, sizeof(::protos::HeliosGoalieMove)},
-        { 1393, -1, -1, sizeof(::protos::HeliosGoalieKick)},
-        { 1401, -1, -1, sizeof(::protos::HeliosShoot)},
-        { 1409, -1, -1, sizeof(::protos::HeliosChainAction)},
-        { 1426, -1, -1, sizeof(::protos::HeliosBasicOffensive)},
-        { 1434, -1, -1, sizeof(::protos::HeliosBasicMove)},
-        { 1442, -1, -1, sizeof(::protos::HeliosSetPlay)},
-        { 1450, -1, -1, sizeof(::protos::HeliosPenalty)},
-        { 1458, -1, -1, sizeof(::protos::HeliosCommunicaion)},
-        { 1466, -1, -1, sizeof(::protos::PlayerAction)},
-        { 1539, -1, -1, sizeof(::protos::PlayerActions)},
-        { 1548, -1, -1, sizeof(::protos::ChangePlayerType)},
-        { 1558, -1, -1, sizeof(::protos::DoHeliosSubstitute)},
-        { 1566, -1, -1, sizeof(::protos::DoHeliosSayPlayerTypes)},
-        { 1574, -1, -1, sizeof(::protos::CoachAction)},
-        { 1586, -1, -1, sizeof(::protos::CoachActions)},
-        { 1595, -1, -1, sizeof(::protos::DoKickOff)},
-        { 1603, 1613, -1, sizeof(::protos::DoMoveBall)},
-        { 1615, 1627, -1, sizeof(::protos::DoMovePlayer)},
-        { 1631, -1, -1, sizeof(::protos::DoRecover)},
-        { 1639, -1, -1, sizeof(::protos::DoChangeMode)},
-        { 1649, -1, -1, sizeof(::protos::DoChangePlayerType)},
-        { 1660, -1, -1, sizeof(::protos::TrainerAction)},
-        { 1675, -1, -1, sizeof(::protos::TrainerActions)},
-        { 1684, -1, -1, sizeof(::protos::ServerParam)},
-        { 1914, -1, -1, sizeof(::protos::PlayerParam)},
-        { 1952, -1, -1, sizeof(::protos::PlayerType)},
-        { 1994, -1, -1, sizeof(::protos::Empty)},
-        { 2002, -1, -1, sizeof(::protos::InitMessageFromServer)},
+        { 0, -1, -1, sizeof(::protos::RpcVector2D)},
+        { 12, -1, -1, sizeof(::protos::RegisterRequest)},
+        { 23, -1, -1, sizeof(::protos::RegisterResponse)},
+        { 35, 60, -1, sizeof(::protos::Ball)},
+        { 77, 115, -1, sizeof(::protos::Player)},
+        { 145, 189, -1, sizeof(::protos::Self)},
+        { 225, 243, -1, sizeof(::protos::InterceptInfo)},
+        { 253, -1, -1, sizeof(::protos::InterceptTable)},
+        { 271, 281, -1, sizeof(::protos::WorldModel_OurPlayersDictEntry_DoNotUse)},
+        { 283, 293, -1, sizeof(::protos::WorldModel_TheirPlayersDictEntry_DoNotUse)},
+        { 295, 305, -1, sizeof(::protos::WorldModel_HeliosHomePositionsEntry_DoNotUse)},
+        { 307, 346, -1, sizeof(::protos::WorldModel)},
+        { 377, 388, -1, sizeof(::protos::State)},
+        { 391, 401, -1, sizeof(::protos::InitMessage)},
+        { 403, -1, -1, sizeof(::protos::Dash)},
+        { 413, -1, -1, sizeof(::protos::Turn)},
+        { 422, -1, -1, sizeof(::protos::Kick)},
+        { 432, -1, -1, sizeof(::protos::Tackle)},
+        { 442, -1, -1, sizeof(::protos::Catch)},
+        { 450, -1, -1, sizeof(::protos::Move)},
+        { 460, -1, -1, sizeof(::protos::TurnNeck)},
+        { 469, -1, -1, sizeof(::protos::ChangeView)},
+        { 478, 488, -1, sizeof(::protos::BallMessage)},
+        { 490, 502, -1, sizeof(::protos::PassMessage)},
+        { 506, -1, -1, sizeof(::protos::InterceptMessage)},
+        { 517, 528, -1, sizeof(::protos::GoalieMessage)},
+        { 531, 544, -1, sizeof(::protos::GoalieAndPlayerMessage)},
+        { 549, -1, -1, sizeof(::protos::OffsideLineMessage)},
+        { 558, -1, -1, sizeof(::protos::DefenseLineMessage)},
+        { 567, -1, -1, sizeof(::protos::WaitRequestMessage)},
+        { 575, -1, -1, sizeof(::protos::SetplayMessage)},
+        { 584, 593, -1, sizeof(::protos::PassRequestMessage)},
+        { 594, -1, -1, sizeof(::protos::StaminaMessage)},
+        { 603, -1, -1, sizeof(::protos::RecoveryMessage)},
+        { 612, -1, -1, sizeof(::protos::StaminaCapacityMessage)},
+        { 621, 631, -1, sizeof(::protos::DribbleMessage)},
+        { 633, 645, -1, sizeof(::protos::BallGoalieMessage)},
+        { 649, 659, -1, sizeof(::protos::OnePlayerMessage)},
+        { 661, 673, -1, sizeof(::protos::TwoPlayerMessage)},
+        { 677, 691, -1, sizeof(::protos::ThreePlayerMessage)},
+        { 697, 708, -1, sizeof(::protos::SelfMessage)},
+        { 711, 722, -1, sizeof(::protos::TeammateMessage)},
+        { 725, 736, -1, sizeof(::protos::OpponentMessage)},
+        { 739, 752, -1, sizeof(::protos::BallPlayerMessage)},
+        { 757, -1, -1, sizeof(::protos::Say)},
+        { 788, -1, -1, sizeof(::protos::PointTo)},
+        { 798, -1, -1, sizeof(::protos::PointToOf)},
+        { 806, -1, -1, sizeof(::protos::AttentionTo)},
+        { 816, -1, -1, sizeof(::protos::AttentionToOf)},
+        { 824, -1, -1, sizeof(::protos::AddText)},
+        { 834, 845, -1, sizeof(::protos::AddPoint)},
+        { 848, 860, -1, sizeof(::protos::AddLine)},
+        { 864, 878, -1, sizeof(::protos::AddArc)},
+        { 884, 897, -1, sizeof(::protos::AddCircle)},
+        { 902, 916, -1, sizeof(::protos::AddTriangle)},
+        { 922, -1, -1, sizeof(::protos::AddRectangle)},
+        { 937, 953, -1, sizeof(::protos::AddSector)},
+        { 961, 973, -1, sizeof(::protos::AddMessage)},
+        { 977, -1, -1, sizeof(::protos::Log)},
+        { 995, -1, -1, sizeof(::protos::DebugClient)},
+        { 1004, 1015, -1, sizeof(::protos::Body_GoToPoint)},
+        { 1018, 1030, -1, sizeof(::protos::Body_SmartKick)},
+        { 1034, 1043, -1, sizeof(::protos::Bhv_BeforeKickOff)},
+        { 1044, -1, -1, sizeof(::protos::Bhv_BodyNeckToBall)},
+        { 1052, 1061, -1, sizeof(::protos::Bhv_BodyNeckToPoint)},
+        { 1062, -1, -1, sizeof(::protos::Bhv_Emergency)},
+        { 1070, 1081, -1, sizeof(::protos::Bhv_GoToPointLookBall)},
+        { 1084, -1, -1, sizeof(::protos::Bhv_NeckBodyToBall)},
+        { 1093, 1103, -1, sizeof(::protos::Bhv_NeckBodyToPoint)},
+        { 1105, -1, -1, sizeof(::protos::Bhv_ScanField)},
+        { 1113, -1, -1, sizeof(::protos::Body_AdvanceBall)},
+        { 1121, -1, -1, sizeof(::protos::Body_ClearBall)},
+        { 1129, 1142, -1, sizeof(::protos::Body_Dribble)},
+        { 1147, 1157, -1, sizeof(::protos::Body_GoToPointDodge)},
+        { 1159, 1170, -1, sizeof(::protos::Body_HoldBall)},
+        { 1173, 1183, -1, sizeof(::protos::Body_Intercept)},
+        { 1185, 1196, -1, sizeof(::protos::Body_KickOneStep)},
+        { 1199, -1, -1, sizeof(::protos::Body_StopBall)},
+        { 1207, -1, -1, sizeof(::protos::Body_StopDash)},
+        { 1216, 1227, -1, sizeof(::protos::Body_TackleToPoint)},
+        { 1230, -1, -1, sizeof(::protos::Body_TurnToAngle)},
+        { 1239, -1, -1, sizeof(::protos::Body_TurnToBall)},
+        { 1248, 1258, -1, sizeof(::protos::Body_TurnToPoint)},
+        { 1260, 1269, -1, sizeof(::protos::Focus_MoveToPoint)},
+        { 1270, -1, -1, sizeof(::protos::Focus_Reset)},
+        { 1278, -1, -1, sizeof(::protos::Neck_ScanField)},
+        { 1286, -1, -1, sizeof(::protos::Neck_ScanPlayers)},
+        { 1294, -1, -1, sizeof(::protos::Neck_TurnToBallAndPlayer)},
+        { 1305, -1, -1, sizeof(::protos::Neck_TurnToBallOrScan)},
+        { 1314, -1, -1, sizeof(::protos::Neck_TurnToBall)},
+        { 1322, -1, -1, sizeof(::protos::Neck_TurnToGoalieOrScan)},
+        { 1331, -1, -1, sizeof(::protos::Neck_TurnToLowConfTeammate)},
+        { 1339, -1, -1, sizeof(::protos::Neck_TurnToPlayerOrScan)},
+        { 1350, 1359, -1, sizeof(::protos::Neck_TurnToPoint)},
+        { 1360, -1, -1, sizeof(::protos::Neck_TurnToRelative)},
+        { 1369, -1, -1, sizeof(::protos::View_ChangeWidth)},
+        { 1378, -1, -1, sizeof(::protos::View_Normal)},
+        { 1386, -1, -1, sizeof(::protos::View_Synch)},
+        { 1394, -1, -1, sizeof(::protos::View_Wide)},
+        { 1402, -1, -1, sizeof(::protos::HeliosGoalie)},
+        { 1410, -1, -1, sizeof(::protos::HeliosGoalieMove)},
+        { 1418, -1, -1, sizeof(::protos::HeliosGoalieKick)},
+        { 1426, -1, -1, sizeof(::protos::HeliosShoot)},
+        { 1434, -1, -1, sizeof(::protos::HeliosChainAction)},
+        { 1451, -1, -1, sizeof(::protos::HeliosBasicOffensive)},
+        { 1459, -1, -1, sizeof(::protos::HeliosBasicMove)},
+        { 1467, -1, -1, sizeof(::protos::HeliosSetPlay)},
+        { 1475, -1, -1, sizeof(::protos::HeliosPenalty)},
+        { 1483, -1, -1, sizeof(::protos::HeliosCommunicaion)},
+        { 1491, -1, -1, sizeof(::protos::PlayerAction)},
+        { 1564, -1, -1, sizeof(::protos::PlayerActions)},
+        { 1573, -1, -1, sizeof(::protos::ChangePlayerType)},
+        { 1583, -1, -1, sizeof(::protos::DoHeliosSubstitute)},
+        { 1591, -1, -1, sizeof(::protos::DoHeliosSayPlayerTypes)},
+        { 1599, -1, -1, sizeof(::protos::CoachAction)},
+        { 1611, -1, -1, sizeof(::protos::CoachActions)},
+        { 1620, -1, -1, sizeof(::protos::DoKickOff)},
+        { 1628, 1638, -1, sizeof(::protos::DoMoveBall)},
+        { 1640, 1652, -1, sizeof(::protos::DoMovePlayer)},
+        { 1656, -1, -1, sizeof(::protos::DoRecover)},
+        { 1664, -1, -1, sizeof(::protos::DoChangeMode)},
+        { 1674, -1, -1, sizeof(::protos::DoChangePlayerType)},
+        { 1685, -1, -1, sizeof(::protos::TrainerAction)},
+        { 1700, -1, -1, sizeof(::protos::TrainerActions)},
+        { 1709, 1939, -1, sizeof(::protos::ServerParam)},
+        { 2161, 2199, -1, sizeof(::protos::PlayerParam)},
+        { 2229, 2271, -1, sizeof(::protos::PlayerType)},
+        { 2305, -1, -1, sizeof(::protos::Empty)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-    &::protos::_Vector2D_default_instance_._instance,
+    &::protos::_RpcVector2D_default_instance_._instance,
+    &::protos::_RegisterRequest_default_instance_._instance,
+    &::protos::_RegisterResponse_default_instance_._instance,
     &::protos::_Ball_default_instance_._instance,
     &::protos::_Player_default_instance_._instance,
     &::protos::_Self_default_instance_._instance,
@@ -5303,684 +5641,696 @@ static const ::_pb::Message* const file_default_instances[] = {
     &::protos::_PlayerParam_default_instance_._instance,
     &::protos::_PlayerType_default_instance_._instance,
     &::protos::_Empty_default_instance_._instance,
-    &::protos::_InitMessageFromServer_default_instance_._instance,
 };
 const char descriptor_table_protodef_service_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-    "\n\rservice.proto\022\006protos\"=\n\010Vector2D\022\t\n\001x"
-    "\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\014\n\004dist\030\003 \001(\002\022\r\n\005angle"
-    "\030\004 \001(\002\"\203\004\n\004Ball\022\"\n\010position\030\001 \001(\0132\020.prot"
-    "os.Vector2D\022+\n\021relative_position\030\002 \001(\0132\020"
-    ".protos.Vector2D\022\'\n\rseen_position\030\003 \001(\0132"
-    "\020.protos.Vector2D\022(\n\016heard_position\030\004 \001("
-    "\0132\020.protos.Vector2D\022\"\n\010velocity\030\005 \001(\0132\020."
-    "protos.Vector2D\022\'\n\rseen_velocity\030\006 \001(\0132\020"
-    ".protos.Vector2D\022(\n\016heard_velocity\030\007 \001(\013"
-    "2\020.protos.Vector2D\022\021\n\tpos_count\030\010 \001(\005\022\026\n"
-    "\016seen_pos_count\030\t \001(\005\022\027\n\017heard_pos_count"
-    "\030\n \001(\005\022\021\n\tvel_count\030\013 \001(\005\022\026\n\016seen_vel_co"
-    "unt\030\014 \001(\005\022\027\n\017heard_vel_count\030\r \001(\005\022\022\n\nlo"
-    "st_count\030\016 \001(\005\022\023\n\013ghost_count\030\017 \001(\005\022\026\n\016d"
-    "ist_from_self\030\020 \001(\002\022\027\n\017angle_from_self\030\021"
-    " \001(\002\"\241\006\n\006Player\022\"\n\010position\030\001 \001(\0132\020.prot"
-    "os.Vector2D\022\'\n\rseen_position\030\002 \001(\0132\020.pro"
-    "tos.Vector2D\022(\n\016heard_position\030\003 \001(\0132\020.p"
-    "rotos.Vector2D\022\"\n\010velocity\030\004 \001(\0132\020.proto"
-    "s.Vector2D\022\'\n\rseen_velocity\030\005 \001(\0132\020.prot"
-    "os.Vector2D\022\021\n\tpos_count\030\006 \001(\005\022\026\n\016seen_p"
-    "os_count\030\007 \001(\005\022\027\n\017heard_pos_count\030\010 \001(\005\022"
-    "\021\n\tvel_count\030\t \001(\005\022\026\n\016seen_vel_count\030\n \001"
-    "(\005\022\023\n\013ghost_count\030\013 \001(\005\022\026\n\016dist_from_sel"
-    "f\030\014 \001(\002\022\027\n\017angle_from_self\030\r \001(\002\022\n\n\002id\030\016"
-    " \001(\005\022\032\n\004side\030\017 \001(\0162\014.protos.Side\022\026\n\016unif"
-    "orm_number\030\020 \001(\005\022\034\n\024uniform_number_count"
-    "\030\021 \001(\005\022\021\n\tis_goalie\030\022 \001(\010\022\026\n\016body_direct"
-    "ion\030\023 \001(\002\022\034\n\024body_direction_count\030\024 \001(\005\022"
-    "\026\n\016face_direction\030\025 \001(\002\022\034\n\024face_directio"
-    "n_count\030\026 \001(\005\022\032\n\022point_to_direction\030\027 \001("
-    "\002\022 \n\030point_to_direction_count\030\030 \001(\005\022\022\n\ni"
-    "s_kicking\030\031 \001(\010\022\026\n\016dist_from_ball\030\032 \001(\002\022"
-    "\027\n\017angle_from_ball\030\033 \001(\002\022\030\n\020ball_reach_s"
-    "teps\030\034 \001(\005\022\023\n\013is_tackling\030\035 \001(\010\022\017\n\007type_"
-    "id\030\036 \001(\005\"\300\007\n\004Self\022\"\n\010position\030\001 \001(\0132\020.pr"
-    "otos.Vector2D\022\'\n\rseen_position\030\002 \001(\0132\020.p"
-    "rotos.Vector2D\022(\n\016heard_position\030\003 \001(\0132\020"
-    ".protos.Vector2D\022\"\n\010velocity\030\004 \001(\0132\020.pro"
-    "tos.Vector2D\022\'\n\rseen_velocity\030\005 \001(\0132\020.pr"
-    "otos.Vector2D\022\021\n\tpos_count\030\006 \001(\005\022\026\n\016seen"
-    "_pos_count\030\007 \001(\005\022\027\n\017heard_pos_count\030\010 \001("
-    "\005\022\021\n\tvel_count\030\t \001(\005\022\026\n\016seen_vel_count\030\n"
-    " \001(\005\022\023\n\013ghost_count\030\013 \001(\005\022\n\n\002id\030\014 \001(\005\022\032\n"
-    "\004side\030\r \001(\0162\014.protos.Side\022\026\n\016uniform_num"
-    "ber\030\016 \001(\005\022\034\n\024uniform_number_count\030\017 \001(\005\022"
-    "\021\n\tis_goalie\030\020 \001(\010\022\026\n\016body_direction\030\021 \001"
-    "(\002\022\034\n\024body_direction_count\030\022 \001(\005\022\026\n\016face"
-    "_direction\030\023 \001(\002\022\034\n\024face_direction_count"
-    "\030\024 \001(\005\022\032\n\022point_to_direction\030\025 \001(\002\022 \n\030po"
-    "int_to_direction_count\030\026 \001(\005\022\022\n\nis_kicki"
-    "ng\030\027 \001(\010\022\026\n\016dist_from_ball\030\030 \001(\002\022\027\n\017angl"
-    "e_from_ball\030\031 \001(\002\022\030\n\020ball_reach_steps\030\032 "
-    "\001(\005\022\023\n\013is_tackling\030\033 \001(\010\022\037\n\027relative_nec"
-    "k_direction\030\034 \001(\002\022\017\n\007stamina\030\035 \001(\002\022\023\n\013is"
-    "_kickable\030\036 \001(\010\022\031\n\021catch_probability\030\037 \001"
-    "(\002\022\032\n\022tackle_probability\030  \001(\002\022\030\n\020foul_p"
-    "robability\030! \001(\002\022%\n\nview_width\030\" \001(\0162\021.p"
-    "rotos.ViewWidth\022\017\n\007type_id\030# \001(\005\022\021\n\tkick"
-    "_rate\030$ \001(\002\"\221\002\n\rInterceptInfo\0220\n\013action_"
-    "type\030\001 \001(\0162\033.protos.InterceptActionType\022"
-    "\022\n\nturn_steps\030\002 \001(\005\022\022\n\nturn_angle\030\003 \001(\002\022"
-    "\022\n\ndash_steps\030\004 \001(\005\022\022\n\ndash_power\030\005 \001(\002\022"
-    "\020\n\010dash_dir\030\006 \001(\002\022-\n\023final_self_position"
-    "\030\007 \001(\0132\020.protos.Vector2D\022\027\n\017final_ball_d"
-    "ist\030\010 \001(\002\022\025\n\rfinal_stamina\030\t \001(\002\022\r\n\005valu"
-    "e\030\n \001(\002\"\336\002\n\016InterceptTable\022\030\n\020self_reach"
-    "_steps\030\001 \001(\005\022\"\n\032first_teammate_reach_ste"
-    "ps\030\002 \001(\005\022#\n\033second_teammate_reach_steps\030"
-    "\003 \001(\005\022\"\n\032first_opponent_reach_steps\030\004 \001("
-    "\005\022#\n\033second_opponent_reach_steps\030\005 \001(\005\022\031"
-    "\n\021first_teammate_id\030\006 \001(\005\022\032\n\022second_team"
-    "mate_id\030\007 \001(\005\022\031\n\021first_opponent_id\030\010 \001(\005"
-    "\022\032\n\022second_opponent_id\030\t \001(\005\0222\n\023self_int"
-    "ercept_info\030\n \003(\0132\025.protos.InterceptInfo"
-    "\"\216\n\n\nWorldModel\022/\n\017intercept_table\030\001 \001(\013"
-    "2\026.protos.InterceptTable\022\025\n\rour_team_nam"
-    "e\030\002 \001(\t\022\027\n\017their_team_name\030\003 \001(\t\022\036\n\010our_"
-    "side\030\004 \001(\0162\014.protos.Side\022 \n\030last_set_pla"
-    "y_start_time\030\005 \001(\005\022\032\n\004self\030\006 \001(\0132\014.proto"
-    "s.Self\022\032\n\004ball\030\007 \001(\0132\014.protos.Ball\022!\n\tte"
-    "ammates\030\010 \003(\0132\016.protos.Player\022!\n\topponen"
-    "ts\030\t \003(\0132\016.protos.Player\022 \n\010unknowns\030\n \003"
-    "(\0132\016.protos.Player\022@\n\020our_players_dict\030\013"
-    " \003(\0132&.protos.WorldModel.OurPlayersDictE"
-    "ntry\022D\n\022their_players_dict\030\014 \003(\0132(.proto"
-    "s.WorldModel.TheirPlayersDictEntry\022!\n\031ou"
-    "r_goalie_uniform_number\030\r \001(\005\022#\n\033their_g"
-    "oalie_uniform_number\030\016 \001(\005\022\026\n\016offside_li"
-    "ne_x\030\017 \001(\002\022\033\n\023ofside_line_x_count\030\020 \001(\005\022"
-    "\034\n\024kickable_teammate_id\030\021 \001(\005\022\034\n\024kickabl"
-    "e_opponent_id\030\022 \001(\005\022$\n\016last_kick_side\030\023 "
-    "\001(\0162\014.protos.Side\022\"\n\032last_kicker_uniform"
-    "_number\030\024 \001(\005\022\r\n\005cycle\030\025 \001(\005\022,\n\016game_mod"
-    "e_type\030\026 \001(\0162\024.protos.GameModeType\022\027\n\017le"
-    "ft_team_score\030\027 \001(\005\022\030\n\020right_team_score\030"
-    "\030 \001(\005\022\027\n\017is_our_set_play\030\031 \001(\010\022\031\n\021is_the"
-    "ir_set_play\030\032 \001(\010\022\024\n\014stoped_cycle\030\033 \001(\005\022"
-    "\026\n\016our_team_score\030\034 \001(\005\022\030\n\020their_team_sc"
-    "ore\030\035 \001(\005\022\034\n\024is_penalty_kick_mode\030\036 \001(\010\022"
-    "J\n\025helios_home_positions\030\037 \003(\0132+.protos."
-    "WorldModel.HeliosHomePositionsEntry\032E\n\023O"
-    "urPlayersDictEntry\022\013\n\003key\030\001 \001(\005\022\035\n\005value"
-    "\030\002 \001(\0132\016.protos.Player:\0028\001\032G\n\025TheirPlaye"
-    "rsDictEntry\022\013\n\003key\030\001 \001(\005\022\035\n\005value\030\002 \001(\0132"
-    "\016.protos.Player:\0028\001\032L\n\030HeliosHomePositio"
-    "nsEntry\022\013\n\003key\030\001 \001(\005\022\037\n\005value\030\002 \001(\0132\020.pr"
-    "otos.Vector2D:\0028\001\"\205\001\n\005State\022%\n\nagent_typ"
-    "e\030\001 \001(\0162\021.protos.AgentType\022\'\n\013world_mode"
-    "l\030\002 \001(\0132\022.protos.WorldModel\022,\n\020full_worl"
-    "d_model\030\003 \001(\0132\022.protos.WorldModel\"H\n\013Ini"
-    "tMessage\022%\n\nagent_type\030\001 \001(\0162\021.protos.Ag"
-    "entType\022\022\n\ndebug_mode\030\002 \001(\010\"1\n\004Dash\022\r\n\005p"
-    "ower\030\001 \001(\002\022\032\n\022relative_direction\030\002 \001(\002\"\""
-    "\n\004Turn\022\032\n\022relative_direction\030\001 \001(\002\"1\n\004Ki"
-    "ck\022\r\n\005power\030\001 \001(\002\022\032\n\022relative_direction\030"
-    "\002 \001(\002\",\n\006Tackle\022\024\n\014power_or_dir\030\001 \001(\002\022\014\n"
-    "\004foul\030\002 \001(\010\"\007\n\005Catch\"\034\n\004Move\022\t\n\001x\030\001 \001(\002\022"
-    "\t\n\001y\030\002 \001(\002\"\032\n\010TurnNeck\022\016\n\006moment\030\001 \001(\002\"3"
-    "\n\nChangeView\022%\n\nview_width\030\001 \001(\0162\021.proto"
-    "s.ViewWidth\"_\n\013BallMessage\022\'\n\rball_posit"
-    "ion\030\001 \001(\0132\020.protos.Vector2D\022\'\n\rball_velo"
-    "city\030\002 \001(\0132\020.protos.Vector2D\"\252\001\n\013PassMes"
-    "sage\022\037\n\027receiver_uniform_number\030\001 \001(\005\022(\n"
-    "\016receiver_point\030\002 \001(\0132\020.protos.Vector2D\022"
-    "\'\n\rball_position\030\003 \001(\0132\020.protos.Vector2D"
-    "\022\'\n\rball_velocity\030\004 \001(\0132\020.protos.Vector2"
-    "D\"F\n\020InterceptMessage\022\013\n\003our\030\001 \001(\010\022\026\n\016un"
-    "iform_number\030\002 \001(\005\022\r\n\005cycle\030\003 \001(\005\"x\n\rGoa"
-    "lieMessage\022\035\n\025goalie_uniform_number\030\001 \001("
-    "\005\022)\n\017goalie_position\030\002 \001(\0132\020.protos.Vect"
-    "or2D\022\035\n\025goalie_body_direction\030\003 \001(\002\"\313\001\n\026"
-    "GoalieAndPlayerMessage\022\035\n\025goalie_uniform"
-    "_number\030\001 \001(\005\022)\n\017goalie_position\030\002 \001(\0132\020"
-    ".protos.Vector2D\022\035\n\025goalie_body_directio"
-    "n\030\003 \001(\002\022\035\n\025player_uniform_number\030\004 \001(\005\022)"
-    "\n\017player_position\030\005 \001(\0132\020.protos.Vector2"
-    "D\",\n\022OffsideLineMessage\022\026\n\016offside_line_"
-    "x\030\001 \001(\002\",\n\022DefenseLineMessage\022\026\n\016defense"
-    "_line_x\030\001 \001(\002\"\024\n\022WaitRequestMessage\"#\n\016S"
-    "etplayMessage\022\021\n\twait_step\030\001 \001(\005\"<\n\022Pass"
-    "RequestMessage\022&\n\014target_point\030\001 \001(\0132\020.p"
-    "rotos.Vector2D\"!\n\016StaminaMessage\022\017\n\007stam"
-    "ina\030\001 \001(\002\"#\n\017RecoveryMessage\022\020\n\010recovery"
-    "\030\001 \001(\002\"2\n\026StaminaCapacityMessage\022\030\n\020stam"
-    "ina_capacity\030\001 \001(\002\"M\n\016DribbleMessage\022&\n\014"
-    "target_point\030\001 \001(\0132\020.protos.Vector2D\022\023\n\013"
-    "queue_count\030\002 \001(\005\"\257\001\n\021BallGoalieMessage\022"
-    "\'\n\rball_position\030\001 \001(\0132\020.protos.Vector2D"
-    "\022\'\n\rball_velocity\030\002 \001(\0132\020.protos.Vector2"
-    "D\022)\n\017goalie_position\030\003 \001(\0132\020.protos.Vect"
-    "or2D\022\035\n\025goalie_body_direction\030\004 \001(\002\"N\n\020O"
-    "nePlayerMessage\022\026\n\016uniform_number\030\001 \001(\005\022"
-    "\"\n\010position\030\002 \001(\0132\020.protos.Vector2D\"\244\001\n\020"
-    "TwoPlayerMessage\022\034\n\024first_uniform_number"
-    "\030\001 \001(\005\022(\n\016first_position\030\002 \001(\0132\020.protos."
-    "Vector2D\022\035\n\025second_uniform_number\030\003 \001(\005\022"
-    ")\n\017second_position\030\004 \001(\0132\020.protos.Vector"
-    "2D\"\356\001\n\022ThreePlayerMessage\022\034\n\024first_unifo"
-    "rm_number\030\001 \001(\005\022(\n\016first_position\030\002 \001(\0132"
-    "\020.protos.Vector2D\022\035\n\025second_uniform_numb"
-    "er\030\003 \001(\005\022)\n\017second_position\030\004 \001(\0132\020.prot"
-    "os.Vector2D\022\034\n\024third_uniform_number\030\005 \001("
-    "\005\022(\n\016third_position\030\006 \001(\0132\020.protos.Vecto"
-    "r2D\"i\n\013SelfMessage\022\'\n\rself_position\030\001 \001("
-    "\0132\020.protos.Vector2D\022\033\n\023self_body_directi"
-    "on\030\002 \001(\002\022\024\n\014self_stamina\030\003 \001(\002\"e\n\017Teamma"
-    "teMessage\022\026\n\016uniform_number\030\001 \001(\005\022\"\n\010pos"
-    "ition\030\002 \001(\0132\020.protos.Vector2D\022\026\n\016body_di"
-    "rection\030\003 \001(\002\"e\n\017OpponentMessage\022\026\n\016unif"
-    "orm_number\030\001 \001(\005\022\"\n\010position\030\002 \001(\0132\020.pro"
-    "tos.Vector2D\022\026\n\016body_direction\030\003 \001(\002\"\300\001\n"
-    "\021BallPlayerMessage\022\'\n\rball_position\030\001 \001("
-    "\0132\020.protos.Vector2D\022\'\n\rball_velocity\030\002 \001"
-    "(\0132\020.protos.Vector2D\022\026\n\016uniform_number\030\003"
-    " \001(\005\022)\n\017player_position\030\004 \001(\0132\020.protos.V"
-    "ector2D\022\026\n\016body_direction\030\005 \001(\002\"\320\t\n\003Say\022"
-    "+\n\014ball_message\030\001 \001(\0132\023.protos.BallMessa"
-    "geH\000\022+\n\014pass_message\030\002 \001(\0132\023.protos.Pass"
-    "MessageH\000\0225\n\021intercept_message\030\003 \001(\0132\030.p"
-    "rotos.InterceptMessageH\000\022/\n\016goalie_messa"
-    "ge\030\004 \001(\0132\025.protos.GoalieMessageH\000\022C\n\031goa"
-    "lie_and_player_message\030\005 \001(\0132\036.protos.Go"
-    "alieAndPlayerMessageH\000\022:\n\024offside_line_m"
-    "essage\030\006 \001(\0132\032.protos.OffsideLineMessage"
-    "H\000\022:\n\024defense_line_message\030\007 \001(\0132\032.proto"
-    "s.DefenseLineMessageH\000\022:\n\024wait_request_m"
-    "essage\030\010 \001(\0132\032.protos.WaitRequestMessage"
-    "H\000\0221\n\017setplay_message\030\t \001(\0132\026.protos.Set"
-    "playMessageH\000\022:\n\024pass_request_message\030\n "
-    "\001(\0132\032.protos.PassRequestMessageH\000\0221\n\017sta"
-    "mina_message\030\013 \001(\0132\026.protos.StaminaMessa"
-    "geH\000\0223\n\020recovery_message\030\014 \001(\0132\027.protos."
-    "RecoveryMessageH\000\022B\n\030stamina_capacity_me"
-    "ssage\030\r \001(\0132\036.protos.StaminaCapacityMess"
-    "ageH\000\0221\n\017dribble_message\030\016 \001(\0132\026.protos."
-    "DribbleMessageH\000\0228\n\023ball_goalie_message\030"
-    "\017 \001(\0132\031.protos.BallGoalieMessageH\000\0226\n\022on"
-    "e_player_message\030\020 \001(\0132\030.protos.OnePlaye"
-    "rMessageH\000\0226\n\022two_player_message\030\021 \001(\0132\030"
-    ".protos.TwoPlayerMessageH\000\022:\n\024three_play"
-    "er_message\030\022 \001(\0132\032.protos.ThreePlayerMes"
-    "sageH\000\022+\n\014self_message\030\023 \001(\0132\023.protos.Se"
-    "lfMessageH\000\0223\n\020teammate_message\030\024 \001(\0132\027."
-    "protos.TeammateMessageH\000\0223\n\020opponent_mes"
-    "sage\030\025 \001(\0132\027.protos.OpponentMessageH\000\0228\n"
-    "\023ball_player_message\030\026 \001(\0132\031.protos.Ball"
-    "PlayerMessageH\000B\t\n\007message\"\037\n\007PointTo\022\t\n"
-    "\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\"\013\n\tPointToOf\"7\n\013Atte"
-    "ntionTo\022\032\n\004side\030\001 \001(\0162\014.protos.Side\022\014\n\004u"
-    "num\030\002 \001(\005\"\017\n\rAttentionToOf\">\n\007AddText\022\"\n"
-    "\005level\030\001 \001(\0162\023.protos.LoggerLevel\022\017\n\007mes"
-    "sage\030\002 \001(\t\"^\n\010AddPoint\022\"\n\005level\030\001 \001(\0162\023."
-    "protos.LoggerLevel\022\037\n\005point\030\002 \001(\0132\020.prot"
-    "os.Vector2D\022\r\n\005color\030\003 \001(\t\"|\n\007AddLine\022\"\n"
-    "\005level\030\001 \001(\0162\023.protos.LoggerLevel\022\037\n\005sta"
-    "rt\030\002 \001(\0132\020.protos.Vector2D\022\035\n\003end\030\003 \001(\0132"
-    "\020.protos.Vector2D\022\r\n\005color\030\004 \001(\t\"\226\001\n\006Add"
-    "Arc\022\"\n\005level\030\001 \001(\0162\023.protos.LoggerLevel\022"
-    " \n\006center\030\002 \001(\0132\020.protos.Vector2D\022\016\n\006rad"
-    "ius\030\003 \001(\002\022\023\n\013start_angle\030\004 \001(\002\022\022\n\nspan_a"
-    "ngel\030\005 \001(\002\022\r\n\005color\030\006 \001(\t\"~\n\tAddCircle\022\""
-    "\n\005level\030\001 \001(\0162\023.protos.LoggerLevel\022 \n\006ce"
-    "nter\030\002 \001(\0132\020.protos.Vector2D\022\016\n\006radius\030\003"
-    " \001(\002\022\r\n\005color\030\004 \001(\t\022\014\n\004fill\030\005 \001(\010\"\264\001\n\013Ad"
-    "dTriangle\022\"\n\005level\030\001 \001(\0162\023.protos.Logger"
-    "Level\022 \n\006point1\030\002 \001(\0132\020.protos.Vector2D\022"
-    " \n\006point2\030\003 \001(\0132\020.protos.Vector2D\022 \n\006poi"
-    "nt3\030\004 \001(\0132\020.protos.Vector2D\022\r\n\005color\030\005 \001"
-    "(\t\022\014\n\004fill\030\006 \001(\010\"\211\001\n\014AddRectangle\022\"\n\005lev"
-    "el\030\001 \001(\0162\023.protos.LoggerLevel\022\014\n\004left\030\002 "
-    "\001(\002\022\013\n\003top\030\003 \001(\002\022\016\n\006length\030\004 \001(\002\022\r\n\005widt"
-    "h\030\005 \001(\002\022\r\n\005color\030\006 \001(\t\022\014\n\004fill\030\007 \001(\010\"\277\001\n"
-    "\tAddSector\022\"\n\005level\030\001 \001(\0162\023.protos.Logge"
-    "rLevel\022 \n\006center\030\002 \001(\0132\020.protos.Vector2D"
-    "\022\022\n\nmin_radius\030\003 \001(\002\022\022\n\nmax_radius\030\004 \001(\002"
-    "\022\023\n\013start_angle\030\005 \001(\002\022\022\n\nspan_angel\030\006 \001("
-    "\002\022\r\n\005color\030\007 \001(\t\022\014\n\004fill\030\010 \001(\010\"t\n\nAddMes"
-    "sage\022\"\n\005level\030\001 \001(\0162\023.protos.LoggerLevel"
-    "\022\"\n\010position\030\002 \001(\0132\020.protos.Vector2D\022\017\n\007"
-    "message\030\003 \001(\t\022\r\n\005color\030\004 \001(\t\"\371\002\n\003Log\022#\n\010"
-    "add_text\030\001 \001(\0132\017.protos.AddTextH\000\022%\n\tadd"
-    "_point\030\002 \001(\0132\020.protos.AddPointH\000\022#\n\010add_"
-    "line\030\003 \001(\0132\017.protos.AddLineH\000\022!\n\007add_arc"
-    "\030\004 \001(\0132\016.protos.AddArcH\000\022\'\n\nadd_circle\030\005"
-    " \001(\0132\021.protos.AddCircleH\000\022+\n\014add_triangl"
-    "e\030\006 \001(\0132\023.protos.AddTriangleH\000\022-\n\radd_re"
-    "ctangle\030\007 \001(\0132\024.protos.AddRectangleH\000\022\'\n"
-    "\nadd_sector\030\010 \001(\0132\021.protos.AddSectorH\000\022)"
-    "\n\013add_message\030\t \001(\0132\022.protos.AddMessageH"
-    "\000B\005\n\003log\"\036\n\013DebugClient\022\017\n\007message\030\001 \001(\t"
-    "\"l\n\016Body_GoToPoint\022&\n\014target_point\030\001 \001(\013"
-    "2\020.protos.Vector2D\022\032\n\022distance_threshold"
-    "\030\002 \001(\002\022\026\n\016max_dash_power\030\003 \001(\002\"\177\n\016Body_S"
-    "martKick\022&\n\014target_point\030\001 \001(\0132\020.protos."
-    "Vector2D\022\023\n\013first_speed\030\002 \001(\002\022\035\n\025first_s"
-    "peed_threshold\030\003 \001(\002\022\021\n\tmax_steps\030\004 \001(\005\""
-    "4\n\021Bhv_BeforeKickOff\022\037\n\005point\030\001 \001(\0132\020.pr"
-    "otos.Vector2D\"\024\n\022Bhv_BodyNeckToBall\"6\n\023B"
-    "hv_BodyNeckToPoint\022\037\n\005point\030\001 \001(\0132\020.prot"
-    "os.Vector2D\"\017\n\rBhv_Emergency\"s\n\025Bhv_GoTo"
-    "PointLookBall\022&\n\014target_point\030\001 \001(\0132\020.pr"
-    "otos.Vector2D\022\032\n\022distance_threshold\030\002 \001("
-    "\002\022\026\n\016max_dash_power\030\003 \001(\002\"\'\n\022Bhv_NeckBod"
-    "yToBall\022\021\n\tangle_buf\030\001 \001(\002\"I\n\023Bhv_NeckBo"
-    "dyToPoint\022\037\n\005point\030\001 \001(\0132\020.protos.Vector"
-    "2D\022\021\n\tangle_buf\030\002 \001(\002\"\017\n\rBhv_ScanField\"\022"
-    "\n\020Body_AdvanceBall\"\020\n\016Body_ClearBall\"\211\001\n"
-    "\014Body_Dribble\022&\n\014target_point\030\001 \001(\0132\020.pr"
-    "otos.Vector2D\022\032\n\022distance_threshold\030\002 \001("
-    "\002\022\022\n\ndash_power\030\003 \001(\002\022\022\n\ndash_count\030\004 \001("
-    "\005\022\r\n\005dodge\030\005 \001(\010\"Q\n\023Body_GoToPointDodge\022"
-    "&\n\014target_point\030\001 \001(\0132\020.protos.Vector2D\022"
-    "\022\n\ndash_power\030\002 \001(\002\"z\n\rBody_HoldBall\022\017\n\007"
-    "do_turn\030\001 \001(\010\022+\n\021turn_target_point\030\002 \001(\013"
-    "2\020.protos.Vector2D\022+\n\021kick_target_point\030"
-    "\003 \001(\0132\020.protos.Vector2D\"M\n\016Body_Intercep"
-    "t\022\025\n\rsave_recovery\030\001 \001(\010\022$\n\nface_point\030\002"
-    " \001(\0132\020.protos.Vector2D\"c\n\020Body_KickOneSt"
-    "ep\022&\n\014target_point\030\001 \001(\0132\020.protos.Vector"
-    "2D\022\023\n\013first_speed\030\002 \001(\002\022\022\n\nforce_mode\030\003 "
-    "\001(\010\"\017\n\rBody_StopBall\"&\n\rBody_StopDash\022\025\n"
-    "\rsave_recovery\030\001 \001(\010\"h\n\022Body_TackleToPoi"
-    "nt\022&\n\014target_point\030\001 \001(\0132\020.protos.Vector"
-    "2D\022\027\n\017min_probability\030\002 \001(\002\022\021\n\tmin_speed"
-    "\030\003 \001(\002\"!\n\020Body_TurnToAngle\022\r\n\005angle\030\001 \001("
-    "\002\" \n\017Body_TurnToBall\022\r\n\005cycle\030\001 \001(\005\"I\n\020B"
-    "ody_TurnToPoint\022&\n\014target_point\030\001 \001(\0132\020."
-    "protos.Vector2D\022\r\n\005cycle\030\002 \001(\005\";\n\021Focus_"
-    "MoveToPoint\022&\n\014target_point\030\001 \001(\0132\020.prot"
-    "os.Vector2D\"\r\n\013Focus_Reset\"\020\n\016Neck_ScanF"
-    "ield\"\022\n\020Neck_ScanPlayers\"g\n\030Neck_TurnToB"
-    "allAndPlayer\022\032\n\004side\030\001 \001(\0162\014.protos.Side"
-    "\022\026\n\016uniform_number\030\002 \001(\005\022\027\n\017count_thresh"
-    "old\030\003 \001(\005\"0\n\025Neck_TurnToBallOrScan\022\027\n\017co"
-    "unt_threshold\030\001 \001(\005\"\021\n\017Neck_TurnToBall\"2"
-    "\n\027Neck_TurnToGoalieOrScan\022\027\n\017count_thres"
-    "hold\030\001 \001(\005\"\034\n\032Neck_TurnToLowConfTeammate"
-    "\"f\n\027Neck_TurnToPlayerOrScan\022\032\n\004side\030\001 \001("
-    "\0162\014.protos.Side\022\026\n\016uniform_number\030\002 \001(\005\022"
-    "\027\n\017count_threshold\030\003 \001(\005\":\n\020Neck_TurnToP"
-    "oint\022&\n\014target_point\030\001 \001(\0132\020.protos.Vect"
-    "or2D\"$\n\023Neck_TurnToRelative\022\r\n\005angle\030\001 \001"
-    "(\002\"9\n\020View_ChangeWidth\022%\n\nview_width\030\001 \001"
-    "(\0162\021.protos.ViewWidth\"\r\n\013View_Normal\"\014\n\n"
-    "View_Synch\"\013\n\tView_Wide\"\016\n\014HeliosGoalie\""
-    "\022\n\020HeliosGoalieMove\"\022\n\020HeliosGoalieKick\""
-    "\r\n\013HeliosShoot\"\320\001\n\021HeliosChainAction\022\023\n\013"
-    "direct_pass\030\001 \001(\010\022\021\n\tlead_pass\030\002 \001(\010\022\024\n\014"
-    "through_pass\030\003 \001(\010\022\025\n\rshort_dribble\030\004 \001("
-    "\010\022\024\n\014long_dribble\030\005 \001(\010\022\r\n\005cross\030\006 \001(\010\022\023"
-    "\n\013simple_pass\030\007 \001(\010\022\026\n\016simple_dribble\030\010 "
-    "\001(\010\022\024\n\014simple_shoot\030\t \001(\010\"\026\n\024HeliosBasic"
-    "Offensive\"\021\n\017HeliosBasicMove\"\017\n\rHeliosSe"
-    "tPlay\"\017\n\rHeliosPenalty\"\024\n\022HeliosCommunic"
-    "aion\"\343\031\n\014PlayerAction\022\034\n\004dash\030\001 \001(\0132\014.pr"
-    "otos.DashH\000\022\034\n\004turn\030\002 \001(\0132\014.protos.TurnH"
-    "\000\022\034\n\004kick\030\003 \001(\0132\014.protos.KickH\000\022 \n\006tackl"
-    "e\030\004 \001(\0132\016.protos.TackleH\000\022\036\n\005catch\030\005 \001(\013"
-    "2\r.protos.CatchH\000\022\034\n\004move\030\006 \001(\0132\014.protos"
-    ".MoveH\000\022%\n\tturn_neck\030\007 \001(\0132\020.protos.Turn"
-    "NeckH\000\022)\n\013change_view\030\010 \001(\0132\022.protos.Cha"
-    "ngeViewH\000\022\032\n\003say\030\t \001(\0132\013.protos.SayH\000\022#\n"
-    "\010point_to\030\n \001(\0132\017.protos.PointToH\000\022(\n\013po"
-    "int_to_of\030\013 \001(\0132\021.protos.PointToOfH\000\022+\n\014"
-    "attention_to\030\014 \001(\0132\023.protos.AttentionToH"
-    "\000\0220\n\017attention_to_of\030\r \001(\0132\025.protos.Atte"
-    "ntionToOfH\000\022\032\n\003log\030\016 \001(\0132\013.protos.LogH\000\022"
-    "+\n\014debug_client\030\017 \001(\0132\023.protos.DebugClie"
-    "ntH\000\0222\n\020body_go_to_point\030\020 \001(\0132\026.protos."
-    "Body_GoToPointH\000\0221\n\017body_smart_kick\030\021 \001("
-    "\0132\026.protos.Body_SmartKickH\000\0228\n\023bhv_befor"
-    "e_kick_off\030\022 \001(\0132\031.protos.Bhv_BeforeKick"
-    "OffH\000\022;\n\025bhv_body_neck_to_ball\030\023 \001(\0132\032.p"
-    "rotos.Bhv_BodyNeckToBallH\000\022=\n\026bhv_body_n"
-    "eck_to_point\030\024 \001(\0132\033.protos.Bhv_BodyNeck"
-    "ToPointH\000\022.\n\rbhv_emergency\030\025 \001(\0132\025.proto"
-    "s.Bhv_EmergencyH\000\022B\n\031bhv_go_to_point_loo"
-    "k_ball\030\026 \001(\0132\035.protos.Bhv_GoToPointLookB"
-    "allH\000\022;\n\025bhv_neck_body_to_ball\030\027 \001(\0132\032.p"
-    "rotos.Bhv_NeckBodyToBallH\000\022=\n\026bhv_neck_b"
-    "ody_to_point\030\030 \001(\0132\033.protos.Bhv_NeckBody"
-    "ToPointH\000\022/\n\016bhv_scan_field\030\031 \001(\0132\025.prot"
-    "os.Bhv_ScanFieldH\000\0225\n\021body_advance_ball\030"
-    "\032 \001(\0132\030.protos.Body_AdvanceBallH\000\0221\n\017bod"
-    "y_clear_ball\030\033 \001(\0132\026.protos.Body_ClearBa"
-    "llH\000\022,\n\014body_dribble\030\034 \001(\0132\024.protos.Body"
-    "_DribbleH\000\022=\n\026body_go_to_point_dodge\030\035 \001"
-    "(\0132\033.protos.Body_GoToPointDodgeH\000\022/\n\016bod"
-    "y_hold_ball\030\036 \001(\0132\025.protos.Body_HoldBall"
-    "H\000\0220\n\016body_intercept\030\037 \001(\0132\026.protos.Body"
-    "_InterceptH\000\0226\n\022body_kick_one_step\030  \001(\013"
-    "2\030.protos.Body_KickOneStepH\000\022/\n\016body_sto"
-    "p_ball\030! \001(\0132\025.protos.Body_StopBallH\000\022/\n"
-    "\016body_stop_dash\030\" \001(\0132\025.protos.Body_Stop"
-    "DashH\000\022:\n\024body_tackle_to_point\030# \001(\0132\032.p"
-    "rotos.Body_TackleToPointH\000\0226\n\022body_turn_"
-    "to_angle\030$ \001(\0132\030.protos.Body_TurnToAngle"
-    "H\000\0224\n\021body_turn_to_ball\030% \001(\0132\027.protos.B"
-    "ody_TurnToBallH\000\0226\n\022body_turn_to_point\030&"
-    " \001(\0132\030.protos.Body_TurnToPointH\000\0228\n\023focu"
-    "s_move_to_point\030\' \001(\0132\031.protos.Focus_Mov"
-    "eToPointH\000\022*\n\013focus_reset\030( \001(\0132\023.protos"
-    ".Focus_ResetH\000\0221\n\017neck_scan_field\030) \001(\0132"
-    "\026.protos.Neck_ScanFieldH\000\0225\n\021neck_scan_p"
-    "layers\030* \001(\0132\030.protos.Neck_ScanPlayersH\000"
-    "\022H\n\034neck_turn_to_ball_and_player\030+ \001(\0132 "
-    ".protos.Neck_TurnToBallAndPlayerH\000\022B\n\031ne"
-    "ck_turn_to_ball_or_scan\030, \001(\0132\035.protos.N"
-    "eck_TurnToBallOrScanH\000\0224\n\021neck_turn_to_b"
-    "all\030- \001(\0132\027.protos.Neck_TurnToBallH\000\022F\n\033"
-    "neck_turn_to_goalie_or_scan\030. \001(\0132\037.prot"
-    "os.Neck_TurnToGoalieOrScanH\000\022L\n\036neck_tur"
-    "n_to_low_conf_teammate\030/ \001(\0132\".protos.Ne"
-    "ck_TurnToLowConfTeammateH\000\022F\n\033neck_turn_"
-    "to_player_or_scan\0300 \001(\0132\037.protos.Neck_Tu"
-    "rnToPlayerOrScanH\000\0226\n\022neck_turn_to_point"
-    "\0301 \001(\0132\030.protos.Neck_TurnToPointH\000\022<\n\025ne"
-    "ck_turn_to_relative\0302 \001(\0132\033.protos.Neck_"
-    "TurnToRelativeH\000\0225\n\021view_change_width\0303 "
-    "\001(\0132\030.protos.View_ChangeWidthH\000\022*\n\013view_"
-    "normal\0304 \001(\0132\023.protos.View_NormalH\000\022(\n\nv"
-    "iew_synch\0305 \001(\0132\022.protos.View_SynchH\000\022&\n"
-    "\tview_wide\0306 \001(\0132\021.protos.View_WideH\000\022-\n"
-    "\rhelios_goalie\0307 \001(\0132\024.protos.HeliosGoal"
-    "ieH\000\0226\n\022helios_goalie_move\0308 \001(\0132\030.proto"
-    "s.HeliosGoalieMoveH\000\0226\n\022helios_goalie_ki"
-    "ck\0309 \001(\0132\030.protos.HeliosGoalieKickH\000\022+\n\014"
-    "helios_shoot\030: \001(\0132\023.protos.HeliosShootH"
-    "\000\0228\n\023helios_chain_action\030; \001(\0132\031.protos."
-    "HeliosChainActionH\000\022>\n\026helios_basic_offe"
-    "nsive\030< \001(\0132\034.protos.HeliosBasicOffensiv"
-    "eH\000\0224\n\021helios_basic_move\030= \001(\0132\027.protos."
-    "HeliosBasicMoveH\000\0220\n\017helios_set_play\030> \001"
-    "(\0132\025.protos.HeliosSetPlayH\000\022/\n\016helios_pe"
-    "nalty\030\? \001(\0132\025.protos.HeliosPenaltyH\000\022:\n\024"
-    "helios_communication\030@ \001(\0132\032.protos.Heli"
-    "osCommunicaionH\000B\010\n\006action\"6\n\rPlayerActi"
-    "ons\022%\n\007actions\030\001 \003(\0132\024.protos.PlayerActi"
-    "on\"8\n\020ChangePlayerType\022\026\n\016uniform_number"
-    "\030\001 \001(\005\022\014\n\004type\030\002 \001(\005\"\024\n\022DoHeliosSubstitu"
-    "te\"\030\n\026DoHeliosSayPlayerTypes\"\322\001\n\013CoachAc"
-    "tion\0227\n\023change_player_types\030\001 \001(\0132\030.prot"
-    "os.ChangePlayerTypeH\000\022:\n\024do_helios_subst"
-    "itute\030\002 \001(\0132\032.protos.DoHeliosSubstituteH"
-    "\000\022D\n\032do_helios_say_player_types\030\003 \001(\0132\036."
-    "protos.DoHeliosSayPlayerTypesH\000B\010\n\006actio"
-    "n\"4\n\014CoachActions\022$\n\007actions\030\001 \003(\0132\023.pro"
-    "tos.CoachAction\"\013\n\tDoKickOff\"T\n\nDoMoveBa"
-    "ll\022\"\n\010position\030\001 \001(\0132\020.protos.Vector2D\022\""
-    "\n\010velocity\030\002 \001(\0132\020.protos.Vector2D\"t\n\014Do"
-    "MovePlayer\022\020\n\010our_side\030\001 \001(\010\022\026\n\016uniform_"
-    "number\030\002 \001(\005\022\"\n\010position\030\003 \001(\0132\020.protos."
-    "Vector2D\022\026\n\016body_direction\030\004 \001(\002\"\013\n\tDoRe"
-    "cover\"X\n\014DoChangeMode\022,\n\016game_mode_type\030"
-    "\001 \001(\0162\024.protos.GameModeType\022\032\n\004side\030\002 \001("
-    "\0162\014.protos.Side\"L\n\022DoChangePlayerType\022\020\n"
-    "\010our_side\030\001 \001(\010\022\026\n\016uniform_number\030\002 \001(\005\022"
-    "\014\n\004type\030\003 \001(\005\"\265\002\n\rTrainerAction\022(\n\013do_ki"
-    "ck_off\030\001 \001(\0132\021.protos.DoKickOffH\000\022*\n\014do_"
-    "move_ball\030\002 \001(\0132\022.protos.DoMoveBallH\000\022.\n"
-    "\016do_move_player\030\003 \001(\0132\024.protos.DoMovePla"
-    "yerH\000\022\'\n\ndo_recover\030\004 \001(\0132\021.protos.DoRec"
-    "overH\000\022.\n\016do_change_mode\030\005 \001(\0132\024.protos."
-    "DoChangeModeH\000\022;\n\025do_change_player_type\030"
-    "\006 \001(\0132\032.protos.DoChangePlayerTypeH\000B\010\n\006a"
-    "ction\"8\n\016TrainerActions\022&\n\007actions\030\001 \003(\013"
-    "2\025.protos.TrainerAction\"\317,\n\013ServerParam\022"
-    "%\n\nagent_type\030\001 \001(\0162\021.protos.AgentType\022\026"
-    "\n\016inertia_moment\030\002 \001(\002\022\023\n\013player_size\030\003 "
-    "\001(\002\022\024\n\014player_decay\030\004 \001(\002\022\023\n\013player_rand"
-    "\030\005 \001(\002\022\025\n\rplayer_weight\030\006 \001(\002\022\030\n\020player_"
-    "speed_max\030\007 \001(\002\022\030\n\020player_accel_max\030\010 \001("
-    "\002\022\023\n\013stamina_max\030\t \001(\002\022\027\n\017stamina_inc_ma"
-    "x\030\n \001(\002\022\024\n\014recover_init\030\013 \001(\002\022\027\n\017recover"
-    "_dec_thr\030\014 \001(\002\022\023\n\013recover_min\030\r \001(\002\022\023\n\013r"
-    "ecover_dec\030\016 \001(\002\022\023\n\013effort_init\030\017 \001(\002\022\026\n"
-    "\016effort_dec_thr\030\020 \001(\002\022\022\n\neffort_min\030\021 \001("
-    "\002\022\022\n\neffort_dec\030\022 \001(\002\022\026\n\016effort_inc_thr\030"
-    "\023 \001(\002\022\022\n\neffort_inc\030\024 \001(\002\022\021\n\tkick_rand\030\025"
-    " \001(\002\022\033\n\023team_actuator_noise\030\026 \001(\010\022\034\n\024pla"
-    "yer_rand_factor_l\030\027 \001(\002\022\034\n\024player_rand_f"
-    "actor_r\030\030 \001(\002\022\032\n\022kick_rand_factor_l\030\031 \001("
-    "\002\022\032\n\022kick_rand_factor_r\030\032 \001(\002\022\021\n\tball_si"
-    "ze\030\033 \001(\002\022\022\n\nball_decay\030\034 \001(\002\022\021\n\tball_ran"
-    "d\030\035 \001(\002\022\023\n\013ball_weight\030\036 \001(\002\022\026\n\016ball_spe"
-    "ed_max\030\037 \001(\002\022\026\n\016ball_accel_max\030  \001(\002\022\027\n\017"
-    "dash_power_rate\030! \001(\002\022\027\n\017kick_power_rate"
-    "\030\" \001(\002\022\027\n\017kickable_margin\030# \001(\002\022\026\n\016contr"
-    "ol_radius\030$ \001(\002\022\034\n\024control_radius_width\030"
-    "% \001(\002\022\021\n\tmax_power\030& \001(\002\022\021\n\tmin_power\030\' "
-    "\001(\002\022\022\n\nmax_moment\030( \001(\002\022\022\n\nmin_moment\030) "
-    "\001(\002\022\027\n\017max_neck_moment\030* \001(\002\022\027\n\017min_neck"
-    "_moment\030+ \001(\002\022\026\n\016max_neck_angle\030, \001(\002\022\026\n"
-    "\016min_neck_angle\030- \001(\002\022\025\n\rvisible_angle\030."
-    " \001(\002\022\030\n\020visible_distance\030/ \001(\002\022\020\n\010wind_d"
-    "ir\0300 \001(\002\022\022\n\nwind_force\0301 \001(\002\022\022\n\nwind_ang"
-    "le\0302 \001(\002\022\021\n\twind_rand\0303 \001(\002\022\025\n\rkickable_"
-    "area\0304 \001(\002\022\024\n\014catch_area_l\0305 \001(\002\022\024\n\014catc"
-    "h_area_w\0306 \001(\002\022\031\n\021catch_probability\0307 \001("
-    "\002\022\030\n\020goalie_max_moves\0308 \001(\005\022\032\n\022corner_ki"
-    "ck_margin\0309 \001(\002\022 \n\030offside_active_area_s"
-    "ize\030: \001(\002\022\021\n\twind_none\030; \001(\010\022\027\n\017use_wind"
-    "_random\030< \001(\010\022\033\n\023coach_say_count_max\030= \001"
-    "(\005\022\032\n\022coach_say_msg_size\030> \001(\005\022\026\n\016clang_"
-    "win_size\030\? \001(\005\022\030\n\020clang_define_win\030@ \001(\005"
-    "\022\026\n\016clang_meta_win\030A \001(\005\022\030\n\020clang_advice"
-    "_win\030B \001(\005\022\026\n\016clang_info_win\030C \001(\005\022\030\n\020cl"
-    "ang_mess_delay\030D \001(\005\022\034\n\024clang_mess_per_c"
-    "ycle\030E \001(\005\022\021\n\thalf_time\030F \001(\005\022\026\n\016simulat"
-    "or_step\030G \001(\005\022\021\n\tsend_step\030H \001(\005\022\021\n\trecv"
-    "_step\030I \001(\005\022\027\n\017sense_body_step\030J \001(\005\022\020\n\010"
-    "lcm_step\030K \001(\005\022\033\n\023player_say_msg_size\030L "
-    "\001(\005\022\027\n\017player_hear_max\030M \001(\005\022\027\n\017player_h"
-    "ear_inc\030N \001(\005\022\031\n\021player_hear_decay\030O \001(\005"
-    "\022\027\n\017catch_ban_cycle\030P \001(\005\022\030\n\020slow_down_f"
-    "actor\030Q \001(\005\022\023\n\013use_offside\030R \001(\010\022\027\n\017kick"
-    "off_offside\030S \001(\010\022\033\n\023offside_kick_margin"
-    "\030T \001(\002\022\026\n\016audio_cut_dist\030U \001(\002\022\032\n\022dist_q"
-    "uantize_step\030V \001(\002\022#\n\033landmark_dist_quan"
-    "tize_step\030W \001(\002\022\031\n\021dir_quantize_step\030X \001"
-    "(\002\022\034\n\024dist_quantize_step_l\030Y \001(\002\022\034\n\024dist"
-    "_quantize_step_r\030Z \001(\002\022%\n\035landmark_dist_"
-    "quantize_step_l\030[ \001(\002\022%\n\035landmark_dist_q"
-    "uantize_step_r\030\\ \001(\002\022\033\n\023dir_quantize_ste"
-    "p_l\030] \001(\002\022\033\n\023dir_quantize_step_r\030^ \001(\002\022\022"
-    "\n\ncoach_mode\030_ \001(\010\022\037\n\027coach_with_referee"
-    "_mode\030` \001(\010\022\032\n\022use_old_coach_hear\030a \001(\010\022"
-    "%\n\035slowness_on_top_for_left_team\030b \001(\002\022&"
-    "\n\036slowness_on_top_for_right_team\030c \001(\002\022\024"
-    "\n\014start_goal_l\030d \001(\005\022\024\n\014start_goal_r\030e \001"
-    "(\005\022\023\n\013fullstate_l\030f \001(\010\022\023\n\013fullstate_r\030g"
-    " \001(\010\022\026\n\016drop_ball_time\030h \001(\005\022\022\n\nsynch_mo"
-    "de\030i \001(\010\022\024\n\014synch_offset\030j \001(\005\022\031\n\021synch_"
-    "micro_sleep\030k \001(\005\022\024\n\014point_to_ban\030l \001(\005\022"
-    "\031\n\021point_to_duration\030m \001(\005\022\023\n\013player_por"
-    "t\030n \001(\005\022\024\n\014trainer_port\030o \001(\005\022\031\n\021online_"
-    "coach_port\030p \001(\005\022\024\n\014verbose_mode\030q \001(\010\022\032"
-    "\n\022coach_send_vi_step\030r \001(\005\022\023\n\013replay_fil"
-    "e\030s \001(\t\022\025\n\rlandmark_file\030t \001(\t\022\022\n\nsend_c"
-    "omms\030u \001(\010\022\024\n\014text_logging\030v \001(\010\022\024\n\014game"
-    "_logging\030w \001(\010\022\030\n\020game_log_version\030x \001(\005"
-    "\022\024\n\014text_log_dir\030y \001(\t\022\024\n\014game_log_dir\030z"
-    " \001(\t\022\033\n\023text_log_fixed_name\030{ \001(\t\022\033\n\023gam"
-    "e_log_fixed_name\030| \001(\t\022\032\n\022use_text_log_f"
-    "ixed\030} \001(\010\022\032\n\022use_game_log_fixed\030~ \001(\010\022\032"
-    "\n\022use_text_log_dated\030\177 \001(\010\022\033\n\022use_game_l"
-    "og_dated\030\200\001 \001(\010\022\030\n\017log_date_format\030\201\001 \001("
-    "\t\022\022\n\tlog_times\030\202\001 \001(\010\022\027\n\016record_message\030"
-    "\203\001 \001(\010\022\035\n\024text_log_compression\030\204\001 \001(\005\022\035\n"
-    "\024game_log_compression\030\205\001 \001(\005\022\024\n\013use_prof"
-    "ile\030\206\001 \001(\010\022\024\n\013tackle_dist\030\207\001 \001(\002\022\031\n\020tack"
-    "le_back_dist\030\210\001 \001(\002\022\025\n\014tackle_width\030\211\001 \001"
-    "(\002\022\030\n\017tackle_exponent\030\212\001 \001(\002\022\026\n\rtackle_c"
-    "ycles\030\213\001 \001(\005\022\032\n\021tackle_power_rate\030\214\001 \001(\002"
-    "\022\035\n\024freeform_wait_period\030\215\001 \001(\005\022\035\n\024freef"
-    "orm_send_period\030\216\001 \001(\005\022\031\n\020free_kick_faul"
-    "ts\030\217\001 \001(\010\022\024\n\013back_passes\030\220\001 \001(\010\022\032\n\021prope"
-    "r_goal_kicks\030\221\001 \001(\010\022\031\n\020stopped_ball_vel\030"
-    "\222\001 \001(\002\022\027\n\016max_goal_kicks\030\223\001 \001(\005\022\026\n\rclang"
-    "_del_win\030\224\001 \001(\005\022\027\n\016clang_rule_win\030\225\001 \001(\005"
-    "\022\022\n\tauto_mode\030\226\001 \001(\010\022\026\n\rkick_off_wait\030\227\001"
-    " \001(\005\022\025\n\014connect_wait\030\230\001 \001(\005\022\027\n\016game_over"
-    "_wait\030\231\001 \001(\005\022\025\n\014team_l_start\030\232\001 \001(\t\022\025\n\014t"
-    "eam_r_start\030\233\001 \001(\t\022\026\n\rkeepaway_mode\030\234\001 \001"
-    "(\010\022\030\n\017keepaway_length\030\235\001 \001(\002\022\027\n\016keepaway"
-    "_width\030\236\001 \001(\002\022\031\n\020keepaway_logging\030\237\001 \001(\010"
-    "\022\031\n\020keepaway_log_dir\030\240\001 \001(\t\022 \n\027keepaway_"
-    "log_fixed_name\030\241\001 \001(\t\022\033\n\022keepaway_log_fi"
-    "xed\030\242\001 \001(\010\022\033\n\022keepaway_log_dated\030\243\001 \001(\010\022"
-    "\027\n\016keepaway_start\030\244\001 \001(\005\022\030\n\017nr_normal_ha"
-    "lfs\030\245\001 \001(\005\022\027\n\016nr_extra_halfs\030\246\001 \001(\005\022\033\n\022p"
-    "enalty_shoot_outs\030\247\001 \001(\010\022\036\n\025pen_before_s"
-    "etup_wait\030\250\001 \001(\005\022\027\n\016pen_setup_wait\030\251\001 \001("
-    "\005\022\027\n\016pen_ready_wait\030\252\001 \001(\005\022\027\n\016pen_taken_"
-    "wait\030\253\001 \001(\005\022\025\n\014pen_nr_kicks\030\254\001 \001(\005\022\034\n\023pe"
-    "n_max_extra_kicks\030\255\001 \001(\005\022\023\n\npen_dist_x\030\256"
-    "\001 \001(\002\022\032\n\021pen_random_winner\030\257\001 \001(\010\022\035\n\024pen"
-    "_allow_mult_kicks\030\260\001 \001(\010\022\036\n\025pen_max_goal"
-    "ie_dist_x\030\261\001 \001(\002\022 \n\027pen_coach_moves_play"
-    "ers\030\262\001 \001(\010\022\023\n\nmodule_dir\030\263\001 \001(\t\022\030\n\017ball_"
-    "stuck_area\030\264\001 \001(\002\022\027\n\016coach_msg_file\030\265\001 \001"
-    "(\t\022\031\n\020max_tackle_power\030\266\001 \001(\002\022\036\n\025max_bac"
-    "k_tackle_power\030\267\001 \001(\002\022\035\n\024player_speed_ma"
-    "x_min\030\270\001 \001(\002\022\026\n\rextra_stamina\030\271\001 \001(\002\022\031\n\020"
-    "synch_see_offset\030\272\001 \001(\005\022\030\n\017extra_half_ti"
-    "me\030\273\001 \001(\005\022\031\n\020stamina_capacity\030\274\001 \001(\002\022\027\n\016"
-    "max_dash_angle\030\275\001 \001(\002\022\027\n\016min_dash_angle\030"
-    "\276\001 \001(\002\022\030\n\017dash_angle_step\030\277\001 \001(\002\022\027\n\016side"
-    "_dash_rate\030\300\001 \001(\002\022\027\n\016back_dash_rate\030\301\001 \001"
-    "(\002\022\027\n\016max_dash_power\030\302\001 \001(\002\022\027\n\016min_dash_"
-    "power\030\303\001 \001(\002\022\033\n\022tackle_rand_factor\030\304\001 \001("
-    "\002\022 \n\027foul_detect_probability\030\305\001 \001(\002\022\026\n\rf"
-    "oul_exponent\030\306\001 \001(\002\022\024\n\013foul_cycles\030\307\001 \001("
-    "\005\022\024\n\013golden_goal\030\310\001 \001(\010\022\035\n\024red_card_prob"
-    "ability\030\311\001 \001(\002\022!\n\030illegal_defense_durati"
-    "on\030\312\001 \001(\005\022\037\n\026illegal_defense_number\030\313\001 \001"
-    "(\005\022\037\n\026illegal_defense_dist_x\030\314\001 \001(\002\022\036\n\025i"
-    "llegal_defense_width\030\315\001 \001(\002\022\031\n\020fixed_tea"
-    "mname_l\030\316\001 \001(\t\022\031\n\020fixed_teamname_r\030\317\001 \001("
-    "\t\022\030\n\017max_catch_angle\030\320\001 \001(\002\022\030\n\017min_catch"
-    "_angle\030\321\001 \001(\002\022\024\n\013random_seed\030\322\001 \001(\005\022\037\n\026l"
-    "ong_kick_power_factor\030\323\001 \001(\002\022\030\n\017long_kic"
-    "k_delay\030\324\001 \001(\005\022\025\n\014max_monitors\030\325\001 \001(\005\022\027\n"
-    "\016catchable_area\030\326\001 \001(\002\022\027\n\016real_speed_max"
-    "\030\327\001 \001(\002\022\032\n\021pitch_half_length\030\330\001 \001(\002\022\031\n\020p"
-    "itch_half_width\030\331\001 \001(\002\022 \n\027our_penalty_ar"
-    "ea_line_x\030\332\001 \001(\002\022\"\n\031their_penalty_area_l"
-    "ine_x\030\333\001 \001(\002\022 \n\027penalty_area_half_width\030"
-    "\334\001 \001(\002\022\034\n\023penalty_area_length\030\335\001 \001(\002\022\023\n\n"
-    "goal_width\030\336\001 \001(\002\"\377\007\n\013PlayerParam\022%\n\nage"
-    "nt_type\030\001 \001(\0162\021.protos.AgentType\022\024\n\014play"
-    "er_types\030\002 \001(\005\022\020\n\010subs_max\030\003 \001(\005\022\016\n\006pt_m"
-    "ax\030\004 \001(\005\022\037\n\027allow_mult_default_type\030\005 \001("
-    "\010\022\"\n\032player_speed_max_delta_min\030\006 \001(\002\022\"\n"
-    "\032player_speed_max_delta_max\030\007 \001(\002\022$\n\034sta"
-    "mina_inc_max_delta_factor\030\010 \001(\002\022\036\n\026playe"
-    "r_decay_delta_min\030\t \001(\002\022\036\n\026player_decay_"
-    "delta_max\030\n \001(\002\022#\n\033inertia_moment_delta_"
-    "factor\030\013 \001(\002\022!\n\031dash_power_rate_delta_mi"
-    "n\030\014 \001(\002\022!\n\031dash_power_rate_delta_max\030\r \001"
-    "(\002\022 \n\030player_size_delta_factor\030\016 \001(\002\022!\n\031"
-    "kickable_margin_delta_min\030\017 \001(\002\022!\n\031kicka"
-    "ble_margin_delta_max\030\020 \001(\002\022\036\n\026kick_rand_"
-    "delta_factor\030\021 \001(\002\022\037\n\027extra_stamina_delt"
-    "a_min\030\022 \001(\002\022\037\n\027extra_stamina_delta_max\030\023"
-    " \001(\002\022\037\n\027effort_max_delta_factor\030\024 \001(\002\022\037\n"
-    "\027effort_min_delta_factor\030\025 \001(\002\022\023\n\013random"
-    "_seed\030\026 \001(\005\022%\n\035new_dash_power_rate_delta"
-    "_min\030\027 \001(\002\022%\n\035new_dash_power_rate_delta_"
-    "max\030\030 \001(\002\022(\n new_stamina_inc_max_delta_f"
-    "actor\030\031 \001(\002\022!\n\031kick_power_rate_delta_min"
-    "\030\032 \001(\002\022!\n\031kick_power_rate_delta_max\030\033 \001("
-    "\002\022,\n$foul_detect_probability_delta_facto"
-    "r\030\034 \001(\002\022$\n\034catchable_area_l_stretch_min\030"
-    "\035 \001(\002\022$\n\034catchable_area_l_stretch_max\030\036 "
-    "\001(\002\"\261\007\n\nPlayerType\022%\n\nagent_type\030\001 \001(\0162\021"
-    ".protos.AgentType\022\n\n\002id\030\002 \001(\005\022\027\n\017stamina"
-    "_inc_max\030\003 \001(\002\022\024\n\014player_decay\030\004 \001(\002\022\026\n\016"
-    "inertia_moment\030\005 \001(\002\022\027\n\017dash_power_rate\030"
-    "\006 \001(\002\022\023\n\013player_size\030\007 \001(\002\022\027\n\017kickable_m"
-    "argin\030\010 \001(\002\022\021\n\tkick_rand\030\t \001(\002\022\025\n\rextra_"
-    "stamina\030\n \001(\002\022\022\n\neffort_max\030\013 \001(\002\022\022\n\neff"
-    "ort_min\030\014 \001(\002\022\027\n\017kick_power_rate\030\r \001(\002\022\037"
-    "\n\027foul_detect_probability\030\016 \001(\002\022 \n\030catch"
-    "able_area_l_stretch\030\017 \001(\002\022\027\n\017unum_far_le"
-    "ngth\030\020 \001(\002\022\033\n\023unum_too_far_length\030\021 \001(\002\022"
-    "\027\n\017team_far_length\030\022 \001(\002\022\033\n\023team_too_far"
-    "_length\030\023 \001(\002\022%\n\035player_max_observation_"
-    "length\030\024 \001(\002\022\033\n\023ball_vel_far_length\030\025 \001("
-    "\002\022\037\n\027ball_vel_too_far_length\030\026 \001(\002\022#\n\033ba"
-    "ll_max_observation_length\030\027 \001(\002\022\033\n\023flag_"
-    "chg_far_length\030\030 \001(\002\022\037\n\027flag_chg_too_far"
-    "_length\030\031 \001(\002\022#\n\033flag_max_observation_le"
-    "ngth\030\032 \001(\002\022\025\n\rkickable_area\030\033 \001(\002\022\037\n\027rel"
-    "iable_catchable_dist\030\034 \001(\002\022\032\n\022max_catcha"
-    "ble_dist\030\035 \001(\002\022\026\n\016real_speed_max\030\036 \001(\002\022\031"
-    "\n\021player_speed_max2\030\037 \001(\002\022\027\n\017real_speed_"
-    "max2\030  \001(\002\022!\n\031cycles_to_reach_max_speed\030"
-    "! \001(\005\022\030\n\020player_speed_max\030\" \001(\002\"\007\n\005Empty"
-    "\"\027\n\025InitMessageFromServer*-\n\tViewWidth\022\n"
-    "\n\006NARROW\020\000\022\n\n\006NORMAL\020\001\022\010\n\004WIDE\020\002*(\n\004Side"
-    "\022\013\n\007UNKNOWN\020\000\022\010\n\004LEFT\020\001\022\t\n\005RIGHT\020\002*\255\002\n\013L"
-    "oggerLevel\022\010\n\004None\020\000\022\n\n\006SYSTEM\020\001\022\n\n\006SENS"
-    "OR\020\002\022\t\n\005WORLD\020\004\022\n\n\006ACTION\020\010\022\r\n\tINTERCEPT"
-    "\020\020\022\010\n\004KICK\020 \022\010\n\004HOLD\020@\022\014\n\007DRIBBLE\020\200\001\022\t\n\004"
-    "PASS\020\200\002\022\n\n\005CROSS\020\200\004\022\n\n\005SHOOT\020\200\010\022\n\n\005CLEAR"
-    "\020\200\020\022\n\n\005BLOCK\020\200 \022\t\n\004MARK\020\200@\022\021\n\013POSITIONIN"
-    "G\020\200\200\001\022\n\n\004ROLE\020\200\200\002\022\n\n\004TEAM\020\200\200\004\022\023\n\rCOMMUNI"
-    "CATION\020\200\200\010\022\016\n\010ANALYZER\020\200\200\020\022\022\n\014ACTION_CHA"
-    "IN\020\200\200 \022\n\n\004PLAN\020\200\200@*v\n\023InterceptActionTyp"
-    "e\022!\n\035UNKNOWN_Intercept_Action_Type\020\000\022\r\n\t"
-    "OMNI_DASH\020\001\022\025\n\021TURN_FORWARD_DASH\020\002\022\026\n\022TU"
-    "RN_BACKWARD_DASH\020\003*\273\004\n\014GameModeType\022\021\n\rB"
-    "eforeKickOff\020\000\022\014\n\010TimeOver\020\001\022\n\n\006PlayOn\020\002"
-    "\022\014\n\010KickOff_\020\003\022\013\n\007KickIn_\020\004\022\r\n\tFreeKick_"
-    "\020\005\022\017\n\013CornerKick_\020\006\022\r\n\tGoalKick_\020\007\022\016\n\nAf"
-    "terGoal_\020\010\022\014\n\010OffSide_\020\t\022\020\n\014PenaltyKick_"
-    "\020\n\022\021\n\rFirstHalfOver\020\013\022\t\n\005Pause\020\014\022\t\n\005Huma"
-    "n\020\r\022\017\n\013FoulCharge_\020\016\022\r\n\tFoulPush_\020\017\022\031\n\025F"
-    "oulMultipleAttacker_\020\020\022\020\n\014FoulBallOut_\020\021"
-    "\022\r\n\tBackPass_\020\022\022\022\n\016FreeKickFault_\020\023\022\017\n\013C"
-    "atchFault_\020\024\022\020\n\014IndFreeKick_\020\025\022\021\n\rPenalt"
-    "ySetup_\020\026\022\021\n\rPenaltyReady_\020\027\022\021\n\rPenaltyT"
-    "aken_\020\030\022\020\n\014PenaltyMiss_\020\031\022\021\n\rPenaltyScor"
-    "e_\020\032\022\023\n\017IllegalDefense_\020\033\022\023\n\017PenaltyOnfi"
-    "eld_\020\034\022\020\n\014PenaltyFoul_\020\035\022\020\n\014GoalieCatch_"
-    "\020\036\022\016\n\nExtendHalf\020\037\022\014\n\010MODE_MAX\020 *2\n\tAgen"
-    "tType\022\013\n\007PlayerT\020\000\022\n\n\006CoachT\020\001\022\014\n\010Traine"
-    "rT\020\0022\222\004\n\004Game\022:\n\020GetPlayerActions\022\r.prot"
-    "os.State\032\025.protos.PlayerActions\"\000\0228\n\017Get"
-    "CoachActions\022\r.protos.State\032\024.protos.Coa"
-    "chActions\"\000\022<\n\021GetTrainerActions\022\r.proto"
-    "s.State\032\026.protos.TrainerActions\"\000\0227\n\017Sen"
-    "dInitMessage\022\023.protos.InitMessage\032\r.prot"
-    "os.Empty\"\000\0228\n\020SendServerParams\022\023.protos."
-    "ServerParam\032\r.protos.Empty\"\000\0228\n\020SendPlay"
-    "erParams\022\023.protos.PlayerParam\032\r.protos.E"
-    "mpty\"\000\0225\n\016SendPlayerType\022\022.protos.Player"
-    "Type\032\r.protos.Empty\"\000\022@\n\016GetInitMessage\022"
-    "\r.protos.Empty\032\035.protos.InitMessageFromS"
-    "erver\"\000\0220\n\016SendByeCommand\022\r.protos.Empty"
-    "\032\r.protos.Empty\"\000b\006proto3"
+    "\n\rservice.proto\022\006protos\"@\n\013RpcVector2D\022\t"
+    "\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\014\n\004dist\030\003 \001(\002\022\r\n\005an"
+    "gle\030\004 \001(\002\"c\n\017RegisterRequest\022%\n\nagent_ty"
+    "pe\030\001 \001(\0162\021.protos.AgentType\022\021\n\tteam_name"
+    "\030\002 \001(\t\022\026\n\016uniform_number\030\003 \001(\005\"w\n\020Regist"
+    "erResponse\022\021\n\tclient_id\030\001 \001(\005\022%\n\nagent_t"
+    "ype\030\002 \001(\0162\021.protos.AgentType\022\021\n\tteam_nam"
+    "e\030\003 \001(\t\022\026\n\016uniform_number\030\004 \001(\005\"\230\004\n\004Ball"
+    "\022%\n\010position\030\001 \001(\0132\023.protos.RpcVector2D\022"
+    ".\n\021relative_position\030\002 \001(\0132\023.protos.RpcV"
+    "ector2D\022*\n\rseen_position\030\003 \001(\0132\023.protos."
+    "RpcVector2D\022+\n\016heard_position\030\004 \001(\0132\023.pr"
+    "otos.RpcVector2D\022%\n\010velocity\030\005 \001(\0132\023.pro"
+    "tos.RpcVector2D\022*\n\rseen_velocity\030\006 \001(\0132\023"
+    ".protos.RpcVector2D\022+\n\016heard_velocity\030\007 "
+    "\001(\0132\023.protos.RpcVector2D\022\021\n\tpos_count\030\010 "
+    "\001(\005\022\026\n\016seen_pos_count\030\t \001(\005\022\027\n\017heard_pos"
+    "_count\030\n \001(\005\022\021\n\tvel_count\030\013 \001(\005\022\026\n\016seen_"
+    "vel_count\030\014 \001(\005\022\027\n\017heard_vel_count\030\r \001(\005"
+    "\022\022\n\nlost_count\030\016 \001(\005\022\023\n\013ghost_count\030\017 \001("
+    "\005\022\026\n\016dist_from_self\030\020 \001(\002\022\027\n\017angle_from_"
+    "self\030\021 \001(\002\"\260\006\n\006Player\022%\n\010position\030\001 \001(\0132"
+    "\023.protos.RpcVector2D\022*\n\rseen_position\030\002 "
+    "\001(\0132\023.protos.RpcVector2D\022+\n\016heard_positi"
+    "on\030\003 \001(\0132\023.protos.RpcVector2D\022%\n\010velocit"
+    "y\030\004 \001(\0132\023.protos.RpcVector2D\022*\n\rseen_vel"
+    "ocity\030\005 \001(\0132\023.protos.RpcVector2D\022\021\n\tpos_"
+    "count\030\006 \001(\005\022\026\n\016seen_pos_count\030\007 \001(\005\022\027\n\017h"
+    "eard_pos_count\030\010 \001(\005\022\021\n\tvel_count\030\t \001(\005\022"
+    "\026\n\016seen_vel_count\030\n \001(\005\022\023\n\013ghost_count\030\013"
+    " \001(\005\022\026\n\016dist_from_self\030\014 \001(\002\022\027\n\017angle_fr"
+    "om_self\030\r \001(\002\022\n\n\002id\030\016 \001(\005\022\032\n\004side\030\017 \001(\0162"
+    "\014.protos.Side\022\026\n\016uniform_number\030\020 \001(\005\022\034\n"
+    "\024uniform_number_count\030\021 \001(\005\022\021\n\tis_goalie"
+    "\030\022 \001(\010\022\026\n\016body_direction\030\023 \001(\002\022\034\n\024body_d"
+    "irection_count\030\024 \001(\005\022\026\n\016face_direction\030\025"
+    " \001(\002\022\034\n\024face_direction_count\030\026 \001(\005\022\032\n\022po"
+    "int_to_direction\030\027 \001(\002\022 \n\030point_to_direc"
+    "tion_count\030\030 \001(\005\022\022\n\nis_kicking\030\031 \001(\010\022\026\n\016"
+    "dist_from_ball\030\032 \001(\002\022\027\n\017angle_from_ball\030"
+    "\033 \001(\002\022\030\n\020ball_reach_steps\030\034 \001(\005\022\023\n\013is_ta"
+    "ckling\030\035 \001(\010\022\017\n\007type_id\030\036 \001(\005\"\317\007\n\004Self\022%"
+    "\n\010position\030\001 \001(\0132\023.protos.RpcVector2D\022*\n"
+    "\rseen_position\030\002 \001(\0132\023.protos.RpcVector2"
+    "D\022+\n\016heard_position\030\003 \001(\0132\023.protos.RpcVe"
+    "ctor2D\022%\n\010velocity\030\004 \001(\0132\023.protos.RpcVec"
+    "tor2D\022*\n\rseen_velocity\030\005 \001(\0132\023.protos.Rp"
+    "cVector2D\022\021\n\tpos_count\030\006 \001(\005\022\026\n\016seen_pos"
+    "_count\030\007 \001(\005\022\027\n\017heard_pos_count\030\010 \001(\005\022\021\n"
+    "\tvel_count\030\t \001(\005\022\026\n\016seen_vel_count\030\n \001(\005"
+    "\022\023\n\013ghost_count\030\013 \001(\005\022\n\n\002id\030\014 \001(\005\022\032\n\004sid"
+    "e\030\r \001(\0162\014.protos.Side\022\026\n\016uniform_number\030"
+    "\016 \001(\005\022\034\n\024uniform_number_count\030\017 \001(\005\022\021\n\ti"
+    "s_goalie\030\020 \001(\010\022\026\n\016body_direction\030\021 \001(\002\022\034"
+    "\n\024body_direction_count\030\022 \001(\005\022\026\n\016face_dir"
+    "ection\030\023 \001(\002\022\034\n\024face_direction_count\030\024 \001"
+    "(\005\022\032\n\022point_to_direction\030\025 \001(\002\022 \n\030point_"
+    "to_direction_count\030\026 \001(\005\022\022\n\nis_kicking\030\027"
+    " \001(\010\022\026\n\016dist_from_ball\030\030 \001(\002\022\027\n\017angle_fr"
+    "om_ball\030\031 \001(\002\022\030\n\020ball_reach_steps\030\032 \001(\005\022"
+    "\023\n\013is_tackling\030\033 \001(\010\022\037\n\027relative_neck_di"
+    "rection\030\034 \001(\002\022\017\n\007stamina\030\035 \001(\002\022\023\n\013is_kic"
+    "kable\030\036 \001(\010\022\031\n\021catch_probability\030\037 \001(\002\022\032"
+    "\n\022tackle_probability\030  \001(\002\022\030\n\020foul_proba"
+    "bility\030! \001(\002\022%\n\nview_width\030\" \001(\0162\021.proto"
+    "s.ViewWidth\022\017\n\007type_id\030# \001(\005\022\021\n\tkick_rat"
+    "e\030$ \001(\002\"\224\002\n\rInterceptInfo\0220\n\013action_type"
+    "\030\001 \001(\0162\033.protos.InterceptActionType\022\022\n\nt"
+    "urn_steps\030\002 \001(\005\022\022\n\nturn_angle\030\003 \001(\002\022\022\n\nd"
+    "ash_steps\030\004 \001(\005\022\022\n\ndash_power\030\005 \001(\002\022\020\n\010d"
+    "ash_dir\030\006 \001(\002\0220\n\023final_self_position\030\007 \001"
+    "(\0132\023.protos.RpcVector2D\022\027\n\017final_ball_di"
+    "st\030\010 \001(\002\022\025\n\rfinal_stamina\030\t \001(\002\022\r\n\005value"
+    "\030\n \001(\002\"\336\002\n\016InterceptTable\022\030\n\020self_reach_"
+    "steps\030\001 \001(\005\022\"\n\032first_teammate_reach_step"
+    "s\030\002 \001(\005\022#\n\033second_teammate_reach_steps\030\003"
+    " \001(\005\022\"\n\032first_opponent_reach_steps\030\004 \001(\005"
+    "\022#\n\033second_opponent_reach_steps\030\005 \001(\005\022\031\n"
+    "\021first_teammate_id\030\006 \001(\005\022\032\n\022second_teamm"
+    "ate_id\030\007 \001(\005\022\031\n\021first_opponent_id\030\010 \001(\005\022"
+    "\032\n\022second_opponent_id\030\t \001(\005\0222\n\023self_inte"
+    "rcept_info\030\n \003(\0132\025.protos.InterceptInfo\""
+    "\221\n\n\nWorldModel\022/\n\017intercept_table\030\001 \001(\0132"
+    "\026.protos.InterceptTable\022\025\n\rour_team_name"
+    "\030\002 \001(\t\022\027\n\017their_team_name\030\003 \001(\t\022\036\n\010our_s"
+    "ide\030\004 \001(\0162\014.protos.Side\022 \n\030last_set_play"
+    "_start_time\030\005 \001(\005\022\032\n\004self\030\006 \001(\0132\014.protos"
+    ".Self\022\032\n\004ball\030\007 \001(\0132\014.protos.Ball\022!\n\ttea"
+    "mmates\030\010 \003(\0132\016.protos.Player\022!\n\topponent"
+    "s\030\t \003(\0132\016.protos.Player\022 \n\010unknowns\030\n \003("
+    "\0132\016.protos.Player\022@\n\020our_players_dict\030\013 "
+    "\003(\0132&.protos.WorldModel.OurPlayersDictEn"
+    "try\022D\n\022their_players_dict\030\014 \003(\0132(.protos"
+    ".WorldModel.TheirPlayersDictEntry\022!\n\031our"
+    "_goalie_uniform_number\030\r \001(\005\022#\n\033their_go"
+    "alie_uniform_number\030\016 \001(\005\022\026\n\016offside_lin"
+    "e_x\030\017 \001(\002\022\033\n\023ofside_line_x_count\030\020 \001(\005\022\034"
+    "\n\024kickable_teammate_id\030\021 \001(\005\022\034\n\024kickable"
+    "_opponent_id\030\022 \001(\005\022$\n\016last_kick_side\030\023 \001"
+    "(\0162\014.protos.Side\022\"\n\032last_kicker_uniform_"
+    "number\030\024 \001(\005\022\r\n\005cycle\030\025 \001(\005\022,\n\016game_mode"
+    "_type\030\026 \001(\0162\024.protos.GameModeType\022\027\n\017lef"
+    "t_team_score\030\027 \001(\005\022\030\n\020right_team_score\030\030"
+    " \001(\005\022\027\n\017is_our_set_play\030\031 \001(\010\022\031\n\021is_thei"
+    "r_set_play\030\032 \001(\010\022\024\n\014stoped_cycle\030\033 \001(\005\022\026"
+    "\n\016our_team_score\030\034 \001(\005\022\030\n\020their_team_sco"
+    "re\030\035 \001(\005\022\034\n\024is_penalty_kick_mode\030\036 \001(\010\022J"
+    "\n\025helios_home_positions\030\037 \003(\0132+.protos.W"
+    "orldModel.HeliosHomePositionsEntry\032E\n\023Ou"
+    "rPlayersDictEntry\022\013\n\003key\030\001 \001(\005\022\035\n\005value\030"
+    "\002 \001(\0132\016.protos.Player:\0028\001\032G\n\025TheirPlayer"
+    "sDictEntry\022\013\n\003key\030\001 \001(\005\022\035\n\005value\030\002 \001(\0132\016"
+    ".protos.Player:\0028\001\032O\n\030HeliosHomePosition"
+    "sEntry\022\013\n\003key\030\001 \001(\005\022\"\n\005value\030\002 \001(\0132\023.pro"
+    "tos.RpcVector2D:\0028\001\"\223\001\n\005State\0223\n\021registe"
+    "r_response\030\001 \001(\0132\030.protos.RegisterRespon"
+    "se\022\'\n\013world_model\030\002 \001(\0132\022.protos.WorldMo"
+    "del\022,\n\020full_world_model\030\003 \001(\0132\022.protos.W"
+    "orldModel\"V\n\013InitMessage\0223\n\021register_res"
+    "ponse\030\001 \001(\0132\030.protos.RegisterResponse\022\022\n"
+    "\ndebug_mode\030\002 \001(\010\"1\n\004Dash\022\r\n\005power\030\001 \001(\002"
+    "\022\032\n\022relative_direction\030\002 \001(\002\"\"\n\004Turn\022\032\n\022"
+    "relative_direction\030\001 \001(\002\"1\n\004Kick\022\r\n\005powe"
+    "r\030\001 \001(\002\022\032\n\022relative_direction\030\002 \001(\002\",\n\006T"
+    "ackle\022\024\n\014power_or_dir\030\001 \001(\002\022\014\n\004foul\030\002 \001("
+    "\010\"\007\n\005Catch\"\034\n\004Move\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002"
+    "\"\032\n\010TurnNeck\022\016\n\006moment\030\001 \001(\002\"3\n\nChangeVi"
+    "ew\022%\n\nview_width\030\001 \001(\0162\021.protos.ViewWidt"
+    "h\"e\n\013BallMessage\022*\n\rball_position\030\001 \001(\0132"
+    "\023.protos.RpcVector2D\022*\n\rball_velocity\030\002 "
+    "\001(\0132\023.protos.RpcVector2D\"\263\001\n\013PassMessage"
+    "\022\037\n\027receiver_uniform_number\030\001 \001(\005\022+\n\016rec"
+    "eiver_point\030\002 \001(\0132\023.protos.RpcVector2D\022*"
+    "\n\rball_position\030\003 \001(\0132\023.protos.RpcVector"
+    "2D\022*\n\rball_velocity\030\004 \001(\0132\023.protos.RpcVe"
+    "ctor2D\"F\n\020InterceptMessage\022\013\n\003our\030\001 \001(\010\022"
+    "\026\n\016uniform_number\030\002 \001(\005\022\r\n\005cycle\030\003 \001(\005\"{"
+    "\n\rGoalieMessage\022\035\n\025goalie_uniform_number"
+    "\030\001 \001(\005\022,\n\017goalie_position\030\002 \001(\0132\023.protos"
+    ".RpcVector2D\022\035\n\025goalie_body_direction\030\003 "
+    "\001(\002\"\321\001\n\026GoalieAndPlayerMessage\022\035\n\025goalie"
+    "_uniform_number\030\001 \001(\005\022,\n\017goalie_position"
+    "\030\002 \001(\0132\023.protos.RpcVector2D\022\035\n\025goalie_bo"
+    "dy_direction\030\003 \001(\002\022\035\n\025player_uniform_num"
+    "ber\030\004 \001(\005\022,\n\017player_position\030\005 \001(\0132\023.pro"
+    "tos.RpcVector2D\",\n\022OffsideLineMessage\022\026\n"
+    "\016offside_line_x\030\001 \001(\002\",\n\022DefenseLineMess"
+    "age\022\026\n\016defense_line_x\030\001 \001(\002\"\024\n\022WaitReque"
+    "stMessage\"#\n\016SetplayMessage\022\021\n\twait_step"
+    "\030\001 \001(\005\"\?\n\022PassRequestMessage\022)\n\014target_p"
+    "oint\030\001 \001(\0132\023.protos.RpcVector2D\"!\n\016Stami"
+    "naMessage\022\017\n\007stamina\030\001 \001(\002\"#\n\017RecoveryMe"
+    "ssage\022\020\n\010recovery\030\001 \001(\002\"2\n\026StaminaCapaci"
+    "tyMessage\022\030\n\020stamina_capacity\030\001 \001(\002\"P\n\016D"
+    "ribbleMessage\022)\n\014target_point\030\001 \001(\0132\023.pr"
+    "otos.RpcVector2D\022\023\n\013queue_count\030\002 \001(\005\"\270\001"
+    "\n\021BallGoalieMessage\022*\n\rball_position\030\001 \001"
+    "(\0132\023.protos.RpcVector2D\022*\n\rball_velocity"
+    "\030\002 \001(\0132\023.protos.RpcVector2D\022,\n\017goalie_po"
+    "sition\030\003 \001(\0132\023.protos.RpcVector2D\022\035\n\025goa"
+    "lie_body_direction\030\004 \001(\002\"Q\n\020OnePlayerMes"
+    "sage\022\026\n\016uniform_number\030\001 \001(\005\022%\n\010position"
+    "\030\002 \001(\0132\023.protos.RpcVector2D\"\252\001\n\020TwoPlaye"
+    "rMessage\022\034\n\024first_uniform_number\030\001 \001(\005\022+"
+    "\n\016first_position\030\002 \001(\0132\023.protos.RpcVecto"
+    "r2D\022\035\n\025second_uniform_number\030\003 \001(\005\022,\n\017se"
+    "cond_position\030\004 \001(\0132\023.protos.RpcVector2D"
+    "\"\367\001\n\022ThreePlayerMessage\022\034\n\024first_uniform"
+    "_number\030\001 \001(\005\022+\n\016first_position\030\002 \001(\0132\023."
+    "protos.RpcVector2D\022\035\n\025second_uniform_num"
+    "ber\030\003 \001(\005\022,\n\017second_position\030\004 \001(\0132\023.pro"
+    "tos.RpcVector2D\022\034\n\024third_uniform_number\030"
+    "\005 \001(\005\022+\n\016third_position\030\006 \001(\0132\023.protos.R"
+    "pcVector2D\"l\n\013SelfMessage\022*\n\rself_positi"
+    "on\030\001 \001(\0132\023.protos.RpcVector2D\022\033\n\023self_bo"
+    "dy_direction\030\002 \001(\002\022\024\n\014self_stamina\030\003 \001(\002"
+    "\"h\n\017TeammateMessage\022\026\n\016uniform_number\030\001 "
+    "\001(\005\022%\n\010position\030\002 \001(\0132\023.protos.RpcVector"
+    "2D\022\026\n\016body_direction\030\003 \001(\002\"h\n\017OpponentMe"
+    "ssage\022\026\n\016uniform_number\030\001 \001(\005\022%\n\010positio"
+    "n\030\002 \001(\0132\023.protos.RpcVector2D\022\026\n\016body_dir"
+    "ection\030\003 \001(\002\"\311\001\n\021BallPlayerMessage\022*\n\rba"
+    "ll_position\030\001 \001(\0132\023.protos.RpcVector2D\022*"
+    "\n\rball_velocity\030\002 \001(\0132\023.protos.RpcVector"
+    "2D\022\026\n\016uniform_number\030\003 \001(\005\022,\n\017player_pos"
+    "ition\030\004 \001(\0132\023.protos.RpcVector2D\022\026\n\016body"
+    "_direction\030\005 \001(\002\"\320\t\n\003Say\022+\n\014ball_message"
+    "\030\001 \001(\0132\023.protos.BallMessageH\000\022+\n\014pass_me"
+    "ssage\030\002 \001(\0132\023.protos.PassMessageH\000\0225\n\021in"
+    "tercept_message\030\003 \001(\0132\030.protos.Intercept"
+    "MessageH\000\022/\n\016goalie_message\030\004 \001(\0132\025.prot"
+    "os.GoalieMessageH\000\022C\n\031goalie_and_player_"
+    "message\030\005 \001(\0132\036.protos.GoalieAndPlayerMe"
+    "ssageH\000\022:\n\024offside_line_message\030\006 \001(\0132\032."
+    "protos.OffsideLineMessageH\000\022:\n\024defense_l"
+    "ine_message\030\007 \001(\0132\032.protos.DefenseLineMe"
+    "ssageH\000\022:\n\024wait_request_message\030\010 \001(\0132\032."
+    "protos.WaitRequestMessageH\000\0221\n\017setplay_m"
+    "essage\030\t \001(\0132\026.protos.SetplayMessageH\000\022:"
+    "\n\024pass_request_message\030\n \001(\0132\032.protos.Pa"
+    "ssRequestMessageH\000\0221\n\017stamina_message\030\013 "
+    "\001(\0132\026.protos.StaminaMessageH\000\0223\n\020recover"
+    "y_message\030\014 \001(\0132\027.protos.RecoveryMessage"
+    "H\000\022B\n\030stamina_capacity_message\030\r \001(\0132\036.p"
+    "rotos.StaminaCapacityMessageH\000\0221\n\017dribbl"
+    "e_message\030\016 \001(\0132\026.protos.DribbleMessageH"
+    "\000\0228\n\023ball_goalie_message\030\017 \001(\0132\031.protos."
+    "BallGoalieMessageH\000\0226\n\022one_player_messag"
+    "e\030\020 \001(\0132\030.protos.OnePlayerMessageH\000\0226\n\022t"
+    "wo_player_message\030\021 \001(\0132\030.protos.TwoPlay"
+    "erMessageH\000\022:\n\024three_player_message\030\022 \001("
+    "\0132\032.protos.ThreePlayerMessageH\000\022+\n\014self_"
+    "message\030\023 \001(\0132\023.protos.SelfMessageH\000\0223\n\020"
+    "teammate_message\030\024 \001(\0132\027.protos.Teammate"
+    "MessageH\000\0223\n\020opponent_message\030\025 \001(\0132\027.pr"
+    "otos.OpponentMessageH\000\0228\n\023ball_player_me"
+    "ssage\030\026 \001(\0132\031.protos.BallPlayerMessageH\000"
+    "B\t\n\007message\"\037\n\007PointTo\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002"
+    " \001(\002\"\013\n\tPointToOf\"7\n\013AttentionTo\022\032\n\004side"
+    "\030\001 \001(\0162\014.protos.Side\022\014\n\004unum\030\002 \001(\005\"\017\n\rAt"
+    "tentionToOf\">\n\007AddText\022\"\n\005level\030\001 \001(\0162\023."
+    "protos.LoggerLevel\022\017\n\007message\030\002 \001(\t\"a\n\010A"
+    "ddPoint\022\"\n\005level\030\001 \001(\0162\023.protos.LoggerLe"
+    "vel\022\"\n\005point\030\002 \001(\0132\023.protos.RpcVector2D\022"
+    "\r\n\005color\030\003 \001(\t\"\202\001\n\007AddLine\022\"\n\005level\030\001 \001("
+    "\0162\023.protos.LoggerLevel\022\"\n\005start\030\002 \001(\0132\023."
+    "protos.RpcVector2D\022 \n\003end\030\003 \001(\0132\023.protos"
+    ".RpcVector2D\022\r\n\005color\030\004 \001(\t\"\231\001\n\006AddArc\022\""
+    "\n\005level\030\001 \001(\0162\023.protos.LoggerLevel\022#\n\006ce"
+    "nter\030\002 \001(\0132\023.protos.RpcVector2D\022\016\n\006radiu"
+    "s\030\003 \001(\002\022\023\n\013start_angle\030\004 \001(\002\022\022\n\nspan_ang"
+    "el\030\005 \001(\002\022\r\n\005color\030\006 \001(\t\"\201\001\n\tAddCircle\022\"\n"
+    "\005level\030\001 \001(\0162\023.protos.LoggerLevel\022#\n\006cen"
+    "ter\030\002 \001(\0132\023.protos.RpcVector2D\022\016\n\006radius"
+    "\030\003 \001(\002\022\r\n\005color\030\004 \001(\t\022\014\n\004fill\030\005 \001(\010\"\275\001\n\013"
+    "AddTriangle\022\"\n\005level\030\001 \001(\0162\023.protos.Logg"
+    "erLevel\022#\n\006point1\030\002 \001(\0132\023.protos.RpcVect"
+    "or2D\022#\n\006point2\030\003 \001(\0132\023.protos.RpcVector2"
+    "D\022#\n\006point3\030\004 \001(\0132\023.protos.RpcVector2D\022\r"
+    "\n\005color\030\005 \001(\t\022\014\n\004fill\030\006 \001(\010\"\211\001\n\014AddRecta"
+    "ngle\022\"\n\005level\030\001 \001(\0162\023.protos.LoggerLevel"
+    "\022\014\n\004left\030\002 \001(\002\022\013\n\003top\030\003 \001(\002\022\016\n\006length\030\004 "
+    "\001(\002\022\r\n\005width\030\005 \001(\002\022\r\n\005color\030\006 \001(\t\022\014\n\004fil"
+    "l\030\007 \001(\010\"\302\001\n\tAddSector\022\"\n\005level\030\001 \001(\0162\023.p"
+    "rotos.LoggerLevel\022#\n\006center\030\002 \001(\0132\023.prot"
+    "os.RpcVector2D\022\022\n\nmin_radius\030\003 \001(\002\022\022\n\nma"
+    "x_radius\030\004 \001(\002\022\023\n\013start_angle\030\005 \001(\002\022\022\n\ns"
+    "pan_angel\030\006 \001(\002\022\r\n\005color\030\007 \001(\t\022\014\n\004fill\030\010"
+    " \001(\010\"w\n\nAddMessage\022\"\n\005level\030\001 \001(\0162\023.prot"
+    "os.LoggerLevel\022%\n\010position\030\002 \001(\0132\023.proto"
+    "s.RpcVector2D\022\017\n\007message\030\003 \001(\t\022\r\n\005color\030"
+    "\004 \001(\t\"\371\002\n\003Log\022#\n\010add_text\030\001 \001(\0132\017.protos"
+    ".AddTextH\000\022%\n\tadd_point\030\002 \001(\0132\020.protos.A"
+    "ddPointH\000\022#\n\010add_line\030\003 \001(\0132\017.protos.Add"
+    "LineH\000\022!\n\007add_arc\030\004 \001(\0132\016.protos.AddArcH"
+    "\000\022\'\n\nadd_circle\030\005 \001(\0132\021.protos.AddCircle"
+    "H\000\022+\n\014add_triangle\030\006 \001(\0132\023.protos.AddTri"
+    "angleH\000\022-\n\radd_rectangle\030\007 \001(\0132\024.protos."
+    "AddRectangleH\000\022\'\n\nadd_sector\030\010 \001(\0132\021.pro"
+    "tos.AddSectorH\000\022)\n\013add_message\030\t \001(\0132\022.p"
+    "rotos.AddMessageH\000B\005\n\003log\"\036\n\013DebugClient"
+    "\022\017\n\007message\030\001 \001(\t\"o\n\016Body_GoToPoint\022)\n\014t"
+    "arget_point\030\001 \001(\0132\023.protos.RpcVector2D\022\032"
+    "\n\022distance_threshold\030\002 \001(\002\022\026\n\016max_dash_p"
+    "ower\030\003 \001(\002\"\202\001\n\016Body_SmartKick\022)\n\014target_"
+    "point\030\001 \001(\0132\023.protos.RpcVector2D\022\023\n\013firs"
+    "t_speed\030\002 \001(\002\022\035\n\025first_speed_threshold\030\003"
+    " \001(\002\022\021\n\tmax_steps\030\004 \001(\005\"7\n\021Bhv_BeforeKic"
+    "kOff\022\"\n\005point\030\001 \001(\0132\023.protos.RpcVector2D"
+    "\"\024\n\022Bhv_BodyNeckToBall\"9\n\023Bhv_BodyNeckTo"
+    "Point\022\"\n\005point\030\001 \001(\0132\023.protos.RpcVector2"
+    "D\"\017\n\rBhv_Emergency\"v\n\025Bhv_GoToPointLookB"
+    "all\022)\n\014target_point\030\001 \001(\0132\023.protos.RpcVe"
+    "ctor2D\022\032\n\022distance_threshold\030\002 \001(\002\022\026\n\016ma"
+    "x_dash_power\030\003 \001(\002\"\'\n\022Bhv_NeckBodyToBall"
+    "\022\021\n\tangle_buf\030\001 \001(\002\"L\n\023Bhv_NeckBodyToPoi"
+    "nt\022\"\n\005point\030\001 \001(\0132\023.protos.RpcVector2D\022\021"
+    "\n\tangle_buf\030\002 \001(\002\"\017\n\rBhv_ScanField\"\022\n\020Bo"
+    "dy_AdvanceBall\"\020\n\016Body_ClearBall\"\214\001\n\014Bod"
+    "y_Dribble\022)\n\014target_point\030\001 \001(\0132\023.protos"
+    ".RpcVector2D\022\032\n\022distance_threshold\030\002 \001(\002"
+    "\022\022\n\ndash_power\030\003 \001(\002\022\022\n\ndash_count\030\004 \001(\005"
+    "\022\r\n\005dodge\030\005 \001(\010\"T\n\023Body_GoToPointDodge\022)"
+    "\n\014target_point\030\001 \001(\0132\023.protos.RpcVector2"
+    "D\022\022\n\ndash_power\030\002 \001(\002\"\200\001\n\rBody_HoldBall\022"
+    "\017\n\007do_turn\030\001 \001(\010\022.\n\021turn_target_point\030\002 "
+    "\001(\0132\023.protos.RpcVector2D\022.\n\021kick_target_"
+    "point\030\003 \001(\0132\023.protos.RpcVector2D\"P\n\016Body"
+    "_Intercept\022\025\n\rsave_recovery\030\001 \001(\010\022\'\n\nfac"
+    "e_point\030\002 \001(\0132\023.protos.RpcVector2D\"f\n\020Bo"
+    "dy_KickOneStep\022)\n\014target_point\030\001 \001(\0132\023.p"
+    "rotos.RpcVector2D\022\023\n\013first_speed\030\002 \001(\002\022\022"
+    "\n\nforce_mode\030\003 \001(\010\"\017\n\rBody_StopBall\"&\n\rB"
+    "ody_StopDash\022\025\n\rsave_recovery\030\001 \001(\010\"k\n\022B"
+    "ody_TackleToPoint\022)\n\014target_point\030\001 \001(\0132"
+    "\023.protos.RpcVector2D\022\027\n\017min_probability\030"
+    "\002 \001(\002\022\021\n\tmin_speed\030\003 \001(\002\"!\n\020Body_TurnToA"
+    "ngle\022\r\n\005angle\030\001 \001(\002\" \n\017Body_TurnToBall\022\r"
+    "\n\005cycle\030\001 \001(\005\"L\n\020Body_TurnToPoint\022)\n\014tar"
+    "get_point\030\001 \001(\0132\023.protos.RpcVector2D\022\r\n\005"
+    "cycle\030\002 \001(\005\">\n\021Focus_MoveToPoint\022)\n\014targ"
+    "et_point\030\001 \001(\0132\023.protos.RpcVector2D\"\r\n\013F"
+    "ocus_Reset\"\020\n\016Neck_ScanField\"\022\n\020Neck_Sca"
+    "nPlayers\"g\n\030Neck_TurnToBallAndPlayer\022\032\n\004"
+    "side\030\001 \001(\0162\014.protos.Side\022\026\n\016uniform_numb"
+    "er\030\002 \001(\005\022\027\n\017count_threshold\030\003 \001(\005\"0\n\025Nec"
+    "k_TurnToBallOrScan\022\027\n\017count_threshold\030\001 "
+    "\001(\005\"\021\n\017Neck_TurnToBall\"2\n\027Neck_TurnToGoa"
+    "lieOrScan\022\027\n\017count_threshold\030\001 \001(\005\"\034\n\032Ne"
+    "ck_TurnToLowConfTeammate\"f\n\027Neck_TurnToP"
+    "layerOrScan\022\032\n\004side\030\001 \001(\0162\014.protos.Side\022"
+    "\026\n\016uniform_number\030\002 \001(\005\022\027\n\017count_thresho"
+    "ld\030\003 \001(\005\"=\n\020Neck_TurnToPoint\022)\n\014target_p"
+    "oint\030\001 \001(\0132\023.protos.RpcVector2D\"$\n\023Neck_"
+    "TurnToRelative\022\r\n\005angle\030\001 \001(\002\"9\n\020View_Ch"
+    "angeWidth\022%\n\nview_width\030\001 \001(\0162\021.protos.V"
+    "iewWidth\"\r\n\013View_Normal\"\014\n\nView_Synch\"\013\n"
+    "\tView_Wide\"\016\n\014HeliosGoalie\"\022\n\020HeliosGoal"
+    "ieMove\"\022\n\020HeliosGoalieKick\"\r\n\013HeliosShoo"
+    "t\"\320\001\n\021HeliosChainAction\022\023\n\013direct_pass\030\001"
+    " \001(\010\022\021\n\tlead_pass\030\002 \001(\010\022\024\n\014through_pass\030"
+    "\003 \001(\010\022\025\n\rshort_dribble\030\004 \001(\010\022\024\n\014long_dri"
+    "bble\030\005 \001(\010\022\r\n\005cross\030\006 \001(\010\022\023\n\013simple_pass"
+    "\030\007 \001(\010\022\026\n\016simple_dribble\030\010 \001(\010\022\024\n\014simple"
+    "_shoot\030\t \001(\010\"\026\n\024HeliosBasicOffensive\"\021\n\017"
+    "HeliosBasicMove\"\017\n\rHeliosSetPlay\"\017\n\rHeli"
+    "osPenalty\"\024\n\022HeliosCommunicaion\"\343\031\n\014Play"
+    "erAction\022\034\n\004dash\030\001 \001(\0132\014.protos.DashH\000\022\034"
+    "\n\004turn\030\002 \001(\0132\014.protos.TurnH\000\022\034\n\004kick\030\003 \001"
+    "(\0132\014.protos.KickH\000\022 \n\006tackle\030\004 \001(\0132\016.pro"
+    "tos.TackleH\000\022\036\n\005catch\030\005 \001(\0132\r.protos.Cat"
+    "chH\000\022\034\n\004move\030\006 \001(\0132\014.protos.MoveH\000\022%\n\ttu"
+    "rn_neck\030\007 \001(\0132\020.protos.TurnNeckH\000\022)\n\013cha"
+    "nge_view\030\010 \001(\0132\022.protos.ChangeViewH\000\022\032\n\003"
+    "say\030\t \001(\0132\013.protos.SayH\000\022#\n\010point_to\030\n \001"
+    "(\0132\017.protos.PointToH\000\022(\n\013point_to_of\030\013 \001"
+    "(\0132\021.protos.PointToOfH\000\022+\n\014attention_to\030"
+    "\014 \001(\0132\023.protos.AttentionToH\000\0220\n\017attentio"
+    "n_to_of\030\r \001(\0132\025.protos.AttentionToOfH\000\022\032"
+    "\n\003log\030\016 \001(\0132\013.protos.LogH\000\022+\n\014debug_clie"
+    "nt\030\017 \001(\0132\023.protos.DebugClientH\000\0222\n\020body_"
+    "go_to_point\030\020 \001(\0132\026.protos.Body_GoToPoin"
+    "tH\000\0221\n\017body_smart_kick\030\021 \001(\0132\026.protos.Bo"
+    "dy_SmartKickH\000\0228\n\023bhv_before_kick_off\030\022 "
+    "\001(\0132\031.protos.Bhv_BeforeKickOffH\000\022;\n\025bhv_"
+    "body_neck_to_ball\030\023 \001(\0132\032.protos.Bhv_Bod"
+    "yNeckToBallH\000\022=\n\026bhv_body_neck_to_point\030"
+    "\024 \001(\0132\033.protos.Bhv_BodyNeckToPointH\000\022.\n\r"
+    "bhv_emergency\030\025 \001(\0132\025.protos.Bhv_Emergen"
+    "cyH\000\022B\n\031bhv_go_to_point_look_ball\030\026 \001(\0132"
+    "\035.protos.Bhv_GoToPointLookBallH\000\022;\n\025bhv_"
+    "neck_body_to_ball\030\027 \001(\0132\032.protos.Bhv_Nec"
+    "kBodyToBallH\000\022=\n\026bhv_neck_body_to_point\030"
+    "\030 \001(\0132\033.protos.Bhv_NeckBodyToPointH\000\022/\n\016"
+    "bhv_scan_field\030\031 \001(\0132\025.protos.Bhv_ScanFi"
+    "eldH\000\0225\n\021body_advance_ball\030\032 \001(\0132\030.proto"
+    "s.Body_AdvanceBallH\000\0221\n\017body_clear_ball\030"
+    "\033 \001(\0132\026.protos.Body_ClearBallH\000\022,\n\014body_"
+    "dribble\030\034 \001(\0132\024.protos.Body_DribbleH\000\022=\n"
+    "\026body_go_to_point_dodge\030\035 \001(\0132\033.protos.B"
+    "ody_GoToPointDodgeH\000\022/\n\016body_hold_ball\030\036"
+    " \001(\0132\025.protos.Body_HoldBallH\000\0220\n\016body_in"
+    "tercept\030\037 \001(\0132\026.protos.Body_InterceptH\000\022"
+    "6\n\022body_kick_one_step\030  \001(\0132\030.protos.Bod"
+    "y_KickOneStepH\000\022/\n\016body_stop_ball\030! \001(\0132"
+    "\025.protos.Body_StopBallH\000\022/\n\016body_stop_da"
+    "sh\030\" \001(\0132\025.protos.Body_StopDashH\000\022:\n\024bod"
+    "y_tackle_to_point\030# \001(\0132\032.protos.Body_Ta"
+    "ckleToPointH\000\0226\n\022body_turn_to_angle\030$ \001("
+    "\0132\030.protos.Body_TurnToAngleH\000\0224\n\021body_tu"
+    "rn_to_ball\030% \001(\0132\027.protos.Body_TurnToBal"
+    "lH\000\0226\n\022body_turn_to_point\030& \001(\0132\030.protos"
+    ".Body_TurnToPointH\000\0228\n\023focus_move_to_poi"
+    "nt\030\' \001(\0132\031.protos.Focus_MoveToPointH\000\022*\n"
+    "\013focus_reset\030( \001(\0132\023.protos.Focus_ResetH"
+    "\000\0221\n\017neck_scan_field\030) \001(\0132\026.protos.Neck"
+    "_ScanFieldH\000\0225\n\021neck_scan_players\030* \001(\0132"
+    "\030.protos.Neck_ScanPlayersH\000\022H\n\034neck_turn"
+    "_to_ball_and_player\030+ \001(\0132 .protos.Neck_"
+    "TurnToBallAndPlayerH\000\022B\n\031neck_turn_to_ba"
+    "ll_or_scan\030, \001(\0132\035.protos.Neck_TurnToBal"
+    "lOrScanH\000\0224\n\021neck_turn_to_ball\030- \001(\0132\027.p"
+    "rotos.Neck_TurnToBallH\000\022F\n\033neck_turn_to_"
+    "goalie_or_scan\030. \001(\0132\037.protos.Neck_TurnT"
+    "oGoalieOrScanH\000\022L\n\036neck_turn_to_low_conf"
+    "_teammate\030/ \001(\0132\".protos.Neck_TurnToLowC"
+    "onfTeammateH\000\022F\n\033neck_turn_to_player_or_"
+    "scan\0300 \001(\0132\037.protos.Neck_TurnToPlayerOrS"
+    "canH\000\0226\n\022neck_turn_to_point\0301 \001(\0132\030.prot"
+    "os.Neck_TurnToPointH\000\022<\n\025neck_turn_to_re"
+    "lative\0302 \001(\0132\033.protos.Neck_TurnToRelativ"
+    "eH\000\0225\n\021view_change_width\0303 \001(\0132\030.protos."
+    "View_ChangeWidthH\000\022*\n\013view_normal\0304 \001(\0132"
+    "\023.protos.View_NormalH\000\022(\n\nview_synch\0305 \001"
+    "(\0132\022.protos.View_SynchH\000\022&\n\tview_wide\0306 "
+    "\001(\0132\021.protos.View_WideH\000\022-\n\rhelios_goali"
+    "e\0307 \001(\0132\024.protos.HeliosGoalieH\000\0226\n\022helio"
+    "s_goalie_move\0308 \001(\0132\030.protos.HeliosGoali"
+    "eMoveH\000\0226\n\022helios_goalie_kick\0309 \001(\0132\030.pr"
+    "otos.HeliosGoalieKickH\000\022+\n\014helios_shoot\030"
+    ": \001(\0132\023.protos.HeliosShootH\000\0228\n\023helios_c"
+    "hain_action\030; \001(\0132\031.protos.HeliosChainAc"
+    "tionH\000\022>\n\026helios_basic_offensive\030< \001(\0132\034"
+    ".protos.HeliosBasicOffensiveH\000\0224\n\021helios"
+    "_basic_move\030= \001(\0132\027.protos.HeliosBasicMo"
+    "veH\000\0220\n\017helios_set_play\030> \001(\0132\025.protos.H"
+    "eliosSetPlayH\000\022/\n\016helios_penalty\030\? \001(\0132\025"
+    ".protos.HeliosPenaltyH\000\022:\n\024helios_commun"
+    "ication\030@ \001(\0132\032.protos.HeliosCommunicaio"
+    "nH\000B\010\n\006action\"6\n\rPlayerActions\022%\n\007action"
+    "s\030\001 \003(\0132\024.protos.PlayerAction\"8\n\020ChangeP"
+    "layerType\022\026\n\016uniform_number\030\001 \001(\005\022\014\n\004typ"
+    "e\030\002 \001(\005\"\024\n\022DoHeliosSubstitute\"\030\n\026DoHelio"
+    "sSayPlayerTypes\"\322\001\n\013CoachAction\0227\n\023chang"
+    "e_player_types\030\001 \001(\0132\030.protos.ChangePlay"
+    "erTypeH\000\022:\n\024do_helios_substitute\030\002 \001(\0132\032"
+    ".protos.DoHeliosSubstituteH\000\022D\n\032do_helio"
+    "s_say_player_types\030\003 \001(\0132\036.protos.DoHeli"
+    "osSayPlayerTypesH\000B\010\n\006action\"4\n\014CoachAct"
+    "ions\022$\n\007actions\030\001 \003(\0132\023.protos.CoachActi"
+    "on\"\013\n\tDoKickOff\"Z\n\nDoMoveBall\022%\n\010positio"
+    "n\030\001 \001(\0132\023.protos.RpcVector2D\022%\n\010velocity"
+    "\030\002 \001(\0132\023.protos.RpcVector2D\"w\n\014DoMovePla"
+    "yer\022\020\n\010our_side\030\001 \001(\010\022\026\n\016uniform_number\030"
+    "\002 \001(\005\022%\n\010position\030\003 \001(\0132\023.protos.RpcVect"
+    "or2D\022\026\n\016body_direction\030\004 \001(\002\"\013\n\tDoRecove"
+    "r\"X\n\014DoChangeMode\022,\n\016game_mode_type\030\001 \001("
+    "\0162\024.protos.GameModeType\022\032\n\004side\030\002 \001(\0162\014."
+    "protos.Side\"L\n\022DoChangePlayerType\022\020\n\010our"
+    "_side\030\001 \001(\010\022\026\n\016uniform_number\030\002 \001(\005\022\014\n\004t"
+    "ype\030\003 \001(\005\"\265\002\n\rTrainerAction\022(\n\013do_kick_o"
+    "ff\030\001 \001(\0132\021.protos.DoKickOffH\000\022*\n\014do_move"
+    "_ball\030\002 \001(\0132\022.protos.DoMoveBallH\000\022.\n\016do_"
+    "move_player\030\003 \001(\0132\024.protos.DoMovePlayerH"
+    "\000\022\'\n\ndo_recover\030\004 \001(\0132\021.protos.DoRecover"
+    "H\000\022.\n\016do_change_mode\030\005 \001(\0132\024.protos.DoCh"
+    "angeModeH\000\022;\n\025do_change_player_type\030\006 \001("
+    "\0132\032.protos.DoChangePlayerTypeH\000B\010\n\006actio"
+    "n\"8\n\016TrainerActions\022&\n\007actions\030\001 \003(\0132\025.p"
+    "rotos.TrainerAction\"\335,\n\013ServerParam\0223\n\021r"
+    "egister_response\030\001 \001(\0132\030.protos.Register"
+    "Response\022\026\n\016inertia_moment\030\002 \001(\002\022\023\n\013play"
+    "er_size\030\003 \001(\002\022\024\n\014player_decay\030\004 \001(\002\022\023\n\013p"
+    "layer_rand\030\005 \001(\002\022\025\n\rplayer_weight\030\006 \001(\002\022"
+    "\030\n\020player_speed_max\030\007 \001(\002\022\030\n\020player_acce"
+    "l_max\030\010 \001(\002\022\023\n\013stamina_max\030\t \001(\002\022\027\n\017stam"
+    "ina_inc_max\030\n \001(\002\022\024\n\014recover_init\030\013 \001(\002\022"
+    "\027\n\017recover_dec_thr\030\014 \001(\002\022\023\n\013recover_min\030"
+    "\r \001(\002\022\023\n\013recover_dec\030\016 \001(\002\022\023\n\013effort_ini"
+    "t\030\017 \001(\002\022\026\n\016effort_dec_thr\030\020 \001(\002\022\022\n\neffor"
+    "t_min\030\021 \001(\002\022\022\n\neffort_dec\030\022 \001(\002\022\026\n\016effor"
+    "t_inc_thr\030\023 \001(\002\022\022\n\neffort_inc\030\024 \001(\002\022\021\n\tk"
+    "ick_rand\030\025 \001(\002\022\033\n\023team_actuator_noise\030\026 "
+    "\001(\010\022\034\n\024player_rand_factor_l\030\027 \001(\002\022\034\n\024pla"
+    "yer_rand_factor_r\030\030 \001(\002\022\032\n\022kick_rand_fac"
+    "tor_l\030\031 \001(\002\022\032\n\022kick_rand_factor_r\030\032 \001(\002\022"
+    "\021\n\tball_size\030\033 \001(\002\022\022\n\nball_decay\030\034 \001(\002\022\021"
+    "\n\tball_rand\030\035 \001(\002\022\023\n\013ball_weight\030\036 \001(\002\022\026"
+    "\n\016ball_speed_max\030\037 \001(\002\022\026\n\016ball_accel_max"
+    "\030  \001(\002\022\027\n\017dash_power_rate\030! \001(\002\022\027\n\017kick_"
+    "power_rate\030\" \001(\002\022\027\n\017kickable_margin\030# \001("
+    "\002\022\026\n\016control_radius\030$ \001(\002\022\034\n\024control_rad"
+    "ius_width\030% \001(\002\022\021\n\tmax_power\030& \001(\002\022\021\n\tmi"
+    "n_power\030\' \001(\002\022\022\n\nmax_moment\030( \001(\002\022\022\n\nmin"
+    "_moment\030) \001(\002\022\027\n\017max_neck_moment\030* \001(\002\022\027"
+    "\n\017min_neck_moment\030+ \001(\002\022\026\n\016max_neck_angl"
+    "e\030, \001(\002\022\026\n\016min_neck_angle\030- \001(\002\022\025\n\rvisib"
+    "le_angle\030. \001(\002\022\030\n\020visible_distance\030/ \001(\002"
+    "\022\020\n\010wind_dir\0300 \001(\002\022\022\n\nwind_force\0301 \001(\002\022\022"
+    "\n\nwind_angle\0302 \001(\002\022\021\n\twind_rand\0303 \001(\002\022\025\n"
+    "\rkickable_area\0304 \001(\002\022\024\n\014catch_area_l\0305 \001"
+    "(\002\022\024\n\014catch_area_w\0306 \001(\002\022\031\n\021catch_probab"
+    "ility\0307 \001(\002\022\030\n\020goalie_max_moves\0308 \001(\005\022\032\n"
+    "\022corner_kick_margin\0309 \001(\002\022 \n\030offside_act"
+    "ive_area_size\030: \001(\002\022\021\n\twind_none\030; \001(\010\022\027"
+    "\n\017use_wind_random\030< \001(\010\022\033\n\023coach_say_cou"
+    "nt_max\030= \001(\005\022\032\n\022coach_say_msg_size\030> \001(\005"
+    "\022\026\n\016clang_win_size\030\? \001(\005\022\030\n\020clang_define"
+    "_win\030@ \001(\005\022\026\n\016clang_meta_win\030A \001(\005\022\030\n\020cl"
+    "ang_advice_win\030B \001(\005\022\026\n\016clang_info_win\030C"
+    " \001(\005\022\030\n\020clang_mess_delay\030D \001(\005\022\034\n\024clang_"
+    "mess_per_cycle\030E \001(\005\022\021\n\thalf_time\030F \001(\005\022"
+    "\026\n\016simulator_step\030G \001(\005\022\021\n\tsend_step\030H \001"
+    "(\005\022\021\n\trecv_step\030I \001(\005\022\027\n\017sense_body_step"
+    "\030J \001(\005\022\020\n\010lcm_step\030K \001(\005\022\033\n\023player_say_m"
+    "sg_size\030L \001(\005\022\027\n\017player_hear_max\030M \001(\005\022\027"
+    "\n\017player_hear_inc\030N \001(\005\022\031\n\021player_hear_d"
+    "ecay\030O \001(\005\022\027\n\017catch_ban_cycle\030P \001(\005\022\030\n\020s"
+    "low_down_factor\030Q \001(\005\022\023\n\013use_offside\030R \001"
+    "(\010\022\027\n\017kickoff_offside\030S \001(\010\022\033\n\023offside_k"
+    "ick_margin\030T \001(\002\022\026\n\016audio_cut_dist\030U \001(\002"
+    "\022\032\n\022dist_quantize_step\030V \001(\002\022#\n\033landmark"
+    "_dist_quantize_step\030W \001(\002\022\031\n\021dir_quantiz"
+    "e_step\030X \001(\002\022\034\n\024dist_quantize_step_l\030Y \001"
+    "(\002\022\034\n\024dist_quantize_step_r\030Z \001(\002\022%\n\035land"
+    "mark_dist_quantize_step_l\030[ \001(\002\022%\n\035landm"
+    "ark_dist_quantize_step_r\030\\ \001(\002\022\033\n\023dir_qu"
+    "antize_step_l\030] \001(\002\022\033\n\023dir_quantize_step"
+    "_r\030^ \001(\002\022\022\n\ncoach_mode\030_ \001(\010\022\037\n\027coach_wi"
+    "th_referee_mode\030` \001(\010\022\032\n\022use_old_coach_h"
+    "ear\030a \001(\010\022%\n\035slowness_on_top_for_left_te"
+    "am\030b \001(\002\022&\n\036slowness_on_top_for_right_te"
+    "am\030c \001(\002\022\024\n\014start_goal_l\030d \001(\005\022\024\n\014start_"
+    "goal_r\030e \001(\005\022\023\n\013fullstate_l\030f \001(\010\022\023\n\013ful"
+    "lstate_r\030g \001(\010\022\026\n\016drop_ball_time\030h \001(\005\022\022"
+    "\n\nsynch_mode\030i \001(\010\022\024\n\014synch_offset\030j \001(\005"
+    "\022\031\n\021synch_micro_sleep\030k \001(\005\022\024\n\014point_to_"
+    "ban\030l \001(\005\022\031\n\021point_to_duration\030m \001(\005\022\023\n\013"
+    "player_port\030n \001(\005\022\024\n\014trainer_port\030o \001(\005\022"
+    "\031\n\021online_coach_port\030p \001(\005\022\024\n\014verbose_mo"
+    "de\030q \001(\010\022\032\n\022coach_send_vi_step\030r \001(\005\022\023\n\013"
+    "replay_file\030s \001(\t\022\025\n\rlandmark_file\030t \001(\t"
+    "\022\022\n\nsend_comms\030u \001(\010\022\024\n\014text_logging\030v \001"
+    "(\010\022\024\n\014game_logging\030w \001(\010\022\030\n\020game_log_ver"
+    "sion\030x \001(\005\022\024\n\014text_log_dir\030y \001(\t\022\024\n\014game"
+    "_log_dir\030z \001(\t\022\033\n\023text_log_fixed_name\030{ "
+    "\001(\t\022\033\n\023game_log_fixed_name\030| \001(\t\022\032\n\022use_"
+    "text_log_fixed\030} \001(\010\022\032\n\022use_game_log_fix"
+    "ed\030~ \001(\010\022\032\n\022use_text_log_dated\030\177 \001(\010\022\033\n\022"
+    "use_game_log_dated\030\200\001 \001(\010\022\030\n\017log_date_fo"
+    "rmat\030\201\001 \001(\t\022\022\n\tlog_times\030\202\001 \001(\010\022\027\n\016recor"
+    "d_message\030\203\001 \001(\010\022\035\n\024text_log_compression"
+    "\030\204\001 \001(\005\022\035\n\024game_log_compression\030\205\001 \001(\005\022\024"
+    "\n\013use_profile\030\206\001 \001(\010\022\024\n\013tackle_dist\030\207\001 \001"
+    "(\002\022\031\n\020tackle_back_dist\030\210\001 \001(\002\022\025\n\014tackle_"
+    "width\030\211\001 \001(\002\022\030\n\017tackle_exponent\030\212\001 \001(\002\022\026"
+    "\n\rtackle_cycles\030\213\001 \001(\005\022\032\n\021tackle_power_r"
+    "ate\030\214\001 \001(\002\022\035\n\024freeform_wait_period\030\215\001 \001("
+    "\005\022\035\n\024freeform_send_period\030\216\001 \001(\005\022\031\n\020free"
+    "_kick_faults\030\217\001 \001(\010\022\024\n\013back_passes\030\220\001 \001("
+    "\010\022\032\n\021proper_goal_kicks\030\221\001 \001(\010\022\031\n\020stopped"
+    "_ball_vel\030\222\001 \001(\002\022\027\n\016max_goal_kicks\030\223\001 \001("
+    "\005\022\026\n\rclang_del_win\030\224\001 \001(\005\022\027\n\016clang_rule_"
+    "win\030\225\001 \001(\005\022\022\n\tauto_mode\030\226\001 \001(\010\022\026\n\rkick_o"
+    "ff_wait\030\227\001 \001(\005\022\025\n\014connect_wait\030\230\001 \001(\005\022\027\n"
+    "\016game_over_wait\030\231\001 \001(\005\022\025\n\014team_l_start\030\232"
+    "\001 \001(\t\022\025\n\014team_r_start\030\233\001 \001(\t\022\026\n\rkeepaway"
+    "_mode\030\234\001 \001(\010\022\030\n\017keepaway_length\030\235\001 \001(\002\022\027"
+    "\n\016keepaway_width\030\236\001 \001(\002\022\031\n\020keepaway_logg"
+    "ing\030\237\001 \001(\010\022\031\n\020keepaway_log_dir\030\240\001 \001(\t\022 \n"
+    "\027keepaway_log_fixed_name\030\241\001 \001(\t\022\033\n\022keepa"
+    "way_log_fixed\030\242\001 \001(\010\022\033\n\022keepaway_log_dat"
+    "ed\030\243\001 \001(\010\022\027\n\016keepaway_start\030\244\001 \001(\005\022\030\n\017nr"
+    "_normal_halfs\030\245\001 \001(\005\022\027\n\016nr_extra_halfs\030\246"
+    "\001 \001(\005\022\033\n\022penalty_shoot_outs\030\247\001 \001(\010\022\036\n\025pe"
+    "n_before_setup_wait\030\250\001 \001(\005\022\027\n\016pen_setup_"
+    "wait\030\251\001 \001(\005\022\027\n\016pen_ready_wait\030\252\001 \001(\005\022\027\n\016"
+    "pen_taken_wait\030\253\001 \001(\005\022\025\n\014pen_nr_kicks\030\254\001"
+    " \001(\005\022\034\n\023pen_max_extra_kicks\030\255\001 \001(\005\022\023\n\npe"
+    "n_dist_x\030\256\001 \001(\002\022\032\n\021pen_random_winner\030\257\001 "
+    "\001(\010\022\035\n\024pen_allow_mult_kicks\030\260\001 \001(\010\022\036\n\025pe"
+    "n_max_goalie_dist_x\030\261\001 \001(\002\022 \n\027pen_coach_"
+    "moves_players\030\262\001 \001(\010\022\023\n\nmodule_dir\030\263\001 \001("
+    "\t\022\030\n\017ball_stuck_area\030\264\001 \001(\002\022\027\n\016coach_msg"
+    "_file\030\265\001 \001(\t\022\031\n\020max_tackle_power\030\266\001 \001(\002\022"
+    "\036\n\025max_back_tackle_power\030\267\001 \001(\002\022\035\n\024playe"
+    "r_speed_max_min\030\270\001 \001(\002\022\026\n\rextra_stamina\030"
+    "\271\001 \001(\002\022\031\n\020synch_see_offset\030\272\001 \001(\005\022\030\n\017ext"
+    "ra_half_time\030\273\001 \001(\005\022\031\n\020stamina_capacity\030"
+    "\274\001 \001(\002\022\027\n\016max_dash_angle\030\275\001 \001(\002\022\027\n\016min_d"
+    "ash_angle\030\276\001 \001(\002\022\030\n\017dash_angle_step\030\277\001 \001"
+    "(\002\022\027\n\016side_dash_rate\030\300\001 \001(\002\022\027\n\016back_dash"
+    "_rate\030\301\001 \001(\002\022\027\n\016max_dash_power\030\302\001 \001(\002\022\027\n"
+    "\016min_dash_power\030\303\001 \001(\002\022\033\n\022tackle_rand_fa"
+    "ctor\030\304\001 \001(\002\022 \n\027foul_detect_probability\030\305"
+    "\001 \001(\002\022\026\n\rfoul_exponent\030\306\001 \001(\002\022\024\n\013foul_cy"
+    "cles\030\307\001 \001(\005\022\024\n\013golden_goal\030\310\001 \001(\010\022\035\n\024red"
+    "_card_probability\030\311\001 \001(\002\022!\n\030illegal_defe"
+    "nse_duration\030\312\001 \001(\005\022\037\n\026illegal_defense_n"
+    "umber\030\313\001 \001(\005\022\037\n\026illegal_defense_dist_x\030\314"
+    "\001 \001(\002\022\036\n\025illegal_defense_width\030\315\001 \001(\002\022\031\n"
+    "\020fixed_teamname_l\030\316\001 \001(\t\022\031\n\020fixed_teamna"
+    "me_r\030\317\001 \001(\t\022\030\n\017max_catch_angle\030\320\001 \001(\002\022\030\n"
+    "\017min_catch_angle\030\321\001 \001(\002\022\024\n\013random_seed\030\322"
+    "\001 \001(\005\022\037\n\026long_kick_power_factor\030\323\001 \001(\002\022\030"
+    "\n\017long_kick_delay\030\324\001 \001(\005\022\025\n\014max_monitors"
+    "\030\325\001 \001(\005\022\027\n\016catchable_area\030\326\001 \001(\002\022\027\n\016real"
+    "_speed_max\030\327\001 \001(\002\022\032\n\021pitch_half_length\030\330"
+    "\001 \001(\002\022\031\n\020pitch_half_width\030\331\001 \001(\002\022 \n\027our_"
+    "penalty_area_line_x\030\332\001 \001(\002\022\"\n\031their_pena"
+    "lty_area_line_x\030\333\001 \001(\002\022 \n\027penalty_area_h"
+    "alf_width\030\334\001 \001(\002\022\034\n\023penalty_area_length\030"
+    "\335\001 \001(\002\022\023\n\ngoal_width\030\336\001 \001(\002\"\215\010\n\013PlayerPa"
+    "ram\0223\n\021register_response\030\001 \001(\0132\030.protos."
+    "RegisterResponse\022\024\n\014player_types\030\002 \001(\005\022\020"
+    "\n\010subs_max\030\003 \001(\005\022\016\n\006pt_max\030\004 \001(\005\022\037\n\027allo"
+    "w_mult_default_type\030\005 \001(\010\022\"\n\032player_spee"
+    "d_max_delta_min\030\006 \001(\002\022\"\n\032player_speed_ma"
+    "x_delta_max\030\007 \001(\002\022$\n\034stamina_inc_max_del"
+    "ta_factor\030\010 \001(\002\022\036\n\026player_decay_delta_mi"
+    "n\030\t \001(\002\022\036\n\026player_decay_delta_max\030\n \001(\002\022"
+    "#\n\033inertia_moment_delta_factor\030\013 \001(\002\022!\n\031"
+    "dash_power_rate_delta_min\030\014 \001(\002\022!\n\031dash_"
+    "power_rate_delta_max\030\r \001(\002\022 \n\030player_siz"
+    "e_delta_factor\030\016 \001(\002\022!\n\031kickable_margin_"
+    "delta_min\030\017 \001(\002\022!\n\031kickable_margin_delta"
+    "_max\030\020 \001(\002\022\036\n\026kick_rand_delta_factor\030\021 \001"
+    "(\002\022\037\n\027extra_stamina_delta_min\030\022 \001(\002\022\037\n\027e"
+    "xtra_stamina_delta_max\030\023 \001(\002\022\037\n\027effort_m"
+    "ax_delta_factor\030\024 \001(\002\022\037\n\027effort_min_delt"
+    "a_factor\030\025 \001(\002\022\023\n\013random_seed\030\026 \001(\005\022%\n\035n"
+    "ew_dash_power_rate_delta_min\030\027 \001(\002\022%\n\035ne"
+    "w_dash_power_rate_delta_max\030\030 \001(\002\022(\n new"
+    "_stamina_inc_max_delta_factor\030\031 \001(\002\022!\n\031k"
+    "ick_power_rate_delta_min\030\032 \001(\002\022!\n\031kick_p"
+    "ower_rate_delta_max\030\033 \001(\002\022,\n$foul_detect"
+    "_probability_delta_factor\030\034 \001(\002\022$\n\034catch"
+    "able_area_l_stretch_min\030\035 \001(\002\022$\n\034catchab"
+    "le_area_l_stretch_max\030\036 \001(\002\"\277\007\n\nPlayerTy"
+    "pe\0223\n\021register_response\030\001 \001(\0132\030.protos.R"
+    "egisterResponse\022\n\n\002id\030\002 \001(\005\022\027\n\017stamina_i"
+    "nc_max\030\003 \001(\002\022\024\n\014player_decay\030\004 \001(\002\022\026\n\016in"
+    "ertia_moment\030\005 \001(\002\022\027\n\017dash_power_rate\030\006 "
+    "\001(\002\022\023\n\013player_size\030\007 \001(\002\022\027\n\017kickable_mar"
+    "gin\030\010 \001(\002\022\021\n\tkick_rand\030\t \001(\002\022\025\n\rextra_st"
+    "amina\030\n \001(\002\022\022\n\neffort_max\030\013 \001(\002\022\022\n\neffor"
+    "t_min\030\014 \001(\002\022\027\n\017kick_power_rate\030\r \001(\002\022\037\n\027"
+    "foul_detect_probability\030\016 \001(\002\022 \n\030catchab"
+    "le_area_l_stretch\030\017 \001(\002\022\027\n\017unum_far_leng"
+    "th\030\020 \001(\002\022\033\n\023unum_too_far_length\030\021 \001(\002\022\027\n"
+    "\017team_far_length\030\022 \001(\002\022\033\n\023team_too_far_l"
+    "ength\030\023 \001(\002\022%\n\035player_max_observation_le"
+    "ngth\030\024 \001(\002\022\033\n\023ball_vel_far_length\030\025 \001(\002\022"
+    "\037\n\027ball_vel_too_far_length\030\026 \001(\002\022#\n\033ball"
+    "_max_observation_length\030\027 \001(\002\022\033\n\023flag_ch"
+    "g_far_length\030\030 \001(\002\022\037\n\027flag_chg_too_far_l"
+    "ength\030\031 \001(\002\022#\n\033flag_max_observation_leng"
+    "th\030\032 \001(\002\022\025\n\rkickable_area\030\033 \001(\002\022\037\n\027relia"
+    "ble_catchable_dist\030\034 \001(\002\022\032\n\022max_catchabl"
+    "e_dist\030\035 \001(\002\022\026\n\016real_speed_max\030\036 \001(\002\022\031\n\021"
+    "player_speed_max2\030\037 \001(\002\022\027\n\017real_speed_ma"
+    "x2\030  \001(\002\022!\n\031cycles_to_reach_max_speed\030! "
+    "\001(\005\022\030\n\020player_speed_max\030\" \001(\002\"\007\n\005Empty*-"
+    "\n\tViewWidth\022\n\n\006NARROW\020\000\022\n\n\006NORMAL\020\001\022\010\n\004W"
+    "IDE\020\002*(\n\004Side\022\013\n\007UNKNOWN\020\000\022\010\n\004LEFT\020\001\022\t\n\005"
+    "RIGHT\020\002*\262\002\n\013LoggerLevel\022\r\n\tNoneLevel\020\000\022\n"
+    "\n\006SYSTEM\020\001\022\n\n\006SENSOR\020\002\022\t\n\005WORLD\020\004\022\n\n\006ACT"
+    "ION\020\010\022\r\n\tINTERCEPT\020\020\022\010\n\004KICK\020 \022\010\n\004HOLD\020@"
+    "\022\014\n\007DRIBBLE\020\200\001\022\t\n\004PASS\020\200\002\022\n\n\005CROSS\020\200\004\022\n\n"
+    "\005SHOOT\020\200\010\022\n\n\005CLEAR\020\200\020\022\n\n\005BLOCK\020\200 \022\t\n\004MAR"
+    "K\020\200@\022\021\n\013POSITIONING\020\200\200\001\022\n\n\004ROLE\020\200\200\002\022\n\n\004T"
+    "EAM\020\200\200\004\022\023\n\rCOMMUNICATION\020\200\200\010\022\016\n\010ANALYZER"
+    "\020\200\200\020\022\022\n\014ACTION_CHAIN\020\200\200 \022\n\n\004PLAN\020\200\200@*v\n\023"
+    "InterceptActionType\022!\n\035UNKNOWN_Intercept"
+    "_Action_Type\020\000\022\r\n\tOMNI_DASH\020\001\022\025\n\021TURN_FO"
+    "RWARD_DASH\020\002\022\026\n\022TURN_BACKWARD_DASH\020\003*\273\004\n"
+    "\014GameModeType\022\021\n\rBeforeKickOff\020\000\022\014\n\010Time"
+    "Over\020\001\022\n\n\006PlayOn\020\002\022\014\n\010KickOff_\020\003\022\013\n\007Kick"
+    "In_\020\004\022\r\n\tFreeKick_\020\005\022\017\n\013CornerKick_\020\006\022\r\n"
+    "\tGoalKick_\020\007\022\016\n\nAfterGoal_\020\010\022\014\n\010OffSide_"
+    "\020\t\022\020\n\014PenaltyKick_\020\n\022\021\n\rFirstHalfOver\020\013\022"
+    "\t\n\005Pause\020\014\022\t\n\005Human\020\r\022\017\n\013FoulCharge_\020\016\022\r"
+    "\n\tFoulPush_\020\017\022\031\n\025FoulMultipleAttacker_\020\020"
+    "\022\020\n\014FoulBallOut_\020\021\022\r\n\tBackPass_\020\022\022\022\n\016Fre"
+    "eKickFault_\020\023\022\017\n\013CatchFault_\020\024\022\020\n\014IndFre"
+    "eKick_\020\025\022\021\n\rPenaltySetup_\020\026\022\021\n\rPenaltyRe"
+    "ady_\020\027\022\021\n\rPenaltyTaken_\020\030\022\020\n\014PenaltyMiss"
+    "_\020\031\022\021\n\rPenaltyScore_\020\032\022\023\n\017IllegalDefense"
+    "_\020\033\022\023\n\017PenaltyOnfield_\020\034\022\020\n\014PenaltyFoul_"
+    "\020\035\022\020\n\014GoalieCatch_\020\036\022\016\n\nExtendHalf\020\037\022\014\n\010"
+    "MODE_MAX\020 *2\n\tAgentType\022\013\n\007PlayerT\020\000\022\n\n\006"
+    "CoachT\020\001\022\014\n\010TrainerT\020\0022\234\004\n\004Game\022:\n\020GetPl"
+    "ayerActions\022\r.protos.State\032\025.protos.Play"
+    "erActions\"\000\0228\n\017GetCoachActions\022\r.protos."
+    "State\032\024.protos.CoachActions\"\000\022<\n\021GetTrai"
+    "nerActions\022\r.protos.State\032\026.protos.Train"
+    "erActions\"\000\0227\n\017SendInitMessage\022\023.protos."
+    "InitMessage\032\r.protos.Empty\"\000\0228\n\020SendServ"
+    "erParams\022\023.protos.ServerParam\032\r.protos.E"
+    "mpty\"\000\0228\n\020SendPlayerParams\022\023.protos.Play"
+    "erParam\032\r.protos.Empty\"\000\0225\n\016SendPlayerTy"
+    "pe\022\022.protos.PlayerType\032\r.protos.Empty\"\000\022"
+    "\?\n\010Register\022\027.protos.RegisterRequest\032\030.p"
+    "rotos.RegisterResponse\"\000\022;\n\016SendByeComma"
+    "nd\022\030.protos.RegisterResponse\032\r.protos.Em"
+    "pty\"\000b\006proto3"
 };
 static ::absl::once_flag descriptor_table_service_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_service_2eproto = {
     false,
     false,
-    26505,
+    27013,
     descriptor_table_protodef_service_2eproto,
     "service.proto",
     &descriptor_table_service_2eproto_once,
     nullptr,
     0,
-    127,
+    128,
     schemas,
     file_default_instances,
     TableStruct_service_2eproto::offsets,
@@ -6143,23 +6493,23 @@ bool AgentType_IsValid(int value) {
 }
 // ===================================================================
 
-class Vector2D::_Internal {
+class RpcVector2D::_Internal {
  public:
 };
 
-Vector2D::Vector2D(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+RpcVector2D::RpcVector2D(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:protos.Vector2D)
+  // @@protoc_insertion_point(arena_constructor:protos.RpcVector2D)
 }
-Vector2D::Vector2D(const Vector2D& from)
+RpcVector2D::RpcVector2D(const RpcVector2D& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
       from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:protos.Vector2D)
+  // @@protoc_insertion_point(copy_constructor:protos.RpcVector2D)
 }
 
-inline void Vector2D::SharedCtor(::_pb::Arena* arena) {
+inline void RpcVector2D::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
   new (&_impl_) Impl_{
       decltype(_impl_.x_) { 0 }
@@ -6174,8 +6524,8 @@ inline void Vector2D::SharedCtor(::_pb::Arena* arena) {
   };
 }
 
-Vector2D::~Vector2D() {
-  // @@protoc_insertion_point(destructor:protos.Vector2D)
+RpcVector2D::~RpcVector2D() {
+  // @@protoc_insertion_point(destructor:protos.RpcVector2D)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -6183,16 +6533,16 @@ Vector2D::~Vector2D() {
   SharedDtor();
 }
 
-inline void Vector2D::SharedDtor() {
+inline void RpcVector2D::SharedDtor() {
   ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void Vector2D::SetCachedSize(int size) const {
+void RpcVector2D::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void Vector2D::Clear() {
-// @@protoc_insertion_point(message_clear_start:protos.Vector2D)
+void RpcVector2D::Clear() {
+// @@protoc_insertion_point(message_clear_start:protos.RpcVector2D)
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -6203,7 +6553,7 @@ void Vector2D::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* Vector2D::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* RpcVector2D::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::uint32_t tag;
@@ -6268,9 +6618,9 @@ failure:
 #undef CHK_
 }
 
-::uint8_t* Vector2D::_InternalSerialize(
+::uint8_t* RpcVector2D::_InternalSerialize(
     ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:protos.Vector2D)
+  // @@protoc_insertion_point(serialize_to_array_start:protos.RpcVector2D)
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -6322,12 +6672,12 @@ failure:
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:protos.Vector2D)
+  // @@protoc_insertion_point(serialize_to_array_end:protos.RpcVector2D)
   return target;
 }
 
-::size_t Vector2D::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:protos.Vector2D)
+::size_t RpcVector2D::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:protos.RpcVector2D)
   ::size_t total_size = 0;
 
   ::uint32_t cached_has_bits = 0;
@@ -6373,17 +6723,17 @@ failure:
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Vector2D::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RpcVector2D::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    Vector2D::MergeImpl
+    RpcVector2D::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Vector2D::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RpcVector2D::GetClassData() const { return &_class_data_; }
 
 
-void Vector2D::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<Vector2D*>(&to_msg);
-  auto& from = static_cast<const Vector2D&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:protos.Vector2D)
+void RpcVector2D::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RpcVector2D*>(&to_msg);
+  auto& from = static_cast<const RpcVector2D&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:protos.RpcVector2D)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -6419,32 +6769,595 @@ void Vector2D::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTO
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void Vector2D::CopyFrom(const Vector2D& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:protos.Vector2D)
+void RpcVector2D::CopyFrom(const RpcVector2D& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:protos.RpcVector2D)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool Vector2D::IsInitialized() const {
+bool RpcVector2D::IsInitialized() const {
   return true;
 }
 
-void Vector2D::InternalSwap(Vector2D* other) {
+void RpcVector2D::InternalSwap(RpcVector2D* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Vector2D, _impl_.angle_)
-      + sizeof(Vector2D::_impl_.angle_)
-      - PROTOBUF_FIELD_OFFSET(Vector2D, _impl_.x_)>(
+      PROTOBUF_FIELD_OFFSET(RpcVector2D, _impl_.angle_)
+      + sizeof(RpcVector2D::_impl_.angle_)
+      - PROTOBUF_FIELD_OFFSET(RpcVector2D, _impl_.x_)>(
           reinterpret_cast<char*>(&_impl_.x_),
           reinterpret_cast<char*>(&other->_impl_.x_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata Vector2D::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata RpcVector2D::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
       file_level_metadata_service_2eproto[0]);
+}
+// ===================================================================
+
+class RegisterRequest::_Internal {
+ public:
+};
+
+RegisterRequest::RegisterRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:protos.RegisterRequest)
+}
+RegisterRequest::RegisterRequest(const RegisterRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  RegisterRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.team_name_) {}
+
+    , decltype(_impl_.agent_type_) {}
+
+    , decltype(_impl_.uniform_number_) {}
+
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.team_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.team_name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_team_name().empty()) {
+    _this->_impl_.team_name_.Set(from._internal_team_name(), _this->GetArenaForAllocation());
+  }
+  ::memcpy(&_impl_.agent_type_, &from._impl_.agent_type_,
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.uniform_number_) -
+    reinterpret_cast<char*>(&_impl_.agent_type_)) + sizeof(_impl_.uniform_number_));
+  // @@protoc_insertion_point(copy_constructor:protos.RegisterRequest)
+}
+
+inline void RegisterRequest::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_.team_name_) {}
+
+    , decltype(_impl_.agent_type_) { 0 }
+
+    , decltype(_impl_.uniform_number_) { 0 }
+
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.team_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.team_name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+RegisterRequest::~RegisterRequest() {
+  // @@protoc_insertion_point(destructor:protos.RegisterRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void RegisterRequest::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.team_name_.Destroy();
+}
+
+void RegisterRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void RegisterRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:protos.RegisterRequest)
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.team_name_.ClearToEmpty();
+  ::memset(&_impl_.agent_type_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.uniform_number_) -
+      reinterpret_cast<char*>(&_impl_.agent_type_)) + sizeof(_impl_.uniform_number_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* RegisterRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .protos.AgentType agent_type = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+          _internal_set_agent_type(static_cast<::protos::AgentType>(val));
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // string team_name = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_team_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "protos.RegisterRequest.team_name"));
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // int32 uniform_number = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
+          _impl_.uniform_number_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+::uint8_t* RegisterRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:protos.RegisterRequest)
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .protos.AgentType agent_type = 1;
+  if (this->_internal_agent_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        1, this->_internal_agent_type(), target);
+  }
+
+  // string team_name = 2;
+  if (!this->_internal_team_name().empty()) {
+    const std::string& _s = this->_internal_team_name();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "protos.RegisterRequest.team_name");
+    target = stream->WriteStringMaybeAliased(2, _s, target);
+  }
+
+  // int32 uniform_number = 3;
+  if (this->_internal_uniform_number() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        3, this->_internal_uniform_number(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:protos.RegisterRequest)
+  return target;
+}
+
+::size_t RegisterRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:protos.RegisterRequest)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string team_name = 2;
+  if (!this->_internal_team_name().empty()) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_team_name());
+  }
+
+  // .protos.AgentType agent_type = 1;
+  if (this->_internal_agent_type() != 0) {
+    total_size += 1 +
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_agent_type());
+  }
+
+  // int32 uniform_number = 3;
+  if (this->_internal_uniform_number() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_uniform_number());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RegisterRequest::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    RegisterRequest::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RegisterRequest::GetClassData() const { return &_class_data_; }
+
+
+void RegisterRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RegisterRequest*>(&to_msg);
+  auto& from = static_cast<const RegisterRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:protos.RegisterRequest)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_team_name().empty()) {
+    _this->_internal_set_team_name(from._internal_team_name());
+  }
+  if (from._internal_agent_type() != 0) {
+    _this->_internal_set_agent_type(from._internal_agent_type());
+  }
+  if (from._internal_uniform_number() != 0) {
+    _this->_internal_set_uniform_number(from._internal_uniform_number());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void RegisterRequest::CopyFrom(const RegisterRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:protos.RegisterRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RegisterRequest::IsInitialized() const {
+  return true;
+}
+
+void RegisterRequest::InternalSwap(RegisterRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.team_name_, lhs_arena,
+                                       &other->_impl_.team_name_, rhs_arena);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(RegisterRequest, _impl_.uniform_number_)
+      + sizeof(RegisterRequest::_impl_.uniform_number_)
+      - PROTOBUF_FIELD_OFFSET(RegisterRequest, _impl_.agent_type_)>(
+          reinterpret_cast<char*>(&_impl_.agent_type_),
+          reinterpret_cast<char*>(&other->_impl_.agent_type_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RegisterRequest::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
+      file_level_metadata_service_2eproto[1]);
+}
+// ===================================================================
+
+class RegisterResponse::_Internal {
+ public:
+};
+
+RegisterResponse::RegisterResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:protos.RegisterResponse)
+}
+RegisterResponse::RegisterResponse(const RegisterResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  RegisterResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.team_name_) {}
+
+    , decltype(_impl_.client_id_) {}
+
+    , decltype(_impl_.agent_type_) {}
+
+    , decltype(_impl_.uniform_number_) {}
+
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.team_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.team_name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_team_name().empty()) {
+    _this->_impl_.team_name_.Set(from._internal_team_name(), _this->GetArenaForAllocation());
+  }
+  ::memcpy(&_impl_.client_id_, &from._impl_.client_id_,
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.uniform_number_) -
+    reinterpret_cast<char*>(&_impl_.client_id_)) + sizeof(_impl_.uniform_number_));
+  // @@protoc_insertion_point(copy_constructor:protos.RegisterResponse)
+}
+
+inline void RegisterResponse::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_.team_name_) {}
+
+    , decltype(_impl_.client_id_) { 0 }
+
+    , decltype(_impl_.agent_type_) { 0 }
+
+    , decltype(_impl_.uniform_number_) { 0 }
+
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.team_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.team_name_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+RegisterResponse::~RegisterResponse() {
+  // @@protoc_insertion_point(destructor:protos.RegisterResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void RegisterResponse::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.team_name_.Destroy();
+}
+
+void RegisterResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void RegisterResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:protos.RegisterResponse)
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.team_name_.ClearToEmpty();
+  ::memset(&_impl_.client_id_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.uniform_number_) -
+      reinterpret_cast<char*>(&_impl_.client_id_)) + sizeof(_impl_.uniform_number_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* RegisterResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 client_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          _impl_.client_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // .protos.AgentType agent_type = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+          _internal_set_agent_type(static_cast<::protos::AgentType>(val));
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // string team_name = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_team_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "protos.RegisterResponse.team_name"));
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // int32 uniform_number = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
+          _impl_.uniform_number_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+::uint8_t* RegisterResponse::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:protos.RegisterResponse)
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 client_id = 1;
+  if (this->_internal_client_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_client_id(), target);
+  }
+
+  // .protos.AgentType agent_type = 2;
+  if (this->_internal_agent_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        2, this->_internal_agent_type(), target);
+  }
+
+  // string team_name = 3;
+  if (!this->_internal_team_name().empty()) {
+    const std::string& _s = this->_internal_team_name();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "protos.RegisterResponse.team_name");
+    target = stream->WriteStringMaybeAliased(3, _s, target);
+  }
+
+  // int32 uniform_number = 4;
+  if (this->_internal_uniform_number() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        4, this->_internal_uniform_number(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:protos.RegisterResponse)
+  return target;
+}
+
+::size_t RegisterResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:protos.RegisterResponse)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string team_name = 3;
+  if (!this->_internal_team_name().empty()) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_team_name());
+  }
+
+  // int32 client_id = 1;
+  if (this->_internal_client_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_client_id());
+  }
+
+  // .protos.AgentType agent_type = 2;
+  if (this->_internal_agent_type() != 0) {
+    total_size += 1 +
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_agent_type());
+  }
+
+  // int32 uniform_number = 4;
+  if (this->_internal_uniform_number() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_uniform_number());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RegisterResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    RegisterResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RegisterResponse::GetClassData() const { return &_class_data_; }
+
+
+void RegisterResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RegisterResponse*>(&to_msg);
+  auto& from = static_cast<const RegisterResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:protos.RegisterResponse)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_team_name().empty()) {
+    _this->_internal_set_team_name(from._internal_team_name());
+  }
+  if (from._internal_client_id() != 0) {
+    _this->_internal_set_client_id(from._internal_client_id());
+  }
+  if (from._internal_agent_type() != 0) {
+    _this->_internal_set_agent_type(from._internal_agent_type());
+  }
+  if (from._internal_uniform_number() != 0) {
+    _this->_internal_set_uniform_number(from._internal_uniform_number());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void RegisterResponse::CopyFrom(const RegisterResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:protos.RegisterResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RegisterResponse::IsInitialized() const {
+  return true;
+}
+
+void RegisterResponse::InternalSwap(RegisterResponse* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.team_name_, lhs_arena,
+                                       &other->_impl_.team_name_, rhs_arena);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(RegisterResponse, _impl_.uniform_number_)
+      + sizeof(RegisterResponse::_impl_.uniform_number_)
+      - PROTOBUF_FIELD_OFFSET(RegisterResponse, _impl_.client_id_)>(
+          reinterpret_cast<char*>(&_impl_.client_id_),
+          reinterpret_cast<char*>(&other->_impl_.client_id_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RegisterResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
+      file_level_metadata_service_2eproto[2]);
 }
 // ===================================================================
 
@@ -6453,61 +7366,61 @@ class Ball::_Internal {
   using HasBits = decltype(std::declval<Ball>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Ball, _impl_._has_bits_);
-  static const ::protos::Vector2D& position(const Ball* msg);
+  static const ::protos::RpcVector2D& position(const Ball* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::protos::Vector2D& relative_position(const Ball* msg);
+  static const ::protos::RpcVector2D& relative_position(const Ball* msg);
   static void set_has_relative_position(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static const ::protos::Vector2D& seen_position(const Ball* msg);
+  static const ::protos::RpcVector2D& seen_position(const Ball* msg);
   static void set_has_seen_position(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
-  static const ::protos::Vector2D& heard_position(const Ball* msg);
+  static const ::protos::RpcVector2D& heard_position(const Ball* msg);
   static void set_has_heard_position(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
-  static const ::protos::Vector2D& velocity(const Ball* msg);
+  static const ::protos::RpcVector2D& velocity(const Ball* msg);
   static void set_has_velocity(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
-  static const ::protos::Vector2D& seen_velocity(const Ball* msg);
+  static const ::protos::RpcVector2D& seen_velocity(const Ball* msg);
   static void set_has_seen_velocity(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
-  static const ::protos::Vector2D& heard_velocity(const Ball* msg);
+  static const ::protos::RpcVector2D& heard_velocity(const Ball* msg);
   static void set_has_heard_velocity(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Ball::_Internal::position(const Ball* msg) {
   return *msg->_impl_.position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Ball::_Internal::relative_position(const Ball* msg) {
   return *msg->_impl_.relative_position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Ball::_Internal::seen_position(const Ball* msg) {
   return *msg->_impl_.seen_position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Ball::_Internal::heard_position(const Ball* msg) {
   return *msg->_impl_.heard_position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Ball::_Internal::velocity(const Ball* msg) {
   return *msg->_impl_.velocity_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Ball::_Internal::seen_velocity(const Ball* msg) {
   return *msg->_impl_.seen_velocity_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Ball::_Internal::heard_velocity(const Ball* msg) {
   return *msg->_impl_.heard_velocity_;
 }
@@ -6552,25 +7465,25 @@ Ball::Ball(const Ball& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.position_ = new ::protos::Vector2D(*from._impl_.position_);
+    _this->_impl_.position_ = new ::protos::RpcVector2D(*from._impl_.position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
-    _this->_impl_.relative_position_ = new ::protos::Vector2D(*from._impl_.relative_position_);
+    _this->_impl_.relative_position_ = new ::protos::RpcVector2D(*from._impl_.relative_position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
-    _this->_impl_.seen_position_ = new ::protos::Vector2D(*from._impl_.seen_position_);
+    _this->_impl_.seen_position_ = new ::protos::RpcVector2D(*from._impl_.seen_position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
-    _this->_impl_.heard_position_ = new ::protos::Vector2D(*from._impl_.heard_position_);
+    _this->_impl_.heard_position_ = new ::protos::RpcVector2D(*from._impl_.heard_position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000010u) != 0) {
-    _this->_impl_.velocity_ = new ::protos::Vector2D(*from._impl_.velocity_);
+    _this->_impl_.velocity_ = new ::protos::RpcVector2D(*from._impl_.velocity_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000020u) != 0) {
-    _this->_impl_.seen_velocity_ = new ::protos::Vector2D(*from._impl_.seen_velocity_);
+    _this->_impl_.seen_velocity_ = new ::protos::RpcVector2D(*from._impl_.seen_velocity_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000040u) != 0) {
-    _this->_impl_.heard_velocity_ = new ::protos::Vector2D(*from._impl_.heard_velocity_);
+    _this->_impl_.heard_velocity_ = new ::protos::RpcVector2D(*from._impl_.heard_velocity_);
   }
   ::memcpy(&_impl_.pos_count_, &from._impl_.pos_count_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.angle_from_self_) -
@@ -6688,7 +7601,7 @@ const char* Ball::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D position = 1;
+      // .protos.RpcVector2D position = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
@@ -6697,7 +7610,7 @@ const char* Ball::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D relative_position = 2;
+      // .protos.RpcVector2D relative_position = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_relative_position(), ptr);
@@ -6706,7 +7619,7 @@ const char* Ball::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D seen_position = 3;
+      // .protos.RpcVector2D seen_position = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_seen_position(), ptr);
@@ -6715,7 +7628,7 @@ const char* Ball::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D heard_position = 4;
+      // .protos.RpcVector2D heard_position = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_heard_position(), ptr);
@@ -6724,7 +7637,7 @@ const char* Ball::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D velocity = 5;
+      // .protos.RpcVector2D velocity = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_velocity(), ptr);
@@ -6733,7 +7646,7 @@ const char* Ball::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D seen_velocity = 6;
+      // .protos.RpcVector2D seen_velocity = 6;
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_seen_velocity(), ptr);
@@ -6742,7 +7655,7 @@ const char* Ball::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D heard_velocity = 7;
+      // .protos.RpcVector2D heard_velocity = 7;
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           ptr = ctx->ParseMessage(_internal_mutable_heard_velocity(), ptr);
@@ -6872,49 +7785,49 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D position = 1;
+  // .protos.RpcVector2D position = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::position(this),
         _Internal::position(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D relative_position = 2;
+  // .protos.RpcVector2D relative_position = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::relative_position(this),
         _Internal::relative_position(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D seen_position = 3;
+  // .protos.RpcVector2D seen_position = 3;
   if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::seen_position(this),
         _Internal::seen_position(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D heard_position = 4;
+  // .protos.RpcVector2D heard_position = 4;
   if (cached_has_bits & 0x00000008u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(4, _Internal::heard_position(this),
         _Internal::heard_position(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D velocity = 5;
+  // .protos.RpcVector2D velocity = 5;
   if (cached_has_bits & 0x00000010u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(5, _Internal::velocity(this),
         _Internal::velocity(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D seen_velocity = 6;
+  // .protos.RpcVector2D seen_velocity = 6;
   if (cached_has_bits & 0x00000020u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(6, _Internal::seen_velocity(this),
         _Internal::seen_velocity(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D heard_velocity = 7;
+  // .protos.RpcVector2D heard_velocity = 7;
   if (cached_has_bits & 0x00000040u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(7, _Internal::heard_velocity(this),
@@ -7017,49 +7930,49 @@ failure:
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
-    // .protos.Vector2D position = 1;
+    // .protos.RpcVector2D position = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.position_);
     }
 
-    // .protos.Vector2D relative_position = 2;
+    // .protos.RpcVector2D relative_position = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.relative_position_);
     }
 
-    // .protos.Vector2D seen_position = 3;
+    // .protos.RpcVector2D seen_position = 3;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.seen_position_);
     }
 
-    // .protos.Vector2D heard_position = 4;
+    // .protos.RpcVector2D heard_position = 4;
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.heard_position_);
     }
 
-    // .protos.Vector2D velocity = 5;
+    // .protos.RpcVector2D velocity = 5;
     if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.velocity_);
     }
 
-    // .protos.Vector2D seen_velocity = 6;
+    // .protos.RpcVector2D seen_velocity = 6;
     if (cached_has_bits & 0x00000020u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.seen_velocity_);
     }
 
-    // .protos.Vector2D heard_velocity = 7;
+    // .protos.RpcVector2D heard_velocity = 7;
     if (cached_has_bits & 0x00000040u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -7154,31 +8067,31 @@ void Ball::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_mutable_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_position());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_mutable_relative_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_relative_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_relative_position());
     }
     if (cached_has_bits & 0x00000004u) {
-      _this->_internal_mutable_seen_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_seen_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_seen_position());
     }
     if (cached_has_bits & 0x00000008u) {
-      _this->_internal_mutable_heard_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_heard_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_heard_position());
     }
     if (cached_has_bits & 0x00000010u) {
-      _this->_internal_mutable_velocity()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_velocity()->::protos::RpcVector2D::MergeFrom(
           from._internal_velocity());
     }
     if (cached_has_bits & 0x00000020u) {
-      _this->_internal_mutable_seen_velocity()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_seen_velocity()->::protos::RpcVector2D::MergeFrom(
           from._internal_seen_velocity());
     }
     if (cached_has_bits & 0x00000040u) {
-      _this->_internal_mutable_heard_velocity()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_heard_velocity()->::protos::RpcVector2D::MergeFrom(
           from._internal_heard_velocity());
     }
   }
@@ -7249,7 +8162,7 @@ void Ball::InternalSwap(Ball* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Ball::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[1]);
+      file_level_metadata_service_2eproto[3]);
 }
 // ===================================================================
 
@@ -7258,45 +8171,45 @@ class Player::_Internal {
   using HasBits = decltype(std::declval<Player>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Player, _impl_._has_bits_);
-  static const ::protos::Vector2D& position(const Player* msg);
+  static const ::protos::RpcVector2D& position(const Player* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::protos::Vector2D& seen_position(const Player* msg);
+  static const ::protos::RpcVector2D& seen_position(const Player* msg);
   static void set_has_seen_position(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static const ::protos::Vector2D& heard_position(const Player* msg);
+  static const ::protos::RpcVector2D& heard_position(const Player* msg);
   static void set_has_heard_position(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
-  static const ::protos::Vector2D& velocity(const Player* msg);
+  static const ::protos::RpcVector2D& velocity(const Player* msg);
   static void set_has_velocity(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
-  static const ::protos::Vector2D& seen_velocity(const Player* msg);
+  static const ::protos::RpcVector2D& seen_velocity(const Player* msg);
   static void set_has_seen_velocity(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Player::_Internal::position(const Player* msg) {
   return *msg->_impl_.position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Player::_Internal::seen_position(const Player* msg) {
   return *msg->_impl_.seen_position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Player::_Internal::heard_position(const Player* msg) {
   return *msg->_impl_.heard_position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Player::_Internal::velocity(const Player* msg) {
   return *msg->_impl_.velocity_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Player::_Internal::seen_velocity(const Player* msg) {
   return *msg->_impl_.seen_velocity_;
 }
@@ -7369,19 +8282,19 @@ Player::Player(const Player& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.position_ = new ::protos::Vector2D(*from._impl_.position_);
+    _this->_impl_.position_ = new ::protos::RpcVector2D(*from._impl_.position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
-    _this->_impl_.seen_position_ = new ::protos::Vector2D(*from._impl_.seen_position_);
+    _this->_impl_.seen_position_ = new ::protos::RpcVector2D(*from._impl_.seen_position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
-    _this->_impl_.heard_position_ = new ::protos::Vector2D(*from._impl_.heard_position_);
+    _this->_impl_.heard_position_ = new ::protos::RpcVector2D(*from._impl_.heard_position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
-    _this->_impl_.velocity_ = new ::protos::Vector2D(*from._impl_.velocity_);
+    _this->_impl_.velocity_ = new ::protos::RpcVector2D(*from._impl_.velocity_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000010u) != 0) {
-    _this->_impl_.seen_velocity_ = new ::protos::Vector2D(*from._impl_.seen_velocity_);
+    _this->_impl_.seen_velocity_ = new ::protos::RpcVector2D(*from._impl_.seen_velocity_);
   }
   ::memcpy(&_impl_.pos_count_, &from._impl_.pos_count_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.type_id_) -
@@ -7517,7 +8430,7 @@ const char* Player::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D position = 1;
+      // .protos.RpcVector2D position = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
@@ -7526,7 +8439,7 @@ const char* Player::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D seen_position = 2;
+      // .protos.RpcVector2D seen_position = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_seen_position(), ptr);
@@ -7535,7 +8448,7 @@ const char* Player::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D heard_position = 3;
+      // .protos.RpcVector2D heard_position = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_heard_position(), ptr);
@@ -7544,7 +8457,7 @@ const char* Player::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D velocity = 4;
+      // .protos.RpcVector2D velocity = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_velocity(), ptr);
@@ -7553,7 +8466,7 @@ const char* Player::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D seen_velocity = 5;
+      // .protos.RpcVector2D seen_velocity = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_seen_velocity(), ptr);
@@ -7819,35 +8732,35 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D position = 1;
+  // .protos.RpcVector2D position = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::position(this),
         _Internal::position(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D seen_position = 2;
+  // .protos.RpcVector2D seen_position = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::seen_position(this),
         _Internal::seen_position(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D heard_position = 3;
+  // .protos.RpcVector2D heard_position = 3;
   if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::heard_position(this),
         _Internal::heard_position(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D velocity = 4;
+  // .protos.RpcVector2D velocity = 4;
   if (cached_has_bits & 0x00000008u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(4, _Internal::velocity(this),
         _Internal::velocity(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D seen_velocity = 5;
+  // .protos.RpcVector2D seen_velocity = 5;
   if (cached_has_bits & 0x00000010u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(5, _Internal::seen_velocity(this),
@@ -8075,35 +8988,35 @@ failure:
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
-    // .protos.Vector2D position = 1;
+    // .protos.RpcVector2D position = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.position_);
     }
 
-    // .protos.Vector2D seen_position = 2;
+    // .protos.RpcVector2D seen_position = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.seen_position_);
     }
 
-    // .protos.Vector2D heard_position = 3;
+    // .protos.RpcVector2D heard_position = 3;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.heard_position_);
     }
 
-    // .protos.Vector2D velocity = 4;
+    // .protos.RpcVector2D velocity = 4;
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.velocity_);
     }
 
-    // .protos.Vector2D seen_velocity = 5;
+    // .protos.RpcVector2D seen_velocity = 5;
     if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -8300,23 +9213,23 @@ void Player::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBU
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_mutable_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_position());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_mutable_seen_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_seen_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_seen_position());
     }
     if (cached_has_bits & 0x00000004u) {
-      _this->_internal_mutable_heard_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_heard_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_heard_position());
     }
     if (cached_has_bits & 0x00000008u) {
-      _this->_internal_mutable_velocity()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_velocity()->::protos::RpcVector2D::MergeFrom(
           from._internal_velocity());
     }
     if (cached_has_bits & 0x00000010u) {
-      _this->_internal_mutable_seen_velocity()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_seen_velocity()->::protos::RpcVector2D::MergeFrom(
           from._internal_seen_velocity());
     }
   }
@@ -8452,7 +9365,7 @@ void Player::InternalSwap(Player* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Player::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[2]);
+      file_level_metadata_service_2eproto[4]);
 }
 // ===================================================================
 
@@ -8461,45 +9374,45 @@ class Self::_Internal {
   using HasBits = decltype(std::declval<Self>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Self, _impl_._has_bits_);
-  static const ::protos::Vector2D& position(const Self* msg);
+  static const ::protos::RpcVector2D& position(const Self* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::protos::Vector2D& seen_position(const Self* msg);
+  static const ::protos::RpcVector2D& seen_position(const Self* msg);
   static void set_has_seen_position(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static const ::protos::Vector2D& heard_position(const Self* msg);
+  static const ::protos::RpcVector2D& heard_position(const Self* msg);
   static void set_has_heard_position(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
-  static const ::protos::Vector2D& velocity(const Self* msg);
+  static const ::protos::RpcVector2D& velocity(const Self* msg);
   static void set_has_velocity(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
-  static const ::protos::Vector2D& seen_velocity(const Self* msg);
+  static const ::protos::RpcVector2D& seen_velocity(const Self* msg);
   static void set_has_seen_velocity(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Self::_Internal::position(const Self* msg) {
   return *msg->_impl_.position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Self::_Internal::seen_position(const Self* msg) {
   return *msg->_impl_.seen_position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Self::_Internal::heard_position(const Self* msg) {
   return *msg->_impl_.heard_position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Self::_Internal::velocity(const Self* msg) {
   return *msg->_impl_.velocity_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Self::_Internal::seen_velocity(const Self* msg) {
   return *msg->_impl_.seen_velocity_;
 }
@@ -8584,19 +9497,19 @@ Self::Self(const Self& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.position_ = new ::protos::Vector2D(*from._impl_.position_);
+    _this->_impl_.position_ = new ::protos::RpcVector2D(*from._impl_.position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
-    _this->_impl_.seen_position_ = new ::protos::Vector2D(*from._impl_.seen_position_);
+    _this->_impl_.seen_position_ = new ::protos::RpcVector2D(*from._impl_.seen_position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
-    _this->_impl_.heard_position_ = new ::protos::Vector2D(*from._impl_.heard_position_);
+    _this->_impl_.heard_position_ = new ::protos::RpcVector2D(*from._impl_.heard_position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000008u) != 0) {
-    _this->_impl_.velocity_ = new ::protos::Vector2D(*from._impl_.velocity_);
+    _this->_impl_.velocity_ = new ::protos::RpcVector2D(*from._impl_.velocity_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000010u) != 0) {
-    _this->_impl_.seen_velocity_ = new ::protos::Vector2D(*from._impl_.seen_velocity_);
+    _this->_impl_.seen_velocity_ = new ::protos::RpcVector2D(*from._impl_.seen_velocity_);
   }
   ::memcpy(&_impl_.pos_count_, &from._impl_.pos_count_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.kick_rate_) -
@@ -8744,7 +9657,7 @@ const char* Self::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D position = 1;
+      // .protos.RpcVector2D position = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
@@ -8753,7 +9666,7 @@ const char* Self::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D seen_position = 2;
+      // .protos.RpcVector2D seen_position = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_seen_position(), ptr);
@@ -8762,7 +9675,7 @@ const char* Self::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D heard_position = 3;
+      // .protos.RpcVector2D heard_position = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_heard_position(), ptr);
@@ -8771,7 +9684,7 @@ const char* Self::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D velocity = 4;
+      // .protos.RpcVector2D velocity = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_velocity(), ptr);
@@ -8780,7 +9693,7 @@ const char* Self::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D seen_velocity = 5;
+      // .protos.RpcVector2D seen_velocity = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_seen_velocity(), ptr);
@@ -9101,35 +10014,35 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D position = 1;
+  // .protos.RpcVector2D position = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::position(this),
         _Internal::position(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D seen_position = 2;
+  // .protos.RpcVector2D seen_position = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::seen_position(this),
         _Internal::seen_position(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D heard_position = 3;
+  // .protos.RpcVector2D heard_position = 3;
   if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::heard_position(this),
         _Internal::heard_position(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D velocity = 4;
+  // .protos.RpcVector2D velocity = 4;
   if (cached_has_bits & 0x00000008u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(4, _Internal::velocity(this),
         _Internal::velocity(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D seen_velocity = 5;
+  // .protos.RpcVector2D seen_velocity = 5;
   if (cached_has_bits & 0x00000010u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(5, _Internal::seen_velocity(this),
@@ -9415,35 +10328,35 @@ failure:
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
-    // .protos.Vector2D position = 1;
+    // .protos.RpcVector2D position = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.position_);
     }
 
-    // .protos.Vector2D seen_position = 2;
+    // .protos.RpcVector2D seen_position = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.seen_position_);
     }
 
-    // .protos.Vector2D heard_position = 3;
+    // .protos.RpcVector2D heard_position = 3;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.heard_position_);
     }
 
-    // .protos.Vector2D velocity = 4;
+    // .protos.RpcVector2D velocity = 4;
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.velocity_);
     }
 
-    // .protos.Vector2D seen_velocity = 5;
+    // .protos.RpcVector2D seen_velocity = 5;
     if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -9687,23 +10600,23 @@ void Self::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_mutable_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_position());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_mutable_seen_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_seen_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_seen_position());
     }
     if (cached_has_bits & 0x00000004u) {
-      _this->_internal_mutable_heard_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_heard_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_heard_position());
     }
     if (cached_has_bits & 0x00000008u) {
-      _this->_internal_mutable_velocity()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_velocity()->::protos::RpcVector2D::MergeFrom(
           from._internal_velocity());
     }
     if (cached_has_bits & 0x00000010u) {
-      _this->_internal_mutable_seen_velocity()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_seen_velocity()->::protos::RpcVector2D::MergeFrom(
           from._internal_seen_velocity());
     }
   }
@@ -9873,7 +10786,7 @@ void Self::InternalSwap(Self* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Self::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[3]);
+      file_level_metadata_service_2eproto[5]);
 }
 // ===================================================================
 
@@ -9882,13 +10795,13 @@ class InterceptInfo::_Internal {
   using HasBits = decltype(std::declval<InterceptInfo>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(InterceptInfo, _impl_._has_bits_);
-  static const ::protos::Vector2D& final_self_position(const InterceptInfo* msg);
+  static const ::protos::RpcVector2D& final_self_position(const InterceptInfo* msg);
   static void set_has_final_self_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 InterceptInfo::_Internal::final_self_position(const InterceptInfo* msg) {
   return *msg->_impl_.final_self_position_;
 }
@@ -9925,7 +10838,7 @@ InterceptInfo::InterceptInfo(const InterceptInfo& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.final_self_position_ = new ::protos::Vector2D(*from._impl_.final_self_position_);
+    _this->_impl_.final_self_position_ = new ::protos::RpcVector2D(*from._impl_.final_self_position_);
   }
   ::memcpy(&_impl_.action_type_, &from._impl_.action_type_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.value_) -
@@ -10058,7 +10971,7 @@ const char* InterceptInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext*
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D final_self_position = 7;
+      // .protos.RpcVector2D final_self_position = 7;
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 58)) {
           ptr = ctx->ParseMessage(_internal_mutable_final_self_position(), ptr);
@@ -10179,7 +11092,7 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D final_self_position = 7;
+  // .protos.RpcVector2D final_self_position = 7;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(7, _Internal::final_self_position(this),
@@ -10235,7 +11148,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D final_self_position = 7;
+  // .protos.RpcVector2D final_self_position = 7;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -10334,7 +11247,7 @@ void InterceptInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_final_self_position()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_final_self_position()->::protos::RpcVector2D::MergeFrom(
         from._internal_final_self_position());
   }
   if (from._internal_action_type() != 0) {
@@ -10417,7 +11330,7 @@ void InterceptInfo::InternalSwap(InterceptInfo* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata InterceptInfo::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[4]);
+      file_level_metadata_service_2eproto[6]);
 }
 // ===================================================================
 
@@ -10872,7 +11785,7 @@ void InterceptTable::InternalSwap(InterceptTable* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata InterceptTable::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[5]);
+      file_level_metadata_service_2eproto[7]);
 }
 // ===================================================================
 
@@ -10885,7 +11798,7 @@ void WorldModel_OurPlayersDictEntry_DoNotUse::MergeFrom(const WorldModel_OurPlay
 ::PROTOBUF_NAMESPACE_ID::Metadata WorldModel_OurPlayersDictEntry_DoNotUse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[6]);
+      file_level_metadata_service_2eproto[8]);
 }
 // ===================================================================
 
@@ -10898,7 +11811,7 @@ void WorldModel_TheirPlayersDictEntry_DoNotUse::MergeFrom(const WorldModel_Their
 ::PROTOBUF_NAMESPACE_ID::Metadata WorldModel_TheirPlayersDictEntry_DoNotUse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[7]);
+      file_level_metadata_service_2eproto[9]);
 }
 // ===================================================================
 
@@ -10911,7 +11824,7 @@ void WorldModel_HeliosHomePositionsEntry_DoNotUse::MergeFrom(const WorldModel_He
 ::PROTOBUF_NAMESPACE_ID::Metadata WorldModel_HeliosHomePositionsEntry_DoNotUse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[8]);
+      file_level_metadata_service_2eproto[10]);
 }
 // ===================================================================
 
@@ -11486,7 +12399,7 @@ const char* WorldModel::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
           goto handle_unusual;
         }
         continue;
-      // map<int32, .protos.Vector2D> helios_home_positions = 31;
+      // map<int32, .protos.RpcVector2D> helios_home_positions = 31;
       case 31:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 250)) {
           ptr -= 2;
@@ -11770,9 +12683,9 @@ failure:
         30, this->_internal_is_penalty_kick_mode(), target);
   }
 
-  // map<int32, .protos.Vector2D> helios_home_positions = 31;
+  // map<int32, .protos.RpcVector2D> helios_home_positions = 31;
   if (!this->_internal_helios_home_positions().empty()) {
-    using MapType = ::_pb::Map<::int32_t, ::protos::Vector2D>;
+    using MapType = ::_pb::Map<::int32_t, ::protos::RpcVector2D>;
     using WireHelper = WorldModel_HeliosHomePositionsEntry_DoNotUse::Funcs;
     const auto& map_field = this->_internal_helios_home_positions();
 
@@ -11842,10 +12755,10 @@ failure:
     total_size += WorldModel_TheirPlayersDictEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
   }
 
-  // map<int32, .protos.Vector2D> helios_home_positions = 31;
+  // map<int32, .protos.RpcVector2D> helios_home_positions = 31;
   total_size += 2 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_helios_home_positions_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::Vector2D >::const_iterator
+  for (::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcVector2D >::const_iterator
       it = this->_internal_helios_home_positions().begin();
       it != this->_internal_helios_home_positions().end(); ++it) {
     total_size += WorldModel_HeliosHomePositionsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
@@ -12157,7 +13070,7 @@ void WorldModel::InternalSwap(WorldModel* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata WorldModel::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[9]);
+      file_level_metadata_service_2eproto[11]);
 }
 // ===================================================================
 
@@ -12166,16 +13079,24 @@ class State::_Internal {
   using HasBits = decltype(std::declval<State>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(State, _impl_._has_bits_);
+  static const ::protos::RegisterResponse& register_response(const State* msg);
+  static void set_has_register_response(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
   static const ::protos::WorldModel& world_model(const State* msg);
   static void set_has_world_model(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
+    (*has_bits)[0] |= 2u;
   }
   static const ::protos::WorldModel& full_world_model(const State* msg);
   static void set_has_full_world_model(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
+    (*has_bits)[0] |= 4u;
   }
 };
 
+const ::protos::RegisterResponse&
+State::_Internal::register_response(const State* msg) {
+  return *msg->_impl_.register_response_;
+}
 const ::protos::WorldModel&
 State::_Internal::world_model(const State* msg) {
   return *msg->_impl_.world_model_;
@@ -12195,19 +13116,20 @@ State::State(const State& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.register_response_){nullptr}
     , decltype(_impl_.world_model_){nullptr}
-    , decltype(_impl_.full_world_model_){nullptr}
-    , decltype(_impl_.agent_type_) {}
-  };
+    , decltype(_impl_.full_world_model_){nullptr}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.world_model_ = new ::protos::WorldModel(*from._impl_.world_model_);
+    _this->_impl_.register_response_ = new ::protos::RegisterResponse(*from._impl_.register_response_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.world_model_ = new ::protos::WorldModel(*from._impl_.world_model_);
+  }
+  if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
     _this->_impl_.full_world_model_ = new ::protos::WorldModel(*from._impl_.full_world_model_);
   }
-  _this->_impl_.agent_type_ = from._impl_.agent_type_;
   // @@protoc_insertion_point(copy_constructor:protos.State)
 }
 
@@ -12216,10 +13138,9 @@ inline void State::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.register_response_){nullptr}
     , decltype(_impl_.world_model_){nullptr}
     , decltype(_impl_.full_world_model_){nullptr}
-    , decltype(_impl_.agent_type_) { 0 }
-
   };
 }
 
@@ -12234,6 +13155,7 @@ State::~State() {
 
 inline void State::SharedDtor() {
   ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.register_response_;
   if (this != internal_default_instance()) delete _impl_.world_model_;
   if (this != internal_default_instance()) delete _impl_.full_world_model_;
 }
@@ -12249,17 +13171,20 @@ void State::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
+      ABSL_DCHECK(_impl_.register_response_ != nullptr);
+      _impl_.register_response_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
       ABSL_DCHECK(_impl_.world_model_ != nullptr);
       _impl_.world_model_->Clear();
     }
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x00000004u) {
       ABSL_DCHECK(_impl_.full_world_model_ != nullptr);
       _impl_.full_world_model_->Clear();
     }
   }
-  _impl_.agent_type_ = 0;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -12271,12 +13196,11 @@ const char* State::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.AgentType agent_type = 1;
+      // .protos.RegisterResponse register_response = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
-          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_register_response(), ptr);
           CHK_(ptr);
-          _internal_set_agent_type(static_cast<::protos::AgentType>(val));
         } else {
           goto handle_unusual;
         }
@@ -12329,23 +13253,23 @@ failure:
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .protos.AgentType agent_type = 1;
-  if (this->_internal_agent_type() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-        1, this->_internal_agent_type(), target);
+  cached_has_bits = _impl_._has_bits_[0];
+  // .protos.RegisterResponse register_response = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::register_response(this),
+        _Internal::register_response(this).GetCachedSize(), target, stream);
   }
 
-  cached_has_bits = _impl_._has_bits_[0];
   // .protos.WorldModel world_model = 2;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::world_model(this),
         _Internal::world_model(this).GetCachedSize(), target, stream);
   }
 
   // .protos.WorldModel full_world_model = 3;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::full_world_model(this),
         _Internal::full_world_model(this).GetCachedSize(), target, stream);
@@ -12368,28 +13292,29 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    // .protos.WorldModel world_model = 2;
+  if (cached_has_bits & 0x00000007u) {
+    // .protos.RegisterResponse register_response = 1;
     if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.register_response_);
+    }
+
+    // .protos.WorldModel world_model = 2;
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.world_model_);
     }
 
     // .protos.WorldModel full_world_model = 3;
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.full_world_model_);
     }
 
   }
-  // .protos.AgentType agent_type = 1;
-  if (this->_internal_agent_type() != 0) {
-    total_size += 1 +
-                  ::_pbi::WireFormatLite::EnumSize(this->_internal_agent_type());
-  }
-
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -12409,18 +13334,19 @@ void State::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
+      _this->_internal_mutable_register_response()->::protos::RegisterResponse::MergeFrom(
+          from._internal_register_response());
+    }
+    if (cached_has_bits & 0x00000002u) {
       _this->_internal_mutable_world_model()->::protos::WorldModel::MergeFrom(
           from._internal_world_model());
     }
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x00000004u) {
       _this->_internal_mutable_full_world_model()->::protos::WorldModel::MergeFrom(
           from._internal_full_world_model());
     }
-  }
-  if (from._internal_agent_type() != 0) {
-    _this->_internal_set_agent_type(from._internal_agent_type());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -12441,44 +13367,66 @@ void State::InternalSwap(State* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(State, _impl_.agent_type_)
-      + sizeof(State::_impl_.agent_type_)
-      - PROTOBUF_FIELD_OFFSET(State, _impl_.world_model_)>(
-          reinterpret_cast<char*>(&_impl_.world_model_),
-          reinterpret_cast<char*>(&other->_impl_.world_model_));
+      PROTOBUF_FIELD_OFFSET(State, _impl_.full_world_model_)
+      + sizeof(State::_impl_.full_world_model_)
+      - PROTOBUF_FIELD_OFFSET(State, _impl_.register_response_)>(
+          reinterpret_cast<char*>(&_impl_.register_response_),
+          reinterpret_cast<char*>(&other->_impl_.register_response_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata State::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[10]);
+      file_level_metadata_service_2eproto[12]);
 }
 // ===================================================================
 
 class InitMessage::_Internal {
  public:
+  using HasBits = decltype(std::declval<InitMessage>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(InitMessage, _impl_._has_bits_);
+  static const ::protos::RegisterResponse& register_response(const InitMessage* msg);
+  static void set_has_register_response(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
+const ::protos::RegisterResponse&
+InitMessage::_Internal::register_response(const InitMessage* msg) {
+  return *msg->_impl_.register_response_;
+}
 InitMessage::InitMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:protos.InitMessage)
 }
 InitMessage::InitMessage(const InitMessage& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
-      from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  InitMessage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.register_response_){nullptr}
+    , decltype(_impl_.debug_mode_) {}
+  };
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.register_response_ = new ::protos::RegisterResponse(*from._impl_.register_response_);
+  }
+  _this->_impl_.debug_mode_ = from._impl_.debug_mode_;
   // @@protoc_insertion_point(copy_constructor:protos.InitMessage)
 }
 
 inline void InitMessage::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
   new (&_impl_) Impl_{
-      decltype(_impl_.agent_type_) { 0 }
-
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.register_response_){nullptr}
     , decltype(_impl_.debug_mode_) { false }
 
-    , /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
@@ -12493,6 +13441,7 @@ InitMessage::~InitMessage() {
 
 inline void InitMessage::SharedDtor() {
   ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.register_response_;
 }
 
 void InitMessage::SetCachedSize(int size) const {
@@ -12505,24 +13454,28 @@ void InitMessage::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.agent_type_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.debug_mode_) -
-      reinterpret_cast<char*>(&_impl_.agent_type_)) + sizeof(_impl_.debug_mode_));
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.register_response_ != nullptr);
+    _impl_.register_response_->Clear();
+  }
+  _impl_.debug_mode_ = false;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* InitMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.AgentType agent_type = 1;
+      // .protos.RegisterResponse register_response = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
-          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_register_response(), ptr);
           CHK_(ptr);
-          _internal_set_agent_type(static_cast<::protos::AgentType>(val));
         } else {
           goto handle_unusual;
         }
@@ -12552,6 +13505,7 @@ const char* InitMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -12565,11 +13519,12 @@ failure:
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .protos.AgentType agent_type = 1;
-  if (this->_internal_agent_type() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-        1, this->_internal_agent_type(), target);
+  cached_has_bits = _impl_._has_bits_[0];
+  // .protos.RegisterResponse register_response = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::register_response(this),
+        _Internal::register_response(this).GetCachedSize(), target, stream);
   }
 
   // bool debug_mode = 2;
@@ -12595,10 +13550,12 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.AgentType agent_type = 1;
-  if (this->_internal_agent_type() != 0) {
+  // .protos.RegisterResponse register_response = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
-                  ::_pbi::WireFormatLite::EnumSize(this->_internal_agent_type());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.register_response_);
   }
 
   // bool debug_mode = 2;
@@ -12624,8 +13581,9 @@ void InitMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_agent_type() != 0) {
-    _this->_internal_set_agent_type(from._internal_agent_type());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_mutable_register_response()->::protos::RegisterResponse::MergeFrom(
+        from._internal_register_response());
   }
   if (from._internal_debug_mode() != 0) {
     _this->_internal_set_debug_mode(from._internal_debug_mode());
@@ -12647,18 +13605,19 @@ bool InitMessage::IsInitialized() const {
 void InitMessage::InternalSwap(InitMessage* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(InitMessage, _impl_.debug_mode_)
       + sizeof(InitMessage::_impl_.debug_mode_)
-      - PROTOBUF_FIELD_OFFSET(InitMessage, _impl_.agent_type_)>(
-          reinterpret_cast<char*>(&_impl_.agent_type_),
-          reinterpret_cast<char*>(&other->_impl_.agent_type_));
+      - PROTOBUF_FIELD_OFFSET(InitMessage, _impl_.register_response_)>(
+          reinterpret_cast<char*>(&_impl_.register_response_),
+          reinterpret_cast<char*>(&other->_impl_.register_response_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata InitMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[11]);
+      file_level_metadata_service_2eproto[13]);
 }
 // ===================================================================
 
@@ -12887,7 +13846,7 @@ void Dash::InternalSwap(Dash* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Dash::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[12]);
+      file_level_metadata_service_2eproto[14]);
 }
 // ===================================================================
 
@@ -13072,7 +14031,7 @@ void Turn::InternalSwap(Turn* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Turn::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[13]);
+      file_level_metadata_service_2eproto[15]);
 }
 // ===================================================================
 
@@ -13301,7 +14260,7 @@ void Kick::InternalSwap(Kick* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Kick::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[14]);
+      file_level_metadata_service_2eproto[16]);
 }
 // ===================================================================
 
@@ -13518,7 +14477,7 @@ void Tackle::InternalSwap(Tackle* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Tackle::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[15]);
+      file_level_metadata_service_2eproto[17]);
 }
 // ===================================================================
 
@@ -13556,7 +14515,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Catch::GetClassData() const { 
 ::PROTOBUF_NAMESPACE_ID::Metadata Catch::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[16]);
+      file_level_metadata_service_2eproto[18]);
 }
 // ===================================================================
 
@@ -13785,7 +14744,7 @@ void Move::InternalSwap(Move* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Move::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[17]);
+      file_level_metadata_service_2eproto[19]);
 }
 // ===================================================================
 
@@ -13970,7 +14929,7 @@ void TurnNeck::InternalSwap(TurnNeck* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata TurnNeck::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[18]);
+      file_level_metadata_service_2eproto[20]);
 }
 // ===================================================================
 
@@ -14144,7 +15103,7 @@ void ChangeView::InternalSwap(ChangeView* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ChangeView::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[19]);
+      file_level_metadata_service_2eproto[21]);
 }
 // ===================================================================
 
@@ -14153,21 +15112,21 @@ class BallMessage::_Internal {
   using HasBits = decltype(std::declval<BallMessage>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(BallMessage, _impl_._has_bits_);
-  static const ::protos::Vector2D& ball_position(const BallMessage* msg);
+  static const ::protos::RpcVector2D& ball_position(const BallMessage* msg);
   static void set_has_ball_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::protos::Vector2D& ball_velocity(const BallMessage* msg);
+  static const ::protos::RpcVector2D& ball_velocity(const BallMessage* msg);
   static void set_has_ball_velocity(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 BallMessage::_Internal::ball_position(const BallMessage* msg) {
   return *msg->_impl_.ball_position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 BallMessage::_Internal::ball_velocity(const BallMessage* msg) {
   return *msg->_impl_.ball_velocity_;
 }
@@ -14187,10 +15146,10 @@ BallMessage::BallMessage(const BallMessage& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.ball_position_ = new ::protos::Vector2D(*from._impl_.ball_position_);
+    _this->_impl_.ball_position_ = new ::protos::RpcVector2D(*from._impl_.ball_position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
-    _this->_impl_.ball_velocity_ = new ::protos::Vector2D(*from._impl_.ball_velocity_);
+    _this->_impl_.ball_velocity_ = new ::protos::RpcVector2D(*from._impl_.ball_velocity_);
   }
   // @@protoc_insertion_point(copy_constructor:protos.BallMessage)
 }
@@ -14252,7 +15211,7 @@ const char* BallMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D ball_position = 1;
+      // .protos.RpcVector2D ball_position = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_ball_position(), ptr);
@@ -14261,7 +15220,7 @@ const char* BallMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D ball_velocity = 2;
+      // .protos.RpcVector2D ball_velocity = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_ball_velocity(), ptr);
@@ -14301,14 +15260,14 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D ball_position = 1;
+  // .protos.RpcVector2D ball_position = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::ball_position(this),
         _Internal::ball_position(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D ball_velocity = 2;
+  // .protos.RpcVector2D ball_velocity = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::ball_velocity(this),
@@ -14333,14 +15292,14 @@ failure:
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    // .protos.Vector2D ball_position = 1;
+    // .protos.RpcVector2D ball_position = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.ball_position_);
     }
 
-    // .protos.Vector2D ball_velocity = 2;
+    // .protos.RpcVector2D ball_velocity = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -14369,11 +15328,11 @@ void BallMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_mutable_ball_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_ball_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_ball_position());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_mutable_ball_velocity()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_ball_velocity()->::protos::RpcVector2D::MergeFrom(
           from._internal_ball_velocity());
     }
   }
@@ -14406,7 +15365,7 @@ void BallMessage::InternalSwap(BallMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata BallMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[20]);
+      file_level_metadata_service_2eproto[22]);
 }
 // ===================================================================
 
@@ -14415,29 +15374,29 @@ class PassMessage::_Internal {
   using HasBits = decltype(std::declval<PassMessage>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(PassMessage, _impl_._has_bits_);
-  static const ::protos::Vector2D& receiver_point(const PassMessage* msg);
+  static const ::protos::RpcVector2D& receiver_point(const PassMessage* msg);
   static void set_has_receiver_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::protos::Vector2D& ball_position(const PassMessage* msg);
+  static const ::protos::RpcVector2D& ball_position(const PassMessage* msg);
   static void set_has_ball_position(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static const ::protos::Vector2D& ball_velocity(const PassMessage* msg);
+  static const ::protos::RpcVector2D& ball_velocity(const PassMessage* msg);
   static void set_has_ball_velocity(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 PassMessage::_Internal::receiver_point(const PassMessage* msg) {
   return *msg->_impl_.receiver_point_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 PassMessage::_Internal::ball_position(const PassMessage* msg) {
   return *msg->_impl_.ball_position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 PassMessage::_Internal::ball_velocity(const PassMessage* msg) {
   return *msg->_impl_.ball_velocity_;
 }
@@ -14460,13 +15419,13 @@ PassMessage::PassMessage(const PassMessage& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.receiver_point_ = new ::protos::Vector2D(*from._impl_.receiver_point_);
+    _this->_impl_.receiver_point_ = new ::protos::RpcVector2D(*from._impl_.receiver_point_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
-    _this->_impl_.ball_position_ = new ::protos::Vector2D(*from._impl_.ball_position_);
+    _this->_impl_.ball_position_ = new ::protos::RpcVector2D(*from._impl_.ball_position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
-    _this->_impl_.ball_velocity_ = new ::protos::Vector2D(*from._impl_.ball_velocity_);
+    _this->_impl_.ball_velocity_ = new ::protos::RpcVector2D(*from._impl_.ball_velocity_);
   }
   _this->_impl_.receiver_uniform_number_ = from._impl_.receiver_uniform_number_;
   // @@protoc_insertion_point(copy_constructor:protos.PassMessage)
@@ -14547,7 +15506,7 @@ const char* PassMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D receiver_point = 2;
+      // .protos.RpcVector2D receiver_point = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_receiver_point(), ptr);
@@ -14556,7 +15515,7 @@ const char* PassMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D ball_position = 3;
+      // .protos.RpcVector2D ball_position = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_ball_position(), ptr);
@@ -14565,7 +15524,7 @@ const char* PassMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D ball_velocity = 4;
+      // .protos.RpcVector2D ball_velocity = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_ball_velocity(), ptr);
@@ -14612,21 +15571,21 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D receiver_point = 2;
+  // .protos.RpcVector2D receiver_point = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::receiver_point(this),
         _Internal::receiver_point(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D ball_position = 3;
+  // .protos.RpcVector2D ball_position = 3;
   if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::ball_position(this),
         _Internal::ball_position(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D ball_velocity = 4;
+  // .protos.RpcVector2D ball_velocity = 4;
   if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(4, _Internal::ball_velocity(this),
@@ -14651,21 +15610,21 @@ failure:
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
-    // .protos.Vector2D receiver_point = 2;
+    // .protos.RpcVector2D receiver_point = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.receiver_point_);
     }
 
-    // .protos.Vector2D ball_position = 3;
+    // .protos.RpcVector2D ball_position = 3;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.ball_position_);
     }
 
-    // .protos.Vector2D ball_velocity = 4;
+    // .protos.RpcVector2D ball_velocity = 4;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -14700,15 +15659,15 @@ void PassMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_mutable_receiver_point()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_receiver_point()->::protos::RpcVector2D::MergeFrom(
           from._internal_receiver_point());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_mutable_ball_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_ball_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_ball_position());
     }
     if (cached_has_bits & 0x00000004u) {
-      _this->_internal_mutable_ball_velocity()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_ball_velocity()->::protos::RpcVector2D::MergeFrom(
           from._internal_ball_velocity());
     }
   }
@@ -14744,7 +15703,7 @@ void PassMessage::InternalSwap(PassMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata PassMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[21]);
+      file_level_metadata_service_2eproto[23]);
 }
 // ===================================================================
 
@@ -14977,7 +15936,7 @@ void InterceptMessage::InternalSwap(InterceptMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata InterceptMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[22]);
+      file_level_metadata_service_2eproto[24]);
 }
 // ===================================================================
 
@@ -14986,13 +15945,13 @@ class GoalieMessage::_Internal {
   using HasBits = decltype(std::declval<GoalieMessage>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(GoalieMessage, _impl_._has_bits_);
-  static const ::protos::Vector2D& goalie_position(const GoalieMessage* msg);
+  static const ::protos::RpcVector2D& goalie_position(const GoalieMessage* msg);
   static void set_has_goalie_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 GoalieMessage::_Internal::goalie_position(const GoalieMessage* msg) {
   return *msg->_impl_.goalie_position_;
 }
@@ -15015,7 +15974,7 @@ GoalieMessage::GoalieMessage(const GoalieMessage& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.goalie_position_ = new ::protos::Vector2D(*from._impl_.goalie_position_);
+    _this->_impl_.goalie_position_ = new ::protos::RpcVector2D(*from._impl_.goalie_position_);
   }
   ::memcpy(&_impl_.goalie_uniform_number_, &from._impl_.goalie_uniform_number_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.goalie_body_direction_) -
@@ -15088,7 +16047,7 @@ const char* GoalieMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext*
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D goalie_position = 2;
+      // .protos.RpcVector2D goalie_position = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_goalie_position(), ptr);
@@ -15144,7 +16103,7 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D goalie_position = 2;
+  // .protos.RpcVector2D goalie_position = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::goalie_position(this),
@@ -15178,7 +16137,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D goalie_position = 2;
+  // .protos.RpcVector2D goalie_position = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -15220,7 +16179,7 @@ void GoalieMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_goalie_position()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_goalie_position()->::protos::RpcVector2D::MergeFrom(
         from._internal_goalie_position());
   }
   if (from._internal_goalie_uniform_number() != 0) {
@@ -15262,7 +16221,7 @@ void GoalieMessage::InternalSwap(GoalieMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GoalieMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[23]);
+      file_level_metadata_service_2eproto[25]);
 }
 // ===================================================================
 
@@ -15271,21 +16230,21 @@ class GoalieAndPlayerMessage::_Internal {
   using HasBits = decltype(std::declval<GoalieAndPlayerMessage>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(GoalieAndPlayerMessage, _impl_._has_bits_);
-  static const ::protos::Vector2D& goalie_position(const GoalieAndPlayerMessage* msg);
+  static const ::protos::RpcVector2D& goalie_position(const GoalieAndPlayerMessage* msg);
   static void set_has_goalie_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::protos::Vector2D& player_position(const GoalieAndPlayerMessage* msg);
+  static const ::protos::RpcVector2D& player_position(const GoalieAndPlayerMessage* msg);
   static void set_has_player_position(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 GoalieAndPlayerMessage::_Internal::goalie_position(const GoalieAndPlayerMessage* msg) {
   return *msg->_impl_.goalie_position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 GoalieAndPlayerMessage::_Internal::player_position(const GoalieAndPlayerMessage* msg) {
   return *msg->_impl_.player_position_;
 }
@@ -15311,10 +16270,10 @@ GoalieAndPlayerMessage::GoalieAndPlayerMessage(const GoalieAndPlayerMessage& fro
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.goalie_position_ = new ::protos::Vector2D(*from._impl_.goalie_position_);
+    _this->_impl_.goalie_position_ = new ::protos::RpcVector2D(*from._impl_.goalie_position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
-    _this->_impl_.player_position_ = new ::protos::Vector2D(*from._impl_.player_position_);
+    _this->_impl_.player_position_ = new ::protos::RpcVector2D(*from._impl_.player_position_);
   }
   ::memcpy(&_impl_.goalie_uniform_number_, &from._impl_.goalie_uniform_number_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.player_uniform_number_) -
@@ -15397,7 +16356,7 @@ const char* GoalieAndPlayerMessage::_InternalParse(const char* ptr, ::_pbi::Pars
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D goalie_position = 2;
+      // .protos.RpcVector2D goalie_position = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_goalie_position(), ptr);
@@ -15424,7 +16383,7 @@ const char* GoalieAndPlayerMessage::_InternalParse(const char* ptr, ::_pbi::Pars
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D player_position = 5;
+      // .protos.RpcVector2D player_position = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_player_position(), ptr);
@@ -15471,7 +16430,7 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D goalie_position = 2;
+  // .protos.RpcVector2D goalie_position = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::goalie_position(this),
@@ -15496,7 +16455,7 @@ failure:
         4, this->_internal_player_uniform_number(), target);
   }
 
-  // .protos.Vector2D player_position = 5;
+  // .protos.RpcVector2D player_position = 5;
   if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(5, _Internal::player_position(this),
@@ -15521,14 +16480,14 @@ failure:
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    // .protos.Vector2D goalie_position = 2;
+    // .protos.RpcVector2D goalie_position = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.goalie_position_);
     }
 
-    // .protos.Vector2D player_position = 5;
+    // .protos.RpcVector2D player_position = 5;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -15578,11 +16537,11 @@ void GoalieAndPlayerMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg,
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_mutable_goalie_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_goalie_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_goalie_position());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_mutable_player_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_player_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_player_position());
     }
   }
@@ -15628,7 +16587,7 @@ void GoalieAndPlayerMessage::InternalSwap(GoalieAndPlayerMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GoalieAndPlayerMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[24]);
+      file_level_metadata_service_2eproto[26]);
 }
 // ===================================================================
 
@@ -15813,7 +16772,7 @@ void OffsideLineMessage::InternalSwap(OffsideLineMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata OffsideLineMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[25]);
+      file_level_metadata_service_2eproto[27]);
 }
 // ===================================================================
 
@@ -15998,7 +16957,7 @@ void DefenseLineMessage::InternalSwap(DefenseLineMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DefenseLineMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[26]);
+      file_level_metadata_service_2eproto[28]);
 }
 // ===================================================================
 
@@ -16036,7 +16995,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*WaitRequestMessage::GetClassDa
 ::PROTOBUF_NAMESPACE_ID::Metadata WaitRequestMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[27]);
+      file_level_metadata_service_2eproto[29]);
 }
 // ===================================================================
 
@@ -16210,7 +17169,7 @@ void SetplayMessage::InternalSwap(SetplayMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SetplayMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[28]);
+      file_level_metadata_service_2eproto[30]);
 }
 // ===================================================================
 
@@ -16219,13 +17178,13 @@ class PassRequestMessage::_Internal {
   using HasBits = decltype(std::declval<PassRequestMessage>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(PassRequestMessage, _impl_._has_bits_);
-  static const ::protos::Vector2D& target_point(const PassRequestMessage* msg);
+  static const ::protos::RpcVector2D& target_point(const PassRequestMessage* msg);
   static void set_has_target_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 PassRequestMessage::_Internal::target_point(const PassRequestMessage* msg) {
   return *msg->_impl_.target_point_;
 }
@@ -16244,7 +17203,7 @@ PassRequestMessage::PassRequestMessage(const PassRequestMessage& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.target_point_ = new ::protos::Vector2D(*from._impl_.target_point_);
+    _this->_impl_.target_point_ = new ::protos::RpcVector2D(*from._impl_.target_point_);
   }
   // @@protoc_insertion_point(copy_constructor:protos.PassRequestMessage)
 }
@@ -16298,7 +17257,7 @@ const char* PassRequestMessage::_InternalParse(const char* ptr, ::_pbi::ParseCon
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D target_point = 1;
+      // .protos.RpcVector2D target_point = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_target_point(), ptr);
@@ -16338,7 +17297,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::target_point(this),
@@ -16361,7 +17320,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -16388,7 +17347,7 @@ void PassRequestMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, con
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_target_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_target_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_target_point());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -16415,7 +17374,7 @@ void PassRequestMessage::InternalSwap(PassRequestMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata PassRequestMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[29]);
+      file_level_metadata_service_2eproto[31]);
 }
 // ===================================================================
 
@@ -16600,7 +17559,7 @@ void StaminaMessage::InternalSwap(StaminaMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata StaminaMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[30]);
+      file_level_metadata_service_2eproto[32]);
 }
 // ===================================================================
 
@@ -16785,7 +17744,7 @@ void RecoveryMessage::InternalSwap(RecoveryMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata RecoveryMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[31]);
+      file_level_metadata_service_2eproto[33]);
 }
 // ===================================================================
 
@@ -16970,7 +17929,7 @@ void StaminaCapacityMessage::InternalSwap(StaminaCapacityMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata StaminaCapacityMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[32]);
+      file_level_metadata_service_2eproto[34]);
 }
 // ===================================================================
 
@@ -16979,13 +17938,13 @@ class DribbleMessage::_Internal {
   using HasBits = decltype(std::declval<DribbleMessage>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(DribbleMessage, _impl_._has_bits_);
-  static const ::protos::Vector2D& target_point(const DribbleMessage* msg);
+  static const ::protos::RpcVector2D& target_point(const DribbleMessage* msg);
   static void set_has_target_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 DribbleMessage::_Internal::target_point(const DribbleMessage* msg) {
   return *msg->_impl_.target_point_;
 }
@@ -17006,7 +17965,7 @@ DribbleMessage::DribbleMessage(const DribbleMessage& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.target_point_ = new ::protos::Vector2D(*from._impl_.target_point_);
+    _this->_impl_.target_point_ = new ::protos::RpcVector2D(*from._impl_.target_point_);
   }
   _this->_impl_.queue_count_ = from._impl_.queue_count_;
   // @@protoc_insertion_point(copy_constructor:protos.DribbleMessage)
@@ -17064,7 +18023,7 @@ const char* DribbleMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D target_point = 1;
+      // .protos.RpcVector2D target_point = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_target_point(), ptr);
@@ -17113,7 +18072,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::target_point(this),
@@ -17143,7 +18102,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -17176,7 +18135,7 @@ void DribbleMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const :
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_target_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_target_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_target_point());
   }
   if (from._internal_queue_count() != 0) {
@@ -17211,7 +18170,7 @@ void DribbleMessage::InternalSwap(DribbleMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DribbleMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[33]);
+      file_level_metadata_service_2eproto[35]);
 }
 // ===================================================================
 
@@ -17220,29 +18179,29 @@ class BallGoalieMessage::_Internal {
   using HasBits = decltype(std::declval<BallGoalieMessage>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(BallGoalieMessage, _impl_._has_bits_);
-  static const ::protos::Vector2D& ball_position(const BallGoalieMessage* msg);
+  static const ::protos::RpcVector2D& ball_position(const BallGoalieMessage* msg);
   static void set_has_ball_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::protos::Vector2D& ball_velocity(const BallGoalieMessage* msg);
+  static const ::protos::RpcVector2D& ball_velocity(const BallGoalieMessage* msg);
   static void set_has_ball_velocity(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static const ::protos::Vector2D& goalie_position(const BallGoalieMessage* msg);
+  static const ::protos::RpcVector2D& goalie_position(const BallGoalieMessage* msg);
   static void set_has_goalie_position(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 BallGoalieMessage::_Internal::ball_position(const BallGoalieMessage* msg) {
   return *msg->_impl_.ball_position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 BallGoalieMessage::_Internal::ball_velocity(const BallGoalieMessage* msg) {
   return *msg->_impl_.ball_velocity_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 BallGoalieMessage::_Internal::goalie_position(const BallGoalieMessage* msg) {
   return *msg->_impl_.goalie_position_;
 }
@@ -17265,13 +18224,13 @@ BallGoalieMessage::BallGoalieMessage(const BallGoalieMessage& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.ball_position_ = new ::protos::Vector2D(*from._impl_.ball_position_);
+    _this->_impl_.ball_position_ = new ::protos::RpcVector2D(*from._impl_.ball_position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
-    _this->_impl_.ball_velocity_ = new ::protos::Vector2D(*from._impl_.ball_velocity_);
+    _this->_impl_.ball_velocity_ = new ::protos::RpcVector2D(*from._impl_.ball_velocity_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
-    _this->_impl_.goalie_position_ = new ::protos::Vector2D(*from._impl_.goalie_position_);
+    _this->_impl_.goalie_position_ = new ::protos::RpcVector2D(*from._impl_.goalie_position_);
   }
   _this->_impl_.goalie_body_direction_ = from._impl_.goalie_body_direction_;
   // @@protoc_insertion_point(copy_constructor:protos.BallGoalieMessage)
@@ -17343,7 +18302,7 @@ const char* BallGoalieMessage::_InternalParse(const char* ptr, ::_pbi::ParseCont
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D ball_position = 1;
+      // .protos.RpcVector2D ball_position = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_ball_position(), ptr);
@@ -17352,7 +18311,7 @@ const char* BallGoalieMessage::_InternalParse(const char* ptr, ::_pbi::ParseCont
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D ball_velocity = 2;
+      // .protos.RpcVector2D ball_velocity = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_ball_velocity(), ptr);
@@ -17361,7 +18320,7 @@ const char* BallGoalieMessage::_InternalParse(const char* ptr, ::_pbi::ParseCont
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D goalie_position = 3;
+      // .protos.RpcVector2D goalie_position = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_goalie_position(), ptr);
@@ -17410,21 +18369,21 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D ball_position = 1;
+  // .protos.RpcVector2D ball_position = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::ball_position(this),
         _Internal::ball_position(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D ball_velocity = 2;
+  // .protos.RpcVector2D ball_velocity = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::ball_velocity(this),
         _Internal::ball_velocity(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D goalie_position = 3;
+  // .protos.RpcVector2D goalie_position = 3;
   if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::goalie_position(this),
@@ -17460,21 +18419,21 @@ failure:
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
-    // .protos.Vector2D ball_position = 1;
+    // .protos.RpcVector2D ball_position = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.ball_position_);
     }
 
-    // .protos.Vector2D ball_velocity = 2;
+    // .protos.RpcVector2D ball_velocity = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.ball_velocity_);
     }
 
-    // .protos.Vector2D goalie_position = 3;
+    // .protos.RpcVector2D goalie_position = 3;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -17512,15 +18471,15 @@ void BallGoalieMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_mutable_ball_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_ball_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_ball_position());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_mutable_ball_velocity()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_ball_velocity()->::protos::RpcVector2D::MergeFrom(
           from._internal_ball_velocity());
     }
     if (cached_has_bits & 0x00000004u) {
-      _this->_internal_mutable_goalie_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_goalie_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_goalie_position());
     }
   }
@@ -17560,7 +18519,7 @@ void BallGoalieMessage::InternalSwap(BallGoalieMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata BallGoalieMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[34]);
+      file_level_metadata_service_2eproto[36]);
 }
 // ===================================================================
 
@@ -17569,13 +18528,13 @@ class OnePlayerMessage::_Internal {
   using HasBits = decltype(std::declval<OnePlayerMessage>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(OnePlayerMessage, _impl_._has_bits_);
-  static const ::protos::Vector2D& position(const OnePlayerMessage* msg);
+  static const ::protos::RpcVector2D& position(const OnePlayerMessage* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 OnePlayerMessage::_Internal::position(const OnePlayerMessage* msg) {
   return *msg->_impl_.position_;
 }
@@ -17596,7 +18555,7 @@ OnePlayerMessage::OnePlayerMessage(const OnePlayerMessage& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.position_ = new ::protos::Vector2D(*from._impl_.position_);
+    _this->_impl_.position_ = new ::protos::RpcVector2D(*from._impl_.position_);
   }
   _this->_impl_.uniform_number_ = from._impl_.uniform_number_;
   // @@protoc_insertion_point(copy_constructor:protos.OnePlayerMessage)
@@ -17663,7 +18622,7 @@ const char* OnePlayerMessage::_InternalParse(const char* ptr, ::_pbi::ParseConte
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D position = 2;
+      // .protos.RpcVector2D position = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
@@ -17710,7 +18669,7 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D position = 2;
+  // .protos.RpcVector2D position = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::position(this),
@@ -17733,7 +18692,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D position = 2;
+  // .protos.RpcVector2D position = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -17766,7 +18725,7 @@ void OnePlayerMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_position()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_position()->::protos::RpcVector2D::MergeFrom(
         from._internal_position());
   }
   if (from._internal_uniform_number() != 0) {
@@ -17801,7 +18760,7 @@ void OnePlayerMessage::InternalSwap(OnePlayerMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata OnePlayerMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[35]);
+      file_level_metadata_service_2eproto[37]);
 }
 // ===================================================================
 
@@ -17810,21 +18769,21 @@ class TwoPlayerMessage::_Internal {
   using HasBits = decltype(std::declval<TwoPlayerMessage>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(TwoPlayerMessage, _impl_._has_bits_);
-  static const ::protos::Vector2D& first_position(const TwoPlayerMessage* msg);
+  static const ::protos::RpcVector2D& first_position(const TwoPlayerMessage* msg);
   static void set_has_first_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::protos::Vector2D& second_position(const TwoPlayerMessage* msg);
+  static const ::protos::RpcVector2D& second_position(const TwoPlayerMessage* msg);
   static void set_has_second_position(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 TwoPlayerMessage::_Internal::first_position(const TwoPlayerMessage* msg) {
   return *msg->_impl_.first_position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 TwoPlayerMessage::_Internal::second_position(const TwoPlayerMessage* msg) {
   return *msg->_impl_.second_position_;
 }
@@ -17848,10 +18807,10 @@ TwoPlayerMessage::TwoPlayerMessage(const TwoPlayerMessage& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.first_position_ = new ::protos::Vector2D(*from._impl_.first_position_);
+    _this->_impl_.first_position_ = new ::protos::RpcVector2D(*from._impl_.first_position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
-    _this->_impl_.second_position_ = new ::protos::Vector2D(*from._impl_.second_position_);
+    _this->_impl_.second_position_ = new ::protos::RpcVector2D(*from._impl_.second_position_);
   }
   ::memcpy(&_impl_.first_uniform_number_, &from._impl_.first_uniform_number_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.second_uniform_number_) -
@@ -17932,7 +18891,7 @@ const char* TwoPlayerMessage::_InternalParse(const char* ptr, ::_pbi::ParseConte
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D first_position = 2;
+      // .protos.RpcVector2D first_position = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_first_position(), ptr);
@@ -17950,7 +18909,7 @@ const char* TwoPlayerMessage::_InternalParse(const char* ptr, ::_pbi::ParseConte
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D second_position = 4;
+      // .protos.RpcVector2D second_position = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_second_position(), ptr);
@@ -17997,7 +18956,7 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D first_position = 2;
+  // .protos.RpcVector2D first_position = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::first_position(this),
@@ -18011,7 +18970,7 @@ failure:
         3, this->_internal_second_uniform_number(), target);
   }
 
-  // .protos.Vector2D second_position = 4;
+  // .protos.RpcVector2D second_position = 4;
   if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(4, _Internal::second_position(this),
@@ -18036,14 +18995,14 @@ failure:
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    // .protos.Vector2D first_position = 2;
+    // .protos.RpcVector2D first_position = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.first_position_);
     }
 
-    // .protos.Vector2D second_position = 4;
+    // .protos.RpcVector2D second_position = 4;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -18084,11 +19043,11 @@ void TwoPlayerMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_mutable_first_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_first_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_first_position());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_mutable_second_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_second_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_second_position());
     }
   }
@@ -18127,7 +19086,7 @@ void TwoPlayerMessage::InternalSwap(TwoPlayerMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata TwoPlayerMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[36]);
+      file_level_metadata_service_2eproto[38]);
 }
 // ===================================================================
 
@@ -18136,29 +19095,29 @@ class ThreePlayerMessage::_Internal {
   using HasBits = decltype(std::declval<ThreePlayerMessage>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(ThreePlayerMessage, _impl_._has_bits_);
-  static const ::protos::Vector2D& first_position(const ThreePlayerMessage* msg);
+  static const ::protos::RpcVector2D& first_position(const ThreePlayerMessage* msg);
   static void set_has_first_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::protos::Vector2D& second_position(const ThreePlayerMessage* msg);
+  static const ::protos::RpcVector2D& second_position(const ThreePlayerMessage* msg);
   static void set_has_second_position(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static const ::protos::Vector2D& third_position(const ThreePlayerMessage* msg);
+  static const ::protos::RpcVector2D& third_position(const ThreePlayerMessage* msg);
   static void set_has_third_position(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 ThreePlayerMessage::_Internal::first_position(const ThreePlayerMessage* msg) {
   return *msg->_impl_.first_position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 ThreePlayerMessage::_Internal::second_position(const ThreePlayerMessage* msg) {
   return *msg->_impl_.second_position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 ThreePlayerMessage::_Internal::third_position(const ThreePlayerMessage* msg) {
   return *msg->_impl_.third_position_;
 }
@@ -18185,13 +19144,13 @@ ThreePlayerMessage::ThreePlayerMessage(const ThreePlayerMessage& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.first_position_ = new ::protos::Vector2D(*from._impl_.first_position_);
+    _this->_impl_.first_position_ = new ::protos::RpcVector2D(*from._impl_.first_position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
-    _this->_impl_.second_position_ = new ::protos::Vector2D(*from._impl_.second_position_);
+    _this->_impl_.second_position_ = new ::protos::RpcVector2D(*from._impl_.second_position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
-    _this->_impl_.third_position_ = new ::protos::Vector2D(*from._impl_.third_position_);
+    _this->_impl_.third_position_ = new ::protos::RpcVector2D(*from._impl_.third_position_);
   }
   ::memcpy(&_impl_.first_uniform_number_, &from._impl_.first_uniform_number_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.third_uniform_number_) -
@@ -18280,7 +19239,7 @@ const char* ThreePlayerMessage::_InternalParse(const char* ptr, ::_pbi::ParseCon
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D first_position = 2;
+      // .protos.RpcVector2D first_position = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_first_position(), ptr);
@@ -18298,7 +19257,7 @@ const char* ThreePlayerMessage::_InternalParse(const char* ptr, ::_pbi::ParseCon
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D second_position = 4;
+      // .protos.RpcVector2D second_position = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_second_position(), ptr);
@@ -18316,7 +19275,7 @@ const char* ThreePlayerMessage::_InternalParse(const char* ptr, ::_pbi::ParseCon
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D third_position = 6;
+      // .protos.RpcVector2D third_position = 6;
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_third_position(), ptr);
@@ -18363,7 +19322,7 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D first_position = 2;
+  // .protos.RpcVector2D first_position = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::first_position(this),
@@ -18377,7 +19336,7 @@ failure:
         3, this->_internal_second_uniform_number(), target);
   }
 
-  // .protos.Vector2D second_position = 4;
+  // .protos.RpcVector2D second_position = 4;
   if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(4, _Internal::second_position(this),
@@ -18391,7 +19350,7 @@ failure:
         5, this->_internal_third_uniform_number(), target);
   }
 
-  // .protos.Vector2D third_position = 6;
+  // .protos.RpcVector2D third_position = 6;
   if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(6, _Internal::third_position(this),
@@ -18416,21 +19375,21 @@ failure:
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
-    // .protos.Vector2D first_position = 2;
+    // .protos.RpcVector2D first_position = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.first_position_);
     }
 
-    // .protos.Vector2D second_position = 4;
+    // .protos.RpcVector2D second_position = 4;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.second_position_);
     }
 
-    // .protos.Vector2D third_position = 6;
+    // .protos.RpcVector2D third_position = 6;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -18477,15 +19436,15 @@ void ThreePlayerMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, con
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_mutable_first_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_first_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_first_position());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_mutable_second_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_second_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_second_position());
     }
     if (cached_has_bits & 0x00000004u) {
-      _this->_internal_mutable_third_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_third_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_third_position());
     }
   }
@@ -18527,7 +19486,7 @@ void ThreePlayerMessage::InternalSwap(ThreePlayerMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ThreePlayerMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[37]);
+      file_level_metadata_service_2eproto[39]);
 }
 // ===================================================================
 
@@ -18536,13 +19495,13 @@ class SelfMessage::_Internal {
   using HasBits = decltype(std::declval<SelfMessage>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(SelfMessage, _impl_._has_bits_);
-  static const ::protos::Vector2D& self_position(const SelfMessage* msg);
+  static const ::protos::RpcVector2D& self_position(const SelfMessage* msg);
   static void set_has_self_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 SelfMessage::_Internal::self_position(const SelfMessage* msg) {
   return *msg->_impl_.self_position_;
 }
@@ -18565,7 +19524,7 @@ SelfMessage::SelfMessage(const SelfMessage& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.self_position_ = new ::protos::Vector2D(*from._impl_.self_position_);
+    _this->_impl_.self_position_ = new ::protos::RpcVector2D(*from._impl_.self_position_);
   }
   ::memcpy(&_impl_.self_body_direction_, &from._impl_.self_body_direction_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.self_stamina_) -
@@ -18629,7 +19588,7 @@ const char* SelfMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D self_position = 1;
+      // .protos.RpcVector2D self_position = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_self_position(), ptr);
@@ -18687,7 +19646,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D self_position = 1;
+  // .protos.RpcVector2D self_position = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::self_position(this),
@@ -18732,7 +19691,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D self_position = 1;
+  // .protos.RpcVector2D self_position = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -18777,7 +19736,7 @@ void SelfMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_self_position()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_self_position()->::protos::RpcVector2D::MergeFrom(
         from._internal_self_position());
   }
   static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
@@ -18823,7 +19782,7 @@ void SelfMessage::InternalSwap(SelfMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SelfMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[38]);
+      file_level_metadata_service_2eproto[40]);
 }
 // ===================================================================
 
@@ -18832,13 +19791,13 @@ class TeammateMessage::_Internal {
   using HasBits = decltype(std::declval<TeammateMessage>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(TeammateMessage, _impl_._has_bits_);
-  static const ::protos::Vector2D& position(const TeammateMessage* msg);
+  static const ::protos::RpcVector2D& position(const TeammateMessage* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 TeammateMessage::_Internal::position(const TeammateMessage* msg) {
   return *msg->_impl_.position_;
 }
@@ -18861,7 +19820,7 @@ TeammateMessage::TeammateMessage(const TeammateMessage& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.position_ = new ::protos::Vector2D(*from._impl_.position_);
+    _this->_impl_.position_ = new ::protos::RpcVector2D(*from._impl_.position_);
   }
   ::memcpy(&_impl_.uniform_number_, &from._impl_.uniform_number_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.body_direction_) -
@@ -18934,7 +19893,7 @@ const char* TeammateMessage::_InternalParse(const char* ptr, ::_pbi::ParseContex
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D position = 2;
+      // .protos.RpcVector2D position = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
@@ -18990,7 +19949,7 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D position = 2;
+  // .protos.RpcVector2D position = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::position(this),
@@ -19024,7 +19983,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D position = 2;
+  // .protos.RpcVector2D position = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -19066,7 +20025,7 @@ void TeammateMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_position()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_position()->::protos::RpcVector2D::MergeFrom(
         from._internal_position());
   }
   if (from._internal_uniform_number() != 0) {
@@ -19108,7 +20067,7 @@ void TeammateMessage::InternalSwap(TeammateMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata TeammateMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[39]);
+      file_level_metadata_service_2eproto[41]);
 }
 // ===================================================================
 
@@ -19117,13 +20076,13 @@ class OpponentMessage::_Internal {
   using HasBits = decltype(std::declval<OpponentMessage>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(OpponentMessage, _impl_._has_bits_);
-  static const ::protos::Vector2D& position(const OpponentMessage* msg);
+  static const ::protos::RpcVector2D& position(const OpponentMessage* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 OpponentMessage::_Internal::position(const OpponentMessage* msg) {
   return *msg->_impl_.position_;
 }
@@ -19146,7 +20105,7 @@ OpponentMessage::OpponentMessage(const OpponentMessage& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.position_ = new ::protos::Vector2D(*from._impl_.position_);
+    _this->_impl_.position_ = new ::protos::RpcVector2D(*from._impl_.position_);
   }
   ::memcpy(&_impl_.uniform_number_, &from._impl_.uniform_number_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.body_direction_) -
@@ -19219,7 +20178,7 @@ const char* OpponentMessage::_InternalParse(const char* ptr, ::_pbi::ParseContex
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D position = 2;
+      // .protos.RpcVector2D position = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
@@ -19275,7 +20234,7 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D position = 2;
+  // .protos.RpcVector2D position = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::position(this),
@@ -19309,7 +20268,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D position = 2;
+  // .protos.RpcVector2D position = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -19351,7 +20310,7 @@ void OpponentMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_position()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_position()->::protos::RpcVector2D::MergeFrom(
         from._internal_position());
   }
   if (from._internal_uniform_number() != 0) {
@@ -19393,7 +20352,7 @@ void OpponentMessage::InternalSwap(OpponentMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata OpponentMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[40]);
+      file_level_metadata_service_2eproto[42]);
 }
 // ===================================================================
 
@@ -19402,29 +20361,29 @@ class BallPlayerMessage::_Internal {
   using HasBits = decltype(std::declval<BallPlayerMessage>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(BallPlayerMessage, _impl_._has_bits_);
-  static const ::protos::Vector2D& ball_position(const BallPlayerMessage* msg);
+  static const ::protos::RpcVector2D& ball_position(const BallPlayerMessage* msg);
   static void set_has_ball_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::protos::Vector2D& ball_velocity(const BallPlayerMessage* msg);
+  static const ::protos::RpcVector2D& ball_velocity(const BallPlayerMessage* msg);
   static void set_has_ball_velocity(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static const ::protos::Vector2D& player_position(const BallPlayerMessage* msg);
+  static const ::protos::RpcVector2D& player_position(const BallPlayerMessage* msg);
   static void set_has_player_position(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 BallPlayerMessage::_Internal::ball_position(const BallPlayerMessage* msg) {
   return *msg->_impl_.ball_position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 BallPlayerMessage::_Internal::ball_velocity(const BallPlayerMessage* msg) {
   return *msg->_impl_.ball_velocity_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 BallPlayerMessage::_Internal::player_position(const BallPlayerMessage* msg) {
   return *msg->_impl_.player_position_;
 }
@@ -19449,13 +20408,13 @@ BallPlayerMessage::BallPlayerMessage(const BallPlayerMessage& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.ball_position_ = new ::protos::Vector2D(*from._impl_.ball_position_);
+    _this->_impl_.ball_position_ = new ::protos::RpcVector2D(*from._impl_.ball_position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
-    _this->_impl_.ball_velocity_ = new ::protos::Vector2D(*from._impl_.ball_velocity_);
+    _this->_impl_.ball_velocity_ = new ::protos::RpcVector2D(*from._impl_.ball_velocity_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
-    _this->_impl_.player_position_ = new ::protos::Vector2D(*from._impl_.player_position_);
+    _this->_impl_.player_position_ = new ::protos::RpcVector2D(*from._impl_.player_position_);
   }
   ::memcpy(&_impl_.uniform_number_, &from._impl_.uniform_number_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.body_direction_) -
@@ -19533,7 +20492,7 @@ const char* BallPlayerMessage::_InternalParse(const char* ptr, ::_pbi::ParseCont
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D ball_position = 1;
+      // .protos.RpcVector2D ball_position = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_ball_position(), ptr);
@@ -19542,7 +20501,7 @@ const char* BallPlayerMessage::_InternalParse(const char* ptr, ::_pbi::ParseCont
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D ball_velocity = 2;
+      // .protos.RpcVector2D ball_velocity = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_ball_velocity(), ptr);
@@ -19560,7 +20519,7 @@ const char* BallPlayerMessage::_InternalParse(const char* ptr, ::_pbi::ParseCont
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D player_position = 4;
+      // .protos.RpcVector2D player_position = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_player_position(), ptr);
@@ -19609,14 +20568,14 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D ball_position = 1;
+  // .protos.RpcVector2D ball_position = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::ball_position(this),
         _Internal::ball_position(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D ball_velocity = 2;
+  // .protos.RpcVector2D ball_velocity = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::ball_velocity(this),
@@ -19630,7 +20589,7 @@ failure:
         3, this->_internal_uniform_number(), target);
   }
 
-  // .protos.Vector2D player_position = 4;
+  // .protos.RpcVector2D player_position = 4;
   if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(4, _Internal::player_position(this),
@@ -19666,21 +20625,21 @@ failure:
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
-    // .protos.Vector2D ball_position = 1;
+    // .protos.RpcVector2D ball_position = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.ball_position_);
     }
 
-    // .protos.Vector2D ball_velocity = 2;
+    // .protos.RpcVector2D ball_velocity = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.ball_velocity_);
     }
 
-    // .protos.Vector2D player_position = 4;
+    // .protos.RpcVector2D player_position = 4;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -19724,15 +20683,15 @@ void BallPlayerMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_mutable_ball_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_ball_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_ball_position());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_mutable_ball_velocity()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_ball_velocity()->::protos::RpcVector2D::MergeFrom(
           from._internal_ball_velocity());
     }
     if (cached_has_bits & 0x00000004u) {
-      _this->_internal_mutable_player_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_player_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_player_position());
     }
   }
@@ -19775,7 +20734,7 @@ void BallPlayerMessage::InternalSwap(BallPlayerMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata BallPlayerMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[41]);
+      file_level_metadata_service_2eproto[43]);
 }
 // ===================================================================
 
@@ -21241,7 +22200,7 @@ void Say::InternalSwap(Say* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Say::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[42]);
+      file_level_metadata_service_2eproto[44]);
 }
 // ===================================================================
 
@@ -21470,7 +22429,7 @@ void PointTo::InternalSwap(PointTo* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata PointTo::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[43]);
+      file_level_metadata_service_2eproto[45]);
 }
 // ===================================================================
 
@@ -21508,7 +22467,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*PointToOf::GetClassData() cons
 ::PROTOBUF_NAMESPACE_ID::Metadata PointToOf::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[44]);
+      file_level_metadata_service_2eproto[46]);
 }
 // ===================================================================
 
@@ -21716,7 +22675,7 @@ void AttentionTo::InternalSwap(AttentionTo* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AttentionTo::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[45]);
+      file_level_metadata_service_2eproto[47]);
 }
 // ===================================================================
 
@@ -21754,7 +22713,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*AttentionToOf::GetClassData() 
 ::PROTOBUF_NAMESPACE_ID::Metadata AttentionToOf::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[46]);
+      file_level_metadata_service_2eproto[48]);
 }
 // ===================================================================
 
@@ -21983,7 +22942,7 @@ void AddText::InternalSwap(AddText* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AddText::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[47]);
+      file_level_metadata_service_2eproto[49]);
 }
 // ===================================================================
 
@@ -21992,13 +22951,13 @@ class AddPoint::_Internal {
   using HasBits = decltype(std::declval<AddPoint>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(AddPoint, _impl_._has_bits_);
-  static const ::protos::Vector2D& point(const AddPoint* msg);
+  static const ::protos::RpcVector2D& point(const AddPoint* msg);
   static void set_has_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 AddPoint::_Internal::point(const AddPoint* msg) {
   return *msg->_impl_.point_;
 }
@@ -22028,7 +22987,7 @@ AddPoint::AddPoint(const AddPoint& from)
     _this->_impl_.color_.Set(from._internal_color(), _this->GetArenaForAllocation());
   }
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.point_ = new ::protos::Vector2D(*from._impl_.point_);
+    _this->_impl_.point_ = new ::protos::RpcVector2D(*from._impl_.point_);
   }
   _this->_impl_.level_ = from._impl_.level_;
   // @@protoc_insertion_point(copy_constructor:protos.AddPoint)
@@ -22104,7 +23063,7 @@ const char* AddPoint::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D point = 2;
+      // .protos.RpcVector2D point = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_point(), ptr);
@@ -22162,7 +23121,7 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D point = 2;
+  // .protos.RpcVector2D point = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::point(this),
@@ -22199,7 +23158,7 @@ failure:
                                     this->_internal_color());
   }
 
-  // .protos.Vector2D point = 2;
+  // .protos.RpcVector2D point = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -22235,7 +23194,7 @@ void AddPoint::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTO
     _this->_internal_set_color(from._internal_color());
   }
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_point());
   }
   if (from._internal_level() != 0) {
@@ -22274,7 +23233,7 @@ void AddPoint::InternalSwap(AddPoint* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AddPoint::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[48]);
+      file_level_metadata_service_2eproto[50]);
 }
 // ===================================================================
 
@@ -22283,21 +23242,21 @@ class AddLine::_Internal {
   using HasBits = decltype(std::declval<AddLine>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(AddLine, _impl_._has_bits_);
-  static const ::protos::Vector2D& start(const AddLine* msg);
+  static const ::protos::RpcVector2D& start(const AddLine* msg);
   static void set_has_start(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::protos::Vector2D& end(const AddLine* msg);
+  static const ::protos::RpcVector2D& end(const AddLine* msg);
   static void set_has_end(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 AddLine::_Internal::start(const AddLine* msg) {
   return *msg->_impl_.start_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 AddLine::_Internal::end(const AddLine* msg) {
   return *msg->_impl_.end_;
 }
@@ -22328,10 +23287,10 @@ AddLine::AddLine(const AddLine& from)
     _this->_impl_.color_.Set(from._internal_color(), _this->GetArenaForAllocation());
   }
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.start_ = new ::protos::Vector2D(*from._impl_.start_);
+    _this->_impl_.start_ = new ::protos::RpcVector2D(*from._impl_.start_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
-    _this->_impl_.end_ = new ::protos::Vector2D(*from._impl_.end_);
+    _this->_impl_.end_ = new ::protos::RpcVector2D(*from._impl_.end_);
   }
   _this->_impl_.level_ = from._impl_.level_;
   // @@protoc_insertion_point(copy_constructor:protos.AddLine)
@@ -22415,7 +23374,7 @@ const char* AddLine::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D start = 2;
+      // .protos.RpcVector2D start = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_start(), ptr);
@@ -22424,7 +23383,7 @@ const char* AddLine::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) 
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D end = 3;
+      // .protos.RpcVector2D end = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_end(), ptr);
@@ -22482,14 +23441,14 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D start = 2;
+  // .protos.RpcVector2D start = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::start(this),
         _Internal::start(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D end = 3;
+  // .protos.RpcVector2D end = 3;
   if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::end(this),
@@ -22528,14 +23487,14 @@ failure:
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    // .protos.Vector2D start = 2;
+    // .protos.RpcVector2D start = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.start_);
     }
 
-    // .protos.Vector2D end = 3;
+    // .protos.RpcVector2D end = 3;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -22573,11 +23532,11 @@ void AddLine::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOB
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_mutable_start()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_start()->::protos::RpcVector2D::MergeFrom(
           from._internal_start());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_mutable_end()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_end()->::protos::RpcVector2D::MergeFrom(
           from._internal_end());
     }
   }
@@ -22617,7 +23576,7 @@ void AddLine::InternalSwap(AddLine* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AddLine::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[49]);
+      file_level_metadata_service_2eproto[51]);
 }
 // ===================================================================
 
@@ -22626,13 +23585,13 @@ class AddArc::_Internal {
   using HasBits = decltype(std::declval<AddArc>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(AddArc, _impl_._has_bits_);
-  static const ::protos::Vector2D& center(const AddArc* msg);
+  static const ::protos::RpcVector2D& center(const AddArc* msg);
   static void set_has_center(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 AddArc::_Internal::center(const AddArc* msg) {
   return *msg->_impl_.center_;
 }
@@ -22668,7 +23627,7 @@ AddArc::AddArc(const AddArc& from)
     _this->_impl_.color_.Set(from._internal_color(), _this->GetArenaForAllocation());
   }
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.center_ = new ::protos::Vector2D(*from._impl_.center_);
+    _this->_impl_.center_ = new ::protos::RpcVector2D(*from._impl_.center_);
   }
   ::memcpy(&_impl_.level_, &from._impl_.level_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.span_angel_) -
@@ -22754,7 +23713,7 @@ const char* AddArc::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D center = 2;
+      // .protos.RpcVector2D center = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_center(), ptr);
@@ -22839,7 +23798,7 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D center = 2;
+  // .protos.RpcVector2D center = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::center(this),
@@ -22909,7 +23868,7 @@ failure:
                                     this->_internal_color());
   }
 
-  // .protos.Vector2D center = 2;
+  // .protos.RpcVector2D center = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -22972,7 +23931,7 @@ void AddArc::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBU
     _this->_internal_set_color(from._internal_color());
   }
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_center()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_center()->::protos::RpcVector2D::MergeFrom(
         from._internal_center());
   }
   if (from._internal_level() != 0) {
@@ -23032,7 +23991,7 @@ void AddArc::InternalSwap(AddArc* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AddArc::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[50]);
+      file_level_metadata_service_2eproto[52]);
 }
 // ===================================================================
 
@@ -23041,13 +24000,13 @@ class AddCircle::_Internal {
   using HasBits = decltype(std::declval<AddCircle>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(AddCircle, _impl_._has_bits_);
-  static const ::protos::Vector2D& center(const AddCircle* msg);
+  static const ::protos::RpcVector2D& center(const AddCircle* msg);
   static void set_has_center(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 AddCircle::_Internal::center(const AddCircle* msg) {
   return *msg->_impl_.center_;
 }
@@ -23081,7 +24040,7 @@ AddCircle::AddCircle(const AddCircle& from)
     _this->_impl_.color_.Set(from._internal_color(), _this->GetArenaForAllocation());
   }
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.center_ = new ::protos::Vector2D(*from._impl_.center_);
+    _this->_impl_.center_ = new ::protos::RpcVector2D(*from._impl_.center_);
   }
   ::memcpy(&_impl_.level_, &from._impl_.level_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.fill_) -
@@ -23165,7 +24124,7 @@ const char* AddCircle::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D center = 2;
+      // .protos.RpcVector2D center = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_center(), ptr);
@@ -23241,7 +24200,7 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D center = 2;
+  // .protos.RpcVector2D center = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::center(this),
@@ -23296,7 +24255,7 @@ failure:
                                     this->_internal_color());
   }
 
-  // .protos.Vector2D center = 2;
+  // .protos.RpcVector2D center = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -23346,7 +24305,7 @@ void AddCircle::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROT
     _this->_internal_set_color(from._internal_color());
   }
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_center()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_center()->::protos::RpcVector2D::MergeFrom(
         from._internal_center());
   }
   if (from._internal_level() != 0) {
@@ -23395,7 +24354,7 @@ void AddCircle::InternalSwap(AddCircle* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AddCircle::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[51]);
+      file_level_metadata_service_2eproto[53]);
 }
 // ===================================================================
 
@@ -23404,29 +24363,29 @@ class AddTriangle::_Internal {
   using HasBits = decltype(std::declval<AddTriangle>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(AddTriangle, _impl_._has_bits_);
-  static const ::protos::Vector2D& point1(const AddTriangle* msg);
+  static const ::protos::RpcVector2D& point1(const AddTriangle* msg);
   static void set_has_point1(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::protos::Vector2D& point2(const AddTriangle* msg);
+  static const ::protos::RpcVector2D& point2(const AddTriangle* msg);
   static void set_has_point2(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static const ::protos::Vector2D& point3(const AddTriangle* msg);
+  static const ::protos::RpcVector2D& point3(const AddTriangle* msg);
   static void set_has_point3(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 AddTriangle::_Internal::point1(const AddTriangle* msg) {
   return *msg->_impl_.point1_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 AddTriangle::_Internal::point2(const AddTriangle* msg) {
   return *msg->_impl_.point2_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 AddTriangle::_Internal::point3(const AddTriangle* msg) {
   return *msg->_impl_.point3_;
 }
@@ -23460,13 +24419,13 @@ AddTriangle::AddTriangle(const AddTriangle& from)
     _this->_impl_.color_.Set(from._internal_color(), _this->GetArenaForAllocation());
   }
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.point1_ = new ::protos::Vector2D(*from._impl_.point1_);
+    _this->_impl_.point1_ = new ::protos::RpcVector2D(*from._impl_.point1_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
-    _this->_impl_.point2_ = new ::protos::Vector2D(*from._impl_.point2_);
+    _this->_impl_.point2_ = new ::protos::RpcVector2D(*from._impl_.point2_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
-    _this->_impl_.point3_ = new ::protos::Vector2D(*from._impl_.point3_);
+    _this->_impl_.point3_ = new ::protos::RpcVector2D(*from._impl_.point3_);
   }
   ::memcpy(&_impl_.level_, &from._impl_.level_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.fill_) -
@@ -23562,7 +24521,7 @@ const char* AddTriangle::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D point1 = 2;
+      // .protos.RpcVector2D point1 = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_point1(), ptr);
@@ -23571,7 +24530,7 @@ const char* AddTriangle::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D point2 = 3;
+      // .protos.RpcVector2D point2 = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_point2(), ptr);
@@ -23580,7 +24539,7 @@ const char* AddTriangle::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D point3 = 4;
+      // .protos.RpcVector2D point3 = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_point3(), ptr);
@@ -23647,21 +24606,21 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D point1 = 2;
+  // .protos.RpcVector2D point1 = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::point1(this),
         _Internal::point1(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D point2 = 3;
+  // .protos.RpcVector2D point2 = 3;
   if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::point2(this),
         _Internal::point2(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D point3 = 4;
+  // .protos.RpcVector2D point3 = 4;
   if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(4, _Internal::point3(this),
@@ -23707,21 +24666,21 @@ failure:
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
-    // .protos.Vector2D point1 = 2;
+    // .protos.RpcVector2D point1 = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.point1_);
     }
 
-    // .protos.Vector2D point2 = 3;
+    // .protos.RpcVector2D point2 = 3;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.point2_);
     }
 
-    // .protos.Vector2D point3 = 4;
+    // .protos.RpcVector2D point3 = 4;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -23764,15 +24723,15 @@ void AddTriangle::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_mutable_point1()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_point1()->::protos::RpcVector2D::MergeFrom(
           from._internal_point1());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_mutable_point2()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_point2()->::protos::RpcVector2D::MergeFrom(
           from._internal_point2());
     }
     if (cached_has_bits & 0x00000004u) {
-      _this->_internal_mutable_point3()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_point3()->::protos::RpcVector2D::MergeFrom(
           from._internal_point3());
     }
   }
@@ -23815,7 +24774,7 @@ void AddTriangle::InternalSwap(AddTriangle* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AddTriangle::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[52]);
+      file_level_metadata_service_2eproto[54]);
 }
 // ===================================================================
 
@@ -24241,7 +25200,7 @@ void AddRectangle::InternalSwap(AddRectangle* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AddRectangle::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[53]);
+      file_level_metadata_service_2eproto[55]);
 }
 // ===================================================================
 
@@ -24250,13 +25209,13 @@ class AddSector::_Internal {
   using HasBits = decltype(std::declval<AddSector>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(AddSector, _impl_._has_bits_);
-  static const ::protos::Vector2D& center(const AddSector* msg);
+  static const ::protos::RpcVector2D& center(const AddSector* msg);
   static void set_has_center(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 AddSector::_Internal::center(const AddSector* msg) {
   return *msg->_impl_.center_;
 }
@@ -24296,7 +25255,7 @@ AddSector::AddSector(const AddSector& from)
     _this->_impl_.color_.Set(from._internal_color(), _this->GetArenaForAllocation());
   }
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.center_ = new ::protos::Vector2D(*from._impl_.center_);
+    _this->_impl_.center_ = new ::protos::RpcVector2D(*from._impl_.center_);
   }
   ::memcpy(&_impl_.level_, &from._impl_.level_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.fill_) -
@@ -24386,7 +25345,7 @@ const char* AddSector::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D center = 2;
+      // .protos.RpcVector2D center = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_center(), ptr);
@@ -24489,7 +25448,7 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D center = 2;
+  // .protos.RpcVector2D center = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::center(this),
@@ -24577,7 +25536,7 @@ failure:
                                     this->_internal_color());
   }
 
-  // .protos.Vector2D center = 2;
+  // .protos.RpcVector2D center = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -24654,7 +25613,7 @@ void AddSector::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROT
     _this->_internal_set_color(from._internal_color());
   }
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_center()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_center()->::protos::RpcVector2D::MergeFrom(
         from._internal_center());
   }
   if (from._internal_level() != 0) {
@@ -24724,7 +25683,7 @@ void AddSector::InternalSwap(AddSector* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AddSector::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[54]);
+      file_level_metadata_service_2eproto[56]);
 }
 // ===================================================================
 
@@ -24733,13 +25692,13 @@ class AddMessage::_Internal {
   using HasBits = decltype(std::declval<AddMessage>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(AddMessage, _impl_._has_bits_);
-  static const ::protos::Vector2D& position(const AddMessage* msg);
+  static const ::protos::RpcVector2D& position(const AddMessage* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 AddMessage::_Internal::position(const AddMessage* msg) {
   return *msg->_impl_.position_;
 }
@@ -24778,7 +25737,7 @@ AddMessage::AddMessage(const AddMessage& from)
     _this->_impl_.color_.Set(from._internal_color(), _this->GetArenaForAllocation());
   }
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.position_ = new ::protos::Vector2D(*from._impl_.position_);
+    _this->_impl_.position_ = new ::protos::RpcVector2D(*from._impl_.position_);
   }
   _this->_impl_.level_ = from._impl_.level_;
   // @@protoc_insertion_point(copy_constructor:protos.AddMessage)
@@ -24862,7 +25821,7 @@ const char* AddMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D position = 2;
+      // .protos.RpcVector2D position = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
@@ -24931,7 +25890,7 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D position = 2;
+  // .protos.RpcVector2D position = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::position(this),
@@ -24982,7 +25941,7 @@ failure:
                                     this->_internal_color());
   }
 
-  // .protos.Vector2D position = 2;
+  // .protos.RpcVector2D position = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -25021,7 +25980,7 @@ void AddMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
     _this->_internal_set_color(from._internal_color());
   }
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_position()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_position()->::protos::RpcVector2D::MergeFrom(
         from._internal_position());
   }
   if (from._internal_level() != 0) {
@@ -25062,7 +26021,7 @@ void AddMessage::InternalSwap(AddMessage* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata AddMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[55]);
+      file_level_metadata_service_2eproto[57]);
 }
 // ===================================================================
 
@@ -25774,7 +26733,7 @@ void Log::InternalSwap(Log* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Log::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[56]);
+      file_level_metadata_service_2eproto[58]);
 }
 // ===================================================================
 
@@ -25970,7 +26929,7 @@ void DebugClient::InternalSwap(DebugClient* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DebugClient::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[57]);
+      file_level_metadata_service_2eproto[59]);
 }
 // ===================================================================
 
@@ -25979,13 +26938,13 @@ class Body_GoToPoint::_Internal {
   using HasBits = decltype(std::declval<Body_GoToPoint>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Body_GoToPoint, _impl_._has_bits_);
-  static const ::protos::Vector2D& target_point(const Body_GoToPoint* msg);
+  static const ::protos::RpcVector2D& target_point(const Body_GoToPoint* msg);
   static void set_has_target_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Body_GoToPoint::_Internal::target_point(const Body_GoToPoint* msg) {
   return *msg->_impl_.target_point_;
 }
@@ -26008,7 +26967,7 @@ Body_GoToPoint::Body_GoToPoint(const Body_GoToPoint& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.target_point_ = new ::protos::Vector2D(*from._impl_.target_point_);
+    _this->_impl_.target_point_ = new ::protos::RpcVector2D(*from._impl_.target_point_);
   }
   ::memcpy(&_impl_.distance_threshold_, &from._impl_.distance_threshold_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.max_dash_power_) -
@@ -26072,7 +27031,7 @@ const char* Body_GoToPoint::_InternalParse(const char* ptr, ::_pbi::ParseContext
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D target_point = 1;
+      // .protos.RpcVector2D target_point = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_target_point(), ptr);
@@ -26130,7 +27089,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::target_point(this),
@@ -26175,7 +27134,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -26220,7 +27179,7 @@ void Body_GoToPoint::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const :
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_target_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_target_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_target_point());
   }
   static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
@@ -26266,7 +27225,7 @@ void Body_GoToPoint::InternalSwap(Body_GoToPoint* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Body_GoToPoint::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[58]);
+      file_level_metadata_service_2eproto[60]);
 }
 // ===================================================================
 
@@ -26275,13 +27234,13 @@ class Body_SmartKick::_Internal {
   using HasBits = decltype(std::declval<Body_SmartKick>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Body_SmartKick, _impl_._has_bits_);
-  static const ::protos::Vector2D& target_point(const Body_SmartKick* msg);
+  static const ::protos::RpcVector2D& target_point(const Body_SmartKick* msg);
   static void set_has_target_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Body_SmartKick::_Internal::target_point(const Body_SmartKick* msg) {
   return *msg->_impl_.target_point_;
 }
@@ -26306,7 +27265,7 @@ Body_SmartKick::Body_SmartKick(const Body_SmartKick& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.target_point_ = new ::protos::Vector2D(*from._impl_.target_point_);
+    _this->_impl_.target_point_ = new ::protos::RpcVector2D(*from._impl_.target_point_);
   }
   ::memcpy(&_impl_.first_speed_, &from._impl_.first_speed_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.max_steps_) -
@@ -26372,7 +27331,7 @@ const char* Body_SmartKick::_InternalParse(const char* ptr, ::_pbi::ParseContext
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D target_point = 1;
+      // .protos.RpcVector2D target_point = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_target_point(), ptr);
@@ -26439,7 +27398,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::target_point(this),
@@ -26491,7 +27450,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -26542,7 +27501,7 @@ void Body_SmartKick::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const :
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_target_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_target_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_target_point());
   }
   static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
@@ -26591,7 +27550,7 @@ void Body_SmartKick::InternalSwap(Body_SmartKick* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Body_SmartKick::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[59]);
+      file_level_metadata_service_2eproto[61]);
 }
 // ===================================================================
 
@@ -26600,13 +27559,13 @@ class Bhv_BeforeKickOff::_Internal {
   using HasBits = decltype(std::declval<Bhv_BeforeKickOff>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Bhv_BeforeKickOff, _impl_._has_bits_);
-  static const ::protos::Vector2D& point(const Bhv_BeforeKickOff* msg);
+  static const ::protos::RpcVector2D& point(const Bhv_BeforeKickOff* msg);
   static void set_has_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Bhv_BeforeKickOff::_Internal::point(const Bhv_BeforeKickOff* msg) {
   return *msg->_impl_.point_;
 }
@@ -26625,7 +27584,7 @@ Bhv_BeforeKickOff::Bhv_BeforeKickOff(const Bhv_BeforeKickOff& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.point_ = new ::protos::Vector2D(*from._impl_.point_);
+    _this->_impl_.point_ = new ::protos::RpcVector2D(*from._impl_.point_);
   }
   // @@protoc_insertion_point(copy_constructor:protos.Bhv_BeforeKickOff)
 }
@@ -26679,7 +27638,7 @@ const char* Bhv_BeforeKickOff::_InternalParse(const char* ptr, ::_pbi::ParseCont
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D point = 1;
+      // .protos.RpcVector2D point = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_point(), ptr);
@@ -26719,7 +27678,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D point = 1;
+  // .protos.RpcVector2D point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::point(this),
@@ -26742,7 +27701,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D point = 1;
+  // .protos.RpcVector2D point = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -26769,7 +27728,7 @@ void Bhv_BeforeKickOff::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_point());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -26796,7 +27755,7 @@ void Bhv_BeforeKickOff::InternalSwap(Bhv_BeforeKickOff* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Bhv_BeforeKickOff::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[60]);
+      file_level_metadata_service_2eproto[62]);
 }
 // ===================================================================
 
@@ -26834,7 +27793,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Bhv_BodyNeckToBall::GetClassDa
 ::PROTOBUF_NAMESPACE_ID::Metadata Bhv_BodyNeckToBall::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[61]);
+      file_level_metadata_service_2eproto[63]);
 }
 // ===================================================================
 
@@ -26843,13 +27802,13 @@ class Bhv_BodyNeckToPoint::_Internal {
   using HasBits = decltype(std::declval<Bhv_BodyNeckToPoint>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Bhv_BodyNeckToPoint, _impl_._has_bits_);
-  static const ::protos::Vector2D& point(const Bhv_BodyNeckToPoint* msg);
+  static const ::protos::RpcVector2D& point(const Bhv_BodyNeckToPoint* msg);
   static void set_has_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Bhv_BodyNeckToPoint::_Internal::point(const Bhv_BodyNeckToPoint* msg) {
   return *msg->_impl_.point_;
 }
@@ -26868,7 +27827,7 @@ Bhv_BodyNeckToPoint::Bhv_BodyNeckToPoint(const Bhv_BodyNeckToPoint& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.point_ = new ::protos::Vector2D(*from._impl_.point_);
+    _this->_impl_.point_ = new ::protos::RpcVector2D(*from._impl_.point_);
   }
   // @@protoc_insertion_point(copy_constructor:protos.Bhv_BodyNeckToPoint)
 }
@@ -26922,7 +27881,7 @@ const char* Bhv_BodyNeckToPoint::_InternalParse(const char* ptr, ::_pbi::ParseCo
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D point = 1;
+      // .protos.RpcVector2D point = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_point(), ptr);
@@ -26962,7 +27921,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D point = 1;
+  // .protos.RpcVector2D point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::point(this),
@@ -26985,7 +27944,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D point = 1;
+  // .protos.RpcVector2D point = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -27012,7 +27971,7 @@ void Bhv_BodyNeckToPoint::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, co
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_point());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -27039,7 +27998,7 @@ void Bhv_BodyNeckToPoint::InternalSwap(Bhv_BodyNeckToPoint* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Bhv_BodyNeckToPoint::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[62]);
+      file_level_metadata_service_2eproto[64]);
 }
 // ===================================================================
 
@@ -27077,7 +28036,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Bhv_Emergency::GetClassData() 
 ::PROTOBUF_NAMESPACE_ID::Metadata Bhv_Emergency::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[63]);
+      file_level_metadata_service_2eproto[65]);
 }
 // ===================================================================
 
@@ -27086,13 +28045,13 @@ class Bhv_GoToPointLookBall::_Internal {
   using HasBits = decltype(std::declval<Bhv_GoToPointLookBall>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Bhv_GoToPointLookBall, _impl_._has_bits_);
-  static const ::protos::Vector2D& target_point(const Bhv_GoToPointLookBall* msg);
+  static const ::protos::RpcVector2D& target_point(const Bhv_GoToPointLookBall* msg);
   static void set_has_target_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Bhv_GoToPointLookBall::_Internal::target_point(const Bhv_GoToPointLookBall* msg) {
   return *msg->_impl_.target_point_;
 }
@@ -27115,7 +28074,7 @@ Bhv_GoToPointLookBall::Bhv_GoToPointLookBall(const Bhv_GoToPointLookBall& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.target_point_ = new ::protos::Vector2D(*from._impl_.target_point_);
+    _this->_impl_.target_point_ = new ::protos::RpcVector2D(*from._impl_.target_point_);
   }
   ::memcpy(&_impl_.distance_threshold_, &from._impl_.distance_threshold_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.max_dash_power_) -
@@ -27179,7 +28138,7 @@ const char* Bhv_GoToPointLookBall::_InternalParse(const char* ptr, ::_pbi::Parse
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D target_point = 1;
+      // .protos.RpcVector2D target_point = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_target_point(), ptr);
@@ -27237,7 +28196,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::target_point(this),
@@ -27282,7 +28241,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -27327,7 +28286,7 @@ void Bhv_GoToPointLookBall::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, 
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_target_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_target_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_target_point());
   }
   static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
@@ -27373,7 +28332,7 @@ void Bhv_GoToPointLookBall::InternalSwap(Bhv_GoToPointLookBall* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Bhv_GoToPointLookBall::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[64]);
+      file_level_metadata_service_2eproto[66]);
 }
 // ===================================================================
 
@@ -27558,7 +28517,7 @@ void Bhv_NeckBodyToBall::InternalSwap(Bhv_NeckBodyToBall* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Bhv_NeckBodyToBall::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[65]);
+      file_level_metadata_service_2eproto[67]);
 }
 // ===================================================================
 
@@ -27567,13 +28526,13 @@ class Bhv_NeckBodyToPoint::_Internal {
   using HasBits = decltype(std::declval<Bhv_NeckBodyToPoint>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Bhv_NeckBodyToPoint, _impl_._has_bits_);
-  static const ::protos::Vector2D& point(const Bhv_NeckBodyToPoint* msg);
+  static const ::protos::RpcVector2D& point(const Bhv_NeckBodyToPoint* msg);
   static void set_has_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Bhv_NeckBodyToPoint::_Internal::point(const Bhv_NeckBodyToPoint* msg) {
   return *msg->_impl_.point_;
 }
@@ -27594,7 +28553,7 @@ Bhv_NeckBodyToPoint::Bhv_NeckBodyToPoint(const Bhv_NeckBodyToPoint& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.point_ = new ::protos::Vector2D(*from._impl_.point_);
+    _this->_impl_.point_ = new ::protos::RpcVector2D(*from._impl_.point_);
   }
   _this->_impl_.angle_buf_ = from._impl_.angle_buf_;
   // @@protoc_insertion_point(copy_constructor:protos.Bhv_NeckBodyToPoint)
@@ -27652,7 +28611,7 @@ const char* Bhv_NeckBodyToPoint::_InternalParse(const char* ptr, ::_pbi::ParseCo
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D point = 1;
+      // .protos.RpcVector2D point = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_point(), ptr);
@@ -27701,7 +28660,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D point = 1;
+  // .protos.RpcVector2D point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::point(this),
@@ -27735,7 +28694,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D point = 1;
+  // .protos.RpcVector2D point = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -27771,7 +28730,7 @@ void Bhv_NeckBodyToPoint::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, co
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_point());
   }
   static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
@@ -27810,7 +28769,7 @@ void Bhv_NeckBodyToPoint::InternalSwap(Bhv_NeckBodyToPoint* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Bhv_NeckBodyToPoint::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[66]);
+      file_level_metadata_service_2eproto[68]);
 }
 // ===================================================================
 
@@ -27848,7 +28807,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Bhv_ScanField::GetClassData() 
 ::PROTOBUF_NAMESPACE_ID::Metadata Bhv_ScanField::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[67]);
+      file_level_metadata_service_2eproto[69]);
 }
 // ===================================================================
 
@@ -27886,7 +28845,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Body_AdvanceBall::GetClassData
 ::PROTOBUF_NAMESPACE_ID::Metadata Body_AdvanceBall::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[68]);
+      file_level_metadata_service_2eproto[70]);
 }
 // ===================================================================
 
@@ -27924,7 +28883,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Body_ClearBall::GetClassData()
 ::PROTOBUF_NAMESPACE_ID::Metadata Body_ClearBall::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[69]);
+      file_level_metadata_service_2eproto[71]);
 }
 // ===================================================================
 
@@ -27933,13 +28892,13 @@ class Body_Dribble::_Internal {
   using HasBits = decltype(std::declval<Body_Dribble>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Body_Dribble, _impl_._has_bits_);
-  static const ::protos::Vector2D& target_point(const Body_Dribble* msg);
+  static const ::protos::RpcVector2D& target_point(const Body_Dribble* msg);
   static void set_has_target_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Body_Dribble::_Internal::target_point(const Body_Dribble* msg) {
   return *msg->_impl_.target_point_;
 }
@@ -27966,7 +28925,7 @@ Body_Dribble::Body_Dribble(const Body_Dribble& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.target_point_ = new ::protos::Vector2D(*from._impl_.target_point_);
+    _this->_impl_.target_point_ = new ::protos::RpcVector2D(*from._impl_.target_point_);
   }
   ::memcpy(&_impl_.distance_threshold_, &from._impl_.distance_threshold_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.dodge_) -
@@ -28034,7 +28993,7 @@ const char* Body_Dribble::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D target_point = 1;
+      // .protos.RpcVector2D target_point = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_target_point(), ptr);
@@ -28110,7 +29069,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::target_point(this),
@@ -28169,7 +29128,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -28225,7 +29184,7 @@ void Body_Dribble::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::P
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_target_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_target_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_target_point());
   }
   static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
@@ -28277,7 +29236,7 @@ void Body_Dribble::InternalSwap(Body_Dribble* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Body_Dribble::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[70]);
+      file_level_metadata_service_2eproto[72]);
 }
 // ===================================================================
 
@@ -28286,13 +29245,13 @@ class Body_GoToPointDodge::_Internal {
   using HasBits = decltype(std::declval<Body_GoToPointDodge>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Body_GoToPointDodge, _impl_._has_bits_);
-  static const ::protos::Vector2D& target_point(const Body_GoToPointDodge* msg);
+  static const ::protos::RpcVector2D& target_point(const Body_GoToPointDodge* msg);
   static void set_has_target_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Body_GoToPointDodge::_Internal::target_point(const Body_GoToPointDodge* msg) {
   return *msg->_impl_.target_point_;
 }
@@ -28313,7 +29272,7 @@ Body_GoToPointDodge::Body_GoToPointDodge(const Body_GoToPointDodge& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.target_point_ = new ::protos::Vector2D(*from._impl_.target_point_);
+    _this->_impl_.target_point_ = new ::protos::RpcVector2D(*from._impl_.target_point_);
   }
   _this->_impl_.dash_power_ = from._impl_.dash_power_;
   // @@protoc_insertion_point(copy_constructor:protos.Body_GoToPointDodge)
@@ -28371,7 +29330,7 @@ const char* Body_GoToPointDodge::_InternalParse(const char* ptr, ::_pbi::ParseCo
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D target_point = 1;
+      // .protos.RpcVector2D target_point = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_target_point(), ptr);
@@ -28420,7 +29379,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::target_point(this),
@@ -28454,7 +29413,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -28490,7 +29449,7 @@ void Body_GoToPointDodge::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, co
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_target_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_target_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_target_point());
   }
   static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
@@ -28529,7 +29488,7 @@ void Body_GoToPointDodge::InternalSwap(Body_GoToPointDodge* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Body_GoToPointDodge::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[71]);
+      file_level_metadata_service_2eproto[73]);
 }
 // ===================================================================
 
@@ -28538,21 +29497,21 @@ class Body_HoldBall::_Internal {
   using HasBits = decltype(std::declval<Body_HoldBall>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Body_HoldBall, _impl_._has_bits_);
-  static const ::protos::Vector2D& turn_target_point(const Body_HoldBall* msg);
+  static const ::protos::RpcVector2D& turn_target_point(const Body_HoldBall* msg);
   static void set_has_turn_target_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::protos::Vector2D& kick_target_point(const Body_HoldBall* msg);
+  static const ::protos::RpcVector2D& kick_target_point(const Body_HoldBall* msg);
   static void set_has_kick_target_point(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Body_HoldBall::_Internal::turn_target_point(const Body_HoldBall* msg) {
   return *msg->_impl_.turn_target_point_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Body_HoldBall::_Internal::kick_target_point(const Body_HoldBall* msg) {
   return *msg->_impl_.kick_target_point_;
 }
@@ -28574,10 +29533,10 @@ Body_HoldBall::Body_HoldBall(const Body_HoldBall& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.turn_target_point_ = new ::protos::Vector2D(*from._impl_.turn_target_point_);
+    _this->_impl_.turn_target_point_ = new ::protos::RpcVector2D(*from._impl_.turn_target_point_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
-    _this->_impl_.kick_target_point_ = new ::protos::Vector2D(*from._impl_.kick_target_point_);
+    _this->_impl_.kick_target_point_ = new ::protos::RpcVector2D(*from._impl_.kick_target_point_);
   }
   _this->_impl_.do_turn_ = from._impl_.do_turn_;
   // @@protoc_insertion_point(copy_constructor:protos.Body_HoldBall)
@@ -28652,7 +29611,7 @@ const char* Body_HoldBall::_InternalParse(const char* ptr, ::_pbi::ParseContext*
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D turn_target_point = 2;
+      // .protos.RpcVector2D turn_target_point = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_turn_target_point(), ptr);
@@ -28661,7 +29620,7 @@ const char* Body_HoldBall::_InternalParse(const char* ptr, ::_pbi::ParseContext*
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D kick_target_point = 3;
+      // .protos.RpcVector2D kick_target_point = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_kick_target_point(), ptr);
@@ -28708,14 +29667,14 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D turn_target_point = 2;
+  // .protos.RpcVector2D turn_target_point = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::turn_target_point(this),
         _Internal::turn_target_point(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D kick_target_point = 3;
+  // .protos.RpcVector2D kick_target_point = 3;
   if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::kick_target_point(this),
@@ -28740,14 +29699,14 @@ failure:
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    // .protos.Vector2D turn_target_point = 2;
+    // .protos.RpcVector2D turn_target_point = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.turn_target_point_);
     }
 
-    // .protos.Vector2D kick_target_point = 3;
+    // .protos.RpcVector2D kick_target_point = 3;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -28781,11 +29740,11 @@ void Body_HoldBall::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_mutable_turn_target_point()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_turn_target_point()->::protos::RpcVector2D::MergeFrom(
           from._internal_turn_target_point());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_mutable_kick_target_point()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_kick_target_point()->::protos::RpcVector2D::MergeFrom(
           from._internal_kick_target_point());
     }
   }
@@ -28821,7 +29780,7 @@ void Body_HoldBall::InternalSwap(Body_HoldBall* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Body_HoldBall::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[72]);
+      file_level_metadata_service_2eproto[74]);
 }
 // ===================================================================
 
@@ -28830,13 +29789,13 @@ class Body_Intercept::_Internal {
   using HasBits = decltype(std::declval<Body_Intercept>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Body_Intercept, _impl_._has_bits_);
-  static const ::protos::Vector2D& face_point(const Body_Intercept* msg);
+  static const ::protos::RpcVector2D& face_point(const Body_Intercept* msg);
   static void set_has_face_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Body_Intercept::_Internal::face_point(const Body_Intercept* msg) {
   return *msg->_impl_.face_point_;
 }
@@ -28857,7 +29816,7 @@ Body_Intercept::Body_Intercept(const Body_Intercept& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.face_point_ = new ::protos::Vector2D(*from._impl_.face_point_);
+    _this->_impl_.face_point_ = new ::protos::RpcVector2D(*from._impl_.face_point_);
   }
   _this->_impl_.save_recovery_ = from._impl_.save_recovery_;
   // @@protoc_insertion_point(copy_constructor:protos.Body_Intercept)
@@ -28924,7 +29883,7 @@ const char* Body_Intercept::_InternalParse(const char* ptr, ::_pbi::ParseContext
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D face_point = 2;
+      // .protos.RpcVector2D face_point = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_face_point(), ptr);
@@ -28971,7 +29930,7 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D face_point = 2;
+  // .protos.RpcVector2D face_point = 2;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::face_point(this),
@@ -28994,7 +29953,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D face_point = 2;
+  // .protos.RpcVector2D face_point = 2;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -29026,7 +29985,7 @@ void Body_Intercept::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const :
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_face_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_face_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_face_point());
   }
   if (from._internal_save_recovery() != 0) {
@@ -29061,7 +30020,7 @@ void Body_Intercept::InternalSwap(Body_Intercept* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Body_Intercept::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[73]);
+      file_level_metadata_service_2eproto[75]);
 }
 // ===================================================================
 
@@ -29070,13 +30029,13 @@ class Body_KickOneStep::_Internal {
   using HasBits = decltype(std::declval<Body_KickOneStep>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Body_KickOneStep, _impl_._has_bits_);
-  static const ::protos::Vector2D& target_point(const Body_KickOneStep* msg);
+  static const ::protos::RpcVector2D& target_point(const Body_KickOneStep* msg);
   static void set_has_target_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Body_KickOneStep::_Internal::target_point(const Body_KickOneStep* msg) {
   return *msg->_impl_.target_point_;
 }
@@ -29099,7 +30058,7 @@ Body_KickOneStep::Body_KickOneStep(const Body_KickOneStep& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.target_point_ = new ::protos::Vector2D(*from._impl_.target_point_);
+    _this->_impl_.target_point_ = new ::protos::RpcVector2D(*from._impl_.target_point_);
   }
   ::memcpy(&_impl_.first_speed_, &from._impl_.first_speed_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.force_mode_) -
@@ -29163,7 +30122,7 @@ const char* Body_KickOneStep::_InternalParse(const char* ptr, ::_pbi::ParseConte
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D target_point = 1;
+      // .protos.RpcVector2D target_point = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_target_point(), ptr);
@@ -29221,7 +30180,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::target_point(this),
@@ -29262,7 +30221,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -29303,7 +30262,7 @@ void Body_KickOneStep::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_target_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_target_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_target_point());
   }
   static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
@@ -29345,7 +30304,7 @@ void Body_KickOneStep::InternalSwap(Body_KickOneStep* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Body_KickOneStep::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[74]);
+      file_level_metadata_service_2eproto[76]);
 }
 // ===================================================================
 
@@ -29383,7 +30342,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Body_StopBall::GetClassData() 
 ::PROTOBUF_NAMESPACE_ID::Metadata Body_StopBall::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[75]);
+      file_level_metadata_service_2eproto[77]);
 }
 // ===================================================================
 
@@ -29556,7 +30515,7 @@ void Body_StopDash::InternalSwap(Body_StopDash* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Body_StopDash::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[76]);
+      file_level_metadata_service_2eproto[78]);
 }
 // ===================================================================
 
@@ -29565,13 +30524,13 @@ class Body_TackleToPoint::_Internal {
   using HasBits = decltype(std::declval<Body_TackleToPoint>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Body_TackleToPoint, _impl_._has_bits_);
-  static const ::protos::Vector2D& target_point(const Body_TackleToPoint* msg);
+  static const ::protos::RpcVector2D& target_point(const Body_TackleToPoint* msg);
   static void set_has_target_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Body_TackleToPoint::_Internal::target_point(const Body_TackleToPoint* msg) {
   return *msg->_impl_.target_point_;
 }
@@ -29594,7 +30553,7 @@ Body_TackleToPoint::Body_TackleToPoint(const Body_TackleToPoint& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.target_point_ = new ::protos::Vector2D(*from._impl_.target_point_);
+    _this->_impl_.target_point_ = new ::protos::RpcVector2D(*from._impl_.target_point_);
   }
   ::memcpy(&_impl_.min_probability_, &from._impl_.min_probability_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.min_speed_) -
@@ -29658,7 +30617,7 @@ const char* Body_TackleToPoint::_InternalParse(const char* ptr, ::_pbi::ParseCon
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D target_point = 1;
+      // .protos.RpcVector2D target_point = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_target_point(), ptr);
@@ -29716,7 +30675,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::target_point(this),
@@ -29761,7 +30720,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -29806,7 +30765,7 @@ void Body_TackleToPoint::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, con
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_target_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_target_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_target_point());
   }
   static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
@@ -29852,7 +30811,7 @@ void Body_TackleToPoint::InternalSwap(Body_TackleToPoint* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Body_TackleToPoint::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[77]);
+      file_level_metadata_service_2eproto[79]);
 }
 // ===================================================================
 
@@ -30037,7 +30996,7 @@ void Body_TurnToAngle::InternalSwap(Body_TurnToAngle* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Body_TurnToAngle::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[78]);
+      file_level_metadata_service_2eproto[80]);
 }
 // ===================================================================
 
@@ -30211,7 +31170,7 @@ void Body_TurnToBall::InternalSwap(Body_TurnToBall* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Body_TurnToBall::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[79]);
+      file_level_metadata_service_2eproto[81]);
 }
 // ===================================================================
 
@@ -30220,13 +31179,13 @@ class Body_TurnToPoint::_Internal {
   using HasBits = decltype(std::declval<Body_TurnToPoint>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Body_TurnToPoint, _impl_._has_bits_);
-  static const ::protos::Vector2D& target_point(const Body_TurnToPoint* msg);
+  static const ::protos::RpcVector2D& target_point(const Body_TurnToPoint* msg);
   static void set_has_target_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Body_TurnToPoint::_Internal::target_point(const Body_TurnToPoint* msg) {
   return *msg->_impl_.target_point_;
 }
@@ -30247,7 +31206,7 @@ Body_TurnToPoint::Body_TurnToPoint(const Body_TurnToPoint& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.target_point_ = new ::protos::Vector2D(*from._impl_.target_point_);
+    _this->_impl_.target_point_ = new ::protos::RpcVector2D(*from._impl_.target_point_);
   }
   _this->_impl_.cycle_ = from._impl_.cycle_;
   // @@protoc_insertion_point(copy_constructor:protos.Body_TurnToPoint)
@@ -30305,7 +31264,7 @@ const char* Body_TurnToPoint::_InternalParse(const char* ptr, ::_pbi::ParseConte
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D target_point = 1;
+      // .protos.RpcVector2D target_point = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_target_point(), ptr);
@@ -30354,7 +31313,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::target_point(this),
@@ -30384,7 +31343,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -30417,7 +31376,7 @@ void Body_TurnToPoint::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_target_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_target_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_target_point());
   }
   if (from._internal_cycle() != 0) {
@@ -30452,7 +31411,7 @@ void Body_TurnToPoint::InternalSwap(Body_TurnToPoint* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Body_TurnToPoint::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[80]);
+      file_level_metadata_service_2eproto[82]);
 }
 // ===================================================================
 
@@ -30461,13 +31420,13 @@ class Focus_MoveToPoint::_Internal {
   using HasBits = decltype(std::declval<Focus_MoveToPoint>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Focus_MoveToPoint, _impl_._has_bits_);
-  static const ::protos::Vector2D& target_point(const Focus_MoveToPoint* msg);
+  static const ::protos::RpcVector2D& target_point(const Focus_MoveToPoint* msg);
   static void set_has_target_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Focus_MoveToPoint::_Internal::target_point(const Focus_MoveToPoint* msg) {
   return *msg->_impl_.target_point_;
 }
@@ -30486,7 +31445,7 @@ Focus_MoveToPoint::Focus_MoveToPoint(const Focus_MoveToPoint& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.target_point_ = new ::protos::Vector2D(*from._impl_.target_point_);
+    _this->_impl_.target_point_ = new ::protos::RpcVector2D(*from._impl_.target_point_);
   }
   // @@protoc_insertion_point(copy_constructor:protos.Focus_MoveToPoint)
 }
@@ -30540,7 +31499,7 @@ const char* Focus_MoveToPoint::_InternalParse(const char* ptr, ::_pbi::ParseCont
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D target_point = 1;
+      // .protos.RpcVector2D target_point = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_target_point(), ptr);
@@ -30580,7 +31539,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::target_point(this),
@@ -30603,7 +31562,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -30630,7 +31589,7 @@ void Focus_MoveToPoint::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_target_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_target_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_target_point());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -30657,7 +31616,7 @@ void Focus_MoveToPoint::InternalSwap(Focus_MoveToPoint* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Focus_MoveToPoint::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[81]);
+      file_level_metadata_service_2eproto[83]);
 }
 // ===================================================================
 
@@ -30695,7 +31654,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Focus_Reset::GetClassData() co
 ::PROTOBUF_NAMESPACE_ID::Metadata Focus_Reset::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[82]);
+      file_level_metadata_service_2eproto[84]);
 }
 // ===================================================================
 
@@ -30733,7 +31692,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Neck_ScanField::GetClassData()
 ::PROTOBUF_NAMESPACE_ID::Metadata Neck_ScanField::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[83]);
+      file_level_metadata_service_2eproto[85]);
 }
 // ===================================================================
 
@@ -30771,7 +31730,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Neck_ScanPlayers::GetClassData
 ::PROTOBUF_NAMESPACE_ID::Metadata Neck_ScanPlayers::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[84]);
+      file_level_metadata_service_2eproto[86]);
 }
 // ===================================================================
 
@@ -31006,7 +31965,7 @@ void Neck_TurnToBallAndPlayer::InternalSwap(Neck_TurnToBallAndPlayer* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Neck_TurnToBallAndPlayer::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[85]);
+      file_level_metadata_service_2eproto[87]);
 }
 // ===================================================================
 
@@ -31180,7 +32139,7 @@ void Neck_TurnToBallOrScan::InternalSwap(Neck_TurnToBallOrScan* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Neck_TurnToBallOrScan::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[86]);
+      file_level_metadata_service_2eproto[88]);
 }
 // ===================================================================
 
@@ -31218,7 +32177,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Neck_TurnToBall::GetClassData(
 ::PROTOBUF_NAMESPACE_ID::Metadata Neck_TurnToBall::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[87]);
+      file_level_metadata_service_2eproto[89]);
 }
 // ===================================================================
 
@@ -31392,7 +32351,7 @@ void Neck_TurnToGoalieOrScan::InternalSwap(Neck_TurnToGoalieOrScan* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Neck_TurnToGoalieOrScan::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[88]);
+      file_level_metadata_service_2eproto[90]);
 }
 // ===================================================================
 
@@ -31430,7 +32389,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Neck_TurnToLowConfTeammate::Ge
 ::PROTOBUF_NAMESPACE_ID::Metadata Neck_TurnToLowConfTeammate::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[89]);
+      file_level_metadata_service_2eproto[91]);
 }
 // ===================================================================
 
@@ -31665,7 +32624,7 @@ void Neck_TurnToPlayerOrScan::InternalSwap(Neck_TurnToPlayerOrScan* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Neck_TurnToPlayerOrScan::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[90]);
+      file_level_metadata_service_2eproto[92]);
 }
 // ===================================================================
 
@@ -31674,13 +32633,13 @@ class Neck_TurnToPoint::_Internal {
   using HasBits = decltype(std::declval<Neck_TurnToPoint>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(Neck_TurnToPoint, _impl_._has_bits_);
-  static const ::protos::Vector2D& target_point(const Neck_TurnToPoint* msg);
+  static const ::protos::RpcVector2D& target_point(const Neck_TurnToPoint* msg);
   static void set_has_target_point(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 Neck_TurnToPoint::_Internal::target_point(const Neck_TurnToPoint* msg) {
   return *msg->_impl_.target_point_;
 }
@@ -31699,7 +32658,7 @@ Neck_TurnToPoint::Neck_TurnToPoint(const Neck_TurnToPoint& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.target_point_ = new ::protos::Vector2D(*from._impl_.target_point_);
+    _this->_impl_.target_point_ = new ::protos::RpcVector2D(*from._impl_.target_point_);
   }
   // @@protoc_insertion_point(copy_constructor:protos.Neck_TurnToPoint)
 }
@@ -31753,7 +32712,7 @@ const char* Neck_TurnToPoint::_InternalParse(const char* ptr, ::_pbi::ParseConte
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D target_point = 1;
+      // .protos.RpcVector2D target_point = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_target_point(), ptr);
@@ -31793,7 +32752,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::target_point(this),
@@ -31816,7 +32775,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -31843,7 +32802,7 @@ void Neck_TurnToPoint::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_target_point()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_target_point()->::protos::RpcVector2D::MergeFrom(
         from._internal_target_point());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -31870,7 +32829,7 @@ void Neck_TurnToPoint::InternalSwap(Neck_TurnToPoint* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Neck_TurnToPoint::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[91]);
+      file_level_metadata_service_2eproto[93]);
 }
 // ===================================================================
 
@@ -32055,7 +33014,7 @@ void Neck_TurnToRelative::InternalSwap(Neck_TurnToRelative* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Neck_TurnToRelative::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[92]);
+      file_level_metadata_service_2eproto[94]);
 }
 // ===================================================================
 
@@ -32229,7 +33188,7 @@ void View_ChangeWidth::InternalSwap(View_ChangeWidth* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata View_ChangeWidth::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[93]);
+      file_level_metadata_service_2eproto[95]);
 }
 // ===================================================================
 
@@ -32267,7 +33226,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*View_Normal::GetClassData() co
 ::PROTOBUF_NAMESPACE_ID::Metadata View_Normal::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[94]);
+      file_level_metadata_service_2eproto[96]);
 }
 // ===================================================================
 
@@ -32305,7 +33264,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*View_Synch::GetClassData() con
 ::PROTOBUF_NAMESPACE_ID::Metadata View_Synch::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[95]);
+      file_level_metadata_service_2eproto[97]);
 }
 // ===================================================================
 
@@ -32343,7 +33302,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*View_Wide::GetClassData() cons
 ::PROTOBUF_NAMESPACE_ID::Metadata View_Wide::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[96]);
+      file_level_metadata_service_2eproto[98]);
 }
 // ===================================================================
 
@@ -32381,7 +33340,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HeliosGoalie::GetClassData() c
 ::PROTOBUF_NAMESPACE_ID::Metadata HeliosGoalie::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[97]);
+      file_level_metadata_service_2eproto[99]);
 }
 // ===================================================================
 
@@ -32419,7 +33378,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HeliosGoalieMove::GetClassData
 ::PROTOBUF_NAMESPACE_ID::Metadata HeliosGoalieMove::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[98]);
+      file_level_metadata_service_2eproto[100]);
 }
 // ===================================================================
 
@@ -32457,7 +33416,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HeliosGoalieKick::GetClassData
 ::PROTOBUF_NAMESPACE_ID::Metadata HeliosGoalieKick::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[99]);
+      file_level_metadata_service_2eproto[101]);
 }
 // ===================================================================
 
@@ -32495,7 +33454,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HeliosShoot::GetClassData() co
 ::PROTOBUF_NAMESPACE_ID::Metadata HeliosShoot::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[100]);
+      file_level_metadata_service_2eproto[102]);
 }
 // ===================================================================
 
@@ -32882,7 +33841,7 @@ void HeliosChainAction::InternalSwap(HeliosChainAction* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata HeliosChainAction::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[101]);
+      file_level_metadata_service_2eproto[103]);
 }
 // ===================================================================
 
@@ -32920,7 +33879,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HeliosBasicOffensive::GetClass
 ::PROTOBUF_NAMESPACE_ID::Metadata HeliosBasicOffensive::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[102]);
+      file_level_metadata_service_2eproto[104]);
 }
 // ===================================================================
 
@@ -32958,7 +33917,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HeliosBasicMove::GetClassData(
 ::PROTOBUF_NAMESPACE_ID::Metadata HeliosBasicMove::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[103]);
+      file_level_metadata_service_2eproto[105]);
 }
 // ===================================================================
 
@@ -32996,7 +33955,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HeliosSetPlay::GetClassData() 
 ::PROTOBUF_NAMESPACE_ID::Metadata HeliosSetPlay::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[104]);
+      file_level_metadata_service_2eproto[106]);
 }
 // ===================================================================
 
@@ -33034,7 +33993,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HeliosPenalty::GetClassData() 
 ::PROTOBUF_NAMESPACE_ID::Metadata HeliosPenalty::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[105]);
+      file_level_metadata_service_2eproto[107]);
 }
 // ===================================================================
 
@@ -33072,7 +34031,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HeliosCommunicaion::GetClassDa
 ::PROTOBUF_NAMESPACE_ID::Metadata HeliosCommunicaion::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[106]);
+      file_level_metadata_service_2eproto[108]);
 }
 // ===================================================================
 
@@ -36974,7 +37933,7 @@ void PlayerAction::InternalSwap(PlayerAction* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata PlayerAction::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[107]);
+      file_level_metadata_service_2eproto[109]);
 }
 // ===================================================================
 
@@ -37156,7 +38115,7 @@ void PlayerActions::InternalSwap(PlayerActions* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata PlayerActions::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[108]);
+      file_level_metadata_service_2eproto[110]);
 }
 // ===================================================================
 
@@ -37363,7 +38322,7 @@ void ChangePlayerType::InternalSwap(ChangePlayerType* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ChangePlayerType::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[109]);
+      file_level_metadata_service_2eproto[111]);
 }
 // ===================================================================
 
@@ -37401,7 +38360,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*DoHeliosSubstitute::GetClassDa
 ::PROTOBUF_NAMESPACE_ID::Metadata DoHeliosSubstitute::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[110]);
+      file_level_metadata_service_2eproto[112]);
 }
 // ===================================================================
 
@@ -37439,7 +38398,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*DoHeliosSayPlayerTypes::GetCla
 ::PROTOBUF_NAMESPACE_ID::Metadata DoHeliosSayPlayerTypes::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[111]);
+      file_level_metadata_service_2eproto[113]);
 }
 // ===================================================================
 
@@ -37803,7 +38762,7 @@ void CoachAction::InternalSwap(CoachAction* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CoachAction::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[112]);
+      file_level_metadata_service_2eproto[114]);
 }
 // ===================================================================
 
@@ -37985,7 +38944,7 @@ void CoachActions::InternalSwap(CoachActions* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CoachActions::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[113]);
+      file_level_metadata_service_2eproto[115]);
 }
 // ===================================================================
 
@@ -38023,7 +38982,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*DoKickOff::GetClassData() cons
 ::PROTOBUF_NAMESPACE_ID::Metadata DoKickOff::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[114]);
+      file_level_metadata_service_2eproto[116]);
 }
 // ===================================================================
 
@@ -38032,21 +38991,21 @@ class DoMoveBall::_Internal {
   using HasBits = decltype(std::declval<DoMoveBall>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(DoMoveBall, _impl_._has_bits_);
-  static const ::protos::Vector2D& position(const DoMoveBall* msg);
+  static const ::protos::RpcVector2D& position(const DoMoveBall* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::protos::Vector2D& velocity(const DoMoveBall* msg);
+  static const ::protos::RpcVector2D& velocity(const DoMoveBall* msg);
   static void set_has_velocity(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 DoMoveBall::_Internal::position(const DoMoveBall* msg) {
   return *msg->_impl_.position_;
 }
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 DoMoveBall::_Internal::velocity(const DoMoveBall* msg) {
   return *msg->_impl_.velocity_;
 }
@@ -38066,10 +39025,10 @@ DoMoveBall::DoMoveBall(const DoMoveBall& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.position_ = new ::protos::Vector2D(*from._impl_.position_);
+    _this->_impl_.position_ = new ::protos::RpcVector2D(*from._impl_.position_);
   }
   if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
-    _this->_impl_.velocity_ = new ::protos::Vector2D(*from._impl_.velocity_);
+    _this->_impl_.velocity_ = new ::protos::RpcVector2D(*from._impl_.velocity_);
   }
   // @@protoc_insertion_point(copy_constructor:protos.DoMoveBall)
 }
@@ -38131,7 +39090,7 @@ const char* DoMoveBall::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.Vector2D position = 1;
+      // .protos.RpcVector2D position = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
@@ -38140,7 +39099,7 @@ const char* DoMoveBall::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D velocity = 2;
+      // .protos.RpcVector2D velocity = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_velocity(), ptr);
@@ -38180,14 +39139,14 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D position = 1;
+  // .protos.RpcVector2D position = 1;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(1, _Internal::position(this),
         _Internal::position(this).GetCachedSize(), target, stream);
   }
 
-  // .protos.Vector2D velocity = 2;
+  // .protos.RpcVector2D velocity = 2;
   if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::velocity(this),
@@ -38212,14 +39171,14 @@ failure:
 
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    // .protos.Vector2D position = 1;
+    // .protos.RpcVector2D position = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.position_);
     }
 
-    // .protos.Vector2D velocity = 2;
+    // .protos.RpcVector2D velocity = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -38248,11 +39207,11 @@ void DoMoveBall::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _this->_internal_mutable_position()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_position()->::protos::RpcVector2D::MergeFrom(
           from._internal_position());
     }
     if (cached_has_bits & 0x00000002u) {
-      _this->_internal_mutable_velocity()->::protos::Vector2D::MergeFrom(
+      _this->_internal_mutable_velocity()->::protos::RpcVector2D::MergeFrom(
           from._internal_velocity());
     }
   }
@@ -38285,7 +39244,7 @@ void DoMoveBall::InternalSwap(DoMoveBall* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DoMoveBall::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[115]);
+      file_level_metadata_service_2eproto[117]);
 }
 // ===================================================================
 
@@ -38294,13 +39253,13 @@ class DoMovePlayer::_Internal {
   using HasBits = decltype(std::declval<DoMovePlayer>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
     8 * PROTOBUF_FIELD_OFFSET(DoMovePlayer, _impl_._has_bits_);
-  static const ::protos::Vector2D& position(const DoMovePlayer* msg);
+  static const ::protos::RpcVector2D& position(const DoMovePlayer* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::protos::Vector2D&
+const ::protos::RpcVector2D&
 DoMovePlayer::_Internal::position(const DoMovePlayer* msg) {
   return *msg->_impl_.position_;
 }
@@ -38325,7 +39284,7 @@ DoMovePlayer::DoMovePlayer(const DoMovePlayer& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_impl_.position_ = new ::protos::Vector2D(*from._impl_.position_);
+    _this->_impl_.position_ = new ::protos::RpcVector2D(*from._impl_.position_);
   }
   ::memcpy(&_impl_.our_side_, &from._impl_.our_side_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.body_direction_) -
@@ -38409,7 +39368,7 @@ const char* DoMovePlayer::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
           goto handle_unusual;
         }
         continue;
-      // .protos.Vector2D position = 3;
+      // .protos.RpcVector2D position = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
@@ -38472,7 +39431,7 @@ failure:
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // .protos.Vector2D position = 3;
+  // .protos.RpcVector2D position = 3;
   if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(3, _Internal::position(this),
@@ -38506,7 +39465,7 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.Vector2D position = 3;
+  // .protos.RpcVector2D position = 3;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -38553,7 +39512,7 @@ void DoMovePlayer::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::P
   (void) cached_has_bits;
 
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
-    _this->_internal_mutable_position()->::protos::Vector2D::MergeFrom(
+    _this->_internal_mutable_position()->::protos::RpcVector2D::MergeFrom(
         from._internal_position());
   }
   if (from._internal_our_side() != 0) {
@@ -38598,7 +39557,7 @@ void DoMovePlayer::InternalSwap(DoMovePlayer* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DoMovePlayer::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[116]);
+      file_level_metadata_service_2eproto[118]);
 }
 // ===================================================================
 
@@ -38636,7 +39595,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*DoRecover::GetClassData() cons
 ::PROTOBUF_NAMESPACE_ID::Metadata DoRecover::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[117]);
+      file_level_metadata_service_2eproto[119]);
 }
 // ===================================================================
 
@@ -38845,7 +39804,7 @@ void DoChangeMode::InternalSwap(DoChangeMode* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DoChangeMode::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[118]);
+      file_level_metadata_service_2eproto[120]);
 }
 // ===================================================================
 
@@ -39078,7 +40037,7 @@ void DoChangePlayerType::InternalSwap(DoChangePlayerType* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DoChangePlayerType::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[119]);
+      file_level_metadata_service_2eproto[121]);
 }
 // ===================================================================
 
@@ -39616,7 +40575,7 @@ void TrainerAction::InternalSwap(TrainerAction* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata TrainerAction::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[120]);
+      file_level_metadata_service_2eproto[122]);
 }
 // ===================================================================
 
@@ -39798,14 +40757,25 @@ void TrainerActions::InternalSwap(TrainerActions* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata TrainerActions::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[121]);
+      file_level_metadata_service_2eproto[123]);
 }
 // ===================================================================
 
 class ServerParam::_Internal {
  public:
+  using HasBits = decltype(std::declval<ServerParam>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(ServerParam, _impl_._has_bits_);
+  static const ::protos::RegisterResponse& register_response(const ServerParam* msg);
+  static void set_has_register_response(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
+const ::protos::RegisterResponse&
+ServerParam::_Internal::register_response(const ServerParam* msg) {
+  return *msg->_impl_.register_response_;
+}
 ServerParam::ServerParam(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor(arena);
@@ -39815,7 +40785,9 @@ ServerParam::ServerParam(const ServerParam& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   ServerParam* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.replay_file_) {}
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.replay_file_) {}
 
     , decltype(_impl_.landmark_file_) {}
 
@@ -39845,8 +40817,7 @@ ServerParam::ServerParam(const ServerParam& from)
 
     , decltype(_impl_.fixed_teamname_r_) {}
 
-    , decltype(_impl_.agent_type_) {}
-
+    , decltype(_impl_.register_response_){nullptr}
     , decltype(_impl_.inertia_moment_) {}
 
     , decltype(_impl_.player_size_) {}
@@ -40258,8 +41229,7 @@ ServerParam::ServerParam(const ServerParam& from)
     , decltype(_impl_.penalty_area_length_) {}
 
     , decltype(_impl_.goal_width_) {}
-
-    , /*decltype(_impl_._cached_size_)*/{}};
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _impl_.replay_file_.InitDefault();
@@ -40367,16 +41337,21 @@ ServerParam::ServerParam(const ServerParam& from)
   if (!from._internal_fixed_teamname_r().empty()) {
     _this->_impl_.fixed_teamname_r_.Set(from._internal_fixed_teamname_r(), _this->GetArenaForAllocation());
   }
-  ::memcpy(&_impl_.agent_type_, &from._impl_.agent_type_,
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.register_response_ = new ::protos::RegisterResponse(*from._impl_.register_response_);
+  }
+  ::memcpy(&_impl_.inertia_moment_, &from._impl_.inertia_moment_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.goal_width_) -
-    reinterpret_cast<char*>(&_impl_.agent_type_)) + sizeof(_impl_.goal_width_));
+    reinterpret_cast<char*>(&_impl_.inertia_moment_)) + sizeof(_impl_.goal_width_));
   // @@protoc_insertion_point(copy_constructor:protos.ServerParam)
 }
 
 inline void ServerParam::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
   new (&_impl_) Impl_{
-      decltype(_impl_.replay_file_) {}
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.replay_file_) {}
 
     , decltype(_impl_.landmark_file_) {}
 
@@ -40406,8 +41381,7 @@ inline void ServerParam::SharedCtor(::_pb::Arena* arena) {
 
     , decltype(_impl_.fixed_teamname_r_) {}
 
-    , decltype(_impl_.agent_type_) { 0 }
-
+    , decltype(_impl_.register_response_){nullptr}
     , decltype(_impl_.inertia_moment_) { 0 }
 
     , decltype(_impl_.player_size_) { 0 }
@@ -40820,7 +41794,6 @@ inline void ServerParam::SharedCtor(::_pb::Arena* arena) {
 
     , decltype(_impl_.goal_width_) { 0 }
 
-    , /*decltype(_impl_._cached_size_)*/{}
   };
   _impl_.replay_file_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -40910,6 +41883,7 @@ inline void ServerParam::SharedDtor() {
   _impl_.coach_msg_file_.Destroy();
   _impl_.fixed_teamname_l_.Destroy();
   _impl_.fixed_teamname_r_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.register_response_;
 }
 
 void ServerParam::SetCachedSize(int size) const {
@@ -40937,24 +41911,30 @@ void ServerParam::Clear() {
   _impl_.coach_msg_file_.ClearToEmpty();
   _impl_.fixed_teamname_l_.ClearToEmpty();
   _impl_.fixed_teamname_r_.ClearToEmpty();
-  ::memset(&_impl_.agent_type_, 0, static_cast<::size_t>(
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.register_response_ != nullptr);
+    _impl_.register_response_->Clear();
+  }
+  ::memset(&_impl_.inertia_moment_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.goal_width_) -
-      reinterpret_cast<char*>(&_impl_.agent_type_)) + sizeof(_impl_.goal_width_));
+      reinterpret_cast<char*>(&_impl_.inertia_moment_)) + sizeof(_impl_.goal_width_));
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* ServerParam::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.AgentType agent_type = 1;
+      // .protos.RegisterResponse register_response = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
-          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_register_response(), ptr);
           CHK_(ptr);
-          _internal_set_agent_type(static_cast<::protos::AgentType>(val));
         } else {
           goto handle_unusual;
         }
@@ -42994,6 +43974,7 @@ const char* ServerParam::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -43007,11 +43988,12 @@ failure:
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .protos.AgentType agent_type = 1;
-  if (this->_internal_agent_type() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-        1, this->_internal_agent_type(), target);
+  cached_has_bits = _impl_._has_bits_[0];
+  // .protos.RegisterResponse register_response = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::register_response(this),
+        _Internal::register_response(this).GetCachedSize(), target, stream);
   }
 
   // float inertia_moment = 2;
@@ -45118,10 +46100,12 @@ failure:
                                     this->_internal_fixed_teamname_r());
   }
 
-  // .protos.AgentType agent_type = 1;
-  if (this->_internal_agent_type() != 0) {
+  // .protos.RegisterResponse register_response = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
-                  ::_pbi::WireFormatLite::EnumSize(this->_internal_agent_type());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.register_response_);
   }
 
   // float inertia_moment = 2;
@@ -46715,8 +47699,9 @@ void ServerParam::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   if (!from._internal_fixed_teamname_r().empty()) {
     _this->_internal_set_fixed_teamname_r(from._internal_fixed_teamname_r());
   }
-  if (from._internal_agent_type() != 0) {
-    _this->_internal_set_agent_type(from._internal_agent_type());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_mutable_register_response()->::protos::RegisterResponse::MergeFrom(
+        from._internal_register_response());
   }
   static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
   float tmp_inertia_moment = from._internal_inertia_moment();
@@ -47791,6 +48776,7 @@ void ServerParam::InternalSwap(ServerParam* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.replay_file_, lhs_arena,
                                        &other->_impl_.replay_file_, rhs_arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.landmark_file_, lhs_arena,
@@ -47824,39 +48810,120 @@ void ServerParam::InternalSwap(ServerParam* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ServerParam, _impl_.goal_width_)
       + sizeof(ServerParam::_impl_.goal_width_)
-      - PROTOBUF_FIELD_OFFSET(ServerParam, _impl_.agent_type_)>(
-          reinterpret_cast<char*>(&_impl_.agent_type_),
-          reinterpret_cast<char*>(&other->_impl_.agent_type_));
+      - PROTOBUF_FIELD_OFFSET(ServerParam, _impl_.register_response_)>(
+          reinterpret_cast<char*>(&_impl_.register_response_),
+          reinterpret_cast<char*>(&other->_impl_.register_response_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ServerParam::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[122]);
+      file_level_metadata_service_2eproto[124]);
 }
 // ===================================================================
 
 class PlayerParam::_Internal {
  public:
+  using HasBits = decltype(std::declval<PlayerParam>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PlayerParam, _impl_._has_bits_);
+  static const ::protos::RegisterResponse& register_response(const PlayerParam* msg);
+  static void set_has_register_response(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
+const ::protos::RegisterResponse&
+PlayerParam::_Internal::register_response(const PlayerParam* msg) {
+  return *msg->_impl_.register_response_;
+}
 PlayerParam::PlayerParam(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:protos.PlayerParam)
 }
 PlayerParam::PlayerParam(const PlayerParam& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
-      from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  PlayerParam* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.register_response_){nullptr}
+    , decltype(_impl_.player_types_) {}
+
+    , decltype(_impl_.subs_max_) {}
+
+    , decltype(_impl_.pt_max_) {}
+
+    , decltype(_impl_.allow_mult_default_type_) {}
+
+    , decltype(_impl_.player_speed_max_delta_min_) {}
+
+    , decltype(_impl_.player_speed_max_delta_max_) {}
+
+    , decltype(_impl_.stamina_inc_max_delta_factor_) {}
+
+    , decltype(_impl_.player_decay_delta_min_) {}
+
+    , decltype(_impl_.player_decay_delta_max_) {}
+
+    , decltype(_impl_.inertia_moment_delta_factor_) {}
+
+    , decltype(_impl_.dash_power_rate_delta_min_) {}
+
+    , decltype(_impl_.dash_power_rate_delta_max_) {}
+
+    , decltype(_impl_.player_size_delta_factor_) {}
+
+    , decltype(_impl_.kickable_margin_delta_min_) {}
+
+    , decltype(_impl_.kickable_margin_delta_max_) {}
+
+    , decltype(_impl_.kick_rand_delta_factor_) {}
+
+    , decltype(_impl_.extra_stamina_delta_min_) {}
+
+    , decltype(_impl_.extra_stamina_delta_max_) {}
+
+    , decltype(_impl_.effort_max_delta_factor_) {}
+
+    , decltype(_impl_.effort_min_delta_factor_) {}
+
+    , decltype(_impl_.random_seed_) {}
+
+    , decltype(_impl_.new_dash_power_rate_delta_min_) {}
+
+    , decltype(_impl_.new_dash_power_rate_delta_max_) {}
+
+    , decltype(_impl_.new_stamina_inc_max_delta_factor_) {}
+
+    , decltype(_impl_.kick_power_rate_delta_min_) {}
+
+    , decltype(_impl_.kick_power_rate_delta_max_) {}
+
+    , decltype(_impl_.foul_detect_probability_delta_factor_) {}
+
+    , decltype(_impl_.catchable_area_l_stretch_min_) {}
+
+    , decltype(_impl_.catchable_area_l_stretch_max_) {}
+  };
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.register_response_ = new ::protos::RegisterResponse(*from._impl_.register_response_);
+  }
+  ::memcpy(&_impl_.player_types_, &from._impl_.player_types_,
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.catchable_area_l_stretch_max_) -
+    reinterpret_cast<char*>(&_impl_.player_types_)) + sizeof(_impl_.catchable_area_l_stretch_max_));
   // @@protoc_insertion_point(copy_constructor:protos.PlayerParam)
 }
 
 inline void PlayerParam::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
   new (&_impl_) Impl_{
-      decltype(_impl_.agent_type_) { 0 }
-
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.register_response_){nullptr}
     , decltype(_impl_.player_types_) { 0 }
 
     , decltype(_impl_.subs_max_) { 0 }
@@ -47915,7 +48982,6 @@ inline void PlayerParam::SharedCtor(::_pb::Arena* arena) {
 
     , decltype(_impl_.catchable_area_l_stretch_max_) { 0 }
 
-    , /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
@@ -47930,6 +48996,7 @@ PlayerParam::~PlayerParam() {
 
 inline void PlayerParam::SharedDtor() {
   ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.register_response_;
 }
 
 void PlayerParam::SetCachedSize(int size) const {
@@ -47942,24 +49009,30 @@ void PlayerParam::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.agent_type_, 0, static_cast<::size_t>(
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.register_response_ != nullptr);
+    _impl_.register_response_->Clear();
+  }
+  ::memset(&_impl_.player_types_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.catchable_area_l_stretch_max_) -
-      reinterpret_cast<char*>(&_impl_.agent_type_)) + sizeof(_impl_.catchable_area_l_stretch_max_));
+      reinterpret_cast<char*>(&_impl_.player_types_)) + sizeof(_impl_.catchable_area_l_stretch_max_));
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* PlayerParam::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.AgentType agent_type = 1;
+      // .protos.RegisterResponse register_response = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
-          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_register_response(), ptr);
           CHK_(ptr);
-          _internal_set_agent_type(static_cast<::protos::AgentType>(val));
         } else {
           goto handle_unusual;
         }
@@ -48241,6 +49314,7 @@ const char* PlayerParam::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -48254,11 +49328,12 @@ failure:
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .protos.AgentType agent_type = 1;
-  if (this->_internal_agent_type() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-        1, this->_internal_agent_type(), target);
+  cached_has_bits = _impl_._has_bits_[0];
+  // .protos.RegisterResponse register_response = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::register_response(this),
+        _Internal::register_response(this).GetCachedSize(), target, stream);
   }
 
   // int32 player_types = 2;
@@ -48576,10 +49651,12 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.AgentType agent_type = 1;
-  if (this->_internal_agent_type() != 0) {
+  // .protos.RegisterResponse register_response = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
-                  ::_pbi::WireFormatLite::EnumSize(this->_internal_agent_type());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.register_response_);
   }
 
   // int32 player_types = 2;
@@ -48845,8 +49922,9 @@ void PlayerParam::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PR
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_agent_type() != 0) {
-    _this->_internal_set_agent_type(from._internal_agent_type());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_mutable_register_response()->::protos::RegisterResponse::MergeFrom(
+        from._internal_register_response());
   }
   if (from._internal_player_types() != 0) {
     _this->_internal_set_player_types(from._internal_player_types());
@@ -49048,42 +50126,132 @@ bool PlayerParam::IsInitialized() const {
 void PlayerParam::InternalSwap(PlayerParam* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PlayerParam, _impl_.catchable_area_l_stretch_max_)
       + sizeof(PlayerParam::_impl_.catchable_area_l_stretch_max_)
-      - PROTOBUF_FIELD_OFFSET(PlayerParam, _impl_.agent_type_)>(
-          reinterpret_cast<char*>(&_impl_.agent_type_),
-          reinterpret_cast<char*>(&other->_impl_.agent_type_));
+      - PROTOBUF_FIELD_OFFSET(PlayerParam, _impl_.register_response_)>(
+          reinterpret_cast<char*>(&_impl_.register_response_),
+          reinterpret_cast<char*>(&other->_impl_.register_response_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PlayerParam::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[123]);
+      file_level_metadata_service_2eproto[125]);
 }
 // ===================================================================
 
 class PlayerType::_Internal {
  public:
+  using HasBits = decltype(std::declval<PlayerType>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PlayerType, _impl_._has_bits_);
+  static const ::protos::RegisterResponse& register_response(const PlayerType* msg);
+  static void set_has_register_response(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
+const ::protos::RegisterResponse&
+PlayerType::_Internal::register_response(const PlayerType* msg) {
+  return *msg->_impl_.register_response_;
+}
 PlayerType::PlayerType(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:protos.PlayerType)
 }
 PlayerType::PlayerType(const PlayerType& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
-      from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  PlayerType* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.register_response_){nullptr}
+    , decltype(_impl_.id_) {}
+
+    , decltype(_impl_.stamina_inc_max_) {}
+
+    , decltype(_impl_.player_decay_) {}
+
+    , decltype(_impl_.inertia_moment_) {}
+
+    , decltype(_impl_.dash_power_rate_) {}
+
+    , decltype(_impl_.player_size_) {}
+
+    , decltype(_impl_.kickable_margin_) {}
+
+    , decltype(_impl_.kick_rand_) {}
+
+    , decltype(_impl_.extra_stamina_) {}
+
+    , decltype(_impl_.effort_max_) {}
+
+    , decltype(_impl_.effort_min_) {}
+
+    , decltype(_impl_.kick_power_rate_) {}
+
+    , decltype(_impl_.foul_detect_probability_) {}
+
+    , decltype(_impl_.catchable_area_l_stretch_) {}
+
+    , decltype(_impl_.unum_far_length_) {}
+
+    , decltype(_impl_.unum_too_far_length_) {}
+
+    , decltype(_impl_.team_far_length_) {}
+
+    , decltype(_impl_.team_too_far_length_) {}
+
+    , decltype(_impl_.player_max_observation_length_) {}
+
+    , decltype(_impl_.ball_vel_far_length_) {}
+
+    , decltype(_impl_.ball_vel_too_far_length_) {}
+
+    , decltype(_impl_.ball_max_observation_length_) {}
+
+    , decltype(_impl_.flag_chg_far_length_) {}
+
+    , decltype(_impl_.flag_chg_too_far_length_) {}
+
+    , decltype(_impl_.flag_max_observation_length_) {}
+
+    , decltype(_impl_.kickable_area_) {}
+
+    , decltype(_impl_.reliable_catchable_dist_) {}
+
+    , decltype(_impl_.max_catchable_dist_) {}
+
+    , decltype(_impl_.real_speed_max_) {}
+
+    , decltype(_impl_.player_speed_max2_) {}
+
+    , decltype(_impl_.real_speed_max2_) {}
+
+    , decltype(_impl_.cycles_to_reach_max_speed_) {}
+
+    , decltype(_impl_.player_speed_max_) {}
+  };
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.register_response_ = new ::protos::RegisterResponse(*from._impl_.register_response_);
+  }
+  ::memcpy(&_impl_.id_, &from._impl_.id_,
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.player_speed_max_) -
+    reinterpret_cast<char*>(&_impl_.id_)) + sizeof(_impl_.player_speed_max_));
   // @@protoc_insertion_point(copy_constructor:protos.PlayerType)
 }
 
 inline void PlayerType::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
   new (&_impl_) Impl_{
-      decltype(_impl_.agent_type_) { 0 }
-
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.register_response_){nullptr}
     , decltype(_impl_.id_) { 0 }
 
     , decltype(_impl_.stamina_inc_max_) { 0 }
@@ -49150,7 +50318,6 @@ inline void PlayerType::SharedCtor(::_pb::Arena* arena) {
 
     , decltype(_impl_.player_speed_max_) { 0 }
 
-    , /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
@@ -49165,6 +50332,7 @@ PlayerType::~PlayerType() {
 
 inline void PlayerType::SharedDtor() {
   ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.register_response_;
 }
 
 void PlayerType::SetCachedSize(int size) const {
@@ -49177,24 +50345,30 @@ void PlayerType::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.agent_type_, 0, static_cast<::size_t>(
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.register_response_ != nullptr);
+    _impl_.register_response_->Clear();
+  }
+  ::memset(&_impl_.id_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.player_speed_max_) -
-      reinterpret_cast<char*>(&_impl_.agent_type_)) + sizeof(_impl_.player_speed_max_));
+      reinterpret_cast<char*>(&_impl_.id_)) + sizeof(_impl_.player_speed_max_));
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* PlayerType::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     ::uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .protos.AgentType agent_type = 1;
+      // .protos.RegisterResponse register_response = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
-          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_register_response(), ptr);
           CHK_(ptr);
-          _internal_set_agent_type(static_cast<::protos::AgentType>(val));
         } else {
           goto handle_unusual;
         }
@@ -49512,6 +50686,7 @@ const char* PlayerType::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -49525,11 +50700,12 @@ failure:
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .protos.AgentType agent_type = 1;
-  if (this->_internal_agent_type() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-        1, this->_internal_agent_type(), target);
+  cached_has_bits = _impl_._has_bits_[0];
+  // .protos.RegisterResponse register_response = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::register_response(this),
+        _Internal::register_response(this).GetCachedSize(), target, stream);
   }
 
   // int32 id = 2;
@@ -49903,10 +51079,12 @@ failure:
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .protos.AgentType agent_type = 1;
-  if (this->_internal_agent_type() != 0) {
+  // .protos.RegisterResponse register_response = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
-                  ::_pbi::WireFormatLite::EnumSize(this->_internal_agent_type());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.register_response_);
   }
 
   // int32 id = 2;
@@ -50218,8 +51396,9 @@ void PlayerType::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_agent_type() != 0) {
-    _this->_internal_set_agent_type(from._internal_agent_type());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_mutable_register_response()->::protos::RegisterResponse::MergeFrom(
+        from._internal_register_response());
   }
   if (from._internal_id() != 0) {
     _this->_internal_set_id(from._internal_id());
@@ -50461,18 +51640,19 @@ bool PlayerType::IsInitialized() const {
 void PlayerType::InternalSwap(PlayerType* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PlayerType, _impl_.player_speed_max_)
       + sizeof(PlayerType::_impl_.player_speed_max_)
-      - PROTOBUF_FIELD_OFFSET(PlayerType, _impl_.agent_type_)>(
-          reinterpret_cast<char*>(&_impl_.agent_type_),
-          reinterpret_cast<char*>(&other->_impl_.agent_type_));
+      - PROTOBUF_FIELD_OFFSET(PlayerType, _impl_.register_response_)>(
+          reinterpret_cast<char*>(&_impl_.register_response_),
+          reinterpret_cast<char*>(&other->_impl_.register_response_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PlayerType::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[124]);
+      file_level_metadata_service_2eproto[126]);
 }
 // ===================================================================
 
@@ -50510,52 +51690,22 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Empty::GetClassData() const { 
 ::PROTOBUF_NAMESPACE_ID::Metadata Empty::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[125]);
-}
-// ===================================================================
-
-class InitMessageFromServer::_Internal {
- public:
-};
-
-InitMessageFromServer::InitMessageFromServer(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase(arena) {
-  // @@protoc_insertion_point(arena_constructor:protos.InitMessageFromServer)
-}
-InitMessageFromServer::InitMessageFromServer(const InitMessageFromServer& from)
-  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
-  InitMessageFromServer* const _this = this; (void)_this;
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:protos.InitMessageFromServer)
-}
-
-
-
-
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData InitMessageFromServer::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl,
-    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl,
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*InitMessageFromServer::GetClassData() const { return &_class_data_; }
-
-
-
-
-
-
-
-::PROTOBUF_NAMESPACE_ID::Metadata InitMessageFromServer::GetMetadata() const {
-  return ::_pbi::AssignDescriptors(
-      &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[126]);
+      file_level_metadata_service_2eproto[127]);
 }
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace protos
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::protos::Vector2D*
-Arena::CreateMaybeMessage< ::protos::Vector2D >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::protos::Vector2D >(arena);
+template<> PROTOBUF_NOINLINE ::protos::RpcVector2D*
+Arena::CreateMaybeMessage< ::protos::RpcVector2D >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::protos::RpcVector2D >(arena);
+}
+template<> PROTOBUF_NOINLINE ::protos::RegisterRequest*
+Arena::CreateMaybeMessage< ::protos::RegisterRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::protos::RegisterRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::protos::RegisterResponse*
+Arena::CreateMaybeMessage< ::protos::RegisterResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::protos::RegisterResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::protos::Ball*
 Arena::CreateMaybeMessage< ::protos::Ball >(Arena* arena) {
@@ -51056,10 +52206,6 @@ Arena::CreateMaybeMessage< ::protos::PlayerType >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::protos::Empty*
 Arena::CreateMaybeMessage< ::protos::Empty >(Arena* arena) {
   return Arena::CreateMessageInternal< ::protos::Empty >(arena);
-}
-template<> PROTOBUF_NOINLINE ::protos::InitMessageFromServer*
-Arena::CreateMaybeMessage< ::protos::InitMessageFromServer >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::protos::InitMessageFromServer >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 // @@protoc_insertion_point(global_scope)

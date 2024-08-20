@@ -269,9 +269,6 @@ extern HeliosShootDefaultTypeInternal _HeliosShoot_default_instance_;
 class InitMessage;
 struct InitMessageDefaultTypeInternal;
 extern InitMessageDefaultTypeInternal _InitMessage_default_instance_;
-class InitMessageFromServer;
-struct InitMessageFromServerDefaultTypeInternal;
-extern InitMessageFromServerDefaultTypeInternal _InitMessageFromServer_default_instance_;
 class InterceptInfo;
 struct InterceptInfoDefaultTypeInternal;
 extern InterceptInfoDefaultTypeInternal _InterceptInfo_default_instance_;
@@ -359,6 +356,15 @@ extern PointToOfDefaultTypeInternal _PointToOf_default_instance_;
 class RecoveryMessage;
 struct RecoveryMessageDefaultTypeInternal;
 extern RecoveryMessageDefaultTypeInternal _RecoveryMessage_default_instance_;
+class RegisterRequest;
+struct RegisterRequestDefaultTypeInternal;
+extern RegisterRequestDefaultTypeInternal _RegisterRequest_default_instance_;
+class RegisterResponse;
+struct RegisterResponseDefaultTypeInternal;
+extern RegisterResponseDefaultTypeInternal _RegisterResponse_default_instance_;
+class RpcVector2D;
+struct RpcVector2DDefaultTypeInternal;
+extern RpcVector2DDefaultTypeInternal _RpcVector2D_default_instance_;
 class Say;
 struct SayDefaultTypeInternal;
 extern SayDefaultTypeInternal _Say_default_instance_;
@@ -407,9 +413,6 @@ extern TurnNeckDefaultTypeInternal _TurnNeck_default_instance_;
 class TwoPlayerMessage;
 struct TwoPlayerMessageDefaultTypeInternal;
 extern TwoPlayerMessageDefaultTypeInternal _TwoPlayerMessage_default_instance_;
-class Vector2D;
-struct Vector2DDefaultTypeInternal;
-extern Vector2DDefaultTypeInternal _Vector2D_default_instance_;
 class View_ChangeWidth;
 struct View_ChangeWidthDefaultTypeInternal;
 extern View_ChangeWidthDefaultTypeInternal _View_ChangeWidth_default_instance_;
@@ -582,8 +585,6 @@ template <>
 template <>
 ::protos::InitMessage* Arena::CreateMaybeMessage<::protos::InitMessage>(Arena*);
 template <>
-::protos::InitMessageFromServer* Arena::CreateMaybeMessage<::protos::InitMessageFromServer>(Arena*);
-template <>
 ::protos::InterceptInfo* Arena::CreateMaybeMessage<::protos::InterceptInfo>(Arena*);
 template <>
 ::protos::InterceptMessage* Arena::CreateMaybeMessage<::protos::InterceptMessage>(Arena*);
@@ -642,6 +643,12 @@ template <>
 template <>
 ::protos::RecoveryMessage* Arena::CreateMaybeMessage<::protos::RecoveryMessage>(Arena*);
 template <>
+::protos::RegisterRequest* Arena::CreateMaybeMessage<::protos::RegisterRequest>(Arena*);
+template <>
+::protos::RegisterResponse* Arena::CreateMaybeMessage<::protos::RegisterResponse>(Arena*);
+template <>
+::protos::RpcVector2D* Arena::CreateMaybeMessage<::protos::RpcVector2D>(Arena*);
+template <>
 ::protos::Say* Arena::CreateMaybeMessage<::protos::Say>(Arena*);
 template <>
 ::protos::Self* Arena::CreateMaybeMessage<::protos::Self>(Arena*);
@@ -673,8 +680,6 @@ template <>
 ::protos::TurnNeck* Arena::CreateMaybeMessage<::protos::TurnNeck>(Arena*);
 template <>
 ::protos::TwoPlayerMessage* Arena::CreateMaybeMessage<::protos::TwoPlayerMessage>(Arena*);
-template <>
-::protos::Vector2D* Arena::CreateMaybeMessage<::protos::Vector2D>(Arena*);
 template <>
 ::protos::View_ChangeWidth* Arena::CreateMaybeMessage<::protos::View_ChangeWidth>(Arena*);
 template <>
@@ -763,7 +768,7 @@ inline bool Side_Parse(absl::string_view name, Side* value) {
       Side_descriptor(), name, value);
 }
 enum LoggerLevel : int {
-  None = 0,
+  NoneLevel = 0,
   SYSTEM = 1,
   SENSOR = 2,
   WORLD = 4,
@@ -944,25 +949,25 @@ inline bool AgentType_Parse(absl::string_view name, AgentType* value) {
 
 // -------------------------------------------------------------------
 
-class Vector2D final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.Vector2D) */ {
+class RpcVector2D final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.RpcVector2D) */ {
  public:
-  inline Vector2D() : Vector2D(nullptr) {}
-  ~Vector2D() override;
+  inline RpcVector2D() : RpcVector2D(nullptr) {}
+  ~RpcVector2D() override;
   template<typename = void>
-  explicit PROTOBUF_CONSTEXPR Vector2D(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit PROTOBUF_CONSTEXPR RpcVector2D(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  Vector2D(const Vector2D& from);
-  Vector2D(Vector2D&& from) noexcept
-    : Vector2D() {
+  RpcVector2D(const RpcVector2D& from);
+  RpcVector2D(RpcVector2D&& from) noexcept
+    : RpcVector2D() {
     *this = ::std::move(from);
   }
 
-  inline Vector2D& operator=(const Vector2D& from) {
+  inline RpcVector2D& operator=(const RpcVector2D& from) {
     CopyFrom(from);
     return *this;
   }
-  inline Vector2D& operator=(Vector2D&& from) noexcept {
+  inline RpcVector2D& operator=(RpcVector2D&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -992,20 +997,20 @@ class Vector2D final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const Vector2D& default_instance() {
+  static const RpcVector2D& default_instance() {
     return *internal_default_instance();
   }
-  static inline const Vector2D* internal_default_instance() {
-    return reinterpret_cast<const Vector2D*>(
-               &_Vector2D_default_instance_);
+  static inline const RpcVector2D* internal_default_instance() {
+    return reinterpret_cast<const RpcVector2D*>(
+               &_RpcVector2D_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(Vector2D& a, Vector2D& b) {
+  friend void swap(RpcVector2D& a, RpcVector2D& b) {
     a.Swap(&b);
   }
-  inline void Swap(Vector2D* other) {
+  inline void Swap(RpcVector2D* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1018,7 +1023,7 @@ class Vector2D final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(Vector2D* other) {
+  void UnsafeArenaSwap(RpcVector2D* other) {
     if (other == this) return;
     ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -1026,14 +1031,14 @@ class Vector2D final :
 
   // implements Message ----------------------------------------------
 
-  Vector2D* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<Vector2D>(arena);
+  RpcVector2D* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RpcVector2D>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const Vector2D& from);
+  void CopyFrom(const RpcVector2D& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const Vector2D& from) {
-    Vector2D::MergeImpl(*this, from);
+  void MergeFrom( const RpcVector2D& from) {
+    RpcVector2D::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -1051,15 +1056,15 @@ class Vector2D final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(Vector2D* other);
+  void InternalSwap(RpcVector2D* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::absl::string_view FullMessageName() {
-    return "protos.Vector2D";
+    return "protos.RpcVector2D";
   }
   protected:
-  explicit Vector2D(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit RpcVector2D(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
   static const ClassData _class_data_;
@@ -1117,7 +1122,7 @@ class Vector2D final :
   void _internal_set_angle(float value);
 
   public:
-  // @@protoc_insertion_point(class_scope:protos.Vector2D)
+  // @@protoc_insertion_point(class_scope:protos.RpcVector2D)
  private:
   class _Internal;
 
@@ -1129,6 +1134,396 @@ class Vector2D final :
     float y_;
     float dist_;
     float angle_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_service_2eproto;
+};// -------------------------------------------------------------------
+
+class RegisterRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.RegisterRequest) */ {
+ public:
+  inline RegisterRequest() : RegisterRequest(nullptr) {}
+  ~RegisterRequest() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR RegisterRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RegisterRequest(const RegisterRequest& from);
+  RegisterRequest(RegisterRequest&& from) noexcept
+    : RegisterRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline RegisterRequest& operator=(const RegisterRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RegisterRequest& operator=(RegisterRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RegisterRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RegisterRequest* internal_default_instance() {
+    return reinterpret_cast<const RegisterRequest*>(
+               &_RegisterRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(RegisterRequest& a, RegisterRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RegisterRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RegisterRequest* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RegisterRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RegisterRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RegisterRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const RegisterRequest& from) {
+    RegisterRequest::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RegisterRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "protos.RegisterRequest";
+  }
+  protected:
+  explicit RegisterRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTeamNameFieldNumber = 2,
+    kAgentTypeFieldNumber = 1,
+    kUniformNumberFieldNumber = 3,
+  };
+  // string team_name = 2;
+  void clear_team_name() ;
+  const std::string& team_name() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_team_name(Arg_&& arg, Args_... args);
+  std::string* mutable_team_name();
+  PROTOBUF_NODISCARD std::string* release_team_name();
+  void set_allocated_team_name(std::string* ptr);
+
+  private:
+  const std::string& _internal_team_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_team_name(
+      const std::string& value);
+  std::string* _internal_mutable_team_name();
+
+  public:
+  // .protos.AgentType agent_type = 1;
+  void clear_agent_type() ;
+  ::protos::AgentType agent_type() const;
+  void set_agent_type(::protos::AgentType value);
+
+  private:
+  ::protos::AgentType _internal_agent_type() const;
+  void _internal_set_agent_type(::protos::AgentType value);
+
+  public:
+  // int32 uniform_number = 3;
+  void clear_uniform_number() ;
+  ::int32_t uniform_number() const;
+  void set_uniform_number(::int32_t value);
+
+  private:
+  ::int32_t _internal_uniform_number() const;
+  void _internal_set_uniform_number(::int32_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:protos.RegisterRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr team_name_;
+    int agent_type_;
+    ::int32_t uniform_number_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_service_2eproto;
+};// -------------------------------------------------------------------
+
+class RegisterResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.RegisterResponse) */ {
+ public:
+  inline RegisterResponse() : RegisterResponse(nullptr) {}
+  ~RegisterResponse() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR RegisterResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RegisterResponse(const RegisterResponse& from);
+  RegisterResponse(RegisterResponse&& from) noexcept
+    : RegisterResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline RegisterResponse& operator=(const RegisterResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RegisterResponse& operator=(RegisterResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RegisterResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RegisterResponse* internal_default_instance() {
+    return reinterpret_cast<const RegisterResponse*>(
+               &_RegisterResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(RegisterResponse& a, RegisterResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RegisterResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RegisterResponse* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RegisterResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RegisterResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RegisterResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const RegisterResponse& from) {
+    RegisterResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RegisterResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "protos.RegisterResponse";
+  }
+  protected:
+  explicit RegisterResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTeamNameFieldNumber = 3,
+    kClientIdFieldNumber = 1,
+    kAgentTypeFieldNumber = 2,
+    kUniformNumberFieldNumber = 4,
+  };
+  // string team_name = 3;
+  void clear_team_name() ;
+  const std::string& team_name() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_team_name(Arg_&& arg, Args_... args);
+  std::string* mutable_team_name();
+  PROTOBUF_NODISCARD std::string* release_team_name();
+  void set_allocated_team_name(std::string* ptr);
+
+  private:
+  const std::string& _internal_team_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_team_name(
+      const std::string& value);
+  std::string* _internal_mutable_team_name();
+
+  public:
+  // int32 client_id = 1;
+  void clear_client_id() ;
+  ::int32_t client_id() const;
+  void set_client_id(::int32_t value);
+
+  private:
+  ::int32_t _internal_client_id() const;
+  void _internal_set_client_id(::int32_t value);
+
+  public:
+  // .protos.AgentType agent_type = 2;
+  void clear_agent_type() ;
+  ::protos::AgentType agent_type() const;
+  void set_agent_type(::protos::AgentType value);
+
+  private:
+  ::protos::AgentType _internal_agent_type() const;
+  void _internal_set_agent_type(::protos::AgentType value);
+
+  public:
+  // int32 uniform_number = 4;
+  void clear_uniform_number() ;
+  ::int32_t uniform_number() const;
+  void set_uniform_number(::int32_t value);
+
+  private:
+  ::int32_t _internal_uniform_number() const;
+  void _internal_set_uniform_number(::int32_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:protos.RegisterResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr team_name_;
+    ::int32_t client_id_;
+    int agent_type_;
+    ::int32_t uniform_number_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1191,7 +1586,7 @@ class Ball final :
                &_Ball_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    3;
 
   friend void swap(Ball& a, Ball& b) {
     a.Swap(&b);
@@ -1281,104 +1676,104 @@ class Ball final :
     kDistFromSelfFieldNumber = 16,
     kAngleFromSelfFieldNumber = 17,
   };
-  // .protos.Vector2D position = 1;
+  // .protos.RpcVector2D position = 1;
   bool has_position() const;
   void clear_position() ;
-  const ::protos::Vector2D& position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_position();
-  ::protos::Vector2D* mutable_position();
-  void set_allocated_position(::protos::Vector2D* position);
+  const ::protos::RpcVector2D& position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_position();
+  ::protos::RpcVector2D* mutable_position();
+  void set_allocated_position(::protos::RpcVector2D* position);
   private:
-  const ::protos::Vector2D& _internal_position() const;
-  ::protos::Vector2D* _internal_mutable_position();
+  const ::protos::RpcVector2D& _internal_position() const;
+  ::protos::RpcVector2D* _internal_mutable_position();
   public:
   void unsafe_arena_set_allocated_position(
-      ::protos::Vector2D* position);
-  ::protos::Vector2D* unsafe_arena_release_position();
-  // .protos.Vector2D relative_position = 2;
+      ::protos::RpcVector2D* position);
+  ::protos::RpcVector2D* unsafe_arena_release_position();
+  // .protos.RpcVector2D relative_position = 2;
   bool has_relative_position() const;
   void clear_relative_position() ;
-  const ::protos::Vector2D& relative_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_relative_position();
-  ::protos::Vector2D* mutable_relative_position();
-  void set_allocated_relative_position(::protos::Vector2D* relative_position);
+  const ::protos::RpcVector2D& relative_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_relative_position();
+  ::protos::RpcVector2D* mutable_relative_position();
+  void set_allocated_relative_position(::protos::RpcVector2D* relative_position);
   private:
-  const ::protos::Vector2D& _internal_relative_position() const;
-  ::protos::Vector2D* _internal_mutable_relative_position();
+  const ::protos::RpcVector2D& _internal_relative_position() const;
+  ::protos::RpcVector2D* _internal_mutable_relative_position();
   public:
   void unsafe_arena_set_allocated_relative_position(
-      ::protos::Vector2D* relative_position);
-  ::protos::Vector2D* unsafe_arena_release_relative_position();
-  // .protos.Vector2D seen_position = 3;
+      ::protos::RpcVector2D* relative_position);
+  ::protos::RpcVector2D* unsafe_arena_release_relative_position();
+  // .protos.RpcVector2D seen_position = 3;
   bool has_seen_position() const;
   void clear_seen_position() ;
-  const ::protos::Vector2D& seen_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_seen_position();
-  ::protos::Vector2D* mutable_seen_position();
-  void set_allocated_seen_position(::protos::Vector2D* seen_position);
+  const ::protos::RpcVector2D& seen_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_seen_position();
+  ::protos::RpcVector2D* mutable_seen_position();
+  void set_allocated_seen_position(::protos::RpcVector2D* seen_position);
   private:
-  const ::protos::Vector2D& _internal_seen_position() const;
-  ::protos::Vector2D* _internal_mutable_seen_position();
+  const ::protos::RpcVector2D& _internal_seen_position() const;
+  ::protos::RpcVector2D* _internal_mutable_seen_position();
   public:
   void unsafe_arena_set_allocated_seen_position(
-      ::protos::Vector2D* seen_position);
-  ::protos::Vector2D* unsafe_arena_release_seen_position();
-  // .protos.Vector2D heard_position = 4;
+      ::protos::RpcVector2D* seen_position);
+  ::protos::RpcVector2D* unsafe_arena_release_seen_position();
+  // .protos.RpcVector2D heard_position = 4;
   bool has_heard_position() const;
   void clear_heard_position() ;
-  const ::protos::Vector2D& heard_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_heard_position();
-  ::protos::Vector2D* mutable_heard_position();
-  void set_allocated_heard_position(::protos::Vector2D* heard_position);
+  const ::protos::RpcVector2D& heard_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_heard_position();
+  ::protos::RpcVector2D* mutable_heard_position();
+  void set_allocated_heard_position(::protos::RpcVector2D* heard_position);
   private:
-  const ::protos::Vector2D& _internal_heard_position() const;
-  ::protos::Vector2D* _internal_mutable_heard_position();
+  const ::protos::RpcVector2D& _internal_heard_position() const;
+  ::protos::RpcVector2D* _internal_mutable_heard_position();
   public:
   void unsafe_arena_set_allocated_heard_position(
-      ::protos::Vector2D* heard_position);
-  ::protos::Vector2D* unsafe_arena_release_heard_position();
-  // .protos.Vector2D velocity = 5;
+      ::protos::RpcVector2D* heard_position);
+  ::protos::RpcVector2D* unsafe_arena_release_heard_position();
+  // .protos.RpcVector2D velocity = 5;
   bool has_velocity() const;
   void clear_velocity() ;
-  const ::protos::Vector2D& velocity() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_velocity();
-  ::protos::Vector2D* mutable_velocity();
-  void set_allocated_velocity(::protos::Vector2D* velocity);
+  const ::protos::RpcVector2D& velocity() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_velocity();
+  ::protos::RpcVector2D* mutable_velocity();
+  void set_allocated_velocity(::protos::RpcVector2D* velocity);
   private:
-  const ::protos::Vector2D& _internal_velocity() const;
-  ::protos::Vector2D* _internal_mutable_velocity();
+  const ::protos::RpcVector2D& _internal_velocity() const;
+  ::protos::RpcVector2D* _internal_mutable_velocity();
   public:
   void unsafe_arena_set_allocated_velocity(
-      ::protos::Vector2D* velocity);
-  ::protos::Vector2D* unsafe_arena_release_velocity();
-  // .protos.Vector2D seen_velocity = 6;
+      ::protos::RpcVector2D* velocity);
+  ::protos::RpcVector2D* unsafe_arena_release_velocity();
+  // .protos.RpcVector2D seen_velocity = 6;
   bool has_seen_velocity() const;
   void clear_seen_velocity() ;
-  const ::protos::Vector2D& seen_velocity() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_seen_velocity();
-  ::protos::Vector2D* mutable_seen_velocity();
-  void set_allocated_seen_velocity(::protos::Vector2D* seen_velocity);
+  const ::protos::RpcVector2D& seen_velocity() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_seen_velocity();
+  ::protos::RpcVector2D* mutable_seen_velocity();
+  void set_allocated_seen_velocity(::protos::RpcVector2D* seen_velocity);
   private:
-  const ::protos::Vector2D& _internal_seen_velocity() const;
-  ::protos::Vector2D* _internal_mutable_seen_velocity();
+  const ::protos::RpcVector2D& _internal_seen_velocity() const;
+  ::protos::RpcVector2D* _internal_mutable_seen_velocity();
   public:
   void unsafe_arena_set_allocated_seen_velocity(
-      ::protos::Vector2D* seen_velocity);
-  ::protos::Vector2D* unsafe_arena_release_seen_velocity();
-  // .protos.Vector2D heard_velocity = 7;
+      ::protos::RpcVector2D* seen_velocity);
+  ::protos::RpcVector2D* unsafe_arena_release_seen_velocity();
+  // .protos.RpcVector2D heard_velocity = 7;
   bool has_heard_velocity() const;
   void clear_heard_velocity() ;
-  const ::protos::Vector2D& heard_velocity() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_heard_velocity();
-  ::protos::Vector2D* mutable_heard_velocity();
-  void set_allocated_heard_velocity(::protos::Vector2D* heard_velocity);
+  const ::protos::RpcVector2D& heard_velocity() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_heard_velocity();
+  ::protos::RpcVector2D* mutable_heard_velocity();
+  void set_allocated_heard_velocity(::protos::RpcVector2D* heard_velocity);
   private:
-  const ::protos::Vector2D& _internal_heard_velocity() const;
-  ::protos::Vector2D* _internal_mutable_heard_velocity();
+  const ::protos::RpcVector2D& _internal_heard_velocity() const;
+  ::protos::RpcVector2D* _internal_mutable_heard_velocity();
   public:
   void unsafe_arena_set_allocated_heard_velocity(
-      ::protos::Vector2D* heard_velocity);
-  ::protos::Vector2D* unsafe_arena_release_heard_velocity();
+      ::protos::RpcVector2D* heard_velocity);
+  ::protos::RpcVector2D* unsafe_arena_release_heard_velocity();
   // int32 pos_count = 8;
   void clear_pos_count() ;
   ::int32_t pos_count() const;
@@ -1489,13 +1884,13 @@ class Ball final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* position_;
-    ::protos::Vector2D* relative_position_;
-    ::protos::Vector2D* seen_position_;
-    ::protos::Vector2D* heard_position_;
-    ::protos::Vector2D* velocity_;
-    ::protos::Vector2D* seen_velocity_;
-    ::protos::Vector2D* heard_velocity_;
+    ::protos::RpcVector2D* position_;
+    ::protos::RpcVector2D* relative_position_;
+    ::protos::RpcVector2D* seen_position_;
+    ::protos::RpcVector2D* heard_position_;
+    ::protos::RpcVector2D* velocity_;
+    ::protos::RpcVector2D* seen_velocity_;
+    ::protos::RpcVector2D* heard_velocity_;
     ::int32_t pos_count_;
     ::int32_t seen_pos_count_;
     ::int32_t heard_pos_count_;
@@ -1567,7 +1962,7 @@ class Player final :
                &_Player_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    4;
 
   friend void swap(Player& a, Player& b) {
     a.Swap(&b);
@@ -1670,76 +2065,76 @@ class Player final :
     kBallReachStepsFieldNumber = 28,
     kTypeIdFieldNumber = 30,
   };
-  // .protos.Vector2D position = 1;
+  // .protos.RpcVector2D position = 1;
   bool has_position() const;
   void clear_position() ;
-  const ::protos::Vector2D& position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_position();
-  ::protos::Vector2D* mutable_position();
-  void set_allocated_position(::protos::Vector2D* position);
+  const ::protos::RpcVector2D& position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_position();
+  ::protos::RpcVector2D* mutable_position();
+  void set_allocated_position(::protos::RpcVector2D* position);
   private:
-  const ::protos::Vector2D& _internal_position() const;
-  ::protos::Vector2D* _internal_mutable_position();
+  const ::protos::RpcVector2D& _internal_position() const;
+  ::protos::RpcVector2D* _internal_mutable_position();
   public:
   void unsafe_arena_set_allocated_position(
-      ::protos::Vector2D* position);
-  ::protos::Vector2D* unsafe_arena_release_position();
-  // .protos.Vector2D seen_position = 2;
+      ::protos::RpcVector2D* position);
+  ::protos::RpcVector2D* unsafe_arena_release_position();
+  // .protos.RpcVector2D seen_position = 2;
   bool has_seen_position() const;
   void clear_seen_position() ;
-  const ::protos::Vector2D& seen_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_seen_position();
-  ::protos::Vector2D* mutable_seen_position();
-  void set_allocated_seen_position(::protos::Vector2D* seen_position);
+  const ::protos::RpcVector2D& seen_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_seen_position();
+  ::protos::RpcVector2D* mutable_seen_position();
+  void set_allocated_seen_position(::protos::RpcVector2D* seen_position);
   private:
-  const ::protos::Vector2D& _internal_seen_position() const;
-  ::protos::Vector2D* _internal_mutable_seen_position();
+  const ::protos::RpcVector2D& _internal_seen_position() const;
+  ::protos::RpcVector2D* _internal_mutable_seen_position();
   public:
   void unsafe_arena_set_allocated_seen_position(
-      ::protos::Vector2D* seen_position);
-  ::protos::Vector2D* unsafe_arena_release_seen_position();
-  // .protos.Vector2D heard_position = 3;
+      ::protos::RpcVector2D* seen_position);
+  ::protos::RpcVector2D* unsafe_arena_release_seen_position();
+  // .protos.RpcVector2D heard_position = 3;
   bool has_heard_position() const;
   void clear_heard_position() ;
-  const ::protos::Vector2D& heard_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_heard_position();
-  ::protos::Vector2D* mutable_heard_position();
-  void set_allocated_heard_position(::protos::Vector2D* heard_position);
+  const ::protos::RpcVector2D& heard_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_heard_position();
+  ::protos::RpcVector2D* mutable_heard_position();
+  void set_allocated_heard_position(::protos::RpcVector2D* heard_position);
   private:
-  const ::protos::Vector2D& _internal_heard_position() const;
-  ::protos::Vector2D* _internal_mutable_heard_position();
+  const ::protos::RpcVector2D& _internal_heard_position() const;
+  ::protos::RpcVector2D* _internal_mutable_heard_position();
   public:
   void unsafe_arena_set_allocated_heard_position(
-      ::protos::Vector2D* heard_position);
-  ::protos::Vector2D* unsafe_arena_release_heard_position();
-  // .protos.Vector2D velocity = 4;
+      ::protos::RpcVector2D* heard_position);
+  ::protos::RpcVector2D* unsafe_arena_release_heard_position();
+  // .protos.RpcVector2D velocity = 4;
   bool has_velocity() const;
   void clear_velocity() ;
-  const ::protos::Vector2D& velocity() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_velocity();
-  ::protos::Vector2D* mutable_velocity();
-  void set_allocated_velocity(::protos::Vector2D* velocity);
+  const ::protos::RpcVector2D& velocity() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_velocity();
+  ::protos::RpcVector2D* mutable_velocity();
+  void set_allocated_velocity(::protos::RpcVector2D* velocity);
   private:
-  const ::protos::Vector2D& _internal_velocity() const;
-  ::protos::Vector2D* _internal_mutable_velocity();
+  const ::protos::RpcVector2D& _internal_velocity() const;
+  ::protos::RpcVector2D* _internal_mutable_velocity();
   public:
   void unsafe_arena_set_allocated_velocity(
-      ::protos::Vector2D* velocity);
-  ::protos::Vector2D* unsafe_arena_release_velocity();
-  // .protos.Vector2D seen_velocity = 5;
+      ::protos::RpcVector2D* velocity);
+  ::protos::RpcVector2D* unsafe_arena_release_velocity();
+  // .protos.RpcVector2D seen_velocity = 5;
   bool has_seen_velocity() const;
   void clear_seen_velocity() ;
-  const ::protos::Vector2D& seen_velocity() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_seen_velocity();
-  ::protos::Vector2D* mutable_seen_velocity();
-  void set_allocated_seen_velocity(::protos::Vector2D* seen_velocity);
+  const ::protos::RpcVector2D& seen_velocity() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_seen_velocity();
+  ::protos::RpcVector2D* mutable_seen_velocity();
+  void set_allocated_seen_velocity(::protos::RpcVector2D* seen_velocity);
   private:
-  const ::protos::Vector2D& _internal_seen_velocity() const;
-  ::protos::Vector2D* _internal_mutable_seen_velocity();
+  const ::protos::RpcVector2D& _internal_seen_velocity() const;
+  ::protos::RpcVector2D* _internal_mutable_seen_velocity();
   public:
   void unsafe_arena_set_allocated_seen_velocity(
-      ::protos::Vector2D* seen_velocity);
-  ::protos::Vector2D* unsafe_arena_release_seen_velocity();
+      ::protos::RpcVector2D* seen_velocity);
+  ::protos::RpcVector2D* unsafe_arena_release_seen_velocity();
   // int32 pos_count = 6;
   void clear_pos_count() ;
   ::int32_t pos_count() const;
@@ -2000,11 +2395,11 @@ class Player final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* position_;
-    ::protos::Vector2D* seen_position_;
-    ::protos::Vector2D* heard_position_;
-    ::protos::Vector2D* velocity_;
-    ::protos::Vector2D* seen_velocity_;
+    ::protos::RpcVector2D* position_;
+    ::protos::RpcVector2D* seen_position_;
+    ::protos::RpcVector2D* heard_position_;
+    ::protos::RpcVector2D* velocity_;
+    ::protos::RpcVector2D* seen_velocity_;
     ::int32_t pos_count_;
     ::int32_t seen_pos_count_;
     ::int32_t heard_pos_count_;
@@ -2091,7 +2486,7 @@ class Self final :
                &_Self_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    5;
 
   friend void swap(Self& a, Self& b) {
     a.Swap(&b);
@@ -2200,76 +2595,76 @@ class Self final :
     kTypeIdFieldNumber = 35,
     kKickRateFieldNumber = 36,
   };
-  // .protos.Vector2D position = 1;
+  // .protos.RpcVector2D position = 1;
   bool has_position() const;
   void clear_position() ;
-  const ::protos::Vector2D& position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_position();
-  ::protos::Vector2D* mutable_position();
-  void set_allocated_position(::protos::Vector2D* position);
+  const ::protos::RpcVector2D& position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_position();
+  ::protos::RpcVector2D* mutable_position();
+  void set_allocated_position(::protos::RpcVector2D* position);
   private:
-  const ::protos::Vector2D& _internal_position() const;
-  ::protos::Vector2D* _internal_mutable_position();
+  const ::protos::RpcVector2D& _internal_position() const;
+  ::protos::RpcVector2D* _internal_mutable_position();
   public:
   void unsafe_arena_set_allocated_position(
-      ::protos::Vector2D* position);
-  ::protos::Vector2D* unsafe_arena_release_position();
-  // .protos.Vector2D seen_position = 2;
+      ::protos::RpcVector2D* position);
+  ::protos::RpcVector2D* unsafe_arena_release_position();
+  // .protos.RpcVector2D seen_position = 2;
   bool has_seen_position() const;
   void clear_seen_position() ;
-  const ::protos::Vector2D& seen_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_seen_position();
-  ::protos::Vector2D* mutable_seen_position();
-  void set_allocated_seen_position(::protos::Vector2D* seen_position);
+  const ::protos::RpcVector2D& seen_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_seen_position();
+  ::protos::RpcVector2D* mutable_seen_position();
+  void set_allocated_seen_position(::protos::RpcVector2D* seen_position);
   private:
-  const ::protos::Vector2D& _internal_seen_position() const;
-  ::protos::Vector2D* _internal_mutable_seen_position();
+  const ::protos::RpcVector2D& _internal_seen_position() const;
+  ::protos::RpcVector2D* _internal_mutable_seen_position();
   public:
   void unsafe_arena_set_allocated_seen_position(
-      ::protos::Vector2D* seen_position);
-  ::protos::Vector2D* unsafe_arena_release_seen_position();
-  // .protos.Vector2D heard_position = 3;
+      ::protos::RpcVector2D* seen_position);
+  ::protos::RpcVector2D* unsafe_arena_release_seen_position();
+  // .protos.RpcVector2D heard_position = 3;
   bool has_heard_position() const;
   void clear_heard_position() ;
-  const ::protos::Vector2D& heard_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_heard_position();
-  ::protos::Vector2D* mutable_heard_position();
-  void set_allocated_heard_position(::protos::Vector2D* heard_position);
+  const ::protos::RpcVector2D& heard_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_heard_position();
+  ::protos::RpcVector2D* mutable_heard_position();
+  void set_allocated_heard_position(::protos::RpcVector2D* heard_position);
   private:
-  const ::protos::Vector2D& _internal_heard_position() const;
-  ::protos::Vector2D* _internal_mutable_heard_position();
+  const ::protos::RpcVector2D& _internal_heard_position() const;
+  ::protos::RpcVector2D* _internal_mutable_heard_position();
   public:
   void unsafe_arena_set_allocated_heard_position(
-      ::protos::Vector2D* heard_position);
-  ::protos::Vector2D* unsafe_arena_release_heard_position();
-  // .protos.Vector2D velocity = 4;
+      ::protos::RpcVector2D* heard_position);
+  ::protos::RpcVector2D* unsafe_arena_release_heard_position();
+  // .protos.RpcVector2D velocity = 4;
   bool has_velocity() const;
   void clear_velocity() ;
-  const ::protos::Vector2D& velocity() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_velocity();
-  ::protos::Vector2D* mutable_velocity();
-  void set_allocated_velocity(::protos::Vector2D* velocity);
+  const ::protos::RpcVector2D& velocity() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_velocity();
+  ::protos::RpcVector2D* mutable_velocity();
+  void set_allocated_velocity(::protos::RpcVector2D* velocity);
   private:
-  const ::protos::Vector2D& _internal_velocity() const;
-  ::protos::Vector2D* _internal_mutable_velocity();
+  const ::protos::RpcVector2D& _internal_velocity() const;
+  ::protos::RpcVector2D* _internal_mutable_velocity();
   public:
   void unsafe_arena_set_allocated_velocity(
-      ::protos::Vector2D* velocity);
-  ::protos::Vector2D* unsafe_arena_release_velocity();
-  // .protos.Vector2D seen_velocity = 5;
+      ::protos::RpcVector2D* velocity);
+  ::protos::RpcVector2D* unsafe_arena_release_velocity();
+  // .protos.RpcVector2D seen_velocity = 5;
   bool has_seen_velocity() const;
   void clear_seen_velocity() ;
-  const ::protos::Vector2D& seen_velocity() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_seen_velocity();
-  ::protos::Vector2D* mutable_seen_velocity();
-  void set_allocated_seen_velocity(::protos::Vector2D* seen_velocity);
+  const ::protos::RpcVector2D& seen_velocity() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_seen_velocity();
+  ::protos::RpcVector2D* mutable_seen_velocity();
+  void set_allocated_seen_velocity(::protos::RpcVector2D* seen_velocity);
   private:
-  const ::protos::Vector2D& _internal_seen_velocity() const;
-  ::protos::Vector2D* _internal_mutable_seen_velocity();
+  const ::protos::RpcVector2D& _internal_seen_velocity() const;
+  ::protos::RpcVector2D* _internal_mutable_seen_velocity();
   public:
   void unsafe_arena_set_allocated_seen_velocity(
-      ::protos::Vector2D* seen_velocity);
-  ::protos::Vector2D* unsafe_arena_release_seen_velocity();
+      ::protos::RpcVector2D* seen_velocity);
+  ::protos::RpcVector2D* unsafe_arena_release_seen_velocity();
   // int32 pos_count = 6;
   void clear_pos_count() ;
   ::int32_t pos_count() const;
@@ -2590,11 +2985,11 @@ class Self final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* position_;
-    ::protos::Vector2D* seen_position_;
-    ::protos::Vector2D* heard_position_;
-    ::protos::Vector2D* velocity_;
-    ::protos::Vector2D* seen_velocity_;
+    ::protos::RpcVector2D* position_;
+    ::protos::RpcVector2D* seen_position_;
+    ::protos::RpcVector2D* heard_position_;
+    ::protos::RpcVector2D* velocity_;
+    ::protos::RpcVector2D* seen_velocity_;
     ::int32_t pos_count_;
     ::int32_t seen_pos_count_;
     ::int32_t heard_pos_count_;
@@ -2687,7 +3082,7 @@ class InterceptInfo final :
                &_InterceptInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    6;
 
   friend void swap(InterceptInfo& a, InterceptInfo& b) {
     a.Swap(&b);
@@ -2770,20 +3165,20 @@ class InterceptInfo final :
     kFinalStaminaFieldNumber = 9,
     kValueFieldNumber = 10,
   };
-  // .protos.Vector2D final_self_position = 7;
+  // .protos.RpcVector2D final_self_position = 7;
   bool has_final_self_position() const;
   void clear_final_self_position() ;
-  const ::protos::Vector2D& final_self_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_final_self_position();
-  ::protos::Vector2D* mutable_final_self_position();
-  void set_allocated_final_self_position(::protos::Vector2D* final_self_position);
+  const ::protos::RpcVector2D& final_self_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_final_self_position();
+  ::protos::RpcVector2D* mutable_final_self_position();
+  void set_allocated_final_self_position(::protos::RpcVector2D* final_self_position);
   private:
-  const ::protos::Vector2D& _internal_final_self_position() const;
-  ::protos::Vector2D* _internal_mutable_final_self_position();
+  const ::protos::RpcVector2D& _internal_final_self_position() const;
+  ::protos::RpcVector2D* _internal_mutable_final_self_position();
   public:
   void unsafe_arena_set_allocated_final_self_position(
-      ::protos::Vector2D* final_self_position);
-  ::protos::Vector2D* unsafe_arena_release_final_self_position();
+      ::protos::RpcVector2D* final_self_position);
+  ::protos::RpcVector2D* unsafe_arena_release_final_self_position();
   // .protos.InterceptActionType action_type = 1;
   void clear_action_type() ;
   ::protos::InterceptActionType action_type() const;
@@ -2884,7 +3279,7 @@ class InterceptInfo final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* final_self_position_;
+    ::protos::RpcVector2D* final_self_position_;
     int action_type_;
     ::int32_t turn_steps_;
     float turn_angle_;
@@ -2955,7 +3350,7 @@ class InterceptTable final :
                &_InterceptTable_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(InterceptTable& a, InterceptTable& b) {
     a.Swap(&b);
@@ -3221,12 +3616,12 @@ public:
 // -------------------------------------------------------------------
 
 class WorldModel_HeliosHomePositionsEntry_DoNotUse final : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<WorldModel_HeliosHomePositionsEntry_DoNotUse, 
-    ::int32_t, ::protos::Vector2D,
+    ::int32_t, ::protos::RpcVector2D,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> {
 public:
   typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<WorldModel_HeliosHomePositionsEntry_DoNotUse, 
-    ::int32_t, ::protos::Vector2D,
+    ::int32_t, ::protos::RpcVector2D,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> SuperType;
   WorldModel_HeliosHomePositionsEntry_DoNotUse();
@@ -3300,7 +3695,7 @@ class WorldModel final :
                &_WorldModel_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(WorldModel& a, WorldModel& b) {
     a.Swap(&b);
@@ -3499,7 +3894,7 @@ class WorldModel final :
       their_players_dict() const;
   ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::Player >*
       mutable_their_players_dict();
-  // map<int32, .protos.Vector2D> helios_home_positions = 31;
+  // map<int32, .protos.RpcVector2D> helios_home_positions = 31;
   int helios_home_positions_size() const;
   private:
   int _internal_helios_home_positions_size() const;
@@ -3507,14 +3902,14 @@ class WorldModel final :
   public:
   void clear_helios_home_positions() ;
   private:
-  const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::Vector2D >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcVector2D >&
       _internal_helios_home_positions() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::Vector2D >*
+  ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcVector2D >*
       _internal_mutable_helios_home_positions();
   public:
-  const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::Vector2D >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcVector2D >&
       helios_home_positions() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::Vector2D >*
+  ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcVector2D >*
       mutable_helios_home_positions();
   // string our_team_name = 2;
   void clear_our_team_name() ;
@@ -3823,7 +4218,7 @@ class WorldModel final :
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> their_players_dict_;
     ::PROTOBUF_NAMESPACE_ID::internal::MapField<
         WorldModel_HeliosHomePositionsEntry_DoNotUse,
-        ::int32_t, ::protos::Vector2D,
+        ::int32_t, ::protos::RpcVector2D,
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> helios_home_positions_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr our_team_name_;
@@ -3912,7 +4307,7 @@ class State final :
                &_State_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(State& a, State& b) {
     a.Swap(&b);
@@ -3984,10 +4379,24 @@ class State final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kRegisterResponseFieldNumber = 1,
     kWorldModelFieldNumber = 2,
     kFullWorldModelFieldNumber = 3,
-    kAgentTypeFieldNumber = 1,
   };
+  // .protos.RegisterResponse register_response = 1;
+  bool has_register_response() const;
+  void clear_register_response() ;
+  const ::protos::RegisterResponse& register_response() const;
+  PROTOBUF_NODISCARD ::protos::RegisterResponse* release_register_response();
+  ::protos::RegisterResponse* mutable_register_response();
+  void set_allocated_register_response(::protos::RegisterResponse* register_response);
+  private:
+  const ::protos::RegisterResponse& _internal_register_response() const;
+  ::protos::RegisterResponse* _internal_mutable_register_response();
+  public:
+  void unsafe_arena_set_allocated_register_response(
+      ::protos::RegisterResponse* register_response);
+  ::protos::RegisterResponse* unsafe_arena_release_register_response();
   // .protos.WorldModel world_model = 2;
   bool has_world_model() const;
   void clear_world_model() ;
@@ -4016,16 +4425,6 @@ class State final :
   void unsafe_arena_set_allocated_full_world_model(
       ::protos::WorldModel* full_world_model);
   ::protos::WorldModel* unsafe_arena_release_full_world_model();
-  // .protos.AgentType agent_type = 1;
-  void clear_agent_type() ;
-  ::protos::AgentType agent_type() const;
-  void set_agent_type(::protos::AgentType value);
-
-  private:
-  ::protos::AgentType _internal_agent_type() const;
-  void _internal_set_agent_type(::protos::AgentType value);
-
-  public:
   // @@protoc_insertion_point(class_scope:protos.State)
  private:
   class _Internal;
@@ -4036,9 +4435,9 @@ class State final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::protos::RegisterResponse* register_response_;
     ::protos::WorldModel* world_model_;
     ::protos::WorldModel* full_world_model_;
-    int agent_type_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -4100,7 +4499,7 @@ class InitMessage final :
                &_InitMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(InitMessage& a, InitMessage& b) {
     a.Swap(&b);
@@ -4172,19 +4571,23 @@ class InitMessage final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kAgentTypeFieldNumber = 1,
+    kRegisterResponseFieldNumber = 1,
     kDebugModeFieldNumber = 2,
   };
-  // .protos.AgentType agent_type = 1;
-  void clear_agent_type() ;
-  ::protos::AgentType agent_type() const;
-  void set_agent_type(::protos::AgentType value);
-
+  // .protos.RegisterResponse register_response = 1;
+  bool has_register_response() const;
+  void clear_register_response() ;
+  const ::protos::RegisterResponse& register_response() const;
+  PROTOBUF_NODISCARD ::protos::RegisterResponse* release_register_response();
+  ::protos::RegisterResponse* mutable_register_response();
+  void set_allocated_register_response(::protos::RegisterResponse* register_response);
   private:
-  ::protos::AgentType _internal_agent_type() const;
-  void _internal_set_agent_type(::protos::AgentType value);
-
+  const ::protos::RegisterResponse& _internal_register_response() const;
+  ::protos::RegisterResponse* _internal_mutable_register_response();
   public:
+  void unsafe_arena_set_allocated_register_response(
+      ::protos::RegisterResponse* register_response);
+  ::protos::RegisterResponse* unsafe_arena_release_register_response();
   // bool debug_mode = 2;
   void clear_debug_mode() ;
   bool debug_mode() const;
@@ -4203,9 +4606,10 @@ class InitMessage final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    int agent_type_;
-    bool debug_mode_;
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::protos::RegisterResponse* register_response_;
+    bool debug_mode_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -4267,7 +4671,7 @@ class Dash final :
                &_Dash_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   friend void swap(Dash& a, Dash& b) {
     a.Swap(&b);
@@ -4434,7 +4838,7 @@ class Turn final :
                &_Turn_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
   friend void swap(Turn& a, Turn& b) {
     a.Swap(&b);
@@ -4589,7 +4993,7 @@ class Kick final :
                &_Kick_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(Kick& a, Kick& b) {
     a.Swap(&b);
@@ -4756,7 +5160,7 @@ class Tackle final :
                &_Tackle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    17;
 
   friend void swap(Tackle& a, Tackle& b) {
     a.Swap(&b);
@@ -4922,7 +5326,7 @@ class Catch final :
                &_Catch_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    18;
 
   friend void swap(Catch& a, Catch& b) {
     a.Swap(&b);
@@ -5047,7 +5451,7 @@ class Move final :
                &_Move_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    19;
 
   friend void swap(Move& a, Move& b) {
     a.Swap(&b);
@@ -5214,7 +5618,7 @@ class TurnNeck final :
                &_TurnNeck_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    20;
 
   friend void swap(TurnNeck& a, TurnNeck& b) {
     a.Swap(&b);
@@ -5369,7 +5773,7 @@ class ChangeView final :
                &_ChangeView_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    21;
 
   friend void swap(ChangeView& a, ChangeView& b) {
     a.Swap(&b);
@@ -5524,7 +5928,7 @@ class BallMessage final :
                &_BallMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    22;
 
   friend void swap(BallMessage& a, BallMessage& b) {
     a.Swap(&b);
@@ -5599,34 +6003,34 @@ class BallMessage final :
     kBallPositionFieldNumber = 1,
     kBallVelocityFieldNumber = 2,
   };
-  // .protos.Vector2D ball_position = 1;
+  // .protos.RpcVector2D ball_position = 1;
   bool has_ball_position() const;
   void clear_ball_position() ;
-  const ::protos::Vector2D& ball_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_ball_position();
-  ::protos::Vector2D* mutable_ball_position();
-  void set_allocated_ball_position(::protos::Vector2D* ball_position);
+  const ::protos::RpcVector2D& ball_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_ball_position();
+  ::protos::RpcVector2D* mutable_ball_position();
+  void set_allocated_ball_position(::protos::RpcVector2D* ball_position);
   private:
-  const ::protos::Vector2D& _internal_ball_position() const;
-  ::protos::Vector2D* _internal_mutable_ball_position();
+  const ::protos::RpcVector2D& _internal_ball_position() const;
+  ::protos::RpcVector2D* _internal_mutable_ball_position();
   public:
   void unsafe_arena_set_allocated_ball_position(
-      ::protos::Vector2D* ball_position);
-  ::protos::Vector2D* unsafe_arena_release_ball_position();
-  // .protos.Vector2D ball_velocity = 2;
+      ::protos::RpcVector2D* ball_position);
+  ::protos::RpcVector2D* unsafe_arena_release_ball_position();
+  // .protos.RpcVector2D ball_velocity = 2;
   bool has_ball_velocity() const;
   void clear_ball_velocity() ;
-  const ::protos::Vector2D& ball_velocity() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_ball_velocity();
-  ::protos::Vector2D* mutable_ball_velocity();
-  void set_allocated_ball_velocity(::protos::Vector2D* ball_velocity);
+  const ::protos::RpcVector2D& ball_velocity() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_ball_velocity();
+  ::protos::RpcVector2D* mutable_ball_velocity();
+  void set_allocated_ball_velocity(::protos::RpcVector2D* ball_velocity);
   private:
-  const ::protos::Vector2D& _internal_ball_velocity() const;
-  ::protos::Vector2D* _internal_mutable_ball_velocity();
+  const ::protos::RpcVector2D& _internal_ball_velocity() const;
+  ::protos::RpcVector2D* _internal_mutable_ball_velocity();
   public:
   void unsafe_arena_set_allocated_ball_velocity(
-      ::protos::Vector2D* ball_velocity);
-  ::protos::Vector2D* unsafe_arena_release_ball_velocity();
+      ::protos::RpcVector2D* ball_velocity);
+  ::protos::RpcVector2D* unsafe_arena_release_ball_velocity();
   // @@protoc_insertion_point(class_scope:protos.BallMessage)
  private:
   class _Internal;
@@ -5637,8 +6041,8 @@ class BallMessage final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* ball_position_;
-    ::protos::Vector2D* ball_velocity_;
+    ::protos::RpcVector2D* ball_position_;
+    ::protos::RpcVector2D* ball_velocity_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -5700,7 +6104,7 @@ class PassMessage final :
                &_PassMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    23;
 
   friend void swap(PassMessage& a, PassMessage& b) {
     a.Swap(&b);
@@ -5777,48 +6181,48 @@ class PassMessage final :
     kBallVelocityFieldNumber = 4,
     kReceiverUniformNumberFieldNumber = 1,
   };
-  // .protos.Vector2D receiver_point = 2;
+  // .protos.RpcVector2D receiver_point = 2;
   bool has_receiver_point() const;
   void clear_receiver_point() ;
-  const ::protos::Vector2D& receiver_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_receiver_point();
-  ::protos::Vector2D* mutable_receiver_point();
-  void set_allocated_receiver_point(::protos::Vector2D* receiver_point);
+  const ::protos::RpcVector2D& receiver_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_receiver_point();
+  ::protos::RpcVector2D* mutable_receiver_point();
+  void set_allocated_receiver_point(::protos::RpcVector2D* receiver_point);
   private:
-  const ::protos::Vector2D& _internal_receiver_point() const;
-  ::protos::Vector2D* _internal_mutable_receiver_point();
+  const ::protos::RpcVector2D& _internal_receiver_point() const;
+  ::protos::RpcVector2D* _internal_mutable_receiver_point();
   public:
   void unsafe_arena_set_allocated_receiver_point(
-      ::protos::Vector2D* receiver_point);
-  ::protos::Vector2D* unsafe_arena_release_receiver_point();
-  // .protos.Vector2D ball_position = 3;
+      ::protos::RpcVector2D* receiver_point);
+  ::protos::RpcVector2D* unsafe_arena_release_receiver_point();
+  // .protos.RpcVector2D ball_position = 3;
   bool has_ball_position() const;
   void clear_ball_position() ;
-  const ::protos::Vector2D& ball_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_ball_position();
-  ::protos::Vector2D* mutable_ball_position();
-  void set_allocated_ball_position(::protos::Vector2D* ball_position);
+  const ::protos::RpcVector2D& ball_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_ball_position();
+  ::protos::RpcVector2D* mutable_ball_position();
+  void set_allocated_ball_position(::protos::RpcVector2D* ball_position);
   private:
-  const ::protos::Vector2D& _internal_ball_position() const;
-  ::protos::Vector2D* _internal_mutable_ball_position();
+  const ::protos::RpcVector2D& _internal_ball_position() const;
+  ::protos::RpcVector2D* _internal_mutable_ball_position();
   public:
   void unsafe_arena_set_allocated_ball_position(
-      ::protos::Vector2D* ball_position);
-  ::protos::Vector2D* unsafe_arena_release_ball_position();
-  // .protos.Vector2D ball_velocity = 4;
+      ::protos::RpcVector2D* ball_position);
+  ::protos::RpcVector2D* unsafe_arena_release_ball_position();
+  // .protos.RpcVector2D ball_velocity = 4;
   bool has_ball_velocity() const;
   void clear_ball_velocity() ;
-  const ::protos::Vector2D& ball_velocity() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_ball_velocity();
-  ::protos::Vector2D* mutable_ball_velocity();
-  void set_allocated_ball_velocity(::protos::Vector2D* ball_velocity);
+  const ::protos::RpcVector2D& ball_velocity() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_ball_velocity();
+  ::protos::RpcVector2D* mutable_ball_velocity();
+  void set_allocated_ball_velocity(::protos::RpcVector2D* ball_velocity);
   private:
-  const ::protos::Vector2D& _internal_ball_velocity() const;
-  ::protos::Vector2D* _internal_mutable_ball_velocity();
+  const ::protos::RpcVector2D& _internal_ball_velocity() const;
+  ::protos::RpcVector2D* _internal_mutable_ball_velocity();
   public:
   void unsafe_arena_set_allocated_ball_velocity(
-      ::protos::Vector2D* ball_velocity);
-  ::protos::Vector2D* unsafe_arena_release_ball_velocity();
+      ::protos::RpcVector2D* ball_velocity);
+  ::protos::RpcVector2D* unsafe_arena_release_ball_velocity();
   // int32 receiver_uniform_number = 1;
   void clear_receiver_uniform_number() ;
   ::int32_t receiver_uniform_number() const;
@@ -5839,9 +6243,9 @@ class PassMessage final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* receiver_point_;
-    ::protos::Vector2D* ball_position_;
-    ::protos::Vector2D* ball_velocity_;
+    ::protos::RpcVector2D* receiver_point_;
+    ::protos::RpcVector2D* ball_position_;
+    ::protos::RpcVector2D* ball_velocity_;
     ::int32_t receiver_uniform_number_;
   };
   union { Impl_ _impl_; };
@@ -5904,7 +6308,7 @@ class InterceptMessage final :
                &_InterceptMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    24;
 
   friend void swap(InterceptMessage& a, InterceptMessage& b) {
     a.Swap(&b);
@@ -6083,7 +6487,7 @@ class GoalieMessage final :
                &_GoalieMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    25;
 
   friend void swap(GoalieMessage& a, GoalieMessage& b) {
     a.Swap(&b);
@@ -6159,20 +6563,20 @@ class GoalieMessage final :
     kGoalieUniformNumberFieldNumber = 1,
     kGoalieBodyDirectionFieldNumber = 3,
   };
-  // .protos.Vector2D goalie_position = 2;
+  // .protos.RpcVector2D goalie_position = 2;
   bool has_goalie_position() const;
   void clear_goalie_position() ;
-  const ::protos::Vector2D& goalie_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_goalie_position();
-  ::protos::Vector2D* mutable_goalie_position();
-  void set_allocated_goalie_position(::protos::Vector2D* goalie_position);
+  const ::protos::RpcVector2D& goalie_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_goalie_position();
+  ::protos::RpcVector2D* mutable_goalie_position();
+  void set_allocated_goalie_position(::protos::RpcVector2D* goalie_position);
   private:
-  const ::protos::Vector2D& _internal_goalie_position() const;
-  ::protos::Vector2D* _internal_mutable_goalie_position();
+  const ::protos::RpcVector2D& _internal_goalie_position() const;
+  ::protos::RpcVector2D* _internal_mutable_goalie_position();
   public:
   void unsafe_arena_set_allocated_goalie_position(
-      ::protos::Vector2D* goalie_position);
-  ::protos::Vector2D* unsafe_arena_release_goalie_position();
+      ::protos::RpcVector2D* goalie_position);
+  ::protos::RpcVector2D* unsafe_arena_release_goalie_position();
   // int32 goalie_uniform_number = 1;
   void clear_goalie_uniform_number() ;
   ::int32_t goalie_uniform_number() const;
@@ -6203,7 +6607,7 @@ class GoalieMessage final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* goalie_position_;
+    ::protos::RpcVector2D* goalie_position_;
     ::int32_t goalie_uniform_number_;
     float goalie_body_direction_;
   };
@@ -6267,7 +6671,7 @@ class GoalieAndPlayerMessage final :
                &_GoalieAndPlayerMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    26;
 
   friend void swap(GoalieAndPlayerMessage& a, GoalieAndPlayerMessage& b) {
     a.Swap(&b);
@@ -6345,34 +6749,34 @@ class GoalieAndPlayerMessage final :
     kGoalieBodyDirectionFieldNumber = 3,
     kPlayerUniformNumberFieldNumber = 4,
   };
-  // .protos.Vector2D goalie_position = 2;
+  // .protos.RpcVector2D goalie_position = 2;
   bool has_goalie_position() const;
   void clear_goalie_position() ;
-  const ::protos::Vector2D& goalie_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_goalie_position();
-  ::protos::Vector2D* mutable_goalie_position();
-  void set_allocated_goalie_position(::protos::Vector2D* goalie_position);
+  const ::protos::RpcVector2D& goalie_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_goalie_position();
+  ::protos::RpcVector2D* mutable_goalie_position();
+  void set_allocated_goalie_position(::protos::RpcVector2D* goalie_position);
   private:
-  const ::protos::Vector2D& _internal_goalie_position() const;
-  ::protos::Vector2D* _internal_mutable_goalie_position();
+  const ::protos::RpcVector2D& _internal_goalie_position() const;
+  ::protos::RpcVector2D* _internal_mutable_goalie_position();
   public:
   void unsafe_arena_set_allocated_goalie_position(
-      ::protos::Vector2D* goalie_position);
-  ::protos::Vector2D* unsafe_arena_release_goalie_position();
-  // .protos.Vector2D player_position = 5;
+      ::protos::RpcVector2D* goalie_position);
+  ::protos::RpcVector2D* unsafe_arena_release_goalie_position();
+  // .protos.RpcVector2D player_position = 5;
   bool has_player_position() const;
   void clear_player_position() ;
-  const ::protos::Vector2D& player_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_player_position();
-  ::protos::Vector2D* mutable_player_position();
-  void set_allocated_player_position(::protos::Vector2D* player_position);
+  const ::protos::RpcVector2D& player_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_player_position();
+  ::protos::RpcVector2D* mutable_player_position();
+  void set_allocated_player_position(::protos::RpcVector2D* player_position);
   private:
-  const ::protos::Vector2D& _internal_player_position() const;
-  ::protos::Vector2D* _internal_mutable_player_position();
+  const ::protos::RpcVector2D& _internal_player_position() const;
+  ::protos::RpcVector2D* _internal_mutable_player_position();
   public:
   void unsafe_arena_set_allocated_player_position(
-      ::protos::Vector2D* player_position);
-  ::protos::Vector2D* unsafe_arena_release_player_position();
+      ::protos::RpcVector2D* player_position);
+  ::protos::RpcVector2D* unsafe_arena_release_player_position();
   // int32 goalie_uniform_number = 1;
   void clear_goalie_uniform_number() ;
   ::int32_t goalie_uniform_number() const;
@@ -6413,8 +6817,8 @@ class GoalieAndPlayerMessage final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* goalie_position_;
-    ::protos::Vector2D* player_position_;
+    ::protos::RpcVector2D* goalie_position_;
+    ::protos::RpcVector2D* player_position_;
     ::int32_t goalie_uniform_number_;
     float goalie_body_direction_;
     ::int32_t player_uniform_number_;
@@ -6479,7 +6883,7 @@ class OffsideLineMessage final :
                &_OffsideLineMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    27;
 
   friend void swap(OffsideLineMessage& a, OffsideLineMessage& b) {
     a.Swap(&b);
@@ -6634,7 +7038,7 @@ class DefenseLineMessage final :
                &_DefenseLineMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    28;
 
   friend void swap(DefenseLineMessage& a, DefenseLineMessage& b) {
     a.Swap(&b);
@@ -6788,7 +7192,7 @@ class WaitRequestMessage final :
                &_WaitRequestMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    29;
 
   friend void swap(WaitRequestMessage& a, WaitRequestMessage& b) {
     a.Swap(&b);
@@ -6913,7 +7317,7 @@ class SetplayMessage final :
                &_SetplayMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    30;
 
   friend void swap(SetplayMessage& a, SetplayMessage& b) {
     a.Swap(&b);
@@ -7068,7 +7472,7 @@ class PassRequestMessage final :
                &_PassRequestMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    31;
 
   friend void swap(PassRequestMessage& a, PassRequestMessage& b) {
     a.Swap(&b);
@@ -7142,20 +7546,20 @@ class PassRequestMessage final :
   enum : int {
     kTargetPointFieldNumber = 1,
   };
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   bool has_target_point() const;
   void clear_target_point() ;
-  const ::protos::Vector2D& target_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_target_point();
-  ::protos::Vector2D* mutable_target_point();
-  void set_allocated_target_point(::protos::Vector2D* target_point);
+  const ::protos::RpcVector2D& target_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_target_point();
+  ::protos::RpcVector2D* mutable_target_point();
+  void set_allocated_target_point(::protos::RpcVector2D* target_point);
   private:
-  const ::protos::Vector2D& _internal_target_point() const;
-  ::protos::Vector2D* _internal_mutable_target_point();
+  const ::protos::RpcVector2D& _internal_target_point() const;
+  ::protos::RpcVector2D* _internal_mutable_target_point();
   public:
   void unsafe_arena_set_allocated_target_point(
-      ::protos::Vector2D* target_point);
-  ::protos::Vector2D* unsafe_arena_release_target_point();
+      ::protos::RpcVector2D* target_point);
+  ::protos::RpcVector2D* unsafe_arena_release_target_point();
   // @@protoc_insertion_point(class_scope:protos.PassRequestMessage)
  private:
   class _Internal;
@@ -7166,7 +7570,7 @@ class PassRequestMessage final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* target_point_;
+    ::protos::RpcVector2D* target_point_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -7228,7 +7632,7 @@ class StaminaMessage final :
                &_StaminaMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    32;
 
   friend void swap(StaminaMessage& a, StaminaMessage& b) {
     a.Swap(&b);
@@ -7383,7 +7787,7 @@ class RecoveryMessage final :
                &_RecoveryMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    33;
 
   friend void swap(RecoveryMessage& a, RecoveryMessage& b) {
     a.Swap(&b);
@@ -7538,7 +7942,7 @@ class StaminaCapacityMessage final :
                &_StaminaCapacityMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    34;
 
   friend void swap(StaminaCapacityMessage& a, StaminaCapacityMessage& b) {
     a.Swap(&b);
@@ -7693,7 +8097,7 @@ class DribbleMessage final :
                &_DribbleMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    33;
+    35;
 
   friend void swap(DribbleMessage& a, DribbleMessage& b) {
     a.Swap(&b);
@@ -7768,20 +8172,20 @@ class DribbleMessage final :
     kTargetPointFieldNumber = 1,
     kQueueCountFieldNumber = 2,
   };
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   bool has_target_point() const;
   void clear_target_point() ;
-  const ::protos::Vector2D& target_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_target_point();
-  ::protos::Vector2D* mutable_target_point();
-  void set_allocated_target_point(::protos::Vector2D* target_point);
+  const ::protos::RpcVector2D& target_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_target_point();
+  ::protos::RpcVector2D* mutable_target_point();
+  void set_allocated_target_point(::protos::RpcVector2D* target_point);
   private:
-  const ::protos::Vector2D& _internal_target_point() const;
-  ::protos::Vector2D* _internal_mutable_target_point();
+  const ::protos::RpcVector2D& _internal_target_point() const;
+  ::protos::RpcVector2D* _internal_mutable_target_point();
   public:
   void unsafe_arena_set_allocated_target_point(
-      ::protos::Vector2D* target_point);
-  ::protos::Vector2D* unsafe_arena_release_target_point();
+      ::protos::RpcVector2D* target_point);
+  ::protos::RpcVector2D* unsafe_arena_release_target_point();
   // int32 queue_count = 2;
   void clear_queue_count() ;
   ::int32_t queue_count() const;
@@ -7802,7 +8206,7 @@ class DribbleMessage final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* target_point_;
+    ::protos::RpcVector2D* target_point_;
     ::int32_t queue_count_;
   };
   union { Impl_ _impl_; };
@@ -7865,7 +8269,7 @@ class BallGoalieMessage final :
                &_BallGoalieMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    34;
+    36;
 
   friend void swap(BallGoalieMessage& a, BallGoalieMessage& b) {
     a.Swap(&b);
@@ -7942,48 +8346,48 @@ class BallGoalieMessage final :
     kGoaliePositionFieldNumber = 3,
     kGoalieBodyDirectionFieldNumber = 4,
   };
-  // .protos.Vector2D ball_position = 1;
+  // .protos.RpcVector2D ball_position = 1;
   bool has_ball_position() const;
   void clear_ball_position() ;
-  const ::protos::Vector2D& ball_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_ball_position();
-  ::protos::Vector2D* mutable_ball_position();
-  void set_allocated_ball_position(::protos::Vector2D* ball_position);
+  const ::protos::RpcVector2D& ball_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_ball_position();
+  ::protos::RpcVector2D* mutable_ball_position();
+  void set_allocated_ball_position(::protos::RpcVector2D* ball_position);
   private:
-  const ::protos::Vector2D& _internal_ball_position() const;
-  ::protos::Vector2D* _internal_mutable_ball_position();
+  const ::protos::RpcVector2D& _internal_ball_position() const;
+  ::protos::RpcVector2D* _internal_mutable_ball_position();
   public:
   void unsafe_arena_set_allocated_ball_position(
-      ::protos::Vector2D* ball_position);
-  ::protos::Vector2D* unsafe_arena_release_ball_position();
-  // .protos.Vector2D ball_velocity = 2;
+      ::protos::RpcVector2D* ball_position);
+  ::protos::RpcVector2D* unsafe_arena_release_ball_position();
+  // .protos.RpcVector2D ball_velocity = 2;
   bool has_ball_velocity() const;
   void clear_ball_velocity() ;
-  const ::protos::Vector2D& ball_velocity() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_ball_velocity();
-  ::protos::Vector2D* mutable_ball_velocity();
-  void set_allocated_ball_velocity(::protos::Vector2D* ball_velocity);
+  const ::protos::RpcVector2D& ball_velocity() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_ball_velocity();
+  ::protos::RpcVector2D* mutable_ball_velocity();
+  void set_allocated_ball_velocity(::protos::RpcVector2D* ball_velocity);
   private:
-  const ::protos::Vector2D& _internal_ball_velocity() const;
-  ::protos::Vector2D* _internal_mutable_ball_velocity();
+  const ::protos::RpcVector2D& _internal_ball_velocity() const;
+  ::protos::RpcVector2D* _internal_mutable_ball_velocity();
   public:
   void unsafe_arena_set_allocated_ball_velocity(
-      ::protos::Vector2D* ball_velocity);
-  ::protos::Vector2D* unsafe_arena_release_ball_velocity();
-  // .protos.Vector2D goalie_position = 3;
+      ::protos::RpcVector2D* ball_velocity);
+  ::protos::RpcVector2D* unsafe_arena_release_ball_velocity();
+  // .protos.RpcVector2D goalie_position = 3;
   bool has_goalie_position() const;
   void clear_goalie_position() ;
-  const ::protos::Vector2D& goalie_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_goalie_position();
-  ::protos::Vector2D* mutable_goalie_position();
-  void set_allocated_goalie_position(::protos::Vector2D* goalie_position);
+  const ::protos::RpcVector2D& goalie_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_goalie_position();
+  ::protos::RpcVector2D* mutable_goalie_position();
+  void set_allocated_goalie_position(::protos::RpcVector2D* goalie_position);
   private:
-  const ::protos::Vector2D& _internal_goalie_position() const;
-  ::protos::Vector2D* _internal_mutable_goalie_position();
+  const ::protos::RpcVector2D& _internal_goalie_position() const;
+  ::protos::RpcVector2D* _internal_mutable_goalie_position();
   public:
   void unsafe_arena_set_allocated_goalie_position(
-      ::protos::Vector2D* goalie_position);
-  ::protos::Vector2D* unsafe_arena_release_goalie_position();
+      ::protos::RpcVector2D* goalie_position);
+  ::protos::RpcVector2D* unsafe_arena_release_goalie_position();
   // float goalie_body_direction = 4;
   void clear_goalie_body_direction() ;
   float goalie_body_direction() const;
@@ -8004,9 +8408,9 @@ class BallGoalieMessage final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* ball_position_;
-    ::protos::Vector2D* ball_velocity_;
-    ::protos::Vector2D* goalie_position_;
+    ::protos::RpcVector2D* ball_position_;
+    ::protos::RpcVector2D* ball_velocity_;
+    ::protos::RpcVector2D* goalie_position_;
     float goalie_body_direction_;
   };
   union { Impl_ _impl_; };
@@ -8069,7 +8473,7 @@ class OnePlayerMessage final :
                &_OnePlayerMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    35;
+    37;
 
   friend void swap(OnePlayerMessage& a, OnePlayerMessage& b) {
     a.Swap(&b);
@@ -8144,20 +8548,20 @@ class OnePlayerMessage final :
     kPositionFieldNumber = 2,
     kUniformNumberFieldNumber = 1,
   };
-  // .protos.Vector2D position = 2;
+  // .protos.RpcVector2D position = 2;
   bool has_position() const;
   void clear_position() ;
-  const ::protos::Vector2D& position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_position();
-  ::protos::Vector2D* mutable_position();
-  void set_allocated_position(::protos::Vector2D* position);
+  const ::protos::RpcVector2D& position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_position();
+  ::protos::RpcVector2D* mutable_position();
+  void set_allocated_position(::protos::RpcVector2D* position);
   private:
-  const ::protos::Vector2D& _internal_position() const;
-  ::protos::Vector2D* _internal_mutable_position();
+  const ::protos::RpcVector2D& _internal_position() const;
+  ::protos::RpcVector2D* _internal_mutable_position();
   public:
   void unsafe_arena_set_allocated_position(
-      ::protos::Vector2D* position);
-  ::protos::Vector2D* unsafe_arena_release_position();
+      ::protos::RpcVector2D* position);
+  ::protos::RpcVector2D* unsafe_arena_release_position();
   // int32 uniform_number = 1;
   void clear_uniform_number() ;
   ::int32_t uniform_number() const;
@@ -8178,7 +8582,7 @@ class OnePlayerMessage final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* position_;
+    ::protos::RpcVector2D* position_;
     ::int32_t uniform_number_;
   };
   union { Impl_ _impl_; };
@@ -8241,7 +8645,7 @@ class TwoPlayerMessage final :
                &_TwoPlayerMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    36;
+    38;
 
   friend void swap(TwoPlayerMessage& a, TwoPlayerMessage& b) {
     a.Swap(&b);
@@ -8318,34 +8722,34 @@ class TwoPlayerMessage final :
     kFirstUniformNumberFieldNumber = 1,
     kSecondUniformNumberFieldNumber = 3,
   };
-  // .protos.Vector2D first_position = 2;
+  // .protos.RpcVector2D first_position = 2;
   bool has_first_position() const;
   void clear_first_position() ;
-  const ::protos::Vector2D& first_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_first_position();
-  ::protos::Vector2D* mutable_first_position();
-  void set_allocated_first_position(::protos::Vector2D* first_position);
+  const ::protos::RpcVector2D& first_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_first_position();
+  ::protos::RpcVector2D* mutable_first_position();
+  void set_allocated_first_position(::protos::RpcVector2D* first_position);
   private:
-  const ::protos::Vector2D& _internal_first_position() const;
-  ::protos::Vector2D* _internal_mutable_first_position();
+  const ::protos::RpcVector2D& _internal_first_position() const;
+  ::protos::RpcVector2D* _internal_mutable_first_position();
   public:
   void unsafe_arena_set_allocated_first_position(
-      ::protos::Vector2D* first_position);
-  ::protos::Vector2D* unsafe_arena_release_first_position();
-  // .protos.Vector2D second_position = 4;
+      ::protos::RpcVector2D* first_position);
+  ::protos::RpcVector2D* unsafe_arena_release_first_position();
+  // .protos.RpcVector2D second_position = 4;
   bool has_second_position() const;
   void clear_second_position() ;
-  const ::protos::Vector2D& second_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_second_position();
-  ::protos::Vector2D* mutable_second_position();
-  void set_allocated_second_position(::protos::Vector2D* second_position);
+  const ::protos::RpcVector2D& second_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_second_position();
+  ::protos::RpcVector2D* mutable_second_position();
+  void set_allocated_second_position(::protos::RpcVector2D* second_position);
   private:
-  const ::protos::Vector2D& _internal_second_position() const;
-  ::protos::Vector2D* _internal_mutable_second_position();
+  const ::protos::RpcVector2D& _internal_second_position() const;
+  ::protos::RpcVector2D* _internal_mutable_second_position();
   public:
   void unsafe_arena_set_allocated_second_position(
-      ::protos::Vector2D* second_position);
-  ::protos::Vector2D* unsafe_arena_release_second_position();
+      ::protos::RpcVector2D* second_position);
+  ::protos::RpcVector2D* unsafe_arena_release_second_position();
   // int32 first_uniform_number = 1;
   void clear_first_uniform_number() ;
   ::int32_t first_uniform_number() const;
@@ -8376,8 +8780,8 @@ class TwoPlayerMessage final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* first_position_;
-    ::protos::Vector2D* second_position_;
+    ::protos::RpcVector2D* first_position_;
+    ::protos::RpcVector2D* second_position_;
     ::int32_t first_uniform_number_;
     ::int32_t second_uniform_number_;
   };
@@ -8441,7 +8845,7 @@ class ThreePlayerMessage final :
                &_ThreePlayerMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    37;
+    39;
 
   friend void swap(ThreePlayerMessage& a, ThreePlayerMessage& b) {
     a.Swap(&b);
@@ -8520,48 +8924,48 @@ class ThreePlayerMessage final :
     kSecondUniformNumberFieldNumber = 3,
     kThirdUniformNumberFieldNumber = 5,
   };
-  // .protos.Vector2D first_position = 2;
+  // .protos.RpcVector2D first_position = 2;
   bool has_first_position() const;
   void clear_first_position() ;
-  const ::protos::Vector2D& first_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_first_position();
-  ::protos::Vector2D* mutable_first_position();
-  void set_allocated_first_position(::protos::Vector2D* first_position);
+  const ::protos::RpcVector2D& first_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_first_position();
+  ::protos::RpcVector2D* mutable_first_position();
+  void set_allocated_first_position(::protos::RpcVector2D* first_position);
   private:
-  const ::protos::Vector2D& _internal_first_position() const;
-  ::protos::Vector2D* _internal_mutable_first_position();
+  const ::protos::RpcVector2D& _internal_first_position() const;
+  ::protos::RpcVector2D* _internal_mutable_first_position();
   public:
   void unsafe_arena_set_allocated_first_position(
-      ::protos::Vector2D* first_position);
-  ::protos::Vector2D* unsafe_arena_release_first_position();
-  // .protos.Vector2D second_position = 4;
+      ::protos::RpcVector2D* first_position);
+  ::protos::RpcVector2D* unsafe_arena_release_first_position();
+  // .protos.RpcVector2D second_position = 4;
   bool has_second_position() const;
   void clear_second_position() ;
-  const ::protos::Vector2D& second_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_second_position();
-  ::protos::Vector2D* mutable_second_position();
-  void set_allocated_second_position(::protos::Vector2D* second_position);
+  const ::protos::RpcVector2D& second_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_second_position();
+  ::protos::RpcVector2D* mutable_second_position();
+  void set_allocated_second_position(::protos::RpcVector2D* second_position);
   private:
-  const ::protos::Vector2D& _internal_second_position() const;
-  ::protos::Vector2D* _internal_mutable_second_position();
+  const ::protos::RpcVector2D& _internal_second_position() const;
+  ::protos::RpcVector2D* _internal_mutable_second_position();
   public:
   void unsafe_arena_set_allocated_second_position(
-      ::protos::Vector2D* second_position);
-  ::protos::Vector2D* unsafe_arena_release_second_position();
-  // .protos.Vector2D third_position = 6;
+      ::protos::RpcVector2D* second_position);
+  ::protos::RpcVector2D* unsafe_arena_release_second_position();
+  // .protos.RpcVector2D third_position = 6;
   bool has_third_position() const;
   void clear_third_position() ;
-  const ::protos::Vector2D& third_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_third_position();
-  ::protos::Vector2D* mutable_third_position();
-  void set_allocated_third_position(::protos::Vector2D* third_position);
+  const ::protos::RpcVector2D& third_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_third_position();
+  ::protos::RpcVector2D* mutable_third_position();
+  void set_allocated_third_position(::protos::RpcVector2D* third_position);
   private:
-  const ::protos::Vector2D& _internal_third_position() const;
-  ::protos::Vector2D* _internal_mutable_third_position();
+  const ::protos::RpcVector2D& _internal_third_position() const;
+  ::protos::RpcVector2D* _internal_mutable_third_position();
   public:
   void unsafe_arena_set_allocated_third_position(
-      ::protos::Vector2D* third_position);
-  ::protos::Vector2D* unsafe_arena_release_third_position();
+      ::protos::RpcVector2D* third_position);
+  ::protos::RpcVector2D* unsafe_arena_release_third_position();
   // int32 first_uniform_number = 1;
   void clear_first_uniform_number() ;
   ::int32_t first_uniform_number() const;
@@ -8602,9 +9006,9 @@ class ThreePlayerMessage final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* first_position_;
-    ::protos::Vector2D* second_position_;
-    ::protos::Vector2D* third_position_;
+    ::protos::RpcVector2D* first_position_;
+    ::protos::RpcVector2D* second_position_;
+    ::protos::RpcVector2D* third_position_;
     ::int32_t first_uniform_number_;
     ::int32_t second_uniform_number_;
     ::int32_t third_uniform_number_;
@@ -8669,7 +9073,7 @@ class SelfMessage final :
                &_SelfMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    38;
+    40;
 
   friend void swap(SelfMessage& a, SelfMessage& b) {
     a.Swap(&b);
@@ -8745,20 +9149,20 @@ class SelfMessage final :
     kSelfBodyDirectionFieldNumber = 2,
     kSelfStaminaFieldNumber = 3,
   };
-  // .protos.Vector2D self_position = 1;
+  // .protos.RpcVector2D self_position = 1;
   bool has_self_position() const;
   void clear_self_position() ;
-  const ::protos::Vector2D& self_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_self_position();
-  ::protos::Vector2D* mutable_self_position();
-  void set_allocated_self_position(::protos::Vector2D* self_position);
+  const ::protos::RpcVector2D& self_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_self_position();
+  ::protos::RpcVector2D* mutable_self_position();
+  void set_allocated_self_position(::protos::RpcVector2D* self_position);
   private:
-  const ::protos::Vector2D& _internal_self_position() const;
-  ::protos::Vector2D* _internal_mutable_self_position();
+  const ::protos::RpcVector2D& _internal_self_position() const;
+  ::protos::RpcVector2D* _internal_mutable_self_position();
   public:
   void unsafe_arena_set_allocated_self_position(
-      ::protos::Vector2D* self_position);
-  ::protos::Vector2D* unsafe_arena_release_self_position();
+      ::protos::RpcVector2D* self_position);
+  ::protos::RpcVector2D* unsafe_arena_release_self_position();
   // float self_body_direction = 2;
   void clear_self_body_direction() ;
   float self_body_direction() const;
@@ -8789,7 +9193,7 @@ class SelfMessage final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* self_position_;
+    ::protos::RpcVector2D* self_position_;
     float self_body_direction_;
     float self_stamina_;
   };
@@ -8853,7 +9257,7 @@ class TeammateMessage final :
                &_TeammateMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    39;
+    41;
 
   friend void swap(TeammateMessage& a, TeammateMessage& b) {
     a.Swap(&b);
@@ -8929,20 +9333,20 @@ class TeammateMessage final :
     kUniformNumberFieldNumber = 1,
     kBodyDirectionFieldNumber = 3,
   };
-  // .protos.Vector2D position = 2;
+  // .protos.RpcVector2D position = 2;
   bool has_position() const;
   void clear_position() ;
-  const ::protos::Vector2D& position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_position();
-  ::protos::Vector2D* mutable_position();
-  void set_allocated_position(::protos::Vector2D* position);
+  const ::protos::RpcVector2D& position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_position();
+  ::protos::RpcVector2D* mutable_position();
+  void set_allocated_position(::protos::RpcVector2D* position);
   private:
-  const ::protos::Vector2D& _internal_position() const;
-  ::protos::Vector2D* _internal_mutable_position();
+  const ::protos::RpcVector2D& _internal_position() const;
+  ::protos::RpcVector2D* _internal_mutable_position();
   public:
   void unsafe_arena_set_allocated_position(
-      ::protos::Vector2D* position);
-  ::protos::Vector2D* unsafe_arena_release_position();
+      ::protos::RpcVector2D* position);
+  ::protos::RpcVector2D* unsafe_arena_release_position();
   // int32 uniform_number = 1;
   void clear_uniform_number() ;
   ::int32_t uniform_number() const;
@@ -8973,7 +9377,7 @@ class TeammateMessage final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* position_;
+    ::protos::RpcVector2D* position_;
     ::int32_t uniform_number_;
     float body_direction_;
   };
@@ -9037,7 +9441,7 @@ class OpponentMessage final :
                &_OpponentMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    40;
+    42;
 
   friend void swap(OpponentMessage& a, OpponentMessage& b) {
     a.Swap(&b);
@@ -9113,20 +9517,20 @@ class OpponentMessage final :
     kUniformNumberFieldNumber = 1,
     kBodyDirectionFieldNumber = 3,
   };
-  // .protos.Vector2D position = 2;
+  // .protos.RpcVector2D position = 2;
   bool has_position() const;
   void clear_position() ;
-  const ::protos::Vector2D& position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_position();
-  ::protos::Vector2D* mutable_position();
-  void set_allocated_position(::protos::Vector2D* position);
+  const ::protos::RpcVector2D& position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_position();
+  ::protos::RpcVector2D* mutable_position();
+  void set_allocated_position(::protos::RpcVector2D* position);
   private:
-  const ::protos::Vector2D& _internal_position() const;
-  ::protos::Vector2D* _internal_mutable_position();
+  const ::protos::RpcVector2D& _internal_position() const;
+  ::protos::RpcVector2D* _internal_mutable_position();
   public:
   void unsafe_arena_set_allocated_position(
-      ::protos::Vector2D* position);
-  ::protos::Vector2D* unsafe_arena_release_position();
+      ::protos::RpcVector2D* position);
+  ::protos::RpcVector2D* unsafe_arena_release_position();
   // int32 uniform_number = 1;
   void clear_uniform_number() ;
   ::int32_t uniform_number() const;
@@ -9157,7 +9561,7 @@ class OpponentMessage final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* position_;
+    ::protos::RpcVector2D* position_;
     ::int32_t uniform_number_;
     float body_direction_;
   };
@@ -9221,7 +9625,7 @@ class BallPlayerMessage final :
                &_BallPlayerMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    41;
+    43;
 
   friend void swap(BallPlayerMessage& a, BallPlayerMessage& b) {
     a.Swap(&b);
@@ -9299,48 +9703,48 @@ class BallPlayerMessage final :
     kUniformNumberFieldNumber = 3,
     kBodyDirectionFieldNumber = 5,
   };
-  // .protos.Vector2D ball_position = 1;
+  // .protos.RpcVector2D ball_position = 1;
   bool has_ball_position() const;
   void clear_ball_position() ;
-  const ::protos::Vector2D& ball_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_ball_position();
-  ::protos::Vector2D* mutable_ball_position();
-  void set_allocated_ball_position(::protos::Vector2D* ball_position);
+  const ::protos::RpcVector2D& ball_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_ball_position();
+  ::protos::RpcVector2D* mutable_ball_position();
+  void set_allocated_ball_position(::protos::RpcVector2D* ball_position);
   private:
-  const ::protos::Vector2D& _internal_ball_position() const;
-  ::protos::Vector2D* _internal_mutable_ball_position();
+  const ::protos::RpcVector2D& _internal_ball_position() const;
+  ::protos::RpcVector2D* _internal_mutable_ball_position();
   public:
   void unsafe_arena_set_allocated_ball_position(
-      ::protos::Vector2D* ball_position);
-  ::protos::Vector2D* unsafe_arena_release_ball_position();
-  // .protos.Vector2D ball_velocity = 2;
+      ::protos::RpcVector2D* ball_position);
+  ::protos::RpcVector2D* unsafe_arena_release_ball_position();
+  // .protos.RpcVector2D ball_velocity = 2;
   bool has_ball_velocity() const;
   void clear_ball_velocity() ;
-  const ::protos::Vector2D& ball_velocity() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_ball_velocity();
-  ::protos::Vector2D* mutable_ball_velocity();
-  void set_allocated_ball_velocity(::protos::Vector2D* ball_velocity);
+  const ::protos::RpcVector2D& ball_velocity() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_ball_velocity();
+  ::protos::RpcVector2D* mutable_ball_velocity();
+  void set_allocated_ball_velocity(::protos::RpcVector2D* ball_velocity);
   private:
-  const ::protos::Vector2D& _internal_ball_velocity() const;
-  ::protos::Vector2D* _internal_mutable_ball_velocity();
+  const ::protos::RpcVector2D& _internal_ball_velocity() const;
+  ::protos::RpcVector2D* _internal_mutable_ball_velocity();
   public:
   void unsafe_arena_set_allocated_ball_velocity(
-      ::protos::Vector2D* ball_velocity);
-  ::protos::Vector2D* unsafe_arena_release_ball_velocity();
-  // .protos.Vector2D player_position = 4;
+      ::protos::RpcVector2D* ball_velocity);
+  ::protos::RpcVector2D* unsafe_arena_release_ball_velocity();
+  // .protos.RpcVector2D player_position = 4;
   bool has_player_position() const;
   void clear_player_position() ;
-  const ::protos::Vector2D& player_position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_player_position();
-  ::protos::Vector2D* mutable_player_position();
-  void set_allocated_player_position(::protos::Vector2D* player_position);
+  const ::protos::RpcVector2D& player_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_player_position();
+  ::protos::RpcVector2D* mutable_player_position();
+  void set_allocated_player_position(::protos::RpcVector2D* player_position);
   private:
-  const ::protos::Vector2D& _internal_player_position() const;
-  ::protos::Vector2D* _internal_mutable_player_position();
+  const ::protos::RpcVector2D& _internal_player_position() const;
+  ::protos::RpcVector2D* _internal_mutable_player_position();
   public:
   void unsafe_arena_set_allocated_player_position(
-      ::protos::Vector2D* player_position);
-  ::protos::Vector2D* unsafe_arena_release_player_position();
+      ::protos::RpcVector2D* player_position);
+  ::protos::RpcVector2D* unsafe_arena_release_player_position();
   // int32 uniform_number = 3;
   void clear_uniform_number() ;
   ::int32_t uniform_number() const;
@@ -9371,9 +9775,9 @@ class BallPlayerMessage final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* ball_position_;
-    ::protos::Vector2D* ball_velocity_;
-    ::protos::Vector2D* player_position_;
+    ::protos::RpcVector2D* ball_position_;
+    ::protos::RpcVector2D* ball_velocity_;
+    ::protos::RpcVector2D* player_position_;
     ::int32_t uniform_number_;
     float body_direction_;
   };
@@ -9463,7 +9867,7 @@ class Say final :
                &_Say_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    42;
+    44;
 
   friend void swap(Say& a, Say& b) {
     a.Swap(&b);
@@ -10079,7 +10483,7 @@ class PointTo final :
                &_PointTo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    43;
+    45;
 
   friend void swap(PointTo& a, PointTo& b) {
     a.Swap(&b);
@@ -10245,7 +10649,7 @@ class PointToOf final :
                &_PointToOf_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    44;
+    46;
 
   friend void swap(PointToOf& a, PointToOf& b) {
     a.Swap(&b);
@@ -10370,7 +10774,7 @@ class AttentionTo final :
                &_AttentionTo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    45;
+    47;
 
   friend void swap(AttentionTo& a, AttentionTo& b) {
     a.Swap(&b);
@@ -10536,7 +10940,7 @@ class AttentionToOf final :
                &_AttentionToOf_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    46;
+    48;
 
   friend void swap(AttentionToOf& a, AttentionToOf& b) {
     a.Swap(&b);
@@ -10661,7 +11065,7 @@ class AddText final :
                &_AddText_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    47;
+    49;
 
   friend void swap(AddText& a, AddText& b) {
     a.Swap(&b);
@@ -10838,7 +11242,7 @@ class AddPoint final :
                &_AddPoint_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    48;
+    50;
 
   friend void swap(AddPoint& a, AddPoint& b) {
     a.Swap(&b);
@@ -10934,20 +11338,20 @@ class AddPoint final :
   std::string* _internal_mutable_color();
 
   public:
-  // .protos.Vector2D point = 2;
+  // .protos.RpcVector2D point = 2;
   bool has_point() const;
   void clear_point() ;
-  const ::protos::Vector2D& point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_point();
-  ::protos::Vector2D* mutable_point();
-  void set_allocated_point(::protos::Vector2D* point);
+  const ::protos::RpcVector2D& point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_point();
+  ::protos::RpcVector2D* mutable_point();
+  void set_allocated_point(::protos::RpcVector2D* point);
   private:
-  const ::protos::Vector2D& _internal_point() const;
-  ::protos::Vector2D* _internal_mutable_point();
+  const ::protos::RpcVector2D& _internal_point() const;
+  ::protos::RpcVector2D* _internal_mutable_point();
   public:
   void unsafe_arena_set_allocated_point(
-      ::protos::Vector2D* point);
-  ::protos::Vector2D* unsafe_arena_release_point();
+      ::protos::RpcVector2D* point);
+  ::protos::RpcVector2D* unsafe_arena_release_point();
   // .protos.LoggerLevel level = 1;
   void clear_level() ;
   ::protos::LoggerLevel level() const;
@@ -10969,7 +11373,7 @@ class AddPoint final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr color_;
-    ::protos::Vector2D* point_;
+    ::protos::RpcVector2D* point_;
     int level_;
   };
   union { Impl_ _impl_; };
@@ -11032,7 +11436,7 @@ class AddLine final :
                &_AddLine_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    49;
+    51;
 
   friend void swap(AddLine& a, AddLine& b) {
     a.Swap(&b);
@@ -11129,34 +11533,34 @@ class AddLine final :
   std::string* _internal_mutable_color();
 
   public:
-  // .protos.Vector2D start = 2;
+  // .protos.RpcVector2D start = 2;
   bool has_start() const;
   void clear_start() ;
-  const ::protos::Vector2D& start() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_start();
-  ::protos::Vector2D* mutable_start();
-  void set_allocated_start(::protos::Vector2D* start);
+  const ::protos::RpcVector2D& start() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_start();
+  ::protos::RpcVector2D* mutable_start();
+  void set_allocated_start(::protos::RpcVector2D* start);
   private:
-  const ::protos::Vector2D& _internal_start() const;
-  ::protos::Vector2D* _internal_mutable_start();
+  const ::protos::RpcVector2D& _internal_start() const;
+  ::protos::RpcVector2D* _internal_mutable_start();
   public:
   void unsafe_arena_set_allocated_start(
-      ::protos::Vector2D* start);
-  ::protos::Vector2D* unsafe_arena_release_start();
-  // .protos.Vector2D end = 3;
+      ::protos::RpcVector2D* start);
+  ::protos::RpcVector2D* unsafe_arena_release_start();
+  // .protos.RpcVector2D end = 3;
   bool has_end() const;
   void clear_end() ;
-  const ::protos::Vector2D& end() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_end();
-  ::protos::Vector2D* mutable_end();
-  void set_allocated_end(::protos::Vector2D* end);
+  const ::protos::RpcVector2D& end() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_end();
+  ::protos::RpcVector2D* mutable_end();
+  void set_allocated_end(::protos::RpcVector2D* end);
   private:
-  const ::protos::Vector2D& _internal_end() const;
-  ::protos::Vector2D* _internal_mutable_end();
+  const ::protos::RpcVector2D& _internal_end() const;
+  ::protos::RpcVector2D* _internal_mutable_end();
   public:
   void unsafe_arena_set_allocated_end(
-      ::protos::Vector2D* end);
-  ::protos::Vector2D* unsafe_arena_release_end();
+      ::protos::RpcVector2D* end);
+  ::protos::RpcVector2D* unsafe_arena_release_end();
   // .protos.LoggerLevel level = 1;
   void clear_level() ;
   ::protos::LoggerLevel level() const;
@@ -11178,8 +11582,8 @@ class AddLine final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr color_;
-    ::protos::Vector2D* start_;
-    ::protos::Vector2D* end_;
+    ::protos::RpcVector2D* start_;
+    ::protos::RpcVector2D* end_;
     int level_;
   };
   union { Impl_ _impl_; };
@@ -11242,7 +11646,7 @@ class AddArc final :
                &_AddArc_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    50;
+    52;
 
   friend void swap(AddArc& a, AddArc& b) {
     a.Swap(&b);
@@ -11341,20 +11745,20 @@ class AddArc final :
   std::string* _internal_mutable_color();
 
   public:
-  // .protos.Vector2D center = 2;
+  // .protos.RpcVector2D center = 2;
   bool has_center() const;
   void clear_center() ;
-  const ::protos::Vector2D& center() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_center();
-  ::protos::Vector2D* mutable_center();
-  void set_allocated_center(::protos::Vector2D* center);
+  const ::protos::RpcVector2D& center() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_center();
+  ::protos::RpcVector2D* mutable_center();
+  void set_allocated_center(::protos::RpcVector2D* center);
   private:
-  const ::protos::Vector2D& _internal_center() const;
-  ::protos::Vector2D* _internal_mutable_center();
+  const ::protos::RpcVector2D& _internal_center() const;
+  ::protos::RpcVector2D* _internal_mutable_center();
   public:
   void unsafe_arena_set_allocated_center(
-      ::protos::Vector2D* center);
-  ::protos::Vector2D* unsafe_arena_release_center();
+      ::protos::RpcVector2D* center);
+  ::protos::RpcVector2D* unsafe_arena_release_center();
   // .protos.LoggerLevel level = 1;
   void clear_level() ;
   ::protos::LoggerLevel level() const;
@@ -11406,7 +11810,7 @@ class AddArc final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr color_;
-    ::protos::Vector2D* center_;
+    ::protos::RpcVector2D* center_;
     int level_;
     float radius_;
     float start_angle_;
@@ -11472,7 +11876,7 @@ class AddCircle final :
                &_AddCircle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    51;
+    53;
 
   friend void swap(AddCircle& a, AddCircle& b) {
     a.Swap(&b);
@@ -11570,20 +11974,20 @@ class AddCircle final :
   std::string* _internal_mutable_color();
 
   public:
-  // .protos.Vector2D center = 2;
+  // .protos.RpcVector2D center = 2;
   bool has_center() const;
   void clear_center() ;
-  const ::protos::Vector2D& center() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_center();
-  ::protos::Vector2D* mutable_center();
-  void set_allocated_center(::protos::Vector2D* center);
+  const ::protos::RpcVector2D& center() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_center();
+  ::protos::RpcVector2D* mutable_center();
+  void set_allocated_center(::protos::RpcVector2D* center);
   private:
-  const ::protos::Vector2D& _internal_center() const;
-  ::protos::Vector2D* _internal_mutable_center();
+  const ::protos::RpcVector2D& _internal_center() const;
+  ::protos::RpcVector2D* _internal_mutable_center();
   public:
   void unsafe_arena_set_allocated_center(
-      ::protos::Vector2D* center);
-  ::protos::Vector2D* unsafe_arena_release_center();
+      ::protos::RpcVector2D* center);
+  ::protos::RpcVector2D* unsafe_arena_release_center();
   // .protos.LoggerLevel level = 1;
   void clear_level() ;
   ::protos::LoggerLevel level() const;
@@ -11625,7 +12029,7 @@ class AddCircle final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr color_;
-    ::protos::Vector2D* center_;
+    ::protos::RpcVector2D* center_;
     int level_;
     float radius_;
     bool fill_;
@@ -11690,7 +12094,7 @@ class AddTriangle final :
                &_AddTriangle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    52;
+    54;
 
   friend void swap(AddTriangle& a, AddTriangle& b) {
     a.Swap(&b);
@@ -11789,48 +12193,48 @@ class AddTriangle final :
   std::string* _internal_mutable_color();
 
   public:
-  // .protos.Vector2D point1 = 2;
+  // .protos.RpcVector2D point1 = 2;
   bool has_point1() const;
   void clear_point1() ;
-  const ::protos::Vector2D& point1() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_point1();
-  ::protos::Vector2D* mutable_point1();
-  void set_allocated_point1(::protos::Vector2D* point1);
+  const ::protos::RpcVector2D& point1() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_point1();
+  ::protos::RpcVector2D* mutable_point1();
+  void set_allocated_point1(::protos::RpcVector2D* point1);
   private:
-  const ::protos::Vector2D& _internal_point1() const;
-  ::protos::Vector2D* _internal_mutable_point1();
+  const ::protos::RpcVector2D& _internal_point1() const;
+  ::protos::RpcVector2D* _internal_mutable_point1();
   public:
   void unsafe_arena_set_allocated_point1(
-      ::protos::Vector2D* point1);
-  ::protos::Vector2D* unsafe_arena_release_point1();
-  // .protos.Vector2D point2 = 3;
+      ::protos::RpcVector2D* point1);
+  ::protos::RpcVector2D* unsafe_arena_release_point1();
+  // .protos.RpcVector2D point2 = 3;
   bool has_point2() const;
   void clear_point2() ;
-  const ::protos::Vector2D& point2() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_point2();
-  ::protos::Vector2D* mutable_point2();
-  void set_allocated_point2(::protos::Vector2D* point2);
+  const ::protos::RpcVector2D& point2() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_point2();
+  ::protos::RpcVector2D* mutable_point2();
+  void set_allocated_point2(::protos::RpcVector2D* point2);
   private:
-  const ::protos::Vector2D& _internal_point2() const;
-  ::protos::Vector2D* _internal_mutable_point2();
+  const ::protos::RpcVector2D& _internal_point2() const;
+  ::protos::RpcVector2D* _internal_mutable_point2();
   public:
   void unsafe_arena_set_allocated_point2(
-      ::protos::Vector2D* point2);
-  ::protos::Vector2D* unsafe_arena_release_point2();
-  // .protos.Vector2D point3 = 4;
+      ::protos::RpcVector2D* point2);
+  ::protos::RpcVector2D* unsafe_arena_release_point2();
+  // .protos.RpcVector2D point3 = 4;
   bool has_point3() const;
   void clear_point3() ;
-  const ::protos::Vector2D& point3() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_point3();
-  ::protos::Vector2D* mutable_point3();
-  void set_allocated_point3(::protos::Vector2D* point3);
+  const ::protos::RpcVector2D& point3() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_point3();
+  ::protos::RpcVector2D* mutable_point3();
+  void set_allocated_point3(::protos::RpcVector2D* point3);
   private:
-  const ::protos::Vector2D& _internal_point3() const;
-  ::protos::Vector2D* _internal_mutable_point3();
+  const ::protos::RpcVector2D& _internal_point3() const;
+  ::protos::RpcVector2D* _internal_mutable_point3();
   public:
   void unsafe_arena_set_allocated_point3(
-      ::protos::Vector2D* point3);
-  ::protos::Vector2D* unsafe_arena_release_point3();
+      ::protos::RpcVector2D* point3);
+  ::protos::RpcVector2D* unsafe_arena_release_point3();
   // .protos.LoggerLevel level = 1;
   void clear_level() ;
   ::protos::LoggerLevel level() const;
@@ -11862,9 +12266,9 @@ class AddTriangle final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr color_;
-    ::protos::Vector2D* point1_;
-    ::protos::Vector2D* point2_;
-    ::protos::Vector2D* point3_;
+    ::protos::RpcVector2D* point1_;
+    ::protos::RpcVector2D* point2_;
+    ::protos::RpcVector2D* point3_;
     int level_;
     bool fill_;
   };
@@ -11928,7 +12332,7 @@ class AddRectangle final :
                &_AddRectangle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    53;
+    55;
 
   friend void swap(AddRectangle& a, AddRectangle& b) {
     a.Swap(&b);
@@ -12165,7 +12569,7 @@ class AddSector final :
                &_AddSector_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    54;
+    56;
 
   friend void swap(AddSector& a, AddSector& b) {
     a.Swap(&b);
@@ -12266,20 +12670,20 @@ class AddSector final :
   std::string* _internal_mutable_color();
 
   public:
-  // .protos.Vector2D center = 2;
+  // .protos.RpcVector2D center = 2;
   bool has_center() const;
   void clear_center() ;
-  const ::protos::Vector2D& center() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_center();
-  ::protos::Vector2D* mutable_center();
-  void set_allocated_center(::protos::Vector2D* center);
+  const ::protos::RpcVector2D& center() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_center();
+  ::protos::RpcVector2D* mutable_center();
+  void set_allocated_center(::protos::RpcVector2D* center);
   private:
-  const ::protos::Vector2D& _internal_center() const;
-  ::protos::Vector2D* _internal_mutable_center();
+  const ::protos::RpcVector2D& _internal_center() const;
+  ::protos::RpcVector2D* _internal_mutable_center();
   public:
   void unsafe_arena_set_allocated_center(
-      ::protos::Vector2D* center);
-  ::protos::Vector2D* unsafe_arena_release_center();
+      ::protos::RpcVector2D* center);
+  ::protos::RpcVector2D* unsafe_arena_release_center();
   // .protos.LoggerLevel level = 1;
   void clear_level() ;
   ::protos::LoggerLevel level() const;
@@ -12351,7 +12755,7 @@ class AddSector final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr color_;
-    ::protos::Vector2D* center_;
+    ::protos::RpcVector2D* center_;
     int level_;
     float min_radius_;
     float max_radius_;
@@ -12419,7 +12823,7 @@ class AddMessage final :
                &_AddMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    55;
+    57;
 
   friend void swap(AddMessage& a, AddMessage& b) {
     a.Swap(&b);
@@ -12536,20 +12940,20 @@ class AddMessage final :
   std::string* _internal_mutable_color();
 
   public:
-  // .protos.Vector2D position = 2;
+  // .protos.RpcVector2D position = 2;
   bool has_position() const;
   void clear_position() ;
-  const ::protos::Vector2D& position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_position();
-  ::protos::Vector2D* mutable_position();
-  void set_allocated_position(::protos::Vector2D* position);
+  const ::protos::RpcVector2D& position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_position();
+  ::protos::RpcVector2D* mutable_position();
+  void set_allocated_position(::protos::RpcVector2D* position);
   private:
-  const ::protos::Vector2D& _internal_position() const;
-  ::protos::Vector2D* _internal_mutable_position();
+  const ::protos::RpcVector2D& _internal_position() const;
+  ::protos::RpcVector2D* _internal_mutable_position();
   public:
   void unsafe_arena_set_allocated_position(
-      ::protos::Vector2D* position);
-  ::protos::Vector2D* unsafe_arena_release_position();
+      ::protos::RpcVector2D* position);
+  ::protos::RpcVector2D* unsafe_arena_release_position();
   // .protos.LoggerLevel level = 1;
   void clear_level() ;
   ::protos::LoggerLevel level() const;
@@ -12572,7 +12976,7 @@ class AddMessage final :
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr color_;
-    ::protos::Vector2D* position_;
+    ::protos::RpcVector2D* position_;
     int level_;
   };
   union { Impl_ _impl_; };
@@ -12648,7 +13052,7 @@ class Log final :
                &_Log_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    56;
+    58;
 
   friend void swap(Log& a, Log& b) {
     a.Swap(&b);
@@ -12991,7 +13395,7 @@ class DebugClient final :
                &_DebugClient_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    57;
+    59;
 
   friend void swap(DebugClient& a, DebugClient& b) {
     a.Swap(&b);
@@ -13156,7 +13560,7 @@ class Body_GoToPoint final :
                &_Body_GoToPoint_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    58;
+    60;
 
   friend void swap(Body_GoToPoint& a, Body_GoToPoint& b) {
     a.Swap(&b);
@@ -13232,20 +13636,20 @@ class Body_GoToPoint final :
     kDistanceThresholdFieldNumber = 2,
     kMaxDashPowerFieldNumber = 3,
   };
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   bool has_target_point() const;
   void clear_target_point() ;
-  const ::protos::Vector2D& target_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_target_point();
-  ::protos::Vector2D* mutable_target_point();
-  void set_allocated_target_point(::protos::Vector2D* target_point);
+  const ::protos::RpcVector2D& target_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_target_point();
+  ::protos::RpcVector2D* mutable_target_point();
+  void set_allocated_target_point(::protos::RpcVector2D* target_point);
   private:
-  const ::protos::Vector2D& _internal_target_point() const;
-  ::protos::Vector2D* _internal_mutable_target_point();
+  const ::protos::RpcVector2D& _internal_target_point() const;
+  ::protos::RpcVector2D* _internal_mutable_target_point();
   public:
   void unsafe_arena_set_allocated_target_point(
-      ::protos::Vector2D* target_point);
-  ::protos::Vector2D* unsafe_arena_release_target_point();
+      ::protos::RpcVector2D* target_point);
+  ::protos::RpcVector2D* unsafe_arena_release_target_point();
   // float distance_threshold = 2;
   void clear_distance_threshold() ;
   float distance_threshold() const;
@@ -13276,7 +13680,7 @@ class Body_GoToPoint final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* target_point_;
+    ::protos::RpcVector2D* target_point_;
     float distance_threshold_;
     float max_dash_power_;
   };
@@ -13340,7 +13744,7 @@ class Body_SmartKick final :
                &_Body_SmartKick_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    59;
+    61;
 
   friend void swap(Body_SmartKick& a, Body_SmartKick& b) {
     a.Swap(&b);
@@ -13417,20 +13821,20 @@ class Body_SmartKick final :
     kFirstSpeedThresholdFieldNumber = 3,
     kMaxStepsFieldNumber = 4,
   };
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   bool has_target_point() const;
   void clear_target_point() ;
-  const ::protos::Vector2D& target_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_target_point();
-  ::protos::Vector2D* mutable_target_point();
-  void set_allocated_target_point(::protos::Vector2D* target_point);
+  const ::protos::RpcVector2D& target_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_target_point();
+  ::protos::RpcVector2D* mutable_target_point();
+  void set_allocated_target_point(::protos::RpcVector2D* target_point);
   private:
-  const ::protos::Vector2D& _internal_target_point() const;
-  ::protos::Vector2D* _internal_mutable_target_point();
+  const ::protos::RpcVector2D& _internal_target_point() const;
+  ::protos::RpcVector2D* _internal_mutable_target_point();
   public:
   void unsafe_arena_set_allocated_target_point(
-      ::protos::Vector2D* target_point);
-  ::protos::Vector2D* unsafe_arena_release_target_point();
+      ::protos::RpcVector2D* target_point);
+  ::protos::RpcVector2D* unsafe_arena_release_target_point();
   // float first_speed = 2;
   void clear_first_speed() ;
   float first_speed() const;
@@ -13471,7 +13875,7 @@ class Body_SmartKick final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* target_point_;
+    ::protos::RpcVector2D* target_point_;
     float first_speed_;
     float first_speed_threshold_;
     ::int32_t max_steps_;
@@ -13536,7 +13940,7 @@ class Bhv_BeforeKickOff final :
                &_Bhv_BeforeKickOff_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    60;
+    62;
 
   friend void swap(Bhv_BeforeKickOff& a, Bhv_BeforeKickOff& b) {
     a.Swap(&b);
@@ -13610,20 +14014,20 @@ class Bhv_BeforeKickOff final :
   enum : int {
     kPointFieldNumber = 1,
   };
-  // .protos.Vector2D point = 1;
+  // .protos.RpcVector2D point = 1;
   bool has_point() const;
   void clear_point() ;
-  const ::protos::Vector2D& point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_point();
-  ::protos::Vector2D* mutable_point();
-  void set_allocated_point(::protos::Vector2D* point);
+  const ::protos::RpcVector2D& point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_point();
+  ::protos::RpcVector2D* mutable_point();
+  void set_allocated_point(::protos::RpcVector2D* point);
   private:
-  const ::protos::Vector2D& _internal_point() const;
-  ::protos::Vector2D* _internal_mutable_point();
+  const ::protos::RpcVector2D& _internal_point() const;
+  ::protos::RpcVector2D* _internal_mutable_point();
   public:
   void unsafe_arena_set_allocated_point(
-      ::protos::Vector2D* point);
-  ::protos::Vector2D* unsafe_arena_release_point();
+      ::protos::RpcVector2D* point);
+  ::protos::RpcVector2D* unsafe_arena_release_point();
   // @@protoc_insertion_point(class_scope:protos.Bhv_BeforeKickOff)
  private:
   class _Internal;
@@ -13634,7 +14038,7 @@ class Bhv_BeforeKickOff final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* point_;
+    ::protos::RpcVector2D* point_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -13695,7 +14099,7 @@ class Bhv_BodyNeckToBall final :
                &_Bhv_BodyNeckToBall_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    61;
+    63;
 
   friend void swap(Bhv_BodyNeckToBall& a, Bhv_BodyNeckToBall& b) {
     a.Swap(&b);
@@ -13820,7 +14224,7 @@ class Bhv_BodyNeckToPoint final :
                &_Bhv_BodyNeckToPoint_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    62;
+    64;
 
   friend void swap(Bhv_BodyNeckToPoint& a, Bhv_BodyNeckToPoint& b) {
     a.Swap(&b);
@@ -13894,20 +14298,20 @@ class Bhv_BodyNeckToPoint final :
   enum : int {
     kPointFieldNumber = 1,
   };
-  // .protos.Vector2D point = 1;
+  // .protos.RpcVector2D point = 1;
   bool has_point() const;
   void clear_point() ;
-  const ::protos::Vector2D& point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_point();
-  ::protos::Vector2D* mutable_point();
-  void set_allocated_point(::protos::Vector2D* point);
+  const ::protos::RpcVector2D& point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_point();
+  ::protos::RpcVector2D* mutable_point();
+  void set_allocated_point(::protos::RpcVector2D* point);
   private:
-  const ::protos::Vector2D& _internal_point() const;
-  ::protos::Vector2D* _internal_mutable_point();
+  const ::protos::RpcVector2D& _internal_point() const;
+  ::protos::RpcVector2D* _internal_mutable_point();
   public:
   void unsafe_arena_set_allocated_point(
-      ::protos::Vector2D* point);
-  ::protos::Vector2D* unsafe_arena_release_point();
+      ::protos::RpcVector2D* point);
+  ::protos::RpcVector2D* unsafe_arena_release_point();
   // @@protoc_insertion_point(class_scope:protos.Bhv_BodyNeckToPoint)
  private:
   class _Internal;
@@ -13918,7 +14322,7 @@ class Bhv_BodyNeckToPoint final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* point_;
+    ::protos::RpcVector2D* point_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -13979,7 +14383,7 @@ class Bhv_Emergency final :
                &_Bhv_Emergency_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    63;
+    65;
 
   friend void swap(Bhv_Emergency& a, Bhv_Emergency& b) {
     a.Swap(&b);
@@ -14104,7 +14508,7 @@ class Bhv_GoToPointLookBall final :
                &_Bhv_GoToPointLookBall_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    64;
+    66;
 
   friend void swap(Bhv_GoToPointLookBall& a, Bhv_GoToPointLookBall& b) {
     a.Swap(&b);
@@ -14180,20 +14584,20 @@ class Bhv_GoToPointLookBall final :
     kDistanceThresholdFieldNumber = 2,
     kMaxDashPowerFieldNumber = 3,
   };
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   bool has_target_point() const;
   void clear_target_point() ;
-  const ::protos::Vector2D& target_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_target_point();
-  ::protos::Vector2D* mutable_target_point();
-  void set_allocated_target_point(::protos::Vector2D* target_point);
+  const ::protos::RpcVector2D& target_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_target_point();
+  ::protos::RpcVector2D* mutable_target_point();
+  void set_allocated_target_point(::protos::RpcVector2D* target_point);
   private:
-  const ::protos::Vector2D& _internal_target_point() const;
-  ::protos::Vector2D* _internal_mutable_target_point();
+  const ::protos::RpcVector2D& _internal_target_point() const;
+  ::protos::RpcVector2D* _internal_mutable_target_point();
   public:
   void unsafe_arena_set_allocated_target_point(
-      ::protos::Vector2D* target_point);
-  ::protos::Vector2D* unsafe_arena_release_target_point();
+      ::protos::RpcVector2D* target_point);
+  ::protos::RpcVector2D* unsafe_arena_release_target_point();
   // float distance_threshold = 2;
   void clear_distance_threshold() ;
   float distance_threshold() const;
@@ -14224,7 +14628,7 @@ class Bhv_GoToPointLookBall final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* target_point_;
+    ::protos::RpcVector2D* target_point_;
     float distance_threshold_;
     float max_dash_power_;
   };
@@ -14288,7 +14692,7 @@ class Bhv_NeckBodyToBall final :
                &_Bhv_NeckBodyToBall_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    65;
+    67;
 
   friend void swap(Bhv_NeckBodyToBall& a, Bhv_NeckBodyToBall& b) {
     a.Swap(&b);
@@ -14443,7 +14847,7 @@ class Bhv_NeckBodyToPoint final :
                &_Bhv_NeckBodyToPoint_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    66;
+    68;
 
   friend void swap(Bhv_NeckBodyToPoint& a, Bhv_NeckBodyToPoint& b) {
     a.Swap(&b);
@@ -14518,20 +14922,20 @@ class Bhv_NeckBodyToPoint final :
     kPointFieldNumber = 1,
     kAngleBufFieldNumber = 2,
   };
-  // .protos.Vector2D point = 1;
+  // .protos.RpcVector2D point = 1;
   bool has_point() const;
   void clear_point() ;
-  const ::protos::Vector2D& point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_point();
-  ::protos::Vector2D* mutable_point();
-  void set_allocated_point(::protos::Vector2D* point);
+  const ::protos::RpcVector2D& point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_point();
+  ::protos::RpcVector2D* mutable_point();
+  void set_allocated_point(::protos::RpcVector2D* point);
   private:
-  const ::protos::Vector2D& _internal_point() const;
-  ::protos::Vector2D* _internal_mutable_point();
+  const ::protos::RpcVector2D& _internal_point() const;
+  ::protos::RpcVector2D* _internal_mutable_point();
   public:
   void unsafe_arena_set_allocated_point(
-      ::protos::Vector2D* point);
-  ::protos::Vector2D* unsafe_arena_release_point();
+      ::protos::RpcVector2D* point);
+  ::protos::RpcVector2D* unsafe_arena_release_point();
   // float angle_buf = 2;
   void clear_angle_buf() ;
   float angle_buf() const;
@@ -14552,7 +14956,7 @@ class Bhv_NeckBodyToPoint final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* point_;
+    ::protos::RpcVector2D* point_;
     float angle_buf_;
   };
   union { Impl_ _impl_; };
@@ -14614,7 +15018,7 @@ class Bhv_ScanField final :
                &_Bhv_ScanField_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    67;
+    69;
 
   friend void swap(Bhv_ScanField& a, Bhv_ScanField& b) {
     a.Swap(&b);
@@ -14738,7 +15142,7 @@ class Body_AdvanceBall final :
                &_Body_AdvanceBall_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    68;
+    70;
 
   friend void swap(Body_AdvanceBall& a, Body_AdvanceBall& b) {
     a.Swap(&b);
@@ -14862,7 +15266,7 @@ class Body_ClearBall final :
                &_Body_ClearBall_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    69;
+    71;
 
   friend void swap(Body_ClearBall& a, Body_ClearBall& b) {
     a.Swap(&b);
@@ -14987,7 +15391,7 @@ class Body_Dribble final :
                &_Body_Dribble_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    70;
+    72;
 
   friend void swap(Body_Dribble& a, Body_Dribble& b) {
     a.Swap(&b);
@@ -15065,20 +15469,20 @@ class Body_Dribble final :
     kDashCountFieldNumber = 4,
     kDodgeFieldNumber = 5,
   };
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   bool has_target_point() const;
   void clear_target_point() ;
-  const ::protos::Vector2D& target_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_target_point();
-  ::protos::Vector2D* mutable_target_point();
-  void set_allocated_target_point(::protos::Vector2D* target_point);
+  const ::protos::RpcVector2D& target_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_target_point();
+  ::protos::RpcVector2D* mutable_target_point();
+  void set_allocated_target_point(::protos::RpcVector2D* target_point);
   private:
-  const ::protos::Vector2D& _internal_target_point() const;
-  ::protos::Vector2D* _internal_mutable_target_point();
+  const ::protos::RpcVector2D& _internal_target_point() const;
+  ::protos::RpcVector2D* _internal_mutable_target_point();
   public:
   void unsafe_arena_set_allocated_target_point(
-      ::protos::Vector2D* target_point);
-  ::protos::Vector2D* unsafe_arena_release_target_point();
+      ::protos::RpcVector2D* target_point);
+  ::protos::RpcVector2D* unsafe_arena_release_target_point();
   // float distance_threshold = 2;
   void clear_distance_threshold() ;
   float distance_threshold() const;
@@ -15129,7 +15533,7 @@ class Body_Dribble final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* target_point_;
+    ::protos::RpcVector2D* target_point_;
     float distance_threshold_;
     float dash_power_;
     ::int32_t dash_count_;
@@ -15195,7 +15599,7 @@ class Body_GoToPointDodge final :
                &_Body_GoToPointDodge_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    71;
+    73;
 
   friend void swap(Body_GoToPointDodge& a, Body_GoToPointDodge& b) {
     a.Swap(&b);
@@ -15270,20 +15674,20 @@ class Body_GoToPointDodge final :
     kTargetPointFieldNumber = 1,
     kDashPowerFieldNumber = 2,
   };
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   bool has_target_point() const;
   void clear_target_point() ;
-  const ::protos::Vector2D& target_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_target_point();
-  ::protos::Vector2D* mutable_target_point();
-  void set_allocated_target_point(::protos::Vector2D* target_point);
+  const ::protos::RpcVector2D& target_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_target_point();
+  ::protos::RpcVector2D* mutable_target_point();
+  void set_allocated_target_point(::protos::RpcVector2D* target_point);
   private:
-  const ::protos::Vector2D& _internal_target_point() const;
-  ::protos::Vector2D* _internal_mutable_target_point();
+  const ::protos::RpcVector2D& _internal_target_point() const;
+  ::protos::RpcVector2D* _internal_mutable_target_point();
   public:
   void unsafe_arena_set_allocated_target_point(
-      ::protos::Vector2D* target_point);
-  ::protos::Vector2D* unsafe_arena_release_target_point();
+      ::protos::RpcVector2D* target_point);
+  ::protos::RpcVector2D* unsafe_arena_release_target_point();
   // float dash_power = 2;
   void clear_dash_power() ;
   float dash_power() const;
@@ -15304,7 +15708,7 @@ class Body_GoToPointDodge final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* target_point_;
+    ::protos::RpcVector2D* target_point_;
     float dash_power_;
   };
   union { Impl_ _impl_; };
@@ -15367,7 +15771,7 @@ class Body_HoldBall final :
                &_Body_HoldBall_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    72;
+    74;
 
   friend void swap(Body_HoldBall& a, Body_HoldBall& b) {
     a.Swap(&b);
@@ -15443,34 +15847,34 @@ class Body_HoldBall final :
     kKickTargetPointFieldNumber = 3,
     kDoTurnFieldNumber = 1,
   };
-  // .protos.Vector2D turn_target_point = 2;
+  // .protos.RpcVector2D turn_target_point = 2;
   bool has_turn_target_point() const;
   void clear_turn_target_point() ;
-  const ::protos::Vector2D& turn_target_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_turn_target_point();
-  ::protos::Vector2D* mutable_turn_target_point();
-  void set_allocated_turn_target_point(::protos::Vector2D* turn_target_point);
+  const ::protos::RpcVector2D& turn_target_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_turn_target_point();
+  ::protos::RpcVector2D* mutable_turn_target_point();
+  void set_allocated_turn_target_point(::protos::RpcVector2D* turn_target_point);
   private:
-  const ::protos::Vector2D& _internal_turn_target_point() const;
-  ::protos::Vector2D* _internal_mutable_turn_target_point();
+  const ::protos::RpcVector2D& _internal_turn_target_point() const;
+  ::protos::RpcVector2D* _internal_mutable_turn_target_point();
   public:
   void unsafe_arena_set_allocated_turn_target_point(
-      ::protos::Vector2D* turn_target_point);
-  ::protos::Vector2D* unsafe_arena_release_turn_target_point();
-  // .protos.Vector2D kick_target_point = 3;
+      ::protos::RpcVector2D* turn_target_point);
+  ::protos::RpcVector2D* unsafe_arena_release_turn_target_point();
+  // .protos.RpcVector2D kick_target_point = 3;
   bool has_kick_target_point() const;
   void clear_kick_target_point() ;
-  const ::protos::Vector2D& kick_target_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_kick_target_point();
-  ::protos::Vector2D* mutable_kick_target_point();
-  void set_allocated_kick_target_point(::protos::Vector2D* kick_target_point);
+  const ::protos::RpcVector2D& kick_target_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_kick_target_point();
+  ::protos::RpcVector2D* mutable_kick_target_point();
+  void set_allocated_kick_target_point(::protos::RpcVector2D* kick_target_point);
   private:
-  const ::protos::Vector2D& _internal_kick_target_point() const;
-  ::protos::Vector2D* _internal_mutable_kick_target_point();
+  const ::protos::RpcVector2D& _internal_kick_target_point() const;
+  ::protos::RpcVector2D* _internal_mutable_kick_target_point();
   public:
   void unsafe_arena_set_allocated_kick_target_point(
-      ::protos::Vector2D* kick_target_point);
-  ::protos::Vector2D* unsafe_arena_release_kick_target_point();
+      ::protos::RpcVector2D* kick_target_point);
+  ::protos::RpcVector2D* unsafe_arena_release_kick_target_point();
   // bool do_turn = 1;
   void clear_do_turn() ;
   bool do_turn() const;
@@ -15491,8 +15895,8 @@ class Body_HoldBall final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* turn_target_point_;
-    ::protos::Vector2D* kick_target_point_;
+    ::protos::RpcVector2D* turn_target_point_;
+    ::protos::RpcVector2D* kick_target_point_;
     bool do_turn_;
   };
   union { Impl_ _impl_; };
@@ -15555,7 +15959,7 @@ class Body_Intercept final :
                &_Body_Intercept_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    73;
+    75;
 
   friend void swap(Body_Intercept& a, Body_Intercept& b) {
     a.Swap(&b);
@@ -15630,20 +16034,20 @@ class Body_Intercept final :
     kFacePointFieldNumber = 2,
     kSaveRecoveryFieldNumber = 1,
   };
-  // .protos.Vector2D face_point = 2;
+  // .protos.RpcVector2D face_point = 2;
   bool has_face_point() const;
   void clear_face_point() ;
-  const ::protos::Vector2D& face_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_face_point();
-  ::protos::Vector2D* mutable_face_point();
-  void set_allocated_face_point(::protos::Vector2D* face_point);
+  const ::protos::RpcVector2D& face_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_face_point();
+  ::protos::RpcVector2D* mutable_face_point();
+  void set_allocated_face_point(::protos::RpcVector2D* face_point);
   private:
-  const ::protos::Vector2D& _internal_face_point() const;
-  ::protos::Vector2D* _internal_mutable_face_point();
+  const ::protos::RpcVector2D& _internal_face_point() const;
+  ::protos::RpcVector2D* _internal_mutable_face_point();
   public:
   void unsafe_arena_set_allocated_face_point(
-      ::protos::Vector2D* face_point);
-  ::protos::Vector2D* unsafe_arena_release_face_point();
+      ::protos::RpcVector2D* face_point);
+  ::protos::RpcVector2D* unsafe_arena_release_face_point();
   // bool save_recovery = 1;
   void clear_save_recovery() ;
   bool save_recovery() const;
@@ -15664,7 +16068,7 @@ class Body_Intercept final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* face_point_;
+    ::protos::RpcVector2D* face_point_;
     bool save_recovery_;
   };
   union { Impl_ _impl_; };
@@ -15727,7 +16131,7 @@ class Body_KickOneStep final :
                &_Body_KickOneStep_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    74;
+    76;
 
   friend void swap(Body_KickOneStep& a, Body_KickOneStep& b) {
     a.Swap(&b);
@@ -15803,20 +16207,20 @@ class Body_KickOneStep final :
     kFirstSpeedFieldNumber = 2,
     kForceModeFieldNumber = 3,
   };
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   bool has_target_point() const;
   void clear_target_point() ;
-  const ::protos::Vector2D& target_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_target_point();
-  ::protos::Vector2D* mutable_target_point();
-  void set_allocated_target_point(::protos::Vector2D* target_point);
+  const ::protos::RpcVector2D& target_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_target_point();
+  ::protos::RpcVector2D* mutable_target_point();
+  void set_allocated_target_point(::protos::RpcVector2D* target_point);
   private:
-  const ::protos::Vector2D& _internal_target_point() const;
-  ::protos::Vector2D* _internal_mutable_target_point();
+  const ::protos::RpcVector2D& _internal_target_point() const;
+  ::protos::RpcVector2D* _internal_mutable_target_point();
   public:
   void unsafe_arena_set_allocated_target_point(
-      ::protos::Vector2D* target_point);
-  ::protos::Vector2D* unsafe_arena_release_target_point();
+      ::protos::RpcVector2D* target_point);
+  ::protos::RpcVector2D* unsafe_arena_release_target_point();
   // float first_speed = 2;
   void clear_first_speed() ;
   float first_speed() const;
@@ -15847,7 +16251,7 @@ class Body_KickOneStep final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* target_point_;
+    ::protos::RpcVector2D* target_point_;
     float first_speed_;
     bool force_mode_;
   };
@@ -15910,7 +16314,7 @@ class Body_StopBall final :
                &_Body_StopBall_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    75;
+    77;
 
   friend void swap(Body_StopBall& a, Body_StopBall& b) {
     a.Swap(&b);
@@ -16035,7 +16439,7 @@ class Body_StopDash final :
                &_Body_StopDash_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    76;
+    78;
 
   friend void swap(Body_StopDash& a, Body_StopDash& b) {
     a.Swap(&b);
@@ -16190,7 +16594,7 @@ class Body_TackleToPoint final :
                &_Body_TackleToPoint_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    77;
+    79;
 
   friend void swap(Body_TackleToPoint& a, Body_TackleToPoint& b) {
     a.Swap(&b);
@@ -16266,20 +16670,20 @@ class Body_TackleToPoint final :
     kMinProbabilityFieldNumber = 2,
     kMinSpeedFieldNumber = 3,
   };
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   bool has_target_point() const;
   void clear_target_point() ;
-  const ::protos::Vector2D& target_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_target_point();
-  ::protos::Vector2D* mutable_target_point();
-  void set_allocated_target_point(::protos::Vector2D* target_point);
+  const ::protos::RpcVector2D& target_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_target_point();
+  ::protos::RpcVector2D* mutable_target_point();
+  void set_allocated_target_point(::protos::RpcVector2D* target_point);
   private:
-  const ::protos::Vector2D& _internal_target_point() const;
-  ::protos::Vector2D* _internal_mutable_target_point();
+  const ::protos::RpcVector2D& _internal_target_point() const;
+  ::protos::RpcVector2D* _internal_mutable_target_point();
   public:
   void unsafe_arena_set_allocated_target_point(
-      ::protos::Vector2D* target_point);
-  ::protos::Vector2D* unsafe_arena_release_target_point();
+      ::protos::RpcVector2D* target_point);
+  ::protos::RpcVector2D* unsafe_arena_release_target_point();
   // float min_probability = 2;
   void clear_min_probability() ;
   float min_probability() const;
@@ -16310,7 +16714,7 @@ class Body_TackleToPoint final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* target_point_;
+    ::protos::RpcVector2D* target_point_;
     float min_probability_;
     float min_speed_;
   };
@@ -16374,7 +16778,7 @@ class Body_TurnToAngle final :
                &_Body_TurnToAngle_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    78;
+    80;
 
   friend void swap(Body_TurnToAngle& a, Body_TurnToAngle& b) {
     a.Swap(&b);
@@ -16529,7 +16933,7 @@ class Body_TurnToBall final :
                &_Body_TurnToBall_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    79;
+    81;
 
   friend void swap(Body_TurnToBall& a, Body_TurnToBall& b) {
     a.Swap(&b);
@@ -16684,7 +17088,7 @@ class Body_TurnToPoint final :
                &_Body_TurnToPoint_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    80;
+    82;
 
   friend void swap(Body_TurnToPoint& a, Body_TurnToPoint& b) {
     a.Swap(&b);
@@ -16759,20 +17163,20 @@ class Body_TurnToPoint final :
     kTargetPointFieldNumber = 1,
     kCycleFieldNumber = 2,
   };
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   bool has_target_point() const;
   void clear_target_point() ;
-  const ::protos::Vector2D& target_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_target_point();
-  ::protos::Vector2D* mutable_target_point();
-  void set_allocated_target_point(::protos::Vector2D* target_point);
+  const ::protos::RpcVector2D& target_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_target_point();
+  ::protos::RpcVector2D* mutable_target_point();
+  void set_allocated_target_point(::protos::RpcVector2D* target_point);
   private:
-  const ::protos::Vector2D& _internal_target_point() const;
-  ::protos::Vector2D* _internal_mutable_target_point();
+  const ::protos::RpcVector2D& _internal_target_point() const;
+  ::protos::RpcVector2D* _internal_mutable_target_point();
   public:
   void unsafe_arena_set_allocated_target_point(
-      ::protos::Vector2D* target_point);
-  ::protos::Vector2D* unsafe_arena_release_target_point();
+      ::protos::RpcVector2D* target_point);
+  ::protos::RpcVector2D* unsafe_arena_release_target_point();
   // int32 cycle = 2;
   void clear_cycle() ;
   ::int32_t cycle() const;
@@ -16793,7 +17197,7 @@ class Body_TurnToPoint final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* target_point_;
+    ::protos::RpcVector2D* target_point_;
     ::int32_t cycle_;
   };
   union { Impl_ _impl_; };
@@ -16856,7 +17260,7 @@ class Focus_MoveToPoint final :
                &_Focus_MoveToPoint_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    81;
+    83;
 
   friend void swap(Focus_MoveToPoint& a, Focus_MoveToPoint& b) {
     a.Swap(&b);
@@ -16930,20 +17334,20 @@ class Focus_MoveToPoint final :
   enum : int {
     kTargetPointFieldNumber = 1,
   };
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   bool has_target_point() const;
   void clear_target_point() ;
-  const ::protos::Vector2D& target_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_target_point();
-  ::protos::Vector2D* mutable_target_point();
-  void set_allocated_target_point(::protos::Vector2D* target_point);
+  const ::protos::RpcVector2D& target_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_target_point();
+  ::protos::RpcVector2D* mutable_target_point();
+  void set_allocated_target_point(::protos::RpcVector2D* target_point);
   private:
-  const ::protos::Vector2D& _internal_target_point() const;
-  ::protos::Vector2D* _internal_mutable_target_point();
+  const ::protos::RpcVector2D& _internal_target_point() const;
+  ::protos::RpcVector2D* _internal_mutable_target_point();
   public:
   void unsafe_arena_set_allocated_target_point(
-      ::protos::Vector2D* target_point);
-  ::protos::Vector2D* unsafe_arena_release_target_point();
+      ::protos::RpcVector2D* target_point);
+  ::protos::RpcVector2D* unsafe_arena_release_target_point();
   // @@protoc_insertion_point(class_scope:protos.Focus_MoveToPoint)
  private:
   class _Internal;
@@ -16954,7 +17358,7 @@ class Focus_MoveToPoint final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* target_point_;
+    ::protos::RpcVector2D* target_point_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -17015,7 +17419,7 @@ class Focus_Reset final :
                &_Focus_Reset_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    82;
+    84;
 
   friend void swap(Focus_Reset& a, Focus_Reset& b) {
     a.Swap(&b);
@@ -17139,7 +17543,7 @@ class Neck_ScanField final :
                &_Neck_ScanField_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    83;
+    85;
 
   friend void swap(Neck_ScanField& a, Neck_ScanField& b) {
     a.Swap(&b);
@@ -17263,7 +17667,7 @@ class Neck_ScanPlayers final :
                &_Neck_ScanPlayers_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    84;
+    86;
 
   friend void swap(Neck_ScanPlayers& a, Neck_ScanPlayers& b) {
     a.Swap(&b);
@@ -17388,7 +17792,7 @@ class Neck_TurnToBallAndPlayer final :
                &_Neck_TurnToBallAndPlayer_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    85;
+    87;
 
   friend void swap(Neck_TurnToBallAndPlayer& a, Neck_TurnToBallAndPlayer& b) {
     a.Swap(&b);
@@ -17567,7 +17971,7 @@ class Neck_TurnToBallOrScan final :
                &_Neck_TurnToBallOrScan_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    86;
+    88;
 
   friend void swap(Neck_TurnToBallOrScan& a, Neck_TurnToBallOrScan& b) {
     a.Swap(&b);
@@ -17721,7 +18125,7 @@ class Neck_TurnToBall final :
                &_Neck_TurnToBall_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    87;
+    89;
 
   friend void swap(Neck_TurnToBall& a, Neck_TurnToBall& b) {
     a.Swap(&b);
@@ -17846,7 +18250,7 @@ class Neck_TurnToGoalieOrScan final :
                &_Neck_TurnToGoalieOrScan_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    88;
+    90;
 
   friend void swap(Neck_TurnToGoalieOrScan& a, Neck_TurnToGoalieOrScan& b) {
     a.Swap(&b);
@@ -18000,7 +18404,7 @@ class Neck_TurnToLowConfTeammate final :
                &_Neck_TurnToLowConfTeammate_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    89;
+    91;
 
   friend void swap(Neck_TurnToLowConfTeammate& a, Neck_TurnToLowConfTeammate& b) {
     a.Swap(&b);
@@ -18125,7 +18529,7 @@ class Neck_TurnToPlayerOrScan final :
                &_Neck_TurnToPlayerOrScan_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    90;
+    92;
 
   friend void swap(Neck_TurnToPlayerOrScan& a, Neck_TurnToPlayerOrScan& b) {
     a.Swap(&b);
@@ -18304,7 +18708,7 @@ class Neck_TurnToPoint final :
                &_Neck_TurnToPoint_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    91;
+    93;
 
   friend void swap(Neck_TurnToPoint& a, Neck_TurnToPoint& b) {
     a.Swap(&b);
@@ -18378,20 +18782,20 @@ class Neck_TurnToPoint final :
   enum : int {
     kTargetPointFieldNumber = 1,
   };
-  // .protos.Vector2D target_point = 1;
+  // .protos.RpcVector2D target_point = 1;
   bool has_target_point() const;
   void clear_target_point() ;
-  const ::protos::Vector2D& target_point() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_target_point();
-  ::protos::Vector2D* mutable_target_point();
-  void set_allocated_target_point(::protos::Vector2D* target_point);
+  const ::protos::RpcVector2D& target_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_target_point();
+  ::protos::RpcVector2D* mutable_target_point();
+  void set_allocated_target_point(::protos::RpcVector2D* target_point);
   private:
-  const ::protos::Vector2D& _internal_target_point() const;
-  ::protos::Vector2D* _internal_mutable_target_point();
+  const ::protos::RpcVector2D& _internal_target_point() const;
+  ::protos::RpcVector2D* _internal_mutable_target_point();
   public:
   void unsafe_arena_set_allocated_target_point(
-      ::protos::Vector2D* target_point);
-  ::protos::Vector2D* unsafe_arena_release_target_point();
+      ::protos::RpcVector2D* target_point);
+  ::protos::RpcVector2D* unsafe_arena_release_target_point();
   // @@protoc_insertion_point(class_scope:protos.Neck_TurnToPoint)
  private:
   class _Internal;
@@ -18402,7 +18806,7 @@ class Neck_TurnToPoint final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* target_point_;
+    ::protos::RpcVector2D* target_point_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -18464,7 +18868,7 @@ class Neck_TurnToRelative final :
                &_Neck_TurnToRelative_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    92;
+    94;
 
   friend void swap(Neck_TurnToRelative& a, Neck_TurnToRelative& b) {
     a.Swap(&b);
@@ -18619,7 +19023,7 @@ class View_ChangeWidth final :
                &_View_ChangeWidth_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    93;
+    95;
 
   friend void swap(View_ChangeWidth& a, View_ChangeWidth& b) {
     a.Swap(&b);
@@ -18773,7 +19177,7 @@ class View_Normal final :
                &_View_Normal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    94;
+    96;
 
   friend void swap(View_Normal& a, View_Normal& b) {
     a.Swap(&b);
@@ -18897,7 +19301,7 @@ class View_Synch final :
                &_View_Synch_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    95;
+    97;
 
   friend void swap(View_Synch& a, View_Synch& b) {
     a.Swap(&b);
@@ -19021,7 +19425,7 @@ class View_Wide final :
                &_View_Wide_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    96;
+    98;
 
   friend void swap(View_Wide& a, View_Wide& b) {
     a.Swap(&b);
@@ -19145,7 +19549,7 @@ class HeliosGoalie final :
                &_HeliosGoalie_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    97;
+    99;
 
   friend void swap(HeliosGoalie& a, HeliosGoalie& b) {
     a.Swap(&b);
@@ -19269,7 +19673,7 @@ class HeliosGoalieMove final :
                &_HeliosGoalieMove_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    98;
+    100;
 
   friend void swap(HeliosGoalieMove& a, HeliosGoalieMove& b) {
     a.Swap(&b);
@@ -19393,7 +19797,7 @@ class HeliosGoalieKick final :
                &_HeliosGoalieKick_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    99;
+    101;
 
   friend void swap(HeliosGoalieKick& a, HeliosGoalieKick& b) {
     a.Swap(&b);
@@ -19517,7 +19921,7 @@ class HeliosShoot final :
                &_HeliosShoot_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    100;
+    102;
 
   friend void swap(HeliosShoot& a, HeliosShoot& b) {
     a.Swap(&b);
@@ -19642,7 +20046,7 @@ class HeliosChainAction final :
                &_HeliosChainAction_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    101;
+    103;
 
   friend void swap(HeliosChainAction& a, HeliosChainAction& b) {
     a.Swap(&b);
@@ -19892,7 +20296,7 @@ class HeliosBasicOffensive final :
                &_HeliosBasicOffensive_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    102;
+    104;
 
   friend void swap(HeliosBasicOffensive& a, HeliosBasicOffensive& b) {
     a.Swap(&b);
@@ -20016,7 +20420,7 @@ class HeliosBasicMove final :
                &_HeliosBasicMove_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    103;
+    105;
 
   friend void swap(HeliosBasicMove& a, HeliosBasicMove& b) {
     a.Swap(&b);
@@ -20140,7 +20544,7 @@ class HeliosSetPlay final :
                &_HeliosSetPlay_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    104;
+    106;
 
   friend void swap(HeliosSetPlay& a, HeliosSetPlay& b) {
     a.Swap(&b);
@@ -20264,7 +20668,7 @@ class HeliosPenalty final :
                &_HeliosPenalty_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    105;
+    107;
 
   friend void swap(HeliosPenalty& a, HeliosPenalty& b) {
     a.Swap(&b);
@@ -20388,7 +20792,7 @@ class HeliosCommunicaion final :
                &_HeliosCommunicaion_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    106;
+    108;
 
   friend void swap(HeliosCommunicaion& a, HeliosCommunicaion& b) {
     a.Swap(&b);
@@ -20581,7 +20985,7 @@ class PlayerAction final :
                &_PlayerAction_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    107;
+    109;
 
   friend void swap(PlayerAction& a, PlayerAction& b) {
     a.Swap(&b);
@@ -22079,7 +22483,7 @@ class PlayerActions final :
                &_PlayerActions_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    108;
+    110;
 
   friend void swap(PlayerActions& a, PlayerActions& b) {
     a.Swap(&b);
@@ -22244,7 +22648,7 @@ class ChangePlayerType final :
                &_ChangePlayerType_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    109;
+    111;
 
   friend void swap(ChangePlayerType& a, ChangePlayerType& b) {
     a.Swap(&b);
@@ -22410,7 +22814,7 @@ class DoHeliosSubstitute final :
                &_DoHeliosSubstitute_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    110;
+    112;
 
   friend void swap(DoHeliosSubstitute& a, DoHeliosSubstitute& b) {
     a.Swap(&b);
@@ -22534,7 +22938,7 @@ class DoHeliosSayPlayerTypes final :
                &_DoHeliosSayPlayerTypes_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    111;
+    113;
 
   friend void swap(DoHeliosSayPlayerTypes& a, DoHeliosSayPlayerTypes& b) {
     a.Swap(&b);
@@ -22666,7 +23070,7 @@ class CoachAction final :
                &_CoachAction_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    112;
+    114;
 
   friend void swap(CoachAction& a, CoachAction& b) {
     a.Swap(&b);
@@ -22883,7 +23287,7 @@ class CoachActions final :
                &_CoachActions_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    113;
+    115;
 
   friend void swap(CoachActions& a, CoachActions& b) {
     a.Swap(&b);
@@ -23047,7 +23451,7 @@ class DoKickOff final :
                &_DoKickOff_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    114;
+    116;
 
   friend void swap(DoKickOff& a, DoKickOff& b) {
     a.Swap(&b);
@@ -23172,7 +23576,7 @@ class DoMoveBall final :
                &_DoMoveBall_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    115;
+    117;
 
   friend void swap(DoMoveBall& a, DoMoveBall& b) {
     a.Swap(&b);
@@ -23247,34 +23651,34 @@ class DoMoveBall final :
     kPositionFieldNumber = 1,
     kVelocityFieldNumber = 2,
   };
-  // .protos.Vector2D position = 1;
+  // .protos.RpcVector2D position = 1;
   bool has_position() const;
   void clear_position() ;
-  const ::protos::Vector2D& position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_position();
-  ::protos::Vector2D* mutable_position();
-  void set_allocated_position(::protos::Vector2D* position);
+  const ::protos::RpcVector2D& position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_position();
+  ::protos::RpcVector2D* mutable_position();
+  void set_allocated_position(::protos::RpcVector2D* position);
   private:
-  const ::protos::Vector2D& _internal_position() const;
-  ::protos::Vector2D* _internal_mutable_position();
+  const ::protos::RpcVector2D& _internal_position() const;
+  ::protos::RpcVector2D* _internal_mutable_position();
   public:
   void unsafe_arena_set_allocated_position(
-      ::protos::Vector2D* position);
-  ::protos::Vector2D* unsafe_arena_release_position();
-  // .protos.Vector2D velocity = 2;
+      ::protos::RpcVector2D* position);
+  ::protos::RpcVector2D* unsafe_arena_release_position();
+  // .protos.RpcVector2D velocity = 2;
   bool has_velocity() const;
   void clear_velocity() ;
-  const ::protos::Vector2D& velocity() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_velocity();
-  ::protos::Vector2D* mutable_velocity();
-  void set_allocated_velocity(::protos::Vector2D* velocity);
+  const ::protos::RpcVector2D& velocity() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_velocity();
+  ::protos::RpcVector2D* mutable_velocity();
+  void set_allocated_velocity(::protos::RpcVector2D* velocity);
   private:
-  const ::protos::Vector2D& _internal_velocity() const;
-  ::protos::Vector2D* _internal_mutable_velocity();
+  const ::protos::RpcVector2D& _internal_velocity() const;
+  ::protos::RpcVector2D* _internal_mutable_velocity();
   public:
   void unsafe_arena_set_allocated_velocity(
-      ::protos::Vector2D* velocity);
-  ::protos::Vector2D* unsafe_arena_release_velocity();
+      ::protos::RpcVector2D* velocity);
+  ::protos::RpcVector2D* unsafe_arena_release_velocity();
   // @@protoc_insertion_point(class_scope:protos.DoMoveBall)
  private:
   class _Internal;
@@ -23285,8 +23689,8 @@ class DoMoveBall final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* position_;
-    ::protos::Vector2D* velocity_;
+    ::protos::RpcVector2D* position_;
+    ::protos::RpcVector2D* velocity_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -23348,7 +23752,7 @@ class DoMovePlayer final :
                &_DoMovePlayer_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    116;
+    118;
 
   friend void swap(DoMovePlayer& a, DoMovePlayer& b) {
     a.Swap(&b);
@@ -23425,20 +23829,20 @@ class DoMovePlayer final :
     kUniformNumberFieldNumber = 2,
     kBodyDirectionFieldNumber = 4,
   };
-  // .protos.Vector2D position = 3;
+  // .protos.RpcVector2D position = 3;
   bool has_position() const;
   void clear_position() ;
-  const ::protos::Vector2D& position() const;
-  PROTOBUF_NODISCARD ::protos::Vector2D* release_position();
-  ::protos::Vector2D* mutable_position();
-  void set_allocated_position(::protos::Vector2D* position);
+  const ::protos::RpcVector2D& position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_position();
+  ::protos::RpcVector2D* mutable_position();
+  void set_allocated_position(::protos::RpcVector2D* position);
   private:
-  const ::protos::Vector2D& _internal_position() const;
-  ::protos::Vector2D* _internal_mutable_position();
+  const ::protos::RpcVector2D& _internal_position() const;
+  ::protos::RpcVector2D* _internal_mutable_position();
   public:
   void unsafe_arena_set_allocated_position(
-      ::protos::Vector2D* position);
-  ::protos::Vector2D* unsafe_arena_release_position();
+      ::protos::RpcVector2D* position);
+  ::protos::RpcVector2D* unsafe_arena_release_position();
   // bool our_side = 1;
   void clear_our_side() ;
   bool our_side() const;
@@ -23479,7 +23883,7 @@ class DoMovePlayer final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::protos::Vector2D* position_;
+    ::protos::RpcVector2D* position_;
     bool our_side_;
     ::int32_t uniform_number_;
     float body_direction_;
@@ -23543,7 +23947,7 @@ class DoRecover final :
                &_DoRecover_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    117;
+    119;
 
   friend void swap(DoRecover& a, DoRecover& b) {
     a.Swap(&b);
@@ -23668,7 +24072,7 @@ class DoChangeMode final :
                &_DoChangeMode_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    118;
+    120;
 
   friend void swap(DoChangeMode& a, DoChangeMode& b) {
     a.Swap(&b);
@@ -23835,7 +24239,7 @@ class DoChangePlayerType final :
                &_DoChangePlayerType_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    119;
+    121;
 
   friend void swap(DoChangePlayerType& a, DoChangePlayerType& b) {
     a.Swap(&b);
@@ -24024,7 +24428,7 @@ class TrainerAction final :
                &_TrainerAction_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    120;
+    122;
 
   friend void swap(TrainerAction& a, TrainerAction& b) {
     a.Swap(&b);
@@ -24304,7 +24708,7 @@ class TrainerActions final :
                &_TrainerActions_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    121;
+    123;
 
   friend void swap(TrainerActions& a, TrainerActions& b) {
     a.Swap(&b);
@@ -24469,7 +24873,7 @@ class ServerParam final :
                &_ServerParam_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    122;
+    124;
 
   friend void swap(ServerParam& a, ServerParam& b) {
     a.Swap(&b);
@@ -24556,7 +24960,7 @@ class ServerParam final :
     kCoachMsgFileFieldNumber = 181,
     kFixedTeamnameLFieldNumber = 206,
     kFixedTeamnameRFieldNumber = 207,
-    kAgentTypeFieldNumber = 1,
+    kRegisterResponseFieldNumber = 1,
     kInertiaMomentFieldNumber = 2,
     kPlayerSizeFieldNumber = 3,
     kPlayerDecayFieldNumber = 4,
@@ -25064,16 +25468,20 @@ class ServerParam final :
   std::string* _internal_mutable_fixed_teamname_r();
 
   public:
-  // .protos.AgentType agent_type = 1;
-  void clear_agent_type() ;
-  ::protos::AgentType agent_type() const;
-  void set_agent_type(::protos::AgentType value);
-
+  // .protos.RegisterResponse register_response = 1;
+  bool has_register_response() const;
+  void clear_register_response() ;
+  const ::protos::RegisterResponse& register_response() const;
+  PROTOBUF_NODISCARD ::protos::RegisterResponse* release_register_response();
+  ::protos::RegisterResponse* mutable_register_response();
+  void set_allocated_register_response(::protos::RegisterResponse* register_response);
   private:
-  ::protos::AgentType _internal_agent_type() const;
-  void _internal_set_agent_type(::protos::AgentType value);
-
+  const ::protos::RegisterResponse& _internal_register_response() const;
+  ::protos::RegisterResponse* _internal_mutable_register_response();
   public:
+  void unsafe_arena_set_allocated_register_response(
+      ::protos::RegisterResponse* register_response);
+  ::protos::RegisterResponse* unsafe_arena_release_register_response();
   // float inertia_moment = 2;
   void clear_inertia_moment() ;
   float inertia_moment() const;
@@ -27142,6 +27550,8 @@ class ServerParam final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr replay_file_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr landmark_file_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr text_log_dir_;
@@ -27157,7 +27567,7 @@ class ServerParam final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr coach_msg_file_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr fixed_teamname_l_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr fixed_teamname_r_;
-    int agent_type_;
+    ::protos::RegisterResponse* register_response_;
     float inertia_moment_;
     float player_size_;
     float player_decay_;
@@ -27364,7 +27774,6 @@ class ServerParam final :
     float penalty_area_half_width_;
     float penalty_area_length_;
     float goal_width_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -27426,7 +27835,7 @@ class PlayerParam final :
                &_PlayerParam_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    123;
+    125;
 
   friend void swap(PlayerParam& a, PlayerParam& b) {
     a.Swap(&b);
@@ -27498,7 +27907,7 @@ class PlayerParam final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kAgentTypeFieldNumber = 1,
+    kRegisterResponseFieldNumber = 1,
     kPlayerTypesFieldNumber = 2,
     kSubsMaxFieldNumber = 3,
     kPtMaxFieldNumber = 4,
@@ -27529,16 +27938,20 @@ class PlayerParam final :
     kCatchableAreaLStretchMinFieldNumber = 29,
     kCatchableAreaLStretchMaxFieldNumber = 30,
   };
-  // .protos.AgentType agent_type = 1;
-  void clear_agent_type() ;
-  ::protos::AgentType agent_type() const;
-  void set_agent_type(::protos::AgentType value);
-
+  // .protos.RegisterResponse register_response = 1;
+  bool has_register_response() const;
+  void clear_register_response() ;
+  const ::protos::RegisterResponse& register_response() const;
+  PROTOBUF_NODISCARD ::protos::RegisterResponse* release_register_response();
+  ::protos::RegisterResponse* mutable_register_response();
+  void set_allocated_register_response(::protos::RegisterResponse* register_response);
   private:
-  ::protos::AgentType _internal_agent_type() const;
-  void _internal_set_agent_type(::protos::AgentType value);
-
+  const ::protos::RegisterResponse& _internal_register_response() const;
+  ::protos::RegisterResponse* _internal_mutable_register_response();
   public:
+  void unsafe_arena_set_allocated_register_response(
+      ::protos::RegisterResponse* register_response);
+  ::protos::RegisterResponse* unsafe_arena_release_register_response();
   // int32 player_types = 2;
   void clear_player_types() ;
   ::int32_t player_types() const;
@@ -27837,7 +28250,9 @@ class PlayerParam final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    int agent_type_;
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::protos::RegisterResponse* register_response_;
     ::int32_t player_types_;
     ::int32_t subs_max_;
     ::int32_t pt_max_;
@@ -27867,7 +28282,6 @@ class PlayerParam final :
     float foul_detect_probability_delta_factor_;
     float catchable_area_l_stretch_min_;
     float catchable_area_l_stretch_max_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -27929,7 +28343,7 @@ class PlayerType final :
                &_PlayerType_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    124;
+    126;
 
   friend void swap(PlayerType& a, PlayerType& b) {
     a.Swap(&b);
@@ -28001,7 +28415,7 @@ class PlayerType final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kAgentTypeFieldNumber = 1,
+    kRegisterResponseFieldNumber = 1,
     kIdFieldNumber = 2,
     kStaminaIncMaxFieldNumber = 3,
     kPlayerDecayFieldNumber = 4,
@@ -28036,16 +28450,20 @@ class PlayerType final :
     kCyclesToReachMaxSpeedFieldNumber = 33,
     kPlayerSpeedMaxFieldNumber = 34,
   };
-  // .protos.AgentType agent_type = 1;
-  void clear_agent_type() ;
-  ::protos::AgentType agent_type() const;
-  void set_agent_type(::protos::AgentType value);
-
+  // .protos.RegisterResponse register_response = 1;
+  bool has_register_response() const;
+  void clear_register_response() ;
+  const ::protos::RegisterResponse& register_response() const;
+  PROTOBUF_NODISCARD ::protos::RegisterResponse* release_register_response();
+  ::protos::RegisterResponse* mutable_register_response();
+  void set_allocated_register_response(::protos::RegisterResponse* register_response);
   private:
-  ::protos::AgentType _internal_agent_type() const;
-  void _internal_set_agent_type(::protos::AgentType value);
-
+  const ::protos::RegisterResponse& _internal_register_response() const;
+  ::protos::RegisterResponse* _internal_mutable_register_response();
   public:
+  void unsafe_arena_set_allocated_register_response(
+      ::protos::RegisterResponse* register_response);
+  ::protos::RegisterResponse* unsafe_arena_release_register_response();
   // int32 id = 2;
   void clear_id() ;
   ::int32_t id() const;
@@ -28384,7 +28802,9 @@ class PlayerType final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    int agent_type_;
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::protos::RegisterResponse* register_response_;
     ::int32_t id_;
     float stamina_inc_max_;
     float player_decay_;
@@ -28418,7 +28838,6 @@ class PlayerType final :
     float real_speed_max2_;
     ::int32_t cycles_to_reach_max_speed_;
     float player_speed_max_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -28479,7 +28898,7 @@ class Empty final :
                &_Empty_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    125;
+    127;
 
   friend void swap(Empty& a, Empty& b) {
     a.Swap(&b);
@@ -28546,130 +28965,6 @@ class Empty final :
   struct Impl_ {
   };
   friend struct ::TableStruct_service_2eproto;
-};// -------------------------------------------------------------------
-
-class InitMessageFromServer final :
-    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:protos.InitMessageFromServer) */ {
- public:
-  inline InitMessageFromServer() : InitMessageFromServer(nullptr) {}
-  template<typename = void>
-  explicit PROTOBUF_CONSTEXPR InitMessageFromServer(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  InitMessageFromServer(const InitMessageFromServer& from);
-  InitMessageFromServer(InitMessageFromServer&& from) noexcept
-    : InitMessageFromServer() {
-    *this = ::std::move(from);
-  }
-
-  inline InitMessageFromServer& operator=(const InitMessageFromServer& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline InitMessageFromServer& operator=(InitMessageFromServer&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
-  }
-  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const InitMessageFromServer& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const InitMessageFromServer* internal_default_instance() {
-    return reinterpret_cast<const InitMessageFromServer*>(
-               &_InitMessageFromServer_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    126;
-
-  friend void swap(InitMessageFromServer& a, InitMessageFromServer& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(InitMessageFromServer* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(InitMessageFromServer* other) {
-    if (other == this) return;
-    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  InitMessageFromServer* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<InitMessageFromServer>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyFrom;
-  inline void CopyFrom(const InitMessageFromServer& from) {
-    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl(*this, from);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeFrom;
-  void MergeFrom(const InitMessageFromServer& from) {
-    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl(*this, from);
-  }
-  public:
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::absl::string_view FullMessageName() {
-    return "protos.InitMessageFromServer";
-  }
-  protected:
-  explicit InitMessageFromServer(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // @@protoc_insertion_point(class_scope:protos.InitMessageFromServer)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-  };
-  friend struct ::TableStruct_service_2eproto;
 };
 
 // ===================================================================
@@ -28686,93 +28981,295 @@ class InitMessageFromServer final :
 #endif  // __GNUC__
 // -------------------------------------------------------------------
 
-// Vector2D
+// RpcVector2D
 
 // float x = 1;
-inline void Vector2D::clear_x() {
+inline void RpcVector2D::clear_x() {
   _impl_.x_ = 0;
 }
-inline float Vector2D::x() const {
-  // @@protoc_insertion_point(field_get:protos.Vector2D.x)
+inline float RpcVector2D::x() const {
+  // @@protoc_insertion_point(field_get:protos.RpcVector2D.x)
   return _internal_x();
 }
-inline void Vector2D::set_x(float value) {
+inline void RpcVector2D::set_x(float value) {
   _internal_set_x(value);
-  // @@protoc_insertion_point(field_set:protos.Vector2D.x)
+  // @@protoc_insertion_point(field_set:protos.RpcVector2D.x)
 }
-inline float Vector2D::_internal_x() const {
+inline float RpcVector2D::_internal_x() const {
   return _impl_.x_;
 }
-inline void Vector2D::_internal_set_x(float value) {
+inline void RpcVector2D::_internal_set_x(float value) {
   ;
   _impl_.x_ = value;
 }
 
 // float y = 2;
-inline void Vector2D::clear_y() {
+inline void RpcVector2D::clear_y() {
   _impl_.y_ = 0;
 }
-inline float Vector2D::y() const {
-  // @@protoc_insertion_point(field_get:protos.Vector2D.y)
+inline float RpcVector2D::y() const {
+  // @@protoc_insertion_point(field_get:protos.RpcVector2D.y)
   return _internal_y();
 }
-inline void Vector2D::set_y(float value) {
+inline void RpcVector2D::set_y(float value) {
   _internal_set_y(value);
-  // @@protoc_insertion_point(field_set:protos.Vector2D.y)
+  // @@protoc_insertion_point(field_set:protos.RpcVector2D.y)
 }
-inline float Vector2D::_internal_y() const {
+inline float RpcVector2D::_internal_y() const {
   return _impl_.y_;
 }
-inline void Vector2D::_internal_set_y(float value) {
+inline void RpcVector2D::_internal_set_y(float value) {
   ;
   _impl_.y_ = value;
 }
 
 // float dist = 3;
-inline void Vector2D::clear_dist() {
+inline void RpcVector2D::clear_dist() {
   _impl_.dist_ = 0;
 }
-inline float Vector2D::dist() const {
-  // @@protoc_insertion_point(field_get:protos.Vector2D.dist)
+inline float RpcVector2D::dist() const {
+  // @@protoc_insertion_point(field_get:protos.RpcVector2D.dist)
   return _internal_dist();
 }
-inline void Vector2D::set_dist(float value) {
+inline void RpcVector2D::set_dist(float value) {
   _internal_set_dist(value);
-  // @@protoc_insertion_point(field_set:protos.Vector2D.dist)
+  // @@protoc_insertion_point(field_set:protos.RpcVector2D.dist)
 }
-inline float Vector2D::_internal_dist() const {
+inline float RpcVector2D::_internal_dist() const {
   return _impl_.dist_;
 }
-inline void Vector2D::_internal_set_dist(float value) {
+inline void RpcVector2D::_internal_set_dist(float value) {
   ;
   _impl_.dist_ = value;
 }
 
 // float angle = 4;
-inline void Vector2D::clear_angle() {
+inline void RpcVector2D::clear_angle() {
   _impl_.angle_ = 0;
 }
-inline float Vector2D::angle() const {
-  // @@protoc_insertion_point(field_get:protos.Vector2D.angle)
+inline float RpcVector2D::angle() const {
+  // @@protoc_insertion_point(field_get:protos.RpcVector2D.angle)
   return _internal_angle();
 }
-inline void Vector2D::set_angle(float value) {
+inline void RpcVector2D::set_angle(float value) {
   _internal_set_angle(value);
-  // @@protoc_insertion_point(field_set:protos.Vector2D.angle)
+  // @@protoc_insertion_point(field_set:protos.RpcVector2D.angle)
 }
-inline float Vector2D::_internal_angle() const {
+inline float RpcVector2D::_internal_angle() const {
   return _impl_.angle_;
 }
-inline void Vector2D::_internal_set_angle(float value) {
+inline void RpcVector2D::_internal_set_angle(float value) {
   ;
   _impl_.angle_ = value;
 }
 
 // -------------------------------------------------------------------
 
+// RegisterRequest
+
+// .protos.AgentType agent_type = 1;
+inline void RegisterRequest::clear_agent_type() {
+  _impl_.agent_type_ = 0;
+}
+inline ::protos::AgentType RegisterRequest::agent_type() const {
+  // @@protoc_insertion_point(field_get:protos.RegisterRequest.agent_type)
+  return _internal_agent_type();
+}
+inline void RegisterRequest::set_agent_type(::protos::AgentType value) {
+   _internal_set_agent_type(value);
+  // @@protoc_insertion_point(field_set:protos.RegisterRequest.agent_type)
+}
+inline ::protos::AgentType RegisterRequest::_internal_agent_type() const {
+  return static_cast<::protos::AgentType>(_impl_.agent_type_);
+}
+inline void RegisterRequest::_internal_set_agent_type(::protos::AgentType value) {
+  ;
+  _impl_.agent_type_ = value;
+}
+
+// string team_name = 2;
+inline void RegisterRequest::clear_team_name() {
+  _impl_.team_name_.ClearToEmpty();
+}
+inline const std::string& RegisterRequest::team_name() const {
+  // @@protoc_insertion_point(field_get:protos.RegisterRequest.team_name)
+  return _internal_team_name();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void RegisterRequest::set_team_name(Arg_&& arg,
+                                                     Args_... args) {
+  ;
+  _impl_.team_name_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:protos.RegisterRequest.team_name)
+}
+inline std::string* RegisterRequest::mutable_team_name() {
+  std::string* _s = _internal_mutable_team_name();
+  // @@protoc_insertion_point(field_mutable:protos.RegisterRequest.team_name)
+  return _s;
+}
+inline const std::string& RegisterRequest::_internal_team_name() const {
+  return _impl_.team_name_.Get();
+}
+inline void RegisterRequest::_internal_set_team_name(const std::string& value) {
+  ;
+
+
+  _impl_.team_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RegisterRequest::_internal_mutable_team_name() {
+  ;
+  return _impl_.team_name_.Mutable( GetArenaForAllocation());
+}
+inline std::string* RegisterRequest::release_team_name() {
+  // @@protoc_insertion_point(field_release:protos.RegisterRequest.team_name)
+  return _impl_.team_name_.Release();
+}
+inline void RegisterRequest::set_allocated_team_name(std::string* value) {
+  _impl_.team_name_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.team_name_.IsDefault()) {
+          _impl_.team_name_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:protos.RegisterRequest.team_name)
+}
+
+// int32 uniform_number = 3;
+inline void RegisterRequest::clear_uniform_number() {
+  _impl_.uniform_number_ = 0;
+}
+inline ::int32_t RegisterRequest::uniform_number() const {
+  // @@protoc_insertion_point(field_get:protos.RegisterRequest.uniform_number)
+  return _internal_uniform_number();
+}
+inline void RegisterRequest::set_uniform_number(::int32_t value) {
+  _internal_set_uniform_number(value);
+  // @@protoc_insertion_point(field_set:protos.RegisterRequest.uniform_number)
+}
+inline ::int32_t RegisterRequest::_internal_uniform_number() const {
+  return _impl_.uniform_number_;
+}
+inline void RegisterRequest::_internal_set_uniform_number(::int32_t value) {
+  ;
+  _impl_.uniform_number_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// RegisterResponse
+
+// int32 client_id = 1;
+inline void RegisterResponse::clear_client_id() {
+  _impl_.client_id_ = 0;
+}
+inline ::int32_t RegisterResponse::client_id() const {
+  // @@protoc_insertion_point(field_get:protos.RegisterResponse.client_id)
+  return _internal_client_id();
+}
+inline void RegisterResponse::set_client_id(::int32_t value) {
+  _internal_set_client_id(value);
+  // @@protoc_insertion_point(field_set:protos.RegisterResponse.client_id)
+}
+inline ::int32_t RegisterResponse::_internal_client_id() const {
+  return _impl_.client_id_;
+}
+inline void RegisterResponse::_internal_set_client_id(::int32_t value) {
+  ;
+  _impl_.client_id_ = value;
+}
+
+// .protos.AgentType agent_type = 2;
+inline void RegisterResponse::clear_agent_type() {
+  _impl_.agent_type_ = 0;
+}
+inline ::protos::AgentType RegisterResponse::agent_type() const {
+  // @@protoc_insertion_point(field_get:protos.RegisterResponse.agent_type)
+  return _internal_agent_type();
+}
+inline void RegisterResponse::set_agent_type(::protos::AgentType value) {
+   _internal_set_agent_type(value);
+  // @@protoc_insertion_point(field_set:protos.RegisterResponse.agent_type)
+}
+inline ::protos::AgentType RegisterResponse::_internal_agent_type() const {
+  return static_cast<::protos::AgentType>(_impl_.agent_type_);
+}
+inline void RegisterResponse::_internal_set_agent_type(::protos::AgentType value) {
+  ;
+  _impl_.agent_type_ = value;
+}
+
+// string team_name = 3;
+inline void RegisterResponse::clear_team_name() {
+  _impl_.team_name_.ClearToEmpty();
+}
+inline const std::string& RegisterResponse::team_name() const {
+  // @@protoc_insertion_point(field_get:protos.RegisterResponse.team_name)
+  return _internal_team_name();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void RegisterResponse::set_team_name(Arg_&& arg,
+                                                     Args_... args) {
+  ;
+  _impl_.team_name_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:protos.RegisterResponse.team_name)
+}
+inline std::string* RegisterResponse::mutable_team_name() {
+  std::string* _s = _internal_mutable_team_name();
+  // @@protoc_insertion_point(field_mutable:protos.RegisterResponse.team_name)
+  return _s;
+}
+inline const std::string& RegisterResponse::_internal_team_name() const {
+  return _impl_.team_name_.Get();
+}
+inline void RegisterResponse::_internal_set_team_name(const std::string& value) {
+  ;
+
+
+  _impl_.team_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RegisterResponse::_internal_mutable_team_name() {
+  ;
+  return _impl_.team_name_.Mutable( GetArenaForAllocation());
+}
+inline std::string* RegisterResponse::release_team_name() {
+  // @@protoc_insertion_point(field_release:protos.RegisterResponse.team_name)
+  return _impl_.team_name_.Release();
+}
+inline void RegisterResponse::set_allocated_team_name(std::string* value) {
+  _impl_.team_name_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.team_name_.IsDefault()) {
+          _impl_.team_name_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:protos.RegisterResponse.team_name)
+}
+
+// int32 uniform_number = 4;
+inline void RegisterResponse::clear_uniform_number() {
+  _impl_.uniform_number_ = 0;
+}
+inline ::int32_t RegisterResponse::uniform_number() const {
+  // @@protoc_insertion_point(field_get:protos.RegisterResponse.uniform_number)
+  return _internal_uniform_number();
+}
+inline void RegisterResponse::set_uniform_number(::int32_t value) {
+  _internal_set_uniform_number(value);
+  // @@protoc_insertion_point(field_set:protos.RegisterResponse.uniform_number)
+}
+inline ::int32_t RegisterResponse::_internal_uniform_number() const {
+  return _impl_.uniform_number_;
+}
+inline void RegisterResponse::_internal_set_uniform_number(::int32_t value) {
+  ;
+  _impl_.uniform_number_ = value;
+}
+
+// -------------------------------------------------------------------
+
 // Ball
 
-// .protos.Vector2D position = 1;
+// .protos.RpcVector2D position = 1;
 inline bool Ball::has_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.position_ != nullptr);
@@ -28782,17 +29279,17 @@ inline void Ball::clear_position() {
   if (_impl_.position_ != nullptr) _impl_.position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Ball::_internal_position() const {
-  const ::protos::Vector2D* p = _impl_.position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Ball::_internal_position() const {
+  const ::protos::RpcVector2D* p = _impl_.position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Ball::position() const {
+inline const ::protos::RpcVector2D& Ball::position() const {
   // @@protoc_insertion_point(field_get:protos.Ball.position)
   return _internal_position();
 }
 inline void Ball::unsafe_arena_set_allocated_position(
-    ::protos::Vector2D* position) {
+    ::protos::RpcVector2D* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
   }
@@ -28804,9 +29301,9 @@ inline void Ball::unsafe_arena_set_allocated_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Ball.position)
 }
-inline ::protos::Vector2D* Ball::release_position() {
+inline ::protos::RpcVector2D* Ball::release_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -28819,27 +29316,27 @@ inline ::protos::Vector2D* Ball::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Ball::unsafe_arena_release_position() {
+inline ::protos::RpcVector2D* Ball::unsafe_arena_release_position() {
   // @@protoc_insertion_point(field_release:protos.Ball.position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Ball::_internal_mutable_position() {
+inline ::protos::RpcVector2D* Ball::_internal_mutable_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.position_ = p;
   }
   return _impl_.position_;
 }
-inline ::protos::Vector2D* Ball::mutable_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_position();
+inline ::protos::RpcVector2D* Ball::mutable_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_position();
   // @@protoc_insertion_point(field_mutable:protos.Ball.position)
   return _msg;
 }
-inline void Ball::set_allocated_position(::protos::Vector2D* position) {
+inline void Ball::set_allocated_position(::protos::RpcVector2D* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.position_;
@@ -28859,7 +29356,7 @@ inline void Ball::set_allocated_position(::protos::Vector2D* position) {
   // @@protoc_insertion_point(field_set_allocated:protos.Ball.position)
 }
 
-// .protos.Vector2D relative_position = 2;
+// .protos.RpcVector2D relative_position = 2;
 inline bool Ball::has_relative_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.relative_position_ != nullptr);
@@ -28869,17 +29366,17 @@ inline void Ball::clear_relative_position() {
   if (_impl_.relative_position_ != nullptr) _impl_.relative_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::Vector2D& Ball::_internal_relative_position() const {
-  const ::protos::Vector2D* p = _impl_.relative_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Ball::_internal_relative_position() const {
+  const ::protos::RpcVector2D* p = _impl_.relative_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Ball::relative_position() const {
+inline const ::protos::RpcVector2D& Ball::relative_position() const {
   // @@protoc_insertion_point(field_get:protos.Ball.relative_position)
   return _internal_relative_position();
 }
 inline void Ball::unsafe_arena_set_allocated_relative_position(
-    ::protos::Vector2D* relative_position) {
+    ::protos::RpcVector2D* relative_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.relative_position_);
   }
@@ -28891,9 +29388,9 @@ inline void Ball::unsafe_arena_set_allocated_relative_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Ball.relative_position)
 }
-inline ::protos::Vector2D* Ball::release_relative_position() {
+inline ::protos::RpcVector2D* Ball::release_relative_position() {
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.relative_position_;
+  ::protos::RpcVector2D* temp = _impl_.relative_position_;
   _impl_.relative_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -28906,27 +29403,27 @@ inline ::protos::Vector2D* Ball::release_relative_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Ball::unsafe_arena_release_relative_position() {
+inline ::protos::RpcVector2D* Ball::unsafe_arena_release_relative_position() {
   // @@protoc_insertion_point(field_release:protos.Ball.relative_position)
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.relative_position_;
+  ::protos::RpcVector2D* temp = _impl_.relative_position_;
   _impl_.relative_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Ball::_internal_mutable_relative_position() {
+inline ::protos::RpcVector2D* Ball::_internal_mutable_relative_position() {
   _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.relative_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.relative_position_ = p;
   }
   return _impl_.relative_position_;
 }
-inline ::protos::Vector2D* Ball::mutable_relative_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_relative_position();
+inline ::protos::RpcVector2D* Ball::mutable_relative_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_relative_position();
   // @@protoc_insertion_point(field_mutable:protos.Ball.relative_position)
   return _msg;
 }
-inline void Ball::set_allocated_relative_position(::protos::Vector2D* relative_position) {
+inline void Ball::set_allocated_relative_position(::protos::RpcVector2D* relative_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.relative_position_;
@@ -28946,7 +29443,7 @@ inline void Ball::set_allocated_relative_position(::protos::Vector2D* relative_p
   // @@protoc_insertion_point(field_set_allocated:protos.Ball.relative_position)
 }
 
-// .protos.Vector2D seen_position = 3;
+// .protos.RpcVector2D seen_position = 3;
 inline bool Ball::has_seen_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.seen_position_ != nullptr);
@@ -28956,17 +29453,17 @@ inline void Ball::clear_seen_position() {
   if (_impl_.seen_position_ != nullptr) _impl_.seen_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000004u;
 }
-inline const ::protos::Vector2D& Ball::_internal_seen_position() const {
-  const ::protos::Vector2D* p = _impl_.seen_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Ball::_internal_seen_position() const {
+  const ::protos::RpcVector2D* p = _impl_.seen_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Ball::seen_position() const {
+inline const ::protos::RpcVector2D& Ball::seen_position() const {
   // @@protoc_insertion_point(field_get:protos.Ball.seen_position)
   return _internal_seen_position();
 }
 inline void Ball::unsafe_arena_set_allocated_seen_position(
-    ::protos::Vector2D* seen_position) {
+    ::protos::RpcVector2D* seen_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.seen_position_);
   }
@@ -28978,9 +29475,9 @@ inline void Ball::unsafe_arena_set_allocated_seen_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Ball.seen_position)
 }
-inline ::protos::Vector2D* Ball::release_seen_position() {
+inline ::protos::RpcVector2D* Ball::release_seen_position() {
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.seen_position_;
+  ::protos::RpcVector2D* temp = _impl_.seen_position_;
   _impl_.seen_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -28993,27 +29490,27 @@ inline ::protos::Vector2D* Ball::release_seen_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Ball::unsafe_arena_release_seen_position() {
+inline ::protos::RpcVector2D* Ball::unsafe_arena_release_seen_position() {
   // @@protoc_insertion_point(field_release:protos.Ball.seen_position)
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.seen_position_;
+  ::protos::RpcVector2D* temp = _impl_.seen_position_;
   _impl_.seen_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Ball::_internal_mutable_seen_position() {
+inline ::protos::RpcVector2D* Ball::_internal_mutable_seen_position() {
   _impl_._has_bits_[0] |= 0x00000004u;
   if (_impl_.seen_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.seen_position_ = p;
   }
   return _impl_.seen_position_;
 }
-inline ::protos::Vector2D* Ball::mutable_seen_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_seen_position();
+inline ::protos::RpcVector2D* Ball::mutable_seen_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_seen_position();
   // @@protoc_insertion_point(field_mutable:protos.Ball.seen_position)
   return _msg;
 }
-inline void Ball::set_allocated_seen_position(::protos::Vector2D* seen_position) {
+inline void Ball::set_allocated_seen_position(::protos::RpcVector2D* seen_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.seen_position_;
@@ -29033,7 +29530,7 @@ inline void Ball::set_allocated_seen_position(::protos::Vector2D* seen_position)
   // @@protoc_insertion_point(field_set_allocated:protos.Ball.seen_position)
 }
 
-// .protos.Vector2D heard_position = 4;
+// .protos.RpcVector2D heard_position = 4;
 inline bool Ball::has_heard_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.heard_position_ != nullptr);
@@ -29043,17 +29540,17 @@ inline void Ball::clear_heard_position() {
   if (_impl_.heard_position_ != nullptr) _impl_.heard_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000008u;
 }
-inline const ::protos::Vector2D& Ball::_internal_heard_position() const {
-  const ::protos::Vector2D* p = _impl_.heard_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Ball::_internal_heard_position() const {
+  const ::protos::RpcVector2D* p = _impl_.heard_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Ball::heard_position() const {
+inline const ::protos::RpcVector2D& Ball::heard_position() const {
   // @@protoc_insertion_point(field_get:protos.Ball.heard_position)
   return _internal_heard_position();
 }
 inline void Ball::unsafe_arena_set_allocated_heard_position(
-    ::protos::Vector2D* heard_position) {
+    ::protos::RpcVector2D* heard_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.heard_position_);
   }
@@ -29065,9 +29562,9 @@ inline void Ball::unsafe_arena_set_allocated_heard_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Ball.heard_position)
 }
-inline ::protos::Vector2D* Ball::release_heard_position() {
+inline ::protos::RpcVector2D* Ball::release_heard_position() {
   _impl_._has_bits_[0] &= ~0x00000008u;
-  ::protos::Vector2D* temp = _impl_.heard_position_;
+  ::protos::RpcVector2D* temp = _impl_.heard_position_;
   _impl_.heard_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -29080,27 +29577,27 @@ inline ::protos::Vector2D* Ball::release_heard_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Ball::unsafe_arena_release_heard_position() {
+inline ::protos::RpcVector2D* Ball::unsafe_arena_release_heard_position() {
   // @@protoc_insertion_point(field_release:protos.Ball.heard_position)
   _impl_._has_bits_[0] &= ~0x00000008u;
-  ::protos::Vector2D* temp = _impl_.heard_position_;
+  ::protos::RpcVector2D* temp = _impl_.heard_position_;
   _impl_.heard_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Ball::_internal_mutable_heard_position() {
+inline ::protos::RpcVector2D* Ball::_internal_mutable_heard_position() {
   _impl_._has_bits_[0] |= 0x00000008u;
   if (_impl_.heard_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.heard_position_ = p;
   }
   return _impl_.heard_position_;
 }
-inline ::protos::Vector2D* Ball::mutable_heard_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_heard_position();
+inline ::protos::RpcVector2D* Ball::mutable_heard_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_heard_position();
   // @@protoc_insertion_point(field_mutable:protos.Ball.heard_position)
   return _msg;
 }
-inline void Ball::set_allocated_heard_position(::protos::Vector2D* heard_position) {
+inline void Ball::set_allocated_heard_position(::protos::RpcVector2D* heard_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.heard_position_;
@@ -29120,7 +29617,7 @@ inline void Ball::set_allocated_heard_position(::protos::Vector2D* heard_positio
   // @@protoc_insertion_point(field_set_allocated:protos.Ball.heard_position)
 }
 
-// .protos.Vector2D velocity = 5;
+// .protos.RpcVector2D velocity = 5;
 inline bool Ball::has_velocity() const {
   bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.velocity_ != nullptr);
@@ -29130,17 +29627,17 @@ inline void Ball::clear_velocity() {
   if (_impl_.velocity_ != nullptr) _impl_.velocity_->Clear();
   _impl_._has_bits_[0] &= ~0x00000010u;
 }
-inline const ::protos::Vector2D& Ball::_internal_velocity() const {
-  const ::protos::Vector2D* p = _impl_.velocity_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Ball::_internal_velocity() const {
+  const ::protos::RpcVector2D* p = _impl_.velocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Ball::velocity() const {
+inline const ::protos::RpcVector2D& Ball::velocity() const {
   // @@protoc_insertion_point(field_get:protos.Ball.velocity)
   return _internal_velocity();
 }
 inline void Ball::unsafe_arena_set_allocated_velocity(
-    ::protos::Vector2D* velocity) {
+    ::protos::RpcVector2D* velocity) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.velocity_);
   }
@@ -29152,9 +29649,9 @@ inline void Ball::unsafe_arena_set_allocated_velocity(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Ball.velocity)
 }
-inline ::protos::Vector2D* Ball::release_velocity() {
+inline ::protos::RpcVector2D* Ball::release_velocity() {
   _impl_._has_bits_[0] &= ~0x00000010u;
-  ::protos::Vector2D* temp = _impl_.velocity_;
+  ::protos::RpcVector2D* temp = _impl_.velocity_;
   _impl_.velocity_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -29167,27 +29664,27 @@ inline ::protos::Vector2D* Ball::release_velocity() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Ball::unsafe_arena_release_velocity() {
+inline ::protos::RpcVector2D* Ball::unsafe_arena_release_velocity() {
   // @@protoc_insertion_point(field_release:protos.Ball.velocity)
   _impl_._has_bits_[0] &= ~0x00000010u;
-  ::protos::Vector2D* temp = _impl_.velocity_;
+  ::protos::RpcVector2D* temp = _impl_.velocity_;
   _impl_.velocity_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Ball::_internal_mutable_velocity() {
+inline ::protos::RpcVector2D* Ball::_internal_mutable_velocity() {
   _impl_._has_bits_[0] |= 0x00000010u;
   if (_impl_.velocity_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.velocity_ = p;
   }
   return _impl_.velocity_;
 }
-inline ::protos::Vector2D* Ball::mutable_velocity() {
-  ::protos::Vector2D* _msg = _internal_mutable_velocity();
+inline ::protos::RpcVector2D* Ball::mutable_velocity() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_velocity();
   // @@protoc_insertion_point(field_mutable:protos.Ball.velocity)
   return _msg;
 }
-inline void Ball::set_allocated_velocity(::protos::Vector2D* velocity) {
+inline void Ball::set_allocated_velocity(::protos::RpcVector2D* velocity) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.velocity_;
@@ -29207,7 +29704,7 @@ inline void Ball::set_allocated_velocity(::protos::Vector2D* velocity) {
   // @@protoc_insertion_point(field_set_allocated:protos.Ball.velocity)
 }
 
-// .protos.Vector2D seen_velocity = 6;
+// .protos.RpcVector2D seen_velocity = 6;
 inline bool Ball::has_seen_velocity() const {
   bool value = (_impl_._has_bits_[0] & 0x00000020u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.seen_velocity_ != nullptr);
@@ -29217,17 +29714,17 @@ inline void Ball::clear_seen_velocity() {
   if (_impl_.seen_velocity_ != nullptr) _impl_.seen_velocity_->Clear();
   _impl_._has_bits_[0] &= ~0x00000020u;
 }
-inline const ::protos::Vector2D& Ball::_internal_seen_velocity() const {
-  const ::protos::Vector2D* p = _impl_.seen_velocity_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Ball::_internal_seen_velocity() const {
+  const ::protos::RpcVector2D* p = _impl_.seen_velocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Ball::seen_velocity() const {
+inline const ::protos::RpcVector2D& Ball::seen_velocity() const {
   // @@protoc_insertion_point(field_get:protos.Ball.seen_velocity)
   return _internal_seen_velocity();
 }
 inline void Ball::unsafe_arena_set_allocated_seen_velocity(
-    ::protos::Vector2D* seen_velocity) {
+    ::protos::RpcVector2D* seen_velocity) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.seen_velocity_);
   }
@@ -29239,9 +29736,9 @@ inline void Ball::unsafe_arena_set_allocated_seen_velocity(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Ball.seen_velocity)
 }
-inline ::protos::Vector2D* Ball::release_seen_velocity() {
+inline ::protos::RpcVector2D* Ball::release_seen_velocity() {
   _impl_._has_bits_[0] &= ~0x00000020u;
-  ::protos::Vector2D* temp = _impl_.seen_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.seen_velocity_;
   _impl_.seen_velocity_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -29254,27 +29751,27 @@ inline ::protos::Vector2D* Ball::release_seen_velocity() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Ball::unsafe_arena_release_seen_velocity() {
+inline ::protos::RpcVector2D* Ball::unsafe_arena_release_seen_velocity() {
   // @@protoc_insertion_point(field_release:protos.Ball.seen_velocity)
   _impl_._has_bits_[0] &= ~0x00000020u;
-  ::protos::Vector2D* temp = _impl_.seen_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.seen_velocity_;
   _impl_.seen_velocity_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Ball::_internal_mutable_seen_velocity() {
+inline ::protos::RpcVector2D* Ball::_internal_mutable_seen_velocity() {
   _impl_._has_bits_[0] |= 0x00000020u;
   if (_impl_.seen_velocity_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.seen_velocity_ = p;
   }
   return _impl_.seen_velocity_;
 }
-inline ::protos::Vector2D* Ball::mutable_seen_velocity() {
-  ::protos::Vector2D* _msg = _internal_mutable_seen_velocity();
+inline ::protos::RpcVector2D* Ball::mutable_seen_velocity() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_seen_velocity();
   // @@protoc_insertion_point(field_mutable:protos.Ball.seen_velocity)
   return _msg;
 }
-inline void Ball::set_allocated_seen_velocity(::protos::Vector2D* seen_velocity) {
+inline void Ball::set_allocated_seen_velocity(::protos::RpcVector2D* seen_velocity) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.seen_velocity_;
@@ -29294,7 +29791,7 @@ inline void Ball::set_allocated_seen_velocity(::protos::Vector2D* seen_velocity)
   // @@protoc_insertion_point(field_set_allocated:protos.Ball.seen_velocity)
 }
 
-// .protos.Vector2D heard_velocity = 7;
+// .protos.RpcVector2D heard_velocity = 7;
 inline bool Ball::has_heard_velocity() const {
   bool value = (_impl_._has_bits_[0] & 0x00000040u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.heard_velocity_ != nullptr);
@@ -29304,17 +29801,17 @@ inline void Ball::clear_heard_velocity() {
   if (_impl_.heard_velocity_ != nullptr) _impl_.heard_velocity_->Clear();
   _impl_._has_bits_[0] &= ~0x00000040u;
 }
-inline const ::protos::Vector2D& Ball::_internal_heard_velocity() const {
-  const ::protos::Vector2D* p = _impl_.heard_velocity_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Ball::_internal_heard_velocity() const {
+  const ::protos::RpcVector2D* p = _impl_.heard_velocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Ball::heard_velocity() const {
+inline const ::protos::RpcVector2D& Ball::heard_velocity() const {
   // @@protoc_insertion_point(field_get:protos.Ball.heard_velocity)
   return _internal_heard_velocity();
 }
 inline void Ball::unsafe_arena_set_allocated_heard_velocity(
-    ::protos::Vector2D* heard_velocity) {
+    ::protos::RpcVector2D* heard_velocity) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.heard_velocity_);
   }
@@ -29326,9 +29823,9 @@ inline void Ball::unsafe_arena_set_allocated_heard_velocity(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Ball.heard_velocity)
 }
-inline ::protos::Vector2D* Ball::release_heard_velocity() {
+inline ::protos::RpcVector2D* Ball::release_heard_velocity() {
   _impl_._has_bits_[0] &= ~0x00000040u;
-  ::protos::Vector2D* temp = _impl_.heard_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.heard_velocity_;
   _impl_.heard_velocity_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -29341,27 +29838,27 @@ inline ::protos::Vector2D* Ball::release_heard_velocity() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Ball::unsafe_arena_release_heard_velocity() {
+inline ::protos::RpcVector2D* Ball::unsafe_arena_release_heard_velocity() {
   // @@protoc_insertion_point(field_release:protos.Ball.heard_velocity)
   _impl_._has_bits_[0] &= ~0x00000040u;
-  ::protos::Vector2D* temp = _impl_.heard_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.heard_velocity_;
   _impl_.heard_velocity_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Ball::_internal_mutable_heard_velocity() {
+inline ::protos::RpcVector2D* Ball::_internal_mutable_heard_velocity() {
   _impl_._has_bits_[0] |= 0x00000040u;
   if (_impl_.heard_velocity_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.heard_velocity_ = p;
   }
   return _impl_.heard_velocity_;
 }
-inline ::protos::Vector2D* Ball::mutable_heard_velocity() {
-  ::protos::Vector2D* _msg = _internal_mutable_heard_velocity();
+inline ::protos::RpcVector2D* Ball::mutable_heard_velocity() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_heard_velocity();
   // @@protoc_insertion_point(field_mutable:protos.Ball.heard_velocity)
   return _msg;
 }
-inline void Ball::set_allocated_heard_velocity(::protos::Vector2D* heard_velocity) {
+inline void Ball::set_allocated_heard_velocity(::protos::RpcVector2D* heard_velocity) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.heard_velocity_;
@@ -29585,7 +30082,7 @@ inline void Ball::_internal_set_angle_from_self(float value) {
 
 // Player
 
-// .protos.Vector2D position = 1;
+// .protos.RpcVector2D position = 1;
 inline bool Player::has_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.position_ != nullptr);
@@ -29595,17 +30092,17 @@ inline void Player::clear_position() {
   if (_impl_.position_ != nullptr) _impl_.position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Player::_internal_position() const {
-  const ::protos::Vector2D* p = _impl_.position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Player::_internal_position() const {
+  const ::protos::RpcVector2D* p = _impl_.position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Player::position() const {
+inline const ::protos::RpcVector2D& Player::position() const {
   // @@protoc_insertion_point(field_get:protos.Player.position)
   return _internal_position();
 }
 inline void Player::unsafe_arena_set_allocated_position(
-    ::protos::Vector2D* position) {
+    ::protos::RpcVector2D* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
   }
@@ -29617,9 +30114,9 @@ inline void Player::unsafe_arena_set_allocated_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Player.position)
 }
-inline ::protos::Vector2D* Player::release_position() {
+inline ::protos::RpcVector2D* Player::release_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -29632,27 +30129,27 @@ inline ::protos::Vector2D* Player::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Player::unsafe_arena_release_position() {
+inline ::protos::RpcVector2D* Player::unsafe_arena_release_position() {
   // @@protoc_insertion_point(field_release:protos.Player.position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Player::_internal_mutable_position() {
+inline ::protos::RpcVector2D* Player::_internal_mutable_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.position_ = p;
   }
   return _impl_.position_;
 }
-inline ::protos::Vector2D* Player::mutable_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_position();
+inline ::protos::RpcVector2D* Player::mutable_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_position();
   // @@protoc_insertion_point(field_mutable:protos.Player.position)
   return _msg;
 }
-inline void Player::set_allocated_position(::protos::Vector2D* position) {
+inline void Player::set_allocated_position(::protos::RpcVector2D* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.position_;
@@ -29672,7 +30169,7 @@ inline void Player::set_allocated_position(::protos::Vector2D* position) {
   // @@protoc_insertion_point(field_set_allocated:protos.Player.position)
 }
 
-// .protos.Vector2D seen_position = 2;
+// .protos.RpcVector2D seen_position = 2;
 inline bool Player::has_seen_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.seen_position_ != nullptr);
@@ -29682,17 +30179,17 @@ inline void Player::clear_seen_position() {
   if (_impl_.seen_position_ != nullptr) _impl_.seen_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::Vector2D& Player::_internal_seen_position() const {
-  const ::protos::Vector2D* p = _impl_.seen_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Player::_internal_seen_position() const {
+  const ::protos::RpcVector2D* p = _impl_.seen_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Player::seen_position() const {
+inline const ::protos::RpcVector2D& Player::seen_position() const {
   // @@protoc_insertion_point(field_get:protos.Player.seen_position)
   return _internal_seen_position();
 }
 inline void Player::unsafe_arena_set_allocated_seen_position(
-    ::protos::Vector2D* seen_position) {
+    ::protos::RpcVector2D* seen_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.seen_position_);
   }
@@ -29704,9 +30201,9 @@ inline void Player::unsafe_arena_set_allocated_seen_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Player.seen_position)
 }
-inline ::protos::Vector2D* Player::release_seen_position() {
+inline ::protos::RpcVector2D* Player::release_seen_position() {
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.seen_position_;
+  ::protos::RpcVector2D* temp = _impl_.seen_position_;
   _impl_.seen_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -29719,27 +30216,27 @@ inline ::protos::Vector2D* Player::release_seen_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Player::unsafe_arena_release_seen_position() {
+inline ::protos::RpcVector2D* Player::unsafe_arena_release_seen_position() {
   // @@protoc_insertion_point(field_release:protos.Player.seen_position)
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.seen_position_;
+  ::protos::RpcVector2D* temp = _impl_.seen_position_;
   _impl_.seen_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Player::_internal_mutable_seen_position() {
+inline ::protos::RpcVector2D* Player::_internal_mutable_seen_position() {
   _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.seen_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.seen_position_ = p;
   }
   return _impl_.seen_position_;
 }
-inline ::protos::Vector2D* Player::mutable_seen_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_seen_position();
+inline ::protos::RpcVector2D* Player::mutable_seen_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_seen_position();
   // @@protoc_insertion_point(field_mutable:protos.Player.seen_position)
   return _msg;
 }
-inline void Player::set_allocated_seen_position(::protos::Vector2D* seen_position) {
+inline void Player::set_allocated_seen_position(::protos::RpcVector2D* seen_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.seen_position_;
@@ -29759,7 +30256,7 @@ inline void Player::set_allocated_seen_position(::protos::Vector2D* seen_positio
   // @@protoc_insertion_point(field_set_allocated:protos.Player.seen_position)
 }
 
-// .protos.Vector2D heard_position = 3;
+// .protos.RpcVector2D heard_position = 3;
 inline bool Player::has_heard_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.heard_position_ != nullptr);
@@ -29769,17 +30266,17 @@ inline void Player::clear_heard_position() {
   if (_impl_.heard_position_ != nullptr) _impl_.heard_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000004u;
 }
-inline const ::protos::Vector2D& Player::_internal_heard_position() const {
-  const ::protos::Vector2D* p = _impl_.heard_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Player::_internal_heard_position() const {
+  const ::protos::RpcVector2D* p = _impl_.heard_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Player::heard_position() const {
+inline const ::protos::RpcVector2D& Player::heard_position() const {
   // @@protoc_insertion_point(field_get:protos.Player.heard_position)
   return _internal_heard_position();
 }
 inline void Player::unsafe_arena_set_allocated_heard_position(
-    ::protos::Vector2D* heard_position) {
+    ::protos::RpcVector2D* heard_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.heard_position_);
   }
@@ -29791,9 +30288,9 @@ inline void Player::unsafe_arena_set_allocated_heard_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Player.heard_position)
 }
-inline ::protos::Vector2D* Player::release_heard_position() {
+inline ::protos::RpcVector2D* Player::release_heard_position() {
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.heard_position_;
+  ::protos::RpcVector2D* temp = _impl_.heard_position_;
   _impl_.heard_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -29806,27 +30303,27 @@ inline ::protos::Vector2D* Player::release_heard_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Player::unsafe_arena_release_heard_position() {
+inline ::protos::RpcVector2D* Player::unsafe_arena_release_heard_position() {
   // @@protoc_insertion_point(field_release:protos.Player.heard_position)
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.heard_position_;
+  ::protos::RpcVector2D* temp = _impl_.heard_position_;
   _impl_.heard_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Player::_internal_mutable_heard_position() {
+inline ::protos::RpcVector2D* Player::_internal_mutable_heard_position() {
   _impl_._has_bits_[0] |= 0x00000004u;
   if (_impl_.heard_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.heard_position_ = p;
   }
   return _impl_.heard_position_;
 }
-inline ::protos::Vector2D* Player::mutable_heard_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_heard_position();
+inline ::protos::RpcVector2D* Player::mutable_heard_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_heard_position();
   // @@protoc_insertion_point(field_mutable:protos.Player.heard_position)
   return _msg;
 }
-inline void Player::set_allocated_heard_position(::protos::Vector2D* heard_position) {
+inline void Player::set_allocated_heard_position(::protos::RpcVector2D* heard_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.heard_position_;
@@ -29846,7 +30343,7 @@ inline void Player::set_allocated_heard_position(::protos::Vector2D* heard_posit
   // @@protoc_insertion_point(field_set_allocated:protos.Player.heard_position)
 }
 
-// .protos.Vector2D velocity = 4;
+// .protos.RpcVector2D velocity = 4;
 inline bool Player::has_velocity() const {
   bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.velocity_ != nullptr);
@@ -29856,17 +30353,17 @@ inline void Player::clear_velocity() {
   if (_impl_.velocity_ != nullptr) _impl_.velocity_->Clear();
   _impl_._has_bits_[0] &= ~0x00000008u;
 }
-inline const ::protos::Vector2D& Player::_internal_velocity() const {
-  const ::protos::Vector2D* p = _impl_.velocity_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Player::_internal_velocity() const {
+  const ::protos::RpcVector2D* p = _impl_.velocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Player::velocity() const {
+inline const ::protos::RpcVector2D& Player::velocity() const {
   // @@protoc_insertion_point(field_get:protos.Player.velocity)
   return _internal_velocity();
 }
 inline void Player::unsafe_arena_set_allocated_velocity(
-    ::protos::Vector2D* velocity) {
+    ::protos::RpcVector2D* velocity) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.velocity_);
   }
@@ -29878,9 +30375,9 @@ inline void Player::unsafe_arena_set_allocated_velocity(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Player.velocity)
 }
-inline ::protos::Vector2D* Player::release_velocity() {
+inline ::protos::RpcVector2D* Player::release_velocity() {
   _impl_._has_bits_[0] &= ~0x00000008u;
-  ::protos::Vector2D* temp = _impl_.velocity_;
+  ::protos::RpcVector2D* temp = _impl_.velocity_;
   _impl_.velocity_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -29893,27 +30390,27 @@ inline ::protos::Vector2D* Player::release_velocity() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Player::unsafe_arena_release_velocity() {
+inline ::protos::RpcVector2D* Player::unsafe_arena_release_velocity() {
   // @@protoc_insertion_point(field_release:protos.Player.velocity)
   _impl_._has_bits_[0] &= ~0x00000008u;
-  ::protos::Vector2D* temp = _impl_.velocity_;
+  ::protos::RpcVector2D* temp = _impl_.velocity_;
   _impl_.velocity_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Player::_internal_mutable_velocity() {
+inline ::protos::RpcVector2D* Player::_internal_mutable_velocity() {
   _impl_._has_bits_[0] |= 0x00000008u;
   if (_impl_.velocity_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.velocity_ = p;
   }
   return _impl_.velocity_;
 }
-inline ::protos::Vector2D* Player::mutable_velocity() {
-  ::protos::Vector2D* _msg = _internal_mutable_velocity();
+inline ::protos::RpcVector2D* Player::mutable_velocity() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_velocity();
   // @@protoc_insertion_point(field_mutable:protos.Player.velocity)
   return _msg;
 }
-inline void Player::set_allocated_velocity(::protos::Vector2D* velocity) {
+inline void Player::set_allocated_velocity(::protos::RpcVector2D* velocity) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.velocity_;
@@ -29933,7 +30430,7 @@ inline void Player::set_allocated_velocity(::protos::Vector2D* velocity) {
   // @@protoc_insertion_point(field_set_allocated:protos.Player.velocity)
 }
 
-// .protos.Vector2D seen_velocity = 5;
+// .protos.RpcVector2D seen_velocity = 5;
 inline bool Player::has_seen_velocity() const {
   bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.seen_velocity_ != nullptr);
@@ -29943,17 +30440,17 @@ inline void Player::clear_seen_velocity() {
   if (_impl_.seen_velocity_ != nullptr) _impl_.seen_velocity_->Clear();
   _impl_._has_bits_[0] &= ~0x00000010u;
 }
-inline const ::protos::Vector2D& Player::_internal_seen_velocity() const {
-  const ::protos::Vector2D* p = _impl_.seen_velocity_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Player::_internal_seen_velocity() const {
+  const ::protos::RpcVector2D* p = _impl_.seen_velocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Player::seen_velocity() const {
+inline const ::protos::RpcVector2D& Player::seen_velocity() const {
   // @@protoc_insertion_point(field_get:protos.Player.seen_velocity)
   return _internal_seen_velocity();
 }
 inline void Player::unsafe_arena_set_allocated_seen_velocity(
-    ::protos::Vector2D* seen_velocity) {
+    ::protos::RpcVector2D* seen_velocity) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.seen_velocity_);
   }
@@ -29965,9 +30462,9 @@ inline void Player::unsafe_arena_set_allocated_seen_velocity(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Player.seen_velocity)
 }
-inline ::protos::Vector2D* Player::release_seen_velocity() {
+inline ::protos::RpcVector2D* Player::release_seen_velocity() {
   _impl_._has_bits_[0] &= ~0x00000010u;
-  ::protos::Vector2D* temp = _impl_.seen_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.seen_velocity_;
   _impl_.seen_velocity_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -29980,27 +30477,27 @@ inline ::protos::Vector2D* Player::release_seen_velocity() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Player::unsafe_arena_release_seen_velocity() {
+inline ::protos::RpcVector2D* Player::unsafe_arena_release_seen_velocity() {
   // @@protoc_insertion_point(field_release:protos.Player.seen_velocity)
   _impl_._has_bits_[0] &= ~0x00000010u;
-  ::protos::Vector2D* temp = _impl_.seen_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.seen_velocity_;
   _impl_.seen_velocity_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Player::_internal_mutable_seen_velocity() {
+inline ::protos::RpcVector2D* Player::_internal_mutable_seen_velocity() {
   _impl_._has_bits_[0] |= 0x00000010u;
   if (_impl_.seen_velocity_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.seen_velocity_ = p;
   }
   return _impl_.seen_velocity_;
 }
-inline ::protos::Vector2D* Player::mutable_seen_velocity() {
-  ::protos::Vector2D* _msg = _internal_mutable_seen_velocity();
+inline ::protos::RpcVector2D* Player::mutable_seen_velocity() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_seen_velocity();
   // @@protoc_insertion_point(field_mutable:protos.Player.seen_velocity)
   return _msg;
 }
-inline void Player::set_allocated_seen_velocity(::protos::Vector2D* seen_velocity) {
+inline void Player::set_allocated_seen_velocity(::protos::RpcVector2D* seen_velocity) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.seen_velocity_;
@@ -30524,7 +31021,7 @@ inline void Player::_internal_set_type_id(::int32_t value) {
 
 // Self
 
-// .protos.Vector2D position = 1;
+// .protos.RpcVector2D position = 1;
 inline bool Self::has_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.position_ != nullptr);
@@ -30534,17 +31031,17 @@ inline void Self::clear_position() {
   if (_impl_.position_ != nullptr) _impl_.position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Self::_internal_position() const {
-  const ::protos::Vector2D* p = _impl_.position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Self::_internal_position() const {
+  const ::protos::RpcVector2D* p = _impl_.position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Self::position() const {
+inline const ::protos::RpcVector2D& Self::position() const {
   // @@protoc_insertion_point(field_get:protos.Self.position)
   return _internal_position();
 }
 inline void Self::unsafe_arena_set_allocated_position(
-    ::protos::Vector2D* position) {
+    ::protos::RpcVector2D* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
   }
@@ -30556,9 +31053,9 @@ inline void Self::unsafe_arena_set_allocated_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Self.position)
 }
-inline ::protos::Vector2D* Self::release_position() {
+inline ::protos::RpcVector2D* Self::release_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -30571,27 +31068,27 @@ inline ::protos::Vector2D* Self::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Self::unsafe_arena_release_position() {
+inline ::protos::RpcVector2D* Self::unsafe_arena_release_position() {
   // @@protoc_insertion_point(field_release:protos.Self.position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Self::_internal_mutable_position() {
+inline ::protos::RpcVector2D* Self::_internal_mutable_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.position_ = p;
   }
   return _impl_.position_;
 }
-inline ::protos::Vector2D* Self::mutable_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_position();
+inline ::protos::RpcVector2D* Self::mutable_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_position();
   // @@protoc_insertion_point(field_mutable:protos.Self.position)
   return _msg;
 }
-inline void Self::set_allocated_position(::protos::Vector2D* position) {
+inline void Self::set_allocated_position(::protos::RpcVector2D* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.position_;
@@ -30611,7 +31108,7 @@ inline void Self::set_allocated_position(::protos::Vector2D* position) {
   // @@protoc_insertion_point(field_set_allocated:protos.Self.position)
 }
 
-// .protos.Vector2D seen_position = 2;
+// .protos.RpcVector2D seen_position = 2;
 inline bool Self::has_seen_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.seen_position_ != nullptr);
@@ -30621,17 +31118,17 @@ inline void Self::clear_seen_position() {
   if (_impl_.seen_position_ != nullptr) _impl_.seen_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::Vector2D& Self::_internal_seen_position() const {
-  const ::protos::Vector2D* p = _impl_.seen_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Self::_internal_seen_position() const {
+  const ::protos::RpcVector2D* p = _impl_.seen_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Self::seen_position() const {
+inline const ::protos::RpcVector2D& Self::seen_position() const {
   // @@protoc_insertion_point(field_get:protos.Self.seen_position)
   return _internal_seen_position();
 }
 inline void Self::unsafe_arena_set_allocated_seen_position(
-    ::protos::Vector2D* seen_position) {
+    ::protos::RpcVector2D* seen_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.seen_position_);
   }
@@ -30643,9 +31140,9 @@ inline void Self::unsafe_arena_set_allocated_seen_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Self.seen_position)
 }
-inline ::protos::Vector2D* Self::release_seen_position() {
+inline ::protos::RpcVector2D* Self::release_seen_position() {
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.seen_position_;
+  ::protos::RpcVector2D* temp = _impl_.seen_position_;
   _impl_.seen_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -30658,27 +31155,27 @@ inline ::protos::Vector2D* Self::release_seen_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Self::unsafe_arena_release_seen_position() {
+inline ::protos::RpcVector2D* Self::unsafe_arena_release_seen_position() {
   // @@protoc_insertion_point(field_release:protos.Self.seen_position)
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.seen_position_;
+  ::protos::RpcVector2D* temp = _impl_.seen_position_;
   _impl_.seen_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Self::_internal_mutable_seen_position() {
+inline ::protos::RpcVector2D* Self::_internal_mutable_seen_position() {
   _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.seen_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.seen_position_ = p;
   }
   return _impl_.seen_position_;
 }
-inline ::protos::Vector2D* Self::mutable_seen_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_seen_position();
+inline ::protos::RpcVector2D* Self::mutable_seen_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_seen_position();
   // @@protoc_insertion_point(field_mutable:protos.Self.seen_position)
   return _msg;
 }
-inline void Self::set_allocated_seen_position(::protos::Vector2D* seen_position) {
+inline void Self::set_allocated_seen_position(::protos::RpcVector2D* seen_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.seen_position_;
@@ -30698,7 +31195,7 @@ inline void Self::set_allocated_seen_position(::protos::Vector2D* seen_position)
   // @@protoc_insertion_point(field_set_allocated:protos.Self.seen_position)
 }
 
-// .protos.Vector2D heard_position = 3;
+// .protos.RpcVector2D heard_position = 3;
 inline bool Self::has_heard_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.heard_position_ != nullptr);
@@ -30708,17 +31205,17 @@ inline void Self::clear_heard_position() {
   if (_impl_.heard_position_ != nullptr) _impl_.heard_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000004u;
 }
-inline const ::protos::Vector2D& Self::_internal_heard_position() const {
-  const ::protos::Vector2D* p = _impl_.heard_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Self::_internal_heard_position() const {
+  const ::protos::RpcVector2D* p = _impl_.heard_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Self::heard_position() const {
+inline const ::protos::RpcVector2D& Self::heard_position() const {
   // @@protoc_insertion_point(field_get:protos.Self.heard_position)
   return _internal_heard_position();
 }
 inline void Self::unsafe_arena_set_allocated_heard_position(
-    ::protos::Vector2D* heard_position) {
+    ::protos::RpcVector2D* heard_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.heard_position_);
   }
@@ -30730,9 +31227,9 @@ inline void Self::unsafe_arena_set_allocated_heard_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Self.heard_position)
 }
-inline ::protos::Vector2D* Self::release_heard_position() {
+inline ::protos::RpcVector2D* Self::release_heard_position() {
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.heard_position_;
+  ::protos::RpcVector2D* temp = _impl_.heard_position_;
   _impl_.heard_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -30745,27 +31242,27 @@ inline ::protos::Vector2D* Self::release_heard_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Self::unsafe_arena_release_heard_position() {
+inline ::protos::RpcVector2D* Self::unsafe_arena_release_heard_position() {
   // @@protoc_insertion_point(field_release:protos.Self.heard_position)
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.heard_position_;
+  ::protos::RpcVector2D* temp = _impl_.heard_position_;
   _impl_.heard_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Self::_internal_mutable_heard_position() {
+inline ::protos::RpcVector2D* Self::_internal_mutable_heard_position() {
   _impl_._has_bits_[0] |= 0x00000004u;
   if (_impl_.heard_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.heard_position_ = p;
   }
   return _impl_.heard_position_;
 }
-inline ::protos::Vector2D* Self::mutable_heard_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_heard_position();
+inline ::protos::RpcVector2D* Self::mutable_heard_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_heard_position();
   // @@protoc_insertion_point(field_mutable:protos.Self.heard_position)
   return _msg;
 }
-inline void Self::set_allocated_heard_position(::protos::Vector2D* heard_position) {
+inline void Self::set_allocated_heard_position(::protos::RpcVector2D* heard_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.heard_position_;
@@ -30785,7 +31282,7 @@ inline void Self::set_allocated_heard_position(::protos::Vector2D* heard_positio
   // @@protoc_insertion_point(field_set_allocated:protos.Self.heard_position)
 }
 
-// .protos.Vector2D velocity = 4;
+// .protos.RpcVector2D velocity = 4;
 inline bool Self::has_velocity() const {
   bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.velocity_ != nullptr);
@@ -30795,17 +31292,17 @@ inline void Self::clear_velocity() {
   if (_impl_.velocity_ != nullptr) _impl_.velocity_->Clear();
   _impl_._has_bits_[0] &= ~0x00000008u;
 }
-inline const ::protos::Vector2D& Self::_internal_velocity() const {
-  const ::protos::Vector2D* p = _impl_.velocity_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Self::_internal_velocity() const {
+  const ::protos::RpcVector2D* p = _impl_.velocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Self::velocity() const {
+inline const ::protos::RpcVector2D& Self::velocity() const {
   // @@protoc_insertion_point(field_get:protos.Self.velocity)
   return _internal_velocity();
 }
 inline void Self::unsafe_arena_set_allocated_velocity(
-    ::protos::Vector2D* velocity) {
+    ::protos::RpcVector2D* velocity) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.velocity_);
   }
@@ -30817,9 +31314,9 @@ inline void Self::unsafe_arena_set_allocated_velocity(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Self.velocity)
 }
-inline ::protos::Vector2D* Self::release_velocity() {
+inline ::protos::RpcVector2D* Self::release_velocity() {
   _impl_._has_bits_[0] &= ~0x00000008u;
-  ::protos::Vector2D* temp = _impl_.velocity_;
+  ::protos::RpcVector2D* temp = _impl_.velocity_;
   _impl_.velocity_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -30832,27 +31329,27 @@ inline ::protos::Vector2D* Self::release_velocity() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Self::unsafe_arena_release_velocity() {
+inline ::protos::RpcVector2D* Self::unsafe_arena_release_velocity() {
   // @@protoc_insertion_point(field_release:protos.Self.velocity)
   _impl_._has_bits_[0] &= ~0x00000008u;
-  ::protos::Vector2D* temp = _impl_.velocity_;
+  ::protos::RpcVector2D* temp = _impl_.velocity_;
   _impl_.velocity_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Self::_internal_mutable_velocity() {
+inline ::protos::RpcVector2D* Self::_internal_mutable_velocity() {
   _impl_._has_bits_[0] |= 0x00000008u;
   if (_impl_.velocity_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.velocity_ = p;
   }
   return _impl_.velocity_;
 }
-inline ::protos::Vector2D* Self::mutable_velocity() {
-  ::protos::Vector2D* _msg = _internal_mutable_velocity();
+inline ::protos::RpcVector2D* Self::mutable_velocity() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_velocity();
   // @@protoc_insertion_point(field_mutable:protos.Self.velocity)
   return _msg;
 }
-inline void Self::set_allocated_velocity(::protos::Vector2D* velocity) {
+inline void Self::set_allocated_velocity(::protos::RpcVector2D* velocity) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.velocity_;
@@ -30872,7 +31369,7 @@ inline void Self::set_allocated_velocity(::protos::Vector2D* velocity) {
   // @@protoc_insertion_point(field_set_allocated:protos.Self.velocity)
 }
 
-// .protos.Vector2D seen_velocity = 5;
+// .protos.RpcVector2D seen_velocity = 5;
 inline bool Self::has_seen_velocity() const {
   bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.seen_velocity_ != nullptr);
@@ -30882,17 +31379,17 @@ inline void Self::clear_seen_velocity() {
   if (_impl_.seen_velocity_ != nullptr) _impl_.seen_velocity_->Clear();
   _impl_._has_bits_[0] &= ~0x00000010u;
 }
-inline const ::protos::Vector2D& Self::_internal_seen_velocity() const {
-  const ::protos::Vector2D* p = _impl_.seen_velocity_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Self::_internal_seen_velocity() const {
+  const ::protos::RpcVector2D* p = _impl_.seen_velocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Self::seen_velocity() const {
+inline const ::protos::RpcVector2D& Self::seen_velocity() const {
   // @@protoc_insertion_point(field_get:protos.Self.seen_velocity)
   return _internal_seen_velocity();
 }
 inline void Self::unsafe_arena_set_allocated_seen_velocity(
-    ::protos::Vector2D* seen_velocity) {
+    ::protos::RpcVector2D* seen_velocity) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.seen_velocity_);
   }
@@ -30904,9 +31401,9 @@ inline void Self::unsafe_arena_set_allocated_seen_velocity(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Self.seen_velocity)
 }
-inline ::protos::Vector2D* Self::release_seen_velocity() {
+inline ::protos::RpcVector2D* Self::release_seen_velocity() {
   _impl_._has_bits_[0] &= ~0x00000010u;
-  ::protos::Vector2D* temp = _impl_.seen_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.seen_velocity_;
   _impl_.seen_velocity_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -30919,27 +31416,27 @@ inline ::protos::Vector2D* Self::release_seen_velocity() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Self::unsafe_arena_release_seen_velocity() {
+inline ::protos::RpcVector2D* Self::unsafe_arena_release_seen_velocity() {
   // @@protoc_insertion_point(field_release:protos.Self.seen_velocity)
   _impl_._has_bits_[0] &= ~0x00000010u;
-  ::protos::Vector2D* temp = _impl_.seen_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.seen_velocity_;
   _impl_.seen_velocity_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Self::_internal_mutable_seen_velocity() {
+inline ::protos::RpcVector2D* Self::_internal_mutable_seen_velocity() {
   _impl_._has_bits_[0] |= 0x00000010u;
   if (_impl_.seen_velocity_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.seen_velocity_ = p;
   }
   return _impl_.seen_velocity_;
 }
-inline ::protos::Vector2D* Self::mutable_seen_velocity() {
-  ::protos::Vector2D* _msg = _internal_mutable_seen_velocity();
+inline ::protos::RpcVector2D* Self::mutable_seen_velocity() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_seen_velocity();
   // @@protoc_insertion_point(field_mutable:protos.Self.seen_velocity)
   return _msg;
 }
-inline void Self::set_allocated_seen_velocity(::protos::Vector2D* seen_velocity) {
+inline void Self::set_allocated_seen_velocity(::protos::RpcVector2D* seen_velocity) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.seen_velocity_;
@@ -31703,7 +32200,7 @@ inline void InterceptInfo::_internal_set_dash_dir(float value) {
   _impl_.dash_dir_ = value;
 }
 
-// .protos.Vector2D final_self_position = 7;
+// .protos.RpcVector2D final_self_position = 7;
 inline bool InterceptInfo::has_final_self_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.final_self_position_ != nullptr);
@@ -31713,17 +32210,17 @@ inline void InterceptInfo::clear_final_self_position() {
   if (_impl_.final_self_position_ != nullptr) _impl_.final_self_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& InterceptInfo::_internal_final_self_position() const {
-  const ::protos::Vector2D* p = _impl_.final_self_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& InterceptInfo::_internal_final_self_position() const {
+  const ::protos::RpcVector2D* p = _impl_.final_self_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& InterceptInfo::final_self_position() const {
+inline const ::protos::RpcVector2D& InterceptInfo::final_self_position() const {
   // @@protoc_insertion_point(field_get:protos.InterceptInfo.final_self_position)
   return _internal_final_self_position();
 }
 inline void InterceptInfo::unsafe_arena_set_allocated_final_self_position(
-    ::protos::Vector2D* final_self_position) {
+    ::protos::RpcVector2D* final_self_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.final_self_position_);
   }
@@ -31735,9 +32232,9 @@ inline void InterceptInfo::unsafe_arena_set_allocated_final_self_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.InterceptInfo.final_self_position)
 }
-inline ::protos::Vector2D* InterceptInfo::release_final_self_position() {
+inline ::protos::RpcVector2D* InterceptInfo::release_final_self_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.final_self_position_;
+  ::protos::RpcVector2D* temp = _impl_.final_self_position_;
   _impl_.final_self_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -31750,27 +32247,27 @@ inline ::protos::Vector2D* InterceptInfo::release_final_self_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* InterceptInfo::unsafe_arena_release_final_self_position() {
+inline ::protos::RpcVector2D* InterceptInfo::unsafe_arena_release_final_self_position() {
   // @@protoc_insertion_point(field_release:protos.InterceptInfo.final_self_position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.final_self_position_;
+  ::protos::RpcVector2D* temp = _impl_.final_self_position_;
   _impl_.final_self_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* InterceptInfo::_internal_mutable_final_self_position() {
+inline ::protos::RpcVector2D* InterceptInfo::_internal_mutable_final_self_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.final_self_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.final_self_position_ = p;
   }
   return _impl_.final_self_position_;
 }
-inline ::protos::Vector2D* InterceptInfo::mutable_final_self_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_final_self_position();
+inline ::protos::RpcVector2D* InterceptInfo::mutable_final_self_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_final_self_position();
   // @@protoc_insertion_point(field_mutable:protos.InterceptInfo.final_self_position)
   return _msg;
 }
-inline void InterceptInfo::set_allocated_final_self_position(::protos::Vector2D* final_self_position) {
+inline void InterceptInfo::set_allocated_final_self_position(::protos::RpcVector2D* final_self_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.final_self_position_;
@@ -33049,7 +33546,7 @@ inline void WorldModel::_internal_set_is_penalty_kick_mode(bool value) {
   _impl_.is_penalty_kick_mode_ = value;
 }
 
-// map<int32, .protos.Vector2D> helios_home_positions = 31;
+// map<int32, .protos.RpcVector2D> helios_home_positions = 31;
 inline int WorldModel::_internal_helios_home_positions_size() const {
   return _impl_.helios_home_positions_.size();
 }
@@ -33059,20 +33556,20 @@ inline int WorldModel::helios_home_positions_size() const {
 inline void WorldModel::clear_helios_home_positions() {
   _impl_.helios_home_positions_.Clear();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::Vector2D >&
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcVector2D >&
 WorldModel::_internal_helios_home_positions() const {
   return _impl_.helios_home_positions_.GetMap();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::Vector2D >&
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcVector2D >&
 WorldModel::helios_home_positions() const {
   // @@protoc_insertion_point(field_map:protos.WorldModel.helios_home_positions)
   return _internal_helios_home_positions();
 }
-inline ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::Vector2D >*
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcVector2D >*
 WorldModel::_internal_mutable_helios_home_positions() {
   return _impl_.helios_home_positions_.MutableMap();
 }
-inline ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::Vector2D >*
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcVector2D >*
 WorldModel::mutable_helios_home_positions() {
   // @@protoc_insertion_point(field_mutable_map:protos.WorldModel.helios_home_positions)
   return _internal_mutable_helios_home_positions();
@@ -33082,35 +33579,102 @@ WorldModel::mutable_helios_home_positions() {
 
 // State
 
-// .protos.AgentType agent_type = 1;
-inline void State::clear_agent_type() {
-  _impl_.agent_type_ = 0;
+// .protos.RegisterResponse register_response = 1;
+inline bool State::has_register_response() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.register_response_ != nullptr);
+  return value;
 }
-inline ::protos::AgentType State::agent_type() const {
-  // @@protoc_insertion_point(field_get:protos.State.agent_type)
-  return _internal_agent_type();
+inline void State::clear_register_response() {
+  if (_impl_.register_response_ != nullptr) _impl_.register_response_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline void State::set_agent_type(::protos::AgentType value) {
-   _internal_set_agent_type(value);
-  // @@protoc_insertion_point(field_set:protos.State.agent_type)
+inline const ::protos::RegisterResponse& State::_internal_register_response() const {
+  const ::protos::RegisterResponse* p = _impl_.register_response_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RegisterResponse&>(
+      ::protos::_RegisterResponse_default_instance_);
 }
-inline ::protos::AgentType State::_internal_agent_type() const {
-  return static_cast<::protos::AgentType>(_impl_.agent_type_);
+inline const ::protos::RegisterResponse& State::register_response() const {
+  // @@protoc_insertion_point(field_get:protos.State.register_response)
+  return _internal_register_response();
 }
-inline void State::_internal_set_agent_type(::protos::AgentType value) {
-  ;
-  _impl_.agent_type_ = value;
+inline void State::unsafe_arena_set_allocated_register_response(
+    ::protos::RegisterResponse* register_response) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.register_response_);
+  }
+  _impl_.register_response_ = register_response;
+  if (register_response) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.State.register_response)
+}
+inline ::protos::RegisterResponse* State::release_register_response() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RegisterResponse* temp = _impl_.register_response_;
+  _impl_.register_response_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::protos::RegisterResponse* State::unsafe_arena_release_register_response() {
+  // @@protoc_insertion_point(field_release:protos.State.register_response)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RegisterResponse* temp = _impl_.register_response_;
+  _impl_.register_response_ = nullptr;
+  return temp;
+}
+inline ::protos::RegisterResponse* State::_internal_mutable_register_response() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.register_response_ == nullptr) {
+    auto* p = CreateMaybeMessage<::protos::RegisterResponse>(GetArenaForAllocation());
+    _impl_.register_response_ = p;
+  }
+  return _impl_.register_response_;
+}
+inline ::protos::RegisterResponse* State::mutable_register_response() {
+  ::protos::RegisterResponse* _msg = _internal_mutable_register_response();
+  // @@protoc_insertion_point(field_mutable:protos.State.register_response)
+  return _msg;
+}
+inline void State::set_allocated_register_response(::protos::RegisterResponse* register_response) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.register_response_;
+  }
+  if (register_response) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(register_response);
+    if (message_arena != submessage_arena) {
+      register_response = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, register_response, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.register_response_ = register_response;
+  // @@protoc_insertion_point(field_set_allocated:protos.State.register_response)
 }
 
 // .protos.WorldModel world_model = 2;
 inline bool State::has_world_model() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.world_model_ != nullptr);
   return value;
 }
 inline void State::clear_world_model() {
   if (_impl_.world_model_ != nullptr) _impl_.world_model_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
 inline const ::protos::WorldModel& State::_internal_world_model() const {
   const ::protos::WorldModel* p = _impl_.world_model_;
@@ -33128,14 +33692,14 @@ inline void State::unsafe_arena_set_allocated_world_model(
   }
   _impl_.world_model_ = world_model;
   if (world_model) {
-    _impl_._has_bits_[0] |= 0x00000001u;
+    _impl_._has_bits_[0] |= 0x00000002u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
+    _impl_._has_bits_[0] &= ~0x00000002u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.State.world_model)
 }
 inline ::protos::WorldModel* State::release_world_model() {
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
   ::protos::WorldModel* temp = _impl_.world_model_;
   _impl_.world_model_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -33151,13 +33715,13 @@ inline ::protos::WorldModel* State::release_world_model() {
 }
 inline ::protos::WorldModel* State::unsafe_arena_release_world_model() {
   // @@protoc_insertion_point(field_release:protos.State.world_model)
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
   ::protos::WorldModel* temp = _impl_.world_model_;
   _impl_.world_model_ = nullptr;
   return temp;
 }
 inline ::protos::WorldModel* State::_internal_mutable_world_model() {
-  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.world_model_ == nullptr) {
     auto* p = CreateMaybeMessage<::protos::WorldModel>(GetArenaForAllocation());
     _impl_.world_model_ = p;
@@ -33181,9 +33745,9 @@ inline void State::set_allocated_world_model(::protos::WorldModel* world_model) 
       world_model = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, world_model, submessage_arena);
     }
-    _impl_._has_bits_[0] |= 0x00000001u;
+    _impl_._has_bits_[0] |= 0x00000002u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
+    _impl_._has_bits_[0] &= ~0x00000002u;
   }
   _impl_.world_model_ = world_model;
   // @@protoc_insertion_point(field_set_allocated:protos.State.world_model)
@@ -33191,13 +33755,13 @@ inline void State::set_allocated_world_model(::protos::WorldModel* world_model) 
 
 // .protos.WorldModel full_world_model = 3;
 inline bool State::has_full_world_model() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.full_world_model_ != nullptr);
   return value;
 }
 inline void State::clear_full_world_model() {
   if (_impl_.full_world_model_ != nullptr) _impl_.full_world_model_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
 }
 inline const ::protos::WorldModel& State::_internal_full_world_model() const {
   const ::protos::WorldModel* p = _impl_.full_world_model_;
@@ -33215,14 +33779,14 @@ inline void State::unsafe_arena_set_allocated_full_world_model(
   }
   _impl_.full_world_model_ = full_world_model;
   if (full_world_model) {
-    _impl_._has_bits_[0] |= 0x00000002u;
+    _impl_._has_bits_[0] |= 0x00000004u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000002u;
+    _impl_._has_bits_[0] &= ~0x00000004u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.State.full_world_model)
 }
 inline ::protos::WorldModel* State::release_full_world_model() {
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
   ::protos::WorldModel* temp = _impl_.full_world_model_;
   _impl_.full_world_model_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -33238,13 +33802,13 @@ inline ::protos::WorldModel* State::release_full_world_model() {
 }
 inline ::protos::WorldModel* State::unsafe_arena_release_full_world_model() {
   // @@protoc_insertion_point(field_release:protos.State.full_world_model)
-  _impl_._has_bits_[0] &= ~0x00000002u;
+  _impl_._has_bits_[0] &= ~0x00000004u;
   ::protos::WorldModel* temp = _impl_.full_world_model_;
   _impl_.full_world_model_ = nullptr;
   return temp;
 }
 inline ::protos::WorldModel* State::_internal_mutable_full_world_model() {
-  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_._has_bits_[0] |= 0x00000004u;
   if (_impl_.full_world_model_ == nullptr) {
     auto* p = CreateMaybeMessage<::protos::WorldModel>(GetArenaForAllocation());
     _impl_.full_world_model_ = p;
@@ -33268,9 +33832,9 @@ inline void State::set_allocated_full_world_model(::protos::WorldModel* full_wor
       full_world_model = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, full_world_model, submessage_arena);
     }
-    _impl_._has_bits_[0] |= 0x00000002u;
+    _impl_._has_bits_[0] |= 0x00000004u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000002u;
+    _impl_._has_bits_[0] &= ~0x00000004u;
   }
   _impl_.full_world_model_ = full_world_model;
   // @@protoc_insertion_point(field_set_allocated:protos.State.full_world_model)
@@ -33280,24 +33844,91 @@ inline void State::set_allocated_full_world_model(::protos::WorldModel* full_wor
 
 // InitMessage
 
-// .protos.AgentType agent_type = 1;
-inline void InitMessage::clear_agent_type() {
-  _impl_.agent_type_ = 0;
+// .protos.RegisterResponse register_response = 1;
+inline bool InitMessage::has_register_response() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.register_response_ != nullptr);
+  return value;
 }
-inline ::protos::AgentType InitMessage::agent_type() const {
-  // @@protoc_insertion_point(field_get:protos.InitMessage.agent_type)
-  return _internal_agent_type();
+inline void InitMessage::clear_register_response() {
+  if (_impl_.register_response_ != nullptr) _impl_.register_response_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline void InitMessage::set_agent_type(::protos::AgentType value) {
-   _internal_set_agent_type(value);
-  // @@protoc_insertion_point(field_set:protos.InitMessage.agent_type)
+inline const ::protos::RegisterResponse& InitMessage::_internal_register_response() const {
+  const ::protos::RegisterResponse* p = _impl_.register_response_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RegisterResponse&>(
+      ::protos::_RegisterResponse_default_instance_);
 }
-inline ::protos::AgentType InitMessage::_internal_agent_type() const {
-  return static_cast<::protos::AgentType>(_impl_.agent_type_);
+inline const ::protos::RegisterResponse& InitMessage::register_response() const {
+  // @@protoc_insertion_point(field_get:protos.InitMessage.register_response)
+  return _internal_register_response();
 }
-inline void InitMessage::_internal_set_agent_type(::protos::AgentType value) {
-  ;
-  _impl_.agent_type_ = value;
+inline void InitMessage::unsafe_arena_set_allocated_register_response(
+    ::protos::RegisterResponse* register_response) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.register_response_);
+  }
+  _impl_.register_response_ = register_response;
+  if (register_response) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.InitMessage.register_response)
+}
+inline ::protos::RegisterResponse* InitMessage::release_register_response() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RegisterResponse* temp = _impl_.register_response_;
+  _impl_.register_response_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::protos::RegisterResponse* InitMessage::unsafe_arena_release_register_response() {
+  // @@protoc_insertion_point(field_release:protos.InitMessage.register_response)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RegisterResponse* temp = _impl_.register_response_;
+  _impl_.register_response_ = nullptr;
+  return temp;
+}
+inline ::protos::RegisterResponse* InitMessage::_internal_mutable_register_response() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.register_response_ == nullptr) {
+    auto* p = CreateMaybeMessage<::protos::RegisterResponse>(GetArenaForAllocation());
+    _impl_.register_response_ = p;
+  }
+  return _impl_.register_response_;
+}
+inline ::protos::RegisterResponse* InitMessage::mutable_register_response() {
+  ::protos::RegisterResponse* _msg = _internal_mutable_register_response();
+  // @@protoc_insertion_point(field_mutable:protos.InitMessage.register_response)
+  return _msg;
+}
+inline void InitMessage::set_allocated_register_response(::protos::RegisterResponse* register_response) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.register_response_;
+  }
+  if (register_response) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(register_response);
+    if (message_arena != submessage_arena) {
+      register_response = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, register_response, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.register_response_ = register_response;
+  // @@protoc_insertion_point(field_set_allocated:protos.InitMessage.register_response)
 }
 
 // bool debug_mode = 2;
@@ -33576,7 +34207,7 @@ inline void ChangeView::_internal_set_view_width(::protos::ViewWidth value) {
 
 // BallMessage
 
-// .protos.Vector2D ball_position = 1;
+// .protos.RpcVector2D ball_position = 1;
 inline bool BallMessage::has_ball_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.ball_position_ != nullptr);
@@ -33586,17 +34217,17 @@ inline void BallMessage::clear_ball_position() {
   if (_impl_.ball_position_ != nullptr) _impl_.ball_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& BallMessage::_internal_ball_position() const {
-  const ::protos::Vector2D* p = _impl_.ball_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& BallMessage::_internal_ball_position() const {
+  const ::protos::RpcVector2D* p = _impl_.ball_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& BallMessage::ball_position() const {
+inline const ::protos::RpcVector2D& BallMessage::ball_position() const {
   // @@protoc_insertion_point(field_get:protos.BallMessage.ball_position)
   return _internal_ball_position();
 }
 inline void BallMessage::unsafe_arena_set_allocated_ball_position(
-    ::protos::Vector2D* ball_position) {
+    ::protos::RpcVector2D* ball_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ball_position_);
   }
@@ -33608,9 +34239,9 @@ inline void BallMessage::unsafe_arena_set_allocated_ball_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.BallMessage.ball_position)
 }
-inline ::protos::Vector2D* BallMessage::release_ball_position() {
+inline ::protos::RpcVector2D* BallMessage::release_ball_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.ball_position_;
+  ::protos::RpcVector2D* temp = _impl_.ball_position_;
   _impl_.ball_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -33623,27 +34254,27 @@ inline ::protos::Vector2D* BallMessage::release_ball_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* BallMessage::unsafe_arena_release_ball_position() {
+inline ::protos::RpcVector2D* BallMessage::unsafe_arena_release_ball_position() {
   // @@protoc_insertion_point(field_release:protos.BallMessage.ball_position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.ball_position_;
+  ::protos::RpcVector2D* temp = _impl_.ball_position_;
   _impl_.ball_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* BallMessage::_internal_mutable_ball_position() {
+inline ::protos::RpcVector2D* BallMessage::_internal_mutable_ball_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.ball_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.ball_position_ = p;
   }
   return _impl_.ball_position_;
 }
-inline ::protos::Vector2D* BallMessage::mutable_ball_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_ball_position();
+inline ::protos::RpcVector2D* BallMessage::mutable_ball_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_ball_position();
   // @@protoc_insertion_point(field_mutable:protos.BallMessage.ball_position)
   return _msg;
 }
-inline void BallMessage::set_allocated_ball_position(::protos::Vector2D* ball_position) {
+inline void BallMessage::set_allocated_ball_position(::protos::RpcVector2D* ball_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.ball_position_;
@@ -33663,7 +34294,7 @@ inline void BallMessage::set_allocated_ball_position(::protos::Vector2D* ball_po
   // @@protoc_insertion_point(field_set_allocated:protos.BallMessage.ball_position)
 }
 
-// .protos.Vector2D ball_velocity = 2;
+// .protos.RpcVector2D ball_velocity = 2;
 inline bool BallMessage::has_ball_velocity() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.ball_velocity_ != nullptr);
@@ -33673,17 +34304,17 @@ inline void BallMessage::clear_ball_velocity() {
   if (_impl_.ball_velocity_ != nullptr) _impl_.ball_velocity_->Clear();
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::Vector2D& BallMessage::_internal_ball_velocity() const {
-  const ::protos::Vector2D* p = _impl_.ball_velocity_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& BallMessage::_internal_ball_velocity() const {
+  const ::protos::RpcVector2D* p = _impl_.ball_velocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& BallMessage::ball_velocity() const {
+inline const ::protos::RpcVector2D& BallMessage::ball_velocity() const {
   // @@protoc_insertion_point(field_get:protos.BallMessage.ball_velocity)
   return _internal_ball_velocity();
 }
 inline void BallMessage::unsafe_arena_set_allocated_ball_velocity(
-    ::protos::Vector2D* ball_velocity) {
+    ::protos::RpcVector2D* ball_velocity) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ball_velocity_);
   }
@@ -33695,9 +34326,9 @@ inline void BallMessage::unsafe_arena_set_allocated_ball_velocity(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.BallMessage.ball_velocity)
 }
-inline ::protos::Vector2D* BallMessage::release_ball_velocity() {
+inline ::protos::RpcVector2D* BallMessage::release_ball_velocity() {
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.ball_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.ball_velocity_;
   _impl_.ball_velocity_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -33710,27 +34341,27 @@ inline ::protos::Vector2D* BallMessage::release_ball_velocity() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* BallMessage::unsafe_arena_release_ball_velocity() {
+inline ::protos::RpcVector2D* BallMessage::unsafe_arena_release_ball_velocity() {
   // @@protoc_insertion_point(field_release:protos.BallMessage.ball_velocity)
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.ball_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.ball_velocity_;
   _impl_.ball_velocity_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* BallMessage::_internal_mutable_ball_velocity() {
+inline ::protos::RpcVector2D* BallMessage::_internal_mutable_ball_velocity() {
   _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.ball_velocity_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.ball_velocity_ = p;
   }
   return _impl_.ball_velocity_;
 }
-inline ::protos::Vector2D* BallMessage::mutable_ball_velocity() {
-  ::protos::Vector2D* _msg = _internal_mutable_ball_velocity();
+inline ::protos::RpcVector2D* BallMessage::mutable_ball_velocity() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_ball_velocity();
   // @@protoc_insertion_point(field_mutable:protos.BallMessage.ball_velocity)
   return _msg;
 }
-inline void BallMessage::set_allocated_ball_velocity(::protos::Vector2D* ball_velocity) {
+inline void BallMessage::set_allocated_ball_velocity(::protos::RpcVector2D* ball_velocity) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.ball_velocity_;
@@ -33774,7 +34405,7 @@ inline void PassMessage::_internal_set_receiver_uniform_number(::int32_t value) 
   _impl_.receiver_uniform_number_ = value;
 }
 
-// .protos.Vector2D receiver_point = 2;
+// .protos.RpcVector2D receiver_point = 2;
 inline bool PassMessage::has_receiver_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.receiver_point_ != nullptr);
@@ -33784,17 +34415,17 @@ inline void PassMessage::clear_receiver_point() {
   if (_impl_.receiver_point_ != nullptr) _impl_.receiver_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& PassMessage::_internal_receiver_point() const {
-  const ::protos::Vector2D* p = _impl_.receiver_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& PassMessage::_internal_receiver_point() const {
+  const ::protos::RpcVector2D* p = _impl_.receiver_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& PassMessage::receiver_point() const {
+inline const ::protos::RpcVector2D& PassMessage::receiver_point() const {
   // @@protoc_insertion_point(field_get:protos.PassMessage.receiver_point)
   return _internal_receiver_point();
 }
 inline void PassMessage::unsafe_arena_set_allocated_receiver_point(
-    ::protos::Vector2D* receiver_point) {
+    ::protos::RpcVector2D* receiver_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.receiver_point_);
   }
@@ -33806,9 +34437,9 @@ inline void PassMessage::unsafe_arena_set_allocated_receiver_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.PassMessage.receiver_point)
 }
-inline ::protos::Vector2D* PassMessage::release_receiver_point() {
+inline ::protos::RpcVector2D* PassMessage::release_receiver_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.receiver_point_;
+  ::protos::RpcVector2D* temp = _impl_.receiver_point_;
   _impl_.receiver_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -33821,27 +34452,27 @@ inline ::protos::Vector2D* PassMessage::release_receiver_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* PassMessage::unsafe_arena_release_receiver_point() {
+inline ::protos::RpcVector2D* PassMessage::unsafe_arena_release_receiver_point() {
   // @@protoc_insertion_point(field_release:protos.PassMessage.receiver_point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.receiver_point_;
+  ::protos::RpcVector2D* temp = _impl_.receiver_point_;
   _impl_.receiver_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* PassMessage::_internal_mutable_receiver_point() {
+inline ::protos::RpcVector2D* PassMessage::_internal_mutable_receiver_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.receiver_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.receiver_point_ = p;
   }
   return _impl_.receiver_point_;
 }
-inline ::protos::Vector2D* PassMessage::mutable_receiver_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_receiver_point();
+inline ::protos::RpcVector2D* PassMessage::mutable_receiver_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_receiver_point();
   // @@protoc_insertion_point(field_mutable:protos.PassMessage.receiver_point)
   return _msg;
 }
-inline void PassMessage::set_allocated_receiver_point(::protos::Vector2D* receiver_point) {
+inline void PassMessage::set_allocated_receiver_point(::protos::RpcVector2D* receiver_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.receiver_point_;
@@ -33861,7 +34492,7 @@ inline void PassMessage::set_allocated_receiver_point(::protos::Vector2D* receiv
   // @@protoc_insertion_point(field_set_allocated:protos.PassMessage.receiver_point)
 }
 
-// .protos.Vector2D ball_position = 3;
+// .protos.RpcVector2D ball_position = 3;
 inline bool PassMessage::has_ball_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.ball_position_ != nullptr);
@@ -33871,17 +34502,17 @@ inline void PassMessage::clear_ball_position() {
   if (_impl_.ball_position_ != nullptr) _impl_.ball_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::Vector2D& PassMessage::_internal_ball_position() const {
-  const ::protos::Vector2D* p = _impl_.ball_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& PassMessage::_internal_ball_position() const {
+  const ::protos::RpcVector2D* p = _impl_.ball_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& PassMessage::ball_position() const {
+inline const ::protos::RpcVector2D& PassMessage::ball_position() const {
   // @@protoc_insertion_point(field_get:protos.PassMessage.ball_position)
   return _internal_ball_position();
 }
 inline void PassMessage::unsafe_arena_set_allocated_ball_position(
-    ::protos::Vector2D* ball_position) {
+    ::protos::RpcVector2D* ball_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ball_position_);
   }
@@ -33893,9 +34524,9 @@ inline void PassMessage::unsafe_arena_set_allocated_ball_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.PassMessage.ball_position)
 }
-inline ::protos::Vector2D* PassMessage::release_ball_position() {
+inline ::protos::RpcVector2D* PassMessage::release_ball_position() {
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.ball_position_;
+  ::protos::RpcVector2D* temp = _impl_.ball_position_;
   _impl_.ball_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -33908,27 +34539,27 @@ inline ::protos::Vector2D* PassMessage::release_ball_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* PassMessage::unsafe_arena_release_ball_position() {
+inline ::protos::RpcVector2D* PassMessage::unsafe_arena_release_ball_position() {
   // @@protoc_insertion_point(field_release:protos.PassMessage.ball_position)
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.ball_position_;
+  ::protos::RpcVector2D* temp = _impl_.ball_position_;
   _impl_.ball_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* PassMessage::_internal_mutable_ball_position() {
+inline ::protos::RpcVector2D* PassMessage::_internal_mutable_ball_position() {
   _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.ball_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.ball_position_ = p;
   }
   return _impl_.ball_position_;
 }
-inline ::protos::Vector2D* PassMessage::mutable_ball_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_ball_position();
+inline ::protos::RpcVector2D* PassMessage::mutable_ball_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_ball_position();
   // @@protoc_insertion_point(field_mutable:protos.PassMessage.ball_position)
   return _msg;
 }
-inline void PassMessage::set_allocated_ball_position(::protos::Vector2D* ball_position) {
+inline void PassMessage::set_allocated_ball_position(::protos::RpcVector2D* ball_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.ball_position_;
@@ -33948,7 +34579,7 @@ inline void PassMessage::set_allocated_ball_position(::protos::Vector2D* ball_po
   // @@protoc_insertion_point(field_set_allocated:protos.PassMessage.ball_position)
 }
 
-// .protos.Vector2D ball_velocity = 4;
+// .protos.RpcVector2D ball_velocity = 4;
 inline bool PassMessage::has_ball_velocity() const {
   bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.ball_velocity_ != nullptr);
@@ -33958,17 +34589,17 @@ inline void PassMessage::clear_ball_velocity() {
   if (_impl_.ball_velocity_ != nullptr) _impl_.ball_velocity_->Clear();
   _impl_._has_bits_[0] &= ~0x00000004u;
 }
-inline const ::protos::Vector2D& PassMessage::_internal_ball_velocity() const {
-  const ::protos::Vector2D* p = _impl_.ball_velocity_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& PassMessage::_internal_ball_velocity() const {
+  const ::protos::RpcVector2D* p = _impl_.ball_velocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& PassMessage::ball_velocity() const {
+inline const ::protos::RpcVector2D& PassMessage::ball_velocity() const {
   // @@protoc_insertion_point(field_get:protos.PassMessage.ball_velocity)
   return _internal_ball_velocity();
 }
 inline void PassMessage::unsafe_arena_set_allocated_ball_velocity(
-    ::protos::Vector2D* ball_velocity) {
+    ::protos::RpcVector2D* ball_velocity) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ball_velocity_);
   }
@@ -33980,9 +34611,9 @@ inline void PassMessage::unsafe_arena_set_allocated_ball_velocity(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.PassMessage.ball_velocity)
 }
-inline ::protos::Vector2D* PassMessage::release_ball_velocity() {
+inline ::protos::RpcVector2D* PassMessage::release_ball_velocity() {
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.ball_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.ball_velocity_;
   _impl_.ball_velocity_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -33995,27 +34626,27 @@ inline ::protos::Vector2D* PassMessage::release_ball_velocity() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* PassMessage::unsafe_arena_release_ball_velocity() {
+inline ::protos::RpcVector2D* PassMessage::unsafe_arena_release_ball_velocity() {
   // @@protoc_insertion_point(field_release:protos.PassMessage.ball_velocity)
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.ball_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.ball_velocity_;
   _impl_.ball_velocity_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* PassMessage::_internal_mutable_ball_velocity() {
+inline ::protos::RpcVector2D* PassMessage::_internal_mutable_ball_velocity() {
   _impl_._has_bits_[0] |= 0x00000004u;
   if (_impl_.ball_velocity_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.ball_velocity_ = p;
   }
   return _impl_.ball_velocity_;
 }
-inline ::protos::Vector2D* PassMessage::mutable_ball_velocity() {
-  ::protos::Vector2D* _msg = _internal_mutable_ball_velocity();
+inline ::protos::RpcVector2D* PassMessage::mutable_ball_velocity() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_ball_velocity();
   // @@protoc_insertion_point(field_mutable:protos.PassMessage.ball_velocity)
   return _msg;
 }
-inline void PassMessage::set_allocated_ball_velocity(::protos::Vector2D* ball_velocity) {
+inline void PassMessage::set_allocated_ball_velocity(::protos::RpcVector2D* ball_velocity) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.ball_velocity_;
@@ -34123,7 +34754,7 @@ inline void GoalieMessage::_internal_set_goalie_uniform_number(::int32_t value) 
   _impl_.goalie_uniform_number_ = value;
 }
 
-// .protos.Vector2D goalie_position = 2;
+// .protos.RpcVector2D goalie_position = 2;
 inline bool GoalieMessage::has_goalie_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.goalie_position_ != nullptr);
@@ -34133,17 +34764,17 @@ inline void GoalieMessage::clear_goalie_position() {
   if (_impl_.goalie_position_ != nullptr) _impl_.goalie_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& GoalieMessage::_internal_goalie_position() const {
-  const ::protos::Vector2D* p = _impl_.goalie_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& GoalieMessage::_internal_goalie_position() const {
+  const ::protos::RpcVector2D* p = _impl_.goalie_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& GoalieMessage::goalie_position() const {
+inline const ::protos::RpcVector2D& GoalieMessage::goalie_position() const {
   // @@protoc_insertion_point(field_get:protos.GoalieMessage.goalie_position)
   return _internal_goalie_position();
 }
 inline void GoalieMessage::unsafe_arena_set_allocated_goalie_position(
-    ::protos::Vector2D* goalie_position) {
+    ::protos::RpcVector2D* goalie_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.goalie_position_);
   }
@@ -34155,9 +34786,9 @@ inline void GoalieMessage::unsafe_arena_set_allocated_goalie_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.GoalieMessage.goalie_position)
 }
-inline ::protos::Vector2D* GoalieMessage::release_goalie_position() {
+inline ::protos::RpcVector2D* GoalieMessage::release_goalie_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.goalie_position_;
+  ::protos::RpcVector2D* temp = _impl_.goalie_position_;
   _impl_.goalie_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -34170,27 +34801,27 @@ inline ::protos::Vector2D* GoalieMessage::release_goalie_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* GoalieMessage::unsafe_arena_release_goalie_position() {
+inline ::protos::RpcVector2D* GoalieMessage::unsafe_arena_release_goalie_position() {
   // @@protoc_insertion_point(field_release:protos.GoalieMessage.goalie_position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.goalie_position_;
+  ::protos::RpcVector2D* temp = _impl_.goalie_position_;
   _impl_.goalie_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* GoalieMessage::_internal_mutable_goalie_position() {
+inline ::protos::RpcVector2D* GoalieMessage::_internal_mutable_goalie_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.goalie_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.goalie_position_ = p;
   }
   return _impl_.goalie_position_;
 }
-inline ::protos::Vector2D* GoalieMessage::mutable_goalie_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_goalie_position();
+inline ::protos::RpcVector2D* GoalieMessage::mutable_goalie_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_goalie_position();
   // @@protoc_insertion_point(field_mutable:protos.GoalieMessage.goalie_position)
   return _msg;
 }
-inline void GoalieMessage::set_allocated_goalie_position(::protos::Vector2D* goalie_position) {
+inline void GoalieMessage::set_allocated_goalie_position(::protos::RpcVector2D* goalie_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.goalie_position_;
@@ -34254,7 +34885,7 @@ inline void GoalieAndPlayerMessage::_internal_set_goalie_uniform_number(::int32_
   _impl_.goalie_uniform_number_ = value;
 }
 
-// .protos.Vector2D goalie_position = 2;
+// .protos.RpcVector2D goalie_position = 2;
 inline bool GoalieAndPlayerMessage::has_goalie_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.goalie_position_ != nullptr);
@@ -34264,17 +34895,17 @@ inline void GoalieAndPlayerMessage::clear_goalie_position() {
   if (_impl_.goalie_position_ != nullptr) _impl_.goalie_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& GoalieAndPlayerMessage::_internal_goalie_position() const {
-  const ::protos::Vector2D* p = _impl_.goalie_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& GoalieAndPlayerMessage::_internal_goalie_position() const {
+  const ::protos::RpcVector2D* p = _impl_.goalie_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& GoalieAndPlayerMessage::goalie_position() const {
+inline const ::protos::RpcVector2D& GoalieAndPlayerMessage::goalie_position() const {
   // @@protoc_insertion_point(field_get:protos.GoalieAndPlayerMessage.goalie_position)
   return _internal_goalie_position();
 }
 inline void GoalieAndPlayerMessage::unsafe_arena_set_allocated_goalie_position(
-    ::protos::Vector2D* goalie_position) {
+    ::protos::RpcVector2D* goalie_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.goalie_position_);
   }
@@ -34286,9 +34917,9 @@ inline void GoalieAndPlayerMessage::unsafe_arena_set_allocated_goalie_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.GoalieAndPlayerMessage.goalie_position)
 }
-inline ::protos::Vector2D* GoalieAndPlayerMessage::release_goalie_position() {
+inline ::protos::RpcVector2D* GoalieAndPlayerMessage::release_goalie_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.goalie_position_;
+  ::protos::RpcVector2D* temp = _impl_.goalie_position_;
   _impl_.goalie_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -34301,27 +34932,27 @@ inline ::protos::Vector2D* GoalieAndPlayerMessage::release_goalie_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* GoalieAndPlayerMessage::unsafe_arena_release_goalie_position() {
+inline ::protos::RpcVector2D* GoalieAndPlayerMessage::unsafe_arena_release_goalie_position() {
   // @@protoc_insertion_point(field_release:protos.GoalieAndPlayerMessage.goalie_position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.goalie_position_;
+  ::protos::RpcVector2D* temp = _impl_.goalie_position_;
   _impl_.goalie_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* GoalieAndPlayerMessage::_internal_mutable_goalie_position() {
+inline ::protos::RpcVector2D* GoalieAndPlayerMessage::_internal_mutable_goalie_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.goalie_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.goalie_position_ = p;
   }
   return _impl_.goalie_position_;
 }
-inline ::protos::Vector2D* GoalieAndPlayerMessage::mutable_goalie_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_goalie_position();
+inline ::protos::RpcVector2D* GoalieAndPlayerMessage::mutable_goalie_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_goalie_position();
   // @@protoc_insertion_point(field_mutable:protos.GoalieAndPlayerMessage.goalie_position)
   return _msg;
 }
-inline void GoalieAndPlayerMessage::set_allocated_goalie_position(::protos::Vector2D* goalie_position) {
+inline void GoalieAndPlayerMessage::set_allocated_goalie_position(::protos::RpcVector2D* goalie_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.goalie_position_;
@@ -34381,7 +35012,7 @@ inline void GoalieAndPlayerMessage::_internal_set_player_uniform_number(::int32_
   _impl_.player_uniform_number_ = value;
 }
 
-// .protos.Vector2D player_position = 5;
+// .protos.RpcVector2D player_position = 5;
 inline bool GoalieAndPlayerMessage::has_player_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.player_position_ != nullptr);
@@ -34391,17 +35022,17 @@ inline void GoalieAndPlayerMessage::clear_player_position() {
   if (_impl_.player_position_ != nullptr) _impl_.player_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::Vector2D& GoalieAndPlayerMessage::_internal_player_position() const {
-  const ::protos::Vector2D* p = _impl_.player_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& GoalieAndPlayerMessage::_internal_player_position() const {
+  const ::protos::RpcVector2D* p = _impl_.player_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& GoalieAndPlayerMessage::player_position() const {
+inline const ::protos::RpcVector2D& GoalieAndPlayerMessage::player_position() const {
   // @@protoc_insertion_point(field_get:protos.GoalieAndPlayerMessage.player_position)
   return _internal_player_position();
 }
 inline void GoalieAndPlayerMessage::unsafe_arena_set_allocated_player_position(
-    ::protos::Vector2D* player_position) {
+    ::protos::RpcVector2D* player_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.player_position_);
   }
@@ -34413,9 +35044,9 @@ inline void GoalieAndPlayerMessage::unsafe_arena_set_allocated_player_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.GoalieAndPlayerMessage.player_position)
 }
-inline ::protos::Vector2D* GoalieAndPlayerMessage::release_player_position() {
+inline ::protos::RpcVector2D* GoalieAndPlayerMessage::release_player_position() {
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.player_position_;
+  ::protos::RpcVector2D* temp = _impl_.player_position_;
   _impl_.player_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -34428,27 +35059,27 @@ inline ::protos::Vector2D* GoalieAndPlayerMessage::release_player_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* GoalieAndPlayerMessage::unsafe_arena_release_player_position() {
+inline ::protos::RpcVector2D* GoalieAndPlayerMessage::unsafe_arena_release_player_position() {
   // @@protoc_insertion_point(field_release:protos.GoalieAndPlayerMessage.player_position)
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.player_position_;
+  ::protos::RpcVector2D* temp = _impl_.player_position_;
   _impl_.player_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* GoalieAndPlayerMessage::_internal_mutable_player_position() {
+inline ::protos::RpcVector2D* GoalieAndPlayerMessage::_internal_mutable_player_position() {
   _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.player_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.player_position_ = p;
   }
   return _impl_.player_position_;
 }
-inline ::protos::Vector2D* GoalieAndPlayerMessage::mutable_player_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_player_position();
+inline ::protos::RpcVector2D* GoalieAndPlayerMessage::mutable_player_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_player_position();
   // @@protoc_insertion_point(field_mutable:protos.GoalieAndPlayerMessage.player_position)
   return _msg;
 }
-inline void GoalieAndPlayerMessage::set_allocated_player_position(::protos::Vector2D* player_position) {
+inline void GoalieAndPlayerMessage::set_allocated_player_position(::protos::RpcVector2D* player_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.player_position_;
@@ -34548,7 +35179,7 @@ inline void SetplayMessage::_internal_set_wait_step(::int32_t value) {
 
 // PassRequestMessage
 
-// .protos.Vector2D target_point = 1;
+// .protos.RpcVector2D target_point = 1;
 inline bool PassRequestMessage::has_target_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.target_point_ != nullptr);
@@ -34558,17 +35189,17 @@ inline void PassRequestMessage::clear_target_point() {
   if (_impl_.target_point_ != nullptr) _impl_.target_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& PassRequestMessage::_internal_target_point() const {
-  const ::protos::Vector2D* p = _impl_.target_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& PassRequestMessage::_internal_target_point() const {
+  const ::protos::RpcVector2D* p = _impl_.target_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& PassRequestMessage::target_point() const {
+inline const ::protos::RpcVector2D& PassRequestMessage::target_point() const {
   // @@protoc_insertion_point(field_get:protos.PassRequestMessage.target_point)
   return _internal_target_point();
 }
 inline void PassRequestMessage::unsafe_arena_set_allocated_target_point(
-    ::protos::Vector2D* target_point) {
+    ::protos::RpcVector2D* target_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.target_point_);
   }
@@ -34580,9 +35211,9 @@ inline void PassRequestMessage::unsafe_arena_set_allocated_target_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.PassRequestMessage.target_point)
 }
-inline ::protos::Vector2D* PassRequestMessage::release_target_point() {
+inline ::protos::RpcVector2D* PassRequestMessage::release_target_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -34595,27 +35226,27 @@ inline ::protos::Vector2D* PassRequestMessage::release_target_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* PassRequestMessage::unsafe_arena_release_target_point() {
+inline ::protos::RpcVector2D* PassRequestMessage::unsafe_arena_release_target_point() {
   // @@protoc_insertion_point(field_release:protos.PassRequestMessage.target_point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* PassRequestMessage::_internal_mutable_target_point() {
+inline ::protos::RpcVector2D* PassRequestMessage::_internal_mutable_target_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.target_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.target_point_ = p;
   }
   return _impl_.target_point_;
 }
-inline ::protos::Vector2D* PassRequestMessage::mutable_target_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_target_point();
+inline ::protos::RpcVector2D* PassRequestMessage::mutable_target_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_target_point();
   // @@protoc_insertion_point(field_mutable:protos.PassRequestMessage.target_point)
   return _msg;
 }
-inline void PassRequestMessage::set_allocated_target_point(::protos::Vector2D* target_point) {
+inline void PassRequestMessage::set_allocated_target_point(::protos::RpcVector2D* target_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.target_point_;
@@ -34711,7 +35342,7 @@ inline void StaminaCapacityMessage::_internal_set_stamina_capacity(float value) 
 
 // DribbleMessage
 
-// .protos.Vector2D target_point = 1;
+// .protos.RpcVector2D target_point = 1;
 inline bool DribbleMessage::has_target_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.target_point_ != nullptr);
@@ -34721,17 +35352,17 @@ inline void DribbleMessage::clear_target_point() {
   if (_impl_.target_point_ != nullptr) _impl_.target_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& DribbleMessage::_internal_target_point() const {
-  const ::protos::Vector2D* p = _impl_.target_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& DribbleMessage::_internal_target_point() const {
+  const ::protos::RpcVector2D* p = _impl_.target_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& DribbleMessage::target_point() const {
+inline const ::protos::RpcVector2D& DribbleMessage::target_point() const {
   // @@protoc_insertion_point(field_get:protos.DribbleMessage.target_point)
   return _internal_target_point();
 }
 inline void DribbleMessage::unsafe_arena_set_allocated_target_point(
-    ::protos::Vector2D* target_point) {
+    ::protos::RpcVector2D* target_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.target_point_);
   }
@@ -34743,9 +35374,9 @@ inline void DribbleMessage::unsafe_arena_set_allocated_target_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.DribbleMessage.target_point)
 }
-inline ::protos::Vector2D* DribbleMessage::release_target_point() {
+inline ::protos::RpcVector2D* DribbleMessage::release_target_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -34758,27 +35389,27 @@ inline ::protos::Vector2D* DribbleMessage::release_target_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* DribbleMessage::unsafe_arena_release_target_point() {
+inline ::protos::RpcVector2D* DribbleMessage::unsafe_arena_release_target_point() {
   // @@protoc_insertion_point(field_release:protos.DribbleMessage.target_point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* DribbleMessage::_internal_mutable_target_point() {
+inline ::protos::RpcVector2D* DribbleMessage::_internal_mutable_target_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.target_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.target_point_ = p;
   }
   return _impl_.target_point_;
 }
-inline ::protos::Vector2D* DribbleMessage::mutable_target_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_target_point();
+inline ::protos::RpcVector2D* DribbleMessage::mutable_target_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_target_point();
   // @@protoc_insertion_point(field_mutable:protos.DribbleMessage.target_point)
   return _msg;
 }
-inline void DribbleMessage::set_allocated_target_point(::protos::Vector2D* target_point) {
+inline void DribbleMessage::set_allocated_target_point(::protos::RpcVector2D* target_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.target_point_;
@@ -34822,7 +35453,7 @@ inline void DribbleMessage::_internal_set_queue_count(::int32_t value) {
 
 // BallGoalieMessage
 
-// .protos.Vector2D ball_position = 1;
+// .protos.RpcVector2D ball_position = 1;
 inline bool BallGoalieMessage::has_ball_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.ball_position_ != nullptr);
@@ -34832,17 +35463,17 @@ inline void BallGoalieMessage::clear_ball_position() {
   if (_impl_.ball_position_ != nullptr) _impl_.ball_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& BallGoalieMessage::_internal_ball_position() const {
-  const ::protos::Vector2D* p = _impl_.ball_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& BallGoalieMessage::_internal_ball_position() const {
+  const ::protos::RpcVector2D* p = _impl_.ball_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& BallGoalieMessage::ball_position() const {
+inline const ::protos::RpcVector2D& BallGoalieMessage::ball_position() const {
   // @@protoc_insertion_point(field_get:protos.BallGoalieMessage.ball_position)
   return _internal_ball_position();
 }
 inline void BallGoalieMessage::unsafe_arena_set_allocated_ball_position(
-    ::protos::Vector2D* ball_position) {
+    ::protos::RpcVector2D* ball_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ball_position_);
   }
@@ -34854,9 +35485,9 @@ inline void BallGoalieMessage::unsafe_arena_set_allocated_ball_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.BallGoalieMessage.ball_position)
 }
-inline ::protos::Vector2D* BallGoalieMessage::release_ball_position() {
+inline ::protos::RpcVector2D* BallGoalieMessage::release_ball_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.ball_position_;
+  ::protos::RpcVector2D* temp = _impl_.ball_position_;
   _impl_.ball_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -34869,27 +35500,27 @@ inline ::protos::Vector2D* BallGoalieMessage::release_ball_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* BallGoalieMessage::unsafe_arena_release_ball_position() {
+inline ::protos::RpcVector2D* BallGoalieMessage::unsafe_arena_release_ball_position() {
   // @@protoc_insertion_point(field_release:protos.BallGoalieMessage.ball_position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.ball_position_;
+  ::protos::RpcVector2D* temp = _impl_.ball_position_;
   _impl_.ball_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* BallGoalieMessage::_internal_mutable_ball_position() {
+inline ::protos::RpcVector2D* BallGoalieMessage::_internal_mutable_ball_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.ball_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.ball_position_ = p;
   }
   return _impl_.ball_position_;
 }
-inline ::protos::Vector2D* BallGoalieMessage::mutable_ball_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_ball_position();
+inline ::protos::RpcVector2D* BallGoalieMessage::mutable_ball_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_ball_position();
   // @@protoc_insertion_point(field_mutable:protos.BallGoalieMessage.ball_position)
   return _msg;
 }
-inline void BallGoalieMessage::set_allocated_ball_position(::protos::Vector2D* ball_position) {
+inline void BallGoalieMessage::set_allocated_ball_position(::protos::RpcVector2D* ball_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.ball_position_;
@@ -34909,7 +35540,7 @@ inline void BallGoalieMessage::set_allocated_ball_position(::protos::Vector2D* b
   // @@protoc_insertion_point(field_set_allocated:protos.BallGoalieMessage.ball_position)
 }
 
-// .protos.Vector2D ball_velocity = 2;
+// .protos.RpcVector2D ball_velocity = 2;
 inline bool BallGoalieMessage::has_ball_velocity() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.ball_velocity_ != nullptr);
@@ -34919,17 +35550,17 @@ inline void BallGoalieMessage::clear_ball_velocity() {
   if (_impl_.ball_velocity_ != nullptr) _impl_.ball_velocity_->Clear();
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::Vector2D& BallGoalieMessage::_internal_ball_velocity() const {
-  const ::protos::Vector2D* p = _impl_.ball_velocity_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& BallGoalieMessage::_internal_ball_velocity() const {
+  const ::protos::RpcVector2D* p = _impl_.ball_velocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& BallGoalieMessage::ball_velocity() const {
+inline const ::protos::RpcVector2D& BallGoalieMessage::ball_velocity() const {
   // @@protoc_insertion_point(field_get:protos.BallGoalieMessage.ball_velocity)
   return _internal_ball_velocity();
 }
 inline void BallGoalieMessage::unsafe_arena_set_allocated_ball_velocity(
-    ::protos::Vector2D* ball_velocity) {
+    ::protos::RpcVector2D* ball_velocity) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ball_velocity_);
   }
@@ -34941,9 +35572,9 @@ inline void BallGoalieMessage::unsafe_arena_set_allocated_ball_velocity(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.BallGoalieMessage.ball_velocity)
 }
-inline ::protos::Vector2D* BallGoalieMessage::release_ball_velocity() {
+inline ::protos::RpcVector2D* BallGoalieMessage::release_ball_velocity() {
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.ball_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.ball_velocity_;
   _impl_.ball_velocity_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -34956,27 +35587,27 @@ inline ::protos::Vector2D* BallGoalieMessage::release_ball_velocity() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* BallGoalieMessage::unsafe_arena_release_ball_velocity() {
+inline ::protos::RpcVector2D* BallGoalieMessage::unsafe_arena_release_ball_velocity() {
   // @@protoc_insertion_point(field_release:protos.BallGoalieMessage.ball_velocity)
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.ball_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.ball_velocity_;
   _impl_.ball_velocity_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* BallGoalieMessage::_internal_mutable_ball_velocity() {
+inline ::protos::RpcVector2D* BallGoalieMessage::_internal_mutable_ball_velocity() {
   _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.ball_velocity_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.ball_velocity_ = p;
   }
   return _impl_.ball_velocity_;
 }
-inline ::protos::Vector2D* BallGoalieMessage::mutable_ball_velocity() {
-  ::protos::Vector2D* _msg = _internal_mutable_ball_velocity();
+inline ::protos::RpcVector2D* BallGoalieMessage::mutable_ball_velocity() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_ball_velocity();
   // @@protoc_insertion_point(field_mutable:protos.BallGoalieMessage.ball_velocity)
   return _msg;
 }
-inline void BallGoalieMessage::set_allocated_ball_velocity(::protos::Vector2D* ball_velocity) {
+inline void BallGoalieMessage::set_allocated_ball_velocity(::protos::RpcVector2D* ball_velocity) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.ball_velocity_;
@@ -34996,7 +35627,7 @@ inline void BallGoalieMessage::set_allocated_ball_velocity(::protos::Vector2D* b
   // @@protoc_insertion_point(field_set_allocated:protos.BallGoalieMessage.ball_velocity)
 }
 
-// .protos.Vector2D goalie_position = 3;
+// .protos.RpcVector2D goalie_position = 3;
 inline bool BallGoalieMessage::has_goalie_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.goalie_position_ != nullptr);
@@ -35006,17 +35637,17 @@ inline void BallGoalieMessage::clear_goalie_position() {
   if (_impl_.goalie_position_ != nullptr) _impl_.goalie_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000004u;
 }
-inline const ::protos::Vector2D& BallGoalieMessage::_internal_goalie_position() const {
-  const ::protos::Vector2D* p = _impl_.goalie_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& BallGoalieMessage::_internal_goalie_position() const {
+  const ::protos::RpcVector2D* p = _impl_.goalie_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& BallGoalieMessage::goalie_position() const {
+inline const ::protos::RpcVector2D& BallGoalieMessage::goalie_position() const {
   // @@protoc_insertion_point(field_get:protos.BallGoalieMessage.goalie_position)
   return _internal_goalie_position();
 }
 inline void BallGoalieMessage::unsafe_arena_set_allocated_goalie_position(
-    ::protos::Vector2D* goalie_position) {
+    ::protos::RpcVector2D* goalie_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.goalie_position_);
   }
@@ -35028,9 +35659,9 @@ inline void BallGoalieMessage::unsafe_arena_set_allocated_goalie_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.BallGoalieMessage.goalie_position)
 }
-inline ::protos::Vector2D* BallGoalieMessage::release_goalie_position() {
+inline ::protos::RpcVector2D* BallGoalieMessage::release_goalie_position() {
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.goalie_position_;
+  ::protos::RpcVector2D* temp = _impl_.goalie_position_;
   _impl_.goalie_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -35043,27 +35674,27 @@ inline ::protos::Vector2D* BallGoalieMessage::release_goalie_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* BallGoalieMessage::unsafe_arena_release_goalie_position() {
+inline ::protos::RpcVector2D* BallGoalieMessage::unsafe_arena_release_goalie_position() {
   // @@protoc_insertion_point(field_release:protos.BallGoalieMessage.goalie_position)
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.goalie_position_;
+  ::protos::RpcVector2D* temp = _impl_.goalie_position_;
   _impl_.goalie_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* BallGoalieMessage::_internal_mutable_goalie_position() {
+inline ::protos::RpcVector2D* BallGoalieMessage::_internal_mutable_goalie_position() {
   _impl_._has_bits_[0] |= 0x00000004u;
   if (_impl_.goalie_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.goalie_position_ = p;
   }
   return _impl_.goalie_position_;
 }
-inline ::protos::Vector2D* BallGoalieMessage::mutable_goalie_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_goalie_position();
+inline ::protos::RpcVector2D* BallGoalieMessage::mutable_goalie_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_goalie_position();
   // @@protoc_insertion_point(field_mutable:protos.BallGoalieMessage.goalie_position)
   return _msg;
 }
-inline void BallGoalieMessage::set_allocated_goalie_position(::protos::Vector2D* goalie_position) {
+inline void BallGoalieMessage::set_allocated_goalie_position(::protos::RpcVector2D* goalie_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.goalie_position_;
@@ -35127,7 +35758,7 @@ inline void OnePlayerMessage::_internal_set_uniform_number(::int32_t value) {
   _impl_.uniform_number_ = value;
 }
 
-// .protos.Vector2D position = 2;
+// .protos.RpcVector2D position = 2;
 inline bool OnePlayerMessage::has_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.position_ != nullptr);
@@ -35137,17 +35768,17 @@ inline void OnePlayerMessage::clear_position() {
   if (_impl_.position_ != nullptr) _impl_.position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& OnePlayerMessage::_internal_position() const {
-  const ::protos::Vector2D* p = _impl_.position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& OnePlayerMessage::_internal_position() const {
+  const ::protos::RpcVector2D* p = _impl_.position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& OnePlayerMessage::position() const {
+inline const ::protos::RpcVector2D& OnePlayerMessage::position() const {
   // @@protoc_insertion_point(field_get:protos.OnePlayerMessage.position)
   return _internal_position();
 }
 inline void OnePlayerMessage::unsafe_arena_set_allocated_position(
-    ::protos::Vector2D* position) {
+    ::protos::RpcVector2D* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
   }
@@ -35159,9 +35790,9 @@ inline void OnePlayerMessage::unsafe_arena_set_allocated_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.OnePlayerMessage.position)
 }
-inline ::protos::Vector2D* OnePlayerMessage::release_position() {
+inline ::protos::RpcVector2D* OnePlayerMessage::release_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -35174,27 +35805,27 @@ inline ::protos::Vector2D* OnePlayerMessage::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* OnePlayerMessage::unsafe_arena_release_position() {
+inline ::protos::RpcVector2D* OnePlayerMessage::unsafe_arena_release_position() {
   // @@protoc_insertion_point(field_release:protos.OnePlayerMessage.position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* OnePlayerMessage::_internal_mutable_position() {
+inline ::protos::RpcVector2D* OnePlayerMessage::_internal_mutable_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.position_ = p;
   }
   return _impl_.position_;
 }
-inline ::protos::Vector2D* OnePlayerMessage::mutable_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_position();
+inline ::protos::RpcVector2D* OnePlayerMessage::mutable_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_position();
   // @@protoc_insertion_point(field_mutable:protos.OnePlayerMessage.position)
   return _msg;
 }
-inline void OnePlayerMessage::set_allocated_position(::protos::Vector2D* position) {
+inline void OnePlayerMessage::set_allocated_position(::protos::RpcVector2D* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.position_;
@@ -35238,7 +35869,7 @@ inline void TwoPlayerMessage::_internal_set_first_uniform_number(::int32_t value
   _impl_.first_uniform_number_ = value;
 }
 
-// .protos.Vector2D first_position = 2;
+// .protos.RpcVector2D first_position = 2;
 inline bool TwoPlayerMessage::has_first_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.first_position_ != nullptr);
@@ -35248,17 +35879,17 @@ inline void TwoPlayerMessage::clear_first_position() {
   if (_impl_.first_position_ != nullptr) _impl_.first_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& TwoPlayerMessage::_internal_first_position() const {
-  const ::protos::Vector2D* p = _impl_.first_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& TwoPlayerMessage::_internal_first_position() const {
+  const ::protos::RpcVector2D* p = _impl_.first_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& TwoPlayerMessage::first_position() const {
+inline const ::protos::RpcVector2D& TwoPlayerMessage::first_position() const {
   // @@protoc_insertion_point(field_get:protos.TwoPlayerMessage.first_position)
   return _internal_first_position();
 }
 inline void TwoPlayerMessage::unsafe_arena_set_allocated_first_position(
-    ::protos::Vector2D* first_position) {
+    ::protos::RpcVector2D* first_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.first_position_);
   }
@@ -35270,9 +35901,9 @@ inline void TwoPlayerMessage::unsafe_arena_set_allocated_first_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.TwoPlayerMessage.first_position)
 }
-inline ::protos::Vector2D* TwoPlayerMessage::release_first_position() {
+inline ::protos::RpcVector2D* TwoPlayerMessage::release_first_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.first_position_;
+  ::protos::RpcVector2D* temp = _impl_.first_position_;
   _impl_.first_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -35285,27 +35916,27 @@ inline ::protos::Vector2D* TwoPlayerMessage::release_first_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* TwoPlayerMessage::unsafe_arena_release_first_position() {
+inline ::protos::RpcVector2D* TwoPlayerMessage::unsafe_arena_release_first_position() {
   // @@protoc_insertion_point(field_release:protos.TwoPlayerMessage.first_position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.first_position_;
+  ::protos::RpcVector2D* temp = _impl_.first_position_;
   _impl_.first_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* TwoPlayerMessage::_internal_mutable_first_position() {
+inline ::protos::RpcVector2D* TwoPlayerMessage::_internal_mutable_first_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.first_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.first_position_ = p;
   }
   return _impl_.first_position_;
 }
-inline ::protos::Vector2D* TwoPlayerMessage::mutable_first_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_first_position();
+inline ::protos::RpcVector2D* TwoPlayerMessage::mutable_first_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_first_position();
   // @@protoc_insertion_point(field_mutable:protos.TwoPlayerMessage.first_position)
   return _msg;
 }
-inline void TwoPlayerMessage::set_allocated_first_position(::protos::Vector2D* first_position) {
+inline void TwoPlayerMessage::set_allocated_first_position(::protos::RpcVector2D* first_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.first_position_;
@@ -35345,7 +35976,7 @@ inline void TwoPlayerMessage::_internal_set_second_uniform_number(::int32_t valu
   _impl_.second_uniform_number_ = value;
 }
 
-// .protos.Vector2D second_position = 4;
+// .protos.RpcVector2D second_position = 4;
 inline bool TwoPlayerMessage::has_second_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.second_position_ != nullptr);
@@ -35355,17 +35986,17 @@ inline void TwoPlayerMessage::clear_second_position() {
   if (_impl_.second_position_ != nullptr) _impl_.second_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::Vector2D& TwoPlayerMessage::_internal_second_position() const {
-  const ::protos::Vector2D* p = _impl_.second_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& TwoPlayerMessage::_internal_second_position() const {
+  const ::protos::RpcVector2D* p = _impl_.second_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& TwoPlayerMessage::second_position() const {
+inline const ::protos::RpcVector2D& TwoPlayerMessage::second_position() const {
   // @@protoc_insertion_point(field_get:protos.TwoPlayerMessage.second_position)
   return _internal_second_position();
 }
 inline void TwoPlayerMessage::unsafe_arena_set_allocated_second_position(
-    ::protos::Vector2D* second_position) {
+    ::protos::RpcVector2D* second_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.second_position_);
   }
@@ -35377,9 +36008,9 @@ inline void TwoPlayerMessage::unsafe_arena_set_allocated_second_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.TwoPlayerMessage.second_position)
 }
-inline ::protos::Vector2D* TwoPlayerMessage::release_second_position() {
+inline ::protos::RpcVector2D* TwoPlayerMessage::release_second_position() {
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.second_position_;
+  ::protos::RpcVector2D* temp = _impl_.second_position_;
   _impl_.second_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -35392,27 +36023,27 @@ inline ::protos::Vector2D* TwoPlayerMessage::release_second_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* TwoPlayerMessage::unsafe_arena_release_second_position() {
+inline ::protos::RpcVector2D* TwoPlayerMessage::unsafe_arena_release_second_position() {
   // @@protoc_insertion_point(field_release:protos.TwoPlayerMessage.second_position)
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.second_position_;
+  ::protos::RpcVector2D* temp = _impl_.second_position_;
   _impl_.second_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* TwoPlayerMessage::_internal_mutable_second_position() {
+inline ::protos::RpcVector2D* TwoPlayerMessage::_internal_mutable_second_position() {
   _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.second_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.second_position_ = p;
   }
   return _impl_.second_position_;
 }
-inline ::protos::Vector2D* TwoPlayerMessage::mutable_second_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_second_position();
+inline ::protos::RpcVector2D* TwoPlayerMessage::mutable_second_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_second_position();
   // @@protoc_insertion_point(field_mutable:protos.TwoPlayerMessage.second_position)
   return _msg;
 }
-inline void TwoPlayerMessage::set_allocated_second_position(::protos::Vector2D* second_position) {
+inline void TwoPlayerMessage::set_allocated_second_position(::protos::RpcVector2D* second_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.second_position_;
@@ -35456,7 +36087,7 @@ inline void ThreePlayerMessage::_internal_set_first_uniform_number(::int32_t val
   _impl_.first_uniform_number_ = value;
 }
 
-// .protos.Vector2D first_position = 2;
+// .protos.RpcVector2D first_position = 2;
 inline bool ThreePlayerMessage::has_first_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.first_position_ != nullptr);
@@ -35466,17 +36097,17 @@ inline void ThreePlayerMessage::clear_first_position() {
   if (_impl_.first_position_ != nullptr) _impl_.first_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& ThreePlayerMessage::_internal_first_position() const {
-  const ::protos::Vector2D* p = _impl_.first_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& ThreePlayerMessage::_internal_first_position() const {
+  const ::protos::RpcVector2D* p = _impl_.first_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& ThreePlayerMessage::first_position() const {
+inline const ::protos::RpcVector2D& ThreePlayerMessage::first_position() const {
   // @@protoc_insertion_point(field_get:protos.ThreePlayerMessage.first_position)
   return _internal_first_position();
 }
 inline void ThreePlayerMessage::unsafe_arena_set_allocated_first_position(
-    ::protos::Vector2D* first_position) {
+    ::protos::RpcVector2D* first_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.first_position_);
   }
@@ -35488,9 +36119,9 @@ inline void ThreePlayerMessage::unsafe_arena_set_allocated_first_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.ThreePlayerMessage.first_position)
 }
-inline ::protos::Vector2D* ThreePlayerMessage::release_first_position() {
+inline ::protos::RpcVector2D* ThreePlayerMessage::release_first_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.first_position_;
+  ::protos::RpcVector2D* temp = _impl_.first_position_;
   _impl_.first_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -35503,27 +36134,27 @@ inline ::protos::Vector2D* ThreePlayerMessage::release_first_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* ThreePlayerMessage::unsafe_arena_release_first_position() {
+inline ::protos::RpcVector2D* ThreePlayerMessage::unsafe_arena_release_first_position() {
   // @@protoc_insertion_point(field_release:protos.ThreePlayerMessage.first_position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.first_position_;
+  ::protos::RpcVector2D* temp = _impl_.first_position_;
   _impl_.first_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* ThreePlayerMessage::_internal_mutable_first_position() {
+inline ::protos::RpcVector2D* ThreePlayerMessage::_internal_mutable_first_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.first_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.first_position_ = p;
   }
   return _impl_.first_position_;
 }
-inline ::protos::Vector2D* ThreePlayerMessage::mutable_first_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_first_position();
+inline ::protos::RpcVector2D* ThreePlayerMessage::mutable_first_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_first_position();
   // @@protoc_insertion_point(field_mutable:protos.ThreePlayerMessage.first_position)
   return _msg;
 }
-inline void ThreePlayerMessage::set_allocated_first_position(::protos::Vector2D* first_position) {
+inline void ThreePlayerMessage::set_allocated_first_position(::protos::RpcVector2D* first_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.first_position_;
@@ -35563,7 +36194,7 @@ inline void ThreePlayerMessage::_internal_set_second_uniform_number(::int32_t va
   _impl_.second_uniform_number_ = value;
 }
 
-// .protos.Vector2D second_position = 4;
+// .protos.RpcVector2D second_position = 4;
 inline bool ThreePlayerMessage::has_second_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.second_position_ != nullptr);
@@ -35573,17 +36204,17 @@ inline void ThreePlayerMessage::clear_second_position() {
   if (_impl_.second_position_ != nullptr) _impl_.second_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::Vector2D& ThreePlayerMessage::_internal_second_position() const {
-  const ::protos::Vector2D* p = _impl_.second_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& ThreePlayerMessage::_internal_second_position() const {
+  const ::protos::RpcVector2D* p = _impl_.second_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& ThreePlayerMessage::second_position() const {
+inline const ::protos::RpcVector2D& ThreePlayerMessage::second_position() const {
   // @@protoc_insertion_point(field_get:protos.ThreePlayerMessage.second_position)
   return _internal_second_position();
 }
 inline void ThreePlayerMessage::unsafe_arena_set_allocated_second_position(
-    ::protos::Vector2D* second_position) {
+    ::protos::RpcVector2D* second_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.second_position_);
   }
@@ -35595,9 +36226,9 @@ inline void ThreePlayerMessage::unsafe_arena_set_allocated_second_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.ThreePlayerMessage.second_position)
 }
-inline ::protos::Vector2D* ThreePlayerMessage::release_second_position() {
+inline ::protos::RpcVector2D* ThreePlayerMessage::release_second_position() {
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.second_position_;
+  ::protos::RpcVector2D* temp = _impl_.second_position_;
   _impl_.second_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -35610,27 +36241,27 @@ inline ::protos::Vector2D* ThreePlayerMessage::release_second_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* ThreePlayerMessage::unsafe_arena_release_second_position() {
+inline ::protos::RpcVector2D* ThreePlayerMessage::unsafe_arena_release_second_position() {
   // @@protoc_insertion_point(field_release:protos.ThreePlayerMessage.second_position)
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.second_position_;
+  ::protos::RpcVector2D* temp = _impl_.second_position_;
   _impl_.second_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* ThreePlayerMessage::_internal_mutable_second_position() {
+inline ::protos::RpcVector2D* ThreePlayerMessage::_internal_mutable_second_position() {
   _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.second_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.second_position_ = p;
   }
   return _impl_.second_position_;
 }
-inline ::protos::Vector2D* ThreePlayerMessage::mutable_second_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_second_position();
+inline ::protos::RpcVector2D* ThreePlayerMessage::mutable_second_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_second_position();
   // @@protoc_insertion_point(field_mutable:protos.ThreePlayerMessage.second_position)
   return _msg;
 }
-inline void ThreePlayerMessage::set_allocated_second_position(::protos::Vector2D* second_position) {
+inline void ThreePlayerMessage::set_allocated_second_position(::protos::RpcVector2D* second_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.second_position_;
@@ -35670,7 +36301,7 @@ inline void ThreePlayerMessage::_internal_set_third_uniform_number(::int32_t val
   _impl_.third_uniform_number_ = value;
 }
 
-// .protos.Vector2D third_position = 6;
+// .protos.RpcVector2D third_position = 6;
 inline bool ThreePlayerMessage::has_third_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.third_position_ != nullptr);
@@ -35680,17 +36311,17 @@ inline void ThreePlayerMessage::clear_third_position() {
   if (_impl_.third_position_ != nullptr) _impl_.third_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000004u;
 }
-inline const ::protos::Vector2D& ThreePlayerMessage::_internal_third_position() const {
-  const ::protos::Vector2D* p = _impl_.third_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& ThreePlayerMessage::_internal_third_position() const {
+  const ::protos::RpcVector2D* p = _impl_.third_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& ThreePlayerMessage::third_position() const {
+inline const ::protos::RpcVector2D& ThreePlayerMessage::third_position() const {
   // @@protoc_insertion_point(field_get:protos.ThreePlayerMessage.third_position)
   return _internal_third_position();
 }
 inline void ThreePlayerMessage::unsafe_arena_set_allocated_third_position(
-    ::protos::Vector2D* third_position) {
+    ::protos::RpcVector2D* third_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.third_position_);
   }
@@ -35702,9 +36333,9 @@ inline void ThreePlayerMessage::unsafe_arena_set_allocated_third_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.ThreePlayerMessage.third_position)
 }
-inline ::protos::Vector2D* ThreePlayerMessage::release_third_position() {
+inline ::protos::RpcVector2D* ThreePlayerMessage::release_third_position() {
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.third_position_;
+  ::protos::RpcVector2D* temp = _impl_.third_position_;
   _impl_.third_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -35717,27 +36348,27 @@ inline ::protos::Vector2D* ThreePlayerMessage::release_third_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* ThreePlayerMessage::unsafe_arena_release_third_position() {
+inline ::protos::RpcVector2D* ThreePlayerMessage::unsafe_arena_release_third_position() {
   // @@protoc_insertion_point(field_release:protos.ThreePlayerMessage.third_position)
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.third_position_;
+  ::protos::RpcVector2D* temp = _impl_.third_position_;
   _impl_.third_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* ThreePlayerMessage::_internal_mutable_third_position() {
+inline ::protos::RpcVector2D* ThreePlayerMessage::_internal_mutable_third_position() {
   _impl_._has_bits_[0] |= 0x00000004u;
   if (_impl_.third_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.third_position_ = p;
   }
   return _impl_.third_position_;
 }
-inline ::protos::Vector2D* ThreePlayerMessage::mutable_third_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_third_position();
+inline ::protos::RpcVector2D* ThreePlayerMessage::mutable_third_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_third_position();
   // @@protoc_insertion_point(field_mutable:protos.ThreePlayerMessage.third_position)
   return _msg;
 }
-inline void ThreePlayerMessage::set_allocated_third_position(::protos::Vector2D* third_position) {
+inline void ThreePlayerMessage::set_allocated_third_position(::protos::RpcVector2D* third_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.third_position_;
@@ -35761,7 +36392,7 @@ inline void ThreePlayerMessage::set_allocated_third_position(::protos::Vector2D*
 
 // SelfMessage
 
-// .protos.Vector2D self_position = 1;
+// .protos.RpcVector2D self_position = 1;
 inline bool SelfMessage::has_self_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.self_position_ != nullptr);
@@ -35771,17 +36402,17 @@ inline void SelfMessage::clear_self_position() {
   if (_impl_.self_position_ != nullptr) _impl_.self_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& SelfMessage::_internal_self_position() const {
-  const ::protos::Vector2D* p = _impl_.self_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& SelfMessage::_internal_self_position() const {
+  const ::protos::RpcVector2D* p = _impl_.self_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& SelfMessage::self_position() const {
+inline const ::protos::RpcVector2D& SelfMessage::self_position() const {
   // @@protoc_insertion_point(field_get:protos.SelfMessage.self_position)
   return _internal_self_position();
 }
 inline void SelfMessage::unsafe_arena_set_allocated_self_position(
-    ::protos::Vector2D* self_position) {
+    ::protos::RpcVector2D* self_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.self_position_);
   }
@@ -35793,9 +36424,9 @@ inline void SelfMessage::unsafe_arena_set_allocated_self_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.SelfMessage.self_position)
 }
-inline ::protos::Vector2D* SelfMessage::release_self_position() {
+inline ::protos::RpcVector2D* SelfMessage::release_self_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.self_position_;
+  ::protos::RpcVector2D* temp = _impl_.self_position_;
   _impl_.self_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -35808,27 +36439,27 @@ inline ::protos::Vector2D* SelfMessage::release_self_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* SelfMessage::unsafe_arena_release_self_position() {
+inline ::protos::RpcVector2D* SelfMessage::unsafe_arena_release_self_position() {
   // @@protoc_insertion_point(field_release:protos.SelfMessage.self_position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.self_position_;
+  ::protos::RpcVector2D* temp = _impl_.self_position_;
   _impl_.self_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* SelfMessage::_internal_mutable_self_position() {
+inline ::protos::RpcVector2D* SelfMessage::_internal_mutable_self_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.self_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.self_position_ = p;
   }
   return _impl_.self_position_;
 }
-inline ::protos::Vector2D* SelfMessage::mutable_self_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_self_position();
+inline ::protos::RpcVector2D* SelfMessage::mutable_self_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_self_position();
   // @@protoc_insertion_point(field_mutable:protos.SelfMessage.self_position)
   return _msg;
 }
-inline void SelfMessage::set_allocated_self_position(::protos::Vector2D* self_position) {
+inline void SelfMessage::set_allocated_self_position(::protos::RpcVector2D* self_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.self_position_;
@@ -35912,7 +36543,7 @@ inline void TeammateMessage::_internal_set_uniform_number(::int32_t value) {
   _impl_.uniform_number_ = value;
 }
 
-// .protos.Vector2D position = 2;
+// .protos.RpcVector2D position = 2;
 inline bool TeammateMessage::has_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.position_ != nullptr);
@@ -35922,17 +36553,17 @@ inline void TeammateMessage::clear_position() {
   if (_impl_.position_ != nullptr) _impl_.position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& TeammateMessage::_internal_position() const {
-  const ::protos::Vector2D* p = _impl_.position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& TeammateMessage::_internal_position() const {
+  const ::protos::RpcVector2D* p = _impl_.position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& TeammateMessage::position() const {
+inline const ::protos::RpcVector2D& TeammateMessage::position() const {
   // @@protoc_insertion_point(field_get:protos.TeammateMessage.position)
   return _internal_position();
 }
 inline void TeammateMessage::unsafe_arena_set_allocated_position(
-    ::protos::Vector2D* position) {
+    ::protos::RpcVector2D* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
   }
@@ -35944,9 +36575,9 @@ inline void TeammateMessage::unsafe_arena_set_allocated_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.TeammateMessage.position)
 }
-inline ::protos::Vector2D* TeammateMessage::release_position() {
+inline ::protos::RpcVector2D* TeammateMessage::release_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -35959,27 +36590,27 @@ inline ::protos::Vector2D* TeammateMessage::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* TeammateMessage::unsafe_arena_release_position() {
+inline ::protos::RpcVector2D* TeammateMessage::unsafe_arena_release_position() {
   // @@protoc_insertion_point(field_release:protos.TeammateMessage.position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* TeammateMessage::_internal_mutable_position() {
+inline ::protos::RpcVector2D* TeammateMessage::_internal_mutable_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.position_ = p;
   }
   return _impl_.position_;
 }
-inline ::protos::Vector2D* TeammateMessage::mutable_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_position();
+inline ::protos::RpcVector2D* TeammateMessage::mutable_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_position();
   // @@protoc_insertion_point(field_mutable:protos.TeammateMessage.position)
   return _msg;
 }
-inline void TeammateMessage::set_allocated_position(::protos::Vector2D* position) {
+inline void TeammateMessage::set_allocated_position(::protos::RpcVector2D* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.position_;
@@ -36043,7 +36674,7 @@ inline void OpponentMessage::_internal_set_uniform_number(::int32_t value) {
   _impl_.uniform_number_ = value;
 }
 
-// .protos.Vector2D position = 2;
+// .protos.RpcVector2D position = 2;
 inline bool OpponentMessage::has_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.position_ != nullptr);
@@ -36053,17 +36684,17 @@ inline void OpponentMessage::clear_position() {
   if (_impl_.position_ != nullptr) _impl_.position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& OpponentMessage::_internal_position() const {
-  const ::protos::Vector2D* p = _impl_.position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& OpponentMessage::_internal_position() const {
+  const ::protos::RpcVector2D* p = _impl_.position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& OpponentMessage::position() const {
+inline const ::protos::RpcVector2D& OpponentMessage::position() const {
   // @@protoc_insertion_point(field_get:protos.OpponentMessage.position)
   return _internal_position();
 }
 inline void OpponentMessage::unsafe_arena_set_allocated_position(
-    ::protos::Vector2D* position) {
+    ::protos::RpcVector2D* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
   }
@@ -36075,9 +36706,9 @@ inline void OpponentMessage::unsafe_arena_set_allocated_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.OpponentMessage.position)
 }
-inline ::protos::Vector2D* OpponentMessage::release_position() {
+inline ::protos::RpcVector2D* OpponentMessage::release_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -36090,27 +36721,27 @@ inline ::protos::Vector2D* OpponentMessage::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* OpponentMessage::unsafe_arena_release_position() {
+inline ::protos::RpcVector2D* OpponentMessage::unsafe_arena_release_position() {
   // @@protoc_insertion_point(field_release:protos.OpponentMessage.position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* OpponentMessage::_internal_mutable_position() {
+inline ::protos::RpcVector2D* OpponentMessage::_internal_mutable_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.position_ = p;
   }
   return _impl_.position_;
 }
-inline ::protos::Vector2D* OpponentMessage::mutable_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_position();
+inline ::protos::RpcVector2D* OpponentMessage::mutable_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_position();
   // @@protoc_insertion_point(field_mutable:protos.OpponentMessage.position)
   return _msg;
 }
-inline void OpponentMessage::set_allocated_position(::protos::Vector2D* position) {
+inline void OpponentMessage::set_allocated_position(::protos::RpcVector2D* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.position_;
@@ -36154,7 +36785,7 @@ inline void OpponentMessage::_internal_set_body_direction(float value) {
 
 // BallPlayerMessage
 
-// .protos.Vector2D ball_position = 1;
+// .protos.RpcVector2D ball_position = 1;
 inline bool BallPlayerMessage::has_ball_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.ball_position_ != nullptr);
@@ -36164,17 +36795,17 @@ inline void BallPlayerMessage::clear_ball_position() {
   if (_impl_.ball_position_ != nullptr) _impl_.ball_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& BallPlayerMessage::_internal_ball_position() const {
-  const ::protos::Vector2D* p = _impl_.ball_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& BallPlayerMessage::_internal_ball_position() const {
+  const ::protos::RpcVector2D* p = _impl_.ball_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& BallPlayerMessage::ball_position() const {
+inline const ::protos::RpcVector2D& BallPlayerMessage::ball_position() const {
   // @@protoc_insertion_point(field_get:protos.BallPlayerMessage.ball_position)
   return _internal_ball_position();
 }
 inline void BallPlayerMessage::unsafe_arena_set_allocated_ball_position(
-    ::protos::Vector2D* ball_position) {
+    ::protos::RpcVector2D* ball_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ball_position_);
   }
@@ -36186,9 +36817,9 @@ inline void BallPlayerMessage::unsafe_arena_set_allocated_ball_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.BallPlayerMessage.ball_position)
 }
-inline ::protos::Vector2D* BallPlayerMessage::release_ball_position() {
+inline ::protos::RpcVector2D* BallPlayerMessage::release_ball_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.ball_position_;
+  ::protos::RpcVector2D* temp = _impl_.ball_position_;
   _impl_.ball_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -36201,27 +36832,27 @@ inline ::protos::Vector2D* BallPlayerMessage::release_ball_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* BallPlayerMessage::unsafe_arena_release_ball_position() {
+inline ::protos::RpcVector2D* BallPlayerMessage::unsafe_arena_release_ball_position() {
   // @@protoc_insertion_point(field_release:protos.BallPlayerMessage.ball_position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.ball_position_;
+  ::protos::RpcVector2D* temp = _impl_.ball_position_;
   _impl_.ball_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* BallPlayerMessage::_internal_mutable_ball_position() {
+inline ::protos::RpcVector2D* BallPlayerMessage::_internal_mutable_ball_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.ball_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.ball_position_ = p;
   }
   return _impl_.ball_position_;
 }
-inline ::protos::Vector2D* BallPlayerMessage::mutable_ball_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_ball_position();
+inline ::protos::RpcVector2D* BallPlayerMessage::mutable_ball_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_ball_position();
   // @@protoc_insertion_point(field_mutable:protos.BallPlayerMessage.ball_position)
   return _msg;
 }
-inline void BallPlayerMessage::set_allocated_ball_position(::protos::Vector2D* ball_position) {
+inline void BallPlayerMessage::set_allocated_ball_position(::protos::RpcVector2D* ball_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.ball_position_;
@@ -36241,7 +36872,7 @@ inline void BallPlayerMessage::set_allocated_ball_position(::protos::Vector2D* b
   // @@protoc_insertion_point(field_set_allocated:protos.BallPlayerMessage.ball_position)
 }
 
-// .protos.Vector2D ball_velocity = 2;
+// .protos.RpcVector2D ball_velocity = 2;
 inline bool BallPlayerMessage::has_ball_velocity() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.ball_velocity_ != nullptr);
@@ -36251,17 +36882,17 @@ inline void BallPlayerMessage::clear_ball_velocity() {
   if (_impl_.ball_velocity_ != nullptr) _impl_.ball_velocity_->Clear();
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::Vector2D& BallPlayerMessage::_internal_ball_velocity() const {
-  const ::protos::Vector2D* p = _impl_.ball_velocity_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& BallPlayerMessage::_internal_ball_velocity() const {
+  const ::protos::RpcVector2D* p = _impl_.ball_velocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& BallPlayerMessage::ball_velocity() const {
+inline const ::protos::RpcVector2D& BallPlayerMessage::ball_velocity() const {
   // @@protoc_insertion_point(field_get:protos.BallPlayerMessage.ball_velocity)
   return _internal_ball_velocity();
 }
 inline void BallPlayerMessage::unsafe_arena_set_allocated_ball_velocity(
-    ::protos::Vector2D* ball_velocity) {
+    ::protos::RpcVector2D* ball_velocity) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ball_velocity_);
   }
@@ -36273,9 +36904,9 @@ inline void BallPlayerMessage::unsafe_arena_set_allocated_ball_velocity(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.BallPlayerMessage.ball_velocity)
 }
-inline ::protos::Vector2D* BallPlayerMessage::release_ball_velocity() {
+inline ::protos::RpcVector2D* BallPlayerMessage::release_ball_velocity() {
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.ball_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.ball_velocity_;
   _impl_.ball_velocity_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -36288,27 +36919,27 @@ inline ::protos::Vector2D* BallPlayerMessage::release_ball_velocity() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* BallPlayerMessage::unsafe_arena_release_ball_velocity() {
+inline ::protos::RpcVector2D* BallPlayerMessage::unsafe_arena_release_ball_velocity() {
   // @@protoc_insertion_point(field_release:protos.BallPlayerMessage.ball_velocity)
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.ball_velocity_;
+  ::protos::RpcVector2D* temp = _impl_.ball_velocity_;
   _impl_.ball_velocity_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* BallPlayerMessage::_internal_mutable_ball_velocity() {
+inline ::protos::RpcVector2D* BallPlayerMessage::_internal_mutable_ball_velocity() {
   _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.ball_velocity_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.ball_velocity_ = p;
   }
   return _impl_.ball_velocity_;
 }
-inline ::protos::Vector2D* BallPlayerMessage::mutable_ball_velocity() {
-  ::protos::Vector2D* _msg = _internal_mutable_ball_velocity();
+inline ::protos::RpcVector2D* BallPlayerMessage::mutable_ball_velocity() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_ball_velocity();
   // @@protoc_insertion_point(field_mutable:protos.BallPlayerMessage.ball_velocity)
   return _msg;
 }
-inline void BallPlayerMessage::set_allocated_ball_velocity(::protos::Vector2D* ball_velocity) {
+inline void BallPlayerMessage::set_allocated_ball_velocity(::protos::RpcVector2D* ball_velocity) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.ball_velocity_;
@@ -36348,7 +36979,7 @@ inline void BallPlayerMessage::_internal_set_uniform_number(::int32_t value) {
   _impl_.uniform_number_ = value;
 }
 
-// .protos.Vector2D player_position = 4;
+// .protos.RpcVector2D player_position = 4;
 inline bool BallPlayerMessage::has_player_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.player_position_ != nullptr);
@@ -36358,17 +36989,17 @@ inline void BallPlayerMessage::clear_player_position() {
   if (_impl_.player_position_ != nullptr) _impl_.player_position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000004u;
 }
-inline const ::protos::Vector2D& BallPlayerMessage::_internal_player_position() const {
-  const ::protos::Vector2D* p = _impl_.player_position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& BallPlayerMessage::_internal_player_position() const {
+  const ::protos::RpcVector2D* p = _impl_.player_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& BallPlayerMessage::player_position() const {
+inline const ::protos::RpcVector2D& BallPlayerMessage::player_position() const {
   // @@protoc_insertion_point(field_get:protos.BallPlayerMessage.player_position)
   return _internal_player_position();
 }
 inline void BallPlayerMessage::unsafe_arena_set_allocated_player_position(
-    ::protos::Vector2D* player_position) {
+    ::protos::RpcVector2D* player_position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.player_position_);
   }
@@ -36380,9 +37011,9 @@ inline void BallPlayerMessage::unsafe_arena_set_allocated_player_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.BallPlayerMessage.player_position)
 }
-inline ::protos::Vector2D* BallPlayerMessage::release_player_position() {
+inline ::protos::RpcVector2D* BallPlayerMessage::release_player_position() {
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.player_position_;
+  ::protos::RpcVector2D* temp = _impl_.player_position_;
   _impl_.player_position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -36395,27 +37026,27 @@ inline ::protos::Vector2D* BallPlayerMessage::release_player_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* BallPlayerMessage::unsafe_arena_release_player_position() {
+inline ::protos::RpcVector2D* BallPlayerMessage::unsafe_arena_release_player_position() {
   // @@protoc_insertion_point(field_release:protos.BallPlayerMessage.player_position)
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.player_position_;
+  ::protos::RpcVector2D* temp = _impl_.player_position_;
   _impl_.player_position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* BallPlayerMessage::_internal_mutable_player_position() {
+inline ::protos::RpcVector2D* BallPlayerMessage::_internal_mutable_player_position() {
   _impl_._has_bits_[0] |= 0x00000004u;
   if (_impl_.player_position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.player_position_ = p;
   }
   return _impl_.player_position_;
 }
-inline ::protos::Vector2D* BallPlayerMessage::mutable_player_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_player_position();
+inline ::protos::RpcVector2D* BallPlayerMessage::mutable_player_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_player_position();
   // @@protoc_insertion_point(field_mutable:protos.BallPlayerMessage.player_position)
   return _msg;
 }
-inline void BallPlayerMessage::set_allocated_player_position(::protos::Vector2D* player_position) {
+inline void BallPlayerMessage::set_allocated_player_position(::protos::RpcVector2D* player_position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.player_position_;
@@ -38287,7 +38918,7 @@ inline void AddPoint::_internal_set_level(::protos::LoggerLevel value) {
   _impl_.level_ = value;
 }
 
-// .protos.Vector2D point = 2;
+// .protos.RpcVector2D point = 2;
 inline bool AddPoint::has_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.point_ != nullptr);
@@ -38297,17 +38928,17 @@ inline void AddPoint::clear_point() {
   if (_impl_.point_ != nullptr) _impl_.point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& AddPoint::_internal_point() const {
-  const ::protos::Vector2D* p = _impl_.point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& AddPoint::_internal_point() const {
+  const ::protos::RpcVector2D* p = _impl_.point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& AddPoint::point() const {
+inline const ::protos::RpcVector2D& AddPoint::point() const {
   // @@protoc_insertion_point(field_get:protos.AddPoint.point)
   return _internal_point();
 }
 inline void AddPoint::unsafe_arena_set_allocated_point(
-    ::protos::Vector2D* point) {
+    ::protos::RpcVector2D* point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.point_);
   }
@@ -38319,9 +38950,9 @@ inline void AddPoint::unsafe_arena_set_allocated_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.AddPoint.point)
 }
-inline ::protos::Vector2D* AddPoint::release_point() {
+inline ::protos::RpcVector2D* AddPoint::release_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.point_;
+  ::protos::RpcVector2D* temp = _impl_.point_;
   _impl_.point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -38334,27 +38965,27 @@ inline ::protos::Vector2D* AddPoint::release_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* AddPoint::unsafe_arena_release_point() {
+inline ::protos::RpcVector2D* AddPoint::unsafe_arena_release_point() {
   // @@protoc_insertion_point(field_release:protos.AddPoint.point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.point_;
+  ::protos::RpcVector2D* temp = _impl_.point_;
   _impl_.point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* AddPoint::_internal_mutable_point() {
+inline ::protos::RpcVector2D* AddPoint::_internal_mutable_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.point_ = p;
   }
   return _impl_.point_;
 }
-inline ::protos::Vector2D* AddPoint::mutable_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_point();
+inline ::protos::RpcVector2D* AddPoint::mutable_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_point();
   // @@protoc_insertion_point(field_mutable:protos.AddPoint.point)
   return _msg;
 }
-inline void AddPoint::set_allocated_point(::protos::Vector2D* point) {
+inline void AddPoint::set_allocated_point(::protos::RpcVector2D* point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.point_;
@@ -38445,7 +39076,7 @@ inline void AddLine::_internal_set_level(::protos::LoggerLevel value) {
   _impl_.level_ = value;
 }
 
-// .protos.Vector2D start = 2;
+// .protos.RpcVector2D start = 2;
 inline bool AddLine::has_start() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.start_ != nullptr);
@@ -38455,17 +39086,17 @@ inline void AddLine::clear_start() {
   if (_impl_.start_ != nullptr) _impl_.start_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& AddLine::_internal_start() const {
-  const ::protos::Vector2D* p = _impl_.start_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& AddLine::_internal_start() const {
+  const ::protos::RpcVector2D* p = _impl_.start_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& AddLine::start() const {
+inline const ::protos::RpcVector2D& AddLine::start() const {
   // @@protoc_insertion_point(field_get:protos.AddLine.start)
   return _internal_start();
 }
 inline void AddLine::unsafe_arena_set_allocated_start(
-    ::protos::Vector2D* start) {
+    ::protos::RpcVector2D* start) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.start_);
   }
@@ -38477,9 +39108,9 @@ inline void AddLine::unsafe_arena_set_allocated_start(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.AddLine.start)
 }
-inline ::protos::Vector2D* AddLine::release_start() {
+inline ::protos::RpcVector2D* AddLine::release_start() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.start_;
+  ::protos::RpcVector2D* temp = _impl_.start_;
   _impl_.start_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -38492,27 +39123,27 @@ inline ::protos::Vector2D* AddLine::release_start() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* AddLine::unsafe_arena_release_start() {
+inline ::protos::RpcVector2D* AddLine::unsafe_arena_release_start() {
   // @@protoc_insertion_point(field_release:protos.AddLine.start)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.start_;
+  ::protos::RpcVector2D* temp = _impl_.start_;
   _impl_.start_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* AddLine::_internal_mutable_start() {
+inline ::protos::RpcVector2D* AddLine::_internal_mutable_start() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.start_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.start_ = p;
   }
   return _impl_.start_;
 }
-inline ::protos::Vector2D* AddLine::mutable_start() {
-  ::protos::Vector2D* _msg = _internal_mutable_start();
+inline ::protos::RpcVector2D* AddLine::mutable_start() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_start();
   // @@protoc_insertion_point(field_mutable:protos.AddLine.start)
   return _msg;
 }
-inline void AddLine::set_allocated_start(::protos::Vector2D* start) {
+inline void AddLine::set_allocated_start(::protos::RpcVector2D* start) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.start_;
@@ -38532,7 +39163,7 @@ inline void AddLine::set_allocated_start(::protos::Vector2D* start) {
   // @@protoc_insertion_point(field_set_allocated:protos.AddLine.start)
 }
 
-// .protos.Vector2D end = 3;
+// .protos.RpcVector2D end = 3;
 inline bool AddLine::has_end() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.end_ != nullptr);
@@ -38542,17 +39173,17 @@ inline void AddLine::clear_end() {
   if (_impl_.end_ != nullptr) _impl_.end_->Clear();
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::Vector2D& AddLine::_internal_end() const {
-  const ::protos::Vector2D* p = _impl_.end_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& AddLine::_internal_end() const {
+  const ::protos::RpcVector2D* p = _impl_.end_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& AddLine::end() const {
+inline const ::protos::RpcVector2D& AddLine::end() const {
   // @@protoc_insertion_point(field_get:protos.AddLine.end)
   return _internal_end();
 }
 inline void AddLine::unsafe_arena_set_allocated_end(
-    ::protos::Vector2D* end) {
+    ::protos::RpcVector2D* end) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.end_);
   }
@@ -38564,9 +39195,9 @@ inline void AddLine::unsafe_arena_set_allocated_end(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.AddLine.end)
 }
-inline ::protos::Vector2D* AddLine::release_end() {
+inline ::protos::RpcVector2D* AddLine::release_end() {
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.end_;
+  ::protos::RpcVector2D* temp = _impl_.end_;
   _impl_.end_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -38579,27 +39210,27 @@ inline ::protos::Vector2D* AddLine::release_end() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* AddLine::unsafe_arena_release_end() {
+inline ::protos::RpcVector2D* AddLine::unsafe_arena_release_end() {
   // @@protoc_insertion_point(field_release:protos.AddLine.end)
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.end_;
+  ::protos::RpcVector2D* temp = _impl_.end_;
   _impl_.end_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* AddLine::_internal_mutable_end() {
+inline ::protos::RpcVector2D* AddLine::_internal_mutable_end() {
   _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.end_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.end_ = p;
   }
   return _impl_.end_;
 }
-inline ::protos::Vector2D* AddLine::mutable_end() {
-  ::protos::Vector2D* _msg = _internal_mutable_end();
+inline ::protos::RpcVector2D* AddLine::mutable_end() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_end();
   // @@protoc_insertion_point(field_mutable:protos.AddLine.end)
   return _msg;
 }
-inline void AddLine::set_allocated_end(::protos::Vector2D* end) {
+inline void AddLine::set_allocated_end(::protos::RpcVector2D* end) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.end_;
@@ -38690,7 +39321,7 @@ inline void AddArc::_internal_set_level(::protos::LoggerLevel value) {
   _impl_.level_ = value;
 }
 
-// .protos.Vector2D center = 2;
+// .protos.RpcVector2D center = 2;
 inline bool AddArc::has_center() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.center_ != nullptr);
@@ -38700,17 +39331,17 @@ inline void AddArc::clear_center() {
   if (_impl_.center_ != nullptr) _impl_.center_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& AddArc::_internal_center() const {
-  const ::protos::Vector2D* p = _impl_.center_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& AddArc::_internal_center() const {
+  const ::protos::RpcVector2D* p = _impl_.center_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& AddArc::center() const {
+inline const ::protos::RpcVector2D& AddArc::center() const {
   // @@protoc_insertion_point(field_get:protos.AddArc.center)
   return _internal_center();
 }
 inline void AddArc::unsafe_arena_set_allocated_center(
-    ::protos::Vector2D* center) {
+    ::protos::RpcVector2D* center) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.center_);
   }
@@ -38722,9 +39353,9 @@ inline void AddArc::unsafe_arena_set_allocated_center(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.AddArc.center)
 }
-inline ::protos::Vector2D* AddArc::release_center() {
+inline ::protos::RpcVector2D* AddArc::release_center() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.center_;
+  ::protos::RpcVector2D* temp = _impl_.center_;
   _impl_.center_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -38737,27 +39368,27 @@ inline ::protos::Vector2D* AddArc::release_center() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* AddArc::unsafe_arena_release_center() {
+inline ::protos::RpcVector2D* AddArc::unsafe_arena_release_center() {
   // @@protoc_insertion_point(field_release:protos.AddArc.center)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.center_;
+  ::protos::RpcVector2D* temp = _impl_.center_;
   _impl_.center_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* AddArc::_internal_mutable_center() {
+inline ::protos::RpcVector2D* AddArc::_internal_mutable_center() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.center_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.center_ = p;
   }
   return _impl_.center_;
 }
-inline ::protos::Vector2D* AddArc::mutable_center() {
-  ::protos::Vector2D* _msg = _internal_mutable_center();
+inline ::protos::RpcVector2D* AddArc::mutable_center() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_center();
   // @@protoc_insertion_point(field_mutable:protos.AddArc.center)
   return _msg;
 }
-inline void AddArc::set_allocated_center(::protos::Vector2D* center) {
+inline void AddArc::set_allocated_center(::protos::RpcVector2D* center) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.center_;
@@ -38908,7 +39539,7 @@ inline void AddCircle::_internal_set_level(::protos::LoggerLevel value) {
   _impl_.level_ = value;
 }
 
-// .protos.Vector2D center = 2;
+// .protos.RpcVector2D center = 2;
 inline bool AddCircle::has_center() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.center_ != nullptr);
@@ -38918,17 +39549,17 @@ inline void AddCircle::clear_center() {
   if (_impl_.center_ != nullptr) _impl_.center_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& AddCircle::_internal_center() const {
-  const ::protos::Vector2D* p = _impl_.center_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& AddCircle::_internal_center() const {
+  const ::protos::RpcVector2D* p = _impl_.center_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& AddCircle::center() const {
+inline const ::protos::RpcVector2D& AddCircle::center() const {
   // @@protoc_insertion_point(field_get:protos.AddCircle.center)
   return _internal_center();
 }
 inline void AddCircle::unsafe_arena_set_allocated_center(
-    ::protos::Vector2D* center) {
+    ::protos::RpcVector2D* center) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.center_);
   }
@@ -38940,9 +39571,9 @@ inline void AddCircle::unsafe_arena_set_allocated_center(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.AddCircle.center)
 }
-inline ::protos::Vector2D* AddCircle::release_center() {
+inline ::protos::RpcVector2D* AddCircle::release_center() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.center_;
+  ::protos::RpcVector2D* temp = _impl_.center_;
   _impl_.center_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -38955,27 +39586,27 @@ inline ::protos::Vector2D* AddCircle::release_center() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* AddCircle::unsafe_arena_release_center() {
+inline ::protos::RpcVector2D* AddCircle::unsafe_arena_release_center() {
   // @@protoc_insertion_point(field_release:protos.AddCircle.center)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.center_;
+  ::protos::RpcVector2D* temp = _impl_.center_;
   _impl_.center_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* AddCircle::_internal_mutable_center() {
+inline ::protos::RpcVector2D* AddCircle::_internal_mutable_center() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.center_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.center_ = p;
   }
   return _impl_.center_;
 }
-inline ::protos::Vector2D* AddCircle::mutable_center() {
-  ::protos::Vector2D* _msg = _internal_mutable_center();
+inline ::protos::RpcVector2D* AddCircle::mutable_center() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_center();
   // @@protoc_insertion_point(field_mutable:protos.AddCircle.center)
   return _msg;
 }
-inline void AddCircle::set_allocated_center(::protos::Vector2D* center) {
+inline void AddCircle::set_allocated_center(::protos::RpcVector2D* center) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.center_;
@@ -39106,7 +39737,7 @@ inline void AddTriangle::_internal_set_level(::protos::LoggerLevel value) {
   _impl_.level_ = value;
 }
 
-// .protos.Vector2D point1 = 2;
+// .protos.RpcVector2D point1 = 2;
 inline bool AddTriangle::has_point1() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.point1_ != nullptr);
@@ -39116,17 +39747,17 @@ inline void AddTriangle::clear_point1() {
   if (_impl_.point1_ != nullptr) _impl_.point1_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& AddTriangle::_internal_point1() const {
-  const ::protos::Vector2D* p = _impl_.point1_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& AddTriangle::_internal_point1() const {
+  const ::protos::RpcVector2D* p = _impl_.point1_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& AddTriangle::point1() const {
+inline const ::protos::RpcVector2D& AddTriangle::point1() const {
   // @@protoc_insertion_point(field_get:protos.AddTriangle.point1)
   return _internal_point1();
 }
 inline void AddTriangle::unsafe_arena_set_allocated_point1(
-    ::protos::Vector2D* point1) {
+    ::protos::RpcVector2D* point1) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.point1_);
   }
@@ -39138,9 +39769,9 @@ inline void AddTriangle::unsafe_arena_set_allocated_point1(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.AddTriangle.point1)
 }
-inline ::protos::Vector2D* AddTriangle::release_point1() {
+inline ::protos::RpcVector2D* AddTriangle::release_point1() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.point1_;
+  ::protos::RpcVector2D* temp = _impl_.point1_;
   _impl_.point1_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -39153,27 +39784,27 @@ inline ::protos::Vector2D* AddTriangle::release_point1() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* AddTriangle::unsafe_arena_release_point1() {
+inline ::protos::RpcVector2D* AddTriangle::unsafe_arena_release_point1() {
   // @@protoc_insertion_point(field_release:protos.AddTriangle.point1)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.point1_;
+  ::protos::RpcVector2D* temp = _impl_.point1_;
   _impl_.point1_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* AddTriangle::_internal_mutable_point1() {
+inline ::protos::RpcVector2D* AddTriangle::_internal_mutable_point1() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.point1_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.point1_ = p;
   }
   return _impl_.point1_;
 }
-inline ::protos::Vector2D* AddTriangle::mutable_point1() {
-  ::protos::Vector2D* _msg = _internal_mutable_point1();
+inline ::protos::RpcVector2D* AddTriangle::mutable_point1() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_point1();
   // @@protoc_insertion_point(field_mutable:protos.AddTriangle.point1)
   return _msg;
 }
-inline void AddTriangle::set_allocated_point1(::protos::Vector2D* point1) {
+inline void AddTriangle::set_allocated_point1(::protos::RpcVector2D* point1) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.point1_;
@@ -39193,7 +39824,7 @@ inline void AddTriangle::set_allocated_point1(::protos::Vector2D* point1) {
   // @@protoc_insertion_point(field_set_allocated:protos.AddTriangle.point1)
 }
 
-// .protos.Vector2D point2 = 3;
+// .protos.RpcVector2D point2 = 3;
 inline bool AddTriangle::has_point2() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.point2_ != nullptr);
@@ -39203,17 +39834,17 @@ inline void AddTriangle::clear_point2() {
   if (_impl_.point2_ != nullptr) _impl_.point2_->Clear();
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::Vector2D& AddTriangle::_internal_point2() const {
-  const ::protos::Vector2D* p = _impl_.point2_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& AddTriangle::_internal_point2() const {
+  const ::protos::RpcVector2D* p = _impl_.point2_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& AddTriangle::point2() const {
+inline const ::protos::RpcVector2D& AddTriangle::point2() const {
   // @@protoc_insertion_point(field_get:protos.AddTriangle.point2)
   return _internal_point2();
 }
 inline void AddTriangle::unsafe_arena_set_allocated_point2(
-    ::protos::Vector2D* point2) {
+    ::protos::RpcVector2D* point2) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.point2_);
   }
@@ -39225,9 +39856,9 @@ inline void AddTriangle::unsafe_arena_set_allocated_point2(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.AddTriangle.point2)
 }
-inline ::protos::Vector2D* AddTriangle::release_point2() {
+inline ::protos::RpcVector2D* AddTriangle::release_point2() {
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.point2_;
+  ::protos::RpcVector2D* temp = _impl_.point2_;
   _impl_.point2_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -39240,27 +39871,27 @@ inline ::protos::Vector2D* AddTriangle::release_point2() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* AddTriangle::unsafe_arena_release_point2() {
+inline ::protos::RpcVector2D* AddTriangle::unsafe_arena_release_point2() {
   // @@protoc_insertion_point(field_release:protos.AddTriangle.point2)
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.point2_;
+  ::protos::RpcVector2D* temp = _impl_.point2_;
   _impl_.point2_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* AddTriangle::_internal_mutable_point2() {
+inline ::protos::RpcVector2D* AddTriangle::_internal_mutable_point2() {
   _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.point2_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.point2_ = p;
   }
   return _impl_.point2_;
 }
-inline ::protos::Vector2D* AddTriangle::mutable_point2() {
-  ::protos::Vector2D* _msg = _internal_mutable_point2();
+inline ::protos::RpcVector2D* AddTriangle::mutable_point2() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_point2();
   // @@protoc_insertion_point(field_mutable:protos.AddTriangle.point2)
   return _msg;
 }
-inline void AddTriangle::set_allocated_point2(::protos::Vector2D* point2) {
+inline void AddTriangle::set_allocated_point2(::protos::RpcVector2D* point2) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.point2_;
@@ -39280,7 +39911,7 @@ inline void AddTriangle::set_allocated_point2(::protos::Vector2D* point2) {
   // @@protoc_insertion_point(field_set_allocated:protos.AddTriangle.point2)
 }
 
-// .protos.Vector2D point3 = 4;
+// .protos.RpcVector2D point3 = 4;
 inline bool AddTriangle::has_point3() const {
   bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.point3_ != nullptr);
@@ -39290,17 +39921,17 @@ inline void AddTriangle::clear_point3() {
   if (_impl_.point3_ != nullptr) _impl_.point3_->Clear();
   _impl_._has_bits_[0] &= ~0x00000004u;
 }
-inline const ::protos::Vector2D& AddTriangle::_internal_point3() const {
-  const ::protos::Vector2D* p = _impl_.point3_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& AddTriangle::_internal_point3() const {
+  const ::protos::RpcVector2D* p = _impl_.point3_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& AddTriangle::point3() const {
+inline const ::protos::RpcVector2D& AddTriangle::point3() const {
   // @@protoc_insertion_point(field_get:protos.AddTriangle.point3)
   return _internal_point3();
 }
 inline void AddTriangle::unsafe_arena_set_allocated_point3(
-    ::protos::Vector2D* point3) {
+    ::protos::RpcVector2D* point3) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.point3_);
   }
@@ -39312,9 +39943,9 @@ inline void AddTriangle::unsafe_arena_set_allocated_point3(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.AddTriangle.point3)
 }
-inline ::protos::Vector2D* AddTriangle::release_point3() {
+inline ::protos::RpcVector2D* AddTriangle::release_point3() {
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.point3_;
+  ::protos::RpcVector2D* temp = _impl_.point3_;
   _impl_.point3_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -39327,27 +39958,27 @@ inline ::protos::Vector2D* AddTriangle::release_point3() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* AddTriangle::unsafe_arena_release_point3() {
+inline ::protos::RpcVector2D* AddTriangle::unsafe_arena_release_point3() {
   // @@protoc_insertion_point(field_release:protos.AddTriangle.point3)
   _impl_._has_bits_[0] &= ~0x00000004u;
-  ::protos::Vector2D* temp = _impl_.point3_;
+  ::protos::RpcVector2D* temp = _impl_.point3_;
   _impl_.point3_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* AddTriangle::_internal_mutable_point3() {
+inline ::protos::RpcVector2D* AddTriangle::_internal_mutable_point3() {
   _impl_._has_bits_[0] |= 0x00000004u;
   if (_impl_.point3_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.point3_ = p;
   }
   return _impl_.point3_;
 }
-inline ::protos::Vector2D* AddTriangle::mutable_point3() {
-  ::protos::Vector2D* _msg = _internal_mutable_point3();
+inline ::protos::RpcVector2D* AddTriangle::mutable_point3() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_point3();
   // @@protoc_insertion_point(field_mutable:protos.AddTriangle.point3)
   return _msg;
 }
-inline void AddTriangle::set_allocated_point3(::protos::Vector2D* point3) {
+inline void AddTriangle::set_allocated_point3(::protos::RpcVector2D* point3) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.point3_;
@@ -39629,7 +40260,7 @@ inline void AddSector::_internal_set_level(::protos::LoggerLevel value) {
   _impl_.level_ = value;
 }
 
-// .protos.Vector2D center = 2;
+// .protos.RpcVector2D center = 2;
 inline bool AddSector::has_center() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.center_ != nullptr);
@@ -39639,17 +40270,17 @@ inline void AddSector::clear_center() {
   if (_impl_.center_ != nullptr) _impl_.center_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& AddSector::_internal_center() const {
-  const ::protos::Vector2D* p = _impl_.center_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& AddSector::_internal_center() const {
+  const ::protos::RpcVector2D* p = _impl_.center_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& AddSector::center() const {
+inline const ::protos::RpcVector2D& AddSector::center() const {
   // @@protoc_insertion_point(field_get:protos.AddSector.center)
   return _internal_center();
 }
 inline void AddSector::unsafe_arena_set_allocated_center(
-    ::protos::Vector2D* center) {
+    ::protos::RpcVector2D* center) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.center_);
   }
@@ -39661,9 +40292,9 @@ inline void AddSector::unsafe_arena_set_allocated_center(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.AddSector.center)
 }
-inline ::protos::Vector2D* AddSector::release_center() {
+inline ::protos::RpcVector2D* AddSector::release_center() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.center_;
+  ::protos::RpcVector2D* temp = _impl_.center_;
   _impl_.center_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -39676,27 +40307,27 @@ inline ::protos::Vector2D* AddSector::release_center() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* AddSector::unsafe_arena_release_center() {
+inline ::protos::RpcVector2D* AddSector::unsafe_arena_release_center() {
   // @@protoc_insertion_point(field_release:protos.AddSector.center)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.center_;
+  ::protos::RpcVector2D* temp = _impl_.center_;
   _impl_.center_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* AddSector::_internal_mutable_center() {
+inline ::protos::RpcVector2D* AddSector::_internal_mutable_center() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.center_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.center_ = p;
   }
   return _impl_.center_;
 }
-inline ::protos::Vector2D* AddSector::mutable_center() {
-  ::protos::Vector2D* _msg = _internal_mutable_center();
+inline ::protos::RpcVector2D* AddSector::mutable_center() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_center();
   // @@protoc_insertion_point(field_mutable:protos.AddSector.center)
   return _msg;
 }
-inline void AddSector::set_allocated_center(::protos::Vector2D* center) {
+inline void AddSector::set_allocated_center(::protos::RpcVector2D* center) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.center_;
@@ -39887,7 +40518,7 @@ inline void AddMessage::_internal_set_level(::protos::LoggerLevel value) {
   _impl_.level_ = value;
 }
 
-// .protos.Vector2D position = 2;
+// .protos.RpcVector2D position = 2;
 inline bool AddMessage::has_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.position_ != nullptr);
@@ -39897,17 +40528,17 @@ inline void AddMessage::clear_position() {
   if (_impl_.position_ != nullptr) _impl_.position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& AddMessage::_internal_position() const {
-  const ::protos::Vector2D* p = _impl_.position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& AddMessage::_internal_position() const {
+  const ::protos::RpcVector2D* p = _impl_.position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& AddMessage::position() const {
+inline const ::protos::RpcVector2D& AddMessage::position() const {
   // @@protoc_insertion_point(field_get:protos.AddMessage.position)
   return _internal_position();
 }
 inline void AddMessage::unsafe_arena_set_allocated_position(
-    ::protos::Vector2D* position) {
+    ::protos::RpcVector2D* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
   }
@@ -39919,9 +40550,9 @@ inline void AddMessage::unsafe_arena_set_allocated_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.AddMessage.position)
 }
-inline ::protos::Vector2D* AddMessage::release_position() {
+inline ::protos::RpcVector2D* AddMessage::release_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -39934,27 +40565,27 @@ inline ::protos::Vector2D* AddMessage::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* AddMessage::unsafe_arena_release_position() {
+inline ::protos::RpcVector2D* AddMessage::unsafe_arena_release_position() {
   // @@protoc_insertion_point(field_release:protos.AddMessage.position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* AddMessage::_internal_mutable_position() {
+inline ::protos::RpcVector2D* AddMessage::_internal_mutable_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.position_ = p;
   }
   return _impl_.position_;
 }
-inline ::protos::Vector2D* AddMessage::mutable_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_position();
+inline ::protos::RpcVector2D* AddMessage::mutable_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_position();
   // @@protoc_insertion_point(field_mutable:protos.AddMessage.position)
   return _msg;
 }
-inline void AddMessage::set_allocated_position(::protos::Vector2D* position) {
+inline void AddMessage::set_allocated_position(::protos::RpcVector2D* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.position_;
@@ -40802,7 +41433,7 @@ inline void DebugClient::set_allocated_message(std::string* value) {
 
 // Body_GoToPoint
 
-// .protos.Vector2D target_point = 1;
+// .protos.RpcVector2D target_point = 1;
 inline bool Body_GoToPoint::has_target_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.target_point_ != nullptr);
@@ -40812,17 +41443,17 @@ inline void Body_GoToPoint::clear_target_point() {
   if (_impl_.target_point_ != nullptr) _impl_.target_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Body_GoToPoint::_internal_target_point() const {
-  const ::protos::Vector2D* p = _impl_.target_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Body_GoToPoint::_internal_target_point() const {
+  const ::protos::RpcVector2D* p = _impl_.target_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Body_GoToPoint::target_point() const {
+inline const ::protos::RpcVector2D& Body_GoToPoint::target_point() const {
   // @@protoc_insertion_point(field_get:protos.Body_GoToPoint.target_point)
   return _internal_target_point();
 }
 inline void Body_GoToPoint::unsafe_arena_set_allocated_target_point(
-    ::protos::Vector2D* target_point) {
+    ::protos::RpcVector2D* target_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.target_point_);
   }
@@ -40834,9 +41465,9 @@ inline void Body_GoToPoint::unsafe_arena_set_allocated_target_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Body_GoToPoint.target_point)
 }
-inline ::protos::Vector2D* Body_GoToPoint::release_target_point() {
+inline ::protos::RpcVector2D* Body_GoToPoint::release_target_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -40849,27 +41480,27 @@ inline ::protos::Vector2D* Body_GoToPoint::release_target_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Body_GoToPoint::unsafe_arena_release_target_point() {
+inline ::protos::RpcVector2D* Body_GoToPoint::unsafe_arena_release_target_point() {
   // @@protoc_insertion_point(field_release:protos.Body_GoToPoint.target_point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Body_GoToPoint::_internal_mutable_target_point() {
+inline ::protos::RpcVector2D* Body_GoToPoint::_internal_mutable_target_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.target_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.target_point_ = p;
   }
   return _impl_.target_point_;
 }
-inline ::protos::Vector2D* Body_GoToPoint::mutable_target_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_target_point();
+inline ::protos::RpcVector2D* Body_GoToPoint::mutable_target_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_target_point();
   // @@protoc_insertion_point(field_mutable:protos.Body_GoToPoint.target_point)
   return _msg;
 }
-inline void Body_GoToPoint::set_allocated_target_point(::protos::Vector2D* target_point) {
+inline void Body_GoToPoint::set_allocated_target_point(::protos::RpcVector2D* target_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.target_point_;
@@ -40933,7 +41564,7 @@ inline void Body_GoToPoint::_internal_set_max_dash_power(float value) {
 
 // Body_SmartKick
 
-// .protos.Vector2D target_point = 1;
+// .protos.RpcVector2D target_point = 1;
 inline bool Body_SmartKick::has_target_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.target_point_ != nullptr);
@@ -40943,17 +41574,17 @@ inline void Body_SmartKick::clear_target_point() {
   if (_impl_.target_point_ != nullptr) _impl_.target_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Body_SmartKick::_internal_target_point() const {
-  const ::protos::Vector2D* p = _impl_.target_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Body_SmartKick::_internal_target_point() const {
+  const ::protos::RpcVector2D* p = _impl_.target_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Body_SmartKick::target_point() const {
+inline const ::protos::RpcVector2D& Body_SmartKick::target_point() const {
   // @@protoc_insertion_point(field_get:protos.Body_SmartKick.target_point)
   return _internal_target_point();
 }
 inline void Body_SmartKick::unsafe_arena_set_allocated_target_point(
-    ::protos::Vector2D* target_point) {
+    ::protos::RpcVector2D* target_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.target_point_);
   }
@@ -40965,9 +41596,9 @@ inline void Body_SmartKick::unsafe_arena_set_allocated_target_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Body_SmartKick.target_point)
 }
-inline ::protos::Vector2D* Body_SmartKick::release_target_point() {
+inline ::protos::RpcVector2D* Body_SmartKick::release_target_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -40980,27 +41611,27 @@ inline ::protos::Vector2D* Body_SmartKick::release_target_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Body_SmartKick::unsafe_arena_release_target_point() {
+inline ::protos::RpcVector2D* Body_SmartKick::unsafe_arena_release_target_point() {
   // @@protoc_insertion_point(field_release:protos.Body_SmartKick.target_point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Body_SmartKick::_internal_mutable_target_point() {
+inline ::protos::RpcVector2D* Body_SmartKick::_internal_mutable_target_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.target_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.target_point_ = p;
   }
   return _impl_.target_point_;
 }
-inline ::protos::Vector2D* Body_SmartKick::mutable_target_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_target_point();
+inline ::protos::RpcVector2D* Body_SmartKick::mutable_target_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_target_point();
   // @@protoc_insertion_point(field_mutable:protos.Body_SmartKick.target_point)
   return _msg;
 }
-inline void Body_SmartKick::set_allocated_target_point(::protos::Vector2D* target_point) {
+inline void Body_SmartKick::set_allocated_target_point(::protos::RpcVector2D* target_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.target_point_;
@@ -41084,7 +41715,7 @@ inline void Body_SmartKick::_internal_set_max_steps(::int32_t value) {
 
 // Bhv_BeforeKickOff
 
-// .protos.Vector2D point = 1;
+// .protos.RpcVector2D point = 1;
 inline bool Bhv_BeforeKickOff::has_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.point_ != nullptr);
@@ -41094,17 +41725,17 @@ inline void Bhv_BeforeKickOff::clear_point() {
   if (_impl_.point_ != nullptr) _impl_.point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Bhv_BeforeKickOff::_internal_point() const {
-  const ::protos::Vector2D* p = _impl_.point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Bhv_BeforeKickOff::_internal_point() const {
+  const ::protos::RpcVector2D* p = _impl_.point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Bhv_BeforeKickOff::point() const {
+inline const ::protos::RpcVector2D& Bhv_BeforeKickOff::point() const {
   // @@protoc_insertion_point(field_get:protos.Bhv_BeforeKickOff.point)
   return _internal_point();
 }
 inline void Bhv_BeforeKickOff::unsafe_arena_set_allocated_point(
-    ::protos::Vector2D* point) {
+    ::protos::RpcVector2D* point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.point_);
   }
@@ -41116,9 +41747,9 @@ inline void Bhv_BeforeKickOff::unsafe_arena_set_allocated_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Bhv_BeforeKickOff.point)
 }
-inline ::protos::Vector2D* Bhv_BeforeKickOff::release_point() {
+inline ::protos::RpcVector2D* Bhv_BeforeKickOff::release_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.point_;
+  ::protos::RpcVector2D* temp = _impl_.point_;
   _impl_.point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -41131,27 +41762,27 @@ inline ::protos::Vector2D* Bhv_BeforeKickOff::release_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Bhv_BeforeKickOff::unsafe_arena_release_point() {
+inline ::protos::RpcVector2D* Bhv_BeforeKickOff::unsafe_arena_release_point() {
   // @@protoc_insertion_point(field_release:protos.Bhv_BeforeKickOff.point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.point_;
+  ::protos::RpcVector2D* temp = _impl_.point_;
   _impl_.point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Bhv_BeforeKickOff::_internal_mutable_point() {
+inline ::protos::RpcVector2D* Bhv_BeforeKickOff::_internal_mutable_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.point_ = p;
   }
   return _impl_.point_;
 }
-inline ::protos::Vector2D* Bhv_BeforeKickOff::mutable_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_point();
+inline ::protos::RpcVector2D* Bhv_BeforeKickOff::mutable_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_point();
   // @@protoc_insertion_point(field_mutable:protos.Bhv_BeforeKickOff.point)
   return _msg;
 }
-inline void Bhv_BeforeKickOff::set_allocated_point(::protos::Vector2D* point) {
+inline void Bhv_BeforeKickOff::set_allocated_point(::protos::RpcVector2D* point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.point_;
@@ -41179,7 +41810,7 @@ inline void Bhv_BeforeKickOff::set_allocated_point(::protos::Vector2D* point) {
 
 // Bhv_BodyNeckToPoint
 
-// .protos.Vector2D point = 1;
+// .protos.RpcVector2D point = 1;
 inline bool Bhv_BodyNeckToPoint::has_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.point_ != nullptr);
@@ -41189,17 +41820,17 @@ inline void Bhv_BodyNeckToPoint::clear_point() {
   if (_impl_.point_ != nullptr) _impl_.point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Bhv_BodyNeckToPoint::_internal_point() const {
-  const ::protos::Vector2D* p = _impl_.point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Bhv_BodyNeckToPoint::_internal_point() const {
+  const ::protos::RpcVector2D* p = _impl_.point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Bhv_BodyNeckToPoint::point() const {
+inline const ::protos::RpcVector2D& Bhv_BodyNeckToPoint::point() const {
   // @@protoc_insertion_point(field_get:protos.Bhv_BodyNeckToPoint.point)
   return _internal_point();
 }
 inline void Bhv_BodyNeckToPoint::unsafe_arena_set_allocated_point(
-    ::protos::Vector2D* point) {
+    ::protos::RpcVector2D* point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.point_);
   }
@@ -41211,9 +41842,9 @@ inline void Bhv_BodyNeckToPoint::unsafe_arena_set_allocated_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Bhv_BodyNeckToPoint.point)
 }
-inline ::protos::Vector2D* Bhv_BodyNeckToPoint::release_point() {
+inline ::protos::RpcVector2D* Bhv_BodyNeckToPoint::release_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.point_;
+  ::protos::RpcVector2D* temp = _impl_.point_;
   _impl_.point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -41226,27 +41857,27 @@ inline ::protos::Vector2D* Bhv_BodyNeckToPoint::release_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Bhv_BodyNeckToPoint::unsafe_arena_release_point() {
+inline ::protos::RpcVector2D* Bhv_BodyNeckToPoint::unsafe_arena_release_point() {
   // @@protoc_insertion_point(field_release:protos.Bhv_BodyNeckToPoint.point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.point_;
+  ::protos::RpcVector2D* temp = _impl_.point_;
   _impl_.point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Bhv_BodyNeckToPoint::_internal_mutable_point() {
+inline ::protos::RpcVector2D* Bhv_BodyNeckToPoint::_internal_mutable_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.point_ = p;
   }
   return _impl_.point_;
 }
-inline ::protos::Vector2D* Bhv_BodyNeckToPoint::mutable_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_point();
+inline ::protos::RpcVector2D* Bhv_BodyNeckToPoint::mutable_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_point();
   // @@protoc_insertion_point(field_mutable:protos.Bhv_BodyNeckToPoint.point)
   return _msg;
 }
-inline void Bhv_BodyNeckToPoint::set_allocated_point(::protos::Vector2D* point) {
+inline void Bhv_BodyNeckToPoint::set_allocated_point(::protos::RpcVector2D* point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.point_;
@@ -41274,7 +41905,7 @@ inline void Bhv_BodyNeckToPoint::set_allocated_point(::protos::Vector2D* point) 
 
 // Bhv_GoToPointLookBall
 
-// .protos.Vector2D target_point = 1;
+// .protos.RpcVector2D target_point = 1;
 inline bool Bhv_GoToPointLookBall::has_target_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.target_point_ != nullptr);
@@ -41284,17 +41915,17 @@ inline void Bhv_GoToPointLookBall::clear_target_point() {
   if (_impl_.target_point_ != nullptr) _impl_.target_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Bhv_GoToPointLookBall::_internal_target_point() const {
-  const ::protos::Vector2D* p = _impl_.target_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Bhv_GoToPointLookBall::_internal_target_point() const {
+  const ::protos::RpcVector2D* p = _impl_.target_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Bhv_GoToPointLookBall::target_point() const {
+inline const ::protos::RpcVector2D& Bhv_GoToPointLookBall::target_point() const {
   // @@protoc_insertion_point(field_get:protos.Bhv_GoToPointLookBall.target_point)
   return _internal_target_point();
 }
 inline void Bhv_GoToPointLookBall::unsafe_arena_set_allocated_target_point(
-    ::protos::Vector2D* target_point) {
+    ::protos::RpcVector2D* target_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.target_point_);
   }
@@ -41306,9 +41937,9 @@ inline void Bhv_GoToPointLookBall::unsafe_arena_set_allocated_target_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Bhv_GoToPointLookBall.target_point)
 }
-inline ::protos::Vector2D* Bhv_GoToPointLookBall::release_target_point() {
+inline ::protos::RpcVector2D* Bhv_GoToPointLookBall::release_target_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -41321,27 +41952,27 @@ inline ::protos::Vector2D* Bhv_GoToPointLookBall::release_target_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Bhv_GoToPointLookBall::unsafe_arena_release_target_point() {
+inline ::protos::RpcVector2D* Bhv_GoToPointLookBall::unsafe_arena_release_target_point() {
   // @@protoc_insertion_point(field_release:protos.Bhv_GoToPointLookBall.target_point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Bhv_GoToPointLookBall::_internal_mutable_target_point() {
+inline ::protos::RpcVector2D* Bhv_GoToPointLookBall::_internal_mutable_target_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.target_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.target_point_ = p;
   }
   return _impl_.target_point_;
 }
-inline ::protos::Vector2D* Bhv_GoToPointLookBall::mutable_target_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_target_point();
+inline ::protos::RpcVector2D* Bhv_GoToPointLookBall::mutable_target_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_target_point();
   // @@protoc_insertion_point(field_mutable:protos.Bhv_GoToPointLookBall.target_point)
   return _msg;
 }
-inline void Bhv_GoToPointLookBall::set_allocated_target_point(::protos::Vector2D* target_point) {
+inline void Bhv_GoToPointLookBall::set_allocated_target_point(::protos::RpcVector2D* target_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.target_point_;
@@ -41429,7 +42060,7 @@ inline void Bhv_NeckBodyToBall::_internal_set_angle_buf(float value) {
 
 // Bhv_NeckBodyToPoint
 
-// .protos.Vector2D point = 1;
+// .protos.RpcVector2D point = 1;
 inline bool Bhv_NeckBodyToPoint::has_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.point_ != nullptr);
@@ -41439,17 +42070,17 @@ inline void Bhv_NeckBodyToPoint::clear_point() {
   if (_impl_.point_ != nullptr) _impl_.point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Bhv_NeckBodyToPoint::_internal_point() const {
-  const ::protos::Vector2D* p = _impl_.point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Bhv_NeckBodyToPoint::_internal_point() const {
+  const ::protos::RpcVector2D* p = _impl_.point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Bhv_NeckBodyToPoint::point() const {
+inline const ::protos::RpcVector2D& Bhv_NeckBodyToPoint::point() const {
   // @@protoc_insertion_point(field_get:protos.Bhv_NeckBodyToPoint.point)
   return _internal_point();
 }
 inline void Bhv_NeckBodyToPoint::unsafe_arena_set_allocated_point(
-    ::protos::Vector2D* point) {
+    ::protos::RpcVector2D* point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.point_);
   }
@@ -41461,9 +42092,9 @@ inline void Bhv_NeckBodyToPoint::unsafe_arena_set_allocated_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Bhv_NeckBodyToPoint.point)
 }
-inline ::protos::Vector2D* Bhv_NeckBodyToPoint::release_point() {
+inline ::protos::RpcVector2D* Bhv_NeckBodyToPoint::release_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.point_;
+  ::protos::RpcVector2D* temp = _impl_.point_;
   _impl_.point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -41476,27 +42107,27 @@ inline ::protos::Vector2D* Bhv_NeckBodyToPoint::release_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Bhv_NeckBodyToPoint::unsafe_arena_release_point() {
+inline ::protos::RpcVector2D* Bhv_NeckBodyToPoint::unsafe_arena_release_point() {
   // @@protoc_insertion_point(field_release:protos.Bhv_NeckBodyToPoint.point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.point_;
+  ::protos::RpcVector2D* temp = _impl_.point_;
   _impl_.point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Bhv_NeckBodyToPoint::_internal_mutable_point() {
+inline ::protos::RpcVector2D* Bhv_NeckBodyToPoint::_internal_mutable_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.point_ = p;
   }
   return _impl_.point_;
 }
-inline ::protos::Vector2D* Bhv_NeckBodyToPoint::mutable_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_point();
+inline ::protos::RpcVector2D* Bhv_NeckBodyToPoint::mutable_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_point();
   // @@protoc_insertion_point(field_mutable:protos.Bhv_NeckBodyToPoint.point)
   return _msg;
 }
-inline void Bhv_NeckBodyToPoint::set_allocated_point(::protos::Vector2D* point) {
+inline void Bhv_NeckBodyToPoint::set_allocated_point(::protos::RpcVector2D* point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.point_;
@@ -41552,7 +42183,7 @@ inline void Bhv_NeckBodyToPoint::_internal_set_angle_buf(float value) {
 
 // Body_Dribble
 
-// .protos.Vector2D target_point = 1;
+// .protos.RpcVector2D target_point = 1;
 inline bool Body_Dribble::has_target_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.target_point_ != nullptr);
@@ -41562,17 +42193,17 @@ inline void Body_Dribble::clear_target_point() {
   if (_impl_.target_point_ != nullptr) _impl_.target_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Body_Dribble::_internal_target_point() const {
-  const ::protos::Vector2D* p = _impl_.target_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Body_Dribble::_internal_target_point() const {
+  const ::protos::RpcVector2D* p = _impl_.target_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Body_Dribble::target_point() const {
+inline const ::protos::RpcVector2D& Body_Dribble::target_point() const {
   // @@protoc_insertion_point(field_get:protos.Body_Dribble.target_point)
   return _internal_target_point();
 }
 inline void Body_Dribble::unsafe_arena_set_allocated_target_point(
-    ::protos::Vector2D* target_point) {
+    ::protos::RpcVector2D* target_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.target_point_);
   }
@@ -41584,9 +42215,9 @@ inline void Body_Dribble::unsafe_arena_set_allocated_target_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Body_Dribble.target_point)
 }
-inline ::protos::Vector2D* Body_Dribble::release_target_point() {
+inline ::protos::RpcVector2D* Body_Dribble::release_target_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -41599,27 +42230,27 @@ inline ::protos::Vector2D* Body_Dribble::release_target_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Body_Dribble::unsafe_arena_release_target_point() {
+inline ::protos::RpcVector2D* Body_Dribble::unsafe_arena_release_target_point() {
   // @@protoc_insertion_point(field_release:protos.Body_Dribble.target_point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Body_Dribble::_internal_mutable_target_point() {
+inline ::protos::RpcVector2D* Body_Dribble::_internal_mutable_target_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.target_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.target_point_ = p;
   }
   return _impl_.target_point_;
 }
-inline ::protos::Vector2D* Body_Dribble::mutable_target_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_target_point();
+inline ::protos::RpcVector2D* Body_Dribble::mutable_target_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_target_point();
   // @@protoc_insertion_point(field_mutable:protos.Body_Dribble.target_point)
   return _msg;
 }
-inline void Body_Dribble::set_allocated_target_point(::protos::Vector2D* target_point) {
+inline void Body_Dribble::set_allocated_target_point(::protos::RpcVector2D* target_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.target_point_;
@@ -41723,7 +42354,7 @@ inline void Body_Dribble::_internal_set_dodge(bool value) {
 
 // Body_GoToPointDodge
 
-// .protos.Vector2D target_point = 1;
+// .protos.RpcVector2D target_point = 1;
 inline bool Body_GoToPointDodge::has_target_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.target_point_ != nullptr);
@@ -41733,17 +42364,17 @@ inline void Body_GoToPointDodge::clear_target_point() {
   if (_impl_.target_point_ != nullptr) _impl_.target_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Body_GoToPointDodge::_internal_target_point() const {
-  const ::protos::Vector2D* p = _impl_.target_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Body_GoToPointDodge::_internal_target_point() const {
+  const ::protos::RpcVector2D* p = _impl_.target_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Body_GoToPointDodge::target_point() const {
+inline const ::protos::RpcVector2D& Body_GoToPointDodge::target_point() const {
   // @@protoc_insertion_point(field_get:protos.Body_GoToPointDodge.target_point)
   return _internal_target_point();
 }
 inline void Body_GoToPointDodge::unsafe_arena_set_allocated_target_point(
-    ::protos::Vector2D* target_point) {
+    ::protos::RpcVector2D* target_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.target_point_);
   }
@@ -41755,9 +42386,9 @@ inline void Body_GoToPointDodge::unsafe_arena_set_allocated_target_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Body_GoToPointDodge.target_point)
 }
-inline ::protos::Vector2D* Body_GoToPointDodge::release_target_point() {
+inline ::protos::RpcVector2D* Body_GoToPointDodge::release_target_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -41770,27 +42401,27 @@ inline ::protos::Vector2D* Body_GoToPointDodge::release_target_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Body_GoToPointDodge::unsafe_arena_release_target_point() {
+inline ::protos::RpcVector2D* Body_GoToPointDodge::unsafe_arena_release_target_point() {
   // @@protoc_insertion_point(field_release:protos.Body_GoToPointDodge.target_point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Body_GoToPointDodge::_internal_mutable_target_point() {
+inline ::protos::RpcVector2D* Body_GoToPointDodge::_internal_mutable_target_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.target_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.target_point_ = p;
   }
   return _impl_.target_point_;
 }
-inline ::protos::Vector2D* Body_GoToPointDodge::mutable_target_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_target_point();
+inline ::protos::RpcVector2D* Body_GoToPointDodge::mutable_target_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_target_point();
   // @@protoc_insertion_point(field_mutable:protos.Body_GoToPointDodge.target_point)
   return _msg;
 }
-inline void Body_GoToPointDodge::set_allocated_target_point(::protos::Vector2D* target_point) {
+inline void Body_GoToPointDodge::set_allocated_target_point(::protos::RpcVector2D* target_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.target_point_;
@@ -41854,7 +42485,7 @@ inline void Body_HoldBall::_internal_set_do_turn(bool value) {
   _impl_.do_turn_ = value;
 }
 
-// .protos.Vector2D turn_target_point = 2;
+// .protos.RpcVector2D turn_target_point = 2;
 inline bool Body_HoldBall::has_turn_target_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.turn_target_point_ != nullptr);
@@ -41864,17 +42495,17 @@ inline void Body_HoldBall::clear_turn_target_point() {
   if (_impl_.turn_target_point_ != nullptr) _impl_.turn_target_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Body_HoldBall::_internal_turn_target_point() const {
-  const ::protos::Vector2D* p = _impl_.turn_target_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Body_HoldBall::_internal_turn_target_point() const {
+  const ::protos::RpcVector2D* p = _impl_.turn_target_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Body_HoldBall::turn_target_point() const {
+inline const ::protos::RpcVector2D& Body_HoldBall::turn_target_point() const {
   // @@protoc_insertion_point(field_get:protos.Body_HoldBall.turn_target_point)
   return _internal_turn_target_point();
 }
 inline void Body_HoldBall::unsafe_arena_set_allocated_turn_target_point(
-    ::protos::Vector2D* turn_target_point) {
+    ::protos::RpcVector2D* turn_target_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.turn_target_point_);
   }
@@ -41886,9 +42517,9 @@ inline void Body_HoldBall::unsafe_arena_set_allocated_turn_target_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Body_HoldBall.turn_target_point)
 }
-inline ::protos::Vector2D* Body_HoldBall::release_turn_target_point() {
+inline ::protos::RpcVector2D* Body_HoldBall::release_turn_target_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.turn_target_point_;
+  ::protos::RpcVector2D* temp = _impl_.turn_target_point_;
   _impl_.turn_target_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -41901,27 +42532,27 @@ inline ::protos::Vector2D* Body_HoldBall::release_turn_target_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Body_HoldBall::unsafe_arena_release_turn_target_point() {
+inline ::protos::RpcVector2D* Body_HoldBall::unsafe_arena_release_turn_target_point() {
   // @@protoc_insertion_point(field_release:protos.Body_HoldBall.turn_target_point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.turn_target_point_;
+  ::protos::RpcVector2D* temp = _impl_.turn_target_point_;
   _impl_.turn_target_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Body_HoldBall::_internal_mutable_turn_target_point() {
+inline ::protos::RpcVector2D* Body_HoldBall::_internal_mutable_turn_target_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.turn_target_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.turn_target_point_ = p;
   }
   return _impl_.turn_target_point_;
 }
-inline ::protos::Vector2D* Body_HoldBall::mutable_turn_target_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_turn_target_point();
+inline ::protos::RpcVector2D* Body_HoldBall::mutable_turn_target_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_turn_target_point();
   // @@protoc_insertion_point(field_mutable:protos.Body_HoldBall.turn_target_point)
   return _msg;
 }
-inline void Body_HoldBall::set_allocated_turn_target_point(::protos::Vector2D* turn_target_point) {
+inline void Body_HoldBall::set_allocated_turn_target_point(::protos::RpcVector2D* turn_target_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.turn_target_point_;
@@ -41941,7 +42572,7 @@ inline void Body_HoldBall::set_allocated_turn_target_point(::protos::Vector2D* t
   // @@protoc_insertion_point(field_set_allocated:protos.Body_HoldBall.turn_target_point)
 }
 
-// .protos.Vector2D kick_target_point = 3;
+// .protos.RpcVector2D kick_target_point = 3;
 inline bool Body_HoldBall::has_kick_target_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.kick_target_point_ != nullptr);
@@ -41951,17 +42582,17 @@ inline void Body_HoldBall::clear_kick_target_point() {
   if (_impl_.kick_target_point_ != nullptr) _impl_.kick_target_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::Vector2D& Body_HoldBall::_internal_kick_target_point() const {
-  const ::protos::Vector2D* p = _impl_.kick_target_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Body_HoldBall::_internal_kick_target_point() const {
+  const ::protos::RpcVector2D* p = _impl_.kick_target_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Body_HoldBall::kick_target_point() const {
+inline const ::protos::RpcVector2D& Body_HoldBall::kick_target_point() const {
   // @@protoc_insertion_point(field_get:protos.Body_HoldBall.kick_target_point)
   return _internal_kick_target_point();
 }
 inline void Body_HoldBall::unsafe_arena_set_allocated_kick_target_point(
-    ::protos::Vector2D* kick_target_point) {
+    ::protos::RpcVector2D* kick_target_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.kick_target_point_);
   }
@@ -41973,9 +42604,9 @@ inline void Body_HoldBall::unsafe_arena_set_allocated_kick_target_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Body_HoldBall.kick_target_point)
 }
-inline ::protos::Vector2D* Body_HoldBall::release_kick_target_point() {
+inline ::protos::RpcVector2D* Body_HoldBall::release_kick_target_point() {
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.kick_target_point_;
+  ::protos::RpcVector2D* temp = _impl_.kick_target_point_;
   _impl_.kick_target_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -41988,27 +42619,27 @@ inline ::protos::Vector2D* Body_HoldBall::release_kick_target_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Body_HoldBall::unsafe_arena_release_kick_target_point() {
+inline ::protos::RpcVector2D* Body_HoldBall::unsafe_arena_release_kick_target_point() {
   // @@protoc_insertion_point(field_release:protos.Body_HoldBall.kick_target_point)
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.kick_target_point_;
+  ::protos::RpcVector2D* temp = _impl_.kick_target_point_;
   _impl_.kick_target_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Body_HoldBall::_internal_mutable_kick_target_point() {
+inline ::protos::RpcVector2D* Body_HoldBall::_internal_mutable_kick_target_point() {
   _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.kick_target_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.kick_target_point_ = p;
   }
   return _impl_.kick_target_point_;
 }
-inline ::protos::Vector2D* Body_HoldBall::mutable_kick_target_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_kick_target_point();
+inline ::protos::RpcVector2D* Body_HoldBall::mutable_kick_target_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_kick_target_point();
   // @@protoc_insertion_point(field_mutable:protos.Body_HoldBall.kick_target_point)
   return _msg;
 }
-inline void Body_HoldBall::set_allocated_kick_target_point(::protos::Vector2D* kick_target_point) {
+inline void Body_HoldBall::set_allocated_kick_target_point(::protos::RpcVector2D* kick_target_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.kick_target_point_;
@@ -42052,7 +42683,7 @@ inline void Body_Intercept::_internal_set_save_recovery(bool value) {
   _impl_.save_recovery_ = value;
 }
 
-// .protos.Vector2D face_point = 2;
+// .protos.RpcVector2D face_point = 2;
 inline bool Body_Intercept::has_face_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.face_point_ != nullptr);
@@ -42062,17 +42693,17 @@ inline void Body_Intercept::clear_face_point() {
   if (_impl_.face_point_ != nullptr) _impl_.face_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Body_Intercept::_internal_face_point() const {
-  const ::protos::Vector2D* p = _impl_.face_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Body_Intercept::_internal_face_point() const {
+  const ::protos::RpcVector2D* p = _impl_.face_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Body_Intercept::face_point() const {
+inline const ::protos::RpcVector2D& Body_Intercept::face_point() const {
   // @@protoc_insertion_point(field_get:protos.Body_Intercept.face_point)
   return _internal_face_point();
 }
 inline void Body_Intercept::unsafe_arena_set_allocated_face_point(
-    ::protos::Vector2D* face_point) {
+    ::protos::RpcVector2D* face_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.face_point_);
   }
@@ -42084,9 +42715,9 @@ inline void Body_Intercept::unsafe_arena_set_allocated_face_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Body_Intercept.face_point)
 }
-inline ::protos::Vector2D* Body_Intercept::release_face_point() {
+inline ::protos::RpcVector2D* Body_Intercept::release_face_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.face_point_;
+  ::protos::RpcVector2D* temp = _impl_.face_point_;
   _impl_.face_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -42099,27 +42730,27 @@ inline ::protos::Vector2D* Body_Intercept::release_face_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Body_Intercept::unsafe_arena_release_face_point() {
+inline ::protos::RpcVector2D* Body_Intercept::unsafe_arena_release_face_point() {
   // @@protoc_insertion_point(field_release:protos.Body_Intercept.face_point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.face_point_;
+  ::protos::RpcVector2D* temp = _impl_.face_point_;
   _impl_.face_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Body_Intercept::_internal_mutable_face_point() {
+inline ::protos::RpcVector2D* Body_Intercept::_internal_mutable_face_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.face_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.face_point_ = p;
   }
   return _impl_.face_point_;
 }
-inline ::protos::Vector2D* Body_Intercept::mutable_face_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_face_point();
+inline ::protos::RpcVector2D* Body_Intercept::mutable_face_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_face_point();
   // @@protoc_insertion_point(field_mutable:protos.Body_Intercept.face_point)
   return _msg;
 }
-inline void Body_Intercept::set_allocated_face_point(::protos::Vector2D* face_point) {
+inline void Body_Intercept::set_allocated_face_point(::protos::RpcVector2D* face_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.face_point_;
@@ -42143,7 +42774,7 @@ inline void Body_Intercept::set_allocated_face_point(::protos::Vector2D* face_po
 
 // Body_KickOneStep
 
-// .protos.Vector2D target_point = 1;
+// .protos.RpcVector2D target_point = 1;
 inline bool Body_KickOneStep::has_target_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.target_point_ != nullptr);
@@ -42153,17 +42784,17 @@ inline void Body_KickOneStep::clear_target_point() {
   if (_impl_.target_point_ != nullptr) _impl_.target_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Body_KickOneStep::_internal_target_point() const {
-  const ::protos::Vector2D* p = _impl_.target_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Body_KickOneStep::_internal_target_point() const {
+  const ::protos::RpcVector2D* p = _impl_.target_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Body_KickOneStep::target_point() const {
+inline const ::protos::RpcVector2D& Body_KickOneStep::target_point() const {
   // @@protoc_insertion_point(field_get:protos.Body_KickOneStep.target_point)
   return _internal_target_point();
 }
 inline void Body_KickOneStep::unsafe_arena_set_allocated_target_point(
-    ::protos::Vector2D* target_point) {
+    ::protos::RpcVector2D* target_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.target_point_);
   }
@@ -42175,9 +42806,9 @@ inline void Body_KickOneStep::unsafe_arena_set_allocated_target_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Body_KickOneStep.target_point)
 }
-inline ::protos::Vector2D* Body_KickOneStep::release_target_point() {
+inline ::protos::RpcVector2D* Body_KickOneStep::release_target_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -42190,27 +42821,27 @@ inline ::protos::Vector2D* Body_KickOneStep::release_target_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Body_KickOneStep::unsafe_arena_release_target_point() {
+inline ::protos::RpcVector2D* Body_KickOneStep::unsafe_arena_release_target_point() {
   // @@protoc_insertion_point(field_release:protos.Body_KickOneStep.target_point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Body_KickOneStep::_internal_mutable_target_point() {
+inline ::protos::RpcVector2D* Body_KickOneStep::_internal_mutable_target_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.target_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.target_point_ = p;
   }
   return _impl_.target_point_;
 }
-inline ::protos::Vector2D* Body_KickOneStep::mutable_target_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_target_point();
+inline ::protos::RpcVector2D* Body_KickOneStep::mutable_target_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_target_point();
   // @@protoc_insertion_point(field_mutable:protos.Body_KickOneStep.target_point)
   return _msg;
 }
-inline void Body_KickOneStep::set_allocated_target_point(::protos::Vector2D* target_point) {
+inline void Body_KickOneStep::set_allocated_target_point(::protos::RpcVector2D* target_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.target_point_;
@@ -42302,7 +42933,7 @@ inline void Body_StopDash::_internal_set_save_recovery(bool value) {
 
 // Body_TackleToPoint
 
-// .protos.Vector2D target_point = 1;
+// .protos.RpcVector2D target_point = 1;
 inline bool Body_TackleToPoint::has_target_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.target_point_ != nullptr);
@@ -42312,17 +42943,17 @@ inline void Body_TackleToPoint::clear_target_point() {
   if (_impl_.target_point_ != nullptr) _impl_.target_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Body_TackleToPoint::_internal_target_point() const {
-  const ::protos::Vector2D* p = _impl_.target_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Body_TackleToPoint::_internal_target_point() const {
+  const ::protos::RpcVector2D* p = _impl_.target_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Body_TackleToPoint::target_point() const {
+inline const ::protos::RpcVector2D& Body_TackleToPoint::target_point() const {
   // @@protoc_insertion_point(field_get:protos.Body_TackleToPoint.target_point)
   return _internal_target_point();
 }
 inline void Body_TackleToPoint::unsafe_arena_set_allocated_target_point(
-    ::protos::Vector2D* target_point) {
+    ::protos::RpcVector2D* target_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.target_point_);
   }
@@ -42334,9 +42965,9 @@ inline void Body_TackleToPoint::unsafe_arena_set_allocated_target_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Body_TackleToPoint.target_point)
 }
-inline ::protos::Vector2D* Body_TackleToPoint::release_target_point() {
+inline ::protos::RpcVector2D* Body_TackleToPoint::release_target_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -42349,27 +42980,27 @@ inline ::protos::Vector2D* Body_TackleToPoint::release_target_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Body_TackleToPoint::unsafe_arena_release_target_point() {
+inline ::protos::RpcVector2D* Body_TackleToPoint::unsafe_arena_release_target_point() {
   // @@protoc_insertion_point(field_release:protos.Body_TackleToPoint.target_point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Body_TackleToPoint::_internal_mutable_target_point() {
+inline ::protos::RpcVector2D* Body_TackleToPoint::_internal_mutable_target_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.target_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.target_point_ = p;
   }
   return _impl_.target_point_;
 }
-inline ::protos::Vector2D* Body_TackleToPoint::mutable_target_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_target_point();
+inline ::protos::RpcVector2D* Body_TackleToPoint::mutable_target_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_target_point();
   // @@protoc_insertion_point(field_mutable:protos.Body_TackleToPoint.target_point)
   return _msg;
 }
-inline void Body_TackleToPoint::set_allocated_target_point(::protos::Vector2D* target_point) {
+inline void Body_TackleToPoint::set_allocated_target_point(::protos::RpcVector2D* target_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.target_point_;
@@ -42481,7 +43112,7 @@ inline void Body_TurnToBall::_internal_set_cycle(::int32_t value) {
 
 // Body_TurnToPoint
 
-// .protos.Vector2D target_point = 1;
+// .protos.RpcVector2D target_point = 1;
 inline bool Body_TurnToPoint::has_target_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.target_point_ != nullptr);
@@ -42491,17 +43122,17 @@ inline void Body_TurnToPoint::clear_target_point() {
   if (_impl_.target_point_ != nullptr) _impl_.target_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Body_TurnToPoint::_internal_target_point() const {
-  const ::protos::Vector2D* p = _impl_.target_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Body_TurnToPoint::_internal_target_point() const {
+  const ::protos::RpcVector2D* p = _impl_.target_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Body_TurnToPoint::target_point() const {
+inline const ::protos::RpcVector2D& Body_TurnToPoint::target_point() const {
   // @@protoc_insertion_point(field_get:protos.Body_TurnToPoint.target_point)
   return _internal_target_point();
 }
 inline void Body_TurnToPoint::unsafe_arena_set_allocated_target_point(
-    ::protos::Vector2D* target_point) {
+    ::protos::RpcVector2D* target_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.target_point_);
   }
@@ -42513,9 +43144,9 @@ inline void Body_TurnToPoint::unsafe_arena_set_allocated_target_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Body_TurnToPoint.target_point)
 }
-inline ::protos::Vector2D* Body_TurnToPoint::release_target_point() {
+inline ::protos::RpcVector2D* Body_TurnToPoint::release_target_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -42528,27 +43159,27 @@ inline ::protos::Vector2D* Body_TurnToPoint::release_target_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Body_TurnToPoint::unsafe_arena_release_target_point() {
+inline ::protos::RpcVector2D* Body_TurnToPoint::unsafe_arena_release_target_point() {
   // @@protoc_insertion_point(field_release:protos.Body_TurnToPoint.target_point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Body_TurnToPoint::_internal_mutable_target_point() {
+inline ::protos::RpcVector2D* Body_TurnToPoint::_internal_mutable_target_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.target_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.target_point_ = p;
   }
   return _impl_.target_point_;
 }
-inline ::protos::Vector2D* Body_TurnToPoint::mutable_target_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_target_point();
+inline ::protos::RpcVector2D* Body_TurnToPoint::mutable_target_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_target_point();
   // @@protoc_insertion_point(field_mutable:protos.Body_TurnToPoint.target_point)
   return _msg;
 }
-inline void Body_TurnToPoint::set_allocated_target_point(::protos::Vector2D* target_point) {
+inline void Body_TurnToPoint::set_allocated_target_point(::protos::RpcVector2D* target_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.target_point_;
@@ -42592,7 +43223,7 @@ inline void Body_TurnToPoint::_internal_set_cycle(::int32_t value) {
 
 // Focus_MoveToPoint
 
-// .protos.Vector2D target_point = 1;
+// .protos.RpcVector2D target_point = 1;
 inline bool Focus_MoveToPoint::has_target_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.target_point_ != nullptr);
@@ -42602,17 +43233,17 @@ inline void Focus_MoveToPoint::clear_target_point() {
   if (_impl_.target_point_ != nullptr) _impl_.target_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Focus_MoveToPoint::_internal_target_point() const {
-  const ::protos::Vector2D* p = _impl_.target_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Focus_MoveToPoint::_internal_target_point() const {
+  const ::protos::RpcVector2D* p = _impl_.target_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Focus_MoveToPoint::target_point() const {
+inline const ::protos::RpcVector2D& Focus_MoveToPoint::target_point() const {
   // @@protoc_insertion_point(field_get:protos.Focus_MoveToPoint.target_point)
   return _internal_target_point();
 }
 inline void Focus_MoveToPoint::unsafe_arena_set_allocated_target_point(
-    ::protos::Vector2D* target_point) {
+    ::protos::RpcVector2D* target_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.target_point_);
   }
@@ -42624,9 +43255,9 @@ inline void Focus_MoveToPoint::unsafe_arena_set_allocated_target_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Focus_MoveToPoint.target_point)
 }
-inline ::protos::Vector2D* Focus_MoveToPoint::release_target_point() {
+inline ::protos::RpcVector2D* Focus_MoveToPoint::release_target_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -42639,27 +43270,27 @@ inline ::protos::Vector2D* Focus_MoveToPoint::release_target_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Focus_MoveToPoint::unsafe_arena_release_target_point() {
+inline ::protos::RpcVector2D* Focus_MoveToPoint::unsafe_arena_release_target_point() {
   // @@protoc_insertion_point(field_release:protos.Focus_MoveToPoint.target_point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Focus_MoveToPoint::_internal_mutable_target_point() {
+inline ::protos::RpcVector2D* Focus_MoveToPoint::_internal_mutable_target_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.target_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.target_point_ = p;
   }
   return _impl_.target_point_;
 }
-inline ::protos::Vector2D* Focus_MoveToPoint::mutable_target_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_target_point();
+inline ::protos::RpcVector2D* Focus_MoveToPoint::mutable_target_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_target_point();
   // @@protoc_insertion_point(field_mutable:protos.Focus_MoveToPoint.target_point)
   return _msg;
 }
-inline void Focus_MoveToPoint::set_allocated_target_point(::protos::Vector2D* target_point) {
+inline void Focus_MoveToPoint::set_allocated_target_point(::protos::RpcVector2D* target_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.target_point_;
@@ -42879,7 +43510,7 @@ inline void Neck_TurnToPlayerOrScan::_internal_set_count_threshold(::int32_t val
 
 // Neck_TurnToPoint
 
-// .protos.Vector2D target_point = 1;
+// .protos.RpcVector2D target_point = 1;
 inline bool Neck_TurnToPoint::has_target_point() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.target_point_ != nullptr);
@@ -42889,17 +43520,17 @@ inline void Neck_TurnToPoint::clear_target_point() {
   if (_impl_.target_point_ != nullptr) _impl_.target_point_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& Neck_TurnToPoint::_internal_target_point() const {
-  const ::protos::Vector2D* p = _impl_.target_point_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& Neck_TurnToPoint::_internal_target_point() const {
+  const ::protos::RpcVector2D* p = _impl_.target_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& Neck_TurnToPoint::target_point() const {
+inline const ::protos::RpcVector2D& Neck_TurnToPoint::target_point() const {
   // @@protoc_insertion_point(field_get:protos.Neck_TurnToPoint.target_point)
   return _internal_target_point();
 }
 inline void Neck_TurnToPoint::unsafe_arena_set_allocated_target_point(
-    ::protos::Vector2D* target_point) {
+    ::protos::RpcVector2D* target_point) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.target_point_);
   }
@@ -42911,9 +43542,9 @@ inline void Neck_TurnToPoint::unsafe_arena_set_allocated_target_point(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.Neck_TurnToPoint.target_point)
 }
-inline ::protos::Vector2D* Neck_TurnToPoint::release_target_point() {
+inline ::protos::RpcVector2D* Neck_TurnToPoint::release_target_point() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -42926,27 +43557,27 @@ inline ::protos::Vector2D* Neck_TurnToPoint::release_target_point() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* Neck_TurnToPoint::unsafe_arena_release_target_point() {
+inline ::protos::RpcVector2D* Neck_TurnToPoint::unsafe_arena_release_target_point() {
   // @@protoc_insertion_point(field_release:protos.Neck_TurnToPoint.target_point)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.target_point_;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
   _impl_.target_point_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* Neck_TurnToPoint::_internal_mutable_target_point() {
+inline ::protos::RpcVector2D* Neck_TurnToPoint::_internal_mutable_target_point() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.target_point_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.target_point_ = p;
   }
   return _impl_.target_point_;
 }
-inline ::protos::Vector2D* Neck_TurnToPoint::mutable_target_point() {
-  ::protos::Vector2D* _msg = _internal_mutable_target_point();
+inline ::protos::RpcVector2D* Neck_TurnToPoint::mutable_target_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_target_point();
   // @@protoc_insertion_point(field_mutable:protos.Neck_TurnToPoint.target_point)
   return _msg;
 }
-inline void Neck_TurnToPoint::set_allocated_target_point(::protos::Vector2D* target_point) {
+inline void Neck_TurnToPoint::set_allocated_target_point(::protos::RpcVector2D* target_point) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.target_point_;
@@ -48394,7 +49025,7 @@ CoachActions::_internal_mutable_actions() {
 
 // DoMoveBall
 
-// .protos.Vector2D position = 1;
+// .protos.RpcVector2D position = 1;
 inline bool DoMoveBall::has_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.position_ != nullptr);
@@ -48404,17 +49035,17 @@ inline void DoMoveBall::clear_position() {
   if (_impl_.position_ != nullptr) _impl_.position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& DoMoveBall::_internal_position() const {
-  const ::protos::Vector2D* p = _impl_.position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& DoMoveBall::_internal_position() const {
+  const ::protos::RpcVector2D* p = _impl_.position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& DoMoveBall::position() const {
+inline const ::protos::RpcVector2D& DoMoveBall::position() const {
   // @@protoc_insertion_point(field_get:protos.DoMoveBall.position)
   return _internal_position();
 }
 inline void DoMoveBall::unsafe_arena_set_allocated_position(
-    ::protos::Vector2D* position) {
+    ::protos::RpcVector2D* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
   }
@@ -48426,9 +49057,9 @@ inline void DoMoveBall::unsafe_arena_set_allocated_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.DoMoveBall.position)
 }
-inline ::protos::Vector2D* DoMoveBall::release_position() {
+inline ::protos::RpcVector2D* DoMoveBall::release_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -48441,27 +49072,27 @@ inline ::protos::Vector2D* DoMoveBall::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* DoMoveBall::unsafe_arena_release_position() {
+inline ::protos::RpcVector2D* DoMoveBall::unsafe_arena_release_position() {
   // @@protoc_insertion_point(field_release:protos.DoMoveBall.position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* DoMoveBall::_internal_mutable_position() {
+inline ::protos::RpcVector2D* DoMoveBall::_internal_mutable_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.position_ = p;
   }
   return _impl_.position_;
 }
-inline ::protos::Vector2D* DoMoveBall::mutable_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_position();
+inline ::protos::RpcVector2D* DoMoveBall::mutable_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_position();
   // @@protoc_insertion_point(field_mutable:protos.DoMoveBall.position)
   return _msg;
 }
-inline void DoMoveBall::set_allocated_position(::protos::Vector2D* position) {
+inline void DoMoveBall::set_allocated_position(::protos::RpcVector2D* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.position_;
@@ -48481,7 +49112,7 @@ inline void DoMoveBall::set_allocated_position(::protos::Vector2D* position) {
   // @@protoc_insertion_point(field_set_allocated:protos.DoMoveBall.position)
 }
 
-// .protos.Vector2D velocity = 2;
+// .protos.RpcVector2D velocity = 2;
 inline bool DoMoveBall::has_velocity() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.velocity_ != nullptr);
@@ -48491,17 +49122,17 @@ inline void DoMoveBall::clear_velocity() {
   if (_impl_.velocity_ != nullptr) _impl_.velocity_->Clear();
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::Vector2D& DoMoveBall::_internal_velocity() const {
-  const ::protos::Vector2D* p = _impl_.velocity_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& DoMoveBall::_internal_velocity() const {
+  const ::protos::RpcVector2D* p = _impl_.velocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& DoMoveBall::velocity() const {
+inline const ::protos::RpcVector2D& DoMoveBall::velocity() const {
   // @@protoc_insertion_point(field_get:protos.DoMoveBall.velocity)
   return _internal_velocity();
 }
 inline void DoMoveBall::unsafe_arena_set_allocated_velocity(
-    ::protos::Vector2D* velocity) {
+    ::protos::RpcVector2D* velocity) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.velocity_);
   }
@@ -48513,9 +49144,9 @@ inline void DoMoveBall::unsafe_arena_set_allocated_velocity(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.DoMoveBall.velocity)
 }
-inline ::protos::Vector2D* DoMoveBall::release_velocity() {
+inline ::protos::RpcVector2D* DoMoveBall::release_velocity() {
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.velocity_;
+  ::protos::RpcVector2D* temp = _impl_.velocity_;
   _impl_.velocity_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -48528,27 +49159,27 @@ inline ::protos::Vector2D* DoMoveBall::release_velocity() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* DoMoveBall::unsafe_arena_release_velocity() {
+inline ::protos::RpcVector2D* DoMoveBall::unsafe_arena_release_velocity() {
   // @@protoc_insertion_point(field_release:protos.DoMoveBall.velocity)
   _impl_._has_bits_[0] &= ~0x00000002u;
-  ::protos::Vector2D* temp = _impl_.velocity_;
+  ::protos::RpcVector2D* temp = _impl_.velocity_;
   _impl_.velocity_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* DoMoveBall::_internal_mutable_velocity() {
+inline ::protos::RpcVector2D* DoMoveBall::_internal_mutable_velocity() {
   _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.velocity_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.velocity_ = p;
   }
   return _impl_.velocity_;
 }
-inline ::protos::Vector2D* DoMoveBall::mutable_velocity() {
-  ::protos::Vector2D* _msg = _internal_mutable_velocity();
+inline ::protos::RpcVector2D* DoMoveBall::mutable_velocity() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_velocity();
   // @@protoc_insertion_point(field_mutable:protos.DoMoveBall.velocity)
   return _msg;
 }
-inline void DoMoveBall::set_allocated_velocity(::protos::Vector2D* velocity) {
+inline void DoMoveBall::set_allocated_velocity(::protos::RpcVector2D* velocity) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.velocity_;
@@ -48612,7 +49243,7 @@ inline void DoMovePlayer::_internal_set_uniform_number(::int32_t value) {
   _impl_.uniform_number_ = value;
 }
 
-// .protos.Vector2D position = 3;
+// .protos.RpcVector2D position = 3;
 inline bool DoMovePlayer::has_position() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.position_ != nullptr);
@@ -48622,17 +49253,17 @@ inline void DoMovePlayer::clear_position() {
   if (_impl_.position_ != nullptr) _impl_.position_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::Vector2D& DoMovePlayer::_internal_position() const {
-  const ::protos::Vector2D* p = _impl_.position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::protos::Vector2D&>(
-      ::protos::_Vector2D_default_instance_);
+inline const ::protos::RpcVector2D& DoMovePlayer::_internal_position() const {
+  const ::protos::RpcVector2D* p = _impl_.position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
 }
-inline const ::protos::Vector2D& DoMovePlayer::position() const {
+inline const ::protos::RpcVector2D& DoMovePlayer::position() const {
   // @@protoc_insertion_point(field_get:protos.DoMovePlayer.position)
   return _internal_position();
 }
 inline void DoMovePlayer::unsafe_arena_set_allocated_position(
-    ::protos::Vector2D* position) {
+    ::protos::RpcVector2D* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
   }
@@ -48644,9 +49275,9 @@ inline void DoMovePlayer::unsafe_arena_set_allocated_position(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.DoMovePlayer.position)
 }
-inline ::protos::Vector2D* DoMovePlayer::release_position() {
+inline ::protos::RpcVector2D* DoMovePlayer::release_position() {
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -48659,27 +49290,27 @@ inline ::protos::Vector2D* DoMovePlayer::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::Vector2D* DoMovePlayer::unsafe_arena_release_position() {
+inline ::protos::RpcVector2D* DoMovePlayer::unsafe_arena_release_position() {
   // @@protoc_insertion_point(field_release:protos.DoMovePlayer.position)
   _impl_._has_bits_[0] &= ~0x00000001u;
-  ::protos::Vector2D* temp = _impl_.position_;
+  ::protos::RpcVector2D* temp = _impl_.position_;
   _impl_.position_ = nullptr;
   return temp;
 }
-inline ::protos::Vector2D* DoMovePlayer::_internal_mutable_position() {
+inline ::protos::RpcVector2D* DoMovePlayer::_internal_mutable_position() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::protos::Vector2D>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
     _impl_.position_ = p;
   }
   return _impl_.position_;
 }
-inline ::protos::Vector2D* DoMovePlayer::mutable_position() {
-  ::protos::Vector2D* _msg = _internal_mutable_position();
+inline ::protos::RpcVector2D* DoMovePlayer::mutable_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_position();
   // @@protoc_insertion_point(field_mutable:protos.DoMovePlayer.position)
   return _msg;
 }
-inline void DoMovePlayer::set_allocated_position(::protos::Vector2D* position) {
+inline void DoMovePlayer::set_allocated_position(::protos::RpcVector2D* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.position_;
@@ -49344,24 +49975,91 @@ TrainerActions::_internal_mutable_actions() {
 
 // ServerParam
 
-// .protos.AgentType agent_type = 1;
-inline void ServerParam::clear_agent_type() {
-  _impl_.agent_type_ = 0;
+// .protos.RegisterResponse register_response = 1;
+inline bool ServerParam::has_register_response() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.register_response_ != nullptr);
+  return value;
 }
-inline ::protos::AgentType ServerParam::agent_type() const {
-  // @@protoc_insertion_point(field_get:protos.ServerParam.agent_type)
-  return _internal_agent_type();
+inline void ServerParam::clear_register_response() {
+  if (_impl_.register_response_ != nullptr) _impl_.register_response_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline void ServerParam::set_agent_type(::protos::AgentType value) {
-   _internal_set_agent_type(value);
-  // @@protoc_insertion_point(field_set:protos.ServerParam.agent_type)
+inline const ::protos::RegisterResponse& ServerParam::_internal_register_response() const {
+  const ::protos::RegisterResponse* p = _impl_.register_response_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RegisterResponse&>(
+      ::protos::_RegisterResponse_default_instance_);
 }
-inline ::protos::AgentType ServerParam::_internal_agent_type() const {
-  return static_cast<::protos::AgentType>(_impl_.agent_type_);
+inline const ::protos::RegisterResponse& ServerParam::register_response() const {
+  // @@protoc_insertion_point(field_get:protos.ServerParam.register_response)
+  return _internal_register_response();
 }
-inline void ServerParam::_internal_set_agent_type(::protos::AgentType value) {
-  ;
-  _impl_.agent_type_ = value;
+inline void ServerParam::unsafe_arena_set_allocated_register_response(
+    ::protos::RegisterResponse* register_response) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.register_response_);
+  }
+  _impl_.register_response_ = register_response;
+  if (register_response) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.ServerParam.register_response)
+}
+inline ::protos::RegisterResponse* ServerParam::release_register_response() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RegisterResponse* temp = _impl_.register_response_;
+  _impl_.register_response_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::protos::RegisterResponse* ServerParam::unsafe_arena_release_register_response() {
+  // @@protoc_insertion_point(field_release:protos.ServerParam.register_response)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RegisterResponse* temp = _impl_.register_response_;
+  _impl_.register_response_ = nullptr;
+  return temp;
+}
+inline ::protos::RegisterResponse* ServerParam::_internal_mutable_register_response() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.register_response_ == nullptr) {
+    auto* p = CreateMaybeMessage<::protos::RegisterResponse>(GetArenaForAllocation());
+    _impl_.register_response_ = p;
+  }
+  return _impl_.register_response_;
+}
+inline ::protos::RegisterResponse* ServerParam::mutable_register_response() {
+  ::protos::RegisterResponse* _msg = _internal_mutable_register_response();
+  // @@protoc_insertion_point(field_mutable:protos.ServerParam.register_response)
+  return _msg;
+}
+inline void ServerParam::set_allocated_register_response(::protos::RegisterResponse* register_response) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.register_response_;
+  }
+  if (register_response) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(register_response);
+    if (message_arena != submessage_arena) {
+      register_response = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, register_response, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.register_response_ = register_response;
+  // @@protoc_insertion_point(field_set_allocated:protos.ServerParam.register_response)
 }
 
 // float inertia_moment = 2;
@@ -54193,24 +54891,91 @@ inline void ServerParam::_internal_set_goal_width(float value) {
 
 // PlayerParam
 
-// .protos.AgentType agent_type = 1;
-inline void PlayerParam::clear_agent_type() {
-  _impl_.agent_type_ = 0;
+// .protos.RegisterResponse register_response = 1;
+inline bool PlayerParam::has_register_response() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.register_response_ != nullptr);
+  return value;
 }
-inline ::protos::AgentType PlayerParam::agent_type() const {
-  // @@protoc_insertion_point(field_get:protos.PlayerParam.agent_type)
-  return _internal_agent_type();
+inline void PlayerParam::clear_register_response() {
+  if (_impl_.register_response_ != nullptr) _impl_.register_response_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline void PlayerParam::set_agent_type(::protos::AgentType value) {
-   _internal_set_agent_type(value);
-  // @@protoc_insertion_point(field_set:protos.PlayerParam.agent_type)
+inline const ::protos::RegisterResponse& PlayerParam::_internal_register_response() const {
+  const ::protos::RegisterResponse* p = _impl_.register_response_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RegisterResponse&>(
+      ::protos::_RegisterResponse_default_instance_);
 }
-inline ::protos::AgentType PlayerParam::_internal_agent_type() const {
-  return static_cast<::protos::AgentType>(_impl_.agent_type_);
+inline const ::protos::RegisterResponse& PlayerParam::register_response() const {
+  // @@protoc_insertion_point(field_get:protos.PlayerParam.register_response)
+  return _internal_register_response();
 }
-inline void PlayerParam::_internal_set_agent_type(::protos::AgentType value) {
-  ;
-  _impl_.agent_type_ = value;
+inline void PlayerParam::unsafe_arena_set_allocated_register_response(
+    ::protos::RegisterResponse* register_response) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.register_response_);
+  }
+  _impl_.register_response_ = register_response;
+  if (register_response) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.PlayerParam.register_response)
+}
+inline ::protos::RegisterResponse* PlayerParam::release_register_response() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RegisterResponse* temp = _impl_.register_response_;
+  _impl_.register_response_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::protos::RegisterResponse* PlayerParam::unsafe_arena_release_register_response() {
+  // @@protoc_insertion_point(field_release:protos.PlayerParam.register_response)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RegisterResponse* temp = _impl_.register_response_;
+  _impl_.register_response_ = nullptr;
+  return temp;
+}
+inline ::protos::RegisterResponse* PlayerParam::_internal_mutable_register_response() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.register_response_ == nullptr) {
+    auto* p = CreateMaybeMessage<::protos::RegisterResponse>(GetArenaForAllocation());
+    _impl_.register_response_ = p;
+  }
+  return _impl_.register_response_;
+}
+inline ::protos::RegisterResponse* PlayerParam::mutable_register_response() {
+  ::protos::RegisterResponse* _msg = _internal_mutable_register_response();
+  // @@protoc_insertion_point(field_mutable:protos.PlayerParam.register_response)
+  return _msg;
+}
+inline void PlayerParam::set_allocated_register_response(::protos::RegisterResponse* register_response) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.register_response_;
+  }
+  if (register_response) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(register_response);
+    if (message_arena != submessage_arena) {
+      register_response = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, register_response, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.register_response_ = register_response;
+  // @@protoc_insertion_point(field_set_allocated:protos.PlayerParam.register_response)
 }
 
 // int32 player_types = 2;
@@ -54797,24 +55562,91 @@ inline void PlayerParam::_internal_set_catchable_area_l_stretch_max(float value)
 
 // PlayerType
 
-// .protos.AgentType agent_type = 1;
-inline void PlayerType::clear_agent_type() {
-  _impl_.agent_type_ = 0;
+// .protos.RegisterResponse register_response = 1;
+inline bool PlayerType::has_register_response() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.register_response_ != nullptr);
+  return value;
 }
-inline ::protos::AgentType PlayerType::agent_type() const {
-  // @@protoc_insertion_point(field_get:protos.PlayerType.agent_type)
-  return _internal_agent_type();
+inline void PlayerType::clear_register_response() {
+  if (_impl_.register_response_ != nullptr) _impl_.register_response_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline void PlayerType::set_agent_type(::protos::AgentType value) {
-   _internal_set_agent_type(value);
-  // @@protoc_insertion_point(field_set:protos.PlayerType.agent_type)
+inline const ::protos::RegisterResponse& PlayerType::_internal_register_response() const {
+  const ::protos::RegisterResponse* p = _impl_.register_response_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RegisterResponse&>(
+      ::protos::_RegisterResponse_default_instance_);
 }
-inline ::protos::AgentType PlayerType::_internal_agent_type() const {
-  return static_cast<::protos::AgentType>(_impl_.agent_type_);
+inline const ::protos::RegisterResponse& PlayerType::register_response() const {
+  // @@protoc_insertion_point(field_get:protos.PlayerType.register_response)
+  return _internal_register_response();
 }
-inline void PlayerType::_internal_set_agent_type(::protos::AgentType value) {
-  ;
-  _impl_.agent_type_ = value;
+inline void PlayerType::unsafe_arena_set_allocated_register_response(
+    ::protos::RegisterResponse* register_response) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.register_response_);
+  }
+  _impl_.register_response_ = register_response;
+  if (register_response) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.PlayerType.register_response)
+}
+inline ::protos::RegisterResponse* PlayerType::release_register_response() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RegisterResponse* temp = _impl_.register_response_;
+  _impl_.register_response_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::protos::RegisterResponse* PlayerType::unsafe_arena_release_register_response() {
+  // @@protoc_insertion_point(field_release:protos.PlayerType.register_response)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RegisterResponse* temp = _impl_.register_response_;
+  _impl_.register_response_ = nullptr;
+  return temp;
+}
+inline ::protos::RegisterResponse* PlayerType::_internal_mutable_register_response() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.register_response_ == nullptr) {
+    auto* p = CreateMaybeMessage<::protos::RegisterResponse>(GetArenaForAllocation());
+    _impl_.register_response_ = p;
+  }
+  return _impl_.register_response_;
+}
+inline ::protos::RegisterResponse* PlayerType::mutable_register_response() {
+  ::protos::RegisterResponse* _msg = _internal_mutable_register_response();
+  // @@protoc_insertion_point(field_mutable:protos.PlayerType.register_response)
+  return _msg;
+}
+inline void PlayerType::set_allocated_register_response(::protos::RegisterResponse* register_response) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.register_response_;
+  }
+  if (register_response) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(register_response);
+    if (message_arena != submessage_arena) {
+      register_response = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, register_response, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.register_response_ = register_response;
+  // @@protoc_insertion_point(field_set_allocated:protos.PlayerType.register_response)
 }
 
 // int32 id = 2;
@@ -55480,10 +56312,6 @@ inline void PlayerType::_internal_set_player_speed_max(float value) {
 // -------------------------------------------------------------------
 
 // Empty
-
-// -------------------------------------------------------------------
-
-// InitMessageFromServer
 
 #ifdef __GNUC__
 #pragma GCC diagnostic pop

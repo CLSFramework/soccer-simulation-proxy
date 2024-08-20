@@ -1,11 +1,11 @@
-#include "grpc_agent.h"
+#include "grpc_client.h"
 #include "player/sample_communication.h"
 
-class GrpcAgentPlayer : public GrpcAgent {
+class GrpcClientPlayer : public GrpcClient {
     rcsc::PlayerAgent * M_agent;
     Communication::Ptr sample_communication;
     public:
-    GrpcAgentPlayer();
+    GrpcClientPlayer();
 
     void init(rcsc::PlayerAgent * agent,
               std::string target="localhost",
@@ -13,7 +13,7 @@ class GrpcAgentPlayer : public GrpcAgent {
               bool use_same_grpc_port=true,
               bool add_20_to_grpc_port_if_right_side=false);
 
-    void getActions() const;
+    void getActions();
     void addSayMessage(protos::Say sayMessage) const;
     State generateState() const;
     void addHomePosition(protos::WorldModel * world_model) const;

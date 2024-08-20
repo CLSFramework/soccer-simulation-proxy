@@ -1,4 +1,4 @@
-#include "grpc_agent.h"
+#include "grpc_client.h"
 #include "state_generator.h"
 
 #include <rcsc/player/say_message_builder.h>
@@ -21,18 +21,18 @@ using std::chrono::milliseconds;
 #define LOGV(x)
 #endif
 
-void GrpcAgent::sendParams(bool offline_logging)
+void GrpcClient::sendParams(bool offline_logging)
 {
-    if (!param_sent)
+    if (!M_param_sent)
     {
         sendServerParam();
         sendPlayerParams();
         sendPlayerType();
         sendInitMessage(offline_logging);
-        param_sent = true;
+        M_param_sent = true;
     }
 }
-void GrpcAgent::sendServerParam() const
+void GrpcClient::sendServerParam() const
 {
     LOG("sendServerParam Started");
 
@@ -280,8 +280,9 @@ void GrpcAgent::sendServerParam() const
 
     ClientContext context;
     protos::Empty empty;
-    serverParam.set_agent_type(this->agent_type);
-    Status status = stub_->SendServerParams(&context, serverParam, &empty);
+    protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);
+    serverParam.set_allocated_register_response(response);
+    Status status = M_stub_->SendServerParams(&context, serverParam, &empty);
     if (!status.ok())
     {
         std::cout << "SendServerParams rpc failed." << std::endl
@@ -290,7 +291,7 @@ void GrpcAgent::sendServerParam() const
     }
 }
 
-void GrpcAgent::sendPlayerParams() const
+void GrpcClient::sendPlayerParams() const
 {
     protos::PlayerParam playerParam;
     const rcsc::PlayerParam &PP = rcsc::PlayerParam::i();
@@ -327,8 +328,9 @@ void GrpcAgent::sendPlayerParams() const
 
     ClientContext context;
     protos::Empty empty;
-    playerParam.set_agent_type(this->agent_type);
-    Status status = stub_->SendPlayerParams(&context, playerParam, &empty);
+    protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);
+    playerParam.set_allocated_register_response(response);
+    Status status = M_stub_->SendPlayerParams(&context, playerParam, &empty);
     if (!status.ok())
     {
         std::cout << "SendPlayerParams rpc failed." << std::endl
@@ -337,7 +339,7 @@ void GrpcAgent::sendPlayerParams() const
     }
 }
 
-void GrpcAgent::sendPlayerType() const
+void GrpcClient::sendPlayerType() const
 {
     const rcsc::PlayerParam &PP = rcsc::PlayerParam::i();
     const rcsc::PlayerTypeSet &PT = rcsc::PlayerTypeSet::i();
@@ -385,8 +387,9 @@ void GrpcAgent::sendPlayerType() const
 
         ClientContext context;
         protos::Empty empty;
-        playerTypeGrpc.set_agent_type(this->agent_type);
-        Status status = stub_->SendPlayerType(&context, playerTypeGrpc, &empty);
+        protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);
+        playerTypeGrpc.set_allocated_register_response(response);
+        Status status = M_stub_->SendPlayerType(&context, playerTypeGrpc, &empty);
         if (!status.ok())
         {
             std::cout << "SendPlayerType rpc failed. id=" << i << std::endl
@@ -396,15 +399,16 @@ void GrpcAgent::sendPlayerType() const
     }
 }
 
-void GrpcAgent::sendInitMessage(bool offline_logging) const
+void GrpcClient::sendInitMessage(bool offline_logging) const
 {
 
     ClientContext context;
     protos::Empty empty;
     protos::InitMessage initMessage;
     initMessage.set_debug_mode(offline_logging);
-    initMessage.set_agent_type(this->agent_type);
-    Status status = stub_->SendInitMessage(&context, initMessage, &empty);
+    protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);
+    initMessage.set_allocated_register_response(response);
+    Status status = M_stub_->SendInitMessage(&context, initMessage, &empty);
     if (!status.ok())
     {
         std::cout << "sendInitMessage rpc failed." << std::endl
@@ -413,12 +417,15 @@ void GrpcAgent::sendInitMessage(bool offline_logging) const
     }
 }
 
-bool GrpcAgent::getInitMessage() const
+bool GrpcClient::Register() const
 {
     ClientContext context;
-    protos::Empty empty;
-    protos::InitMessageFromServer initMessageFromServer;
-    Status status = stub_->GetInitMessage(&context, empty, &initMessageFromServer);
+    protos::RegisterRequest request;
+    request.set_agent_type(M_agent_type);
+    request.set_team_name(M_team_name);
+    request.set_uniform_number(M_unum);
+
+    Status status = M_stub_->Register(&context, request, M_register_response);
     if (!status.ok())
     {
         std::cout << "GetInitMessage rpc failed." << std::endl
@@ -429,17 +436,17 @@ bool GrpcAgent::getInitMessage() const
     else
     {
         LOG("InitMessage received");
-        LOGV(initMessageFromServer.DebugString());
+        LOGV(M_register_response->DebugString());
         return true;
     }
 }
 
-void GrpcAgent::sendByeCommand() const
+void GrpcClient::sendByeCommand() const
 {
     ClientContext context;
-    protos::Empty empty1;
-    protos::Empty empty2;
-    Status status = stub_->SendByeCommand(&context, empty1, &empty2);
+    protos::Empty empty;
+
+    Status status = M_stub_->SendByeCommand(&context, *M_register_response, &empty);
     if (!status.ok())
     {
         std::cout << "SendByeCommand rpc failed." << std::endl
@@ -449,14 +456,14 @@ void GrpcAgent::sendByeCommand() const
 
 }
 
-bool GrpcAgent::connectToGrpcServer()
+bool GrpcClient::connectToGrpcServer()
 {
-    channel = grpc::CreateChannel(this->target, grpc::InsecureChannelCredentials());
-    stub_ = Game::NewStub(channel);
+    M_channel = grpc::CreateChannel(this->M_target, grpc::InsecureChannelCredentials());
+    M_stub_ = Game::NewStub(M_channel);
 
-    if (getInitMessage())
+    if (Register())
     {
-        is_connected = true;
+        M_is_connected = true;
         return true;
     }
     else
@@ -465,7 +472,7 @@ bool GrpcAgent::connectToGrpcServer()
     }
 }
 
-void GrpcAgent::addDlog(protos::Log log) const
+void GrpcClient::addDlog(protos::Log log) const
 {
     switch (log.log_case())
     {
@@ -478,38 +485,38 @@ void GrpcAgent::addDlog(protos::Log log) const
     case protos::Log::kAddPoint:
     {
         const auto &addPoint = log.add_point();
-        const auto &point = GrpcAgent::convertVector2D(addPoint.point());
+        const auto &point = GrpcClient::convertVector2D(addPoint.point());
         rcsc::dlog.addPoint(addPoint.level(), point, addPoint.color().c_str());
         break;
     }
     case protos::Log::kAddLine:
     {
         const auto &addLine = log.add_line();
-        const auto &point1 = GrpcAgent::convertVector2D(addLine.start());
-        const auto &point2 = GrpcAgent::convertVector2D(addLine.end());
+        const auto &point1 = GrpcClient::convertVector2D(addLine.start());
+        const auto &point2 = GrpcClient::convertVector2D(addLine.end());
         rcsc::dlog.addLine(addLine.level(), point1, point2, addLine.color().c_str());
         break;
     }
     case protos::Log::kAddArc:
     {
         const auto &addArc = log.add_arc();
-        const auto &center = GrpcAgent::convertVector2D(addArc.center());
+        const auto &center = GrpcClient::convertVector2D(addArc.center());
         rcsc::dlog.addArc(addArc.level(), center, addArc.radius(), addArc.start_angle(), addArc.span_angel(), addArc.color().c_str());
         break;
     }
     case protos::Log::kAddCircle:
     {
         const auto &addCircle = log.add_circle();
-        const auto &center = GrpcAgent::convertVector2D(addCircle.center());
+        const auto &center = GrpcClient::convertVector2D(addCircle.center());
         rcsc::dlog.addCircle(addCircle.level(), center, addCircle.radius(), addCircle.color().c_str(), addCircle.fill());
         break;
     }
     case protos::Log::kAddTriangle:
     {
         const auto &addTriangle = log.add_triangle();
-        const auto &point1 = GrpcAgent::convertVector2D(addTriangle.point1());
-        const auto &point2 = GrpcAgent::convertVector2D(addTriangle.point2());
-        const auto &point3 = GrpcAgent::convertVector2D(addTriangle.point3());
+        const auto &point1 = GrpcClient::convertVector2D(addTriangle.point1());
+        const auto &point2 = GrpcClient::convertVector2D(addTriangle.point2());
+        const auto &point3 = GrpcClient::convertVector2D(addTriangle.point3());
         rcsc::dlog.addTriangle(addTriangle.level(), point1, point2, point3, addTriangle.color().c_str(), addTriangle.fill());
         break;
     }
@@ -522,21 +529,21 @@ void GrpcAgent::addDlog(protos::Log log) const
     case protos::Log::kAddSector:
     {
         const auto &addSector = log.add_sector();
-        const auto &center = GrpcAgent::convertVector2D(addSector.center());
+        const auto &center = GrpcClient::convertVector2D(addSector.center());
         rcsc::dlog.addSector(addSector.level(), center, addSector.min_radius(), addSector.max_radius(), addSector.start_angle(), addSector.span_angel(), addSector.color().c_str(), addSector.fill());
         break;
     }
     case protos::Log::kAddMessage:
     {
         const auto &addMessage = log.add_message();
-        const auto &position = GrpcAgent::convertVector2D(addMessage.position());
+        const auto &position = GrpcClient::convertVector2D(addMessage.position());
         rcsc::dlog.addMessage(addMessage.level(), position, addMessage.message().c_str(), addMessage.color().c_str());
         break;
     }
     }
 }
 
-rcsc::ViewWidth GrpcAgent::convertViewWidth(protos::ViewWidth view_width)
+rcsc::ViewWidth GrpcClient::convertViewWidth(protos::ViewWidth view_width)
 {
     switch (view_width)
     {
@@ -551,7 +558,7 @@ rcsc::ViewWidth GrpcAgent::convertViewWidth(protos::ViewWidth view_width)
     }
 }
 
-rcsc::SideID GrpcAgent::convertSideID(protos::Side side)
+rcsc::SideID GrpcClient::convertSideID(protos::Side side)
 {
     switch (side)
     {
@@ -564,7 +571,7 @@ rcsc::SideID GrpcAgent::convertSideID(protos::Side side)
     }
 }
 
-rcsc::Vector2D GrpcAgent::convertVector2D(protos::Vector2D vector2d)
+rcsc::Vector2D GrpcClient::convertVector2D(protos::RpcVector2D vector2d)
 {
     return rcsc::Vector2D(vector2d.x(), vector2d.y());
 }

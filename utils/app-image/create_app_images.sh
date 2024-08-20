@@ -25,7 +25,7 @@ LIBSTDCPP_PATH=$(ldd $BUILD_PWD/sample_player | grep libstdc++ | awk '{ print $3
 LIBM_PATH=$(ldd $BUILD_PWD/sample_player | grep libm.so | awk '{ print $3 }')
 LIBGCC_PATH=$(ldd $BUILD_PWD/sample_player | grep libgcc_s.so | awk '{ print $3 }')
 LIBC_PATH=$(ldd $BUILD_PWD/sample_player | grep libc.so | awk '{ print $3 }')
-LIB_THRIFT_PATH=$(ldd $BUILD_PWD/sample_player | grep libthrift-0.16.0.so | awk '{ print $3 }')
+LIB_THRIFT_PATH=$(ldd $BUILD_PWD/sample_player | grep libthrift-0.1 | awk '{ print $3 }')
 LIB_SSL_PATH=$(ldd $BUILD_PWD/sample_player | grep libssl.so | awk '{ print $3 }')
 LIB_CRYPTO_PATH=$(ldd $BUILD_PWD/sample_player | grep libcrypto.so | awk '{ print $3 }')
 
@@ -40,7 +40,7 @@ echo "LIB_SSL_PATH=" $LIB_SSL_PATH
 echo "LIB_CRYPTO_PATH=" $LIB_CRYPTO_PATH
 
 echo "Start to create app image for player"
-./linuxdeploy-x86_64.AppImage --appdir ./$PLAYER_APP_IMAGE_DIR_NAME \
+/opt/linuxdeploy/AppRun --appdir ./$PLAYER_APP_IMAGE_DIR_NAME \
                                 -e $BUILD_PWD/sample_player \
                                 -l $LIBRCSC_PATH \
                                 -l $LIBZ_PATH \
@@ -56,7 +56,7 @@ echo "Start to create app image for player"
                                 --output appimage 
 
 echo "Start to create app image for coach"
-./linuxdeploy-x86_64.AppImage --appdir ./$COACH_APP_IMAGE_DIR_NAME \
+/opt/linuxdeploy/AppRun --appdir ./$COACH_APP_IMAGE_DIR_NAME \
                                 -e $BUILD_PWD/sample_coach \
                                 -l $LIBRCSC_PATH \
                                 -l $LIBZ_PATH \
@@ -72,7 +72,7 @@ echo "Start to create app image for coach"
                                 --output appimage 
 
 echo "Start to create app image for trainer"
-./linuxdeploy-x86_64.AppImage --appdir ./$TRAINER_APP_IMAGE_DIR_NAME \
+/opt/linuxdeploy/AppRun --appdir ./$TRAINER_APP_IMAGE_DIR_NAME \
                                 -e $BUILD_PWD/sample_trainer \
                                 -l $LIBRCSC_PATH \
                                 -l $LIBZ_PATH \

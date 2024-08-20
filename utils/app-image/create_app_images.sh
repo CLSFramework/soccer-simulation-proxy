@@ -19,6 +19,9 @@ APP_IMAGE_DIR="${SCRIPT_DIR}"
 echo "BUILD_PWD=" $BUILD_PWD
 echo "APP_IMAGE_DIR=" $APP_IMAGE_DIR
 
+# print ldd info
+ldd $BUILD_PWD/sample_player
+
 # find libc and libstdc++ libz dependencies
 LIBRCSC_PATH=$(ldd $BUILD_PWD/sample_player | grep librcsc.so.18 | awk '{ print $3 }')
 LIBZ_PATH=$(ldd $BUILD_PWD/sample_player | grep libz.so | awk '{ print $3 }')

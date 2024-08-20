@@ -7,7 +7,7 @@ on:
       version:
         description: 'The version for the release'
         required: true
-        default: 'v2.0.0'
+        default: 'vX.X.X'
       release_notes:
         description: 'Release notes or description for this version'
         required: false
@@ -25,15 +25,15 @@ jobs:
     # Step 2: Pull Docker image from Docker Hub
     - name: Set up Docker
       uses: docker/setup-buildx-action@v2
-
+    
     - name: Pull Docker image
-      run: docker pull naderzare/ubuntu22-grpc-thrift:latest
+      run: docker pull naderzare/ubuntu20-grpc-thrift:latest
 
     # Step 3: Run the build.sh script inside the Docker container
     - name: Build project
       run: |
-        docker run --rm -v ${{ github.workspace }}:/workspace naderzare/ubuntu22-grpc-thrift:latest \
-        bash -c "ls && cd /workspace/utils && ls && chmod +x build.sh && ./build.sh && pwd && ldd ../build/bin/sample_player && cd /workspace/utils/app-image && chmod +x create_app_images.sh && ./create_app_images.sh"
+        docker run --rm -v ${{ github.workspace }}:/workspace naderzare/ubuntu20-grpc-thrift:latest \
+        bash -c "pwd && ls && cd /workspace/utils && ls && chmod +x build.sh && ./build.sh && cd /workspace/utils/app-image && chmod +x create_app_images.sh && ./create_app_images.sh"
 
     # Step 5: Upload the tar.gz file as a release asset
     - name: Create GitHub Release

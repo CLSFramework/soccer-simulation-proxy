@@ -29,3 +29,12 @@ jobs:
       run: |
         docker run --rm -v ${{ github.workspace }}:/workspace naderzare/ubuntu-grpc-thrift:latest \
         bash -c "ls && cd /workspace/utils && ls && chmod +x build.sh && ./build.sh && pwd && ldd ../build/bin/sample_player && cd /workspace/utils/app-image && chmod +x create_app_images.sh && ./create_app_images.sh"
+    # Step 4: Upload the tar.gz file as a release asset
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: /workspace/utils/app-image/soccer-simulation-proxy.tar.gz
+        tag_name: v2.0.0
+        release_name: "Version 2.0.0"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

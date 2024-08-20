@@ -48,16 +48,7 @@ echo "Start to create app image for player"
 /opt/linuxdeploy/AppRun --appdir ./$PLAYER_APP_IMAGE_DIR_NAME \
                                 -e $BUILD_PWD/sample_player \
                                 -l $LIBRCSC_PATH \
-                                -l $LIBZ_PATH \
-                                -l $LIBSTDCPP_PATH \
-                                -l $LIBM_PATH \
-                                -l $LIBGCC_PATH \
-                                -l $LIBC_PATH \
                                 -l $LIB_THRIFT_PATH \
-                                -l $LIB_SSL_PATH \
-                                -l $LIB_CRYPTO_PATH \
-                                -l $LIB_PTHREAD_PATH \
-                                -l $LIB_DL_PATH \
                                 -d $APP_IMAGE_DIR/sample_player.desktop \
                                 -i $APP_IMAGE_DIR/sample_player.png \
                                 --output appimage 
@@ -75,14 +66,7 @@ echo "Start to create app image for trainer"
 /opt/linuxdeploy/AppRun --appdir ./$TRAINER_APP_IMAGE_DIR_NAME \
                                 -e $BUILD_PWD/sample_trainer \
                                 -l $LIBRCSC_PATH \
-                                -l $LIBZ_PATH \
-                                -l $LIBSTDCPP_PATH \
-                                -l $LIBM_PATH \
-                                -l $LIBGCC_PATH \
-                                -l $LIBC_PATH \
                                 -l $LIB_THRIFT_PATH \
-                                -l $LIB_SSL_PATH \
-                                -l $LIB_CRYPTO_PATH \
                                 -d $APP_IMAGE_DIR/sample_trainer.desktop \
                                 -i $APP_IMAGE_DIR/sample_trainer.png \
                                 --output appimage 

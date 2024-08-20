@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 # Set noninteractive mode to avoid tzdata prompts
 ENV DEBIAN_FRONTEND=noninteractive

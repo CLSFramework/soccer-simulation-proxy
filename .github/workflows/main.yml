@@ -14,6 +14,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: List files in app-image directory2
+      run: ls -l /workspace/
+    - name: List files in app-image directory3
+      run: ls -l /workspace/utils
+    - name: List files in app-image directory4
+      run: ls -l /workspace/utils/app-image
     # Step 1: Checkout the repository code
     - name: Checkout code
       uses: actions/checkout@v3

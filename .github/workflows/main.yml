@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
     - name: List files in app-image directory2
       run: ls -l ${{ github.workspace }}
     - name: List files in app-image directory3
@@ -23,8 +25,7 @@ jobs:
     - name: List files in app-image directory5
       run: ls -l /workspace/utils/app-image
     # Step 1: Checkout the repository code
-    - name: Checkout code
-      uses: actions/checkout@v3
+
 
     # Step 2: Pull Docker image from Docker Hub
     - name: Set up Docker

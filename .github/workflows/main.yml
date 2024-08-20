@@ -8,6 +8,10 @@ on:
         description: 'The version for the release'
         required: true
         default: 'v2.0.0'
+      release_notes:
+        description: 'Release notes or description for this version'
+        required: false
+        default: 'No release notes provided.'
 
 jobs:
   build:
@@ -47,5 +51,6 @@ jobs:
         files: ${{ github.workspace }}/utils/app-image/soccer-simulation-proxy.tar.gz
         tag_name: ${{ github.event.inputs.version }}
         name: "Version ${{ github.event.inputs.version }}"
+        body: ${{ github.event.inputs.release_notes }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

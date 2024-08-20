@@ -1,8 +1,9 @@
 #!/bin/bash
+
 set -e
 
-wget -c "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage" -O linuxdeploy-x86_64.AppImage
-chmod 777 linuxdeploy-x86_64.AppImage
+# wget -c "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage" -O linuxdeploy-x86_64.AppImage
+# chmod 777 linuxdeploy-x86_64.AppImage
 PLAYER_APP_IMAGE_DIR_NAME="sample-player-x86_64"
 mkdir -p $PLAYER_APP_IMAGE_DIR_NAME
 COACH_APP_IMAGE_DIR_NAME="sample-coach-x86_64"
@@ -89,29 +90,31 @@ echo "Start to create app image for trainer"
 echo "App Image Created."
 
 echo "Start to create all in one."
-mkdir -p soccer-simulation-proxy
+cp ${BUILD_PWD} -r soccer-simulation-proxy
+rm  soccer-simulation-proxy/sample_player
+rm  soccer-simulation-proxy/sample_coach
+rm  soccer-simulation-proxy/sample_trainer
 mv samplecoach-x86_64.AppImage soccer-simulation-proxy/sample_coach
 mv sampleplayer-x86_64.AppImage soccer-simulation-proxy/sample_player
 mv sampletrainer-x86_64.AppImage soccer-simulation-proxy/sample_trainer
 
-cp ${BUILD_PWD}formations-dt soccer-simulation-proxy/ -r
-cp ${BUILD_PWD}formations-keeper soccer-simulation-proxy/ -r
-cp ${BUILD_PWD}formations-taker soccer-simulation-proxy/ -r
-cp ${BUILD_PWD}*.conf soccer-simulation-proxy/
-cp ${BUILD_PWD}*.sh soccer-simulation-proxy/
 chmod 777 soccer-simulation-proxy/*
 
-# if [ -x "$(command -v 7z)" ]; then
-#     7z a bin.7z bin/*
-# fi
-
-#tar -czvf soccer-simulation-proxy.tar.gz soccer-simulation-proxy/*
-#tar -czvf sample_player.tar.gz sample_player
-#tar -czvf sample_coach.tar.gz sample_coach
-#tar -czvf sample_trainer.tar.gz sample_trainer
-#echo "All in one created."
-#
 rm -rf $PLAYER_APP_IMAGE_DIR_NAME
 rm -rf $COACH_APP_IMAGE_DIR_NAME
 rm -rf $TRAINER_APP_IMAGE_DIR_NAME
-#rm -rf soccer-simulation-proxy
+
+# create tar file
+tar -czvf soccer-simulation-proxy.tar.gz soccer-simulation-proxy/*
+
+# create zip file
+if [ -x "$(command -v zip)" ]; then
+    zip -r soccer-simulation-proxy.zip soccer-simulation-proxy/*
+fi
+
+# create 7z file
+if [ -x "$(command -v 7z)" ]; then
+    7z a soccer-simulation-proxy.7z soccer-simulation-proxy/*
+fi
+
+echo "All in one created."

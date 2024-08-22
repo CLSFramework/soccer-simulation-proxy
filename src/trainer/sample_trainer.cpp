@@ -138,8 +138,14 @@ SampleTrainer::actionImpl()
     while (M_rpc_client->isConnected() == false)
     {
         std::cout<<"Connecting to GRPC server..."<<std::endl;
-        connectedToGrpcServer = M_rpc_client->connectToGrpcServer();
-        if (connectedToGrpcServer == false) {
+        try{
+            connectedToGrpcServer = M_rpc_client->connectToGrpcServer();
+            if (connectedToGrpcServer == false) {
+                std::this_thread::sleep_for(std::chrono::seconds(1));
+            }
+        }
+        catch (const std::exception& e){
+            std::cerr << "Error: " << e.what() << std::endl;
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
     }

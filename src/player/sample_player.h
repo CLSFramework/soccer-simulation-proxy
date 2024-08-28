@@ -115,6 +115,7 @@ protected:
 private:
 
     bool doPreprocess();
+    bool checkPreprocess();
     bool doShoot();
     bool doForceKick();
     bool doHeardPassReceive();

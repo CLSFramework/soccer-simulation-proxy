@@ -53,6 +53,7 @@
 #include "view_tactical.h"
 
 #include "intention_receive.h"
+#include "shoot_generator.h"
 
 #include "basic_actions/basic_actions.h"
 #include "basic_actions/bhv_emergency.h"
@@ -288,7 +289,9 @@ SamplePlayer::actionImpl()
     //
     // special situations (tackle, objects accuracy, intention...)
     //
-        if ( doPreprocess() )
+    // M_rpc_client->sendParams(this->config().offlineLogging());
+    // M_rpc_client->getActions();
+    if ( doPreprocess() )
     {
         dlog.addText( Logger::TEAM,
                       __FILE__": preprocess done" );
@@ -578,6 +581,143 @@ SamplePlayer::communicationImpl()
 /*-------------------------------------------------------------------*/
 /*!
 */
+bool
+SamplePlayer::checkPreprocess()
+{
+    // check tackle expires
+    // check self position accuracy
+    // ball search
+    // check queued intention
+    // check simultaneous kick
+    
+    const WorldModel & wm = this->world();
+
+    dlog.addText( Logger::TEAM,
+                  __FILE__": (doPreProcess)" );
+
+    //
+    // freezed by tackle effect
+    //
+    if ( wm.self().isFrozen() )
+    {
+                dlog.addText( Logger::TEAM,
+                      __FILE__": tackle wait. expires= %d",
+                      wm.self().tackleExpires() );
+        return true;
+    }
+
+    //
+    // BeforeKickOff or AfterGoal. jump to the initial position
+    //
+    if ( wm.gameMode().type() == GameMode::BeforeKickOff
+         || wm.gameMode().type() == GameMode::AfterGoal_ )
+    {
+        dlog.addText( Logger::TEAM,
+                      __FILE__": before_kick_off" );
+        return true;
+    }
+
+    //
+    // self localization error
+    //
+    if ( ! wm.self().posValid() )
+    {
+        return true;
+    }
+
+    //
+    // ball localization error
+    //
+    const int count_thr = ( wm.self().goalie()
+                            ? 10
+                            : 5 );
+    if ( wm.ball().posCount() > count_thr
+         || ( wm.gameMode().type() != GameMode::PlayOn
+              && wm.ball().seenPosCount() > count_thr + 10 ) )
+    {
+        dlog.addText( Logger::TEAM,
+                      __FILE__": search ball" );
+        return true;
+    }
+
+    //
+    // set default change view
+    //
+
+    this->setViewAction( new View_Tactical() );
+
+    //
+    // check shoot chance
+    //
+
+    const ShootGenerator::Container & cont = ShootGenerator::instance().courses( wm );
+
+    // update
+    if ( !cont.empty() )
+    {
+        ShootGenerator::Container::const_iterator best_shoot
+            = std::min_element( cont.begin(),
+                                cont.end(),
+                                ShootGenerator::ScoreCmp() );
+        
+        if ( wm.gameMode().type() != GameMode::IndFreeKick_
+            && wm.time().stopped() == 0
+            && wm.self().isKickable()
+            && best_shoot != cont.end() )
+        {
+            return true;
+        }
+    }
+
+
+    //
+    // check queued action
+    //
+    // if ( this->doIntention() )
+    // {
+    //     std::cout<<"doIntention"<<std::endl;
+    //     dlog.addText( Logger::TEAM,
+    //                   __FILE__": do queued intention" );
+    //     return true;
+    // }
+
+    //
+    // check simultaneous kick
+    //
+    if ( wm.gameMode().type() == GameMode::PlayOn
+         && ! wm.self().goalie()
+         && wm.self().isKickable()
+         && wm.kickableOpponent() )
+    {
+        dlog.addText( Logger::TEAM,
+                      __FILE__": simultaneous kick" );
+        this->debugClient().addMessage( "SimultaneousKick" );
+        Vector2D goal_pos( ServerParam::i().pitchHalfLength(), 0.0 );
+
+        if ( wm.self().pos().x > 36.0
+             && wm.self().pos().absY() > 10.0 )
+        {
+            goal_pos.x = 45.0;
+            dlog.addText( Logger::TEAM,
+                          __FILE__": simultaneous kick cross type" );
+        }
+        return true;
+    }
+
+    //
+    // check pass message
+    //
+    if ( !(wm.audioMemory().passTime() != wm.time()
+           || wm.audioMemory().pass().empty()
+           || wm.audioMemory().pass().front().receiver_ != wm.self().unum()) )
+    {
+
+        return true;
+    }
+
+    return false;
+}
+
 bool
 SamplePlayer::doPreprocess()
 {

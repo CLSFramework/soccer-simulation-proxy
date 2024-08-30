@@ -647,30 +647,6 @@ SamplePlayer::checkPreprocess()
     this->setViewAction( new View_Tactical() );
 
     //
-    // check shoot chance
-    //
-
-    const ShootGenerator::Container & cont = ShootGenerator::instance().courses( wm );
-
-    // update
-    if ( !cont.empty() )
-    {
-        ShootGenerator::Container::const_iterator best_shoot
-            = std::min_element( cont.begin(),
-                                cont.end(),
-                                ShootGenerator::ScoreCmp() );
-        
-        if ( wm.gameMode().type() != GameMode::IndFreeKick_
-            && wm.time().stopped() == 0
-            && wm.self().isKickable()
-            && best_shoot != cont.end() )
-        {
-            return true;
-        }
-    }
-
-
-    //
     // check queued action
     //
     // if ( this->doIntention() )
@@ -794,15 +770,6 @@ SamplePlayer::doPreprocess()
 
     this->setViewAction( new View_Tactical() );
 
-    //
-    // check shoot chance
-    //
-    if ( doShoot() )
-    {
-        return true;
-    }
-
-    //
     // check queued action
     //
     // if ( this->doIntention() )

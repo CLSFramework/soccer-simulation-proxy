@@ -3,15 +3,6 @@ name: Build and Create AppImage
 # Define a manual trigger with input for version
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'The version for the release'
-        required: true
-        default: 'vX.X.X'
-      release_notes:
-        description: 'Release notes or description for this version'
-        required: false
-        default: '## Release Note:'
 
 jobs:
   build:
@@ -35,13 +26,42 @@ jobs:
         docker run --rm -v ${{ github.workspace }}:/workspace naderzare/ubuntu20-grpc-thrift:latest \
         bash -c "pwd && ls && cd /workspace/utils && ls && chmod +x build.sh && ./build.sh && cd /workspace/utils/app-image && chmod +x create_app_images.sh && ./create_app_images.sh"
 
-    # Step 5: Upload the tar.gz file as a release asset
+    # Step 4: Extract version and changes from ChangeLog
+    - name: Extract version and changes from ChangeLog
+      id: changelog
+      run: |
+        VERSION=$(grep -oP '## \[\K[^\]]+' ChangeLog.md | head -n 1)
+        CHANGES=$(awk "/## \[$VERSION\]/ {flag=1; next} /^## \[/ {flag=0} flag" ChangeLog.md)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "CHANGES<<EOF" >> $GITHUB_ENV
+        echo "$CHANGES" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+
+    # Step 5: Get the latest release version from GitHub
+    - name: Get latest release version
+      id: get_latest_release
+      run: |
+        LATEST_RELEASE_VERSION=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r .tag_name)
+        echo "LATEST_RELEASE_VERSION=$LATEST_RELEASE_VERSION" >> $GITHUB_ENV
+
+    # Step 6: Compare the extracted version with the latest release version
+    - name: Compare versions
+      run: |
+        if [ "${{ env.VERSION }}" == "${{ env.LATEST_RELEASE_VERSION }}" ]; then
+          echo "Error: Version ${{ env.VERSION }} is the same as the latest released version."
+          exit 1
+        fi
+
+    # Step 7: Upload the tar.gz file as a release asset
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
         files: ${{ github.workspace }}/utils/app-image/soccer-simulation-proxy.tar.gz
-        tag_name: ${{ github.event.inputs.version }}
-        name: "Version ${{ github.event.inputs.version }}"
-        body: ${{ github.event.inputs.release_notes }}
+        tag_name: ${{ env.VERSION }}
+        release_name: Release ${{ env.VERSION }}
+        name: Release ${{ env.VERSION }}
+        body: ${{ env.CHANGES }}
+        draft: false
+        prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

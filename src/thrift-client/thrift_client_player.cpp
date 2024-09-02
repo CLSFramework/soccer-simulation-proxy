@@ -125,9 +125,11 @@ void ThriftClientPlayer::getActions()
     }
     if (pre_process && !actions.ignore_preprocess)
     {
-        rcsc::dlog.addText( rcsc::Logger::TEAM,
-                      __FILE__": preprocess done" );
-        return;
+        if (doPreprocess(agent)){
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                        __FILE__": preprocess done" );
+            return;
+        }
     }
     std::cout<<"action size:"<<actions.actions.size()<<std::endl;
     int body_action_done = 0;

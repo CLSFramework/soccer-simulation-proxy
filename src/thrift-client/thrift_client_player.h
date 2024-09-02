@@ -1,7 +1,8 @@
 #include "thrift_client.h"
 #include "player/sample_communication.h"
+#include "rpc-client/rpc-player-client.h"
 
-class ThriftClientPlayer : public ThriftAgent {
+class ThriftClientPlayer : public ThriftAgent, public RpcPlayerClient {
     rcsc::PlayerAgent * M_agent;
     Communication::Ptr sample_communication;
     public:

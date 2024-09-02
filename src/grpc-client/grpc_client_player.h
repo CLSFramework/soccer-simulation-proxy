@@ -1,7 +1,8 @@
 #include "grpc_client.h"
 #include "player/sample_communication.h"
+#include "rpc-client/rpc-player-client.h"
 
-class GrpcClientPlayer : public GrpcClient {
+class GrpcClientPlayer : public GrpcClient, public RpcPlayerClient {
     rcsc::PlayerAgent * M_agent;
     Communication::Ptr sample_communication;
     public:

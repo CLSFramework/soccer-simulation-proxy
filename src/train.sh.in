@@ -18,9 +18,10 @@ coach="${DIR}/sample_coach"
 trainer="${DIR}/sample_trainer"
 teamname="TRAINER_MODE"
 host="localhost"
-g_port=50051
-diff_g_port="false"
-gp20="false"
+rpc_host="localhost"
+rpc_port=50051
+rpc_port_step="false"
+rpc_add_20_to_port_for_right="false"
 rpc_type="thrift"
 config="${DIR}/player.conf"
 config_dir="${DIR}/formations-dt"
@@ -40,9 +41,10 @@ usage()
    echo "Possible options are:"
    echo "      --help                print this"
    echo "  -h, --host HOST           specifies server host"
-   echo "  --g_port GRPC PORT           specifies grpc port (default: 50051)"
-   echo "  --diff_g_port                specifies different grpc port for each player (default: false)"
-   echo "  --gp20                       add 20 to GRPC Port if team run on right side (default: false)"
+   echo "  --rpc-host RPC host          specifies rpc host (default: localhost)"
+   echo "  --rpc-port RPC PORT          specifies rpc port (default: 50051)"
+   echo "  --rpc-port-step              specifies different rpc port for each player (default: false)"
+   echo "  --rpc-add-20-to-port-for-right                    add 20 to RPC Port if team run on right side (default: false)"
    echo "  --rpc-type                   type of rpc framework (default: thrift) or grpc"
    echo "  -t, --teamname TEAMNAME   specifies team name") 1>&2
 }
@@ -73,27 +75,27 @@ do
       teamname=$2
       shift 1
       ;;
---g-ip)
+    --rpc-host)
       if [ $# -lt 2 ]; then
         usage
         exit 1
       fi
-      g_ip="${2}"
+      rpc_host="${2}"
       shift 1
       ;;
-    --g-port)
+    --rpc-port)
       if [ $# -lt 2 ]; then
         usage
         exit 1
       fi
-      g_port="${2}"
+      rpc_port="${2}"
       shift 1
       ;;
-    --diff-g-port)
-      diff_g_port="true"
+    --rpc-port-step)
+      rpc_port_step="true"
       ;;
-    --gp20)
-      gp20="true"
+    --rpc-add-20-to-port-for-right)
+      rpc_add_20_to_port_for_right="true"
       ;;
     --rpc-type)
       if [ $# -lt 2 ]; then
@@ -115,13 +117,14 @@ done
 OPT="-h ${host} -t ${teamname}"
 OPT="${OPT} --player-config ${config} --config_dir ${config_dir}"
 OPT="${OPT} ${debugopt}"
-opt="${opt} --g-port ${g_port}"
+opt="${opt} --rpc-host ${rpc_host}"
+opt="${opt} --rpc-port ${rpc_port}"
 opt="${opt} --rpc-type ${rpc_type}"
-if [ "${same_g_port}" = "true" ]; then
-  OPT="${OPT} --diff-g-port"
+if [ "${rpc_port_step}" = "true" ]; then
+  opt="${opt} --rpc-port-step"
 fi
-if [ "${gp20}" = "true" ]; then
-  OPT="${OPT} --gp20"
+if [ "${rpc_add_20_to_port_for_right}" = "true" ]; then
+  opt="${opt} --rpc-add-20-to-port-for-right"
 fi
 #if [ $number -gt 0 ]; then
 #  $player ${OPT} -g &
@@ -138,12 +141,13 @@ fi
 $player ${OPT} -n 1 --rpc-type ${rpc_type} &
 $sleepprog $sleeptime
 trainer_opt="-h $host -t $teamname"
-trainer_opt="${trainer_opt} --g-port ${g_port}"
+trainer_opt="${trainer_opt} --rpc-host ${rpc_host}"
+trainer_opt="${trainer_opt} --rpc-port ${rpc_port}"
 trainer_opt="${trainer_opt} --rpc-type ${rpc_type}"
-if [ "${same_g_port}" = "true" ]; then
-  trainer_opt="${trainer_opt} --diff-g-port"
+if [ "${rpc_port_step}" = "true" ]; then
+  trainer_opt="${trainer_opt} --rpc-port-step"
 fi
-if [ "${gp20}" = "true" ]; then
-  trainer_opt="${trainer_opt} --gp20"
+if [ "${rpc_add_20_to_port_for_right}" = "true" ]; then
+  trainer_opt="${trainer_opt} --rpc-add-20-to-port-for-right"
 fi
 $trainer $trainer_opt &

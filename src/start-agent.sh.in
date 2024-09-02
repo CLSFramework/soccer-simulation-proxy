@@ -26,10 +26,10 @@ coach="${DIR}/sample_coach"
 teamname="SSP"
 host="localhost"
 port=6000
-g_ip="localhost"
-g_port=50051
-diff_g_port="false"
-gp20="false"
+rpc_host="localhost"
+rpc_port=50051
+rpc_port_step="false"
+rpc_add_20_to_port_for_right="false"
 rpc_type="thrift"
 coach_port=""
 debug_server_host=""
@@ -82,10 +82,10 @@ usage()
    echo "  --log-dir DIRECTORY          specifies debug log directory (default: /tmp)"
    echo "  --debug-log-ext EXTENSION    specifies debug log file extension (default: .log)"
    echo "  --fullstate FULLSTATE_TYPE   specifies fullstate model handling"
-   echo "  --g-ip GRPC IP               specifies grpc IP (default: localhost)"
-   echo "  --g-port GRPC PORT           specifies grpc port (default: 50051)"
-   echo "  --diff-g-port                specifies different grpc port for each player (default: false)"
-   echo "  --gp20                       add 20 to GRPC Port if team run on right side (default: false)"
+   echo "  --rpc-host RPC host          specifies rpc host (default: localhost)"
+   echo "  --rpc-port RPC PORT          specifies rpc port (default: 50051)"
+   echo "  --rpc-port-step              specifies different rpc port for each player (default: false)"
+   echo "  --rpc-add-20-to-port-for-right                    add 20 to RPC Port if team run on right side (default: false)"
    echo "  --rpc-type                   type of rpc framework (default: thrift) or grpc"
    echo "  --goalie                     specifies to run as a goalie"
    echo "  --player                     specifies to run as a player"
@@ -101,27 +101,27 @@ do
       usage
       exit 0
       ;;
-    --g-ip)
+    --rpc-host)
       if [ $# -lt 2 ]; then
         usage
         exit 1
       fi
-      g_ip="${2}"
+      rpc_host="${2}"
       shift 1
       ;;
-    --g-port)
+    --rpc-port)
       if [ $# -lt 2 ]; then
         usage
         exit 1
       fi
-      g_port="${2}"
+      rpc_port="${2}"
       shift 1
       ;;
-    --diff-g-port)
-      diff_g_port="true"
+    --rpc-port-step)
+      rpc_port_step="true"
       ;;
-    --gp20)
-      gp20="true"
+    --rpc-add-20-to-port-for-right)
+      rpc_add_20_to_port_for_right="true"
       ;;
     --rpc-type)
       if [ $# -lt 2 ]; then
@@ -344,14 +344,14 @@ opt="${opt} --debug_server_host ${debug_server_host}"
 opt="${opt} --debug_server_port ${debug_server_port}"
 opt="${opt} ${offline_logging}"
 opt="${opt} ${debugopt}"
-opt="${opt} --g-ip ${g_ip}"
-opt="${opt} --g-port ${g_port}"
+opt="${opt} --rpc-host ${rpc_host}"
+opt="${opt} --rpc-port ${rpc_port}"
 opt="${opt} --rpc-type ${rpc_type}"
-if [ "${same_g_port}" = "true" ]; then
-  opt="${opt} --diff-g-port"
+if [ "${rpc_port_step}" = "true" ]; then
+  opt="${opt} --rpc-port-step"
 fi
-if [ "${gp20}" = "true" ]; then
-  opt="${opt} --gp20"
+if [ "${rpc_add_20_to_port_for_right}" = "true" ]; then
+  opt="${opt} --rpc-add-20-to-port-for-right"
 fi
 
 ping -c 1 $host
@@ -374,14 +374,14 @@ if [ "${is_coach}" = "true" ]; then
   coachopt="${coachopt} --debug_server_port ${debug_server_port}"
   coachopt="${coachopt} ${offline_logging}"
   coachopt="${coachopt} ${debugopt}"
-  coachopt="${coachopt} --g-ip ${g_ip}"
-  coachopt="${coachopt} --g-port ${g_port}"
+  coachopt="${coachopt} --rpc-host ${rpc_host}"
+  coachopt="${coachopt} --rpc-port ${rpc_port}"
   coachopt="${coachopt} --rpc-type ${rpc_type}"
-  if [ "${same_g_port}" = "true" ]; then
-    coachopt="${coachopt} --diff-g-port"
+  if [ "${rpc_port_step}" = "true" ]; then
+    coachopt="${coachopt} --rpc-port-step"
   fi
-  if [ "${gp20}" = "true" ]; then
-    coachopt="${coachopt} --gp20"
+  if [ "${rpc_add_20_to_port_for_right}" = "true" ]; then
+    coachopt="${coachopt} --rpc-add-20-to-port-for-right"
   fi
   $coach ${coachopt} &
 fi

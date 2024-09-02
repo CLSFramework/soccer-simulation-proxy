@@ -85,16 +85,16 @@ main( int argc, char **argv )
         std::string rpc_type = "thrift";
 
         for (int i = 0; i < argc; ++i) {
-            if (std::string(argv[i]) == "--g-port") {
+            if (std::string(argv[i]) == "--rpc-port") {
                 grpc_port = std::stoi(argv[i+1]);
             }
-            if (std::string(argv[i]) == "--diff-g-port") {
+            if (std::string(argv[i]) == "--rpc-port-step") {
                 use_same_grpc_port = false;
             }
-            if (std::string(argv[i]) == "--gp20") {
+            if (std::string(argv[i]) == "--rpc-add-20-to-port-for-right") {
                 add_20_to_grpc_port_if_right_side = true;
             }
-            if (std::string(argv[i]) == "--g-ip") {
+            if (std::string(argv[i]) == "--rpc-host") {
                 grpc_ip = argv[i+1];
             }
             if (std::string(argv[i]) == "--rpc-type") {

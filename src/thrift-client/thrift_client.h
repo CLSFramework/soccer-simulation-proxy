@@ -25,11 +25,7 @@ public:
     std::shared_ptr<TTransport> M_transport;
     std::shared_ptr<TProtocol> M_protocol;
     std::shared_ptr<soccer::GameClient> M_client;
-    bool M_is_connected = false;
-    bool M_param_sent = false;
     soccer::AgentType::type M_agent_type;
-    int M_unum;
-    std::string M_team_name;
     soccer::RegisterResponse M_register_response;
 
     ~ThriftAgent() {}
@@ -40,12 +36,9 @@ public:
     void sendPlayerParams() const;
     void sendPlayerType() const;
     void sendInitMessage(bool offline_logging) const;
-    bool Register();
+    bool Register() override;
     void sendByeCommand() const override;
     bool connectToGrpcServer() override;
-    bool isConnected() const override{
-        return M_is_connected;
-    }
 
     static rcsc::ViewWidth convertViewWidth(soccer::ViewWidth::type view_width);
     static rcsc::SideID convertSideID(soccer::Side::type side_id);

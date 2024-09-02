@@ -27,15 +27,15 @@ GrpcClientTrainer::GrpcClientTrainer()
     M_agent_type = protos::AgentType::TrainerT;
 }
 
-void GrpcClientTrainer::init(rcsc::TrainerAgent *agent,
+void GrpcClientTrainer::init(rcsc::SoccerAgent *agent,
                              std::string target,
                              int port,
                              bool use_same_grpc_port,
                              bool add_20_to_grpc_port_if_right_side)
 {
-    M_agent = agent;
+    M_agent = static_cast<rcsc::TrainerAgent *>(agent);
     M_unum = 13;
-    M_team_name = agent->world().ourTeamName();
+    M_team_name = M_agent->world().ourTeamName();
     if (add_20_to_grpc_port_if_right_side)
         if (M_agent->world().ourSide() == rcsc::SideID::RIGHT)
             port += 20;

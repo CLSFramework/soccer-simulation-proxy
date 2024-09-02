@@ -84,10 +84,10 @@ usage()
    echo "  --log-dir DIRECTORY          specifies debug log directory (default: /tmp)"
    echo "  --debug-log-ext EXTENSION    specifies debug log file extension (default: .log)"
    echo "  --fullstate FULLSTATE_TYPE   specifies fullstate model handling"
-   echo "  --g-ip GRPC IP               specifies grpc IP (default: localhost)"
-   echo "  --g-port GRPC PORT           specifies grpc port (default: 50051)"
-   echo "  --diff-g-port                specifies different grpc port for each player (default: false)"
-   echo "  --gp20                       add 20 to GRPC Port if team run on right side (default: false)"
+   echo "  --rpc-ip GRPC IP               specifies grpc IP (default: localhost)"
+   echo "  --rpc-port GRPC PORT           specifies grpc port (default: 50051)"
+   echo "  --rpc-port-step                specifies different grpc port for each player (default: false)"
+   echo "  --rpc-add-20-to-port-for-right                    add 20 to GRPC Port if team run on right side (default: false)"
    echo "  --rpc-type                   type of rpc framework (default: thrift) or grpc"
    echo "                               FULLSTATE_TYPE is one of [ignore|reference|override].") 1>&2
 }
@@ -100,7 +100,7 @@ do
       usage
       exit 0
       ;;
-    --g-ip)
+    --rpc-host)
       if [ $# -lt 2 ]; then
         usage
         exit 1
@@ -108,7 +108,7 @@ do
       g_ip="${2}"
       shift 1
       ;;
-    --g-port)
+    --rpc-port)
       if [ $# -lt 2 ]; then
         usage
         exit 1
@@ -116,10 +116,10 @@ do
       g_port="${2}"
       shift 1
       ;;
-    --diff-g-port)
+    --rpc-port-step)
       diff_g_port="true"
       ;;
-    --gp20)
+    --rpc-add-20-to-port-for-right)
       gp20="true"
       ;;
     --rpc-type)
@@ -351,14 +351,14 @@ opt="${opt} --debug_server_host ${debug_server_host}"
 opt="${opt} --debug_server_port ${debug_server_port}"
 opt="${opt} ${offline_logging}"
 opt="${opt} ${debugopt}"
-opt="${opt} --g-ip ${g_ip}"
-opt="${opt} --g-port ${g_port}"
+opt="${opt} --rpc-host ${g_ip}"
+opt="${opt} --rpc-port ${g_port}"
 opt="${opt} --rpc-type ${rpc_type}"
 if [ "${same_g_port}" = "true" ]; then
-  opt="${opt} --diff-g-port"
+  opt="${opt} --rpc-port-step"
 fi
 if [ "${gp20}" = "true" ]; then
-  opt="${opt} --gp20"
+  opt="${opt} --rpc-add-20-to-port-for-right"
 fi
 
 ping -c 1 $host
@@ -408,14 +408,14 @@ if [ "${usecoach}" = "true" ]; then
   coachopt="${coachopt} --debug_server_port ${debug_server_port}"
   coachopt="${coachopt} ${offline_logging}"
   coachopt="${coachopt} ${debugopt}"
-  coachopt="${coachopt} --g-ip ${g_ip}"
-  coachopt="${coachopt} --g-port ${g_port}"
+  coachopt="${coachopt} --rpc-host ${g_ip}"
+  coachopt="${coachopt} --rpc-port ${g_port}"
   coachopt="${coachopt} --rpc-type ${rpc_type}"
   if [ "${same_g_port}" = "true" ]; then
-    coachopt="${coachopt} --diff-g-port"
+    coachopt="${coachopt} --rpc-port-step"
   fi
   if [ "${gp20}" = "true" ]; then
-    coachopt="${coachopt} --gp20"
+    coachopt="${coachopt} --rpc-add-20-to-port-for-right"
   fi
 
   if  [ X"${offline_mode}" != X'' ]; then

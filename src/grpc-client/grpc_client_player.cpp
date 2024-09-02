@@ -108,7 +108,9 @@ void GrpcClientPlayer::init(rcsc::SoccerAgent *agent,
 void GrpcClientPlayer::getActions()
 {
     auto agent = M_agent;
+    bool pre_process = checkPreprocess(agent);
     State state = generateState();
+    state.set_need_preprocess(pre_process);
     protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);
     state.set_allocated_register_response(response);
     protos::PlayerActions actions;
@@ -120,6 +122,16 @@ void GrpcClientPlayer::getActions()
         std::cout << status.error_code() << ": " << status.error_message()
                   << std::endl;
         return;
+    }
+
+    if (pre_process && !actions.ignore_preprocess())
+    {
+        if (doPreprocess(agent))
+        {
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": preprocess done" );
+                return;
+        }
     }
 
     int body_action_done = 0;

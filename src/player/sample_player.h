@@ -114,10 +114,7 @@ protected:
 
 private:
 
-    bool doPreprocess();
     bool doShoot();
-    bool doForceKick();
-    bool doHeardPassReceive();
 
 public:
     virtual

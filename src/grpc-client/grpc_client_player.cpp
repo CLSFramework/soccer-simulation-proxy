@@ -130,7 +130,7 @@ void GrpcClientPlayer::getActions()
         {
             rcsc::dlog.addText( rcsc::Logger::TEAM,
                       __FILE__": preprocess done" );
-                return;
+            return;
         }
     }
 

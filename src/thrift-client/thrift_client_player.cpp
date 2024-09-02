@@ -109,7 +109,9 @@ void ThriftClientPlayer::init(rcsc::SoccerAgent *agent,
 void ThriftClientPlayer::getActions()
 {
     auto agent = M_agent;
+    bool pre_process = checkPreprocess(agent);
     soccer::State state = generateState();
+    state.need_preprocess = pre_process;
     soccer::PlayerActions actions;
     state.register_response = M_register_response;
     try
@@ -119,6 +121,12 @@ void ThriftClientPlayer::getActions()
     catch(const std::exception& e){
         std::cout << e.what() << '\n';
         M_is_connected = false;
+        return;
+    }
+    if (pre_process && !actions.ignore_preprocess)
+    {
+        rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": preprocess done" );
         return;
     }
     std::cout<<"action size:"<<actions.actions.size()<<std::endl;

@@ -262,7 +262,8 @@ struct WorldModel {
 struct State {
   1: RegisterResponse register_response,
   2: WorldModel world_model,
-  3: WorldModel full_world_model
+  3: WorldModel full_world_model,
+  4: bool need_preprocess
 }
 
 struct InitMessage {
@@ -803,7 +804,8 @@ struct PlayerAction {
 }
 
 struct PlayerActions {
-  1: list<PlayerAction> actions
+  1: list<PlayerAction> actions,
+  2: bool ignore_preprocess
 }
 
 struct ChangePlayerType {

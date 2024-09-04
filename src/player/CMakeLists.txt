@@ -122,6 +122,7 @@ set (COMMON_SOURCES
   sample_player.cpp
   strategy.cpp
   main_player.cpp
+  ../rpc-client/rpc-player-client.cpp
   )
 
 if (USE_THRIFT AND USE_GRPC)

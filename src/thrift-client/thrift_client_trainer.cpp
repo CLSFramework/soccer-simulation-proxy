@@ -27,14 +27,14 @@ ThriftClientTrainer::ThriftClientTrainer()
     M_agent_type = soccer::AgentType::TrainerT;
 }
 
-void ThriftClientTrainer::init(rcsc::TrainerAgent *agent,
+void ThriftClientTrainer::init(rcsc::SoccerAgent *agent,
                               std::string target,
                               int port,
                               bool use_same_grpc_port,
                               bool add_20_to_grpc_port_if_right_side)
 {
-    M_agent = agent;
-    M_team_name = agent->world().ourTeamName();
+    M_agent = static_cast<rcsc::TrainerAgent *>(agent);
+    M_team_name = M_agent->world().ourTeamName();
     M_unum = 13;
     if (add_20_to_grpc_port_if_right_side)
         if (M_agent->world().ourSide() == rcsc::SideID::RIGHT)

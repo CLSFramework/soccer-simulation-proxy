@@ -417,7 +417,7 @@ void GrpcClient::sendInitMessage(bool offline_logging) const
     }
 }
 
-bool GrpcClient::Register() const
+bool GrpcClient::Register()
 {
     ClientContext context;
     protos::RegisterRequest request;

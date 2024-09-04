@@ -260,6 +260,7 @@ message State {
   RegisterResponse register_response = 1;
   WorldModel world_model = 2;
   WorldModel full_world_model = 3;
+  bool need_preprocess = 4;
 }
 
 enum AgentType {
@@ -840,6 +841,7 @@ message PlayerAction {
 
 message PlayerActions {
   repeated PlayerAction actions = 1;
+  bool ignore_preprocess = 2;
 }
 
 message ChangePlayerType {

@@ -24,14 +24,10 @@ using protos::TrainerAction;
 
 class GrpcClient : public IRpcClient{
 public:
+    protos::AgentType M_agent_type;
     std::string M_target;
     std::shared_ptr<Channel> M_channel;
     std::unique_ptr<Game::Stub> M_stub_;
-    bool M_is_connected = false;
-    bool M_param_sent = false;
-    protos::AgentType M_agent_type;
-    int M_unum;
-    std::string M_team_name;
     protos::RegisterResponse * M_register_response = new protos::RegisterResponse();
 
     ~GrpcClient() {}
@@ -42,12 +38,9 @@ public:
     void sendPlayerParams() const;
     void sendPlayerType() const;
     void sendInitMessage(bool offline_logging) const;
-    bool Register() const;
+    bool Register() override;
     void sendByeCommand() const override;
     bool connectToGrpcServer() override;
-    bool isConnected() const override{
-        return M_is_connected;
-    }
 
     static rcsc::ViewWidth convertViewWidth(protos::ViewWidth view_width);
     static rcsc::SideID convertSideID(protos::Side side_id);

@@ -83,15 +83,15 @@ ThriftClientPlayer::ThriftClientPlayer()
     M_agent_type = soccer::AgentType::PlayerT;
 }
 
-void ThriftClientPlayer::init(rcsc::PlayerAgent *agent,
+void ThriftClientPlayer::init(rcsc::SoccerAgent *agent,
                              std::string target,
                              int port,
                              bool use_same_grpc_port,
                              bool add_20_to_grpc_port_if_right_side)
 {
-    M_agent = agent;
-    M_unum = agent->world().self().unum();
-    M_team_name = agent->world().ourTeamName();
+    M_agent = static_cast<rcsc::PlayerAgent *>(agent);
+    M_unum = M_agent->world().self().unum();
+    M_team_name = M_agent->world().ourTeamName();
     if (add_20_to_grpc_port_if_right_side)
         if (M_agent->world().ourSide() == rcsc::SideID::RIGHT)
             port += 20;
@@ -109,7 +109,9 @@ void ThriftClientPlayer::init(rcsc::PlayerAgent *agent,
 void ThriftClientPlayer::getActions()
 {
     auto agent = M_agent;
+    bool pre_process = checkPreprocess(agent);
     soccer::State state = generateState();
+    state.need_preprocess = pre_process;
     soccer::PlayerActions actions;
     state.register_response = M_register_response;
     try
@@ -120,6 +122,14 @@ void ThriftClientPlayer::getActions()
         std::cout << e.what() << '\n';
         M_is_connected = false;
         return;
+    }
+    if (pre_process && !actions.ignore_preprocess)
+    {
+        if (doPreprocess(agent)){
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                        __FILE__": preprocess done" );
+            return;
+        }
     }
     std::cout<<"action size:"<<actions.actions.size()<<std::endl;
     int body_action_done = 0;

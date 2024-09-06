@@ -1270,5 +1270,5 @@ service Game {
   rpc SendPlayerType(PlayerType) returns (Empty) {} //should be PlayerTypes
   rpc Register(RegisterRequest) returns (RegisterResponse) {}
   rpc SendByeCommand(RegisterResponse) returns (Empty) {}
-  rpc GetBestActionStatePair(RpcActionStatePairs) returns (BestActionStatePair) {}
+  rpc GetBestPlannerAction(RpcActionStatePairs) returns (BestActionStatePair) {}
 }

@@ -1,3 +1,5 @@
+// version 0
+
 namespace cpp soccer
 namespace py soccer
 

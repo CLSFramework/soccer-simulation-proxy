@@ -15,6 +15,7 @@ class GrpcClientPlayer : public GrpcClient, public RpcPlayerClient {
               bool add_20_to_grpc_port_if_right_side=false) override;
 
     void getActions();
+    void GetBestPlannerAction();
     void addSayMessage(protos::Say sayMessage) const;
     State generateState() const;
     void addHomePosition(protos::WorldModel * world_model) const;

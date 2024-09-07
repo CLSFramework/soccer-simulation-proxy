@@ -1251,6 +1251,7 @@ message RpcActionStatePair {
 
 message RpcActionStatePairs {
   map<int32, RpcActionStatePair> pairs = 1;
+  State state = 2;
 }
 
 message BestActionStatePair {

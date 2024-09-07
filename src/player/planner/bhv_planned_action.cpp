@@ -206,6 +206,17 @@ Bhv_PlannedAction::execute( PlayerAgent * agent )
     dlog.addText( Logger::TEAM,
                   __FILE__": Bhv_PlannedAction" );
 
+    const CooperativeAction & first_action = M_chain_graph.getFirstAction();
+
+    return execute( agent, first_action.index() );              
+}
+
+bool
+Bhv_PlannedAction::execute( PlayerAgent * agent, int index )
+{
+    dlog.addText( Logger::TEAM,
+                  __FILE__": Bhv_PlannedAction" );
+
     if ( doTurnToForward( agent ) )
     {
         return true;
@@ -214,7 +225,14 @@ Bhv_PlannedAction::execute( PlayerAgent * agent )
     const ServerParam & SP = ServerParam::i();
     const WorldModel & wm = agent->world();
 
-    const CooperativeAction & first_action = M_chain_graph.getFirstAction();
+    if ( M_chain_graph.getAllResults().find( index ) == M_chain_graph.getAllResults().end() )
+    {
+        dlog.addText( Logger::TEAM,
+                      __FILE__" (Bhv_PlannedAction) invalid index" );
+        return false;
+    }
+
+    const CooperativeAction & first_action = M_chain_graph.getAllResults().at( index ).first->action();
 
     ActionChainGraph::debug_send_chain( agent, M_chain_graph.getAllChain() );
 

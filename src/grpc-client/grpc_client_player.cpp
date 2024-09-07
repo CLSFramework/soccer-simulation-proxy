@@ -664,6 +664,8 @@ void GrpcClientPlayer::getActions()
 void GrpcClientPlayer::GetBestPlannerAction()
 {
     protos::RpcActionStatePairs *action_state_pairs = new protos::RpcActionStatePairs();
+    State state = generateState();
+    action_state_pairs->set_allocated_state(&state);
     std::cout << "GetBestActionStatePair:" << "c" << M_agent->world().time().cycle() << std::endl;
     std::cout << "results size:" << ActionChainHolder::instance().graph().getAllResults().size() << std::endl;
     for (auto &action_state_eval : ActionChainHolder::instance().graph().getAllResults())
@@ -673,66 +675,66 @@ void GrpcClientPlayer::GetBestPlannerAction()
             int index = action_state_eval.first;
             auto map = action_state_pairs->mutable_pairs();
             auto rpc_action_state_pair = protos::RpcActionStatePair();
-            auto rpc_cooperative_action = protos::RpcCooperativeAction();
-            auto rpc_predict_state = protos::RpcPredictState();
+            auto rpc_cooperative_action = new protos::RpcCooperativeAction();
+            auto rpc_predict_state = new protos::RpcPredictState();
             auto category = protos::RpcActionCategory::AC_Hold;
             auto action = action_state_eval.second.first->actionPtr();
             auto state = action_state_eval.second.first->statePtr();
-            auto eval = action_state_eval.second.second;
-            auto parent_index = action_state_eval.second.first;
-            // switch (action->category())
-            // {
-            // case CooperativeAction::Hold:
-            //     category = protos::RpcActionCategory::AC_Hold;
-            //     break;
-            // case CooperativeAction::Dribble:
-            //     category = protos::RpcActionCategory::AC_Dribble;
-            //     break;
-            // case CooperativeAction::Pass:
-            //     category = protos::RpcActionCategory::AC_Pass;
-            //     break;
-            // case CooperativeAction::Shoot:
-            //     category = protos::RpcActionCategory::AC_Shoot;
-            //     break;
-            // case CooperativeAction::Clear:
-            //     category = protos::RpcActionCategory::AC_Clear;
-            //     break;
-            // case CooperativeAction::Move:
-            //     category = protos::RpcActionCategory::AC_Move;
-            //     break;
-            // case CooperativeAction::NoAction:
-            //     category = protos::RpcActionCategory::AC_NoAction;
-            //     break;
-            // default:
-            //     break;
-            // }
-            // rpc_cooperative_action.set_category(category);
-            // rpc_cooperative_action.set_index(action->index());
-            // rpc_cooperative_action.set_sender_unum(action->playerUnum());
-            // rpc_cooperative_action.set_target_unum(action->targetPlayerUnum());
-            // rpc_cooperative_action.set_allocated_target_point(StateGenerator::convertVector2D(action->targetPoint()));
-            // rpc_cooperative_action.set_first_ball_speed(action->firstBallSpeed());
-            // rpc_cooperative_action.set_first_turn_moment(action->firstTurnMoment());
-            // rpc_cooperative_action.set_first_dash_power(action->firstDashPower());
-            // rpc_cooperative_action.set_first_dash_angle_relative(action->firstDashAngle().degree());
-            // rpc_cooperative_action.set_duration_step(action->durationStep());
-            // rpc_cooperative_action.set_kick_count(action->kickCount());
-            // rpc_cooperative_action.set_turn_count(action->turnCount());
-            // rpc_cooperative_action.set_dash_count(action->dashCount());
-            // rpc_cooperative_action.set_final_action(action->isFinalAction());
-            // rpc_cooperative_action.set_description(action->description());
-            // rpc_cooperative_action.set_parent_index(parent_index);
+            auto eval = action_state_eval.second.second.second;
+            auto parent_index = action_state_eval.second.second.first;
+            switch (action->category())
+            {
+            case CooperativeAction::Hold:
+                category = protos::RpcActionCategory::AC_Hold;
+                break;
+            case CooperativeAction::Dribble:
+                category = protos::RpcActionCategory::AC_Dribble;
+                break;
+            case CooperativeAction::Pass:
+                category = protos::RpcActionCategory::AC_Pass;
+                break;
+            case CooperativeAction::Shoot:
+                category = protos::RpcActionCategory::AC_Shoot;
+                break;
+            case CooperativeAction::Clear:
+                category = protos::RpcActionCategory::AC_Clear;
+                break;
+            case CooperativeAction::Move:
+                category = protos::RpcActionCategory::AC_Move;
+                break;
+            case CooperativeAction::NoAction:
+                category = protos::RpcActionCategory::AC_NoAction;
+                break;
+            default:
+                break;
+            }
+            rpc_cooperative_action->set_category(category);
+            rpc_cooperative_action->set_index(action->index());
+            rpc_cooperative_action->set_sender_unum(action->playerUnum());
+            rpc_cooperative_action->set_target_unum(action->targetPlayerUnum());
+            rpc_cooperative_action->set_allocated_target_point(StateGenerator::convertVector2D(action->targetPoint()));
+            rpc_cooperative_action->set_first_ball_speed(action->firstBallSpeed());
+            rpc_cooperative_action->set_first_turn_moment(action->firstTurnMoment());
+            rpc_cooperative_action->set_first_dash_power(action->firstDashPower());
+            rpc_cooperative_action->set_first_dash_angle_relative(action->firstDashAngle().degree());
+            rpc_cooperative_action->set_duration_step(action->durationStep());
+            rpc_cooperative_action->set_kick_count(action->kickCount());
+            rpc_cooperative_action->set_turn_count(action->turnCount());
+            rpc_cooperative_action->set_dash_count(action->dashCount());
+            rpc_cooperative_action->set_final_action(action->isFinalAction());
+            rpc_cooperative_action->set_description(action->description());
+            rpc_cooperative_action->set_parent_index(parent_index);
 
-            // rpc_predict_state.set_spend_time(state->spendTime());
-            // rpc_predict_state.set_ball_holder_unum(state->ballHolderUnum());
-            // rpc_predict_state.set_allocated_ball_position(StateGenerator::convertVector2D(state->ball().pos()));
-            // rpc_predict_state.set_allocated_ball_velocity(StateGenerator::convertVector2D(state->ball().vel()));
-            // rpc_predict_state.set_our_defense_line_x(state->ourDefenseLineX());
-            // rpc_predict_state.set_our_offense_line_x(state->ourOffensePlayerLineX());
+            rpc_predict_state->set_spend_time(state->spendTime());
+            rpc_predict_state->set_ball_holder_unum(state->ballHolderUnum());
+            rpc_predict_state->set_allocated_ball_position(StateGenerator::convertVector2D(state->ball().pos()));
+            rpc_predict_state->set_allocated_ball_velocity(StateGenerator::convertVector2D(state->ball().vel()));
+            rpc_predict_state->set_our_defense_line_x(state->ourDefenseLineX());
+            rpc_predict_state->set_our_offense_line_x(state->ourOffensePlayerLineX());
 
-            // rpc_action_state_pair.set_allocated_action(&rpc_cooperative_action);
-            // rpc_action_state_pair.set_allocated_predict_state(&rpc_predict_state);
-            // rpc_action_state_pair.set_evaluation(eval);
+            rpc_action_state_pair.set_allocated_action(rpc_cooperative_action);
+            rpc_action_state_pair.set_allocated_predict_state(rpc_predict_state);
+            rpc_action_state_pair.set_evaluation(eval);
 
             (*map)[action->index()] = rpc_action_state_pair;
         }

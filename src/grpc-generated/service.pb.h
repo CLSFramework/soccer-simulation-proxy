@@ -101,6 +101,9 @@ extern BallMessageDefaultTypeInternal _BallMessage_default_instance_;
 class BallPlayerMessage;
 struct BallPlayerMessageDefaultTypeInternal;
 extern BallPlayerMessageDefaultTypeInternal _BallPlayerMessage_default_instance_;
+class BestActionStatePair;
+struct BestActionStatePairDefaultTypeInternal;
+extern BestActionStatePairDefaultTypeInternal _BestActionStatePair_default_instance_;
 class Bhv_BeforeKickOff;
 struct Bhv_BeforeKickOffDefaultTypeInternal;
 extern Bhv_BeforeKickOffDefaultTypeInternal _Bhv_BeforeKickOff_default_instance_;
@@ -362,6 +365,21 @@ extern RegisterRequestDefaultTypeInternal _RegisterRequest_default_instance_;
 class RegisterResponse;
 struct RegisterResponseDefaultTypeInternal;
 extern RegisterResponseDefaultTypeInternal _RegisterResponse_default_instance_;
+class RpcActionStatePair;
+struct RpcActionStatePairDefaultTypeInternal;
+extern RpcActionStatePairDefaultTypeInternal _RpcActionStatePair_default_instance_;
+class RpcActionStatePairs;
+struct RpcActionStatePairsDefaultTypeInternal;
+extern RpcActionStatePairsDefaultTypeInternal _RpcActionStatePairs_default_instance_;
+class RpcActionStatePairs_PairsEntry_DoNotUse;
+struct RpcActionStatePairs_PairsEntry_DoNotUseDefaultTypeInternal;
+extern RpcActionStatePairs_PairsEntry_DoNotUseDefaultTypeInternal _RpcActionStatePairs_PairsEntry_DoNotUse_default_instance_;
+class RpcCooperativeAction;
+struct RpcCooperativeActionDefaultTypeInternal;
+extern RpcCooperativeActionDefaultTypeInternal _RpcCooperativeAction_default_instance_;
+class RpcPredictState;
+struct RpcPredictStateDefaultTypeInternal;
+extern RpcPredictStateDefaultTypeInternal _RpcPredictState_default_instance_;
 class RpcVector2D;
 struct RpcVector2DDefaultTypeInternal;
 extern RpcVector2DDefaultTypeInternal _RpcVector2D_default_instance_;
@@ -472,6 +490,8 @@ template <>
 ::protos::BallMessage* Arena::CreateMaybeMessage<::protos::BallMessage>(Arena*);
 template <>
 ::protos::BallPlayerMessage* Arena::CreateMaybeMessage<::protos::BallPlayerMessage>(Arena*);
+template <>
+::protos::BestActionStatePair* Arena::CreateMaybeMessage<::protos::BestActionStatePair>(Arena*);
 template <>
 ::protos::Bhv_BeforeKickOff* Arena::CreateMaybeMessage<::protos::Bhv_BeforeKickOff>(Arena*);
 template <>
@@ -646,6 +666,16 @@ template <>
 ::protos::RegisterRequest* Arena::CreateMaybeMessage<::protos::RegisterRequest>(Arena*);
 template <>
 ::protos::RegisterResponse* Arena::CreateMaybeMessage<::protos::RegisterResponse>(Arena*);
+template <>
+::protos::RpcActionStatePair* Arena::CreateMaybeMessage<::protos::RpcActionStatePair>(Arena*);
+template <>
+::protos::RpcActionStatePairs* Arena::CreateMaybeMessage<::protos::RpcActionStatePairs>(Arena*);
+template <>
+::protos::RpcActionStatePairs_PairsEntry_DoNotUse* Arena::CreateMaybeMessage<::protos::RpcActionStatePairs_PairsEntry_DoNotUse>(Arena*);
+template <>
+::protos::RpcCooperativeAction* Arena::CreateMaybeMessage<::protos::RpcCooperativeAction>(Arena*);
+template <>
+::protos::RpcPredictState* Arena::CreateMaybeMessage<::protos::RpcPredictState>(Arena*);
 template <>
 ::protos::RpcVector2D* Arena::CreateMaybeMessage<::protos::RpcVector2D>(Arena*);
 template <>
@@ -942,6 +972,43 @@ inline const std::string& AgentType_Name(AgentType value) {
 inline bool AgentType_Parse(absl::string_view name, AgentType* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<AgentType>(
       AgentType_descriptor(), name, value);
+}
+enum RpcActionCategory : int {
+  AC_Hold = 0,
+  AC_Dribble = 1,
+  AC_Pass = 2,
+  AC_Shoot = 3,
+  AC_Clear = 4,
+  AC_Move = 5,
+  AC_NoAction = 6,
+  RpcActionCategory_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  RpcActionCategory_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool RpcActionCategory_IsValid(int value);
+constexpr RpcActionCategory RpcActionCategory_MIN = static_cast<RpcActionCategory>(0);
+constexpr RpcActionCategory RpcActionCategory_MAX = static_cast<RpcActionCategory>(6);
+constexpr int RpcActionCategory_ARRAYSIZE = 6 + 1;
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+RpcActionCategory_descriptor();
+template <typename T>
+const std::string& RpcActionCategory_Name(T value) {
+  static_assert(std::is_same<T, RpcActionCategory>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to RpcActionCategory_Name().");
+  return RpcActionCategory_Name(static_cast<RpcActionCategory>(value));
+}
+template <>
+inline const std::string& RpcActionCategory_Name(RpcActionCategory value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfDenseEnum<RpcActionCategory_descriptor,
+                                                 0, 6>(
+      static_cast<int>(value));
+}
+inline bool RpcActionCategory_Parse(absl::string_view name, RpcActionCategory* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<RpcActionCategory>(
+      RpcActionCategory_descriptor(), name, value);
 }
 
 // ===================================================================
@@ -4382,6 +4449,7 @@ class State final :
     kRegisterResponseFieldNumber = 1,
     kWorldModelFieldNumber = 2,
     kFullWorldModelFieldNumber = 3,
+    kNeedPreprocessFieldNumber = 4,
   };
   // .protos.RegisterResponse register_response = 1;
   bool has_register_response() const;
@@ -4425,6 +4493,16 @@ class State final :
   void unsafe_arena_set_allocated_full_world_model(
       ::protos::WorldModel* full_world_model);
   ::protos::WorldModel* unsafe_arena_release_full_world_model();
+  // bool need_preprocess = 4;
+  void clear_need_preprocess() ;
+  bool need_preprocess() const;
+  void set_need_preprocess(bool value);
+
+  private:
+  bool _internal_need_preprocess() const;
+  void _internal_set_need_preprocess(bool value);
+
+  public:
   // @@protoc_insertion_point(class_scope:protos.State)
  private:
   class _Internal;
@@ -4438,6 +4516,7 @@ class State final :
     ::protos::RegisterResponse* register_response_;
     ::protos::WorldModel* world_model_;
     ::protos::WorldModel* full_world_model_;
+    bool need_preprocess_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -20127,6 +20206,7 @@ class HeliosChainAction final :
     kSimplePassFieldNumber = 7,
     kSimpleDribbleFieldNumber = 8,
     kSimpleShootFieldNumber = 9,
+    kServerSideDecisionFieldNumber = 10,
   };
   // bool direct_pass = 1;
   void clear_direct_pass() ;
@@ -20218,6 +20298,16 @@ class HeliosChainAction final :
   void _internal_set_simple_shoot(bool value);
 
   public:
+  // bool server_side_decision = 10;
+  void clear_server_side_decision() ;
+  bool server_side_decision() const;
+  void set_server_side_decision(bool value);
+
+  private:
+  bool _internal_server_side_decision() const;
+  void _internal_set_server_side_decision(bool value);
+
+  public:
   // @@protoc_insertion_point(class_scope:protos.HeliosChainAction)
  private:
   class _Internal;
@@ -20235,6 +20325,7 @@ class HeliosChainAction final :
     bool simple_pass_;
     bool simple_dribble_;
     bool simple_shoot_;
+    bool server_side_decision_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -22556,6 +22647,7 @@ class PlayerActions final :
 
   enum : int {
     kActionsFieldNumber = 1,
+    kIgnorePreprocessFieldNumber = 2,
   };
   // repeated .protos.PlayerAction actions = 1;
   int actions_size() const;
@@ -22577,6 +22669,16 @@ class PlayerActions final :
   ::protos::PlayerAction* add_actions();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::protos::PlayerAction >&
       actions() const;
+  // bool ignore_preprocess = 2;
+  void clear_ignore_preprocess() ;
+  bool ignore_preprocess() const;
+  void set_ignore_preprocess(bool value);
+
+  private:
+  bool _internal_ignore_preprocess() const;
+  void _internal_set_ignore_preprocess(bool value);
+
+  public:
   // @@protoc_insertion_point(class_scope:protos.PlayerActions)
  private:
   class _Internal;
@@ -22586,6 +22688,7 @@ class PlayerActions final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::protos::PlayerAction > actions_;
+    bool ignore_preprocess_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -28843,6 +28946,1131 @@ class PlayerType final :
   friend struct ::TableStruct_service_2eproto;
 };// -------------------------------------------------------------------
 
+class RpcCooperativeAction final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.RpcCooperativeAction) */ {
+ public:
+  inline RpcCooperativeAction() : RpcCooperativeAction(nullptr) {}
+  ~RpcCooperativeAction() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR RpcCooperativeAction(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RpcCooperativeAction(const RpcCooperativeAction& from);
+  RpcCooperativeAction(RpcCooperativeAction&& from) noexcept
+    : RpcCooperativeAction() {
+    *this = ::std::move(from);
+  }
+
+  inline RpcCooperativeAction& operator=(const RpcCooperativeAction& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RpcCooperativeAction& operator=(RpcCooperativeAction&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RpcCooperativeAction& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RpcCooperativeAction* internal_default_instance() {
+    return reinterpret_cast<const RpcCooperativeAction*>(
+               &_RpcCooperativeAction_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    127;
+
+  friend void swap(RpcCooperativeAction& a, RpcCooperativeAction& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RpcCooperativeAction* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RpcCooperativeAction* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RpcCooperativeAction* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RpcCooperativeAction>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RpcCooperativeAction& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const RpcCooperativeAction& from) {
+    RpcCooperativeAction::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RpcCooperativeAction* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "protos.RpcCooperativeAction";
+  }
+  protected:
+  explicit RpcCooperativeAction(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDescriptionFieldNumber = 15,
+    kTargetPointFieldNumber = 5,
+    kCategoryFieldNumber = 1,
+    kIndexFieldNumber = 2,
+    kSenderUnumFieldNumber = 3,
+    kTargetUnumFieldNumber = 4,
+    kFirstBallSpeedFieldNumber = 6,
+    kFirstTurnMomentFieldNumber = 7,
+    kFirstDashPowerFieldNumber = 8,
+    kFirstDashAngleRelativeFieldNumber = 9,
+    kDurationStepFieldNumber = 10,
+    kKickCountFieldNumber = 11,
+    kTurnCountFieldNumber = 12,
+    kDashCountFieldNumber = 13,
+    kFinalActionFieldNumber = 14,
+    kParentIndexFieldNumber = 16,
+  };
+  // string description = 15;
+  void clear_description() ;
+  const std::string& description() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_description(Arg_&& arg, Args_... args);
+  std::string* mutable_description();
+  PROTOBUF_NODISCARD std::string* release_description();
+  void set_allocated_description(std::string* ptr);
+
+  private:
+  const std::string& _internal_description() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_description(
+      const std::string& value);
+  std::string* _internal_mutable_description();
+
+  public:
+  // .protos.RpcVector2D target_point = 5;
+  bool has_target_point() const;
+  void clear_target_point() ;
+  const ::protos::RpcVector2D& target_point() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_target_point();
+  ::protos::RpcVector2D* mutable_target_point();
+  void set_allocated_target_point(::protos::RpcVector2D* target_point);
+  private:
+  const ::protos::RpcVector2D& _internal_target_point() const;
+  ::protos::RpcVector2D* _internal_mutable_target_point();
+  public:
+  void unsafe_arena_set_allocated_target_point(
+      ::protos::RpcVector2D* target_point);
+  ::protos::RpcVector2D* unsafe_arena_release_target_point();
+  // .protos.RpcActionCategory category = 1;
+  void clear_category() ;
+  ::protos::RpcActionCategory category() const;
+  void set_category(::protos::RpcActionCategory value);
+
+  private:
+  ::protos::RpcActionCategory _internal_category() const;
+  void _internal_set_category(::protos::RpcActionCategory value);
+
+  public:
+  // int32 index = 2;
+  void clear_index() ;
+  ::int32_t index() const;
+  void set_index(::int32_t value);
+
+  private:
+  ::int32_t _internal_index() const;
+  void _internal_set_index(::int32_t value);
+
+  public:
+  // int32 sender_unum = 3;
+  void clear_sender_unum() ;
+  ::int32_t sender_unum() const;
+  void set_sender_unum(::int32_t value);
+
+  private:
+  ::int32_t _internal_sender_unum() const;
+  void _internal_set_sender_unum(::int32_t value);
+
+  public:
+  // int32 target_unum = 4;
+  void clear_target_unum() ;
+  ::int32_t target_unum() const;
+  void set_target_unum(::int32_t value);
+
+  private:
+  ::int32_t _internal_target_unum() const;
+  void _internal_set_target_unum(::int32_t value);
+
+  public:
+  // double first_ball_speed = 6;
+  void clear_first_ball_speed() ;
+  double first_ball_speed() const;
+  void set_first_ball_speed(double value);
+
+  private:
+  double _internal_first_ball_speed() const;
+  void _internal_set_first_ball_speed(double value);
+
+  public:
+  // double first_turn_moment = 7;
+  void clear_first_turn_moment() ;
+  double first_turn_moment() const;
+  void set_first_turn_moment(double value);
+
+  private:
+  double _internal_first_turn_moment() const;
+  void _internal_set_first_turn_moment(double value);
+
+  public:
+  // double first_dash_power = 8;
+  void clear_first_dash_power() ;
+  double first_dash_power() const;
+  void set_first_dash_power(double value);
+
+  private:
+  double _internal_first_dash_power() const;
+  void _internal_set_first_dash_power(double value);
+
+  public:
+  // double first_dash_angle_relative = 9;
+  void clear_first_dash_angle_relative() ;
+  double first_dash_angle_relative() const;
+  void set_first_dash_angle_relative(double value);
+
+  private:
+  double _internal_first_dash_angle_relative() const;
+  void _internal_set_first_dash_angle_relative(double value);
+
+  public:
+  // int32 duration_step = 10;
+  void clear_duration_step() ;
+  ::int32_t duration_step() const;
+  void set_duration_step(::int32_t value);
+
+  private:
+  ::int32_t _internal_duration_step() const;
+  void _internal_set_duration_step(::int32_t value);
+
+  public:
+  // int32 kick_count = 11;
+  void clear_kick_count() ;
+  ::int32_t kick_count() const;
+  void set_kick_count(::int32_t value);
+
+  private:
+  ::int32_t _internal_kick_count() const;
+  void _internal_set_kick_count(::int32_t value);
+
+  public:
+  // int32 turn_count = 12;
+  void clear_turn_count() ;
+  ::int32_t turn_count() const;
+  void set_turn_count(::int32_t value);
+
+  private:
+  ::int32_t _internal_turn_count() const;
+  void _internal_set_turn_count(::int32_t value);
+
+  public:
+  // int32 dash_count = 13;
+  void clear_dash_count() ;
+  ::int32_t dash_count() const;
+  void set_dash_count(::int32_t value);
+
+  private:
+  ::int32_t _internal_dash_count() const;
+  void _internal_set_dash_count(::int32_t value);
+
+  public:
+  // bool final_action = 14;
+  void clear_final_action() ;
+  bool final_action() const;
+  void set_final_action(bool value);
+
+  private:
+  bool _internal_final_action() const;
+  void _internal_set_final_action(bool value);
+
+  public:
+  // int32 parent_index = 16;
+  void clear_parent_index() ;
+  ::int32_t parent_index() const;
+  void set_parent_index(::int32_t value);
+
+  private:
+  ::int32_t _internal_parent_index() const;
+  void _internal_set_parent_index(::int32_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:protos.RpcCooperativeAction)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr description_;
+    ::protos::RpcVector2D* target_point_;
+    int category_;
+    ::int32_t index_;
+    ::int32_t sender_unum_;
+    ::int32_t target_unum_;
+    double first_ball_speed_;
+    double first_turn_moment_;
+    double first_dash_power_;
+    double first_dash_angle_relative_;
+    ::int32_t duration_step_;
+    ::int32_t kick_count_;
+    ::int32_t turn_count_;
+    ::int32_t dash_count_;
+    bool final_action_;
+    ::int32_t parent_index_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_service_2eproto;
+};// -------------------------------------------------------------------
+
+class RpcPredictState final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.RpcPredictState) */ {
+ public:
+  inline RpcPredictState() : RpcPredictState(nullptr) {}
+  ~RpcPredictState() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR RpcPredictState(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RpcPredictState(const RpcPredictState& from);
+  RpcPredictState(RpcPredictState&& from) noexcept
+    : RpcPredictState() {
+    *this = ::std::move(from);
+  }
+
+  inline RpcPredictState& operator=(const RpcPredictState& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RpcPredictState& operator=(RpcPredictState&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RpcPredictState& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RpcPredictState* internal_default_instance() {
+    return reinterpret_cast<const RpcPredictState*>(
+               &_RpcPredictState_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    128;
+
+  friend void swap(RpcPredictState& a, RpcPredictState& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RpcPredictState* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RpcPredictState* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RpcPredictState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RpcPredictState>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RpcPredictState& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const RpcPredictState& from) {
+    RpcPredictState::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RpcPredictState* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "protos.RpcPredictState";
+  }
+  protected:
+  explicit RpcPredictState(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kBallPositionFieldNumber = 3,
+    kBallVelocityFieldNumber = 4,
+    kSpendTimeFieldNumber = 1,
+    kBallHolderUnumFieldNumber = 2,
+    kOurDefenseLineXFieldNumber = 5,
+    kOurOffenseLineXFieldNumber = 6,
+  };
+  // .protos.RpcVector2D ball_position = 3;
+  bool has_ball_position() const;
+  void clear_ball_position() ;
+  const ::protos::RpcVector2D& ball_position() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_ball_position();
+  ::protos::RpcVector2D* mutable_ball_position();
+  void set_allocated_ball_position(::protos::RpcVector2D* ball_position);
+  private:
+  const ::protos::RpcVector2D& _internal_ball_position() const;
+  ::protos::RpcVector2D* _internal_mutable_ball_position();
+  public:
+  void unsafe_arena_set_allocated_ball_position(
+      ::protos::RpcVector2D* ball_position);
+  ::protos::RpcVector2D* unsafe_arena_release_ball_position();
+  // .protos.RpcVector2D ball_velocity = 4;
+  bool has_ball_velocity() const;
+  void clear_ball_velocity() ;
+  const ::protos::RpcVector2D& ball_velocity() const;
+  PROTOBUF_NODISCARD ::protos::RpcVector2D* release_ball_velocity();
+  ::protos::RpcVector2D* mutable_ball_velocity();
+  void set_allocated_ball_velocity(::protos::RpcVector2D* ball_velocity);
+  private:
+  const ::protos::RpcVector2D& _internal_ball_velocity() const;
+  ::protos::RpcVector2D* _internal_mutable_ball_velocity();
+  public:
+  void unsafe_arena_set_allocated_ball_velocity(
+      ::protos::RpcVector2D* ball_velocity);
+  ::protos::RpcVector2D* unsafe_arena_release_ball_velocity();
+  // int32 spend_time = 1;
+  void clear_spend_time() ;
+  ::int32_t spend_time() const;
+  void set_spend_time(::int32_t value);
+
+  private:
+  ::int32_t _internal_spend_time() const;
+  void _internal_set_spend_time(::int32_t value);
+
+  public:
+  // int32 ball_holder_unum = 2;
+  void clear_ball_holder_unum() ;
+  ::int32_t ball_holder_unum() const;
+  void set_ball_holder_unum(::int32_t value);
+
+  private:
+  ::int32_t _internal_ball_holder_unum() const;
+  void _internal_set_ball_holder_unum(::int32_t value);
+
+  public:
+  // double our_defense_line_x = 5;
+  void clear_our_defense_line_x() ;
+  double our_defense_line_x() const;
+  void set_our_defense_line_x(double value);
+
+  private:
+  double _internal_our_defense_line_x() const;
+  void _internal_set_our_defense_line_x(double value);
+
+  public:
+  // double our_offense_line_x = 6;
+  void clear_our_offense_line_x() ;
+  double our_offense_line_x() const;
+  void set_our_offense_line_x(double value);
+
+  private:
+  double _internal_our_offense_line_x() const;
+  void _internal_set_our_offense_line_x(double value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:protos.RpcPredictState)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::protos::RpcVector2D* ball_position_;
+    ::protos::RpcVector2D* ball_velocity_;
+    ::int32_t spend_time_;
+    ::int32_t ball_holder_unum_;
+    double our_defense_line_x_;
+    double our_offense_line_x_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_service_2eproto;
+};// -------------------------------------------------------------------
+
+class RpcActionStatePair final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.RpcActionStatePair) */ {
+ public:
+  inline RpcActionStatePair() : RpcActionStatePair(nullptr) {}
+  ~RpcActionStatePair() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR RpcActionStatePair(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RpcActionStatePair(const RpcActionStatePair& from);
+  RpcActionStatePair(RpcActionStatePair&& from) noexcept
+    : RpcActionStatePair() {
+    *this = ::std::move(from);
+  }
+
+  inline RpcActionStatePair& operator=(const RpcActionStatePair& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RpcActionStatePair& operator=(RpcActionStatePair&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RpcActionStatePair& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RpcActionStatePair* internal_default_instance() {
+    return reinterpret_cast<const RpcActionStatePair*>(
+               &_RpcActionStatePair_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    129;
+
+  friend void swap(RpcActionStatePair& a, RpcActionStatePair& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RpcActionStatePair* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RpcActionStatePair* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RpcActionStatePair* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RpcActionStatePair>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RpcActionStatePair& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const RpcActionStatePair& from) {
+    RpcActionStatePair::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RpcActionStatePair* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "protos.RpcActionStatePair";
+  }
+  protected:
+  explicit RpcActionStatePair(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kActionFieldNumber = 1,
+    kPredictStateFieldNumber = 2,
+    kEvaluationFieldNumber = 3,
+  };
+  // .protos.RpcCooperativeAction action = 1;
+  bool has_action() const;
+  void clear_action() ;
+  const ::protos::RpcCooperativeAction& action() const;
+  PROTOBUF_NODISCARD ::protos::RpcCooperativeAction* release_action();
+  ::protos::RpcCooperativeAction* mutable_action();
+  void set_allocated_action(::protos::RpcCooperativeAction* action);
+  private:
+  const ::protos::RpcCooperativeAction& _internal_action() const;
+  ::protos::RpcCooperativeAction* _internal_mutable_action();
+  public:
+  void unsafe_arena_set_allocated_action(
+      ::protos::RpcCooperativeAction* action);
+  ::protos::RpcCooperativeAction* unsafe_arena_release_action();
+  // .protos.RpcPredictState predict_state = 2;
+  bool has_predict_state() const;
+  void clear_predict_state() ;
+  const ::protos::RpcPredictState& predict_state() const;
+  PROTOBUF_NODISCARD ::protos::RpcPredictState* release_predict_state();
+  ::protos::RpcPredictState* mutable_predict_state();
+  void set_allocated_predict_state(::protos::RpcPredictState* predict_state);
+  private:
+  const ::protos::RpcPredictState& _internal_predict_state() const;
+  ::protos::RpcPredictState* _internal_mutable_predict_state();
+  public:
+  void unsafe_arena_set_allocated_predict_state(
+      ::protos::RpcPredictState* predict_state);
+  ::protos::RpcPredictState* unsafe_arena_release_predict_state();
+  // double evaluation = 3;
+  void clear_evaluation() ;
+  double evaluation() const;
+  void set_evaluation(double value);
+
+  private:
+  double _internal_evaluation() const;
+  void _internal_set_evaluation(double value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:protos.RpcActionStatePair)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::protos::RpcCooperativeAction* action_;
+    ::protos::RpcPredictState* predict_state_;
+    double evaluation_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_service_2eproto;
+};// -------------------------------------------------------------------
+
+class RpcActionStatePairs_PairsEntry_DoNotUse final : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<RpcActionStatePairs_PairsEntry_DoNotUse, 
+    ::int32_t, ::protos::RpcActionStatePair,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<RpcActionStatePairs_PairsEntry_DoNotUse, 
+    ::int32_t, ::protos::RpcActionStatePair,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> SuperType;
+  RpcActionStatePairs_PairsEntry_DoNotUse();
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR RpcActionStatePairs_PairsEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit RpcActionStatePairs_PairsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const RpcActionStatePairs_PairsEntry_DoNotUse& other);
+  static const RpcActionStatePairs_PairsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const RpcActionStatePairs_PairsEntry_DoNotUse*>(&_RpcActionStatePairs_PairsEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(void*) { return true; }
+  static bool ValidateValue(void*) { return true; }
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  friend struct ::TableStruct_service_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RpcActionStatePairs final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.RpcActionStatePairs) */ {
+ public:
+  inline RpcActionStatePairs() : RpcActionStatePairs(nullptr) {}
+  ~RpcActionStatePairs() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR RpcActionStatePairs(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RpcActionStatePairs(const RpcActionStatePairs& from);
+  RpcActionStatePairs(RpcActionStatePairs&& from) noexcept
+    : RpcActionStatePairs() {
+    *this = ::std::move(from);
+  }
+
+  inline RpcActionStatePairs& operator=(const RpcActionStatePairs& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RpcActionStatePairs& operator=(RpcActionStatePairs&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const RpcActionStatePairs& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RpcActionStatePairs* internal_default_instance() {
+    return reinterpret_cast<const RpcActionStatePairs*>(
+               &_RpcActionStatePairs_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    131;
+
+  friend void swap(RpcActionStatePairs& a, RpcActionStatePairs& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RpcActionStatePairs* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RpcActionStatePairs* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RpcActionStatePairs* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RpcActionStatePairs>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const RpcActionStatePairs& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const RpcActionStatePairs& from) {
+    RpcActionStatePairs::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RpcActionStatePairs* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "protos.RpcActionStatePairs";
+  }
+  protected:
+  explicit RpcActionStatePairs(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPairsFieldNumber = 1,
+    kStateFieldNumber = 2,
+  };
+  // map<int32, .protos.RpcActionStatePair> pairs = 1;
+  int pairs_size() const;
+  private:
+  int _internal_pairs_size() const;
+
+  public:
+  void clear_pairs() ;
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >&
+      _internal_pairs() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >*
+      _internal_mutable_pairs();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >&
+      pairs() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >*
+      mutable_pairs();
+  // .protos.State state = 2;
+  bool has_state() const;
+  void clear_state() ;
+  const ::protos::State& state() const;
+  PROTOBUF_NODISCARD ::protos::State* release_state();
+  ::protos::State* mutable_state();
+  void set_allocated_state(::protos::State* state);
+  private:
+  const ::protos::State& _internal_state() const;
+  ::protos::State* _internal_mutable_state();
+  public:
+  void unsafe_arena_set_allocated_state(
+      ::protos::State* state);
+  ::protos::State* unsafe_arena_release_state();
+  // @@protoc_insertion_point(class_scope:protos.RpcActionStatePairs)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::MapField<
+        RpcActionStatePairs_PairsEntry_DoNotUse,
+        ::int32_t, ::protos::RpcActionStatePair,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> pairs_;
+    ::protos::State* state_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_service_2eproto;
+};// -------------------------------------------------------------------
+
+class BestActionStatePair final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.BestActionStatePair) */ {
+ public:
+  inline BestActionStatePair() : BestActionStatePair(nullptr) {}
+  ~BestActionStatePair() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR BestActionStatePair(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  BestActionStatePair(const BestActionStatePair& from);
+  BestActionStatePair(BestActionStatePair&& from) noexcept
+    : BestActionStatePair() {
+    *this = ::std::move(from);
+  }
+
+  inline BestActionStatePair& operator=(const BestActionStatePair& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline BestActionStatePair& operator=(BestActionStatePair&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance);
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const BestActionStatePair& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const BestActionStatePair* internal_default_instance() {
+    return reinterpret_cast<const BestActionStatePair*>(
+               &_BestActionStatePair_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    132;
+
+  friend void swap(BestActionStatePair& a, BestActionStatePair& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(BestActionStatePair* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(BestActionStatePair* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  BestActionStatePair* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<BestActionStatePair>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const BestActionStatePair& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const BestActionStatePair& from) {
+    BestActionStatePair::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(BestActionStatePair* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "protos.BestActionStatePair";
+  }
+  protected:
+  explicit BestActionStatePair(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIndexFieldNumber = 1,
+  };
+  // int32 index = 1;
+  void clear_index() ;
+  ::int32_t index() const;
+  void set_index(::int32_t value);
+
+  private:
+  ::int32_t _internal_index() const;
+  void _internal_set_index(::int32_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:protos.BestActionStatePair)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::int32_t index_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_service_2eproto;
+};// -------------------------------------------------------------------
+
 class Empty final :
     public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:protos.Empty) */ {
  public:
@@ -28898,7 +30126,7 @@ class Empty final :
                &_Empty_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    127;
+    133;
 
   friend void swap(Empty& a, Empty& b) {
     a.Swap(&b);
@@ -33838,6 +35066,26 @@ inline void State::set_allocated_full_world_model(::protos::WorldModel* full_wor
   }
   _impl_.full_world_model_ = full_world_model;
   // @@protoc_insertion_point(field_set_allocated:protos.State.full_world_model)
+}
+
+// bool need_preprocess = 4;
+inline void State::clear_need_preprocess() {
+  _impl_.need_preprocess_ = false;
+}
+inline bool State::need_preprocess() const {
+  // @@protoc_insertion_point(field_get:protos.State.need_preprocess)
+  return _internal_need_preprocess();
+}
+inline void State::set_need_preprocess(bool value) {
+  _internal_set_need_preprocess(value);
+  // @@protoc_insertion_point(field_set:protos.State.need_preprocess)
+}
+inline bool State::_internal_need_preprocess() const {
+  return _impl_.need_preprocess_;
+}
+inline void State::_internal_set_need_preprocess(bool value) {
+  ;
+  _impl_.need_preprocess_ = value;
 }
 
 // -------------------------------------------------------------------
@@ -43857,6 +45105,26 @@ inline void HeliosChainAction::_internal_set_simple_shoot(bool value) {
   _impl_.simple_shoot_ = value;
 }
 
+// bool server_side_decision = 10;
+inline void HeliosChainAction::clear_server_side_decision() {
+  _impl_.server_side_decision_ = false;
+}
+inline bool HeliosChainAction::server_side_decision() const {
+  // @@protoc_insertion_point(field_get:protos.HeliosChainAction.server_side_decision)
+  return _internal_server_side_decision();
+}
+inline void HeliosChainAction::set_server_side_decision(bool value) {
+  _internal_set_server_side_decision(value);
+  // @@protoc_insertion_point(field_set:protos.HeliosChainAction.server_side_decision)
+}
+inline bool HeliosChainAction::_internal_server_side_decision() const {
+  return _impl_.server_side_decision_;
+}
+inline void HeliosChainAction::_internal_set_server_side_decision(bool value) {
+  ;
+  _impl_.server_side_decision_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // HeliosBasicOffensive
@@ -48676,6 +49944,26 @@ PlayerActions::_internal_actions() const {
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::protos::PlayerAction>*
 PlayerActions::_internal_mutable_actions() {
   return &_impl_.actions_;
+}
+
+// bool ignore_preprocess = 2;
+inline void PlayerActions::clear_ignore_preprocess() {
+  _impl_.ignore_preprocess_ = false;
+}
+inline bool PlayerActions::ignore_preprocess() const {
+  // @@protoc_insertion_point(field_get:protos.PlayerActions.ignore_preprocess)
+  return _internal_ignore_preprocess();
+}
+inline void PlayerActions::set_ignore_preprocess(bool value) {
+  _internal_set_ignore_preprocess(value);
+  // @@protoc_insertion_point(field_set:protos.PlayerActions.ignore_preprocess)
+}
+inline bool PlayerActions::_internal_ignore_preprocess() const {
+  return _impl_.ignore_preprocess_;
+}
+inline void PlayerActions::_internal_set_ignore_preprocess(bool value) {
+  ;
+  _impl_.ignore_preprocess_ = value;
 }
 
 // -------------------------------------------------------------------
@@ -56311,6 +57599,1026 @@ inline void PlayerType::_internal_set_player_speed_max(float value) {
 
 // -------------------------------------------------------------------
 
+// RpcCooperativeAction
+
+// .protos.RpcActionCategory category = 1;
+inline void RpcCooperativeAction::clear_category() {
+  _impl_.category_ = 0;
+}
+inline ::protos::RpcActionCategory RpcCooperativeAction::category() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.category)
+  return _internal_category();
+}
+inline void RpcCooperativeAction::set_category(::protos::RpcActionCategory value) {
+   _internal_set_category(value);
+  // @@protoc_insertion_point(field_set:protos.RpcCooperativeAction.category)
+}
+inline ::protos::RpcActionCategory RpcCooperativeAction::_internal_category() const {
+  return static_cast<::protos::RpcActionCategory>(_impl_.category_);
+}
+inline void RpcCooperativeAction::_internal_set_category(::protos::RpcActionCategory value) {
+  ;
+  _impl_.category_ = value;
+}
+
+// int32 index = 2;
+inline void RpcCooperativeAction::clear_index() {
+  _impl_.index_ = 0;
+}
+inline ::int32_t RpcCooperativeAction::index() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.index)
+  return _internal_index();
+}
+inline void RpcCooperativeAction::set_index(::int32_t value) {
+  _internal_set_index(value);
+  // @@protoc_insertion_point(field_set:protos.RpcCooperativeAction.index)
+}
+inline ::int32_t RpcCooperativeAction::_internal_index() const {
+  return _impl_.index_;
+}
+inline void RpcCooperativeAction::_internal_set_index(::int32_t value) {
+  ;
+  _impl_.index_ = value;
+}
+
+// int32 sender_unum = 3;
+inline void RpcCooperativeAction::clear_sender_unum() {
+  _impl_.sender_unum_ = 0;
+}
+inline ::int32_t RpcCooperativeAction::sender_unum() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.sender_unum)
+  return _internal_sender_unum();
+}
+inline void RpcCooperativeAction::set_sender_unum(::int32_t value) {
+  _internal_set_sender_unum(value);
+  // @@protoc_insertion_point(field_set:protos.RpcCooperativeAction.sender_unum)
+}
+inline ::int32_t RpcCooperativeAction::_internal_sender_unum() const {
+  return _impl_.sender_unum_;
+}
+inline void RpcCooperativeAction::_internal_set_sender_unum(::int32_t value) {
+  ;
+  _impl_.sender_unum_ = value;
+}
+
+// int32 target_unum = 4;
+inline void RpcCooperativeAction::clear_target_unum() {
+  _impl_.target_unum_ = 0;
+}
+inline ::int32_t RpcCooperativeAction::target_unum() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.target_unum)
+  return _internal_target_unum();
+}
+inline void RpcCooperativeAction::set_target_unum(::int32_t value) {
+  _internal_set_target_unum(value);
+  // @@protoc_insertion_point(field_set:protos.RpcCooperativeAction.target_unum)
+}
+inline ::int32_t RpcCooperativeAction::_internal_target_unum() const {
+  return _impl_.target_unum_;
+}
+inline void RpcCooperativeAction::_internal_set_target_unum(::int32_t value) {
+  ;
+  _impl_.target_unum_ = value;
+}
+
+// .protos.RpcVector2D target_point = 5;
+inline bool RpcCooperativeAction::has_target_point() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.target_point_ != nullptr);
+  return value;
+}
+inline void RpcCooperativeAction::clear_target_point() {
+  if (_impl_.target_point_ != nullptr) _impl_.target_point_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const ::protos::RpcVector2D& RpcCooperativeAction::_internal_target_point() const {
+  const ::protos::RpcVector2D* p = _impl_.target_point_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
+}
+inline const ::protos::RpcVector2D& RpcCooperativeAction::target_point() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.target_point)
+  return _internal_target_point();
+}
+inline void RpcCooperativeAction::unsafe_arena_set_allocated_target_point(
+    ::protos::RpcVector2D* target_point) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.target_point_);
+  }
+  _impl_.target_point_ = target_point;
+  if (target_point) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.RpcCooperativeAction.target_point)
+}
+inline ::protos::RpcVector2D* RpcCooperativeAction::release_target_point() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
+  _impl_.target_point_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::protos::RpcVector2D* RpcCooperativeAction::unsafe_arena_release_target_point() {
+  // @@protoc_insertion_point(field_release:protos.RpcCooperativeAction.target_point)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RpcVector2D* temp = _impl_.target_point_;
+  _impl_.target_point_ = nullptr;
+  return temp;
+}
+inline ::protos::RpcVector2D* RpcCooperativeAction::_internal_mutable_target_point() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.target_point_ == nullptr) {
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
+    _impl_.target_point_ = p;
+  }
+  return _impl_.target_point_;
+}
+inline ::protos::RpcVector2D* RpcCooperativeAction::mutable_target_point() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_target_point();
+  // @@protoc_insertion_point(field_mutable:protos.RpcCooperativeAction.target_point)
+  return _msg;
+}
+inline void RpcCooperativeAction::set_allocated_target_point(::protos::RpcVector2D* target_point) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.target_point_;
+  }
+  if (target_point) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(target_point);
+    if (message_arena != submessage_arena) {
+      target_point = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, target_point, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.target_point_ = target_point;
+  // @@protoc_insertion_point(field_set_allocated:protos.RpcCooperativeAction.target_point)
+}
+
+// double first_ball_speed = 6;
+inline void RpcCooperativeAction::clear_first_ball_speed() {
+  _impl_.first_ball_speed_ = 0;
+}
+inline double RpcCooperativeAction::first_ball_speed() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.first_ball_speed)
+  return _internal_first_ball_speed();
+}
+inline void RpcCooperativeAction::set_first_ball_speed(double value) {
+  _internal_set_first_ball_speed(value);
+  // @@protoc_insertion_point(field_set:protos.RpcCooperativeAction.first_ball_speed)
+}
+inline double RpcCooperativeAction::_internal_first_ball_speed() const {
+  return _impl_.first_ball_speed_;
+}
+inline void RpcCooperativeAction::_internal_set_first_ball_speed(double value) {
+  ;
+  _impl_.first_ball_speed_ = value;
+}
+
+// double first_turn_moment = 7;
+inline void RpcCooperativeAction::clear_first_turn_moment() {
+  _impl_.first_turn_moment_ = 0;
+}
+inline double RpcCooperativeAction::first_turn_moment() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.first_turn_moment)
+  return _internal_first_turn_moment();
+}
+inline void RpcCooperativeAction::set_first_turn_moment(double value) {
+  _internal_set_first_turn_moment(value);
+  // @@protoc_insertion_point(field_set:protos.RpcCooperativeAction.first_turn_moment)
+}
+inline double RpcCooperativeAction::_internal_first_turn_moment() const {
+  return _impl_.first_turn_moment_;
+}
+inline void RpcCooperativeAction::_internal_set_first_turn_moment(double value) {
+  ;
+  _impl_.first_turn_moment_ = value;
+}
+
+// double first_dash_power = 8;
+inline void RpcCooperativeAction::clear_first_dash_power() {
+  _impl_.first_dash_power_ = 0;
+}
+inline double RpcCooperativeAction::first_dash_power() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.first_dash_power)
+  return _internal_first_dash_power();
+}
+inline void RpcCooperativeAction::set_first_dash_power(double value) {
+  _internal_set_first_dash_power(value);
+  // @@protoc_insertion_point(field_set:protos.RpcCooperativeAction.first_dash_power)
+}
+inline double RpcCooperativeAction::_internal_first_dash_power() const {
+  return _impl_.first_dash_power_;
+}
+inline void RpcCooperativeAction::_internal_set_first_dash_power(double value) {
+  ;
+  _impl_.first_dash_power_ = value;
+}
+
+// double first_dash_angle_relative = 9;
+inline void RpcCooperativeAction::clear_first_dash_angle_relative() {
+  _impl_.first_dash_angle_relative_ = 0;
+}
+inline double RpcCooperativeAction::first_dash_angle_relative() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.first_dash_angle_relative)
+  return _internal_first_dash_angle_relative();
+}
+inline void RpcCooperativeAction::set_first_dash_angle_relative(double value) {
+  _internal_set_first_dash_angle_relative(value);
+  // @@protoc_insertion_point(field_set:protos.RpcCooperativeAction.first_dash_angle_relative)
+}
+inline double RpcCooperativeAction::_internal_first_dash_angle_relative() const {
+  return _impl_.first_dash_angle_relative_;
+}
+inline void RpcCooperativeAction::_internal_set_first_dash_angle_relative(double value) {
+  ;
+  _impl_.first_dash_angle_relative_ = value;
+}
+
+// int32 duration_step = 10;
+inline void RpcCooperativeAction::clear_duration_step() {
+  _impl_.duration_step_ = 0;
+}
+inline ::int32_t RpcCooperativeAction::duration_step() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.duration_step)
+  return _internal_duration_step();
+}
+inline void RpcCooperativeAction::set_duration_step(::int32_t value) {
+  _internal_set_duration_step(value);
+  // @@protoc_insertion_point(field_set:protos.RpcCooperativeAction.duration_step)
+}
+inline ::int32_t RpcCooperativeAction::_internal_duration_step() const {
+  return _impl_.duration_step_;
+}
+inline void RpcCooperativeAction::_internal_set_duration_step(::int32_t value) {
+  ;
+  _impl_.duration_step_ = value;
+}
+
+// int32 kick_count = 11;
+inline void RpcCooperativeAction::clear_kick_count() {
+  _impl_.kick_count_ = 0;
+}
+inline ::int32_t RpcCooperativeAction::kick_count() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.kick_count)
+  return _internal_kick_count();
+}
+inline void RpcCooperativeAction::set_kick_count(::int32_t value) {
+  _internal_set_kick_count(value);
+  // @@protoc_insertion_point(field_set:protos.RpcCooperativeAction.kick_count)
+}
+inline ::int32_t RpcCooperativeAction::_internal_kick_count() const {
+  return _impl_.kick_count_;
+}
+inline void RpcCooperativeAction::_internal_set_kick_count(::int32_t value) {
+  ;
+  _impl_.kick_count_ = value;
+}
+
+// int32 turn_count = 12;
+inline void RpcCooperativeAction::clear_turn_count() {
+  _impl_.turn_count_ = 0;
+}
+inline ::int32_t RpcCooperativeAction::turn_count() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.turn_count)
+  return _internal_turn_count();
+}
+inline void RpcCooperativeAction::set_turn_count(::int32_t value) {
+  _internal_set_turn_count(value);
+  // @@protoc_insertion_point(field_set:protos.RpcCooperativeAction.turn_count)
+}
+inline ::int32_t RpcCooperativeAction::_internal_turn_count() const {
+  return _impl_.turn_count_;
+}
+inline void RpcCooperativeAction::_internal_set_turn_count(::int32_t value) {
+  ;
+  _impl_.turn_count_ = value;
+}
+
+// int32 dash_count = 13;
+inline void RpcCooperativeAction::clear_dash_count() {
+  _impl_.dash_count_ = 0;
+}
+inline ::int32_t RpcCooperativeAction::dash_count() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.dash_count)
+  return _internal_dash_count();
+}
+inline void RpcCooperativeAction::set_dash_count(::int32_t value) {
+  _internal_set_dash_count(value);
+  // @@protoc_insertion_point(field_set:protos.RpcCooperativeAction.dash_count)
+}
+inline ::int32_t RpcCooperativeAction::_internal_dash_count() const {
+  return _impl_.dash_count_;
+}
+inline void RpcCooperativeAction::_internal_set_dash_count(::int32_t value) {
+  ;
+  _impl_.dash_count_ = value;
+}
+
+// bool final_action = 14;
+inline void RpcCooperativeAction::clear_final_action() {
+  _impl_.final_action_ = false;
+}
+inline bool RpcCooperativeAction::final_action() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.final_action)
+  return _internal_final_action();
+}
+inline void RpcCooperativeAction::set_final_action(bool value) {
+  _internal_set_final_action(value);
+  // @@protoc_insertion_point(field_set:protos.RpcCooperativeAction.final_action)
+}
+inline bool RpcCooperativeAction::_internal_final_action() const {
+  return _impl_.final_action_;
+}
+inline void RpcCooperativeAction::_internal_set_final_action(bool value) {
+  ;
+  _impl_.final_action_ = value;
+}
+
+// string description = 15;
+inline void RpcCooperativeAction::clear_description() {
+  _impl_.description_.ClearToEmpty();
+}
+inline const std::string& RpcCooperativeAction::description() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.description)
+  return _internal_description();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void RpcCooperativeAction::set_description(Arg_&& arg,
+                                                     Args_... args) {
+  ;
+  _impl_.description_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:protos.RpcCooperativeAction.description)
+}
+inline std::string* RpcCooperativeAction::mutable_description() {
+  std::string* _s = _internal_mutable_description();
+  // @@protoc_insertion_point(field_mutable:protos.RpcCooperativeAction.description)
+  return _s;
+}
+inline const std::string& RpcCooperativeAction::_internal_description() const {
+  return _impl_.description_.Get();
+}
+inline void RpcCooperativeAction::_internal_set_description(const std::string& value) {
+  ;
+
+
+  _impl_.description_.Set(value, GetArenaForAllocation());
+}
+inline std::string* RpcCooperativeAction::_internal_mutable_description() {
+  ;
+  return _impl_.description_.Mutable( GetArenaForAllocation());
+}
+inline std::string* RpcCooperativeAction::release_description() {
+  // @@protoc_insertion_point(field_release:protos.RpcCooperativeAction.description)
+  return _impl_.description_.Release();
+}
+inline void RpcCooperativeAction::set_allocated_description(std::string* value) {
+  _impl_.description_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.description_.IsDefault()) {
+          _impl_.description_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:protos.RpcCooperativeAction.description)
+}
+
+// int32 parent_index = 16;
+inline void RpcCooperativeAction::clear_parent_index() {
+  _impl_.parent_index_ = 0;
+}
+inline ::int32_t RpcCooperativeAction::parent_index() const {
+  // @@protoc_insertion_point(field_get:protos.RpcCooperativeAction.parent_index)
+  return _internal_parent_index();
+}
+inline void RpcCooperativeAction::set_parent_index(::int32_t value) {
+  _internal_set_parent_index(value);
+  // @@protoc_insertion_point(field_set:protos.RpcCooperativeAction.parent_index)
+}
+inline ::int32_t RpcCooperativeAction::_internal_parent_index() const {
+  return _impl_.parent_index_;
+}
+inline void RpcCooperativeAction::_internal_set_parent_index(::int32_t value) {
+  ;
+  _impl_.parent_index_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// RpcPredictState
+
+// int32 spend_time = 1;
+inline void RpcPredictState::clear_spend_time() {
+  _impl_.spend_time_ = 0;
+}
+inline ::int32_t RpcPredictState::spend_time() const {
+  // @@protoc_insertion_point(field_get:protos.RpcPredictState.spend_time)
+  return _internal_spend_time();
+}
+inline void RpcPredictState::set_spend_time(::int32_t value) {
+  _internal_set_spend_time(value);
+  // @@protoc_insertion_point(field_set:protos.RpcPredictState.spend_time)
+}
+inline ::int32_t RpcPredictState::_internal_spend_time() const {
+  return _impl_.spend_time_;
+}
+inline void RpcPredictState::_internal_set_spend_time(::int32_t value) {
+  ;
+  _impl_.spend_time_ = value;
+}
+
+// int32 ball_holder_unum = 2;
+inline void RpcPredictState::clear_ball_holder_unum() {
+  _impl_.ball_holder_unum_ = 0;
+}
+inline ::int32_t RpcPredictState::ball_holder_unum() const {
+  // @@protoc_insertion_point(field_get:protos.RpcPredictState.ball_holder_unum)
+  return _internal_ball_holder_unum();
+}
+inline void RpcPredictState::set_ball_holder_unum(::int32_t value) {
+  _internal_set_ball_holder_unum(value);
+  // @@protoc_insertion_point(field_set:protos.RpcPredictState.ball_holder_unum)
+}
+inline ::int32_t RpcPredictState::_internal_ball_holder_unum() const {
+  return _impl_.ball_holder_unum_;
+}
+inline void RpcPredictState::_internal_set_ball_holder_unum(::int32_t value) {
+  ;
+  _impl_.ball_holder_unum_ = value;
+}
+
+// .protos.RpcVector2D ball_position = 3;
+inline bool RpcPredictState::has_ball_position() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.ball_position_ != nullptr);
+  return value;
+}
+inline void RpcPredictState::clear_ball_position() {
+  if (_impl_.ball_position_ != nullptr) _impl_.ball_position_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const ::protos::RpcVector2D& RpcPredictState::_internal_ball_position() const {
+  const ::protos::RpcVector2D* p = _impl_.ball_position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
+}
+inline const ::protos::RpcVector2D& RpcPredictState::ball_position() const {
+  // @@protoc_insertion_point(field_get:protos.RpcPredictState.ball_position)
+  return _internal_ball_position();
+}
+inline void RpcPredictState::unsafe_arena_set_allocated_ball_position(
+    ::protos::RpcVector2D* ball_position) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ball_position_);
+  }
+  _impl_.ball_position_ = ball_position;
+  if (ball_position) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.RpcPredictState.ball_position)
+}
+inline ::protos::RpcVector2D* RpcPredictState::release_ball_position() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RpcVector2D* temp = _impl_.ball_position_;
+  _impl_.ball_position_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::protos::RpcVector2D* RpcPredictState::unsafe_arena_release_ball_position() {
+  // @@protoc_insertion_point(field_release:protos.RpcPredictState.ball_position)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RpcVector2D* temp = _impl_.ball_position_;
+  _impl_.ball_position_ = nullptr;
+  return temp;
+}
+inline ::protos::RpcVector2D* RpcPredictState::_internal_mutable_ball_position() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.ball_position_ == nullptr) {
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
+    _impl_.ball_position_ = p;
+  }
+  return _impl_.ball_position_;
+}
+inline ::protos::RpcVector2D* RpcPredictState::mutable_ball_position() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_ball_position();
+  // @@protoc_insertion_point(field_mutable:protos.RpcPredictState.ball_position)
+  return _msg;
+}
+inline void RpcPredictState::set_allocated_ball_position(::protos::RpcVector2D* ball_position) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.ball_position_;
+  }
+  if (ball_position) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(ball_position);
+    if (message_arena != submessage_arena) {
+      ball_position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, ball_position, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.ball_position_ = ball_position;
+  // @@protoc_insertion_point(field_set_allocated:protos.RpcPredictState.ball_position)
+}
+
+// .protos.RpcVector2D ball_velocity = 4;
+inline bool RpcPredictState::has_ball_velocity() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.ball_velocity_ != nullptr);
+  return value;
+}
+inline void RpcPredictState::clear_ball_velocity() {
+  if (_impl_.ball_velocity_ != nullptr) _impl_.ball_velocity_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline const ::protos::RpcVector2D& RpcPredictState::_internal_ball_velocity() const {
+  const ::protos::RpcVector2D* p = _impl_.ball_velocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcVector2D&>(
+      ::protos::_RpcVector2D_default_instance_);
+}
+inline const ::protos::RpcVector2D& RpcPredictState::ball_velocity() const {
+  // @@protoc_insertion_point(field_get:protos.RpcPredictState.ball_velocity)
+  return _internal_ball_velocity();
+}
+inline void RpcPredictState::unsafe_arena_set_allocated_ball_velocity(
+    ::protos::RpcVector2D* ball_velocity) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ball_velocity_);
+  }
+  _impl_.ball_velocity_ = ball_velocity;
+  if (ball_velocity) {
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.RpcPredictState.ball_velocity)
+}
+inline ::protos::RpcVector2D* RpcPredictState::release_ball_velocity() {
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::protos::RpcVector2D* temp = _impl_.ball_velocity_;
+  _impl_.ball_velocity_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::protos::RpcVector2D* RpcPredictState::unsafe_arena_release_ball_velocity() {
+  // @@protoc_insertion_point(field_release:protos.RpcPredictState.ball_velocity)
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::protos::RpcVector2D* temp = _impl_.ball_velocity_;
+  _impl_.ball_velocity_ = nullptr;
+  return temp;
+}
+inline ::protos::RpcVector2D* RpcPredictState::_internal_mutable_ball_velocity() {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  if (_impl_.ball_velocity_ == nullptr) {
+    auto* p = CreateMaybeMessage<::protos::RpcVector2D>(GetArenaForAllocation());
+    _impl_.ball_velocity_ = p;
+  }
+  return _impl_.ball_velocity_;
+}
+inline ::protos::RpcVector2D* RpcPredictState::mutable_ball_velocity() {
+  ::protos::RpcVector2D* _msg = _internal_mutable_ball_velocity();
+  // @@protoc_insertion_point(field_mutable:protos.RpcPredictState.ball_velocity)
+  return _msg;
+}
+inline void RpcPredictState::set_allocated_ball_velocity(::protos::RpcVector2D* ball_velocity) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.ball_velocity_;
+  }
+  if (ball_velocity) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(ball_velocity);
+    if (message_arena != submessage_arena) {
+      ball_velocity = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, ball_velocity, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  _impl_.ball_velocity_ = ball_velocity;
+  // @@protoc_insertion_point(field_set_allocated:protos.RpcPredictState.ball_velocity)
+}
+
+// double our_defense_line_x = 5;
+inline void RpcPredictState::clear_our_defense_line_x() {
+  _impl_.our_defense_line_x_ = 0;
+}
+inline double RpcPredictState::our_defense_line_x() const {
+  // @@protoc_insertion_point(field_get:protos.RpcPredictState.our_defense_line_x)
+  return _internal_our_defense_line_x();
+}
+inline void RpcPredictState::set_our_defense_line_x(double value) {
+  _internal_set_our_defense_line_x(value);
+  // @@protoc_insertion_point(field_set:protos.RpcPredictState.our_defense_line_x)
+}
+inline double RpcPredictState::_internal_our_defense_line_x() const {
+  return _impl_.our_defense_line_x_;
+}
+inline void RpcPredictState::_internal_set_our_defense_line_x(double value) {
+  ;
+  _impl_.our_defense_line_x_ = value;
+}
+
+// double our_offense_line_x = 6;
+inline void RpcPredictState::clear_our_offense_line_x() {
+  _impl_.our_offense_line_x_ = 0;
+}
+inline double RpcPredictState::our_offense_line_x() const {
+  // @@protoc_insertion_point(field_get:protos.RpcPredictState.our_offense_line_x)
+  return _internal_our_offense_line_x();
+}
+inline void RpcPredictState::set_our_offense_line_x(double value) {
+  _internal_set_our_offense_line_x(value);
+  // @@protoc_insertion_point(field_set:protos.RpcPredictState.our_offense_line_x)
+}
+inline double RpcPredictState::_internal_our_offense_line_x() const {
+  return _impl_.our_offense_line_x_;
+}
+inline void RpcPredictState::_internal_set_our_offense_line_x(double value) {
+  ;
+  _impl_.our_offense_line_x_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// RpcActionStatePair
+
+// .protos.RpcCooperativeAction action = 1;
+inline bool RpcActionStatePair::has_action() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.action_ != nullptr);
+  return value;
+}
+inline void RpcActionStatePair::clear_action() {
+  if (_impl_.action_ != nullptr) _impl_.action_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const ::protos::RpcCooperativeAction& RpcActionStatePair::_internal_action() const {
+  const ::protos::RpcCooperativeAction* p = _impl_.action_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcCooperativeAction&>(
+      ::protos::_RpcCooperativeAction_default_instance_);
+}
+inline const ::protos::RpcCooperativeAction& RpcActionStatePair::action() const {
+  // @@protoc_insertion_point(field_get:protos.RpcActionStatePair.action)
+  return _internal_action();
+}
+inline void RpcActionStatePair::unsafe_arena_set_allocated_action(
+    ::protos::RpcCooperativeAction* action) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.action_);
+  }
+  _impl_.action_ = action;
+  if (action) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.RpcActionStatePair.action)
+}
+inline ::protos::RpcCooperativeAction* RpcActionStatePair::release_action() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RpcCooperativeAction* temp = _impl_.action_;
+  _impl_.action_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::protos::RpcCooperativeAction* RpcActionStatePair::unsafe_arena_release_action() {
+  // @@protoc_insertion_point(field_release:protos.RpcActionStatePair.action)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RpcCooperativeAction* temp = _impl_.action_;
+  _impl_.action_ = nullptr;
+  return temp;
+}
+inline ::protos::RpcCooperativeAction* RpcActionStatePair::_internal_mutable_action() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.action_ == nullptr) {
+    auto* p = CreateMaybeMessage<::protos::RpcCooperativeAction>(GetArenaForAllocation());
+    _impl_.action_ = p;
+  }
+  return _impl_.action_;
+}
+inline ::protos::RpcCooperativeAction* RpcActionStatePair::mutable_action() {
+  ::protos::RpcCooperativeAction* _msg = _internal_mutable_action();
+  // @@protoc_insertion_point(field_mutable:protos.RpcActionStatePair.action)
+  return _msg;
+}
+inline void RpcActionStatePair::set_allocated_action(::protos::RpcCooperativeAction* action) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.action_;
+  }
+  if (action) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(action);
+    if (message_arena != submessage_arena) {
+      action = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, action, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.action_ = action;
+  // @@protoc_insertion_point(field_set_allocated:protos.RpcActionStatePair.action)
+}
+
+// .protos.RpcPredictState predict_state = 2;
+inline bool RpcActionStatePair::has_predict_state() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.predict_state_ != nullptr);
+  return value;
+}
+inline void RpcActionStatePair::clear_predict_state() {
+  if (_impl_.predict_state_ != nullptr) _impl_.predict_state_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline const ::protos::RpcPredictState& RpcActionStatePair::_internal_predict_state() const {
+  const ::protos::RpcPredictState* p = _impl_.predict_state_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcPredictState&>(
+      ::protos::_RpcPredictState_default_instance_);
+}
+inline const ::protos::RpcPredictState& RpcActionStatePair::predict_state() const {
+  // @@protoc_insertion_point(field_get:protos.RpcActionStatePair.predict_state)
+  return _internal_predict_state();
+}
+inline void RpcActionStatePair::unsafe_arena_set_allocated_predict_state(
+    ::protos::RpcPredictState* predict_state) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.predict_state_);
+  }
+  _impl_.predict_state_ = predict_state;
+  if (predict_state) {
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.RpcActionStatePair.predict_state)
+}
+inline ::protos::RpcPredictState* RpcActionStatePair::release_predict_state() {
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::protos::RpcPredictState* temp = _impl_.predict_state_;
+  _impl_.predict_state_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::protos::RpcPredictState* RpcActionStatePair::unsafe_arena_release_predict_state() {
+  // @@protoc_insertion_point(field_release:protos.RpcActionStatePair.predict_state)
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::protos::RpcPredictState* temp = _impl_.predict_state_;
+  _impl_.predict_state_ = nullptr;
+  return temp;
+}
+inline ::protos::RpcPredictState* RpcActionStatePair::_internal_mutable_predict_state() {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  if (_impl_.predict_state_ == nullptr) {
+    auto* p = CreateMaybeMessage<::protos::RpcPredictState>(GetArenaForAllocation());
+    _impl_.predict_state_ = p;
+  }
+  return _impl_.predict_state_;
+}
+inline ::protos::RpcPredictState* RpcActionStatePair::mutable_predict_state() {
+  ::protos::RpcPredictState* _msg = _internal_mutable_predict_state();
+  // @@protoc_insertion_point(field_mutable:protos.RpcActionStatePair.predict_state)
+  return _msg;
+}
+inline void RpcActionStatePair::set_allocated_predict_state(::protos::RpcPredictState* predict_state) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.predict_state_;
+  }
+  if (predict_state) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(predict_state);
+    if (message_arena != submessage_arena) {
+      predict_state = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, predict_state, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  _impl_.predict_state_ = predict_state;
+  // @@protoc_insertion_point(field_set_allocated:protos.RpcActionStatePair.predict_state)
+}
+
+// double evaluation = 3;
+inline void RpcActionStatePair::clear_evaluation() {
+  _impl_.evaluation_ = 0;
+}
+inline double RpcActionStatePair::evaluation() const {
+  // @@protoc_insertion_point(field_get:protos.RpcActionStatePair.evaluation)
+  return _internal_evaluation();
+}
+inline void RpcActionStatePair::set_evaluation(double value) {
+  _internal_set_evaluation(value);
+  // @@protoc_insertion_point(field_set:protos.RpcActionStatePair.evaluation)
+}
+inline double RpcActionStatePair::_internal_evaluation() const {
+  return _impl_.evaluation_;
+}
+inline void RpcActionStatePair::_internal_set_evaluation(double value) {
+  ;
+  _impl_.evaluation_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// RpcActionStatePairs
+
+// map<int32, .protos.RpcActionStatePair> pairs = 1;
+inline int RpcActionStatePairs::_internal_pairs_size() const {
+  return _impl_.pairs_.size();
+}
+inline int RpcActionStatePairs::pairs_size() const {
+  return _internal_pairs_size();
+}
+inline void RpcActionStatePairs::clear_pairs() {
+  _impl_.pairs_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >&
+RpcActionStatePairs::_internal_pairs() const {
+  return _impl_.pairs_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >&
+RpcActionStatePairs::pairs() const {
+  // @@protoc_insertion_point(field_map:protos.RpcActionStatePairs.pairs)
+  return _internal_pairs();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >*
+RpcActionStatePairs::_internal_mutable_pairs() {
+  return _impl_.pairs_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >*
+RpcActionStatePairs::mutable_pairs() {
+  // @@protoc_insertion_point(field_mutable_map:protos.RpcActionStatePairs.pairs)
+  return _internal_mutable_pairs();
+}
+
+// .protos.State state = 2;
+inline bool RpcActionStatePairs::has_state() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.state_ != nullptr);
+  return value;
+}
+inline void RpcActionStatePairs::clear_state() {
+  if (_impl_.state_ != nullptr) _impl_.state_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const ::protos::State& RpcActionStatePairs::_internal_state() const {
+  const ::protos::State* p = _impl_.state_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::State&>(
+      ::protos::_State_default_instance_);
+}
+inline const ::protos::State& RpcActionStatePairs::state() const {
+  // @@protoc_insertion_point(field_get:protos.RpcActionStatePairs.state)
+  return _internal_state();
+}
+inline void RpcActionStatePairs::unsafe_arena_set_allocated_state(
+    ::protos::State* state) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.state_);
+  }
+  _impl_.state_ = state;
+  if (state) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.RpcActionStatePairs.state)
+}
+inline ::protos::State* RpcActionStatePairs::release_state() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::State* temp = _impl_.state_;
+  _impl_.state_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::protos::State* RpcActionStatePairs::unsafe_arena_release_state() {
+  // @@protoc_insertion_point(field_release:protos.RpcActionStatePairs.state)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::State* temp = _impl_.state_;
+  _impl_.state_ = nullptr;
+  return temp;
+}
+inline ::protos::State* RpcActionStatePairs::_internal_mutable_state() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.state_ == nullptr) {
+    auto* p = CreateMaybeMessage<::protos::State>(GetArenaForAllocation());
+    _impl_.state_ = p;
+  }
+  return _impl_.state_;
+}
+inline ::protos::State* RpcActionStatePairs::mutable_state() {
+  ::protos::State* _msg = _internal_mutable_state();
+  // @@protoc_insertion_point(field_mutable:protos.RpcActionStatePairs.state)
+  return _msg;
+}
+inline void RpcActionStatePairs::set_allocated_state(::protos::State* state) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.state_;
+  }
+  if (state) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(state);
+    if (message_arena != submessage_arena) {
+      state = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, state, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.state_ = state;
+  // @@protoc_insertion_point(field_set_allocated:protos.RpcActionStatePairs.state)
+}
+
+// -------------------------------------------------------------------
+
+// BestActionStatePair
+
+// int32 index = 1;
+inline void BestActionStatePair::clear_index() {
+  _impl_.index_ = 0;
+}
+inline ::int32_t BestActionStatePair::index() const {
+  // @@protoc_insertion_point(field_get:protos.BestActionStatePair.index)
+  return _internal_index();
+}
+inline void BestActionStatePair::set_index(::int32_t value) {
+  _internal_set_index(value);
+  // @@protoc_insertion_point(field_set:protos.BestActionStatePair.index)
+}
+inline ::int32_t BestActionStatePair::_internal_index() const {
+  return _impl_.index_;
+}
+inline void BestActionStatePair::_internal_set_index(::int32_t value) {
+  ;
+  _impl_.index_ = value;
+}
+
+// -------------------------------------------------------------------
+
 // Empty
 
 #ifdef __GNUC__
@@ -56358,6 +58666,12 @@ struct is_proto_enum<::protos::AgentType> : std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor<::protos::AgentType>() {
   return ::protos::AgentType_descriptor();
+}
+template <>
+struct is_proto_enum<::protos::RpcActionCategory> : std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor<::protos::RpcActionCategory>() {
+  return ::protos::RpcActionCategory_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

@@ -55,7 +55,7 @@ public:
 
     typedef std::shared_ptr< ActionChainGraph > Ptr; //!< pointer type alias
     typedef std::shared_ptr< const ActionChainGraph > ConstPtr; //!< const pointer type alias
-    typedef std::pair<std::shared_ptr<const ActionStatePair>, std::pair<int, double>> ResultPair;
+    typedef std::pair<std::shared_ptr<const ActionStatePair>, double> ResultPair;
 
 public:
     static const size_t DEFAULT_MAX_CHAIN_LENGTH;

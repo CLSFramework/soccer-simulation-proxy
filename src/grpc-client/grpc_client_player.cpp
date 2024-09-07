@@ -68,9 +68,9 @@ using std::chrono::duration_cast;
 using std::chrono::high_resolution_clock;
 using std::chrono::milliseconds;
 
-#define DEBUG
+// #define DEBUG_CLIENT_PLAYER
 
-#ifdef DEBUG
+#ifdef DEBUG_CLIENT_PLAYER
 #define LOG(x) std::cout << x << std::endl
 #define LOGV(x) std::cout << #x << ": " << x << std::endl
 #else
@@ -632,9 +632,13 @@ void GrpcClientPlayer::getActions()
 
             if (action.helios_chain_action().server_side_decision())
             {
+                #ifdef DEBUG_CLIENT_PLAYER
                 std::cout << "server side decision" << std::endl;
+                #endif
                 GetBestPlannerAction();
+                #ifdef DEBUG_CLIENT_PLAYER
                 std::cout << " end server side decision" << std::endl;
+                #endif
             }
             else
             {
@@ -666,23 +670,31 @@ void GrpcClientPlayer::GetBestPlannerAction()
     protos::RpcActionStatePairs *action_state_pairs = new protos::RpcActionStatePairs();
     State state = generateState();
     action_state_pairs->set_allocated_state(&state);
+    #ifdef DEBUG_CLIENT_PLAYER
     std::cout << "GetBestActionStatePair:" << "c" << M_agent->world().time().cycle() << std::endl;
     std::cout << "results size:" << ActionChainHolder::instance().graph().getAllResults().size() << std::endl;
-    for (auto &action_state_eval : ActionChainHolder::instance().graph().getAllResults())
+    #endif
+    for (auto & index_resultPair : ActionChainHolder::instance().graph().getAllResults())
     {
         try
         {
-            int index = action_state_eval.first;
+            
+            auto & result_pair = index_resultPair.second;
+            auto action_ptr = result_pair.first->actionPtr();
+            auto state_ptr = result_pair.first->statePtr();
+            int unique_index = action_ptr->uniqueIndex();
+            int parent_index = action_ptr->parentIndex();
+            auto eval = result_pair.second;
+            #ifdef DEBUG_CLIENT_PLAYER
+            std::cout<<"index:"<<index_resultPair.first<<" "<<unique_index<<" "<<parent_index<<" "<<eval<<std::endl;
+            #endif
             auto map = action_state_pairs->mutable_pairs();
             auto rpc_action_state_pair = protos::RpcActionStatePair();
             auto rpc_cooperative_action = new protos::RpcCooperativeAction();
             auto rpc_predict_state = new protos::RpcPredictState();
             auto category = protos::RpcActionCategory::AC_Hold;
-            auto action = action_state_eval.second.first->actionPtr();
-            auto state = action_state_eval.second.first->statePtr();
-            auto eval = action_state_eval.second.second.second;
-            auto parent_index = action_state_eval.second.second.first;
-            switch (action->category())
+            
+            switch (action_ptr->category())
             {
             case CooperativeAction::Hold:
                 category = protos::RpcActionCategory::AC_Hold;
@@ -709,34 +721,34 @@ void GrpcClientPlayer::GetBestPlannerAction()
                 break;
             }
             rpc_cooperative_action->set_category(category);
-            rpc_cooperative_action->set_index(action->index());
-            rpc_cooperative_action->set_sender_unum(action->playerUnum());
-            rpc_cooperative_action->set_target_unum(action->targetPlayerUnum());
-            rpc_cooperative_action->set_allocated_target_point(StateGenerator::convertVector2D(action->targetPoint()));
-            rpc_cooperative_action->set_first_ball_speed(action->firstBallSpeed());
-            rpc_cooperative_action->set_first_turn_moment(action->firstTurnMoment());
-            rpc_cooperative_action->set_first_dash_power(action->firstDashPower());
-            rpc_cooperative_action->set_first_dash_angle_relative(action->firstDashAngle().degree());
-            rpc_cooperative_action->set_duration_step(action->durationStep());
-            rpc_cooperative_action->set_kick_count(action->kickCount());
-            rpc_cooperative_action->set_turn_count(action->turnCount());
-            rpc_cooperative_action->set_dash_count(action->dashCount());
-            rpc_cooperative_action->set_final_action(action->isFinalAction());
-            rpc_cooperative_action->set_description(action->description());
+            rpc_cooperative_action->set_index(unique_index);
+            rpc_cooperative_action->set_sender_unum(action_ptr->playerUnum());
+            rpc_cooperative_action->set_target_unum(action_ptr->targetPlayerUnum());
+            rpc_cooperative_action->set_allocated_target_point(StateGenerator::convertVector2D(action_ptr->targetPoint()));
+            rpc_cooperative_action->set_first_ball_speed(action_ptr->firstBallSpeed());
+            rpc_cooperative_action->set_first_turn_moment(action_ptr->firstTurnMoment());
+            rpc_cooperative_action->set_first_dash_power(action_ptr->firstDashPower());
+            rpc_cooperative_action->set_first_dash_angle_relative(action_ptr->firstDashAngle().degree());
+            rpc_cooperative_action->set_duration_step(action_ptr->durationStep());
+            rpc_cooperative_action->set_kick_count(action_ptr->kickCount());
+            rpc_cooperative_action->set_turn_count(action_ptr->turnCount());
+            rpc_cooperative_action->set_dash_count(action_ptr->dashCount());
+            rpc_cooperative_action->set_final_action(action_ptr->isFinalAction());
+            rpc_cooperative_action->set_description(action_ptr->description());
             rpc_cooperative_action->set_parent_index(parent_index);
 
-            rpc_predict_state->set_spend_time(state->spendTime());
-            rpc_predict_state->set_ball_holder_unum(state->ballHolderUnum());
-            rpc_predict_state->set_allocated_ball_position(StateGenerator::convertVector2D(state->ball().pos()));
-            rpc_predict_state->set_allocated_ball_velocity(StateGenerator::convertVector2D(state->ball().vel()));
-            rpc_predict_state->set_our_defense_line_x(state->ourDefenseLineX());
-            rpc_predict_state->set_our_offense_line_x(state->ourOffensePlayerLineX());
+            rpc_predict_state->set_spend_time(state_ptr->spendTime());
+            rpc_predict_state->set_ball_holder_unum(state_ptr->ballHolderUnum());
+            rpc_predict_state->set_allocated_ball_position(StateGenerator::convertVector2D(state_ptr->ball().pos()));
+            rpc_predict_state->set_allocated_ball_velocity(StateGenerator::convertVector2D(state_ptr->ball().vel()));
+            rpc_predict_state->set_our_defense_line_x(state_ptr->ourDefenseLineX());
+            rpc_predict_state->set_our_offense_line_x(state_ptr->ourOffensePlayerLineX());
 
             rpc_action_state_pair.set_allocated_action(rpc_cooperative_action);
             rpc_action_state_pair.set_allocated_predict_state(rpc_predict_state);
             rpc_action_state_pair.set_evaluation(eval);
 
-            (*map)[action->index()] = rpc_action_state_pair;
+            (*map)[unique_index] = rpc_action_state_pair;
         }
         catch (const std::exception &e)
         {
@@ -744,7 +756,9 @@ void GrpcClientPlayer::GetBestPlannerAction()
         }
     }
 
+    #ifdef DEBUG_CLIENT_PLAYER
     std::cout << "map size:" << action_state_pairs->pairs_size() << std::endl;
+    #endif
 
     protos::BestActionStatePair best_action;
     ClientContext context;
@@ -759,16 +773,22 @@ void GrpcClientPlayer::GetBestPlannerAction()
 
     auto agent = M_agent;
 
+    #ifdef DEBUG_CLIENT_PLAYER
     std::cout << "best action index:" << best_action.index() << std::endl;
+    #endif
 
     if (Bhv_PlannedAction().execute(agent, best_action.index()))
     {
+        #ifdef DEBUG_CLIENT_PLAYER
         std::cout << "PlannedAction" << std::endl;
+        #endif
         agent->debugClient().addMessage("PlannedAction");
         return;
     }
 
+    #ifdef DEBUG_CLIENT_PLAYER
     std::cout << "Body_HoldBall" << std::endl;
+    #endif
     Body_HoldBall().execute(agent);
     agent->setNeckAction(new Neck_ScanField());
 }

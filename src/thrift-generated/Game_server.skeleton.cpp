@@ -65,6 +65,11 @@ class GameHandler : virtual public GameIf {
     printf("SendByeCommand\n");
   }
 
+  void GetBestPlannerAction(BestPlannerActionResponse& _return, const BestPlannerActionRequest& best_planner_action_request) {
+    // Your implementation goes here
+    printf("GetBestPlannerAction\n");
+  }
+
 };
 
 int main(int argc, char **argv) {

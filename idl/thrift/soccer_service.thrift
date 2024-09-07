@@ -1164,6 +1164,60 @@ struct PlayerType {
   34: double player_speed_max,
 }
 
+enum RpcActionCategory {
+  AC_Hold = 0;
+  AC_Dribble = 1;
+  AC_Pass = 2;
+  AC_Shoot = 3;
+  AC_Clear = 4;
+  AC_Move = 5;
+  AC_NoAction = 6;
+}
+
+struct RpcCooperativeAction {
+  1: RpcActionCategory category;
+  2: i32 index;
+  3: i32 sender_unum;
+  4: i32 target_unum;
+  5: RpcVector2D target_point;
+  6: double first_ball_speed;
+  7: double first_turn_moment;
+  8: double first_dash_power;
+  9: double first_dash_angle_relative;
+  10: i32 duration_step;
+  11: i32 kick_count;
+  12: i32 turn_count;
+  13: i32 dash_count;
+  14: bool final_action;
+  15: string description;
+  16: i32 parent_index;
+}
+
+struct RpcPredictState {
+  1: i32 spend_time;
+  2: i32 ball_holder_unum;
+  3: RpcVector2D ball_position;
+  4: RpcVector2D ball_velocity;
+  5: double our_defense_line_x;
+  6: double our_offense_line_x;
+}
+
+struct RpcActionState {
+  1: RpcCooperativeAction action;
+  2: RpcPredictState predict_state;
+  3: double evaluation;
+}
+
+struct BestPlannerActionRequest {
+  1: RegisterResponse register_response,
+  2: map<i32, RpcActionState> pairs;
+  3: State state;
+}
+
+struct BestPlannerActionResponse {
+  1: i32 index;
+}
+
 struct Empty {}
 
 service Game {
@@ -1175,6 +1229,7 @@ service Game {
   Empty SendPlayerParams(1: PlayerParam player_param),
   Empty SendPlayerType(1: PlayerType player_type),
   RegisterResponse Register(1: RegisterRequest request),
-  Empty SendByeCommand(1: RegisterResponse register_response)
+  Empty SendByeCommand(1: RegisterResponse register_response),
+  BestPlannerActionResponse GetBestPlannerAction(1: BestPlannerActionRequest best_planner_action_request)
 }
 

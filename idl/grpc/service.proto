@@ -1243,18 +1243,19 @@ message RpcPredictState {
   double our_offense_line_x = 6;
 }
 
-message RpcActionStatePair {
+message RpcActionState {
   RpcCooperativeAction action = 1;
   RpcPredictState predict_state = 2;
   double evaluation = 3;
 }
 
-message RpcActionStatePairs {
-  map<int32, RpcActionStatePair> pairs = 1;
-  State state = 2;
+message BestPlannerActionRequest {
+  RegisterResponse register_response = 1;
+  map<int32, RpcActionState> pairs = 2;
+  State state = 3;
 }
 
-message BestActionStatePair {
+message BestPlannerActionResponse {
   int32 index = 1;
 }
 
@@ -1271,5 +1272,5 @@ service Game {
   rpc SendPlayerType(PlayerType) returns (Empty) {} //should be PlayerTypes
   rpc Register(RegisterRequest) returns (RegisterResponse) {}
   rpc SendByeCommand(RegisterResponse) returns (Empty) {}
-  rpc GetBestPlannerAction(RpcActionStatePairs) returns (BestActionStatePair) {}
+  rpc GetBestPlannerAction(BestPlannerActionRequest) returns (BestPlannerActionResponse) {}
 }

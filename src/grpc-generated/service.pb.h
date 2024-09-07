@@ -101,9 +101,15 @@ extern BallMessageDefaultTypeInternal _BallMessage_default_instance_;
 class BallPlayerMessage;
 struct BallPlayerMessageDefaultTypeInternal;
 extern BallPlayerMessageDefaultTypeInternal _BallPlayerMessage_default_instance_;
-class BestActionStatePair;
-struct BestActionStatePairDefaultTypeInternal;
-extern BestActionStatePairDefaultTypeInternal _BestActionStatePair_default_instance_;
+class BestPlannerActionRequest;
+struct BestPlannerActionRequestDefaultTypeInternal;
+extern BestPlannerActionRequestDefaultTypeInternal _BestPlannerActionRequest_default_instance_;
+class BestPlannerActionRequest_PairsEntry_DoNotUse;
+struct BestPlannerActionRequest_PairsEntry_DoNotUseDefaultTypeInternal;
+extern BestPlannerActionRequest_PairsEntry_DoNotUseDefaultTypeInternal _BestPlannerActionRequest_PairsEntry_DoNotUse_default_instance_;
+class BestPlannerActionResponse;
+struct BestPlannerActionResponseDefaultTypeInternal;
+extern BestPlannerActionResponseDefaultTypeInternal _BestPlannerActionResponse_default_instance_;
 class Bhv_BeforeKickOff;
 struct Bhv_BeforeKickOffDefaultTypeInternal;
 extern Bhv_BeforeKickOffDefaultTypeInternal _Bhv_BeforeKickOff_default_instance_;
@@ -365,15 +371,9 @@ extern RegisterRequestDefaultTypeInternal _RegisterRequest_default_instance_;
 class RegisterResponse;
 struct RegisterResponseDefaultTypeInternal;
 extern RegisterResponseDefaultTypeInternal _RegisterResponse_default_instance_;
-class RpcActionStatePair;
-struct RpcActionStatePairDefaultTypeInternal;
-extern RpcActionStatePairDefaultTypeInternal _RpcActionStatePair_default_instance_;
-class RpcActionStatePairs;
-struct RpcActionStatePairsDefaultTypeInternal;
-extern RpcActionStatePairsDefaultTypeInternal _RpcActionStatePairs_default_instance_;
-class RpcActionStatePairs_PairsEntry_DoNotUse;
-struct RpcActionStatePairs_PairsEntry_DoNotUseDefaultTypeInternal;
-extern RpcActionStatePairs_PairsEntry_DoNotUseDefaultTypeInternal _RpcActionStatePairs_PairsEntry_DoNotUse_default_instance_;
+class RpcActionState;
+struct RpcActionStateDefaultTypeInternal;
+extern RpcActionStateDefaultTypeInternal _RpcActionState_default_instance_;
 class RpcCooperativeAction;
 struct RpcCooperativeActionDefaultTypeInternal;
 extern RpcCooperativeActionDefaultTypeInternal _RpcCooperativeAction_default_instance_;
@@ -491,7 +491,11 @@ template <>
 template <>
 ::protos::BallPlayerMessage* Arena::CreateMaybeMessage<::protos::BallPlayerMessage>(Arena*);
 template <>
-::protos::BestActionStatePair* Arena::CreateMaybeMessage<::protos::BestActionStatePair>(Arena*);
+::protos::BestPlannerActionRequest* Arena::CreateMaybeMessage<::protos::BestPlannerActionRequest>(Arena*);
+template <>
+::protos::BestPlannerActionRequest_PairsEntry_DoNotUse* Arena::CreateMaybeMessage<::protos::BestPlannerActionRequest_PairsEntry_DoNotUse>(Arena*);
+template <>
+::protos::BestPlannerActionResponse* Arena::CreateMaybeMessage<::protos::BestPlannerActionResponse>(Arena*);
 template <>
 ::protos::Bhv_BeforeKickOff* Arena::CreateMaybeMessage<::protos::Bhv_BeforeKickOff>(Arena*);
 template <>
@@ -667,11 +671,7 @@ template <>
 template <>
 ::protos::RegisterResponse* Arena::CreateMaybeMessage<::protos::RegisterResponse>(Arena*);
 template <>
-::protos::RpcActionStatePair* Arena::CreateMaybeMessage<::protos::RpcActionStatePair>(Arena*);
-template <>
-::protos::RpcActionStatePairs* Arena::CreateMaybeMessage<::protos::RpcActionStatePairs>(Arena*);
-template <>
-::protos::RpcActionStatePairs_PairsEntry_DoNotUse* Arena::CreateMaybeMessage<::protos::RpcActionStatePairs_PairsEntry_DoNotUse>(Arena*);
+::protos::RpcActionState* Arena::CreateMaybeMessage<::protos::RpcActionState>(Arena*);
 template <>
 ::protos::RpcCooperativeAction* Arena::CreateMaybeMessage<::protos::RpcCooperativeAction>(Arena*);
 template <>
@@ -29520,25 +29520,25 @@ class RpcPredictState final :
   friend struct ::TableStruct_service_2eproto;
 };// -------------------------------------------------------------------
 
-class RpcActionStatePair final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.RpcActionStatePair) */ {
+class RpcActionState final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.RpcActionState) */ {
  public:
-  inline RpcActionStatePair() : RpcActionStatePair(nullptr) {}
-  ~RpcActionStatePair() override;
+  inline RpcActionState() : RpcActionState(nullptr) {}
+  ~RpcActionState() override;
   template<typename = void>
-  explicit PROTOBUF_CONSTEXPR RpcActionStatePair(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit PROTOBUF_CONSTEXPR RpcActionState(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  RpcActionStatePair(const RpcActionStatePair& from);
-  RpcActionStatePair(RpcActionStatePair&& from) noexcept
-    : RpcActionStatePair() {
+  RpcActionState(const RpcActionState& from);
+  RpcActionState(RpcActionState&& from) noexcept
+    : RpcActionState() {
     *this = ::std::move(from);
   }
 
-  inline RpcActionStatePair& operator=(const RpcActionStatePair& from) {
+  inline RpcActionState& operator=(const RpcActionState& from) {
     CopyFrom(from);
     return *this;
   }
-  inline RpcActionStatePair& operator=(RpcActionStatePair&& from) noexcept {
+  inline RpcActionState& operator=(RpcActionState&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -29568,20 +29568,20 @@ class RpcActionStatePair final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const RpcActionStatePair& default_instance() {
+  static const RpcActionState& default_instance() {
     return *internal_default_instance();
   }
-  static inline const RpcActionStatePair* internal_default_instance() {
-    return reinterpret_cast<const RpcActionStatePair*>(
-               &_RpcActionStatePair_default_instance_);
+  static inline const RpcActionState* internal_default_instance() {
+    return reinterpret_cast<const RpcActionState*>(
+               &_RpcActionState_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     129;
 
-  friend void swap(RpcActionStatePair& a, RpcActionStatePair& b) {
+  friend void swap(RpcActionState& a, RpcActionState& b) {
     a.Swap(&b);
   }
-  inline void Swap(RpcActionStatePair* other) {
+  inline void Swap(RpcActionState* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -29594,7 +29594,7 @@ class RpcActionStatePair final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(RpcActionStatePair* other) {
+  void UnsafeArenaSwap(RpcActionState* other) {
     if (other == this) return;
     ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -29602,14 +29602,14 @@ class RpcActionStatePair final :
 
   // implements Message ----------------------------------------------
 
-  RpcActionStatePair* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<RpcActionStatePair>(arena);
+  RpcActionState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RpcActionState>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const RpcActionStatePair& from);
+  void CopyFrom(const RpcActionState& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const RpcActionStatePair& from) {
-    RpcActionStatePair::MergeImpl(*this, from);
+  void MergeFrom( const RpcActionState& from) {
+    RpcActionState::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -29627,15 +29627,15 @@ class RpcActionStatePair final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(RpcActionStatePair* other);
+  void InternalSwap(RpcActionState* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::absl::string_view FullMessageName() {
-    return "protos.RpcActionStatePair";
+    return "protos.RpcActionState";
   }
   protected:
-  explicit RpcActionStatePair(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit RpcActionState(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
   static const ClassData _class_data_;
@@ -29690,7 +29690,7 @@ class RpcActionStatePair final :
   void _internal_set_evaluation(double value);
 
   public:
-  // @@protoc_insertion_point(class_scope:protos.RpcActionStatePair)
+  // @@protoc_insertion_point(class_scope:protos.RpcActionState)
  private:
   class _Internal;
 
@@ -29708,22 +29708,22 @@ class RpcActionStatePair final :
   friend struct ::TableStruct_service_2eproto;
 };// -------------------------------------------------------------------
 
-class RpcActionStatePairs_PairsEntry_DoNotUse final : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<RpcActionStatePairs_PairsEntry_DoNotUse, 
-    ::int32_t, ::protos::RpcActionStatePair,
+class BestPlannerActionRequest_PairsEntry_DoNotUse final : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<BestPlannerActionRequest_PairsEntry_DoNotUse, 
+    ::int32_t, ::protos::RpcActionState,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> {
 public:
-  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<RpcActionStatePairs_PairsEntry_DoNotUse, 
-    ::int32_t, ::protos::RpcActionStatePair,
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<BestPlannerActionRequest_PairsEntry_DoNotUse, 
+    ::int32_t, ::protos::RpcActionState,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> SuperType;
-  RpcActionStatePairs_PairsEntry_DoNotUse();
+  BestPlannerActionRequest_PairsEntry_DoNotUse();
   template <typename = void>
-  explicit PROTOBUF_CONSTEXPR RpcActionStatePairs_PairsEntry_DoNotUse(
+  explicit PROTOBUF_CONSTEXPR BestPlannerActionRequest_PairsEntry_DoNotUse(
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-  explicit RpcActionStatePairs_PairsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  void MergeFrom(const RpcActionStatePairs_PairsEntry_DoNotUse& other);
-  static const RpcActionStatePairs_PairsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const RpcActionStatePairs_PairsEntry_DoNotUse*>(&_RpcActionStatePairs_PairsEntry_DoNotUse_default_instance_); }
+  explicit BestPlannerActionRequest_PairsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const BestPlannerActionRequest_PairsEntry_DoNotUse& other);
+  static const BestPlannerActionRequest_PairsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const BestPlannerActionRequest_PairsEntry_DoNotUse*>(&_BestPlannerActionRequest_PairsEntry_DoNotUse_default_instance_); }
   static bool ValidateKey(void*) { return true; }
   static bool ValidateValue(void*) { return true; }
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
@@ -29732,25 +29732,25 @@ public:
 };
 // -------------------------------------------------------------------
 
-class RpcActionStatePairs final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.RpcActionStatePairs) */ {
+class BestPlannerActionRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.BestPlannerActionRequest) */ {
  public:
-  inline RpcActionStatePairs() : RpcActionStatePairs(nullptr) {}
-  ~RpcActionStatePairs() override;
+  inline BestPlannerActionRequest() : BestPlannerActionRequest(nullptr) {}
+  ~BestPlannerActionRequest() override;
   template<typename = void>
-  explicit PROTOBUF_CONSTEXPR RpcActionStatePairs(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit PROTOBUF_CONSTEXPR BestPlannerActionRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  RpcActionStatePairs(const RpcActionStatePairs& from);
-  RpcActionStatePairs(RpcActionStatePairs&& from) noexcept
-    : RpcActionStatePairs() {
+  BestPlannerActionRequest(const BestPlannerActionRequest& from);
+  BestPlannerActionRequest(BestPlannerActionRequest&& from) noexcept
+    : BestPlannerActionRequest() {
     *this = ::std::move(from);
   }
 
-  inline RpcActionStatePairs& operator=(const RpcActionStatePairs& from) {
+  inline BestPlannerActionRequest& operator=(const BestPlannerActionRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline RpcActionStatePairs& operator=(RpcActionStatePairs&& from) noexcept {
+  inline BestPlannerActionRequest& operator=(BestPlannerActionRequest&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -29780,20 +29780,20 @@ class RpcActionStatePairs final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const RpcActionStatePairs& default_instance() {
+  static const BestPlannerActionRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const RpcActionStatePairs* internal_default_instance() {
-    return reinterpret_cast<const RpcActionStatePairs*>(
-               &_RpcActionStatePairs_default_instance_);
+  static inline const BestPlannerActionRequest* internal_default_instance() {
+    return reinterpret_cast<const BestPlannerActionRequest*>(
+               &_BestPlannerActionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     131;
 
-  friend void swap(RpcActionStatePairs& a, RpcActionStatePairs& b) {
+  friend void swap(BestPlannerActionRequest& a, BestPlannerActionRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(RpcActionStatePairs* other) {
+  inline void Swap(BestPlannerActionRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -29806,7 +29806,7 @@ class RpcActionStatePairs final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(RpcActionStatePairs* other) {
+  void UnsafeArenaSwap(BestPlannerActionRequest* other) {
     if (other == this) return;
     ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -29814,14 +29814,14 @@ class RpcActionStatePairs final :
 
   // implements Message ----------------------------------------------
 
-  RpcActionStatePairs* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<RpcActionStatePairs>(arena);
+  BestPlannerActionRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<BestPlannerActionRequest>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const RpcActionStatePairs& from);
+  void CopyFrom(const BestPlannerActionRequest& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const RpcActionStatePairs& from) {
-    RpcActionStatePairs::MergeImpl(*this, from);
+  void MergeFrom( const BestPlannerActionRequest& from) {
+    BestPlannerActionRequest::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -29839,15 +29839,15 @@ class RpcActionStatePairs final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(RpcActionStatePairs* other);
+  void InternalSwap(BestPlannerActionRequest* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::absl::string_view FullMessageName() {
-    return "protos.RpcActionStatePairs";
+    return "protos.BestPlannerActionRequest";
   }
   protected:
-  explicit RpcActionStatePairs(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit BestPlannerActionRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
   static const ClassData _class_data_;
@@ -29861,10 +29861,11 @@ class RpcActionStatePairs final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPairsFieldNumber = 1,
-    kStateFieldNumber = 2,
+    kPairsFieldNumber = 2,
+    kRegisterResponseFieldNumber = 1,
+    kStateFieldNumber = 3,
   };
-  // map<int32, .protos.RpcActionStatePair> pairs = 1;
+  // map<int32, .protos.RpcActionState> pairs = 2;
   int pairs_size() const;
   private:
   int _internal_pairs_size() const;
@@ -29872,16 +29873,30 @@ class RpcActionStatePairs final :
   public:
   void clear_pairs() ;
   private:
-  const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionState >&
       _internal_pairs() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >*
+  ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionState >*
       _internal_mutable_pairs();
   public:
-  const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionState >&
       pairs() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >*
+  ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionState >*
       mutable_pairs();
-  // .protos.State state = 2;
+  // .protos.RegisterResponse register_response = 1;
+  bool has_register_response() const;
+  void clear_register_response() ;
+  const ::protos::RegisterResponse& register_response() const;
+  PROTOBUF_NODISCARD ::protos::RegisterResponse* release_register_response();
+  ::protos::RegisterResponse* mutable_register_response();
+  void set_allocated_register_response(::protos::RegisterResponse* register_response);
+  private:
+  const ::protos::RegisterResponse& _internal_register_response() const;
+  ::protos::RegisterResponse* _internal_mutable_register_response();
+  public:
+  void unsafe_arena_set_allocated_register_response(
+      ::protos::RegisterResponse* register_response);
+  ::protos::RegisterResponse* unsafe_arena_release_register_response();
+  // .protos.State state = 3;
   bool has_state() const;
   void clear_state() ;
   const ::protos::State& state() const;
@@ -29895,7 +29910,7 @@ class RpcActionStatePairs final :
   void unsafe_arena_set_allocated_state(
       ::protos::State* state);
   ::protos::State* unsafe_arena_release_state();
-  // @@protoc_insertion_point(class_scope:protos.RpcActionStatePairs)
+  // @@protoc_insertion_point(class_scope:protos.BestPlannerActionRequest)
  private:
   class _Internal;
 
@@ -29906,35 +29921,36 @@ class RpcActionStatePairs final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::MapField<
-        RpcActionStatePairs_PairsEntry_DoNotUse,
-        ::int32_t, ::protos::RpcActionStatePair,
+        BestPlannerActionRequest_PairsEntry_DoNotUse,
+        ::int32_t, ::protos::RpcActionState,
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> pairs_;
+    ::protos::RegisterResponse* register_response_;
     ::protos::State* state_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
 };// -------------------------------------------------------------------
 
-class BestActionStatePair final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.BestActionStatePair) */ {
+class BestPlannerActionResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.BestPlannerActionResponse) */ {
  public:
-  inline BestActionStatePair() : BestActionStatePair(nullptr) {}
-  ~BestActionStatePair() override;
+  inline BestPlannerActionResponse() : BestPlannerActionResponse(nullptr) {}
+  ~BestPlannerActionResponse() override;
   template<typename = void>
-  explicit PROTOBUF_CONSTEXPR BestActionStatePair(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit PROTOBUF_CONSTEXPR BestPlannerActionResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  BestActionStatePair(const BestActionStatePair& from);
-  BestActionStatePair(BestActionStatePair&& from) noexcept
-    : BestActionStatePair() {
+  BestPlannerActionResponse(const BestPlannerActionResponse& from);
+  BestPlannerActionResponse(BestPlannerActionResponse&& from) noexcept
+    : BestPlannerActionResponse() {
     *this = ::std::move(from);
   }
 
-  inline BestActionStatePair& operator=(const BestActionStatePair& from) {
+  inline BestPlannerActionResponse& operator=(const BestPlannerActionResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline BestActionStatePair& operator=(BestActionStatePair&& from) noexcept {
+  inline BestPlannerActionResponse& operator=(BestPlannerActionResponse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -29964,20 +29980,20 @@ class BestActionStatePair final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const BestActionStatePair& default_instance() {
+  static const BestPlannerActionResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const BestActionStatePair* internal_default_instance() {
-    return reinterpret_cast<const BestActionStatePair*>(
-               &_BestActionStatePair_default_instance_);
+  static inline const BestPlannerActionResponse* internal_default_instance() {
+    return reinterpret_cast<const BestPlannerActionResponse*>(
+               &_BestPlannerActionResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     132;
 
-  friend void swap(BestActionStatePair& a, BestActionStatePair& b) {
+  friend void swap(BestPlannerActionResponse& a, BestPlannerActionResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(BestActionStatePair* other) {
+  inline void Swap(BestPlannerActionResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -29990,7 +30006,7 @@ class BestActionStatePair final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(BestActionStatePair* other) {
+  void UnsafeArenaSwap(BestPlannerActionResponse* other) {
     if (other == this) return;
     ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -29998,14 +30014,14 @@ class BestActionStatePair final :
 
   // implements Message ----------------------------------------------
 
-  BestActionStatePair* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<BestActionStatePair>(arena);
+  BestPlannerActionResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<BestPlannerActionResponse>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const BestActionStatePair& from);
+  void CopyFrom(const BestPlannerActionResponse& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const BestActionStatePair& from) {
-    BestActionStatePair::MergeImpl(*this, from);
+  void MergeFrom( const BestPlannerActionResponse& from) {
+    BestPlannerActionResponse::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -30023,15 +30039,15 @@ class BestActionStatePair final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(BestActionStatePair* other);
+  void InternalSwap(BestPlannerActionResponse* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::absl::string_view FullMessageName() {
-    return "protos.BestActionStatePair";
+    return "protos.BestPlannerActionResponse";
   }
   protected:
-  explicit BestActionStatePair(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit BestPlannerActionResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
   static const ClassData _class_data_;
@@ -30056,7 +30072,7 @@ class BestActionStatePair final :
   void _internal_set_index(::int32_t value);
 
   public:
-  // @@protoc_insertion_point(class_scope:protos.BestActionStatePair)
+  // @@protoc_insertion_point(class_scope:protos.BestPlannerActionResponse)
  private:
   class _Internal;
 
@@ -58275,28 +58291,28 @@ inline void RpcPredictState::_internal_set_our_offense_line_x(double value) {
 
 // -------------------------------------------------------------------
 
-// RpcActionStatePair
+// RpcActionState
 
 // .protos.RpcCooperativeAction action = 1;
-inline bool RpcActionStatePair::has_action() const {
+inline bool RpcActionState::has_action() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.action_ != nullptr);
   return value;
 }
-inline void RpcActionStatePair::clear_action() {
+inline void RpcActionState::clear_action() {
   if (_impl_.action_ != nullptr) _impl_.action_->Clear();
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline const ::protos::RpcCooperativeAction& RpcActionStatePair::_internal_action() const {
+inline const ::protos::RpcCooperativeAction& RpcActionState::_internal_action() const {
   const ::protos::RpcCooperativeAction* p = _impl_.action_;
   return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcCooperativeAction&>(
       ::protos::_RpcCooperativeAction_default_instance_);
 }
-inline const ::protos::RpcCooperativeAction& RpcActionStatePair::action() const {
-  // @@protoc_insertion_point(field_get:protos.RpcActionStatePair.action)
+inline const ::protos::RpcCooperativeAction& RpcActionState::action() const {
+  // @@protoc_insertion_point(field_get:protos.RpcActionState.action)
   return _internal_action();
 }
-inline void RpcActionStatePair::unsafe_arena_set_allocated_action(
+inline void RpcActionState::unsafe_arena_set_allocated_action(
     ::protos::RpcCooperativeAction* action) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.action_);
@@ -58307,9 +58323,9 @@ inline void RpcActionStatePair::unsafe_arena_set_allocated_action(
   } else {
     _impl_._has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.RpcActionStatePair.action)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.RpcActionState.action)
 }
-inline ::protos::RpcCooperativeAction* RpcActionStatePair::release_action() {
+inline ::protos::RpcCooperativeAction* RpcActionState::release_action() {
   _impl_._has_bits_[0] &= ~0x00000001u;
   ::protos::RpcCooperativeAction* temp = _impl_.action_;
   _impl_.action_ = nullptr;
@@ -58324,14 +58340,14 @@ inline ::protos::RpcCooperativeAction* RpcActionStatePair::release_action() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::RpcCooperativeAction* RpcActionStatePair::unsafe_arena_release_action() {
-  // @@protoc_insertion_point(field_release:protos.RpcActionStatePair.action)
+inline ::protos::RpcCooperativeAction* RpcActionState::unsafe_arena_release_action() {
+  // @@protoc_insertion_point(field_release:protos.RpcActionState.action)
   _impl_._has_bits_[0] &= ~0x00000001u;
   ::protos::RpcCooperativeAction* temp = _impl_.action_;
   _impl_.action_ = nullptr;
   return temp;
 }
-inline ::protos::RpcCooperativeAction* RpcActionStatePair::_internal_mutable_action() {
+inline ::protos::RpcCooperativeAction* RpcActionState::_internal_mutable_action() {
   _impl_._has_bits_[0] |= 0x00000001u;
   if (_impl_.action_ == nullptr) {
     auto* p = CreateMaybeMessage<::protos::RpcCooperativeAction>(GetArenaForAllocation());
@@ -58339,12 +58355,12 @@ inline ::protos::RpcCooperativeAction* RpcActionStatePair::_internal_mutable_act
   }
   return _impl_.action_;
 }
-inline ::protos::RpcCooperativeAction* RpcActionStatePair::mutable_action() {
+inline ::protos::RpcCooperativeAction* RpcActionState::mutable_action() {
   ::protos::RpcCooperativeAction* _msg = _internal_mutable_action();
-  // @@protoc_insertion_point(field_mutable:protos.RpcActionStatePair.action)
+  // @@protoc_insertion_point(field_mutable:protos.RpcActionState.action)
   return _msg;
 }
-inline void RpcActionStatePair::set_allocated_action(::protos::RpcCooperativeAction* action) {
+inline void RpcActionState::set_allocated_action(::protos::RpcCooperativeAction* action) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.action_;
@@ -58361,29 +58377,29 @@ inline void RpcActionStatePair::set_allocated_action(::protos::RpcCooperativeAct
     _impl_._has_bits_[0] &= ~0x00000001u;
   }
   _impl_.action_ = action;
-  // @@protoc_insertion_point(field_set_allocated:protos.RpcActionStatePair.action)
+  // @@protoc_insertion_point(field_set_allocated:protos.RpcActionState.action)
 }
 
 // .protos.RpcPredictState predict_state = 2;
-inline bool RpcActionStatePair::has_predict_state() const {
+inline bool RpcActionState::has_predict_state() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.predict_state_ != nullptr);
   return value;
 }
-inline void RpcActionStatePair::clear_predict_state() {
+inline void RpcActionState::clear_predict_state() {
   if (_impl_.predict_state_ != nullptr) _impl_.predict_state_->Clear();
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::RpcPredictState& RpcActionStatePair::_internal_predict_state() const {
+inline const ::protos::RpcPredictState& RpcActionState::_internal_predict_state() const {
   const ::protos::RpcPredictState* p = _impl_.predict_state_;
   return p != nullptr ? *p : reinterpret_cast<const ::protos::RpcPredictState&>(
       ::protos::_RpcPredictState_default_instance_);
 }
-inline const ::protos::RpcPredictState& RpcActionStatePair::predict_state() const {
-  // @@protoc_insertion_point(field_get:protos.RpcActionStatePair.predict_state)
+inline const ::protos::RpcPredictState& RpcActionState::predict_state() const {
+  // @@protoc_insertion_point(field_get:protos.RpcActionState.predict_state)
   return _internal_predict_state();
 }
-inline void RpcActionStatePair::unsafe_arena_set_allocated_predict_state(
+inline void RpcActionState::unsafe_arena_set_allocated_predict_state(
     ::protos::RpcPredictState* predict_state) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.predict_state_);
@@ -58394,9 +58410,9 @@ inline void RpcActionStatePair::unsafe_arena_set_allocated_predict_state(
   } else {
     _impl_._has_bits_[0] &= ~0x00000002u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.RpcActionStatePair.predict_state)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.RpcActionState.predict_state)
 }
-inline ::protos::RpcPredictState* RpcActionStatePair::release_predict_state() {
+inline ::protos::RpcPredictState* RpcActionState::release_predict_state() {
   _impl_._has_bits_[0] &= ~0x00000002u;
   ::protos::RpcPredictState* temp = _impl_.predict_state_;
   _impl_.predict_state_ = nullptr;
@@ -58411,14 +58427,14 @@ inline ::protos::RpcPredictState* RpcActionStatePair::release_predict_state() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::RpcPredictState* RpcActionStatePair::unsafe_arena_release_predict_state() {
-  // @@protoc_insertion_point(field_release:protos.RpcActionStatePair.predict_state)
+inline ::protos::RpcPredictState* RpcActionState::unsafe_arena_release_predict_state() {
+  // @@protoc_insertion_point(field_release:protos.RpcActionState.predict_state)
   _impl_._has_bits_[0] &= ~0x00000002u;
   ::protos::RpcPredictState* temp = _impl_.predict_state_;
   _impl_.predict_state_ = nullptr;
   return temp;
 }
-inline ::protos::RpcPredictState* RpcActionStatePair::_internal_mutable_predict_state() {
+inline ::protos::RpcPredictState* RpcActionState::_internal_mutable_predict_state() {
   _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.predict_state_ == nullptr) {
     auto* p = CreateMaybeMessage<::protos::RpcPredictState>(GetArenaForAllocation());
@@ -58426,12 +58442,12 @@ inline ::protos::RpcPredictState* RpcActionStatePair::_internal_mutable_predict_
   }
   return _impl_.predict_state_;
 }
-inline ::protos::RpcPredictState* RpcActionStatePair::mutable_predict_state() {
+inline ::protos::RpcPredictState* RpcActionState::mutable_predict_state() {
   ::protos::RpcPredictState* _msg = _internal_mutable_predict_state();
-  // @@protoc_insertion_point(field_mutable:protos.RpcActionStatePair.predict_state)
+  // @@protoc_insertion_point(field_mutable:protos.RpcActionState.predict_state)
   return _msg;
 }
-inline void RpcActionStatePair::set_allocated_predict_state(::protos::RpcPredictState* predict_state) {
+inline void RpcActionState::set_allocated_predict_state(::protos::RpcPredictState* predict_state) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.predict_state_;
@@ -58448,25 +58464,25 @@ inline void RpcActionStatePair::set_allocated_predict_state(::protos::RpcPredict
     _impl_._has_bits_[0] &= ~0x00000002u;
   }
   _impl_.predict_state_ = predict_state;
-  // @@protoc_insertion_point(field_set_allocated:protos.RpcActionStatePair.predict_state)
+  // @@protoc_insertion_point(field_set_allocated:protos.RpcActionState.predict_state)
 }
 
 // double evaluation = 3;
-inline void RpcActionStatePair::clear_evaluation() {
+inline void RpcActionState::clear_evaluation() {
   _impl_.evaluation_ = 0;
 }
-inline double RpcActionStatePair::evaluation() const {
-  // @@protoc_insertion_point(field_get:protos.RpcActionStatePair.evaluation)
+inline double RpcActionState::evaluation() const {
+  // @@protoc_insertion_point(field_get:protos.RpcActionState.evaluation)
   return _internal_evaluation();
 }
-inline void RpcActionStatePair::set_evaluation(double value) {
+inline void RpcActionState::set_evaluation(double value) {
   _internal_set_evaluation(value);
-  // @@protoc_insertion_point(field_set:protos.RpcActionStatePair.evaluation)
+  // @@protoc_insertion_point(field_set:protos.RpcActionState.evaluation)
 }
-inline double RpcActionStatePair::_internal_evaluation() const {
+inline double RpcActionState::_internal_evaluation() const {
   return _impl_.evaluation_;
 }
-inline void RpcActionStatePair::_internal_set_evaluation(double value) {
+inline void RpcActionState::_internal_set_evaluation(double value) {
   ;
   _impl_.evaluation_ = value;
 }
@@ -58475,71 +58491,158 @@ inline void RpcActionStatePair::_internal_set_evaluation(double value) {
 
 // -------------------------------------------------------------------
 
-// RpcActionStatePairs
+// BestPlannerActionRequest
 
-// map<int32, .protos.RpcActionStatePair> pairs = 1;
-inline int RpcActionStatePairs::_internal_pairs_size() const {
+// .protos.RegisterResponse register_response = 1;
+inline bool BestPlannerActionRequest::has_register_response() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.register_response_ != nullptr);
+  return value;
+}
+inline void BestPlannerActionRequest::clear_register_response() {
+  if (_impl_.register_response_ != nullptr) _impl_.register_response_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const ::protos::RegisterResponse& BestPlannerActionRequest::_internal_register_response() const {
+  const ::protos::RegisterResponse* p = _impl_.register_response_;
+  return p != nullptr ? *p : reinterpret_cast<const ::protos::RegisterResponse&>(
+      ::protos::_RegisterResponse_default_instance_);
+}
+inline const ::protos::RegisterResponse& BestPlannerActionRequest::register_response() const {
+  // @@protoc_insertion_point(field_get:protos.BestPlannerActionRequest.register_response)
+  return _internal_register_response();
+}
+inline void BestPlannerActionRequest::unsafe_arena_set_allocated_register_response(
+    ::protos::RegisterResponse* register_response) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.register_response_);
+  }
+  _impl_.register_response_ = register_response;
+  if (register_response) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.BestPlannerActionRequest.register_response)
+}
+inline ::protos::RegisterResponse* BestPlannerActionRequest::release_register_response() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RegisterResponse* temp = _impl_.register_response_;
+  _impl_.register_response_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::protos::RegisterResponse* BestPlannerActionRequest::unsafe_arena_release_register_response() {
+  // @@protoc_insertion_point(field_release:protos.BestPlannerActionRequest.register_response)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::protos::RegisterResponse* temp = _impl_.register_response_;
+  _impl_.register_response_ = nullptr;
+  return temp;
+}
+inline ::protos::RegisterResponse* BestPlannerActionRequest::_internal_mutable_register_response() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.register_response_ == nullptr) {
+    auto* p = CreateMaybeMessage<::protos::RegisterResponse>(GetArenaForAllocation());
+    _impl_.register_response_ = p;
+  }
+  return _impl_.register_response_;
+}
+inline ::protos::RegisterResponse* BestPlannerActionRequest::mutable_register_response() {
+  ::protos::RegisterResponse* _msg = _internal_mutable_register_response();
+  // @@protoc_insertion_point(field_mutable:protos.BestPlannerActionRequest.register_response)
+  return _msg;
+}
+inline void BestPlannerActionRequest::set_allocated_register_response(::protos::RegisterResponse* register_response) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.register_response_;
+  }
+  if (register_response) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(register_response);
+    if (message_arena != submessage_arena) {
+      register_response = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, register_response, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.register_response_ = register_response;
+  // @@protoc_insertion_point(field_set_allocated:protos.BestPlannerActionRequest.register_response)
+}
+
+// map<int32, .protos.RpcActionState> pairs = 2;
+inline int BestPlannerActionRequest::_internal_pairs_size() const {
   return _impl_.pairs_.size();
 }
-inline int RpcActionStatePairs::pairs_size() const {
+inline int BestPlannerActionRequest::pairs_size() const {
   return _internal_pairs_size();
 }
-inline void RpcActionStatePairs::clear_pairs() {
+inline void BestPlannerActionRequest::clear_pairs() {
   _impl_.pairs_.Clear();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >&
-RpcActionStatePairs::_internal_pairs() const {
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionState >&
+BestPlannerActionRequest::_internal_pairs() const {
   return _impl_.pairs_.GetMap();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >&
-RpcActionStatePairs::pairs() const {
-  // @@protoc_insertion_point(field_map:protos.RpcActionStatePairs.pairs)
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionState >&
+BestPlannerActionRequest::pairs() const {
+  // @@protoc_insertion_point(field_map:protos.BestPlannerActionRequest.pairs)
   return _internal_pairs();
 }
-inline ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >*
-RpcActionStatePairs::_internal_mutable_pairs() {
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionState >*
+BestPlannerActionRequest::_internal_mutable_pairs() {
   return _impl_.pairs_.MutableMap();
 }
-inline ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionStatePair >*
-RpcActionStatePairs::mutable_pairs() {
-  // @@protoc_insertion_point(field_mutable_map:protos.RpcActionStatePairs.pairs)
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionState >*
+BestPlannerActionRequest::mutable_pairs() {
+  // @@protoc_insertion_point(field_mutable_map:protos.BestPlannerActionRequest.pairs)
   return _internal_mutable_pairs();
 }
 
-// .protos.State state = 2;
-inline bool RpcActionStatePairs::has_state() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+// .protos.State state = 3;
+inline bool BestPlannerActionRequest::has_state() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || _impl_.state_ != nullptr);
   return value;
 }
-inline void RpcActionStatePairs::clear_state() {
+inline void BestPlannerActionRequest::clear_state() {
   if (_impl_.state_ != nullptr) _impl_.state_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000001u;
+  _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline const ::protos::State& RpcActionStatePairs::_internal_state() const {
+inline const ::protos::State& BestPlannerActionRequest::_internal_state() const {
   const ::protos::State* p = _impl_.state_;
   return p != nullptr ? *p : reinterpret_cast<const ::protos::State&>(
       ::protos::_State_default_instance_);
 }
-inline const ::protos::State& RpcActionStatePairs::state() const {
-  // @@protoc_insertion_point(field_get:protos.RpcActionStatePairs.state)
+inline const ::protos::State& BestPlannerActionRequest::state() const {
+  // @@protoc_insertion_point(field_get:protos.BestPlannerActionRequest.state)
   return _internal_state();
 }
-inline void RpcActionStatePairs::unsafe_arena_set_allocated_state(
+inline void BestPlannerActionRequest::unsafe_arena_set_allocated_state(
     ::protos::State* state) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.state_);
   }
   _impl_.state_ = state;
   if (state) {
-    _impl_._has_bits_[0] |= 0x00000001u;
+    _impl_._has_bits_[0] |= 0x00000002u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
+    _impl_._has_bits_[0] &= ~0x00000002u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.RpcActionStatePairs.state)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.BestPlannerActionRequest.state)
 }
-inline ::protos::State* RpcActionStatePairs::release_state() {
-  _impl_._has_bits_[0] &= ~0x00000001u;
+inline ::protos::State* BestPlannerActionRequest::release_state() {
+  _impl_._has_bits_[0] &= ~0x00000002u;
   ::protos::State* temp = _impl_.state_;
   _impl_.state_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -58553,27 +58656,27 @@ inline ::protos::State* RpcActionStatePairs::release_state() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::protos::State* RpcActionStatePairs::unsafe_arena_release_state() {
-  // @@protoc_insertion_point(field_release:protos.RpcActionStatePairs.state)
-  _impl_._has_bits_[0] &= ~0x00000001u;
+inline ::protos::State* BestPlannerActionRequest::unsafe_arena_release_state() {
+  // @@protoc_insertion_point(field_release:protos.BestPlannerActionRequest.state)
+  _impl_._has_bits_[0] &= ~0x00000002u;
   ::protos::State* temp = _impl_.state_;
   _impl_.state_ = nullptr;
   return temp;
 }
-inline ::protos::State* RpcActionStatePairs::_internal_mutable_state() {
-  _impl_._has_bits_[0] |= 0x00000001u;
+inline ::protos::State* BestPlannerActionRequest::_internal_mutable_state() {
+  _impl_._has_bits_[0] |= 0x00000002u;
   if (_impl_.state_ == nullptr) {
     auto* p = CreateMaybeMessage<::protos::State>(GetArenaForAllocation());
     _impl_.state_ = p;
   }
   return _impl_.state_;
 }
-inline ::protos::State* RpcActionStatePairs::mutable_state() {
+inline ::protos::State* BestPlannerActionRequest::mutable_state() {
   ::protos::State* _msg = _internal_mutable_state();
-  // @@protoc_insertion_point(field_mutable:protos.RpcActionStatePairs.state)
+  // @@protoc_insertion_point(field_mutable:protos.BestPlannerActionRequest.state)
   return _msg;
 }
-inline void RpcActionStatePairs::set_allocated_state(::protos::State* state) {
+inline void BestPlannerActionRequest::set_allocated_state(::protos::State* state) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.state_;
@@ -58585,34 +58688,34 @@ inline void RpcActionStatePairs::set_allocated_state(::protos::State* state) {
       state = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, state, submessage_arena);
     }
-    _impl_._has_bits_[0] |= 0x00000001u;
+    _impl_._has_bits_[0] |= 0x00000002u;
   } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
+    _impl_._has_bits_[0] &= ~0x00000002u;
   }
   _impl_.state_ = state;
-  // @@protoc_insertion_point(field_set_allocated:protos.RpcActionStatePairs.state)
+  // @@protoc_insertion_point(field_set_allocated:protos.BestPlannerActionRequest.state)
 }
 
 // -------------------------------------------------------------------
 
-// BestActionStatePair
+// BestPlannerActionResponse
 
 // int32 index = 1;
-inline void BestActionStatePair::clear_index() {
+inline void BestPlannerActionResponse::clear_index() {
   _impl_.index_ = 0;
 }
-inline ::int32_t BestActionStatePair::index() const {
-  // @@protoc_insertion_point(field_get:protos.BestActionStatePair.index)
+inline ::int32_t BestPlannerActionResponse::index() const {
+  // @@protoc_insertion_point(field_get:protos.BestPlannerActionResponse.index)
   return _internal_index();
 }
-inline void BestActionStatePair::set_index(::int32_t value) {
+inline void BestPlannerActionResponse::set_index(::int32_t value) {
   _internal_set_index(value);
-  // @@protoc_insertion_point(field_set:protos.BestActionStatePair.index)
+  // @@protoc_insertion_point(field_set:protos.BestPlannerActionResponse.index)
 }
-inline ::int32_t BestActionStatePair::_internal_index() const {
+inline ::int32_t BestPlannerActionResponse::_internal_index() const {
   return _impl_.index_;
 }
-inline void BestActionStatePair::_internal_set_index(::int32_t value) {
+inline void BestPlannerActionResponse::_internal_set_index(::int32_t value) {
   ;
   _impl_.index_ = value;
 }

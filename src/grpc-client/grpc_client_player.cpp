@@ -667,7 +667,9 @@ void GrpcClientPlayer::getActions()
 
 void GrpcClientPlayer::GetBestPlannerAction()
 {
-    protos::RpcActionStatePairs *action_state_pairs = new protos::RpcActionStatePairs();
+    protos::BestPlannerActionRequest *action_state_pairs = new protos::BestPlannerActionRequest();
+    protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);
+    action_state_pairs->set_allocated_register_response(response);
     State state = generateState();
     action_state_pairs->set_allocated_state(&state);
     #ifdef DEBUG_CLIENT_PLAYER
@@ -689,7 +691,7 @@ void GrpcClientPlayer::GetBestPlannerAction()
             std::cout<<"index:"<<index_resultPair.first<<" "<<unique_index<<" "<<parent_index<<" "<<eval<<std::endl;
             #endif
             auto map = action_state_pairs->mutable_pairs();
-            auto rpc_action_state_pair = protos::RpcActionStatePair();
+            auto rpc_action_state_pair = protos::RpcActionState();
             auto rpc_cooperative_action = new protos::RpcCooperativeAction();
             auto rpc_predict_state = new protos::RpcPredictState();
             auto category = protos::RpcActionCategory::AC_Hold;
@@ -760,7 +762,7 @@ void GrpcClientPlayer::GetBestPlannerAction()
     std::cout << "map size:" << action_state_pairs->pairs_size() << std::endl;
     #endif
 
-    protos::BestActionStatePair best_action;
+    protos::BestPlannerActionResponse best_action;
     ClientContext context;
     Status status = M_stub_->GetBestPlannerAction(&context, *action_state_pairs, &best_action);
 

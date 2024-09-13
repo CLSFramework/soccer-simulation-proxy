@@ -629,16 +629,14 @@ void GrpcClientPlayer::getActions()
             ActionChainHolder::instance().setFieldEvaluator(field_evaluator);
             ActionChainHolder::instance().setActionGenerator(action_generator);
             ActionChainHolder::instance().update(agent->world());
-
+            
             if (action.helios_chain_action().server_side_decision())
             {
-                #ifdef DEBUG_CLIENT_PLAYER
-                std::cout << "server side decision" << std::endl;
-                #endif
-                GetBestPlannerAction();
-                #ifdef DEBUG_CLIENT_PLAYER
-                std::cout << " end server side decision" << std::endl;
-                #endif
+                if (GetBestPlannerAction())
+                {
+                    agent->debugClient().addMessage("GetBestPlannerAction");
+                    break;
+                }
             }
             else
             {
@@ -665,7 +663,7 @@ void GrpcClientPlayer::getActions()
     }
 }
 
-void GrpcClientPlayer::GetBestPlannerAction()
+bool GrpcClientPlayer::GetBestPlannerAction()
 {
     protos::BestPlannerActionRequest *action_state_pairs = new protos::BestPlannerActionRequest();
     protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);
@@ -770,7 +768,7 @@ void GrpcClientPlayer::GetBestPlannerAction()
     {
         std::cout << status.error_code() << ": " << status.error_message()
                   << std::endl;
-        return;
+        return false;
     }
 
     auto agent = M_agent;
@@ -785,14 +783,10 @@ void GrpcClientPlayer::GetBestPlannerAction()
         std::cout << "PlannedAction" << std::endl;
         #endif
         agent->debugClient().addMessage("PlannedAction");
-        return;
+        return true;
     }
 
-    #ifdef DEBUG_CLIENT_PLAYER
-    std::cout << "Body_HoldBall" << std::endl;
-    #endif
-    Body_HoldBall().execute(agent);
-    agent->setNeckAction(new Neck_ScanField());
+    return false;
 }
 
 void GrpcClientPlayer::addSayMessage(protos::Say sayMessage) const

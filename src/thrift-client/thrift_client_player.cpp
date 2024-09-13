@@ -69,7 +69,7 @@ using std::chrono::high_resolution_clock;
 using std::chrono::milliseconds;
 
 #define DEBUG
-#define DEBUG_CLIENT_PLAYER
+//#define DEBUG_CLIENT_PLAYER
 #ifdef DEBUG
 #define LOG(x) std::cout << x << std::endl
 #define LOGV(x) std::cout << #x << ": " << x << std::endl
@@ -634,13 +634,11 @@ void ThriftClientPlayer::getActions()
             
             if (action.helios_chain_action.server_side_decision)
             {
-                #ifdef DEBUG_CLIENT_PLAYER
-                std::cout << "server side decision" << std::endl;
-                #endif
-                GetBestPlannerAction();
-                #ifdef DEBUG_CLIENT_PLAYER
-                std::cout << " end server side decision" << std::endl;
-                #endif
+                if (GetBestPlannerAction())
+                {
+                    agent->debugClient().addMessage("GetBestPlannerAction");
+                    continue;
+                };
             }
             else
             {
@@ -664,7 +662,7 @@ void ThriftClientPlayer::getActions()
 }
 
 
-void ThriftClientPlayer::GetBestPlannerAction()
+bool ThriftClientPlayer::GetBestPlannerAction()
 {
     soccer::BestPlannerActionRequest action_state_pairs =  soccer::BestPlannerActionRequest();
     soccer::RegisterResponse  response =  M_register_response;
@@ -678,7 +676,6 @@ void ThriftClientPlayer::GetBestPlannerAction()
     #endif
     for (auto & index_resultPair : ActionChainHolder::instance().graph().getAllResults())
     {
-
         try
         {
 
@@ -688,8 +685,6 @@ void ThriftClientPlayer::GetBestPlannerAction()
             int unique_index = action_ptr->uniqueIndex();
             int parent_index = action_ptr->parentIndex();
             auto eval = result_pair.second;
-            #ifdef DEBUG_CLIENT_PLAYER
-            #endif
             auto map = & action_state_pairs.pairs;
             auto rpc_action_state_pair = soccer::RpcActionState();
             auto rpc_cooperative_action = soccer::RpcCooperativeAction();
@@ -773,7 +768,7 @@ void ThriftClientPlayer::GetBestPlannerAction()
     catch(const std::exception& e){
         std::cout << e.what() << '\n';
         M_is_connected = false;
-        return;
+        return false;
     }
     auto agent = M_agent;
 
@@ -785,14 +780,10 @@ void ThriftClientPlayer::GetBestPlannerAction()
         std::cout << "PlannedAction = "<< best_action.index  << std::endl;
         #endif
         agent->debugClient().addMessage("PlannedAction");
-        return;
+        return true;
     }
 
-    #ifdef DEBUG_CLIENT_PLAYER
-    std::cout << "Body_HoldBall" << std::endl;
-    #endif
-    Body_HoldBall().execute(agent);
-    agent->setNeckAction(new Neck_ScanField());
+    return false;
 }
 
 

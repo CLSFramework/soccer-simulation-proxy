@@ -55,6 +55,7 @@ public:
 
     typedef std::shared_ptr< ActionChainGraph > Ptr; //!< pointer type alias
     typedef std::shared_ptr< const ActionChainGraph > ConstPtr; //!< const pointer type alias
+    typedef std::pair<std::shared_ptr<const ActionStatePair>, double> ResultPair;
 
 public:
     static const size_t DEFAULT_MAX_CHAIN_LENGTH;
@@ -73,6 +74,7 @@ private:
     static std::vector< std::pair< rcsc::Vector2D, double > > S_evaluated_points;
 
 private:
+    std::map<int, ResultPair> M_all_results;
     std::vector< ActionStatePair > M_result;
     double M_best_evaluation;
 
@@ -130,6 +132,11 @@ public:
     const PredictState & getFinalResult() const
       {
           return (*(M_result.rbegin())).state();
+      };
+
+    const std::map<int, ResultPair> &getAllResults() const
+      {
+        return M_all_results;
       };
 
 public:

@@ -1,3 +1,5 @@
+// version 0
+
 syntax = "proto3";
 
 package protos;
@@ -758,6 +760,7 @@ message HeliosChainAction {
   bool simple_pass = 7;
   bool simple_dribble = 8;
   bool simple_shoot = 9;
+  bool server_side_decision = 10;
 }
 
 message HeliosBasicOffensive {}
@@ -836,6 +839,7 @@ message PlayerAction {
       HeliosSetPlay helios_set_play = 62;
       HeliosPenalty helios_penalty = 63;
       HeliosCommunicaion helios_communication = 64;
+
   }
 }
 
@@ -1202,6 +1206,59 @@ message PlayerType {
   float player_speed_max = 34;
 }
 
+enum RpcActionCategory {
+  AC_Hold = 0;
+  AC_Dribble = 1;
+  AC_Pass = 2;
+  AC_Shoot = 3;
+  AC_Clear = 4;
+  AC_Move = 5;
+  AC_NoAction = 6;
+}
+message RpcCooperativeAction {
+  RpcActionCategory category = 1;
+  int32 index = 2;
+  int32 sender_unum = 3;
+  int32 target_unum = 4;
+  RpcVector2D target_point = 5;
+  double first_ball_speed = 6;
+  double first_turn_moment = 7;
+  double first_dash_power = 8;
+  double first_dash_angle_relative = 9;
+  int32 duration_step = 10;
+  int32 kick_count = 11;
+  int32 turn_count = 12;
+  int32 dash_count = 13;
+  bool final_action = 14;
+  string description = 15;
+  int32 parent_index = 16;
+}
+
+message RpcPredictState {
+  int32 spend_time = 1;
+  int32 ball_holder_unum = 2;
+  RpcVector2D ball_position = 3;
+  RpcVector2D ball_velocity = 4;
+  double our_defense_line_x = 5;
+  double our_offense_line_x = 6;
+}
+
+message RpcActionState {
+  RpcCooperativeAction action = 1;
+  RpcPredictState predict_state = 2;
+  double evaluation = 3;
+}
+
+message BestPlannerActionRequest {
+  RegisterResponse register_response = 1;
+  map<int32, RpcActionState> pairs = 2;
+  State state = 3;
+}
+
+message BestPlannerActionResponse {
+  int32 index = 1;
+}
+
 message Empty {
 }
 
@@ -1215,4 +1272,5 @@ service Game {
   rpc SendPlayerType(PlayerType) returns (Empty) {} //should be PlayerTypes
   rpc Register(RegisterRequest) returns (RegisterResponse) {}
   rpc SendByeCommand(RegisterResponse) returns (Empty) {}
+  rpc GetBestPlannerAction(BestPlannerActionRequest) returns (BestPlannerActionResponse) {}
 }

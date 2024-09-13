@@ -51,7 +51,7 @@ void
 ActGen_Shoot::generate( std::vector< ActionStatePair > * result,
                         const PredictState & state,
                         const WorldModel & wm,
-                        const std::vector< ActionStatePair > & ) const
+                        const std::vector< ActionStatePair > & path) const
 {
     const AbstractPlayerObject * holder = state.ballHolder();
 
@@ -108,6 +108,14 @@ ActGen_Shoot::generate( std::vector< ActionStatePair > * result,
                                               shoot_spend_time,
                                               1,
                                               "shoot" ) );
+    if (path.empty())
+    {
+        action->setParentIndex(-1);
+    }
+    else
+    {
+        action->setParentIndex(( *( path.rbegin() ) ).action().uniqueIndex());
+    }
 
     result->push_back( ActionStatePair( action, result_state ) );
 }

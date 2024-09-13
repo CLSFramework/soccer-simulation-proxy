@@ -155,6 +155,24 @@ std::ostream& operator<<(std::ostream& out, const GameModeType::type& val);
 
 std::string to_string(const GameModeType::type& val);
 
+struct RpcActionCategory {
+  enum type {
+    AC_Hold = 0,
+    AC_Dribble = 1,
+    AC_Pass = 2,
+    AC_Shoot = 3,
+    AC_Clear = 4,
+    AC_Move = 5,
+    AC_NoAction = 6
+  };
+};
+
+extern const std::map<int, const char*> _RpcActionCategory_VALUES_TO_NAMES;
+
+std::ostream& operator<<(std::ostream& out, const RpcActionCategory::type& val);
+
+std::string to_string(const RpcActionCategory::type& val);
+
 class RpcVector2D;
 
 class RegisterRequest;
@@ -402,6 +420,16 @@ class ServerParam;
 class PlayerParam;
 
 class PlayerType;
+
+class RpcCooperativeAction;
+
+class RpcPredictState;
+
+class RpcActionState;
+
+class BestPlannerActionRequest;
+
+class BestPlannerActionResponse;
 
 class Empty;
 
@@ -1753,10 +1781,11 @@ void swap(WorldModel &a, WorldModel &b);
 std::ostream& operator<<(std::ostream& out, const WorldModel& obj);
 
 typedef struct _State__isset {
-  _State__isset() : register_response(false), world_model(false), full_world_model(false) {}
+  _State__isset() : register_response(false), world_model(false), full_world_model(false), need_preprocess(false) {}
   bool register_response :1;
   bool world_model :1;
   bool full_world_model :1;
+  bool need_preprocess :1;
 } _State__isset;
 
 class State : public virtual ::apache::thrift::TBase {
@@ -1764,13 +1793,15 @@ class State : public virtual ::apache::thrift::TBase {
 
   State(const State&);
   State& operator=(const State&);
-  State() noexcept {
+  State() noexcept
+        : need_preprocess(0) {
   }
 
   virtual ~State() noexcept;
   RegisterResponse register_response;
   WorldModel world_model;
   WorldModel full_world_model;
+  bool need_preprocess;
 
   _State__isset __isset;
 
@@ -1780,6 +1811,8 @@ class State : public virtual ::apache::thrift::TBase {
 
   void __set_full_world_model(const WorldModel& val);
 
+  void __set_need_preprocess(const bool val);
+
   bool operator == (const State & rhs) const
   {
     if (!(register_response == rhs.register_response))
@@ -1787,6 +1820,8 @@ class State : public virtual ::apache::thrift::TBase {
     if (!(world_model == rhs.world_model))
       return false;
     if (!(full_world_model == rhs.full_world_model))
+      return false;
+    if (!(need_preprocess == rhs.need_preprocess))
       return false;
     return true;
   }
@@ -6372,7 +6407,7 @@ void swap(HeliosShoot &a, HeliosShoot &b);
 std::ostream& operator<<(std::ostream& out, const HeliosShoot& obj);
 
 typedef struct _HeliosChainAction__isset {
-  _HeliosChainAction__isset() : direct_pass(false), lead_pass(false), through_pass(false), short_dribble(false), long_dribble(false), cross(false), simple_pass(false), simple_dribble(false), simple_shoot(false) {}
+  _HeliosChainAction__isset() : direct_pass(false), lead_pass(false), through_pass(false), short_dribble(false), long_dribble(false), cross(false), simple_pass(false), simple_dribble(false), simple_shoot(false), server_side_decision(false) {}
   bool direct_pass :1;
   bool lead_pass :1;
   bool through_pass :1;
@@ -6382,6 +6417,7 @@ typedef struct _HeliosChainAction__isset {
   bool simple_pass :1;
   bool simple_dribble :1;
   bool simple_shoot :1;
+  bool server_side_decision :1;
 } _HeliosChainAction__isset;
 
 class HeliosChainAction : public virtual ::apache::thrift::TBase {
@@ -6398,7 +6434,8 @@ class HeliosChainAction : public virtual ::apache::thrift::TBase {
                       cross(0),
                       simple_pass(0),
                       simple_dribble(0),
-                      simple_shoot(0) {
+                      simple_shoot(0),
+                      server_side_decision(0) {
   }
 
   virtual ~HeliosChainAction() noexcept;
@@ -6411,6 +6448,7 @@ class HeliosChainAction : public virtual ::apache::thrift::TBase {
   bool simple_pass;
   bool simple_dribble;
   bool simple_shoot;
+  bool server_side_decision;
 
   _HeliosChainAction__isset __isset;
 
@@ -6432,6 +6470,8 @@ class HeliosChainAction : public virtual ::apache::thrift::TBase {
 
   void __set_simple_shoot(const bool val);
 
+  void __set_server_side_decision(const bool val);
+
   bool operator == (const HeliosChainAction & rhs) const
   {
     if (!(direct_pass == rhs.direct_pass))
@@ -6451,6 +6491,8 @@ class HeliosChainAction : public virtual ::apache::thrift::TBase {
     if (!(simple_dribble == rhs.simple_dribble))
       return false;
     if (!(simple_shoot == rhs.simple_shoot))
+      return false;
+    if (!(server_side_decision == rhs.server_side_decision))
       return false;
     return true;
   }
@@ -7174,8 +7216,9 @@ void swap(PlayerAction &a, PlayerAction &b);
 std::ostream& operator<<(std::ostream& out, const PlayerAction& obj);
 
 typedef struct _PlayerActions__isset {
-  _PlayerActions__isset() : actions(false) {}
+  _PlayerActions__isset() : actions(false), ignore_preprocess(false) {}
   bool actions :1;
+  bool ignore_preprocess :1;
 } _PlayerActions__isset;
 
 class PlayerActions : public virtual ::apache::thrift::TBase {
@@ -7183,19 +7226,25 @@ class PlayerActions : public virtual ::apache::thrift::TBase {
 
   PlayerActions(const PlayerActions&);
   PlayerActions& operator=(const PlayerActions&);
-  PlayerActions() noexcept {
+  PlayerActions() noexcept
+                : ignore_preprocess(0) {
   }
 
   virtual ~PlayerActions() noexcept;
   std::vector<PlayerAction>  actions;
+  bool ignore_preprocess;
 
   _PlayerActions__isset __isset;
 
   void __set_actions(const std::vector<PlayerAction> & val);
 
+  void __set_ignore_preprocess(const bool val);
+
   bool operator == (const PlayerActions & rhs) const
   {
     if (!(actions == rhs.actions))
+      return false;
+    if (!(ignore_preprocess == rhs.ignore_preprocess))
       return false;
     return true;
   }
@@ -9951,6 +10000,385 @@ class PlayerType : public virtual ::apache::thrift::TBase {
 void swap(PlayerType &a, PlayerType &b);
 
 std::ostream& operator<<(std::ostream& out, const PlayerType& obj);
+
+typedef struct _RpcCooperativeAction__isset {
+  _RpcCooperativeAction__isset() : category(false), index(false), sender_unum(false), target_unum(false), target_point(false), first_ball_speed(false), first_turn_moment(false), first_dash_power(false), first_dash_angle_relative(false), duration_step(false), kick_count(false), turn_count(false), dash_count(false), final_action(false), description(false), parent_index(false) {}
+  bool category :1;
+  bool index :1;
+  bool sender_unum :1;
+  bool target_unum :1;
+  bool target_point :1;
+  bool first_ball_speed :1;
+  bool first_turn_moment :1;
+  bool first_dash_power :1;
+  bool first_dash_angle_relative :1;
+  bool duration_step :1;
+  bool kick_count :1;
+  bool turn_count :1;
+  bool dash_count :1;
+  bool final_action :1;
+  bool description :1;
+  bool parent_index :1;
+} _RpcCooperativeAction__isset;
+
+class RpcCooperativeAction : public virtual ::apache::thrift::TBase {
+ public:
+
+  RpcCooperativeAction(const RpcCooperativeAction&);
+  RpcCooperativeAction& operator=(const RpcCooperativeAction&);
+  RpcCooperativeAction() noexcept
+                       : category(static_cast<RpcActionCategory::type>(0)),
+                         index(0),
+                         sender_unum(0),
+                         target_unum(0),
+                         first_ball_speed(0),
+                         first_turn_moment(0),
+                         first_dash_power(0),
+                         first_dash_angle_relative(0),
+                         duration_step(0),
+                         kick_count(0),
+                         turn_count(0),
+                         dash_count(0),
+                         final_action(0),
+                         description(),
+                         parent_index(0) {
+  }
+
+  virtual ~RpcCooperativeAction() noexcept;
+  /**
+   * 
+   * @see RpcActionCategory
+   */
+  RpcActionCategory::type category;
+  int32_t index;
+  int32_t sender_unum;
+  int32_t target_unum;
+  RpcVector2D target_point;
+  double first_ball_speed;
+  double first_turn_moment;
+  double first_dash_power;
+  double first_dash_angle_relative;
+  int32_t duration_step;
+  int32_t kick_count;
+  int32_t turn_count;
+  int32_t dash_count;
+  bool final_action;
+  std::string description;
+  int32_t parent_index;
+
+  _RpcCooperativeAction__isset __isset;
+
+  void __set_category(const RpcActionCategory::type val);
+
+  void __set_index(const int32_t val);
+
+  void __set_sender_unum(const int32_t val);
+
+  void __set_target_unum(const int32_t val);
+
+  void __set_target_point(const RpcVector2D& val);
+
+  void __set_first_ball_speed(const double val);
+
+  void __set_first_turn_moment(const double val);
+
+  void __set_first_dash_power(const double val);
+
+  void __set_first_dash_angle_relative(const double val);
+
+  void __set_duration_step(const int32_t val);
+
+  void __set_kick_count(const int32_t val);
+
+  void __set_turn_count(const int32_t val);
+
+  void __set_dash_count(const int32_t val);
+
+  void __set_final_action(const bool val);
+
+  void __set_description(const std::string& val);
+
+  void __set_parent_index(const int32_t val);
+
+  bool operator == (const RpcCooperativeAction & rhs) const
+  {
+    if (!(category == rhs.category))
+      return false;
+    if (!(index == rhs.index))
+      return false;
+    if (!(sender_unum == rhs.sender_unum))
+      return false;
+    if (!(target_unum == rhs.target_unum))
+      return false;
+    if (!(target_point == rhs.target_point))
+      return false;
+    if (!(first_ball_speed == rhs.first_ball_speed))
+      return false;
+    if (!(first_turn_moment == rhs.first_turn_moment))
+      return false;
+    if (!(first_dash_power == rhs.first_dash_power))
+      return false;
+    if (!(first_dash_angle_relative == rhs.first_dash_angle_relative))
+      return false;
+    if (!(duration_step == rhs.duration_step))
+      return false;
+    if (!(kick_count == rhs.kick_count))
+      return false;
+    if (!(turn_count == rhs.turn_count))
+      return false;
+    if (!(dash_count == rhs.dash_count))
+      return false;
+    if (!(final_action == rhs.final_action))
+      return false;
+    if (!(description == rhs.description))
+      return false;
+    if (!(parent_index == rhs.parent_index))
+      return false;
+    return true;
+  }
+  bool operator != (const RpcCooperativeAction &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const RpcCooperativeAction & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot) override;
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const override;
+
+  virtual void printTo(std::ostream& out) const;
+};
+
+void swap(RpcCooperativeAction &a, RpcCooperativeAction &b);
+
+std::ostream& operator<<(std::ostream& out, const RpcCooperativeAction& obj);
+
+typedef struct _RpcPredictState__isset {
+  _RpcPredictState__isset() : spend_time(false), ball_holder_unum(false), ball_position(false), ball_velocity(false), our_defense_line_x(false), our_offense_line_x(false) {}
+  bool spend_time :1;
+  bool ball_holder_unum :1;
+  bool ball_position :1;
+  bool ball_velocity :1;
+  bool our_defense_line_x :1;
+  bool our_offense_line_x :1;
+} _RpcPredictState__isset;
+
+class RpcPredictState : public virtual ::apache::thrift::TBase {
+ public:
+
+  RpcPredictState(const RpcPredictState&) noexcept;
+  RpcPredictState& operator=(const RpcPredictState&) noexcept;
+  RpcPredictState() noexcept
+                  : spend_time(0),
+                    ball_holder_unum(0),
+                    our_defense_line_x(0),
+                    our_offense_line_x(0) {
+  }
+
+  virtual ~RpcPredictState() noexcept;
+  int32_t spend_time;
+  int32_t ball_holder_unum;
+  RpcVector2D ball_position;
+  RpcVector2D ball_velocity;
+  double our_defense_line_x;
+  double our_offense_line_x;
+
+  _RpcPredictState__isset __isset;
+
+  void __set_spend_time(const int32_t val);
+
+  void __set_ball_holder_unum(const int32_t val);
+
+  void __set_ball_position(const RpcVector2D& val);
+
+  void __set_ball_velocity(const RpcVector2D& val);
+
+  void __set_our_defense_line_x(const double val);
+
+  void __set_our_offense_line_x(const double val);
+
+  bool operator == (const RpcPredictState & rhs) const
+  {
+    if (!(spend_time == rhs.spend_time))
+      return false;
+    if (!(ball_holder_unum == rhs.ball_holder_unum))
+      return false;
+    if (!(ball_position == rhs.ball_position))
+      return false;
+    if (!(ball_velocity == rhs.ball_velocity))
+      return false;
+    if (!(our_defense_line_x == rhs.our_defense_line_x))
+      return false;
+    if (!(our_offense_line_x == rhs.our_offense_line_x))
+      return false;
+    return true;
+  }
+  bool operator != (const RpcPredictState &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const RpcPredictState & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot) override;
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const override;
+
+  virtual void printTo(std::ostream& out) const;
+};
+
+void swap(RpcPredictState &a, RpcPredictState &b);
+
+std::ostream& operator<<(std::ostream& out, const RpcPredictState& obj);
+
+typedef struct _RpcActionState__isset {
+  _RpcActionState__isset() : action(false), predict_state(false), evaluation(false) {}
+  bool action :1;
+  bool predict_state :1;
+  bool evaluation :1;
+} _RpcActionState__isset;
+
+class RpcActionState : public virtual ::apache::thrift::TBase {
+ public:
+
+  RpcActionState(const RpcActionState&);
+  RpcActionState& operator=(const RpcActionState&);
+  RpcActionState() noexcept
+                 : evaluation(0) {
+  }
+
+  virtual ~RpcActionState() noexcept;
+  RpcCooperativeAction action;
+  RpcPredictState predict_state;
+  double evaluation;
+
+  _RpcActionState__isset __isset;
+
+  void __set_action(const RpcCooperativeAction& val);
+
+  void __set_predict_state(const RpcPredictState& val);
+
+  void __set_evaluation(const double val);
+
+  bool operator == (const RpcActionState & rhs) const
+  {
+    if (!(action == rhs.action))
+      return false;
+    if (!(predict_state == rhs.predict_state))
+      return false;
+    if (!(evaluation == rhs.evaluation))
+      return false;
+    return true;
+  }
+  bool operator != (const RpcActionState &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const RpcActionState & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot) override;
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const override;
+
+  virtual void printTo(std::ostream& out) const;
+};
+
+void swap(RpcActionState &a, RpcActionState &b);
+
+std::ostream& operator<<(std::ostream& out, const RpcActionState& obj);
+
+typedef struct _BestPlannerActionRequest__isset {
+  _BestPlannerActionRequest__isset() : register_response(false), pairs(false), state(false) {}
+  bool register_response :1;
+  bool pairs :1;
+  bool state :1;
+} _BestPlannerActionRequest__isset;
+
+class BestPlannerActionRequest : public virtual ::apache::thrift::TBase {
+ public:
+
+  BestPlannerActionRequest(const BestPlannerActionRequest&);
+  BestPlannerActionRequest& operator=(const BestPlannerActionRequest&);
+  BestPlannerActionRequest() noexcept {
+  }
+
+  virtual ~BestPlannerActionRequest() noexcept;
+  RegisterResponse register_response;
+  std::map<int32_t, RpcActionState>  pairs;
+  State state;
+
+  _BestPlannerActionRequest__isset __isset;
+
+  void __set_register_response(const RegisterResponse& val);
+
+  void __set_pairs(const std::map<int32_t, RpcActionState> & val);
+
+  void __set_state(const State& val);
+
+  bool operator == (const BestPlannerActionRequest & rhs) const
+  {
+    if (!(register_response == rhs.register_response))
+      return false;
+    if (!(pairs == rhs.pairs))
+      return false;
+    if (!(state == rhs.state))
+      return false;
+    return true;
+  }
+  bool operator != (const BestPlannerActionRequest &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const BestPlannerActionRequest & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot) override;
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const override;
+
+  virtual void printTo(std::ostream& out) const;
+};
+
+void swap(BestPlannerActionRequest &a, BestPlannerActionRequest &b);
+
+std::ostream& operator<<(std::ostream& out, const BestPlannerActionRequest& obj);
+
+typedef struct _BestPlannerActionResponse__isset {
+  _BestPlannerActionResponse__isset() : index(false) {}
+  bool index :1;
+} _BestPlannerActionResponse__isset;
+
+class BestPlannerActionResponse : public virtual ::apache::thrift::TBase {
+ public:
+
+  BestPlannerActionResponse(const BestPlannerActionResponse&) noexcept;
+  BestPlannerActionResponse& operator=(const BestPlannerActionResponse&) noexcept;
+  BestPlannerActionResponse() noexcept
+                            : index(0) {
+  }
+
+  virtual ~BestPlannerActionResponse() noexcept;
+  int32_t index;
+
+  _BestPlannerActionResponse__isset __isset;
+
+  void __set_index(const int32_t val);
+
+  bool operator == (const BestPlannerActionResponse & rhs) const
+  {
+    if (!(index == rhs.index))
+      return false;
+    return true;
+  }
+  bool operator != (const BestPlannerActionResponse &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const BestPlannerActionResponse & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot) override;
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const override;
+
+  virtual void printTo(std::ostream& out) const;
+};
+
+void swap(BestPlannerActionResponse &a, BestPlannerActionResponse &b);
+
+std::ostream& operator<<(std::ostream& out, const BestPlannerActionResponse& obj);
 
 
 class Empty : public virtual ::apache::thrift::TBase {

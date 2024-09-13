@@ -31,6 +31,7 @@ class GameIf {
   virtual void SendPlayerType(Empty& _return, const PlayerType& player_type) = 0;
   virtual void Register(RegisterResponse& _return, const RegisterRequest& request) = 0;
   virtual void SendByeCommand(Empty& _return, const RegisterResponse& register_response) = 0;
+  virtual void GetBestPlannerAction(BestPlannerActionResponse& _return, const BestPlannerActionRequest& best_planner_action_request) = 0;
 };
 
 class GameIfFactory {
@@ -85,6 +86,9 @@ class GameNull : virtual public GameIf {
     return;
   }
   void SendByeCommand(Empty& /* _return */, const RegisterResponse& /* register_response */) override {
+    return;
+  }
+  void GetBestPlannerAction(BestPlannerActionResponse& /* _return */, const BestPlannerActionRequest& /* best_planner_action_request */) override {
     return;
   }
 };
@@ -1025,6 +1029,110 @@ class Game_SendByeCommand_presult {
 
 };
 
+typedef struct _Game_GetBestPlannerAction_args__isset {
+  _Game_GetBestPlannerAction_args__isset() : best_planner_action_request(false) {}
+  bool best_planner_action_request :1;
+} _Game_GetBestPlannerAction_args__isset;
+
+class Game_GetBestPlannerAction_args {
+ public:
+
+  Game_GetBestPlannerAction_args(const Game_GetBestPlannerAction_args&);
+  Game_GetBestPlannerAction_args& operator=(const Game_GetBestPlannerAction_args&);
+  Game_GetBestPlannerAction_args() noexcept {
+  }
+
+  virtual ~Game_GetBestPlannerAction_args() noexcept;
+  BestPlannerActionRequest best_planner_action_request;
+
+  _Game_GetBestPlannerAction_args__isset __isset;
+
+  void __set_best_planner_action_request(const BestPlannerActionRequest& val);
+
+  bool operator == (const Game_GetBestPlannerAction_args & rhs) const
+  {
+    if (!(best_planner_action_request == rhs.best_planner_action_request))
+      return false;
+    return true;
+  }
+  bool operator != (const Game_GetBestPlannerAction_args &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const Game_GetBestPlannerAction_args & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+
+class Game_GetBestPlannerAction_pargs {
+ public:
+
+
+  virtual ~Game_GetBestPlannerAction_pargs() noexcept;
+  const BestPlannerActionRequest* best_planner_action_request;
+
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+typedef struct _Game_GetBestPlannerAction_result__isset {
+  _Game_GetBestPlannerAction_result__isset() : success(false) {}
+  bool success :1;
+} _Game_GetBestPlannerAction_result__isset;
+
+class Game_GetBestPlannerAction_result {
+ public:
+
+  Game_GetBestPlannerAction_result(const Game_GetBestPlannerAction_result&) noexcept;
+  Game_GetBestPlannerAction_result& operator=(const Game_GetBestPlannerAction_result&) noexcept;
+  Game_GetBestPlannerAction_result() noexcept {
+  }
+
+  virtual ~Game_GetBestPlannerAction_result() noexcept;
+  BestPlannerActionResponse success;
+
+  _Game_GetBestPlannerAction_result__isset __isset;
+
+  void __set_success(const BestPlannerActionResponse& val);
+
+  bool operator == (const Game_GetBestPlannerAction_result & rhs) const
+  {
+    if (!(success == rhs.success))
+      return false;
+    return true;
+  }
+  bool operator != (const Game_GetBestPlannerAction_result &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const Game_GetBestPlannerAction_result & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+typedef struct _Game_GetBestPlannerAction_presult__isset {
+  _Game_GetBestPlannerAction_presult__isset() : success(false) {}
+  bool success :1;
+} _Game_GetBestPlannerAction_presult__isset;
+
+class Game_GetBestPlannerAction_presult {
+ public:
+
+
+  virtual ~Game_GetBestPlannerAction_presult() noexcept;
+  BestPlannerActionResponse* success;
+
+  _Game_GetBestPlannerAction_presult__isset __isset;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+
+};
+
 class GameClient : virtual public GameIf {
  public:
   GameClient(std::shared_ptr< ::apache::thrift::protocol::TProtocol> prot) {
@@ -1077,6 +1185,9 @@ class GameClient : virtual public GameIf {
   void SendByeCommand(Empty& _return, const RegisterResponse& register_response) override;
   void send_SendByeCommand(const RegisterResponse& register_response);
   void recv_SendByeCommand(Empty& _return);
+  void GetBestPlannerAction(BestPlannerActionResponse& _return, const BestPlannerActionRequest& best_planner_action_request) override;
+  void send_GetBestPlannerAction(const BestPlannerActionRequest& best_planner_action_request);
+  void recv_GetBestPlannerAction(BestPlannerActionResponse& _return);
  protected:
   std::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot_;
   std::shared_ptr< ::apache::thrift::protocol::TProtocol> poprot_;
@@ -1101,6 +1212,7 @@ class GameProcessor : public ::apache::thrift::TDispatchProcessor {
   void process_SendPlayerType(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_Register(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_SendByeCommand(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
+  void process_GetBestPlannerAction(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
  public:
   GameProcessor(::std::shared_ptr<GameIf> iface) :
     iface_(iface) {
@@ -1113,6 +1225,7 @@ class GameProcessor : public ::apache::thrift::TDispatchProcessor {
     processMap_["SendPlayerType"] = &GameProcessor::process_SendPlayerType;
     processMap_["Register"] = &GameProcessor::process_Register;
     processMap_["SendByeCommand"] = &GameProcessor::process_SendByeCommand;
+    processMap_["GetBestPlannerAction"] = &GameProcessor::process_GetBestPlannerAction;
   }
 
   virtual ~GameProcessor() {}
@@ -1231,6 +1344,16 @@ class GameMultiface : virtual public GameIf {
     return;
   }
 
+  void GetBestPlannerAction(BestPlannerActionResponse& _return, const BestPlannerActionRequest& best_planner_action_request) override {
+    size_t sz = ifaces_.size();
+    size_t i = 0;
+    for (; i < (sz - 1); ++i) {
+      ifaces_[i]->GetBestPlannerAction(_return, best_planner_action_request);
+    }
+    ifaces_[i]->GetBestPlannerAction(_return, best_planner_action_request);
+    return;
+  }
+
 };
 
 // The 'concurrent' client is a thread safe client that correctly handles
@@ -1290,6 +1413,9 @@ class GameConcurrentClient : virtual public GameIf {
   void SendByeCommand(Empty& _return, const RegisterResponse& register_response) override;
   int32_t send_SendByeCommand(const RegisterResponse& register_response);
   void recv_SendByeCommand(Empty& _return, const int32_t seqid);
+  void GetBestPlannerAction(BestPlannerActionResponse& _return, const BestPlannerActionRequest& best_planner_action_request) override;
+  int32_t send_GetBestPlannerAction(const BestPlannerActionRequest& best_planner_action_request);
+  void recv_GetBestPlannerAction(BestPlannerActionResponse& _return, const int32_t seqid);
  protected:
   std::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot_;
   std::shared_ptr< ::apache::thrift::protocol::TProtocol> poprot_;

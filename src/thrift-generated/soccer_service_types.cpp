@@ -299,6 +299,45 @@ std::string to_string(const GameModeType::type& val) {
   }
 }
 
+int _kRpcActionCategoryValues[] = {
+  RpcActionCategory::AC_Hold,
+  RpcActionCategory::AC_Dribble,
+  RpcActionCategory::AC_Pass,
+  RpcActionCategory::AC_Shoot,
+  RpcActionCategory::AC_Clear,
+  RpcActionCategory::AC_Move,
+  RpcActionCategory::AC_NoAction
+};
+const char* _kRpcActionCategoryNames[] = {
+  "AC_Hold",
+  "AC_Dribble",
+  "AC_Pass",
+  "AC_Shoot",
+  "AC_Clear",
+  "AC_Move",
+  "AC_NoAction"
+};
+const std::map<int, const char*> _RpcActionCategory_VALUES_TO_NAMES(::apache::thrift::TEnumIterator(7, _kRpcActionCategoryValues, _kRpcActionCategoryNames), ::apache::thrift::TEnumIterator(-1, nullptr, nullptr));
+
+std::ostream& operator<<(std::ostream& out, const RpcActionCategory::type& val) {
+  std::map<int, const char*>::const_iterator it = _RpcActionCategory_VALUES_TO_NAMES.find(val);
+  if (it != _RpcActionCategory_VALUES_TO_NAMES.end()) {
+    out << it->second;
+  } else {
+    out << static_cast<int>(val);
+  }
+  return out;
+}
+
+std::string to_string(const RpcActionCategory::type& val) {
+  std::map<int, const char*>::const_iterator it = _RpcActionCategory_VALUES_TO_NAMES.find(val);
+  if (it != _RpcActionCategory_VALUES_TO_NAMES.end()) {
+    return std::string(it->second);
+  } else {
+    return std::to_string(static_cast<int>(val));
+  }
+}
+
 
 RpcVector2D::~RpcVector2D() noexcept {
 }
@@ -4033,6 +4072,10 @@ void State::__set_world_model(const WorldModel& val) {
 void State::__set_full_world_model(const WorldModel& val) {
   this->full_world_model = val;
 }
+
+void State::__set_need_preprocess(const bool val) {
+  this->need_preprocess = val;
+}
 std::ostream& operator<<(std::ostream& out, const State& obj)
 {
   obj.printTo(out);
@@ -4085,6 +4128,14 @@ uint32_t State::read(::apache::thrift::protocol::TProtocol* iprot) {
           xfer += iprot->skip(ftype);
         }
         break;
+      case 4:
+        if (ftype == ::apache::thrift::protocol::T_BOOL) {
+          xfer += iprot->readBool(this->need_preprocess);
+          this->__isset.need_preprocess = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       default:
         xfer += iprot->skip(ftype);
         break;
@@ -4114,6 +4165,10 @@ uint32_t State::write(::apache::thrift::protocol::TProtocol* oprot) const {
   xfer += this->full_world_model.write(oprot);
   xfer += oprot->writeFieldEnd();
 
+  xfer += oprot->writeFieldBegin("need_preprocess", ::apache::thrift::protocol::T_BOOL, 4);
+  xfer += oprot->writeBool(this->need_preprocess);
+  xfer += oprot->writeFieldEnd();
+
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -4124,6 +4179,7 @@ void swap(State &a, State &b) {
   swap(a.register_response, b.register_response);
   swap(a.world_model, b.world_model);
   swap(a.full_world_model, b.full_world_model);
+  swap(a.need_preprocess, b.need_preprocess);
   swap(a.__isset, b.__isset);
 }
 
@@ -4131,12 +4187,14 @@ State::State(const State& other75) {
   register_response = other75.register_response;
   world_model = other75.world_model;
   full_world_model = other75.full_world_model;
+  need_preprocess = other75.need_preprocess;
   __isset = other75.__isset;
 }
 State& State::operator=(const State& other76) {
   register_response = other76.register_response;
   world_model = other76.world_model;
   full_world_model = other76.full_world_model;
+  need_preprocess = other76.need_preprocess;
   __isset = other76.__isset;
   return *this;
 }
@@ -4146,6 +4204,7 @@ void State::printTo(std::ostream& out) const {
   out << "register_response=" << to_string(register_response);
   out << ", " << "world_model=" << to_string(world_model);
   out << ", " << "full_world_model=" << to_string(full_world_model);
+  out << ", " << "need_preprocess=" << to_string(need_preprocess);
   out << ")";
 }
 
@@ -14671,6 +14730,10 @@ void HeliosChainAction::__set_simple_dribble(const bool val) {
 void HeliosChainAction::__set_simple_shoot(const bool val) {
   this->simple_shoot = val;
 }
+
+void HeliosChainAction::__set_server_side_decision(const bool val) {
+  this->server_side_decision = val;
+}
 std::ostream& operator<<(std::ostream& out, const HeliosChainAction& obj)
 {
   obj.printTo(out);
@@ -14771,6 +14834,14 @@ uint32_t HeliosChainAction::read(::apache::thrift::protocol::TProtocol* iprot) {
           xfer += iprot->skip(ftype);
         }
         break;
+      case 10:
+        if (ftype == ::apache::thrift::protocol::T_BOOL) {
+          xfer += iprot->readBool(this->server_side_decision);
+          this->__isset.server_side_decision = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       default:
         xfer += iprot->skip(ftype);
         break;
@@ -14824,6 +14895,10 @@ uint32_t HeliosChainAction::write(::apache::thrift::protocol::TProtocol* oprot) 
   xfer += oprot->writeBool(this->simple_shoot);
   xfer += oprot->writeFieldEnd();
 
+  xfer += oprot->writeFieldBegin("server_side_decision", ::apache::thrift::protocol::T_BOOL, 10);
+  xfer += oprot->writeBool(this->server_side_decision);
+  xfer += oprot->writeFieldEnd();
+
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -14840,6 +14915,7 @@ void swap(HeliosChainAction &a, HeliosChainAction &b) {
   swap(a.simple_pass, b.simple_pass);
   swap(a.simple_dribble, b.simple_dribble);
   swap(a.simple_shoot, b.simple_shoot);
+  swap(a.server_side_decision, b.server_side_decision);
   swap(a.__isset, b.__isset);
 }
 
@@ -14853,6 +14929,7 @@ HeliosChainAction::HeliosChainAction(const HeliosChainAction& other271) noexcept
   simple_pass = other271.simple_pass;
   simple_dribble = other271.simple_dribble;
   simple_shoot = other271.simple_shoot;
+  server_side_decision = other271.server_side_decision;
   __isset = other271.__isset;
 }
 HeliosChainAction& HeliosChainAction::operator=(const HeliosChainAction& other272) noexcept {
@@ -14865,6 +14942,7 @@ HeliosChainAction& HeliosChainAction::operator=(const HeliosChainAction& other27
   simple_pass = other272.simple_pass;
   simple_dribble = other272.simple_dribble;
   simple_shoot = other272.simple_shoot;
+  server_side_decision = other272.server_side_decision;
   __isset = other272.__isset;
   return *this;
 }
@@ -14880,6 +14958,7 @@ void HeliosChainAction::printTo(std::ostream& out) const {
   out << ", " << "simple_pass=" << to_string(simple_pass);
   out << ", " << "simple_dribble=" << to_string(simple_dribble);
   out << ", " << "simple_shoot=" << to_string(simple_shoot);
+  out << ", " << "server_side_decision=" << to_string(server_side_decision);
   out << ")";
 }
 
@@ -16711,6 +16790,10 @@ PlayerActions::~PlayerActions() noexcept {
 void PlayerActions::__set_actions(const std::vector<PlayerAction> & val) {
   this->actions = val;
 }
+
+void PlayerActions::__set_ignore_preprocess(const bool val) {
+  this->ignore_preprocess = val;
+}
 std::ostream& operator<<(std::ostream& out, const PlayerActions& obj)
 {
   obj.printTo(out);
@@ -16759,6 +16842,14 @@ uint32_t PlayerActions::read(::apache::thrift::protocol::TProtocol* iprot) {
           xfer += iprot->skip(ftype);
         }
         break;
+      case 2:
+        if (ftype == ::apache::thrift::protocol::T_BOOL) {
+          xfer += iprot->readBool(this->ignore_preprocess);
+          this->__isset.ignore_preprocess = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       default:
         xfer += iprot->skip(ftype);
         break;
@@ -16788,6 +16879,10 @@ uint32_t PlayerActions::write(::apache::thrift::protocol::TProtocol* oprot) cons
   }
   xfer += oprot->writeFieldEnd();
 
+  xfer += oprot->writeFieldBegin("ignore_preprocess", ::apache::thrift::protocol::T_BOOL, 2);
+  xfer += oprot->writeBool(this->ignore_preprocess);
+  xfer += oprot->writeFieldEnd();
+
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -16796,15 +16891,18 @@ uint32_t PlayerActions::write(::apache::thrift::protocol::TProtocol* oprot) cons
 void swap(PlayerActions &a, PlayerActions &b) {
   using ::std::swap;
   swap(a.actions, b.actions);
+  swap(a.ignore_preprocess, b.ignore_preprocess);
   swap(a.__isset, b.__isset);
 }
 
 PlayerActions::PlayerActions(const PlayerActions& other291) {
   actions = other291.actions;
+  ignore_preprocess = other291.ignore_preprocess;
   __isset = other291.__isset;
 }
 PlayerActions& PlayerActions::operator=(const PlayerActions& other292) {
   actions = other292.actions;
+  ignore_preprocess = other292.ignore_preprocess;
   __isset = other292.__isset;
   return *this;
 }
@@ -16812,6 +16910,7 @@ void PlayerActions::printTo(std::ostream& out) const {
   using ::apache::thrift::to_string;
   out << "PlayerActions(";
   out << "actions=" << to_string(actions);
+  out << ", " << "ignore_preprocess=" << to_string(ignore_preprocess);
   out << ")";
 }
 
@@ -24216,6 +24315,972 @@ void PlayerType::printTo(std::ostream& out) const {
 }
 
 
+RpcCooperativeAction::~RpcCooperativeAction() noexcept {
+}
+
+
+void RpcCooperativeAction::__set_category(const RpcActionCategory::type val) {
+  this->category = val;
+}
+
+void RpcCooperativeAction::__set_index(const int32_t val) {
+  this->index = val;
+}
+
+void RpcCooperativeAction::__set_sender_unum(const int32_t val) {
+  this->sender_unum = val;
+}
+
+void RpcCooperativeAction::__set_target_unum(const int32_t val) {
+  this->target_unum = val;
+}
+
+void RpcCooperativeAction::__set_target_point(const RpcVector2D& val) {
+  this->target_point = val;
+}
+
+void RpcCooperativeAction::__set_first_ball_speed(const double val) {
+  this->first_ball_speed = val;
+}
+
+void RpcCooperativeAction::__set_first_turn_moment(const double val) {
+  this->first_turn_moment = val;
+}
+
+void RpcCooperativeAction::__set_first_dash_power(const double val) {
+  this->first_dash_power = val;
+}
+
+void RpcCooperativeAction::__set_first_dash_angle_relative(const double val) {
+  this->first_dash_angle_relative = val;
+}
+
+void RpcCooperativeAction::__set_duration_step(const int32_t val) {
+  this->duration_step = val;
+}
+
+void RpcCooperativeAction::__set_kick_count(const int32_t val) {
+  this->kick_count = val;
+}
+
+void RpcCooperativeAction::__set_turn_count(const int32_t val) {
+  this->turn_count = val;
+}
+
+void RpcCooperativeAction::__set_dash_count(const int32_t val) {
+  this->dash_count = val;
+}
+
+void RpcCooperativeAction::__set_final_action(const bool val) {
+  this->final_action = val;
+}
+
+void RpcCooperativeAction::__set_description(const std::string& val) {
+  this->description = val;
+}
+
+void RpcCooperativeAction::__set_parent_index(const int32_t val) {
+  this->parent_index = val;
+}
+std::ostream& operator<<(std::ostream& out, const RpcCooperativeAction& obj)
+{
+  obj.printTo(out);
+  return out;
+}
+
+
+uint32_t RpcCooperativeAction::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          int32_t ecast339;
+          xfer += iprot->readI32(ecast339);
+          this->category = static_cast<RpcActionCategory::type>(ecast339);
+          this->__isset.category = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 2:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->index);
+          this->__isset.index = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 3:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->sender_unum);
+          this->__isset.sender_unum = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 4:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->target_unum);
+          this->__isset.target_unum = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 5:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += this->target_point.read(iprot);
+          this->__isset.target_point = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 6:
+        if (ftype == ::apache::thrift::protocol::T_DOUBLE) {
+          xfer += iprot->readDouble(this->first_ball_speed);
+          this->__isset.first_ball_speed = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 7:
+        if (ftype == ::apache::thrift::protocol::T_DOUBLE) {
+          xfer += iprot->readDouble(this->first_turn_moment);
+          this->__isset.first_turn_moment = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 8:
+        if (ftype == ::apache::thrift::protocol::T_DOUBLE) {
+          xfer += iprot->readDouble(this->first_dash_power);
+          this->__isset.first_dash_power = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 9:
+        if (ftype == ::apache::thrift::protocol::T_DOUBLE) {
+          xfer += iprot->readDouble(this->first_dash_angle_relative);
+          this->__isset.first_dash_angle_relative = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 10:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->duration_step);
+          this->__isset.duration_step = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 11:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->kick_count);
+          this->__isset.kick_count = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 12:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->turn_count);
+          this->__isset.turn_count = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 13:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->dash_count);
+          this->__isset.dash_count = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 14:
+        if (ftype == ::apache::thrift::protocol::T_BOOL) {
+          xfer += iprot->readBool(this->final_action);
+          this->__isset.final_action = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 15:
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->description);
+          this->__isset.description = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 16:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->parent_index);
+          this->__isset.parent_index = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t RpcCooperativeAction::write(::apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
+  xfer += oprot->writeStructBegin("RpcCooperativeAction");
+
+  xfer += oprot->writeFieldBegin("category", ::apache::thrift::protocol::T_I32, 1);
+  xfer += oprot->writeI32(static_cast<int32_t>(this->category));
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("index", ::apache::thrift::protocol::T_I32, 2);
+  xfer += oprot->writeI32(this->index);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("sender_unum", ::apache::thrift::protocol::T_I32, 3);
+  xfer += oprot->writeI32(this->sender_unum);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("target_unum", ::apache::thrift::protocol::T_I32, 4);
+  xfer += oprot->writeI32(this->target_unum);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("target_point", ::apache::thrift::protocol::T_STRUCT, 5);
+  xfer += this->target_point.write(oprot);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("first_ball_speed", ::apache::thrift::protocol::T_DOUBLE, 6);
+  xfer += oprot->writeDouble(this->first_ball_speed);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("first_turn_moment", ::apache::thrift::protocol::T_DOUBLE, 7);
+  xfer += oprot->writeDouble(this->first_turn_moment);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("first_dash_power", ::apache::thrift::protocol::T_DOUBLE, 8);
+  xfer += oprot->writeDouble(this->first_dash_power);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("first_dash_angle_relative", ::apache::thrift::protocol::T_DOUBLE, 9);
+  xfer += oprot->writeDouble(this->first_dash_angle_relative);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("duration_step", ::apache::thrift::protocol::T_I32, 10);
+  xfer += oprot->writeI32(this->duration_step);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("kick_count", ::apache::thrift::protocol::T_I32, 11);
+  xfer += oprot->writeI32(this->kick_count);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("turn_count", ::apache::thrift::protocol::T_I32, 12);
+  xfer += oprot->writeI32(this->turn_count);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("dash_count", ::apache::thrift::protocol::T_I32, 13);
+  xfer += oprot->writeI32(this->dash_count);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("final_action", ::apache::thrift::protocol::T_BOOL, 14);
+  xfer += oprot->writeBool(this->final_action);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("description", ::apache::thrift::protocol::T_STRING, 15);
+  xfer += oprot->writeString(this->description);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("parent_index", ::apache::thrift::protocol::T_I32, 16);
+  xfer += oprot->writeI32(this->parent_index);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+void swap(RpcCooperativeAction &a, RpcCooperativeAction &b) {
+  using ::std::swap;
+  swap(a.category, b.category);
+  swap(a.index, b.index);
+  swap(a.sender_unum, b.sender_unum);
+  swap(a.target_unum, b.target_unum);
+  swap(a.target_point, b.target_point);
+  swap(a.first_ball_speed, b.first_ball_speed);
+  swap(a.first_turn_moment, b.first_turn_moment);
+  swap(a.first_dash_power, b.first_dash_power);
+  swap(a.first_dash_angle_relative, b.first_dash_angle_relative);
+  swap(a.duration_step, b.duration_step);
+  swap(a.kick_count, b.kick_count);
+  swap(a.turn_count, b.turn_count);
+  swap(a.dash_count, b.dash_count);
+  swap(a.final_action, b.final_action);
+  swap(a.description, b.description);
+  swap(a.parent_index, b.parent_index);
+  swap(a.__isset, b.__isset);
+}
+
+RpcCooperativeAction::RpcCooperativeAction(const RpcCooperativeAction& other340) {
+  category = other340.category;
+  index = other340.index;
+  sender_unum = other340.sender_unum;
+  target_unum = other340.target_unum;
+  target_point = other340.target_point;
+  first_ball_speed = other340.first_ball_speed;
+  first_turn_moment = other340.first_turn_moment;
+  first_dash_power = other340.first_dash_power;
+  first_dash_angle_relative = other340.first_dash_angle_relative;
+  duration_step = other340.duration_step;
+  kick_count = other340.kick_count;
+  turn_count = other340.turn_count;
+  dash_count = other340.dash_count;
+  final_action = other340.final_action;
+  description = other340.description;
+  parent_index = other340.parent_index;
+  __isset = other340.__isset;
+}
+RpcCooperativeAction& RpcCooperativeAction::operator=(const RpcCooperativeAction& other341) {
+  category = other341.category;
+  index = other341.index;
+  sender_unum = other341.sender_unum;
+  target_unum = other341.target_unum;
+  target_point = other341.target_point;
+  first_ball_speed = other341.first_ball_speed;
+  first_turn_moment = other341.first_turn_moment;
+  first_dash_power = other341.first_dash_power;
+  first_dash_angle_relative = other341.first_dash_angle_relative;
+  duration_step = other341.duration_step;
+  kick_count = other341.kick_count;
+  turn_count = other341.turn_count;
+  dash_count = other341.dash_count;
+  final_action = other341.final_action;
+  description = other341.description;
+  parent_index = other341.parent_index;
+  __isset = other341.__isset;
+  return *this;
+}
+void RpcCooperativeAction::printTo(std::ostream& out) const {
+  using ::apache::thrift::to_string;
+  out << "RpcCooperativeAction(";
+  out << "category=" << to_string(category);
+  out << ", " << "index=" << to_string(index);
+  out << ", " << "sender_unum=" << to_string(sender_unum);
+  out << ", " << "target_unum=" << to_string(target_unum);
+  out << ", " << "target_point=" << to_string(target_point);
+  out << ", " << "first_ball_speed=" << to_string(first_ball_speed);
+  out << ", " << "first_turn_moment=" << to_string(first_turn_moment);
+  out << ", " << "first_dash_power=" << to_string(first_dash_power);
+  out << ", " << "first_dash_angle_relative=" << to_string(first_dash_angle_relative);
+  out << ", " << "duration_step=" << to_string(duration_step);
+  out << ", " << "kick_count=" << to_string(kick_count);
+  out << ", " << "turn_count=" << to_string(turn_count);
+  out << ", " << "dash_count=" << to_string(dash_count);
+  out << ", " << "final_action=" << to_string(final_action);
+  out << ", " << "description=" << to_string(description);
+  out << ", " << "parent_index=" << to_string(parent_index);
+  out << ")";
+}
+
+
+RpcPredictState::~RpcPredictState() noexcept {
+}
+
+
+void RpcPredictState::__set_spend_time(const int32_t val) {
+  this->spend_time = val;
+}
+
+void RpcPredictState::__set_ball_holder_unum(const int32_t val) {
+  this->ball_holder_unum = val;
+}
+
+void RpcPredictState::__set_ball_position(const RpcVector2D& val) {
+  this->ball_position = val;
+}
+
+void RpcPredictState::__set_ball_velocity(const RpcVector2D& val) {
+  this->ball_velocity = val;
+}
+
+void RpcPredictState::__set_our_defense_line_x(const double val) {
+  this->our_defense_line_x = val;
+}
+
+void RpcPredictState::__set_our_offense_line_x(const double val) {
+  this->our_offense_line_x = val;
+}
+std::ostream& operator<<(std::ostream& out, const RpcPredictState& obj)
+{
+  obj.printTo(out);
+  return out;
+}
+
+
+uint32_t RpcPredictState::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->spend_time);
+          this->__isset.spend_time = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 2:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->ball_holder_unum);
+          this->__isset.ball_holder_unum = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 3:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ball_position.read(iprot);
+          this->__isset.ball_position = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 4:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += this->ball_velocity.read(iprot);
+          this->__isset.ball_velocity = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 5:
+        if (ftype == ::apache::thrift::protocol::T_DOUBLE) {
+          xfer += iprot->readDouble(this->our_defense_line_x);
+          this->__isset.our_defense_line_x = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 6:
+        if (ftype == ::apache::thrift::protocol::T_DOUBLE) {
+          xfer += iprot->readDouble(this->our_offense_line_x);
+          this->__isset.our_offense_line_x = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t RpcPredictState::write(::apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
+  xfer += oprot->writeStructBegin("RpcPredictState");
+
+  xfer += oprot->writeFieldBegin("spend_time", ::apache::thrift::protocol::T_I32, 1);
+  xfer += oprot->writeI32(this->spend_time);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("ball_holder_unum", ::apache::thrift::protocol::T_I32, 2);
+  xfer += oprot->writeI32(this->ball_holder_unum);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("ball_position", ::apache::thrift::protocol::T_STRUCT, 3);
+  xfer += this->ball_position.write(oprot);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("ball_velocity", ::apache::thrift::protocol::T_STRUCT, 4);
+  xfer += this->ball_velocity.write(oprot);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("our_defense_line_x", ::apache::thrift::protocol::T_DOUBLE, 5);
+  xfer += oprot->writeDouble(this->our_defense_line_x);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("our_offense_line_x", ::apache::thrift::protocol::T_DOUBLE, 6);
+  xfer += oprot->writeDouble(this->our_offense_line_x);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+void swap(RpcPredictState &a, RpcPredictState &b) {
+  using ::std::swap;
+  swap(a.spend_time, b.spend_time);
+  swap(a.ball_holder_unum, b.ball_holder_unum);
+  swap(a.ball_position, b.ball_position);
+  swap(a.ball_velocity, b.ball_velocity);
+  swap(a.our_defense_line_x, b.our_defense_line_x);
+  swap(a.our_offense_line_x, b.our_offense_line_x);
+  swap(a.__isset, b.__isset);
+}
+
+RpcPredictState::RpcPredictState(const RpcPredictState& other342) noexcept {
+  spend_time = other342.spend_time;
+  ball_holder_unum = other342.ball_holder_unum;
+  ball_position = other342.ball_position;
+  ball_velocity = other342.ball_velocity;
+  our_defense_line_x = other342.our_defense_line_x;
+  our_offense_line_x = other342.our_offense_line_x;
+  __isset = other342.__isset;
+}
+RpcPredictState& RpcPredictState::operator=(const RpcPredictState& other343) noexcept {
+  spend_time = other343.spend_time;
+  ball_holder_unum = other343.ball_holder_unum;
+  ball_position = other343.ball_position;
+  ball_velocity = other343.ball_velocity;
+  our_defense_line_x = other343.our_defense_line_x;
+  our_offense_line_x = other343.our_offense_line_x;
+  __isset = other343.__isset;
+  return *this;
+}
+void RpcPredictState::printTo(std::ostream& out) const {
+  using ::apache::thrift::to_string;
+  out << "RpcPredictState(";
+  out << "spend_time=" << to_string(spend_time);
+  out << ", " << "ball_holder_unum=" << to_string(ball_holder_unum);
+  out << ", " << "ball_position=" << to_string(ball_position);
+  out << ", " << "ball_velocity=" << to_string(ball_velocity);
+  out << ", " << "our_defense_line_x=" << to_string(our_defense_line_x);
+  out << ", " << "our_offense_line_x=" << to_string(our_offense_line_x);
+  out << ")";
+}
+
+
+RpcActionState::~RpcActionState() noexcept {
+}
+
+
+void RpcActionState::__set_action(const RpcCooperativeAction& val) {
+  this->action = val;
+}
+
+void RpcActionState::__set_predict_state(const RpcPredictState& val) {
+  this->predict_state = val;
+}
+
+void RpcActionState::__set_evaluation(const double val) {
+  this->evaluation = val;
+}
+std::ostream& operator<<(std::ostream& out, const RpcActionState& obj)
+{
+  obj.printTo(out);
+  return out;
+}
+
+
+uint32_t RpcActionState::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += this->action.read(iprot);
+          this->__isset.action = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 2:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += this->predict_state.read(iprot);
+          this->__isset.predict_state = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 3:
+        if (ftype == ::apache::thrift::protocol::T_DOUBLE) {
+          xfer += iprot->readDouble(this->evaluation);
+          this->__isset.evaluation = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t RpcActionState::write(::apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
+  xfer += oprot->writeStructBegin("RpcActionState");
+
+  xfer += oprot->writeFieldBegin("action", ::apache::thrift::protocol::T_STRUCT, 1);
+  xfer += this->action.write(oprot);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("predict_state", ::apache::thrift::protocol::T_STRUCT, 2);
+  xfer += this->predict_state.write(oprot);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("evaluation", ::apache::thrift::protocol::T_DOUBLE, 3);
+  xfer += oprot->writeDouble(this->evaluation);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+void swap(RpcActionState &a, RpcActionState &b) {
+  using ::std::swap;
+  swap(a.action, b.action);
+  swap(a.predict_state, b.predict_state);
+  swap(a.evaluation, b.evaluation);
+  swap(a.__isset, b.__isset);
+}
+
+RpcActionState::RpcActionState(const RpcActionState& other344) {
+  action = other344.action;
+  predict_state = other344.predict_state;
+  evaluation = other344.evaluation;
+  __isset = other344.__isset;
+}
+RpcActionState& RpcActionState::operator=(const RpcActionState& other345) {
+  action = other345.action;
+  predict_state = other345.predict_state;
+  evaluation = other345.evaluation;
+  __isset = other345.__isset;
+  return *this;
+}
+void RpcActionState::printTo(std::ostream& out) const {
+  using ::apache::thrift::to_string;
+  out << "RpcActionState(";
+  out << "action=" << to_string(action);
+  out << ", " << "predict_state=" << to_string(predict_state);
+  out << ", " << "evaluation=" << to_string(evaluation);
+  out << ")";
+}
+
+
+BestPlannerActionRequest::~BestPlannerActionRequest() noexcept {
+}
+
+
+void BestPlannerActionRequest::__set_register_response(const RegisterResponse& val) {
+  this->register_response = val;
+}
+
+void BestPlannerActionRequest::__set_pairs(const std::map<int32_t, RpcActionState> & val) {
+  this->pairs = val;
+}
+
+void BestPlannerActionRequest::__set_state(const State& val) {
+  this->state = val;
+}
+std::ostream& operator<<(std::ostream& out, const BestPlannerActionRequest& obj)
+{
+  obj.printTo(out);
+  return out;
+}
+
+
+uint32_t BestPlannerActionRequest::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += this->register_response.read(iprot);
+          this->__isset.register_response = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 2:
+        if (ftype == ::apache::thrift::protocol::T_MAP) {
+          {
+            this->pairs.clear();
+            uint32_t _size346;
+            ::apache::thrift::protocol::TType _ktype347;
+            ::apache::thrift::protocol::TType _vtype348;
+            xfer += iprot->readMapBegin(_ktype347, _vtype348, _size346);
+            uint32_t _i350;
+            for (_i350 = 0; _i350 < _size346; ++_i350)
+            {
+              int32_t _key351;
+              xfer += iprot->readI32(_key351);
+              RpcActionState& _val352 = this->pairs[_key351];
+              xfer += _val352.read(iprot);
+            }
+            xfer += iprot->readMapEnd();
+          }
+          this->__isset.pairs = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 3:
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += this->state.read(iprot);
+          this->__isset.state = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t BestPlannerActionRequest::write(::apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
+  xfer += oprot->writeStructBegin("BestPlannerActionRequest");
+
+  xfer += oprot->writeFieldBegin("register_response", ::apache::thrift::protocol::T_STRUCT, 1);
+  xfer += this->register_response.write(oprot);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("pairs", ::apache::thrift::protocol::T_MAP, 2);
+  {
+    xfer += oprot->writeMapBegin(::apache::thrift::protocol::T_I32, ::apache::thrift::protocol::T_STRUCT, static_cast<uint32_t>(this->pairs.size()));
+    std::map<int32_t, RpcActionState> ::const_iterator _iter353;
+    for (_iter353 = this->pairs.begin(); _iter353 != this->pairs.end(); ++_iter353)
+    {
+      xfer += oprot->writeI32(_iter353->first);
+      xfer += _iter353->second.write(oprot);
+    }
+    xfer += oprot->writeMapEnd();
+  }
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("state", ::apache::thrift::protocol::T_STRUCT, 3);
+  xfer += this->state.write(oprot);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+void swap(BestPlannerActionRequest &a, BestPlannerActionRequest &b) {
+  using ::std::swap;
+  swap(a.register_response, b.register_response);
+  swap(a.pairs, b.pairs);
+  swap(a.state, b.state);
+  swap(a.__isset, b.__isset);
+}
+
+BestPlannerActionRequest::BestPlannerActionRequest(const BestPlannerActionRequest& other354) {
+  register_response = other354.register_response;
+  pairs = other354.pairs;
+  state = other354.state;
+  __isset = other354.__isset;
+}
+BestPlannerActionRequest& BestPlannerActionRequest::operator=(const BestPlannerActionRequest& other355) {
+  register_response = other355.register_response;
+  pairs = other355.pairs;
+  state = other355.state;
+  __isset = other355.__isset;
+  return *this;
+}
+void BestPlannerActionRequest::printTo(std::ostream& out) const {
+  using ::apache::thrift::to_string;
+  out << "BestPlannerActionRequest(";
+  out << "register_response=" << to_string(register_response);
+  out << ", " << "pairs=" << to_string(pairs);
+  out << ", " << "state=" << to_string(state);
+  out << ")";
+}
+
+
+BestPlannerActionResponse::~BestPlannerActionResponse() noexcept {
+}
+
+
+void BestPlannerActionResponse::__set_index(const int32_t val) {
+  this->index = val;
+}
+std::ostream& operator<<(std::ostream& out, const BestPlannerActionResponse& obj)
+{
+  obj.printTo(out);
+  return out;
+}
+
+
+uint32_t BestPlannerActionResponse::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->index);
+          this->__isset.index = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t BestPlannerActionResponse::write(::apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
+  xfer += oprot->writeStructBegin("BestPlannerActionResponse");
+
+  xfer += oprot->writeFieldBegin("index", ::apache::thrift::protocol::T_I32, 1);
+  xfer += oprot->writeI32(this->index);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+void swap(BestPlannerActionResponse &a, BestPlannerActionResponse &b) {
+  using ::std::swap;
+  swap(a.index, b.index);
+  swap(a.__isset, b.__isset);
+}
+
+BestPlannerActionResponse::BestPlannerActionResponse(const BestPlannerActionResponse& other356) noexcept {
+  index = other356.index;
+  __isset = other356.__isset;
+}
+BestPlannerActionResponse& BestPlannerActionResponse::operator=(const BestPlannerActionResponse& other357) noexcept {
+  index = other357.index;
+  __isset = other357.__isset;
+  return *this;
+}
+void BestPlannerActionResponse::printTo(std::ostream& out) const {
+  using ::apache::thrift::to_string;
+  out << "BestPlannerActionResponse(";
+  out << "index=" << to_string(index);
+  out << ")";
+}
+
+
 Empty::~Empty() noexcept {
 }
 
@@ -24270,11 +25335,11 @@ void swap(Empty &a, Empty &b) {
   (void) b;
 }
 
-Empty::Empty(const Empty& other339) noexcept {
-  (void) other339;
+Empty::Empty(const Empty& other358) noexcept {
+  (void) other358;
 }
-Empty& Empty::operator=(const Empty& other340) noexcept {
-  (void) other340;
+Empty& Empty::operator=(const Empty& other359) noexcept {
+  (void) other359;
   return *this;
 }
 void Empty::printTo(std::ostream& out) const {

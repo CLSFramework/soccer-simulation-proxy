@@ -638,7 +638,7 @@ void ThriftClientPlayer::getActions()
                 {
                     agent->debugClient().addMessage("GetBestPlannerAction");
                     continue;
-                };
+                }
             }
             else
             {
@@ -648,9 +648,9 @@ void ThriftClientPlayer::getActions()
                     continue;
                 }
 
-                Body_HoldBall().execute(agent);
-                agent->setNeckAction(new Neck_ScanField());
             }
+            Body_HoldBall().execute(agent);
+            agent->setNeckAction(new Neck_ScanField());
             continue;
         }
         #ifdef DEBUG_CLIENT_PLAYER

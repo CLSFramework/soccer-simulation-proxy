@@ -646,10 +646,9 @@ void GrpcClientPlayer::getActions()
                     break;
                 }
 
-                Body_HoldBall().execute(agent);
-                agent->setNeckAction(new Neck_ScanField());
             }
-            
+            Body_HoldBall().execute(agent);
+            agent->setNeckAction(new Neck_ScanField());
             break;
         }
 

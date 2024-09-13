@@ -155,7 +155,9 @@ soccer::Self ThriftStateGenerator::convertSelf(const rcsc::SelfObject &self, con
                                                   (wm.ball().angleFromSelf() - self.body()).degree());
     kick_rate = std::max(kick_rate, 0.0001);
     res.kick_rate = static_cast<float>(kick_rate);
-
+    res.recovery = static_cast<float>(self.recovery());
+    res.stamina_capacity = static_cast<float>(self.staminaCapacity());
+    
     return res;
 }
 
@@ -493,6 +495,10 @@ soccer::WorldModel ThriftStateGenerator::convertWorldModel(const rcsc::WorldMode
     res.our_team_score = wm.ourSide() == rcsc::SideID::LEFT ? wm.gameMode().scoreLeft() : wm.gameMode().scoreRight();
     res.their_team_score = wm.ourSide() == rcsc::SideID::LEFT ? wm.gameMode().scoreRight() : wm.gameMode().scoreLeft();
     res.is_penalty_kick_mode = wm.gameMode().isPenaltyKickMode();
+    res.our_defense_line_x = static_cast<float>(wm.ourDefenseLineX());
+    res.their_defense_line_x = static_cast<float>(wm.theirDefenseLineX());
+    res.our_defense_player_line_x = static_cast<float>(wm.ourDefensePlayerLineX());
+    res.their_defense_player_line_x = static_cast<float>(wm.theirDefensePlayerLineX());
     return res;
 }
 

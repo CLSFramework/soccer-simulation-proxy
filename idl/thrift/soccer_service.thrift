@@ -155,7 +155,9 @@ struct Self {
   33: double foul_probability,
   34: ViewWidth view_width,
   35: i32 type_id,
-  36: double kick_rate
+  36: double kick_rate,
+  37: double recovery,
+  38: double stamina_capacity
 }
 
 enum InterceptActionType {
@@ -258,7 +260,11 @@ struct WorldModel {
   28: i32 our_team_score,
   29: i32 their_team_score,
   30: bool is_penalty_kick_mode,
-  31: map<i32, RpcVector2D> helios_home_positions
+  31: map<i32, RpcVector2D> helios_home_positions,
+  32: double our_defense_line_x,
+  33: double their_defense_line_x,
+  34: double our_defense_player_line_x,
+  35: double their_defense_player_line_x
 }
 
 struct State {

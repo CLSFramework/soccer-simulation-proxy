@@ -153,6 +153,8 @@ message Self {
   ViewWidth view_width = 34;
   int32 type_id = 35;
   float kick_rate = 36;
+  float recovery = 37;
+  float stamina_capacity = 38;
 }
 
 enum InterceptActionType {
@@ -256,6 +258,10 @@ message WorldModel {
   int32 their_team_score = 29;
   bool is_penalty_kick_mode = 30;
   map<int32, RpcVector2D> helios_home_positions = 31;
+  double our_defense_line_x = 32;
+  double their_defense_line_x = 33;
+  double our_defense_player_line_x = 34;
+  double their_defense_player_line_x = 35;
 }
 
 message State {

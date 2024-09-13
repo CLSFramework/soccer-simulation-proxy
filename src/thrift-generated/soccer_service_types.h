@@ -1020,7 +1020,7 @@ void swap(Player &a, Player &b);
 std::ostream& operator<<(std::ostream& out, const Player& obj);
 
 typedef struct _Self__isset {
-  _Self__isset() : position(false), seen_position(false), heard_position(false), velocity(false), seen_velocity(false), pos_count(false), seen_pos_count(false), heard_pos_count(false), vel_count(false), seen_vel_count(false), ghost_count(false), id(false), side(false), uniform_number(false), uniform_number_count(false), is_goalie(false), body_direction(false), body_direction_count(false), face_direction(false), face_direction_count(false), point_to_direction(false), point_to_direction_count(false), is_kicking(false), dist_from_ball(false), angle_from_ball(false), ball_reach_steps(false), is_tackling(false), relative_neck_direction(false), stamina(false), is_kickable(false), catch_probability(false), tackle_probability(false), foul_probability(false), view_width(false), type_id(false), kick_rate(false) {}
+  _Self__isset() : position(false), seen_position(false), heard_position(false), velocity(false), seen_velocity(false), pos_count(false), seen_pos_count(false), heard_pos_count(false), vel_count(false), seen_vel_count(false), ghost_count(false), id(false), side(false), uniform_number(false), uniform_number_count(false), is_goalie(false), body_direction(false), body_direction_count(false), face_direction(false), face_direction_count(false), point_to_direction(false), point_to_direction_count(false), is_kicking(false), dist_from_ball(false), angle_from_ball(false), ball_reach_steps(false), is_tackling(false), relative_neck_direction(false), stamina(false), is_kickable(false), catch_probability(false), tackle_probability(false), foul_probability(false), view_width(false), type_id(false), kick_rate(false), recovery(false), stamina_capacity(false) {}
   bool position :1;
   bool seen_position :1;
   bool heard_position :1;
@@ -1057,6 +1057,8 @@ typedef struct _Self__isset {
   bool view_width :1;
   bool type_id :1;
   bool kick_rate :1;
+  bool recovery :1;
+  bool stamina_capacity :1;
 } _Self__isset;
 
 class Self : public virtual ::apache::thrift::TBase {
@@ -1095,7 +1097,9 @@ class Self : public virtual ::apache::thrift::TBase {
          foul_probability(0),
          view_width(static_cast<ViewWidth::type>(0)),
          type_id(0),
-         kick_rate(0) {
+         kick_rate(0),
+         recovery(0),
+         stamina_capacity(0) {
   }
 
   virtual ~Self() noexcept;
@@ -1143,6 +1147,8 @@ class Self : public virtual ::apache::thrift::TBase {
   ViewWidth::type view_width;
   int32_t type_id;
   double kick_rate;
+  double recovery;
+  double stamina_capacity;
 
   _Self__isset __isset;
 
@@ -1218,6 +1224,10 @@ class Self : public virtual ::apache::thrift::TBase {
 
   void __set_kick_rate(const double val);
 
+  void __set_recovery(const double val);
+
+  void __set_stamina_capacity(const double val);
+
   bool operator == (const Self & rhs) const
   {
     if (!(position == rhs.position))
@@ -1291,6 +1301,10 @@ class Self : public virtual ::apache::thrift::TBase {
     if (!(type_id == rhs.type_id))
       return false;
     if (!(kick_rate == rhs.kick_rate))
+      return false;
+    if (!(recovery == rhs.recovery))
+      return false;
+    if (!(stamina_capacity == rhs.stamina_capacity))
       return false;
     return true;
   }
@@ -1525,7 +1539,7 @@ void swap(InterceptTable &a, InterceptTable &b);
 std::ostream& operator<<(std::ostream& out, const InterceptTable& obj);
 
 typedef struct _WorldModel__isset {
-  _WorldModel__isset() : intercept_table(false), our_team_name(false), their_team_name(false), our_side(false), last_set_play_start_time(false), myself(false), ball(false), teammates(false), opponents(false), unknowns(false), our_players_dict(false), their_players_dict(false), our_goalie_uniform_number(false), their_goalie_uniform_number(false), offside_line_x(false), offside_line_x_count(false), kickable_teammate_id(false), kickable_opponent_id(false), last_kick_side(false), last_kicker_uniform_number(false), cycle(false), game_mode_type(false), left_team_score(false), right_team_score(false), is_our_set_play(false), is_their_set_play(false), stoped_cycle(false), our_team_score(false), their_team_score(false), is_penalty_kick_mode(false), helios_home_positions(false) {}
+  _WorldModel__isset() : intercept_table(false), our_team_name(false), their_team_name(false), our_side(false), last_set_play_start_time(false), myself(false), ball(false), teammates(false), opponents(false), unknowns(false), our_players_dict(false), their_players_dict(false), our_goalie_uniform_number(false), their_goalie_uniform_number(false), offside_line_x(false), offside_line_x_count(false), kickable_teammate_id(false), kickable_opponent_id(false), last_kick_side(false), last_kicker_uniform_number(false), cycle(false), game_mode_type(false), left_team_score(false), right_team_score(false), is_our_set_play(false), is_their_set_play(false), stoped_cycle(false), our_team_score(false), their_team_score(false), is_penalty_kick_mode(false), helios_home_positions(false), our_defense_line_x(false), their_defense_line_x(false), our_defense_player_line_x(false), their_defense_player_line_x(false) {}
   bool intercept_table :1;
   bool our_team_name :1;
   bool their_team_name :1;
@@ -1557,6 +1571,10 @@ typedef struct _WorldModel__isset {
   bool their_team_score :1;
   bool is_penalty_kick_mode :1;
   bool helios_home_positions :1;
+  bool our_defense_line_x :1;
+  bool their_defense_line_x :1;
+  bool our_defense_player_line_x :1;
+  bool their_defense_player_line_x :1;
 } _WorldModel__isset;
 
 class WorldModel : public virtual ::apache::thrift::TBase {
@@ -1586,7 +1604,11 @@ class WorldModel : public virtual ::apache::thrift::TBase {
                stoped_cycle(0),
                our_team_score(0),
                their_team_score(0),
-               is_penalty_kick_mode(0) {
+               is_penalty_kick_mode(0),
+               our_defense_line_x(0),
+               their_defense_line_x(0),
+               our_defense_player_line_x(0),
+               their_defense_player_line_x(0) {
   }
 
   virtual ~WorldModel() noexcept;
@@ -1633,6 +1655,10 @@ class WorldModel : public virtual ::apache::thrift::TBase {
   int32_t their_team_score;
   bool is_penalty_kick_mode;
   std::map<int32_t, RpcVector2D>  helios_home_positions;
+  double our_defense_line_x;
+  double their_defense_line_x;
+  double our_defense_player_line_x;
+  double their_defense_player_line_x;
 
   _WorldModel__isset __isset;
 
@@ -1698,6 +1724,14 @@ class WorldModel : public virtual ::apache::thrift::TBase {
 
   void __set_helios_home_positions(const std::map<int32_t, RpcVector2D> & val);
 
+  void __set_our_defense_line_x(const double val);
+
+  void __set_their_defense_line_x(const double val);
+
+  void __set_our_defense_player_line_x(const double val);
+
+  void __set_their_defense_player_line_x(const double val);
+
   bool operator == (const WorldModel & rhs) const
   {
     if (!(intercept_table == rhs.intercept_table))
@@ -1761,6 +1795,14 @@ class WorldModel : public virtual ::apache::thrift::TBase {
     if (!(is_penalty_kick_mode == rhs.is_penalty_kick_mode))
       return false;
     if (!(helios_home_positions == rhs.helios_home_positions))
+      return false;
+    if (!(our_defense_line_x == rhs.our_defense_line_x))
+      return false;
+    if (!(their_defense_line_x == rhs.their_defense_line_x))
+      return false;
+    if (!(our_defense_player_line_x == rhs.our_defense_player_line_x))
+      return false;
+    if (!(their_defense_player_line_x == rhs.their_defense_player_line_x))
       return false;
     return true;
   }

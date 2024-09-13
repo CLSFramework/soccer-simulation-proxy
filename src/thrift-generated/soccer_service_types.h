@@ -6407,7 +6407,7 @@ void swap(HeliosShoot &a, HeliosShoot &b);
 std::ostream& operator<<(std::ostream& out, const HeliosShoot& obj);
 
 typedef struct _HeliosChainAction__isset {
-  _HeliosChainAction__isset() : direct_pass(false), lead_pass(false), through_pass(false), short_dribble(false), long_dribble(false), cross(false), simple_pass(false), simple_dribble(false), simple_shoot(false) {}
+  _HeliosChainAction__isset() : direct_pass(false), lead_pass(false), through_pass(false), short_dribble(false), long_dribble(false), cross(false), simple_pass(false), simple_dribble(false), simple_shoot(false), server_side_decision(false) {}
   bool direct_pass :1;
   bool lead_pass :1;
   bool through_pass :1;
@@ -6417,6 +6417,7 @@ typedef struct _HeliosChainAction__isset {
   bool simple_pass :1;
   bool simple_dribble :1;
   bool simple_shoot :1;
+  bool server_side_decision :1;
 } _HeliosChainAction__isset;
 
 class HeliosChainAction : public virtual ::apache::thrift::TBase {
@@ -6433,7 +6434,8 @@ class HeliosChainAction : public virtual ::apache::thrift::TBase {
                       cross(0),
                       simple_pass(0),
                       simple_dribble(0),
-                      simple_shoot(0) {
+                      simple_shoot(0),
+                      server_side_decision(0) {
   }
 
   virtual ~HeliosChainAction() noexcept;
@@ -6446,6 +6448,7 @@ class HeliosChainAction : public virtual ::apache::thrift::TBase {
   bool simple_pass;
   bool simple_dribble;
   bool simple_shoot;
+  bool server_side_decision;
 
   _HeliosChainAction__isset __isset;
 
@@ -6467,6 +6470,8 @@ class HeliosChainAction : public virtual ::apache::thrift::TBase {
 
   void __set_simple_shoot(const bool val);
 
+  void __set_server_side_decision(const bool val);
+
   bool operator == (const HeliosChainAction & rhs) const
   {
     if (!(direct_pass == rhs.direct_pass))
@@ -6486,6 +6491,8 @@ class HeliosChainAction : public virtual ::apache::thrift::TBase {
     if (!(simple_dribble == rhs.simple_dribble))
       return false;
     if (!(simple_shoot == rhs.simple_shoot))
+      return false;
+    if (!(server_side_decision == rhs.server_side_decision))
       return false;
     return true;
   }

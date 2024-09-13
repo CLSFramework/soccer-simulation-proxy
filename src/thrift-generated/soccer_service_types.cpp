@@ -14730,6 +14730,10 @@ void HeliosChainAction::__set_simple_dribble(const bool val) {
 void HeliosChainAction::__set_simple_shoot(const bool val) {
   this->simple_shoot = val;
 }
+
+void HeliosChainAction::__set_server_side_decision(const bool val) {
+  this->server_side_decision = val;
+}
 std::ostream& operator<<(std::ostream& out, const HeliosChainAction& obj)
 {
   obj.printTo(out);
@@ -14830,6 +14834,14 @@ uint32_t HeliosChainAction::read(::apache::thrift::protocol::TProtocol* iprot) {
           xfer += iprot->skip(ftype);
         }
         break;
+      case 10:
+        if (ftype == ::apache::thrift::protocol::T_BOOL) {
+          xfer += iprot->readBool(this->server_side_decision);
+          this->__isset.server_side_decision = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       default:
         xfer += iprot->skip(ftype);
         break;
@@ -14883,6 +14895,10 @@ uint32_t HeliosChainAction::write(::apache::thrift::protocol::TProtocol* oprot) 
   xfer += oprot->writeBool(this->simple_shoot);
   xfer += oprot->writeFieldEnd();
 
+  xfer += oprot->writeFieldBegin("server_side_decision", ::apache::thrift::protocol::T_BOOL, 10);
+  xfer += oprot->writeBool(this->server_side_decision);
+  xfer += oprot->writeFieldEnd();
+
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -14899,6 +14915,7 @@ void swap(HeliosChainAction &a, HeliosChainAction &b) {
   swap(a.simple_pass, b.simple_pass);
   swap(a.simple_dribble, b.simple_dribble);
   swap(a.simple_shoot, b.simple_shoot);
+  swap(a.server_side_decision, b.server_side_decision);
   swap(a.__isset, b.__isset);
 }
 
@@ -14912,6 +14929,7 @@ HeliosChainAction::HeliosChainAction(const HeliosChainAction& other271) noexcept
   simple_pass = other271.simple_pass;
   simple_dribble = other271.simple_dribble;
   simple_shoot = other271.simple_shoot;
+  server_side_decision = other271.server_side_decision;
   __isset = other271.__isset;
 }
 HeliosChainAction& HeliosChainAction::operator=(const HeliosChainAction& other272) noexcept {
@@ -14924,6 +14942,7 @@ HeliosChainAction& HeliosChainAction::operator=(const HeliosChainAction& other27
   simple_pass = other272.simple_pass;
   simple_dribble = other272.simple_dribble;
   simple_shoot = other272.simple_shoot;
+  server_side_decision = other272.server_side_decision;
   __isset = other272.__isset;
   return *this;
 }
@@ -14939,6 +14958,7 @@ void HeliosChainAction::printTo(std::ostream& out) const {
   out << ", " << "simple_pass=" << to_string(simple_pass);
   out << ", " << "simple_dribble=" << to_string(simple_dribble);
   out << ", " << "simple_shoot=" << to_string(simple_shoot);
+  out << ", " << "server_side_decision=" << to_string(server_side_decision);
   out << ")";
 }
 

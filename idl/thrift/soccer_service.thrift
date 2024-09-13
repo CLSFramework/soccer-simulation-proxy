@@ -726,6 +726,7 @@ struct HeliosChainAction {
   7: bool simple_pass,
   8: bool simple_dribble,
   9: bool simple_shoot
+  10: bool server_side_decision
 }
 
 struct HeliosBasicOffensive {}

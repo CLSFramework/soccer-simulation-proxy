@@ -15,6 +15,7 @@ class ThriftClientPlayer : public ThriftAgent, public RpcPlayerClient {
               bool add_20_to_grpc_port_if_right_side=false) override;
 
     void getActions();
+    void GetBestPlannerAction();
     void addSayMessage(soccer::Say sayMessage) const;
     soccer::State generateState() const;
     void addHomePosition(soccer::WorldModel * world_model) const;

@@ -69,7 +69,7 @@ using std::chrono::high_resolution_clock;
 using std::chrono::milliseconds;
 
 #define DEBUG
-
+#define DEBUG_CLIENT_PLAYER
 #ifdef DEBUG
 #define LOG(x) std::cout << x << std::endl
 #define LOGV(x) std::cout << #x << ": " << x << std::endl
@@ -111,9 +111,10 @@ void ThriftClientPlayer::getActions()
     auto agent = M_agent;
     bool pre_process = checkPreprocess(agent);
     soccer::State state = generateState();
-    state.need_preprocess = pre_process;
     soccer::PlayerActions actions;
-    state.register_response = M_register_response;
+    soccer::RegisterResponse response = M_register_response;
+    state.need_preprocess = pre_process;
+    state.register_response = response;
     try
     {
         M_client->GetPlayerActions(actions, state);
@@ -630,17 +631,170 @@ void ThriftClientPlayer::getActions()
             ActionChainHolder::instance().setFieldEvaluator(field_evaluator);
             ActionChainHolder::instance().setActionGenerator(action_generator);
             ActionChainHolder::instance().update(agent->world());
-            if (Bhv_PlannedAction().execute(agent))
+            
+            if (action.helios_chain_action.server_side_decision)
             {
-                agent->debugClient().addMessage("PlannedAction");
-                continue;
+                #ifdef DEBUG_CLIENT_PLAYER
+                std::cout << "server side decision" << std::endl;
+                #endif
+                GetBestPlannerAction();
+                #ifdef DEBUG_CLIENT_PLAYER
+                std::cout << " end server side decision" << std::endl;
+                #endif
             }
+            else
+            {
+                if (Bhv_PlannedAction().execute(agent))
+                {
+                    agent->debugClient().addMessage("PlannedAction");
+                    continue;
+                }
 
-            Body_HoldBall().execute(agent);
-            agent->setNeckAction(new Neck_ScanField());
+                Body_HoldBall().execute(agent);
+                agent->setNeckAction(new Neck_ScanField());
+            }
+            continue;
         }
+        #ifdef DEBUG_CLIENT_PLAYER
+        std::cout << "Unkown action"<<std::endl;
+        #endif
+        Body_HoldBall().execute(agent);
+        agent->setNeckAction(new Neck_ScanField());
     }
 }
+
+
+void ThriftClientPlayer::GetBestPlannerAction()
+{
+    soccer::BestPlannerActionRequest action_state_pairs =  soccer::BestPlannerActionRequest();
+    soccer::RegisterResponse  response =  M_register_response;
+    action_state_pairs.register_response = response;
+
+    soccer::State state = generateState();
+    state.register_response = M_register_response;
+    action_state_pairs.state = state;
+    #ifdef DEBUG_CLIENT_PLAYER
+    std::cout << "GetBestActionStatePair:" << "c" << M_agent->world().time().cycle() << std::endl;
+    #endif
+    for (auto & index_resultPair : ActionChainHolder::instance().graph().getAllResults())
+    {
+
+        try
+        {
+
+            auto & result_pair = index_resultPair.second;
+            auto action_ptr = result_pair.first->actionPtr();
+            auto state_ptr = result_pair.first->statePtr();
+            int unique_index = action_ptr->uniqueIndex();
+            int parent_index = action_ptr->parentIndex();
+            auto eval = result_pair.second;
+            #ifdef DEBUG_CLIENT_PLAYER
+            #endif
+            auto map = & action_state_pairs.pairs;
+            auto rpc_action_state_pair = soccer::RpcActionState();
+            auto rpc_cooperative_action = soccer::RpcCooperativeAction();
+            auto rpc_predict_state = soccer::RpcPredictState();
+            auto category = soccer::RpcActionCategory::AC_Hold;
+            
+            switch (action_ptr->category())
+            {
+            case CooperativeAction::Hold:
+                category = soccer::RpcActionCategory::AC_Hold;
+                break;
+            case CooperativeAction::Dribble:
+                category = soccer::RpcActionCategory::AC_Dribble;
+                break;
+            case CooperativeAction::Pass:
+                category = soccer::RpcActionCategory::AC_Pass;
+                break;
+            case CooperativeAction::Shoot :
+                category = soccer::RpcActionCategory::AC_Shoot;
+                break;
+            case CooperativeAction::Clear:
+                category = soccer::RpcActionCategory::AC_Clear;
+                break;
+            case CooperativeAction::Move:
+                category = soccer::RpcActionCategory::AC_Move;
+                break;            
+            case CooperativeAction::NoAction:
+                category = soccer::RpcActionCategory::AC_NoAction;
+                break;
+            default:
+                break;
+            }
+            rpc_cooperative_action.category = category;
+            rpc_cooperative_action.index = unique_index;
+            rpc_cooperative_action.sender_unum = action_ptr->playerUnum();
+            rpc_cooperative_action.target_unum = action_ptr->targetPlayerUnum();
+            rpc_cooperative_action.target_point = ThriftStateGenerator::convertVector2D(action_ptr->targetPoint());
+            rpc_cooperative_action.first_ball_speed = action_ptr->firstBallSpeed();
+            rpc_cooperative_action.first_turn_moment = action_ptr->firstTurnMoment();
+            rpc_cooperative_action.first_dash_power = action_ptr->firstDashPower();
+            rpc_cooperative_action.first_dash_angle_relative = action_ptr->firstDashAngle().degree();
+            rpc_cooperative_action.duration_step = action_ptr->durationStep();
+            rpc_cooperative_action.kick_count = action_ptr->kickCount();
+            rpc_cooperative_action.turn_count = action_ptr->turnCount();
+            rpc_cooperative_action.dash_count = action_ptr->dashCount();
+            rpc_cooperative_action.final_action = action_ptr->isFinalAction();
+            rpc_cooperative_action.description = action_ptr->description();
+            rpc_cooperative_action.parent_index = parent_index;
+
+            // RpcPredictState
+            rpc_predict_state.spend_time = state_ptr->spendTime();
+            rpc_predict_state.ball_holder_unum = state_ptr->ballHolderUnum();
+            rpc_predict_state.ball_position = ThriftStateGenerator::convertVector2D(state_ptr->ball().pos());
+            rpc_predict_state.ball_velocity = ThriftStateGenerator::convertVector2D(state_ptr->ball().vel());
+            rpc_predict_state.our_defense_line_x = state_ptr->ourDefenseLineX();
+            rpc_predict_state.our_offense_line_x = state_ptr->ourOffensePlayerLineX();
+
+            // RpcActionState
+            rpc_action_state_pair.action = rpc_cooperative_action;
+            rpc_action_state_pair.predict_state = rpc_predict_state;
+            rpc_action_state_pair.evaluation = eval;
+
+            (*map)[unique_index] = rpc_action_state_pair;
+
+        }
+        catch (const std::exception &e)
+        {
+            std::cout << e.what() << '\n';
+        }
+    }
+
+    #ifdef DEBUG_CLIENT_PLAYER
+    std::cout << "map size:" << action_state_pairs.pairs.size() << std::endl;
+    #endif
+
+    soccer::BestPlannerActionResponse best_action;
+    try
+    {
+        M_client->GetBestPlannerAction(best_action, action_state_pairs);
+    }
+    catch(const std::exception& e){
+        std::cout << e.what() << '\n';
+        M_is_connected = false;
+        return;
+    }
+    auto agent = M_agent;
+
+
+
+    if (Bhv_PlannedAction().execute(agent, best_action.index))
+    {
+        #ifdef DEBUG_CLIENT_PLAYER
+        std::cout << "PlannedAction = "<< best_action.index  << std::endl;
+        #endif
+        agent->debugClient().addMessage("PlannedAction");
+        return;
+    }
+
+    #ifdef DEBUG_CLIENT_PLAYER
+    std::cout << "Body_HoldBall" << std::endl;
+    #endif
+    Body_HoldBall().execute(agent);
+    agent->setNeckAction(new Neck_ScanField());
+}
+
 
 void ThriftClientPlayer::addSayMessage(soccer::Say sayMessage) const
 {

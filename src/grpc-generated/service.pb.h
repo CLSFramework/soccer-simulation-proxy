@@ -251,9 +251,6 @@ extern HeliosBasicMoveDefaultTypeInternal _HeliosBasicMove_default_instance_;
 class HeliosBasicOffensive;
 struct HeliosBasicOffensiveDefaultTypeInternal;
 extern HeliosBasicOffensiveDefaultTypeInternal _HeliosBasicOffensive_default_instance_;
-class HeliosChainAction;
-struct HeliosChainActionDefaultTypeInternal;
-extern HeliosChainActionDefaultTypeInternal _HeliosChainAction_default_instance_;
 class HeliosCommunicaion;
 struct HeliosCommunicaionDefaultTypeInternal;
 extern HeliosCommunicaionDefaultTypeInternal _HeliosCommunicaion_default_instance_;
@@ -266,6 +263,9 @@ extern HeliosGoalieKickDefaultTypeInternal _HeliosGoalieKick_default_instance_;
 class HeliosGoalieMove;
 struct HeliosGoalieMoveDefaultTypeInternal;
 extern HeliosGoalieMoveDefaultTypeInternal _HeliosGoalieMove_default_instance_;
+class HeliosOffensivePlanner;
+struct HeliosOffensivePlannerDefaultTypeInternal;
+extern HeliosOffensivePlannerDefaultTypeInternal _HeliosOffensivePlanner_default_instance_;
 class HeliosPenalty;
 struct HeliosPenaltyDefaultTypeInternal;
 extern HeliosPenaltyDefaultTypeInternal _HeliosPenalty_default_instance_;
@@ -591,8 +591,6 @@ template <>
 template <>
 ::protos::HeliosBasicOffensive* Arena::CreateMaybeMessage<::protos::HeliosBasicOffensive>(Arena*);
 template <>
-::protos::HeliosChainAction* Arena::CreateMaybeMessage<::protos::HeliosChainAction>(Arena*);
-template <>
 ::protos::HeliosCommunicaion* Arena::CreateMaybeMessage<::protos::HeliosCommunicaion>(Arena*);
 template <>
 ::protos::HeliosGoalie* Arena::CreateMaybeMessage<::protos::HeliosGoalie>(Arena*);
@@ -600,6 +598,8 @@ template <>
 ::protos::HeliosGoalieKick* Arena::CreateMaybeMessage<::protos::HeliosGoalieKick>(Arena*);
 template <>
 ::protos::HeliosGoalieMove* Arena::CreateMaybeMessage<::protos::HeliosGoalieMove>(Arena*);
+template <>
+::protos::HeliosOffensivePlanner* Arena::CreateMaybeMessage<::protos::HeliosOffensivePlanner>(Arena*);
 template <>
 ::protos::HeliosPenalty* Arena::CreateMaybeMessage<::protos::HeliosPenalty>(Arena*);
 template <>
@@ -20069,25 +20069,25 @@ class HeliosShoot final :
   friend struct ::TableStruct_service_2eproto;
 };// -------------------------------------------------------------------
 
-class HeliosChainAction final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.HeliosChainAction) */ {
+class HeliosOffensivePlanner final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:protos.HeliosOffensivePlanner) */ {
  public:
-  inline HeliosChainAction() : HeliosChainAction(nullptr) {}
-  ~HeliosChainAction() override;
+  inline HeliosOffensivePlanner() : HeliosOffensivePlanner(nullptr) {}
+  ~HeliosOffensivePlanner() override;
   template<typename = void>
-  explicit PROTOBUF_CONSTEXPR HeliosChainAction(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit PROTOBUF_CONSTEXPR HeliosOffensivePlanner(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  HeliosChainAction(const HeliosChainAction& from);
-  HeliosChainAction(HeliosChainAction&& from) noexcept
-    : HeliosChainAction() {
+  HeliosOffensivePlanner(const HeliosOffensivePlanner& from);
+  HeliosOffensivePlanner(HeliosOffensivePlanner&& from) noexcept
+    : HeliosOffensivePlanner() {
     *this = ::std::move(from);
   }
 
-  inline HeliosChainAction& operator=(const HeliosChainAction& from) {
+  inline HeliosOffensivePlanner& operator=(const HeliosOffensivePlanner& from) {
     CopyFrom(from);
     return *this;
   }
-  inline HeliosChainAction& operator=(HeliosChainAction&& from) noexcept {
+  inline HeliosOffensivePlanner& operator=(HeliosOffensivePlanner&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -20117,20 +20117,20 @@ class HeliosChainAction final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const HeliosChainAction& default_instance() {
+  static const HeliosOffensivePlanner& default_instance() {
     return *internal_default_instance();
   }
-  static inline const HeliosChainAction* internal_default_instance() {
-    return reinterpret_cast<const HeliosChainAction*>(
-               &_HeliosChainAction_default_instance_);
+  static inline const HeliosOffensivePlanner* internal_default_instance() {
+    return reinterpret_cast<const HeliosOffensivePlanner*>(
+               &_HeliosOffensivePlanner_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     103;
 
-  friend void swap(HeliosChainAction& a, HeliosChainAction& b) {
+  friend void swap(HeliosOffensivePlanner& a, HeliosOffensivePlanner& b) {
     a.Swap(&b);
   }
-  inline void Swap(HeliosChainAction* other) {
+  inline void Swap(HeliosOffensivePlanner* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -20143,7 +20143,7 @@ class HeliosChainAction final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(HeliosChainAction* other) {
+  void UnsafeArenaSwap(HeliosOffensivePlanner* other) {
     if (other == this) return;
     ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -20151,14 +20151,14 @@ class HeliosChainAction final :
 
   // implements Message ----------------------------------------------
 
-  HeliosChainAction* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<HeliosChainAction>(arena);
+  HeliosOffensivePlanner* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<HeliosOffensivePlanner>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const HeliosChainAction& from);
+  void CopyFrom(const HeliosOffensivePlanner& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const HeliosChainAction& from) {
-    HeliosChainAction::MergeImpl(*this, from);
+  void MergeFrom( const HeliosOffensivePlanner& from) {
+    HeliosOffensivePlanner::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -20176,15 +20176,15 @@ class HeliosChainAction final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(HeliosChainAction* other);
+  void InternalSwap(HeliosOffensivePlanner* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::absl::string_view FullMessageName() {
-    return "protos.HeliosChainAction";
+    return "protos.HeliosOffensivePlanner";
   }
   protected:
-  explicit HeliosChainAction(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit HeliosOffensivePlanner(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
   static const ClassData _class_data_;
@@ -20308,7 +20308,7 @@ class HeliosChainAction final :
   void _internal_set_server_side_decision(bool value);
 
   public:
-  // @@protoc_insertion_point(class_scope:protos.HeliosChainAction)
+  // @@protoc_insertion_point(class_scope:protos.HeliosOffensivePlanner)
  private:
   class _Internal;
 
@@ -21062,7 +21062,7 @@ class PlayerAction final :
     kHeliosGoalieMove = 56,
     kHeliosGoalieKick = 57,
     kHeliosShoot = 58,
-    kHeliosChainAction = 59,
+    kHeliosOffensivePlanner = 59,
     kHeliosBasicOffensive = 60,
     kHeliosBasicMove = 61,
     kHeliosSetPlay = 62,
@@ -21206,7 +21206,7 @@ class PlayerAction final :
     kHeliosGoalieMoveFieldNumber = 56,
     kHeliosGoalieKickFieldNumber = 57,
     kHeliosShootFieldNumber = 58,
-    kHeliosChainActionFieldNumber = 59,
+    kHeliosOffensivePlannerFieldNumber = 59,
     kHeliosBasicOffensiveFieldNumber = 60,
     kHeliosBasicMoveFieldNumber = 61,
     kHeliosSetPlayFieldNumber = 62,
@@ -22257,24 +22257,24 @@ class PlayerAction final :
   void unsafe_arena_set_allocated_helios_shoot(
       ::protos::HeliosShoot* helios_shoot);
   ::protos::HeliosShoot* unsafe_arena_release_helios_shoot();
-  // .protos.HeliosChainAction helios_chain_action = 59;
-  bool has_helios_chain_action() const;
+  // .protos.HeliosOffensivePlanner helios_offensive_planner = 59;
+  bool has_helios_offensive_planner() const;
   private:
-  bool _internal_has_helios_chain_action() const;
+  bool _internal_has_helios_offensive_planner() const;
 
   public:
-  void clear_helios_chain_action() ;
-  const ::protos::HeliosChainAction& helios_chain_action() const;
-  PROTOBUF_NODISCARD ::protos::HeliosChainAction* release_helios_chain_action();
-  ::protos::HeliosChainAction* mutable_helios_chain_action();
-  void set_allocated_helios_chain_action(::protos::HeliosChainAction* helios_chain_action);
+  void clear_helios_offensive_planner() ;
+  const ::protos::HeliosOffensivePlanner& helios_offensive_planner() const;
+  PROTOBUF_NODISCARD ::protos::HeliosOffensivePlanner* release_helios_offensive_planner();
+  ::protos::HeliosOffensivePlanner* mutable_helios_offensive_planner();
+  void set_allocated_helios_offensive_planner(::protos::HeliosOffensivePlanner* helios_offensive_planner);
   private:
-  const ::protos::HeliosChainAction& _internal_helios_chain_action() const;
-  ::protos::HeliosChainAction* _internal_mutable_helios_chain_action();
+  const ::protos::HeliosOffensivePlanner& _internal_helios_offensive_planner() const;
+  ::protos::HeliosOffensivePlanner* _internal_mutable_helios_offensive_planner();
   public:
-  void unsafe_arena_set_allocated_helios_chain_action(
-      ::protos::HeliosChainAction* helios_chain_action);
-  ::protos::HeliosChainAction* unsafe_arena_release_helios_chain_action();
+  void unsafe_arena_set_allocated_helios_offensive_planner(
+      ::protos::HeliosOffensivePlanner* helios_offensive_planner);
+  ::protos::HeliosOffensivePlanner* unsafe_arena_release_helios_offensive_planner();
   // .protos.HeliosBasicOffensive helios_basic_offensive = 60;
   bool has_helios_basic_offensive() const;
   private:
@@ -22428,7 +22428,7 @@ class PlayerAction final :
   void set_has_helios_goalie_move();
   void set_has_helios_goalie_kick();
   void set_has_helios_shoot();
-  void set_has_helios_chain_action();
+  void set_has_helios_offensive_planner();
   void set_has_helios_basic_offensive();
   void set_has_helios_basic_move();
   void set_has_helios_set_play();
@@ -22503,7 +22503,7 @@ class PlayerAction final :
       ::protos::HeliosGoalieMove* helios_goalie_move_;
       ::protos::HeliosGoalieKick* helios_goalie_kick_;
       ::protos::HeliosShoot* helios_shoot_;
-      ::protos::HeliosChainAction* helios_chain_action_;
+      ::protos::HeliosOffensivePlanner* helios_offensive_planner_;
       ::protos::HeliosBasicOffensive* helios_basic_offensive_;
       ::protos::HeliosBasicMove* helios_basic_move_;
       ::protos::HeliosSetPlay* helios_set_play_;
@@ -44939,204 +44939,204 @@ inline void View_ChangeWidth::_internal_set_view_width(::protos::ViewWidth value
 
 // -------------------------------------------------------------------
 
-// HeliosChainAction
+// HeliosOffensivePlanner
 
 // bool direct_pass = 1;
-inline void HeliosChainAction::clear_direct_pass() {
+inline void HeliosOffensivePlanner::clear_direct_pass() {
   _impl_.direct_pass_ = false;
 }
-inline bool HeliosChainAction::direct_pass() const {
-  // @@protoc_insertion_point(field_get:protos.HeliosChainAction.direct_pass)
+inline bool HeliosOffensivePlanner::direct_pass() const {
+  // @@protoc_insertion_point(field_get:protos.HeliosOffensivePlanner.direct_pass)
   return _internal_direct_pass();
 }
-inline void HeliosChainAction::set_direct_pass(bool value) {
+inline void HeliosOffensivePlanner::set_direct_pass(bool value) {
   _internal_set_direct_pass(value);
-  // @@protoc_insertion_point(field_set:protos.HeliosChainAction.direct_pass)
+  // @@protoc_insertion_point(field_set:protos.HeliosOffensivePlanner.direct_pass)
 }
-inline bool HeliosChainAction::_internal_direct_pass() const {
+inline bool HeliosOffensivePlanner::_internal_direct_pass() const {
   return _impl_.direct_pass_;
 }
-inline void HeliosChainAction::_internal_set_direct_pass(bool value) {
+inline void HeliosOffensivePlanner::_internal_set_direct_pass(bool value) {
   ;
   _impl_.direct_pass_ = value;
 }
 
 // bool lead_pass = 2;
-inline void HeliosChainAction::clear_lead_pass() {
+inline void HeliosOffensivePlanner::clear_lead_pass() {
   _impl_.lead_pass_ = false;
 }
-inline bool HeliosChainAction::lead_pass() const {
-  // @@protoc_insertion_point(field_get:protos.HeliosChainAction.lead_pass)
+inline bool HeliosOffensivePlanner::lead_pass() const {
+  // @@protoc_insertion_point(field_get:protos.HeliosOffensivePlanner.lead_pass)
   return _internal_lead_pass();
 }
-inline void HeliosChainAction::set_lead_pass(bool value) {
+inline void HeliosOffensivePlanner::set_lead_pass(bool value) {
   _internal_set_lead_pass(value);
-  // @@protoc_insertion_point(field_set:protos.HeliosChainAction.lead_pass)
+  // @@protoc_insertion_point(field_set:protos.HeliosOffensivePlanner.lead_pass)
 }
-inline bool HeliosChainAction::_internal_lead_pass() const {
+inline bool HeliosOffensivePlanner::_internal_lead_pass() const {
   return _impl_.lead_pass_;
 }
-inline void HeliosChainAction::_internal_set_lead_pass(bool value) {
+inline void HeliosOffensivePlanner::_internal_set_lead_pass(bool value) {
   ;
   _impl_.lead_pass_ = value;
 }
 
 // bool through_pass = 3;
-inline void HeliosChainAction::clear_through_pass() {
+inline void HeliosOffensivePlanner::clear_through_pass() {
   _impl_.through_pass_ = false;
 }
-inline bool HeliosChainAction::through_pass() const {
-  // @@protoc_insertion_point(field_get:protos.HeliosChainAction.through_pass)
+inline bool HeliosOffensivePlanner::through_pass() const {
+  // @@protoc_insertion_point(field_get:protos.HeliosOffensivePlanner.through_pass)
   return _internal_through_pass();
 }
-inline void HeliosChainAction::set_through_pass(bool value) {
+inline void HeliosOffensivePlanner::set_through_pass(bool value) {
   _internal_set_through_pass(value);
-  // @@protoc_insertion_point(field_set:protos.HeliosChainAction.through_pass)
+  // @@protoc_insertion_point(field_set:protos.HeliosOffensivePlanner.through_pass)
 }
-inline bool HeliosChainAction::_internal_through_pass() const {
+inline bool HeliosOffensivePlanner::_internal_through_pass() const {
   return _impl_.through_pass_;
 }
-inline void HeliosChainAction::_internal_set_through_pass(bool value) {
+inline void HeliosOffensivePlanner::_internal_set_through_pass(bool value) {
   ;
   _impl_.through_pass_ = value;
 }
 
 // bool short_dribble = 4;
-inline void HeliosChainAction::clear_short_dribble() {
+inline void HeliosOffensivePlanner::clear_short_dribble() {
   _impl_.short_dribble_ = false;
 }
-inline bool HeliosChainAction::short_dribble() const {
-  // @@protoc_insertion_point(field_get:protos.HeliosChainAction.short_dribble)
+inline bool HeliosOffensivePlanner::short_dribble() const {
+  // @@protoc_insertion_point(field_get:protos.HeliosOffensivePlanner.short_dribble)
   return _internal_short_dribble();
 }
-inline void HeliosChainAction::set_short_dribble(bool value) {
+inline void HeliosOffensivePlanner::set_short_dribble(bool value) {
   _internal_set_short_dribble(value);
-  // @@protoc_insertion_point(field_set:protos.HeliosChainAction.short_dribble)
+  // @@protoc_insertion_point(field_set:protos.HeliosOffensivePlanner.short_dribble)
 }
-inline bool HeliosChainAction::_internal_short_dribble() const {
+inline bool HeliosOffensivePlanner::_internal_short_dribble() const {
   return _impl_.short_dribble_;
 }
-inline void HeliosChainAction::_internal_set_short_dribble(bool value) {
+inline void HeliosOffensivePlanner::_internal_set_short_dribble(bool value) {
   ;
   _impl_.short_dribble_ = value;
 }
 
 // bool long_dribble = 5;
-inline void HeliosChainAction::clear_long_dribble() {
+inline void HeliosOffensivePlanner::clear_long_dribble() {
   _impl_.long_dribble_ = false;
 }
-inline bool HeliosChainAction::long_dribble() const {
-  // @@protoc_insertion_point(field_get:protos.HeliosChainAction.long_dribble)
+inline bool HeliosOffensivePlanner::long_dribble() const {
+  // @@protoc_insertion_point(field_get:protos.HeliosOffensivePlanner.long_dribble)
   return _internal_long_dribble();
 }
-inline void HeliosChainAction::set_long_dribble(bool value) {
+inline void HeliosOffensivePlanner::set_long_dribble(bool value) {
   _internal_set_long_dribble(value);
-  // @@protoc_insertion_point(field_set:protos.HeliosChainAction.long_dribble)
+  // @@protoc_insertion_point(field_set:protos.HeliosOffensivePlanner.long_dribble)
 }
-inline bool HeliosChainAction::_internal_long_dribble() const {
+inline bool HeliosOffensivePlanner::_internal_long_dribble() const {
   return _impl_.long_dribble_;
 }
-inline void HeliosChainAction::_internal_set_long_dribble(bool value) {
+inline void HeliosOffensivePlanner::_internal_set_long_dribble(bool value) {
   ;
   _impl_.long_dribble_ = value;
 }
 
 // bool cross = 6;
-inline void HeliosChainAction::clear_cross() {
+inline void HeliosOffensivePlanner::clear_cross() {
   _impl_.cross_ = false;
 }
-inline bool HeliosChainAction::cross() const {
-  // @@protoc_insertion_point(field_get:protos.HeliosChainAction.cross)
+inline bool HeliosOffensivePlanner::cross() const {
+  // @@protoc_insertion_point(field_get:protos.HeliosOffensivePlanner.cross)
   return _internal_cross();
 }
-inline void HeliosChainAction::set_cross(bool value) {
+inline void HeliosOffensivePlanner::set_cross(bool value) {
   _internal_set_cross(value);
-  // @@protoc_insertion_point(field_set:protos.HeliosChainAction.cross)
+  // @@protoc_insertion_point(field_set:protos.HeliosOffensivePlanner.cross)
 }
-inline bool HeliosChainAction::_internal_cross() const {
+inline bool HeliosOffensivePlanner::_internal_cross() const {
   return _impl_.cross_;
 }
-inline void HeliosChainAction::_internal_set_cross(bool value) {
+inline void HeliosOffensivePlanner::_internal_set_cross(bool value) {
   ;
   _impl_.cross_ = value;
 }
 
 // bool simple_pass = 7;
-inline void HeliosChainAction::clear_simple_pass() {
+inline void HeliosOffensivePlanner::clear_simple_pass() {
   _impl_.simple_pass_ = false;
 }
-inline bool HeliosChainAction::simple_pass() const {
-  // @@protoc_insertion_point(field_get:protos.HeliosChainAction.simple_pass)
+inline bool HeliosOffensivePlanner::simple_pass() const {
+  // @@protoc_insertion_point(field_get:protos.HeliosOffensivePlanner.simple_pass)
   return _internal_simple_pass();
 }
-inline void HeliosChainAction::set_simple_pass(bool value) {
+inline void HeliosOffensivePlanner::set_simple_pass(bool value) {
   _internal_set_simple_pass(value);
-  // @@protoc_insertion_point(field_set:protos.HeliosChainAction.simple_pass)
+  // @@protoc_insertion_point(field_set:protos.HeliosOffensivePlanner.simple_pass)
 }
-inline bool HeliosChainAction::_internal_simple_pass() const {
+inline bool HeliosOffensivePlanner::_internal_simple_pass() const {
   return _impl_.simple_pass_;
 }
-inline void HeliosChainAction::_internal_set_simple_pass(bool value) {
+inline void HeliosOffensivePlanner::_internal_set_simple_pass(bool value) {
   ;
   _impl_.simple_pass_ = value;
 }
 
 // bool simple_dribble = 8;
-inline void HeliosChainAction::clear_simple_dribble() {
+inline void HeliosOffensivePlanner::clear_simple_dribble() {
   _impl_.simple_dribble_ = false;
 }
-inline bool HeliosChainAction::simple_dribble() const {
-  // @@protoc_insertion_point(field_get:protos.HeliosChainAction.simple_dribble)
+inline bool HeliosOffensivePlanner::simple_dribble() const {
+  // @@protoc_insertion_point(field_get:protos.HeliosOffensivePlanner.simple_dribble)
   return _internal_simple_dribble();
 }
-inline void HeliosChainAction::set_simple_dribble(bool value) {
+inline void HeliosOffensivePlanner::set_simple_dribble(bool value) {
   _internal_set_simple_dribble(value);
-  // @@protoc_insertion_point(field_set:protos.HeliosChainAction.simple_dribble)
+  // @@protoc_insertion_point(field_set:protos.HeliosOffensivePlanner.simple_dribble)
 }
-inline bool HeliosChainAction::_internal_simple_dribble() const {
+inline bool HeliosOffensivePlanner::_internal_simple_dribble() const {
   return _impl_.simple_dribble_;
 }
-inline void HeliosChainAction::_internal_set_simple_dribble(bool value) {
+inline void HeliosOffensivePlanner::_internal_set_simple_dribble(bool value) {
   ;
   _impl_.simple_dribble_ = value;
 }
 
 // bool simple_shoot = 9;
-inline void HeliosChainAction::clear_simple_shoot() {
+inline void HeliosOffensivePlanner::clear_simple_shoot() {
   _impl_.simple_shoot_ = false;
 }
-inline bool HeliosChainAction::simple_shoot() const {
-  // @@protoc_insertion_point(field_get:protos.HeliosChainAction.simple_shoot)
+inline bool HeliosOffensivePlanner::simple_shoot() const {
+  // @@protoc_insertion_point(field_get:protos.HeliosOffensivePlanner.simple_shoot)
   return _internal_simple_shoot();
 }
-inline void HeliosChainAction::set_simple_shoot(bool value) {
+inline void HeliosOffensivePlanner::set_simple_shoot(bool value) {
   _internal_set_simple_shoot(value);
-  // @@protoc_insertion_point(field_set:protos.HeliosChainAction.simple_shoot)
+  // @@protoc_insertion_point(field_set:protos.HeliosOffensivePlanner.simple_shoot)
 }
-inline bool HeliosChainAction::_internal_simple_shoot() const {
+inline bool HeliosOffensivePlanner::_internal_simple_shoot() const {
   return _impl_.simple_shoot_;
 }
-inline void HeliosChainAction::_internal_set_simple_shoot(bool value) {
+inline void HeliosOffensivePlanner::_internal_set_simple_shoot(bool value) {
   ;
   _impl_.simple_shoot_ = value;
 }
 
 // bool server_side_decision = 10;
-inline void HeliosChainAction::clear_server_side_decision() {
+inline void HeliosOffensivePlanner::clear_server_side_decision() {
   _impl_.server_side_decision_ = false;
 }
-inline bool HeliosChainAction::server_side_decision() const {
-  // @@protoc_insertion_point(field_get:protos.HeliosChainAction.server_side_decision)
+inline bool HeliosOffensivePlanner::server_side_decision() const {
+  // @@protoc_insertion_point(field_get:protos.HeliosOffensivePlanner.server_side_decision)
   return _internal_server_side_decision();
 }
-inline void HeliosChainAction::set_server_side_decision(bool value) {
+inline void HeliosOffensivePlanner::set_server_side_decision(bool value) {
   _internal_set_server_side_decision(value);
-  // @@protoc_insertion_point(field_set:protos.HeliosChainAction.server_side_decision)
+  // @@protoc_insertion_point(field_set:protos.HeliosOffensivePlanner.server_side_decision)
 }
-inline bool HeliosChainAction::_internal_server_side_decision() const {
+inline bool HeliosOffensivePlanner::_internal_server_side_decision() const {
   return _impl_.server_side_decision_;
 }
-inline void HeliosChainAction::_internal_set_server_side_decision(bool value) {
+inline void HeliosOffensivePlanner::_internal_set_server_side_decision(bool value) {
   ;
   _impl_.server_side_decision_ = value;
 }
@@ -49457,77 +49457,77 @@ inline ::protos::HeliosShoot* PlayerAction::mutable_helios_shoot() {
   return _msg;
 }
 
-// .protos.HeliosChainAction helios_chain_action = 59;
-inline bool PlayerAction::has_helios_chain_action() const {
-  return action_case() == kHeliosChainAction;
+// .protos.HeliosOffensivePlanner helios_offensive_planner = 59;
+inline bool PlayerAction::has_helios_offensive_planner() const {
+  return action_case() == kHeliosOffensivePlanner;
 }
-inline bool PlayerAction::_internal_has_helios_chain_action() const {
-  return action_case() == kHeliosChainAction;
+inline bool PlayerAction::_internal_has_helios_offensive_planner() const {
+  return action_case() == kHeliosOffensivePlanner;
 }
-inline void PlayerAction::set_has_helios_chain_action() {
-  _impl_._oneof_case_[0] = kHeliosChainAction;
+inline void PlayerAction::set_has_helios_offensive_planner() {
+  _impl_._oneof_case_[0] = kHeliosOffensivePlanner;
 }
-inline void PlayerAction::clear_helios_chain_action() {
-  if (action_case() == kHeliosChainAction) {
+inline void PlayerAction::clear_helios_offensive_planner() {
+  if (action_case() == kHeliosOffensivePlanner) {
     if (GetArenaForAllocation() == nullptr) {
-      delete _impl_.action_.helios_chain_action_;
+      delete _impl_.action_.helios_offensive_planner_;
     }
     clear_has_action();
   }
 }
-inline ::protos::HeliosChainAction* PlayerAction::release_helios_chain_action() {
-  // @@protoc_insertion_point(field_release:protos.PlayerAction.helios_chain_action)
-  if (action_case() == kHeliosChainAction) {
+inline ::protos::HeliosOffensivePlanner* PlayerAction::release_helios_offensive_planner() {
+  // @@protoc_insertion_point(field_release:protos.PlayerAction.helios_offensive_planner)
+  if (action_case() == kHeliosOffensivePlanner) {
     clear_has_action();
-    ::protos::HeliosChainAction* temp = _impl_.action_.helios_chain_action_;
+    ::protos::HeliosOffensivePlanner* temp = _impl_.action_.helios_offensive_planner_;
     if (GetArenaForAllocation() != nullptr) {
       temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
     }
-    _impl_.action_.helios_chain_action_ = nullptr;
+    _impl_.action_.helios_offensive_planner_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline const ::protos::HeliosChainAction& PlayerAction::_internal_helios_chain_action() const {
-  return action_case() == kHeliosChainAction
-      ? *_impl_.action_.helios_chain_action_
-      : reinterpret_cast<::protos::HeliosChainAction&>(::protos::_HeliosChainAction_default_instance_);
+inline const ::protos::HeliosOffensivePlanner& PlayerAction::_internal_helios_offensive_planner() const {
+  return action_case() == kHeliosOffensivePlanner
+      ? *_impl_.action_.helios_offensive_planner_
+      : reinterpret_cast<::protos::HeliosOffensivePlanner&>(::protos::_HeliosOffensivePlanner_default_instance_);
 }
-inline const ::protos::HeliosChainAction& PlayerAction::helios_chain_action() const {
-  // @@protoc_insertion_point(field_get:protos.PlayerAction.helios_chain_action)
-  return _internal_helios_chain_action();
+inline const ::protos::HeliosOffensivePlanner& PlayerAction::helios_offensive_planner() const {
+  // @@protoc_insertion_point(field_get:protos.PlayerAction.helios_offensive_planner)
+  return _internal_helios_offensive_planner();
 }
-inline ::protos::HeliosChainAction* PlayerAction::unsafe_arena_release_helios_chain_action() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:protos.PlayerAction.helios_chain_action)
-  if (action_case() == kHeliosChainAction) {
+inline ::protos::HeliosOffensivePlanner* PlayerAction::unsafe_arena_release_helios_offensive_planner() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:protos.PlayerAction.helios_offensive_planner)
+  if (action_case() == kHeliosOffensivePlanner) {
     clear_has_action();
-    ::protos::HeliosChainAction* temp = _impl_.action_.helios_chain_action_;
-    _impl_.action_.helios_chain_action_ = nullptr;
+    ::protos::HeliosOffensivePlanner* temp = _impl_.action_.helios_offensive_planner_;
+    _impl_.action_.helios_offensive_planner_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline void PlayerAction::unsafe_arena_set_allocated_helios_chain_action(::protos::HeliosChainAction* helios_chain_action) {
+inline void PlayerAction::unsafe_arena_set_allocated_helios_offensive_planner(::protos::HeliosOffensivePlanner* helios_offensive_planner) {
   clear_action();
-  if (helios_chain_action) {
-    set_has_helios_chain_action();
-    _impl_.action_.helios_chain_action_ = helios_chain_action;
+  if (helios_offensive_planner) {
+    set_has_helios_offensive_planner();
+    _impl_.action_.helios_offensive_planner_ = helios_offensive_planner;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.PlayerAction.helios_chain_action)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:protos.PlayerAction.helios_offensive_planner)
 }
-inline ::protos::HeliosChainAction* PlayerAction::_internal_mutable_helios_chain_action() {
-  if (action_case() != kHeliosChainAction) {
+inline ::protos::HeliosOffensivePlanner* PlayerAction::_internal_mutable_helios_offensive_planner() {
+  if (action_case() != kHeliosOffensivePlanner) {
     clear_action();
-    set_has_helios_chain_action();
-    _impl_.action_.helios_chain_action_ = CreateMaybeMessage< ::protos::HeliosChainAction >(GetArenaForAllocation());
+    set_has_helios_offensive_planner();
+    _impl_.action_.helios_offensive_planner_ = CreateMaybeMessage< ::protos::HeliosOffensivePlanner >(GetArenaForAllocation());
   }
-  return _impl_.action_.helios_chain_action_;
+  return _impl_.action_.helios_offensive_planner_;
 }
-inline ::protos::HeliosChainAction* PlayerAction::mutable_helios_chain_action() {
-  ::protos::HeliosChainAction* _msg = _internal_mutable_helios_chain_action();
-  // @@protoc_insertion_point(field_mutable:protos.PlayerAction.helios_chain_action)
+inline ::protos::HeliosOffensivePlanner* PlayerAction::mutable_helios_offensive_planner() {
+  ::protos::HeliosOffensivePlanner* _msg = _internal_mutable_helios_offensive_planner();
+  // @@protoc_insertion_point(field_mutable:protos.PlayerAction.helios_offensive_planner)
   return _msg;
 }
 

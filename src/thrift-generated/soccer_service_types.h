@@ -373,7 +373,7 @@ class HeliosGoalieKick;
 
 class HeliosShoot;
 
-class HeliosChainAction;
+class HeliosOffensivePlanner;
 
 class HeliosBasicOffensive;
 
@@ -6406,8 +6406,8 @@ void swap(HeliosShoot &a, HeliosShoot &b);
 
 std::ostream& operator<<(std::ostream& out, const HeliosShoot& obj);
 
-typedef struct _HeliosChainAction__isset {
-  _HeliosChainAction__isset() : direct_pass(false), lead_pass(false), through_pass(false), short_dribble(false), long_dribble(false), cross(false), simple_pass(false), simple_dribble(false), simple_shoot(false), server_side_decision(false) {}
+typedef struct _HeliosOffensivePlanner__isset {
+  _HeliosOffensivePlanner__isset() : direct_pass(false), lead_pass(false), through_pass(false), short_dribble(false), long_dribble(false), cross(false), simple_pass(false), simple_dribble(false), simple_shoot(false), server_side_decision(false) {}
   bool direct_pass :1;
   bool lead_pass :1;
   bool through_pass :1;
@@ -6418,27 +6418,27 @@ typedef struct _HeliosChainAction__isset {
   bool simple_dribble :1;
   bool simple_shoot :1;
   bool server_side_decision :1;
-} _HeliosChainAction__isset;
+} _HeliosOffensivePlanner__isset;
 
-class HeliosChainAction : public virtual ::apache::thrift::TBase {
+class HeliosOffensivePlanner : public virtual ::apache::thrift::TBase {
  public:
 
-  HeliosChainAction(const HeliosChainAction&) noexcept;
-  HeliosChainAction& operator=(const HeliosChainAction&) noexcept;
-  HeliosChainAction() noexcept
-                    : direct_pass(0),
-                      lead_pass(0),
-                      through_pass(0),
-                      short_dribble(0),
-                      long_dribble(0),
-                      cross(0),
-                      simple_pass(0),
-                      simple_dribble(0),
-                      simple_shoot(0),
-                      server_side_decision(0) {
+  HeliosOffensivePlanner(const HeliosOffensivePlanner&) noexcept;
+  HeliosOffensivePlanner& operator=(const HeliosOffensivePlanner&) noexcept;
+  HeliosOffensivePlanner() noexcept
+                         : direct_pass(0),
+                           lead_pass(0),
+                           through_pass(0),
+                           short_dribble(0),
+                           long_dribble(0),
+                           cross(0),
+                           simple_pass(0),
+                           simple_dribble(0),
+                           simple_shoot(0),
+                           server_side_decision(0) {
   }
 
-  virtual ~HeliosChainAction() noexcept;
+  virtual ~HeliosOffensivePlanner() noexcept;
   bool direct_pass;
   bool lead_pass;
   bool through_pass;
@@ -6450,7 +6450,7 @@ class HeliosChainAction : public virtual ::apache::thrift::TBase {
   bool simple_shoot;
   bool server_side_decision;
 
-  _HeliosChainAction__isset __isset;
+  _HeliosOffensivePlanner__isset __isset;
 
   void __set_direct_pass(const bool val);
 
@@ -6472,7 +6472,7 @@ class HeliosChainAction : public virtual ::apache::thrift::TBase {
 
   void __set_server_side_decision(const bool val);
 
-  bool operator == (const HeliosChainAction & rhs) const
+  bool operator == (const HeliosOffensivePlanner & rhs) const
   {
     if (!(direct_pass == rhs.direct_pass))
       return false;
@@ -6496,11 +6496,11 @@ class HeliosChainAction : public virtual ::apache::thrift::TBase {
       return false;
     return true;
   }
-  bool operator != (const HeliosChainAction &rhs) const {
+  bool operator != (const HeliosOffensivePlanner &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const HeliosChainAction & ) const;
+  bool operator < (const HeliosOffensivePlanner & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot) override;
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const override;
@@ -6508,9 +6508,9 @@ class HeliosChainAction : public virtual ::apache::thrift::TBase {
   virtual void printTo(std::ostream& out) const;
 };
 
-void swap(HeliosChainAction &a, HeliosChainAction &b);
+void swap(HeliosOffensivePlanner &a, HeliosOffensivePlanner &b);
 
-std::ostream& operator<<(std::ostream& out, const HeliosChainAction& obj);
+std::ostream& operator<<(std::ostream& out, const HeliosOffensivePlanner& obj);
 
 
 class HeliosBasicOffensive : public virtual ::apache::thrift::TBase {
@@ -6668,7 +6668,7 @@ void swap(HeliosCommunicaion &a, HeliosCommunicaion &b);
 std::ostream& operator<<(std::ostream& out, const HeliosCommunicaion& obj);
 
 typedef struct _PlayerAction__isset {
-  _PlayerAction__isset() : dash(false), turn(false), kick(false), tackle(false), catch_action(false), move(false), turn_neck(false), change_view(false), say(false), point_to(false), point_to_of(false), attention_to(false), attention_to_of(false), log(false), debug_client(false), body_go_to_point(false), body_smart_kick(false), bhv_before_kick_off(false), bhv_body_neck_to_ball(false), bhv_body_neck_to_point(false), bhv_emergency(false), bhv_go_to_point_look_ball(false), bhv_neck_body_to_ball(false), bhv_neck_body_to_point(false), bhv_scan_field(false), body_advance_ball(false), body_clear_ball(false), body_dribble(false), body_go_to_point_dodge(false), body_hold_ball(false), body_intercept(false), body_kick_one_step(false), body_stop_ball(false), body_stop_dash(false), body_tackle_to_point(false), body_turn_to_angle(false), body_turn_to_ball(false), body_turn_to_point(false), focus_move_to_point(false), focus_reset(false), neck_scan_field(false), neck_scan_players(false), neck_turn_to_ball_and_player(false), neck_turn_to_ball_or_scan(false), neck_turn_to_ball(false), neck_turn_to_goalie_or_scan(false), neck_turn_to_low_conf_teammate(false), neck_turn_to_player_or_scan(false), neck_turn_to_point(false), neck_turn_to_relative(false), view_change_width(false), view_normal(false), view_synch(false), view_wide(false), helios_goalie(false), helios_goalie_move(false), helios_goalie_kick(false), helios_shoot(false), helios_chain_action(false), helios_basic_offensive(false), helios_basic_move(false), helios_set_play(false), helios_penalty(false), helios_communication(false) {}
+  _PlayerAction__isset() : dash(false), turn(false), kick(false), tackle(false), catch_action(false), move(false), turn_neck(false), change_view(false), say(false), point_to(false), point_to_of(false), attention_to(false), attention_to_of(false), log(false), debug_client(false), body_go_to_point(false), body_smart_kick(false), bhv_before_kick_off(false), bhv_body_neck_to_ball(false), bhv_body_neck_to_point(false), bhv_emergency(false), bhv_go_to_point_look_ball(false), bhv_neck_body_to_ball(false), bhv_neck_body_to_point(false), bhv_scan_field(false), body_advance_ball(false), body_clear_ball(false), body_dribble(false), body_go_to_point_dodge(false), body_hold_ball(false), body_intercept(false), body_kick_one_step(false), body_stop_ball(false), body_stop_dash(false), body_tackle_to_point(false), body_turn_to_angle(false), body_turn_to_ball(false), body_turn_to_point(false), focus_move_to_point(false), focus_reset(false), neck_scan_field(false), neck_scan_players(false), neck_turn_to_ball_and_player(false), neck_turn_to_ball_or_scan(false), neck_turn_to_ball(false), neck_turn_to_goalie_or_scan(false), neck_turn_to_low_conf_teammate(false), neck_turn_to_player_or_scan(false), neck_turn_to_point(false), neck_turn_to_relative(false), view_change_width(false), view_normal(false), view_synch(false), view_wide(false), helios_goalie(false), helios_goalie_move(false), helios_goalie_kick(false), helios_shoot(false), helios_offensive_planner(false), helios_basic_offensive(false), helios_basic_move(false), helios_set_play(false), helios_penalty(false), helios_communication(false) {}
   bool dash :1;
   bool turn :1;
   bool kick :1;
@@ -6727,7 +6727,7 @@ typedef struct _PlayerAction__isset {
   bool helios_goalie_move :1;
   bool helios_goalie_kick :1;
   bool helios_shoot :1;
-  bool helios_chain_action :1;
+  bool helios_offensive_planner :1;
   bool helios_basic_offensive :1;
   bool helios_basic_move :1;
   bool helios_set_play :1;
@@ -6802,7 +6802,7 @@ class PlayerAction : public virtual ::apache::thrift::TBase {
   HeliosGoalieMove helios_goalie_move;
   HeliosGoalieKick helios_goalie_kick;
   HeliosShoot helios_shoot;
-  HeliosChainAction helios_chain_action;
+  HeliosOffensivePlanner helios_offensive_planner;
   HeliosBasicOffensive helios_basic_offensive;
   HeliosBasicMove helios_basic_move;
   HeliosSetPlay helios_set_play;
@@ -6927,7 +6927,7 @@ class PlayerAction : public virtual ::apache::thrift::TBase {
 
   void __set_helios_shoot(const HeliosShoot& val);
 
-  void __set_helios_chain_action(const HeliosChainAction& val);
+  void __set_helios_offensive_planner(const HeliosOffensivePlanner& val);
 
   void __set_helios_basic_offensive(const HeliosBasicOffensive& val);
 
@@ -7173,9 +7173,9 @@ class PlayerAction : public virtual ::apache::thrift::TBase {
       return false;
     else if (__isset.helios_shoot && !(helios_shoot == rhs.helios_shoot))
       return false;
-    if (__isset.helios_chain_action != rhs.__isset.helios_chain_action)
+    if (__isset.helios_offensive_planner != rhs.__isset.helios_offensive_planner)
       return false;
-    else if (__isset.helios_chain_action && !(helios_chain_action == rhs.helios_chain_action))
+    else if (__isset.helios_offensive_planner && !(helios_offensive_planner == rhs.helios_offensive_planner))
       return false;
     if (__isset.helios_basic_offensive != rhs.__isset.helios_basic_offensive)
       return false;

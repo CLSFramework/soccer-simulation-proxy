@@ -2012,6 +2012,14 @@ void Self::__set_type_id(const int32_t val) {
 void Self::__set_kick_rate(const double val) {
   this->kick_rate = val;
 }
+
+void Self::__set_recovery(const double val) {
+  this->recovery = val;
+}
+
+void Self::__set_stamina_capacity(const double val) {
+  this->stamina_capacity = val;
+}
 std::ostream& operator<<(std::ostream& out, const Self& obj)
 {
   obj.printTo(out);
@@ -2332,6 +2340,22 @@ uint32_t Self::read(::apache::thrift::protocol::TProtocol* iprot) {
           xfer += iprot->skip(ftype);
         }
         break;
+      case 37:
+        if (ftype == ::apache::thrift::protocol::T_DOUBLE) {
+          xfer += iprot->readDouble(this->recovery);
+          this->__isset.recovery = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 38:
+        if (ftype == ::apache::thrift::protocol::T_DOUBLE) {
+          xfer += iprot->readDouble(this->stamina_capacity);
+          this->__isset.stamina_capacity = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       default:
         xfer += iprot->skip(ftype);
         break;
@@ -2493,6 +2517,14 @@ uint32_t Self::write(::apache::thrift::protocol::TProtocol* oprot) const {
   xfer += oprot->writeDouble(this->kick_rate);
   xfer += oprot->writeFieldEnd();
 
+  xfer += oprot->writeFieldBegin("recovery", ::apache::thrift::protocol::T_DOUBLE, 37);
+  xfer += oprot->writeDouble(this->recovery);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("stamina_capacity", ::apache::thrift::protocol::T_DOUBLE, 38);
+  xfer += oprot->writeDouble(this->stamina_capacity);
+  xfer += oprot->writeFieldEnd();
+
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -2536,6 +2568,8 @@ void swap(Self &a, Self &b) {
   swap(a.view_width, b.view_width);
   swap(a.type_id, b.type_id);
   swap(a.kick_rate, b.kick_rate);
+  swap(a.recovery, b.recovery);
+  swap(a.stamina_capacity, b.stamina_capacity);
   swap(a.__isset, b.__isset);
 }
 
@@ -2576,6 +2610,8 @@ Self::Self(const Self& other15) noexcept {
   view_width = other15.view_width;
   type_id = other15.type_id;
   kick_rate = other15.kick_rate;
+  recovery = other15.recovery;
+  stamina_capacity = other15.stamina_capacity;
   __isset = other15.__isset;
 }
 Self& Self::operator=(const Self& other16) noexcept {
@@ -2615,6 +2651,8 @@ Self& Self::operator=(const Self& other16) noexcept {
   view_width = other16.view_width;
   type_id = other16.type_id;
   kick_rate = other16.kick_rate;
+  recovery = other16.recovery;
+  stamina_capacity = other16.stamina_capacity;
   __isset = other16.__isset;
   return *this;
 }
@@ -2657,6 +2695,8 @@ void Self::printTo(std::ostream& out) const {
   out << ", " << "view_width=" << to_string(view_width);
   out << ", " << "type_id=" << to_string(type_id);
   out << ", " << "kick_rate=" << to_string(kick_rate);
+  out << ", " << "recovery=" << to_string(recovery);
+  out << ", " << "stamina_capacity=" << to_string(stamina_capacity);
   out << ")";
 }
 
@@ -3354,6 +3394,22 @@ void WorldModel::__set_is_penalty_kick_mode(const bool val) {
 void WorldModel::__set_helios_home_positions(const std::map<int32_t, RpcVector2D> & val) {
   this->helios_home_positions = val;
 }
+
+void WorldModel::__set_our_defense_line_x(const double val) {
+  this->our_defense_line_x = val;
+}
+
+void WorldModel::__set_their_defense_line_x(const double val) {
+  this->their_defense_line_x = val;
+}
+
+void WorldModel::__set_our_defense_player_line_x(const double val) {
+  this->our_defense_player_line_x = val;
+}
+
+void WorldModel::__set_their_defense_player_line_x(const double val) {
+  this->their_defense_player_line_x = val;
+}
 std::ostream& operator<<(std::ostream& out, const WorldModel& obj)
 {
   obj.printTo(out);
@@ -3717,6 +3773,38 @@ uint32_t WorldModel::read(::apache::thrift::protocol::TProtocol* iprot) {
           xfer += iprot->skip(ftype);
         }
         break;
+      case 32:
+        if (ftype == ::apache::thrift::protocol::T_DOUBLE) {
+          xfer += iprot->readDouble(this->our_defense_line_x);
+          this->__isset.our_defense_line_x = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 33:
+        if (ftype == ::apache::thrift::protocol::T_DOUBLE) {
+          xfer += iprot->readDouble(this->their_defense_line_x);
+          this->__isset.their_defense_line_x = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 34:
+        if (ftype == ::apache::thrift::protocol::T_DOUBLE) {
+          xfer += iprot->readDouble(this->our_defense_player_line_x);
+          this->__isset.our_defense_player_line_x = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 35:
+        if (ftype == ::apache::thrift::protocol::T_DOUBLE) {
+          xfer += iprot->readDouble(this->their_defense_player_line_x);
+          this->__isset.their_defense_player_line_x = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       default:
         xfer += iprot->skip(ftype);
         break;
@@ -3909,6 +3997,22 @@ uint32_t WorldModel::write(::apache::thrift::protocol::TProtocol* oprot) const {
   }
   xfer += oprot->writeFieldEnd();
 
+  xfer += oprot->writeFieldBegin("our_defense_line_x", ::apache::thrift::protocol::T_DOUBLE, 32);
+  xfer += oprot->writeDouble(this->our_defense_line_x);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("their_defense_line_x", ::apache::thrift::protocol::T_DOUBLE, 33);
+  xfer += oprot->writeDouble(this->their_defense_line_x);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("our_defense_player_line_x", ::apache::thrift::protocol::T_DOUBLE, 34);
+  xfer += oprot->writeDouble(this->our_defense_player_line_x);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("their_defense_player_line_x", ::apache::thrift::protocol::T_DOUBLE, 35);
+  xfer += oprot->writeDouble(this->their_defense_player_line_x);
+  xfer += oprot->writeFieldEnd();
+
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -3947,6 +4051,10 @@ void swap(WorldModel &a, WorldModel &b) {
   swap(a.their_team_score, b.their_team_score);
   swap(a.is_penalty_kick_mode, b.is_penalty_kick_mode);
   swap(a.helios_home_positions, b.helios_home_positions);
+  swap(a.our_defense_line_x, b.our_defense_line_x);
+  swap(a.their_defense_line_x, b.their_defense_line_x);
+  swap(a.our_defense_player_line_x, b.our_defense_player_line_x);
+  swap(a.their_defense_player_line_x, b.their_defense_player_line_x);
   swap(a.__isset, b.__isset);
 }
 
@@ -3982,6 +4090,10 @@ WorldModel::WorldModel(const WorldModel& other73) {
   their_team_score = other73.their_team_score;
   is_penalty_kick_mode = other73.is_penalty_kick_mode;
   helios_home_positions = other73.helios_home_positions;
+  our_defense_line_x = other73.our_defense_line_x;
+  their_defense_line_x = other73.their_defense_line_x;
+  our_defense_player_line_x = other73.our_defense_player_line_x;
+  their_defense_player_line_x = other73.their_defense_player_line_x;
   __isset = other73.__isset;
 }
 WorldModel& WorldModel::operator=(const WorldModel& other74) {
@@ -4016,6 +4128,10 @@ WorldModel& WorldModel::operator=(const WorldModel& other74) {
   their_team_score = other74.their_team_score;
   is_penalty_kick_mode = other74.is_penalty_kick_mode;
   helios_home_positions = other74.helios_home_positions;
+  our_defense_line_x = other74.our_defense_line_x;
+  their_defense_line_x = other74.their_defense_line_x;
+  our_defense_player_line_x = other74.our_defense_player_line_x;
+  their_defense_player_line_x = other74.their_defense_player_line_x;
   __isset = other74.__isset;
   return *this;
 }
@@ -4053,6 +4169,10 @@ void WorldModel::printTo(std::ostream& out) const {
   out << ", " << "their_team_score=" << to_string(their_team_score);
   out << ", " << "is_penalty_kick_mode=" << to_string(is_penalty_kick_mode);
   out << ", " << "helios_home_positions=" << to_string(helios_home_positions);
+  out << ", " << "our_defense_line_x=" << to_string(our_defense_line_x);
+  out << ", " << "their_defense_line_x=" << to_string(their_defense_line_x);
+  out << ", " << "our_defense_player_line_x=" << to_string(our_defense_player_line_x);
+  out << ", " << "their_defense_player_line_x=" << to_string(their_defense_player_line_x);
   out << ")";
 }
 

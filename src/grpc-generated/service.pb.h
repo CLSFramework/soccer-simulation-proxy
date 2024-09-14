@@ -2661,6 +2661,8 @@ class Self final :
     kViewWidthFieldNumber = 34,
     kTypeIdFieldNumber = 35,
     kKickRateFieldNumber = 36,
+    kRecoveryFieldNumber = 37,
+    kStaminaCapacityFieldNumber = 38,
   };
   // .protos.RpcVector2D position = 1;
   bool has_position() const;
@@ -3042,6 +3044,26 @@ class Self final :
   void _internal_set_kick_rate(float value);
 
   public:
+  // float recovery = 37;
+  void clear_recovery() ;
+  float recovery() const;
+  void set_recovery(float value);
+
+  private:
+  float _internal_recovery() const;
+  void _internal_set_recovery(float value);
+
+  public:
+  // float stamina_capacity = 38;
+  void clear_stamina_capacity() ;
+  float stamina_capacity() const;
+  void set_stamina_capacity(float value);
+
+  private:
+  float _internal_stamina_capacity() const;
+  void _internal_set_stamina_capacity(float value);
+
+  public:
   // @@protoc_insertion_point(class_scope:protos.Self)
  private:
   class _Internal;
@@ -3088,6 +3110,8 @@ class Self final :
     int view_width_;
     ::int32_t type_id_;
     float kick_rate_;
+    float recovery_;
+    float stamina_capacity_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -3866,6 +3890,10 @@ class WorldModel final :
     kIsPenaltyKickModeFieldNumber = 30,
     kOurTeamScoreFieldNumber = 28,
     kTheirTeamScoreFieldNumber = 29,
+    kOurDefenseLineXFieldNumber = 32,
+    kTheirDefenseLineXFieldNumber = 33,
+    kOurDefensePlayerLineXFieldNumber = 34,
+    kTheirDefensePlayerLineXFieldNumber = 35,
   };
   // repeated .protos.Player teammates = 8;
   int teammates_size() const;
@@ -4260,6 +4288,46 @@ class WorldModel final :
   void _internal_set_their_team_score(::int32_t value);
 
   public:
+  // double our_defense_line_x = 32;
+  void clear_our_defense_line_x() ;
+  double our_defense_line_x() const;
+  void set_our_defense_line_x(double value);
+
+  private:
+  double _internal_our_defense_line_x() const;
+  void _internal_set_our_defense_line_x(double value);
+
+  public:
+  // double their_defense_line_x = 33;
+  void clear_their_defense_line_x() ;
+  double their_defense_line_x() const;
+  void set_their_defense_line_x(double value);
+
+  private:
+  double _internal_their_defense_line_x() const;
+  void _internal_set_their_defense_line_x(double value);
+
+  public:
+  // double our_defense_player_line_x = 34;
+  void clear_our_defense_player_line_x() ;
+  double our_defense_player_line_x() const;
+  void set_our_defense_player_line_x(double value);
+
+  private:
+  double _internal_our_defense_player_line_x() const;
+  void _internal_set_our_defense_player_line_x(double value);
+
+  public:
+  // double their_defense_player_line_x = 35;
+  void clear_their_defense_player_line_x() ;
+  double their_defense_player_line_x() const;
+  void set_their_defense_player_line_x(double value);
+
+  private:
+  double _internal_their_defense_player_line_x() const;
+  void _internal_set_their_defense_player_line_x(double value);
+
+  public:
   // @@protoc_insertion_point(class_scope:protos.WorldModel)
  private:
   class _Internal;
@@ -4313,6 +4381,10 @@ class WorldModel final :
     bool is_penalty_kick_mode_;
     ::int32_t our_team_score_;
     ::int32_t their_team_score_;
+    double our_defense_line_x_;
+    double their_defense_line_x_;
+    double our_defense_player_line_x_;
+    double their_defense_player_line_x_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -33320,6 +33392,46 @@ inline void Self::_internal_set_kick_rate(float value) {
   _impl_.kick_rate_ = value;
 }
 
+// float recovery = 37;
+inline void Self::clear_recovery() {
+  _impl_.recovery_ = 0;
+}
+inline float Self::recovery() const {
+  // @@protoc_insertion_point(field_get:protos.Self.recovery)
+  return _internal_recovery();
+}
+inline void Self::set_recovery(float value) {
+  _internal_set_recovery(value);
+  // @@protoc_insertion_point(field_set:protos.Self.recovery)
+}
+inline float Self::_internal_recovery() const {
+  return _impl_.recovery_;
+}
+inline void Self::_internal_set_recovery(float value) {
+  ;
+  _impl_.recovery_ = value;
+}
+
+// float stamina_capacity = 38;
+inline void Self::clear_stamina_capacity() {
+  _impl_.stamina_capacity_ = 0;
+}
+inline float Self::stamina_capacity() const {
+  // @@protoc_insertion_point(field_get:protos.Self.stamina_capacity)
+  return _internal_stamina_capacity();
+}
+inline void Self::set_stamina_capacity(float value) {
+  _internal_set_stamina_capacity(value);
+  // @@protoc_insertion_point(field_set:protos.Self.stamina_capacity)
+}
+inline float Self::_internal_stamina_capacity() const {
+  return _impl_.stamina_capacity_;
+}
+inline void Self::_internal_set_stamina_capacity(float value) {
+  ;
+  _impl_.stamina_capacity_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // InterceptInfo
@@ -34817,6 +34929,86 @@ inline ::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcVector2D >*
 WorldModel::mutable_helios_home_positions() {
   // @@protoc_insertion_point(field_mutable_map:protos.WorldModel.helios_home_positions)
   return _internal_mutable_helios_home_positions();
+}
+
+// double our_defense_line_x = 32;
+inline void WorldModel::clear_our_defense_line_x() {
+  _impl_.our_defense_line_x_ = 0;
+}
+inline double WorldModel::our_defense_line_x() const {
+  // @@protoc_insertion_point(field_get:protos.WorldModel.our_defense_line_x)
+  return _internal_our_defense_line_x();
+}
+inline void WorldModel::set_our_defense_line_x(double value) {
+  _internal_set_our_defense_line_x(value);
+  // @@protoc_insertion_point(field_set:protos.WorldModel.our_defense_line_x)
+}
+inline double WorldModel::_internal_our_defense_line_x() const {
+  return _impl_.our_defense_line_x_;
+}
+inline void WorldModel::_internal_set_our_defense_line_x(double value) {
+  ;
+  _impl_.our_defense_line_x_ = value;
+}
+
+// double their_defense_line_x = 33;
+inline void WorldModel::clear_their_defense_line_x() {
+  _impl_.their_defense_line_x_ = 0;
+}
+inline double WorldModel::their_defense_line_x() const {
+  // @@protoc_insertion_point(field_get:protos.WorldModel.their_defense_line_x)
+  return _internal_their_defense_line_x();
+}
+inline void WorldModel::set_their_defense_line_x(double value) {
+  _internal_set_their_defense_line_x(value);
+  // @@protoc_insertion_point(field_set:protos.WorldModel.their_defense_line_x)
+}
+inline double WorldModel::_internal_their_defense_line_x() const {
+  return _impl_.their_defense_line_x_;
+}
+inline void WorldModel::_internal_set_their_defense_line_x(double value) {
+  ;
+  _impl_.their_defense_line_x_ = value;
+}
+
+// double our_defense_player_line_x = 34;
+inline void WorldModel::clear_our_defense_player_line_x() {
+  _impl_.our_defense_player_line_x_ = 0;
+}
+inline double WorldModel::our_defense_player_line_x() const {
+  // @@protoc_insertion_point(field_get:protos.WorldModel.our_defense_player_line_x)
+  return _internal_our_defense_player_line_x();
+}
+inline void WorldModel::set_our_defense_player_line_x(double value) {
+  _internal_set_our_defense_player_line_x(value);
+  // @@protoc_insertion_point(field_set:protos.WorldModel.our_defense_player_line_x)
+}
+inline double WorldModel::_internal_our_defense_player_line_x() const {
+  return _impl_.our_defense_player_line_x_;
+}
+inline void WorldModel::_internal_set_our_defense_player_line_x(double value) {
+  ;
+  _impl_.our_defense_player_line_x_ = value;
+}
+
+// double their_defense_player_line_x = 35;
+inline void WorldModel::clear_their_defense_player_line_x() {
+  _impl_.their_defense_player_line_x_ = 0;
+}
+inline double WorldModel::their_defense_player_line_x() const {
+  // @@protoc_insertion_point(field_get:protos.WorldModel.their_defense_player_line_x)
+  return _internal_their_defense_player_line_x();
+}
+inline void WorldModel::set_their_defense_player_line_x(double value) {
+  _internal_set_their_defense_player_line_x(value);
+  // @@protoc_insertion_point(field_set:protos.WorldModel.their_defense_player_line_x)
+}
+inline double WorldModel::_internal_their_defense_player_line_x() const {
+  return _impl_.their_defense_player_line_x_;
+}
+inline void WorldModel::_internal_set_their_defense_player_line_x(double value) {
+  ;
+  _impl_.their_defense_player_line_x_ = value;
 }
 
 // -------------------------------------------------------------------

@@ -15,6 +15,7 @@ class StateGenerator
 public:
     static protos::Side convertSide(rcsc::SideID sideId);
     static protos::ViewWidth convertViewWidth(rcsc::ViewWidth::Type viewWidth);
+    static protos::CardType convertCardType(rcsc::Card cardType);
     static protos::RpcVector2D *convertVector2D(rcsc::Vector2D vector2D);
     static protos::Ball *convertBall(const rcsc::BallObject &ball);
     static protos::Ball *convertBall(const rcsc::CoachBallObject &ball);

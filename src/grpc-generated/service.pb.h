@@ -843,6 +843,39 @@ inline bool LoggerLevel_Parse(absl::string_view name, LoggerLevel* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<LoggerLevel>(
       LoggerLevel_descriptor(), name, value);
 }
+enum CardType : int {
+  NO_CARD = 0,
+  YELLOW = 1,
+  RED = 2,
+  CardType_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  CardType_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool CardType_IsValid(int value);
+constexpr CardType CardType_MIN = static_cast<CardType>(0);
+constexpr CardType CardType_MAX = static_cast<CardType>(2);
+constexpr int CardType_ARRAYSIZE = 2 + 1;
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+CardType_descriptor();
+template <typename T>
+const std::string& CardType_Name(T value) {
+  static_assert(std::is_same<T, CardType>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to CardType_Name().");
+  return CardType_Name(static_cast<CardType>(value));
+}
+template <>
+inline const std::string& CardType_Name(CardType value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfDenseEnum<CardType_descriptor,
+                                                 0, 2>(
+      static_cast<int>(value));
+}
+inline bool CardType_Parse(absl::string_view name, CardType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<CardType>(
+      CardType_descriptor(), name, value);
+}
 enum InterceptActionType : int {
   UNKNOWN_Intercept_Action_Type = 0,
   OMNI_DASH = 1,
@@ -2663,6 +2696,7 @@ class Self final :
     kKickRateFieldNumber = 36,
     kRecoveryFieldNumber = 37,
     kStaminaCapacityFieldNumber = 38,
+    kCardFieldNumber = 39,
   };
   // .protos.RpcVector2D position = 1;
   bool has_position() const;
@@ -3064,6 +3098,16 @@ class Self final :
   void _internal_set_stamina_capacity(float value);
 
   public:
+  // .protos.CardType card = 39;
+  void clear_card() ;
+  ::protos::CardType card() const;
+  void set_card(::protos::CardType value);
+
+  private:
+  ::protos::CardType _internal_card() const;
+  void _internal_set_card(::protos::CardType value);
+
+  public:
   // @@protoc_insertion_point(class_scope:protos.Self)
  private:
   class _Internal;
@@ -3112,6 +3156,7 @@ class Self final :
     float kick_rate_;
     float recovery_;
     float stamina_capacity_;
+    int card_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_service_2eproto;
@@ -33432,6 +33477,26 @@ inline void Self::_internal_set_stamina_capacity(float value) {
   _impl_.stamina_capacity_ = value;
 }
 
+// .protos.CardType card = 39;
+inline void Self::clear_card() {
+  _impl_.card_ = 0;
+}
+inline ::protos::CardType Self::card() const {
+  // @@protoc_insertion_point(field_get:protos.Self.card)
+  return _internal_card();
+}
+inline void Self::set_card(::protos::CardType value) {
+   _internal_set_card(value);
+  // @@protoc_insertion_point(field_set:protos.Self.card)
+}
+inline ::protos::CardType Self::_internal_card() const {
+  return static_cast<::protos::CardType>(_impl_.card_);
+}
+inline void Self::_internal_set_card(::protos::CardType value) {
+  ;
+  _impl_.card_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // InterceptInfo
@@ -58943,6 +59008,12 @@ struct is_proto_enum<::protos::LoggerLevel> : std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor<::protos::LoggerLevel>() {
   return ::protos::LoggerLevel_descriptor();
+}
+template <>
+struct is_proto_enum<::protos::CardType> : std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor<::protos::CardType>() {
+  return ::protos::CardType_descriptor();
 }
 template <>
 struct is_proto_enum<::protos::InterceptActionType> : std::true_type {};

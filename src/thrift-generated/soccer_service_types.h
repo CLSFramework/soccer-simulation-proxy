@@ -96,6 +96,20 @@ std::ostream& operator<<(std::ostream& out, const LoggerLevel::type& val);
 
 std::string to_string(const LoggerLevel::type& val);
 
+struct CardType {
+  enum type {
+    NO_CARD = 0,
+    YELLOW = 1,
+    RED = 2
+  };
+};
+
+extern const std::map<int, const char*> _CardType_VALUES_TO_NAMES;
+
+std::ostream& operator<<(std::ostream& out, const CardType::type& val);
+
+std::string to_string(const CardType::type& val);
+
 struct InterceptActionType {
   enum type {
     UNKNOWN_Intercept_Action_Type = 0,
@@ -1020,7 +1034,7 @@ void swap(Player &a, Player &b);
 std::ostream& operator<<(std::ostream& out, const Player& obj);
 
 typedef struct _Self__isset {
-  _Self__isset() : position(false), seen_position(false), heard_position(false), velocity(false), seen_velocity(false), pos_count(false), seen_pos_count(false), heard_pos_count(false), vel_count(false), seen_vel_count(false), ghost_count(false), id(false), side(false), uniform_number(false), uniform_number_count(false), is_goalie(false), body_direction(false), body_direction_count(false), face_direction(false), face_direction_count(false), point_to_direction(false), point_to_direction_count(false), is_kicking(false), dist_from_ball(false), angle_from_ball(false), ball_reach_steps(false), is_tackling(false), relative_neck_direction(false), stamina(false), is_kickable(false), catch_probability(false), tackle_probability(false), foul_probability(false), view_width(false), type_id(false), kick_rate(false), recovery(false), stamina_capacity(false) {}
+  _Self__isset() : position(false), seen_position(false), heard_position(false), velocity(false), seen_velocity(false), pos_count(false), seen_pos_count(false), heard_pos_count(false), vel_count(false), seen_vel_count(false), ghost_count(false), id(false), side(false), uniform_number(false), uniform_number_count(false), is_goalie(false), body_direction(false), body_direction_count(false), face_direction(false), face_direction_count(false), point_to_direction(false), point_to_direction_count(false), is_kicking(false), dist_from_ball(false), angle_from_ball(false), ball_reach_steps(false), is_tackling(false), relative_neck_direction(false), stamina(false), is_kickable(false), catch_probability(false), tackle_probability(false), foul_probability(false), view_width(false), type_id(false), kick_rate(false), recovery(false), stamina_capacity(false), card(false) {}
   bool position :1;
   bool seen_position :1;
   bool heard_position :1;
@@ -1059,6 +1073,7 @@ typedef struct _Self__isset {
   bool kick_rate :1;
   bool recovery :1;
   bool stamina_capacity :1;
+  bool card :1;
 } _Self__isset;
 
 class Self : public virtual ::apache::thrift::TBase {
@@ -1099,7 +1114,8 @@ class Self : public virtual ::apache::thrift::TBase {
          type_id(0),
          kick_rate(0),
          recovery(0),
-         stamina_capacity(0) {
+         stamina_capacity(0),
+         card(static_cast<CardType::type>(0)) {
   }
 
   virtual ~Self() noexcept;
@@ -1149,6 +1165,11 @@ class Self : public virtual ::apache::thrift::TBase {
   double kick_rate;
   double recovery;
   double stamina_capacity;
+  /**
+   * 
+   * @see CardType
+   */
+  CardType::type card;
 
   _Self__isset __isset;
 
@@ -1228,6 +1249,8 @@ class Self : public virtual ::apache::thrift::TBase {
 
   void __set_stamina_capacity(const double val);
 
+  void __set_card(const CardType::type val);
+
   bool operator == (const Self & rhs) const
   {
     if (!(position == rhs.position))
@@ -1305,6 +1328,8 @@ class Self : public virtual ::apache::thrift::TBase {
     if (!(recovery == rhs.recovery))
       return false;
     if (!(stamina_capacity == rhs.stamina_capacity))
+      return false;
+    if (!(card == rhs.card))
       return false;
     return true;
   }

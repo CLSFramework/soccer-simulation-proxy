@@ -83,6 +83,12 @@ enum LoggerLevel{
   // LEVEL_ANY = 0xffffffff;
 }
 
+enum CardType {
+  NO_CARD = 0;
+  YELLOW = 1;
+  RED = 2;
+}
+
 message Player {
   RpcVector2D  position = 1;
   RpcVector2D  seen_position = 2;
@@ -155,6 +161,7 @@ message Self {
   float kick_rate = 36;
   float recovery = 37;
   float stamina_capacity = 38;
+  CardType card = 39;
 }
 
 enum InterceptActionType {

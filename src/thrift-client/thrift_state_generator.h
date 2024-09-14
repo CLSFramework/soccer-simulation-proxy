@@ -24,6 +24,7 @@ class ThriftStateGenerator
 public:
     static soccer::Side::type convertSide(rcsc::SideID sideId);
     static soccer::ViewWidth::type convertViewWidth(rcsc::ViewWidth::Type viewWidth);
+    static soccer::CardType::type convertCardType(rcsc::Card cardType);
     static soccer::RpcVector2D convertVector2D(rcsc::Vector2D vector2D);
     static soccer::Ball convertBall(const rcsc::BallObject &ball);
     static soccer::Ball convertBall(const rcsc::CoachBallObject &ball);

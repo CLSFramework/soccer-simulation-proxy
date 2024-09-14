@@ -46,6 +46,25 @@ soccer::ViewWidth::type ThriftStateGenerator::convertViewWidth(rcsc::ViewWidth::
 }
 
 /**
+ * Converts the given `rcsc::Card` to `soccer::CardType`.
+ *
+ * @param cardType The `rcsc::Card` to be converted.
+ * @return The converted `soccer::CardType`.
+ */
+soccer::CardType::type ThriftStateGenerator::convertCardType(rcsc::Card cardType)
+{
+    if (cardType == rcsc::Card::YELLOW)
+    {
+        return soccer::CardType::YELLOW;
+    }
+    else if (cardType == rcsc::Card::RED)
+    {
+        return soccer::CardType::RED;
+    }
+    return soccer::CardType::NO_CARD;
+}
+
+/**
  * Converts an rcsc::Vector2D object to a soccer::Vector2D object.
  *
  * @param vector2D The rcsc::Vector2D object to be converted.
@@ -157,6 +176,7 @@ soccer::Self ThriftStateGenerator::convertSelf(const rcsc::SelfObject &self, con
     res.kick_rate = static_cast<float>(kick_rate);
     res.recovery = static_cast<float>(self.recovery());
     res.stamina_capacity = static_cast<float>(self.staminaCapacity());
+    res.card = convertCardType(self.card());
     
     return res;
 }

@@ -14691,57 +14691,57 @@ void HeliosShoot::printTo(std::ostream& out) const {
 }
 
 
-HeliosChainAction::~HeliosChainAction() noexcept {
+HeliosOffensivePlanner::~HeliosOffensivePlanner() noexcept {
 }
 
 
-void HeliosChainAction::__set_direct_pass(const bool val) {
+void HeliosOffensivePlanner::__set_direct_pass(const bool val) {
   this->direct_pass = val;
 }
 
-void HeliosChainAction::__set_lead_pass(const bool val) {
+void HeliosOffensivePlanner::__set_lead_pass(const bool val) {
   this->lead_pass = val;
 }
 
-void HeliosChainAction::__set_through_pass(const bool val) {
+void HeliosOffensivePlanner::__set_through_pass(const bool val) {
   this->through_pass = val;
 }
 
-void HeliosChainAction::__set_short_dribble(const bool val) {
+void HeliosOffensivePlanner::__set_short_dribble(const bool val) {
   this->short_dribble = val;
 }
 
-void HeliosChainAction::__set_long_dribble(const bool val) {
+void HeliosOffensivePlanner::__set_long_dribble(const bool val) {
   this->long_dribble = val;
 }
 
-void HeliosChainAction::__set_cross(const bool val) {
+void HeliosOffensivePlanner::__set_cross(const bool val) {
   this->cross = val;
 }
 
-void HeliosChainAction::__set_simple_pass(const bool val) {
+void HeliosOffensivePlanner::__set_simple_pass(const bool val) {
   this->simple_pass = val;
 }
 
-void HeliosChainAction::__set_simple_dribble(const bool val) {
+void HeliosOffensivePlanner::__set_simple_dribble(const bool val) {
   this->simple_dribble = val;
 }
 
-void HeliosChainAction::__set_simple_shoot(const bool val) {
+void HeliosOffensivePlanner::__set_simple_shoot(const bool val) {
   this->simple_shoot = val;
 }
 
-void HeliosChainAction::__set_server_side_decision(const bool val) {
+void HeliosOffensivePlanner::__set_server_side_decision(const bool val) {
   this->server_side_decision = val;
 }
-std::ostream& operator<<(std::ostream& out, const HeliosChainAction& obj)
+std::ostream& operator<<(std::ostream& out, const HeliosOffensivePlanner& obj)
 {
   obj.printTo(out);
   return out;
 }
 
 
-uint32_t HeliosChainAction::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t HeliosOffensivePlanner::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   ::apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
   uint32_t xfer = 0;
@@ -14854,10 +14854,10 @@ uint32_t HeliosChainAction::read(::apache::thrift::protocol::TProtocol* iprot) {
   return xfer;
 }
 
-uint32_t HeliosChainAction::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t HeliosOffensivePlanner::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   ::apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("HeliosChainAction");
+  xfer += oprot->writeStructBegin("HeliosOffensivePlanner");
 
   xfer += oprot->writeFieldBegin("direct_pass", ::apache::thrift::protocol::T_BOOL, 1);
   xfer += oprot->writeBool(this->direct_pass);
@@ -14904,7 +14904,7 @@ uint32_t HeliosChainAction::write(::apache::thrift::protocol::TProtocol* oprot) 
   return xfer;
 }
 
-void swap(HeliosChainAction &a, HeliosChainAction &b) {
+void swap(HeliosOffensivePlanner &a, HeliosOffensivePlanner &b) {
   using ::std::swap;
   swap(a.direct_pass, b.direct_pass);
   swap(a.lead_pass, b.lead_pass);
@@ -14919,7 +14919,7 @@ void swap(HeliosChainAction &a, HeliosChainAction &b) {
   swap(a.__isset, b.__isset);
 }
 
-HeliosChainAction::HeliosChainAction(const HeliosChainAction& other271) noexcept {
+HeliosOffensivePlanner::HeliosOffensivePlanner(const HeliosOffensivePlanner& other271) noexcept {
   direct_pass = other271.direct_pass;
   lead_pass = other271.lead_pass;
   through_pass = other271.through_pass;
@@ -14932,7 +14932,7 @@ HeliosChainAction::HeliosChainAction(const HeliosChainAction& other271) noexcept
   server_side_decision = other271.server_side_decision;
   __isset = other271.__isset;
 }
-HeliosChainAction& HeliosChainAction::operator=(const HeliosChainAction& other272) noexcept {
+HeliosOffensivePlanner& HeliosOffensivePlanner::operator=(const HeliosOffensivePlanner& other272) noexcept {
   direct_pass = other272.direct_pass;
   lead_pass = other272.lead_pass;
   through_pass = other272.through_pass;
@@ -14946,9 +14946,9 @@ HeliosChainAction& HeliosChainAction::operator=(const HeliosChainAction& other27
   __isset = other272.__isset;
   return *this;
 }
-void HeliosChainAction::printTo(std::ostream& out) const {
+void HeliosOffensivePlanner::printTo(std::ostream& out) const {
   using ::apache::thrift::to_string;
-  out << "HeliosChainAction(";
+  out << "HeliosOffensivePlanner(";
   out << "direct_pass=" << to_string(direct_pass);
   out << ", " << "lead_pass=" << to_string(lead_pass);
   out << ", " << "through_pass=" << to_string(through_pass);
@@ -15597,9 +15597,9 @@ void PlayerAction::__set_helios_shoot(const HeliosShoot& val) {
 __isset.helios_shoot = true;
 }
 
-void PlayerAction::__set_helios_chain_action(const HeliosChainAction& val) {
-  this->helios_chain_action = val;
-__isset.helios_chain_action = true;
+void PlayerAction::__set_helios_offensive_planner(const HeliosOffensivePlanner& val) {
+  this->helios_offensive_planner = val;
+__isset.helios_offensive_planner = true;
 }
 
 void PlayerAction::__set_helios_basic_offensive(const HeliosBasicOffensive& val) {
@@ -16120,8 +16120,8 @@ uint32_t PlayerAction::read(::apache::thrift::protocol::TProtocol* iprot) {
         break;
       case 59:
         if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->helios_chain_action.read(iprot);
-          this->__isset.helios_chain_action = true;
+          xfer += this->helios_offensive_planner.read(iprot);
+          this->__isset.helios_offensive_planner = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -16473,9 +16473,9 @@ uint32_t PlayerAction::write(::apache::thrift::protocol::TProtocol* oprot) const
     xfer += this->helios_shoot.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
-  if (this->__isset.helios_chain_action) {
-    xfer += oprot->writeFieldBegin("helios_chain_action", ::apache::thrift::protocol::T_STRUCT, 59);
-    xfer += this->helios_chain_action.write(oprot);
+  if (this->__isset.helios_offensive_planner) {
+    xfer += oprot->writeFieldBegin("helios_offensive_planner", ::apache::thrift::protocol::T_STRUCT, 59);
+    xfer += this->helios_offensive_planner.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
   if (this->__isset.helios_basic_offensive) {
@@ -16568,7 +16568,7 @@ void swap(PlayerAction &a, PlayerAction &b) {
   swap(a.helios_goalie_move, b.helios_goalie_move);
   swap(a.helios_goalie_kick, b.helios_goalie_kick);
   swap(a.helios_shoot, b.helios_shoot);
-  swap(a.helios_chain_action, b.helios_chain_action);
+  swap(a.helios_offensive_planner, b.helios_offensive_planner);
   swap(a.helios_basic_offensive, b.helios_basic_offensive);
   swap(a.helios_basic_move, b.helios_basic_move);
   swap(a.helios_set_play, b.helios_set_play);
@@ -16636,7 +16636,7 @@ PlayerAction::PlayerAction(const PlayerAction& other283) {
   helios_goalie_move = other283.helios_goalie_move;
   helios_goalie_kick = other283.helios_goalie_kick;
   helios_shoot = other283.helios_shoot;
-  helios_chain_action = other283.helios_chain_action;
+  helios_offensive_planner = other283.helios_offensive_planner;
   helios_basic_offensive = other283.helios_basic_offensive;
   helios_basic_move = other283.helios_basic_move;
   helios_set_play = other283.helios_set_play;
@@ -16703,7 +16703,7 @@ PlayerAction& PlayerAction::operator=(const PlayerAction& other284) {
   helios_goalie_move = other284.helios_goalie_move;
   helios_goalie_kick = other284.helios_goalie_kick;
   helios_shoot = other284.helios_shoot;
-  helios_chain_action = other284.helios_chain_action;
+  helios_offensive_planner = other284.helios_offensive_planner;
   helios_basic_offensive = other284.helios_basic_offensive;
   helios_basic_move = other284.helios_basic_move;
   helios_set_play = other284.helios_set_play;
@@ -16773,7 +16773,7 @@ void PlayerAction::printTo(std::ostream& out) const {
   out << ", " << "helios_goalie_move="; (__isset.helios_goalie_move ? (out << to_string(helios_goalie_move)) : (out << "<null>"));
   out << ", " << "helios_goalie_kick="; (__isset.helios_goalie_kick ? (out << to_string(helios_goalie_kick)) : (out << "<null>"));
   out << ", " << "helios_shoot="; (__isset.helios_shoot ? (out << to_string(helios_shoot)) : (out << "<null>"));
-  out << ", " << "helios_chain_action="; (__isset.helios_chain_action ? (out << to_string(helios_chain_action)) : (out << "<null>"));
+  out << ", " << "helios_offensive_planner="; (__isset.helios_offensive_planner ? (out << to_string(helios_offensive_planner)) : (out << "<null>"));
   out << ", " << "helios_basic_offensive="; (__isset.helios_basic_offensive ? (out << to_string(helios_basic_offensive)) : (out << "<null>"));
   out << ", " << "helios_basic_move="; (__isset.helios_basic_move ? (out << to_string(helios_basic_move)) : (out << "<null>"));
   out << ", " << "helios_set_play="; (__isset.helios_set_play ? (out << to_string(helios_set_play)) : (out << "<null>"));

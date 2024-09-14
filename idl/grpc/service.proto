@@ -750,7 +750,7 @@ message HeliosGoalieKick {}
 
 message HeliosShoot {}
 
-message HeliosChainAction {
+message HeliosOffensivePlanner {
   bool direct_pass = 1;
   bool lead_pass = 2;
   bool through_pass = 3;
@@ -833,7 +833,7 @@ message PlayerAction {
       HeliosGoalieMove helios_goalie_move = 56;
       HeliosGoalieKick helios_goalie_kick = 57;
       HeliosShoot helios_shoot = 58;
-      HeliosChainAction helios_chain_action = 59;
+      HeliosOffensivePlanner helios_offensive_planner = 59;
       HeliosBasicOffensive helios_basic_offensive = 60;
       HeliosBasicMove helios_basic_move = 61;
       HeliosSetPlay helios_set_play = 62;

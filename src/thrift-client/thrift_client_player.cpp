@@ -133,7 +133,6 @@ void ThriftClientPlayer::getActions()
         }
     }
     std::cout<<"action size:"<<actions.actions.size()<<std::endl;
-    int body_action_done = 0;
     for (int i = 0; i < actions.actions.size(); i++)
     {
         auto action = actions.actions[i];
@@ -142,164 +141,136 @@ void ThriftClientPlayer::getActions()
         {
             std::cout<<"Dash:"<<action.dash.power<<","<<action.dash.relative_direction<<std::endl;
             agent->doDash(action.dash.power, action.dash.relative_direction);
-            body_action_done++;
-            continue;
         }
-        if (action.__isset.kick)
+        else if (action.__isset.kick)
         {
             agent->doKick(action.kick.power, action.kick.relative_direction);
-            body_action_done++;
-            continue;
         }
-        if (action.__isset.turn)
+        else if (action.__isset.turn)
         {
             agent->doTurn(action.turn.relative_direction);
-            body_action_done++;
-            continue;
         }
-        if (action.__isset.tackle)
+        else if (action.__isset.tackle)
         {
             agent->doTackle(action.tackle.power_or_dir, action.tackle.foul);
-            body_action_done++;
-            continue;
         }
-        if (action.__isset.catch_action)
+        else if (action.__isset.catch_action)
         {
             agent->doCatch();
-            body_action_done++;
-            continue;
         }
-        if (action.__isset.move)
+        else if (action.__isset.move)
         {
             agent->doMove(action.move.x, action.move.y);
-            body_action_done++;
-            continue;
         }
-        if (action.__isset.turn_neck)
+        else if (action.__isset.turn_neck)
         {
             agent->doTurnNeck(action.turn_neck.moment);
-            continue;
         }
-        if (action.__isset.change_view)
+        else if (action.__isset.change_view)
         {
             const rcsc::ViewWidth view_width = ThriftAgent::convertViewWidth(action.change_view.view_width);
             agent->doChangeView(view_width);
-            continue;
         }
-        if (action.__isset.say)
+        else if (action.__isset.say)
         {
             addSayMessage(action.say);
-            continue;
         }
-        if (action.__isset.point_to)
+        else if (action.__isset.point_to)
         {
             agent->doPointto(action.point_to.x, action.point_to.y);
-            continue;
         }
-        if (action.__isset.point_to_of)
+        else if (action.__isset.point_to_of)
         {
             agent->doPointtoOff();
-            continue;
         }
-        if (action.__isset.attention_to)
+        else if (action.__isset.attention_to)
         {
             const rcsc::SideID side = ThriftAgent::convertSideID(action.attention_to.side);
             agent->doAttentionto(side, action.attention_to.unum);
-            continue;
         }
-        if (action.__isset.attention_to_of)
+        else if (action.__isset.attention_to_of)
         {
             agent->doAttentiontoOff();
-            continue;
         }
-        if (action.__isset.log)
+        else if (action.__isset.log)
         {
             addDlog(action.log);
-            continue;
         }
-        // todo debugClient
-        if (action.__isset.body_go_to_point)
+        else if (action.__isset.body_go_to_point)
         {
             const auto &bodyGoToPoint = action.body_go_to_point;
             const auto &targetPoint = ThriftAgent::convertVector2D(bodyGoToPoint.target_point);
             Body_GoToPoint(targetPoint, bodyGoToPoint.distance_threshold, bodyGoToPoint.max_dash_power).execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Body_GoToPoint");                                                                      
         }
-        if (action.__isset.body_smart_kick)
+        else if (action.__isset.body_smart_kick)
         {
             const auto &bodySmartKick = action.body_smart_kick;
             const auto &targetPoint = ThriftAgent::convertVector2D(bodySmartKick.target_point);
             Body_SmartKick(targetPoint, bodySmartKick.first_speed, bodySmartKick.first_speed_threshold,
                            bodySmartKick.max_steps).execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Body_SmartKick");                                                                      
         }
-        if (action.__isset.bhv_before_kick_off)
+        else if (action.__isset.bhv_before_kick_off)
         {
             const auto &bhvBeforeKickOff = action.bhv_before_kick_off;
             const auto &point = ThriftAgent::convertVector2D(bhvBeforeKickOff.point);
             Bhv_BeforeKickOff(point).execute(agent);
-            continue;
+            agent->debugClient().addMessage("Bhv_BeforeKickOff");                                                                      
         }
-        if (action.__isset.bhv_body_neck_to_ball)
+        else if (action.__isset.bhv_body_neck_to_ball)
         {
             Bhv_BodyNeckToBall().execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Bhv_BodyNeckToBall");                                                                      
         }
-        if (action.__isset.bhv_body_neck_to_point)
+        else if (action.__isset.bhv_body_neck_to_point)
         {
             const auto &bhvBodyNeckToPoint = action.bhv_body_neck_to_point;
             const auto &targetPoint = ThriftAgent::convertVector2D(bhvBodyNeckToPoint.point);
             Bhv_BodyNeckToPoint(targetPoint).execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Bhv_BodyNeckToPoint");                                                                      
         }
-        if (action.__isset.bhv_emergency)
+        else if (action.__isset.bhv_emergency)
         {
             Bhv_Emergency().execute(agent);
-            continue;
+            agent->debugClient().addMessage("Bhv_Emergency");                                                                      
         }
-        if (action.__isset.bhv_go_to_point_look_ball)
+        else if (action.__isset.bhv_go_to_point_look_ball)
         {
             const auto &bhvGoToPointLookBall = action.bhv_go_to_point_look_ball;
             const auto &targetPoint = ThriftAgent::convertVector2D(bhvGoToPointLookBall.target_point);
             Bhv_GoToPointLookBall(targetPoint, bhvGoToPointLookBall.distance_threshold, bhvGoToPointLookBall.max_dash_power).execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Bhv_GoToPointLookBall");                                                                      
         }
-        if (action.__isset.bhv_neck_body_to_ball)
+        else if (action.__isset.bhv_neck_body_to_ball)
         {
             const auto &bhvNeckBodyToBall = action.bhv_neck_body_to_ball;
             Bhv_NeckBodyToBall(bhvNeckBodyToBall.angle_buf).execute(agent);
-            continue;
+            agent->debugClient().addMessage("Bhv_NeckBodyToBall");                                                                      
         }
-        if (action.__isset.bhv_neck_body_to_point)
+        else if (action.__isset.bhv_neck_body_to_point)
         {
             const auto &bhvNeckBodyToPoint = action.bhv_neck_body_to_point;
             const auto &targetPoint = ThriftAgent::convertVector2D(bhvNeckBodyToPoint.point);
             Bhv_NeckBodyToPoint(targetPoint, bhvNeckBodyToPoint.angle_buf).execute(agent);
-            continue;
+            agent->debugClient().addMessage("Bhv_NeckBodyToPoint");                                                                      
         }
-        if (action.__isset.bhv_scan_field)
+        else if (action.__isset.bhv_scan_field)
         {
             Bhv_ScanField().execute(agent);
-            continue;
+            agent->debugClient().addMessage("Bhv_ScanField");                                                                      
         }
-        if (action.__isset.body_advance_ball)
+        else if (action.__isset.body_advance_ball)
         {
             Body_AdvanceBall().execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Body_AdvanceBall");                                                                      
         }
-        if (action.__isset.body_clear_ball)
+        else if (action.__isset.body_clear_ball)
         {
             Body_ClearBall().execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Body_ClearBall");                                                                      
         }
-        if (action.__isset.body_dribble)
+        else if (action.__isset.body_dribble)
         {
             const auto &bodyDribble = action.body_dribble;
             const auto &targetPoint = ThriftAgent::convertVector2D(bodyDribble.target_point);
@@ -310,10 +281,9 @@ void ThriftClientPlayer::getActions()
                 bodyDribble.dash_count,
                 bodyDribble.dodge)
                 .execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Body_Dribble");                                                                      
         }
-        if (action.__isset.body_go_to_point_dodge)
+        else if (action.__isset.body_go_to_point_dodge)
         {
             const auto &bodyGoToPointDodge = action.body_go_to_point_dodge;
             const auto &targetPoint = ThriftAgent::convertVector2D(bodyGoToPointDodge.target_point);
@@ -321,10 +291,9 @@ void ThriftClientPlayer::getActions()
                 targetPoint,
                 bodyGoToPointDodge.dash_power)
                 .execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Body_GoToPointDodge");                                                                      
         }
-        if (action.__isset.body_hold_ball)
+        else if (action.__isset.body_hold_ball)
         {
             const auto &bodyHoldBall = action.body_hold_ball;
             const auto &turnTargetPoint = ThriftAgent::convertVector2D(bodyHoldBall.turn_target_point);
@@ -334,10 +303,9 @@ void ThriftClientPlayer::getActions()
                 turnTargetPoint,
                 kickTargetPoint)
                 .execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Body_HoldBall");                                                                      
         }
-        if (action.__isset.body_intercept)
+        else if (action.__isset.body_intercept)
         {
             const auto &bodyIntercept = action.body_intercept;
             const auto &facePoint = ThriftAgent::convertVector2D(bodyIntercept.face_point);
@@ -345,10 +313,9 @@ void ThriftClientPlayer::getActions()
                 bodyIntercept.save_recovery,
                 facePoint)
                 .execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Body_Intercept");                                                                      
         }
-        if (action.__isset.body_kick_one_step)
+        else if (action.__isset.body_kick_one_step)
         {
             const auto &bodyKickOneStep = action.body_kick_one_step;
             const auto &targetPoint = ThriftAgent::convertVector2D(bodyKickOneStep.target_point);
@@ -357,25 +324,22 @@ void ThriftClientPlayer::getActions()
                 bodyKickOneStep.first_speed,
                 bodyKickOneStep.force_mode)
                 .execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Body_KickOneStep");                                                                      
         }
-        if (action.__isset.body_stop_ball)
+        else if (action.__isset.body_stop_ball)
         {
             Body_StopBall().execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Body_StopBall");                                                                      
         }
-        if (action.__isset.body_stop_dash)
+        else if (action.__isset.body_stop_dash)
         {
             const auto &bodyStopDash = action.body_stop_dash;
             Body_StopDash(
                 bodyStopDash.save_recovery)
                 .execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Body_StopDash");                                                              
         }
-        if (action.__isset.body_tackle_to_point)
+        else if (action.__isset.body_tackle_to_point)
         {
             const auto &bodyTackleToPoint = action.body_tackle_to_point;
             const auto &targetPoint = ThriftAgent::convertVector2D(bodyTackleToPoint.target_point);
@@ -384,28 +348,25 @@ void ThriftClientPlayer::getActions()
                 bodyTackleToPoint.min_probability,
                 bodyTackleToPoint.min_speed)
                 .execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Body_TackleToPoint");                                                              
         }
-        if (action.__isset.body_turn_to_angle)
+        else if (action.__isset.body_turn_to_angle)
         {
             const auto &bodyTurnToAngle = action.body_turn_to_angle;
             Body_TurnToAngle(
                 bodyTurnToAngle.angle)
                 .execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Body_TurnToAngle");                                                          
         }
-        if (action.__isset.body_turn_to_ball)
+        else if (action.__isset.body_turn_to_ball)
         {
             const auto &bodyTurnToBall = action.body_turn_to_ball;
             Body_TurnToBall(
                 bodyTurnToBall.cycle)
                 .execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Body_TurnToBall");                                                          
         }
-        if (action.__isset.body_turn_to_point)
+        else if (action.__isset.body_turn_to_point)
         {
             const auto &bodyTurnToPoint = action.body_turn_to_point;
             const auto &targetPoint = ThriftAgent::convertVector2D(bodyTurnToPoint.target_point);
@@ -413,34 +374,33 @@ void ThriftClientPlayer::getActions()
                 targetPoint,
                 bodyTurnToPoint.cycle)
                 .execute(agent);
-            body_action_done++;
-            continue;
+            agent->debugClient().addMessage("Body_TurnToPoint");                                              
         }
-        if (action.__isset.focus_move_to_point)
+        else if (action.__isset.focus_move_to_point)
         {
             const auto &focusMoveToPoint = action.focus_move_to_point;
             const auto &targetPoint = ThriftAgent::convertVector2D(focusMoveToPoint.target_point);
             rcsc::Focus_MoveToPoint(
                 targetPoint)
                 .execute(agent);
-            continue;
+            agent->debugClient().addMessage("Focus_MoveToPoint");                                              
         }
-        if (action.__isset.focus_reset)
+        else if (action.__isset.focus_reset)
         {
             rcsc::Focus_Reset().execute(agent);
-            continue;
+            agent->debugClient().addMessage("Focus_Reset");                                              
         }
-        if (action.__isset.neck_scan_field)
+        else if (action.__isset.neck_scan_field)
         {
             Neck_ScanField().execute(agent);
-            continue;
+            agent->debugClient().addMessage("Neck_ScanField");                                              
         }
-        if (action.__isset.neck_scan_players)
+        else if (action.__isset.neck_scan_players)
         {
             Neck_ScanPlayers().execute(agent);
-            continue;
+            agent->debugClient().addMessage("Neck_ScanPlayers");                                              
         }
-        if (action.__isset.neck_turn_to_ball_and_player)
+        else if (action.__isset.neck_turn_to_ball_and_player)
         {
             const auto &neckTurnToBallAndPlayer = action.neck_turn_to_ball_and_player;
             const rcsc::AbstractPlayerObject *player = nullptr;
@@ -458,37 +418,38 @@ void ThriftClientPlayer::getActions()
                     player,
                     neckTurnToBallAndPlayer.count_threshold)
                     .execute(agent);
+                agent->debugClient().addMessage("Neck_TurnToBallAndPlayer");                                              
             }
-            continue;
+            
         }
-        if (action.__isset.neck_turn_to_ball_or_scan)
+        else if (action.__isset.neck_turn_to_ball_or_scan)
         {
             const auto &neckTurnToBallOrScan = action.neck_turn_to_ball_or_scan;
             Neck_TurnToBallOrScan(
                 neckTurnToBallOrScan.count_threshold)
                 .execute(agent);
-            continue;
+            agent->debugClient().addMessage("Neck_TurnToBallOrScan");                                              
         }
-        if (action.__isset.neck_turn_to_ball)
+        else if (action.__isset.neck_turn_to_ball)
         {
             Neck_TurnToBall().execute(agent);
-            continue;
+            agent->debugClient().addMessage("Neck_TurnToBall");                                              
         }
-        if (action.__isset.neck_turn_to_goalie_or_scan)
+        else if (action.__isset.neck_turn_to_goalie_or_scan)
         {
             const auto &neckTurnToGoalieOrScan = action.neck_turn_to_goalie_or_scan;
             Neck_TurnToGoalieOrScan(
                 neckTurnToGoalieOrScan.count_threshold)
                 .execute(agent);
-            continue;
+            agent->debugClient().addMessage("Neck_TurnToGoalieOrScan");                                              
         }
-        if (action.__isset.neck_turn_to_low_conf_teammate)
+        else if (action.__isset.neck_turn_to_low_conf_teammate)
         {
             const auto &neckTurnToLowConfTeammate = action.neck_turn_to_low_conf_teammate;
             Neck_TurnToLowConfTeammate().execute(agent);
-            continue;
+            agent->debugClient().addMessage("Neck_TurnToLowConfTeammate");                                              
         }
-        if (action.__isset.neck_turn_to_player_or_scan)
+        else if (action.__isset.neck_turn_to_player_or_scan)
         {
             const auto &neckTurnToPlayerOrScan = action.neck_turn_to_player_or_scan;
             const rcsc::AbstractPlayerObject *player = nullptr;
@@ -506,69 +467,70 @@ void ThriftClientPlayer::getActions()
                     player,
                     neckTurnToPlayerOrScan.count_threshold)
                     .execute(agent);
+                agent->debugClient().addMessage("Neck_TurnToPlayerOrScan");                                   
             }
-            continue;
         }
-        if (action.__isset.neck_turn_to_point)
+        else if (action.__isset.neck_turn_to_point)
         {
             const auto &neckTurnToPoint = action.neck_turn_to_point;
             const auto &targetPoint = ThriftAgent::convertVector2D(neckTurnToPoint.target_point);
             Neck_TurnToPoint(
                 targetPoint)
                 .execute(agent);
-            continue;
+            agent->debugClient().addMessage("Neck_TurnToPoint");                                   
         }
-        if (action.__isset.neck_turn_to_relative)
+        else if (action.__isset.neck_turn_to_relative)
         {
             const auto &neckTurnToRelative = action.neck_turn_to_relative;
             Neck_TurnToRelative(
                 neckTurnToRelative.angle)
                 .execute(agent);
-            continue;
+            agent->debugClient().addMessage("Neck_TurnToRelative");                                   
         }
-        if (action.__isset.view_change_width)
+        else if (action.__isset.view_change_width)
         {
             const auto &viewChangeWidth = action.view_change_width;
             const rcsc::ViewWidth view_width = ThriftAgent::convertViewWidth(viewChangeWidth.view_width);
             View_ChangeWidth(
                 view_width)
                 .execute(agent);
-            continue;
+            agent->debugClient().addMessage("View_ChangeWidth");                       
+
         }
-        if (action.__isset.view_normal)
+        else if (action.__isset.view_normal)
         {
             View_Normal().execute(agent);
-            continue;
+            agent->debugClient().addMessage("View_Normal");                       
         }
-        if (action.__isset.view_wide)
+        else if (action.__isset.view_wide)
         {
             View_Wide().execute(agent);
-            continue;
+            agent->debugClient().addMessage("View_Wide");                       
         }
-        if (action.__isset.view_synch)
+        else if (action.__isset.view_synch)
         {
             View_Synch().execute(agent);
-            continue;
+            agent->debugClient().addMessage("View_Synch");           
         }
-        if (action.__isset.helios_goalie)
+        else if (action.__isset.helios_goalie)
         {
             RoleGoalie roleGoalie = RoleGoalie();
             roleGoalie.execute(agent);
-            continue;
+            agent->debugClient().addMessage("RoleGoalie - execute");
         }
-        if (action.__isset.helios_goalie_move)
+        else if (action.__isset.helios_goalie_move)
         {
             RoleGoalie roleGoalie = RoleGoalie();
             roleGoalie.doMove(agent);
-            continue;
+            agent->debugClient().addMessage("RoleGoalie - do Move");
         }
-        if (action.__isset.helios_goalie_kick)
+        else if (action.__isset.helios_goalie_kick)
         {
             RoleGoalie roleGoalie = RoleGoalie();
             roleGoalie.doKick(agent);
-            continue;
+            agent->debugClient().addMessage("RoleGoalie - do Kick");
         }
-        if (action.__isset.helios_shoot)
+        else if (action.__isset.helios_shoot)
         {
             const rcsc::WorldModel &wm = agent->world();
 
@@ -576,49 +538,50 @@ void ThriftClientPlayer::getActions()
                 && wm.time().stopped() == 0 && wm.self().isKickable() && Bhv_StrictCheckShoot().execute(agent))
             {
             }
-            continue;
+            
         }
-        if (action.__isset.helios_basic_move)
+        else if (action.__isset.helios_basic_move)
         {
             Bhv_BasicMove().execute(agent);
-            continue;
+            agent->debugClient().addMessage("Bhv_BasicMove");
         }
-        if (action.__isset.helios_set_play)
+        else if (action.__isset.helios_set_play)
         {
             Bhv_SetPlay().execute(agent);
-            continue;
+            agent->debugClient().addMessage("Bhv_SetPlay");
         }
-        if (action.__isset.helios_penalty)
+        else if (action.__isset.helios_penalty)
         {
             Bhv_PenaltyKick().execute(agent);
-            continue;
+            agent->debugClient().addMessage("Bhv_PenaltyKick");
         }
-        if (action.__isset.helios_communication)
+        else if (action.__isset.helios_communication)
         {
             sample_communication->execute(agent);
-            continue;
+            agent->debugClient().addMessage("sample_communication - execute");
+
         }
-        if (action.__isset.helios_chain_action)
+        else if (action.__isset.helios_offensive_planner)
         {
             FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
             CompositeActionGenerator *g = new CompositeActionGenerator();
 
-            if (action.helios_chain_action.lead_pass
-                || action.helios_chain_action.direct_pass || action.helios_chain_action.through_pass)
+            if (action.helios_offensive_planner.lead_pass
+                || action.helios_offensive_planner.direct_pass || action.helios_offensive_planner.through_pass)
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_StrictCheckPass(), 1));
-            if (action.helios_chain_action.cross)
+            if (action.helios_offensive_planner.cross)
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_Cross(), 1));
-            if (action.helios_chain_action.simple_pass)
+            if (action.helios_offensive_planner.simple_pass)
                 g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_DirectPass(),
                                                                         2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (action.helios_chain_action.short_dribble)
+            if (action.helios_offensive_planner.short_dribble)
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_ShortDribble(), 1));
-            if (action.helios_chain_action.long_dribble)
+            if (action.helios_offensive_planner.long_dribble)
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_SelfPass(), 1));
-            if (action.helios_chain_action.simple_dribble)
+            if (action.helios_offensive_planner.simple_dribble)
                 g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_SimpleDribble(),
                                                                         2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (action.helios_chain_action.simple_shoot)
+            if (action.helios_offensive_planner.simple_shoot)
                 g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_Shoot(),
                                                                         2, ActGen_RangeActionChainLengthFilter::MAX));
             if (g->M_generators.empty())
@@ -632,12 +595,11 @@ void ThriftClientPlayer::getActions()
             ActionChainHolder::instance().setActionGenerator(action_generator);
             ActionChainHolder::instance().update(agent->world());
             
-            if (action.helios_chain_action.server_side_decision)
+            if (action.helios_offensive_planner.server_side_decision)
             {
                 if (GetBestPlannerAction())
                 {
                     agent->debugClient().addMessage("GetBestPlannerAction");
-                    continue;
                 }
             }
             else
@@ -645,19 +607,17 @@ void ThriftClientPlayer::getActions()
                 if (Bhv_PlannedAction().execute(agent))
                 {
                     agent->debugClient().addMessage("PlannedAction");
-                    continue;
                 }
-
             }
+        }
+        else 
+        {
+            #ifdef DEBUG_CLIENT_PLAYER
+            std::cout << "Unkown action"<<std::endl;
+            #endif
             Body_HoldBall().execute(agent);
             agent->setNeckAction(new Neck_ScanField());
-            continue;
         }
-        #ifdef DEBUG_CLIENT_PLAYER
-        std::cout << "Unkown action"<<std::endl;
-        #endif
-        Body_HoldBall().execute(agent);
-        agent->setNeckAction(new Neck_ScanField());
     }
 }
 
@@ -674,88 +634,7 @@ bool ThriftClientPlayer::GetBestPlannerAction()
     #ifdef DEBUG_CLIENT_PLAYER
     std::cout << "GetBestActionStatePair:" << "c" << M_agent->world().time().cycle() << std::endl;
     #endif
-    for (auto & index_resultPair : ActionChainHolder::instance().graph().getAllResults())
-    {
-        try
-        {
-
-            auto & result_pair = index_resultPair.second;
-            auto action_ptr = result_pair.first->actionPtr();
-            auto state_ptr = result_pair.first->statePtr();
-            int unique_index = action_ptr->uniqueIndex();
-            int parent_index = action_ptr->parentIndex();
-            auto eval = result_pair.second;
-            auto map = & action_state_pairs.pairs;
-            auto rpc_action_state_pair = soccer::RpcActionState();
-            auto rpc_cooperative_action = soccer::RpcCooperativeAction();
-            auto rpc_predict_state = soccer::RpcPredictState();
-            auto category = soccer::RpcActionCategory::AC_Hold;
-            
-            switch (action_ptr->category())
-            {
-            case CooperativeAction::Hold:
-                category = soccer::RpcActionCategory::AC_Hold;
-                break;
-            case CooperativeAction::Dribble:
-                category = soccer::RpcActionCategory::AC_Dribble;
-                break;
-            case CooperativeAction::Pass:
-                category = soccer::RpcActionCategory::AC_Pass;
-                break;
-            case CooperativeAction::Shoot :
-                category = soccer::RpcActionCategory::AC_Shoot;
-                break;
-            case CooperativeAction::Clear:
-                category = soccer::RpcActionCategory::AC_Clear;
-                break;
-            case CooperativeAction::Move:
-                category = soccer::RpcActionCategory::AC_Move;
-                break;            
-            case CooperativeAction::NoAction:
-                category = soccer::RpcActionCategory::AC_NoAction;
-                break;
-            default:
-                break;
-            }
-            rpc_cooperative_action.category = category;
-            rpc_cooperative_action.index = unique_index;
-            rpc_cooperative_action.sender_unum = action_ptr->playerUnum();
-            rpc_cooperative_action.target_unum = action_ptr->targetPlayerUnum();
-            rpc_cooperative_action.target_point = ThriftStateGenerator::convertVector2D(action_ptr->targetPoint());
-            rpc_cooperative_action.first_ball_speed = action_ptr->firstBallSpeed();
-            rpc_cooperative_action.first_turn_moment = action_ptr->firstTurnMoment();
-            rpc_cooperative_action.first_dash_power = action_ptr->firstDashPower();
-            rpc_cooperative_action.first_dash_angle_relative = action_ptr->firstDashAngle().degree();
-            rpc_cooperative_action.duration_step = action_ptr->durationStep();
-            rpc_cooperative_action.kick_count = action_ptr->kickCount();
-            rpc_cooperative_action.turn_count = action_ptr->turnCount();
-            rpc_cooperative_action.dash_count = action_ptr->dashCount();
-            rpc_cooperative_action.final_action = action_ptr->isFinalAction();
-            rpc_cooperative_action.description = action_ptr->description();
-            rpc_cooperative_action.parent_index = parent_index;
-
-            // RpcPredictState
-            rpc_predict_state.spend_time = state_ptr->spendTime();
-            rpc_predict_state.ball_holder_unum = state_ptr->ballHolderUnum();
-            rpc_predict_state.ball_position = ThriftStateGenerator::convertVector2D(state_ptr->ball().pos());
-            rpc_predict_state.ball_velocity = ThriftStateGenerator::convertVector2D(state_ptr->ball().vel());
-            rpc_predict_state.our_defense_line_x = state_ptr->ourDefenseLineX();
-            rpc_predict_state.our_offense_line_x = state_ptr->ourOffensePlayerLineX();
-
-            // RpcActionState
-            rpc_action_state_pair.action = rpc_cooperative_action;
-            rpc_action_state_pair.predict_state = rpc_predict_state;
-            rpc_action_state_pair.evaluation = eval;
-
-            (*map)[unique_index] = rpc_action_state_pair;
-
-        }
-        catch (const std::exception &e)
-        {
-            std::cout << e.what() << '\n';
-        }
-    }
-
+    convertResultPairToRpcActionStatePair(&action_state_pairs.pairs);
     #ifdef DEBUG_CLIENT_PLAYER
     std::cout << "map size:" << action_state_pairs.pairs.size() << std::endl;
     #endif
@@ -966,5 +845,90 @@ void ThriftClientPlayer::addHomePosition(soccer::WorldModel *res) const
         vec_msg.x = home_pos.x;
         vec_msg.y = home_pos.y;
         res->helios_home_positions[i] = vec_msg;
+    }
+}
+
+void ThriftClientPlayer::convertResultPairToRpcActionStatePair( std::map<int32_t, soccer::RpcActionState> * pairs)
+{
+    for (auto & index_resultPair : ActionChainHolder::instance().graph().getAllResults())
+    {
+        try
+        {
+
+            auto & result_pair = index_resultPair.second;
+            auto action_ptr = result_pair.first->actionPtr();
+            auto state_ptr = result_pair.first->statePtr();
+            int unique_index = action_ptr->uniqueIndex();
+            int parent_index = action_ptr->parentIndex();
+            auto eval = result_pair.second;
+            auto map = pairs;
+            auto rpc_action_state_pair = soccer::RpcActionState();
+            auto rpc_cooperative_action = soccer::RpcCooperativeAction();
+            auto rpc_predict_state = soccer::RpcPredictState();
+            auto category = soccer::RpcActionCategory::AC_Hold;
+            
+            switch (action_ptr->category())
+            {
+            case CooperativeAction::Hold:
+                category = soccer::RpcActionCategory::AC_Hold;
+                break;
+            case CooperativeAction::Dribble:
+                category = soccer::RpcActionCategory::AC_Dribble;
+                break;
+            case CooperativeAction::Pass:
+                category = soccer::RpcActionCategory::AC_Pass;
+                break;
+            case CooperativeAction::Shoot :
+                category = soccer::RpcActionCategory::AC_Shoot;
+                break;
+            case CooperativeAction::Clear:
+                category = soccer::RpcActionCategory::AC_Clear;
+                break;
+            case CooperativeAction::Move:
+                category = soccer::RpcActionCategory::AC_Move;
+                break;            
+            case CooperativeAction::NoAction:
+                category = soccer::RpcActionCategory::AC_NoAction;
+                break;
+            default:
+                break;
+            }
+            rpc_cooperative_action.category = category;
+            rpc_cooperative_action.index = unique_index;
+            rpc_cooperative_action.sender_unum = action_ptr->playerUnum();
+            rpc_cooperative_action.target_unum = action_ptr->targetPlayerUnum();
+            rpc_cooperative_action.target_point = ThriftStateGenerator::convertVector2D(action_ptr->targetPoint());
+            rpc_cooperative_action.first_ball_speed = action_ptr->firstBallSpeed();
+            rpc_cooperative_action.first_turn_moment = action_ptr->firstTurnMoment();
+            rpc_cooperative_action.first_dash_power = action_ptr->firstDashPower();
+            rpc_cooperative_action.first_dash_angle_relative = action_ptr->firstDashAngle().degree();
+            rpc_cooperative_action.duration_step = action_ptr->durationStep();
+            rpc_cooperative_action.kick_count = action_ptr->kickCount();
+            rpc_cooperative_action.turn_count = action_ptr->turnCount();
+            rpc_cooperative_action.dash_count = action_ptr->dashCount();
+            rpc_cooperative_action.final_action = action_ptr->isFinalAction();
+            rpc_cooperative_action.description = action_ptr->description();
+            rpc_cooperative_action.parent_index = parent_index;
+
+            // RpcPredictState
+            rpc_predict_state.spend_time = state_ptr->spendTime();
+            rpc_predict_state.ball_holder_unum = state_ptr->ballHolderUnum();
+            rpc_predict_state.ball_position = ThriftStateGenerator::convertVector2D(state_ptr->ball().pos());
+            rpc_predict_state.ball_velocity = ThriftStateGenerator::convertVector2D(state_ptr->ball().vel());
+            rpc_predict_state.our_defense_line_x = state_ptr->ourDefenseLineX();
+            rpc_predict_state.our_offense_line_x = state_ptr->ourOffensePlayerLineX();
+
+            // RpcActionState
+            rpc_action_state_pair.action = rpc_cooperative_action;
+            rpc_action_state_pair.predict_state = rpc_predict_state;
+            rpc_action_state_pair.evaluation = eval;
+
+            (*map)[unique_index] = rpc_action_state_pair;
+
+        }
+        catch (const std::exception &e)
+        {
+            std::cout << e.what() << '\n';
+        }
     }
 }

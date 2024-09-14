@@ -134,33 +134,26 @@ void GrpcClientPlayer::getActions()
         }
     }
 
-    int body_action_done = 0;
     for (int i = 0; i < actions.actions_size(); i++)
     {
         auto action = actions.actions(i);
         if (action.action_case() == PlayerAction::kDash) {
             agent->doDash(action.dash().power(), action.dash().relative_direction());
-            body_action_done++;
         }
         else if (action.action_case() == PlayerAction::kKick) {
             agent->doKick(action.kick().power(), action.kick().relative_direction());
-            body_action_done++;
         }
         else if (action.action_case() == PlayerAction::kTurn) {
             agent->doTurn(action.turn().relative_direction());
-            body_action_done++;
         }
         else if (action.action_case() == PlayerAction::kTackle) {
             agent->doTackle(action.tackle().power_or_dir(), action.tackle().foul());
-            body_action_done++;
         }
         else if (action.action_case() == PlayerAction::kCatch) {
             agent->doCatch();
-            body_action_done++;
         }
         else if (action.action_case() == PlayerAction::kMove) {
             agent->doMove(action.move().x(), action.move().y());
-            body_action_done++;
         }
         else if (action.action_case() == PlayerAction::kTurnNeck) {
             agent->doTurnNeck(action.turn_neck().moment());
@@ -193,14 +186,12 @@ void GrpcClientPlayer::getActions()
             const auto &bodyGoToPoint = action.body_go_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(bodyGoToPoint.target_point());
             Body_GoToPoint(targetPoint, bodyGoToPoint.distance_threshold(), bodyGoToPoint.max_dash_power()).execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_GoToPoint");
         }
         else if (action.action_case() == PlayerAction::kBodySmartKick) {
             const auto &bodySmartKick = action.body_smart_kick();
             const auto &targetPoint = GrpcClient::convertVector2D(bodySmartKick.target_point());
             Body_SmartKick(targetPoint, bodySmartKick.first_speed(), bodySmartKick.first_speed_threshold(), bodySmartKick.max_steps()).execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_SmartKick");
         }
         else if (action.action_case() == PlayerAction::kBhvBeforeKickOff) {
@@ -211,14 +202,12 @@ void GrpcClientPlayer::getActions()
         }
         else if (action.action_case() == PlayerAction::kBhvBodyNeckToBall) {
             Bhv_BodyNeckToBall().execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Bhv_BodyNeckToBall");
         }
         else if (action.action_case() == PlayerAction::kBhvBodyNeckToPoint) {
             const auto &bhvBodyNeckToPoint = action.bhv_body_neck_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(bhvBodyNeckToPoint.point());
             Bhv_BodyNeckToPoint(targetPoint).execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Bhv_BodyNeckToPoint");
         }
         else if (action.action_case() == PlayerAction::kBhvEmergency) {
@@ -230,7 +219,6 @@ void GrpcClientPlayer::getActions()
             const auto &bhvGoToPointLookBall = action.bhv_go_to_point_look_ball();
             const auto &targetPoint = GrpcClient::convertVector2D(bhvGoToPointLookBall.target_point());
             Bhv_GoToPointLookBall(targetPoint, bhvGoToPointLookBall.distance_threshold(), bhvGoToPointLookBall.max_dash_power()).execute(agent);
-            body_action_done++;
                 agent->debugClient().addMessage("Bhv_GoToPointLookBall");
         }
         else if (action.action_case() == PlayerAction::kBhvNeckBodyToBall) {
@@ -251,12 +239,10 @@ void GrpcClientPlayer::getActions()
         }
         else if (action.action_case() == PlayerAction::kBodyAdvanceBall) {
             Body_AdvanceBall().execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_AdvanceBall");
         }
         else if (action.action_case() == PlayerAction::kBodyClearBall) {
             Body_ClearBall().execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_ClearBall");
         }
         else if (action.action_case() == PlayerAction::kBodyDribble) {
@@ -269,7 +255,6 @@ void GrpcClientPlayer::getActions()
                 bodyDribble.dash_count(),
                 bodyDribble.dodge())
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_Dribble");
         }
         else if (action.action_case() == PlayerAction::kBodyGoToPointDodge) {
@@ -279,7 +264,6 @@ void GrpcClientPlayer::getActions()
                 targetPoint,
                 bodyGoToPointDodge.dash_power())
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_GoToPointDodge");
         }
         else if (action.action_case() == PlayerAction::kBodyHoldBall) {
@@ -291,7 +275,6 @@ void GrpcClientPlayer::getActions()
                 turnTargetPoint,
                 kickTargetPoint)
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_HoldBall");
         }
         else if (action.action_case() == PlayerAction::kBodyIntercept) {
@@ -301,7 +284,6 @@ void GrpcClientPlayer::getActions()
                 bodyIntercept.save_recovery(),
                 facePoint)
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_Intercept");
         }
         else if (action.action_case() == PlayerAction::kBodyKickOneStep) {
@@ -312,12 +294,10 @@ void GrpcClientPlayer::getActions()
                 bodyKickOneStep.first_speed(),
                 bodyKickOneStep.force_mode())
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_KickOneStep");
         }
         else if (action.action_case() == PlayerAction::kBodyStopBall) {
             Body_StopBall().execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_StopBall");
         }
         else if (action.action_case() == PlayerAction::kBodyStopDash) {
@@ -325,7 +305,6 @@ void GrpcClientPlayer::getActions()
             Body_StopDash(
                 bodyStopDash.save_recovery())
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_StopDash");
         }
         else if (action.action_case() == PlayerAction::kBodyTackleToPoint) {
@@ -336,7 +315,6 @@ void GrpcClientPlayer::getActions()
                 bodyTackleToPoint.min_probability(),
                 bodyTackleToPoint.min_speed())
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_TackleToPoint");
         }
         else if (action.action_case() == PlayerAction::kBodyTurnToAngle) {
@@ -344,7 +322,6 @@ void GrpcClientPlayer::getActions()
             Body_TurnToAngle(
                 bodyTurnToAngle.angle())
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_TurnToAngle");
         }
         else if (action.action_case() == PlayerAction::kBodyTurnToBall) {
@@ -352,7 +329,6 @@ void GrpcClientPlayer::getActions()
             Body_TurnToBall(
                 bodyTurnToBall.cycle())
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_TurnToBall");
         }
         else if (action.action_case() == PlayerAction::kBodyTurnToPoint) {
@@ -362,7 +338,6 @@ void GrpcClientPlayer::getActions()
                 targetPoint,
                 bodyTurnToPoint.cycle())
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_TurnToPoint");
         }
         else if (action.action_case() == PlayerAction::kFocusMoveToPoint) {
@@ -515,26 +490,26 @@ void GrpcClientPlayer::getActions()
                 sample_communication->execute(agent);
                 agent->debugClient().addMessage("sample_communication - execute");
         }
-        else if (action.action_case() == PlayerAction::kHeliosChainAction) {
+        else if (action.action_case() == PlayerAction::kHeliosOffensivePlanner) {
             FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
             CompositeActionGenerator *g = new CompositeActionGenerator();
             
-            if (action.helios_chain_action().lead_pass() 
-                || action.helios_chain_action().direct_pass() || action.helios_chain_action().through_pass())
+            if (action.helios_offensive_planner().lead_pass() 
+                || action.helios_offensive_planner().direct_pass() || action.helios_offensive_planner().through_pass())
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_StrictCheckPass(), 1));
-            if (action.helios_chain_action().cross())
+            if (action.helios_offensive_planner().cross())
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_Cross(), 1));
-            if (action.helios_chain_action().simple_pass())
+            if (action.helios_offensive_planner().simple_pass())
                 g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_DirectPass(),
                                                                         2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (action.helios_chain_action().short_dribble())
+            if (action.helios_offensive_planner().short_dribble())
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_ShortDribble(), 1));
-            if (action.helios_chain_action().long_dribble())
+            if (action.helios_offensive_planner().long_dribble())
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_SelfPass(), 1));
-            if (action.helios_chain_action().simple_dribble())
+            if (action.helios_offensive_planner().simple_dribble())
                 g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_SimpleDribble(),
                                                                         2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (action.helios_chain_action().simple_shoot())
+            if (action.helios_offensive_planner().simple_shoot())
                 g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_Shoot(),
                                                                         2, ActGen_RangeActionChainLengthFilter::MAX));
             if (g->M_generators.empty())
@@ -548,7 +523,7 @@ void GrpcClientPlayer::getActions()
             ActionChainHolder::instance().setActionGenerator(action_generator);
             ActionChainHolder::instance().update(agent->world());
             
-            if (action.helios_chain_action().server_side_decision())
+            if (action.helios_offensive_planner().server_side_decision())
             {
                 if (GetBestPlannerAction())
                 {

@@ -133,7 +133,6 @@ void ThriftClientPlayer::getActions()
         }
     }
     std::cout<<"action size:"<<actions.actions.size()<<std::endl;
-    int body_action_done = 0;
     for (int i = 0; i < actions.actions.size(); i++)
     {
         auto action = actions.actions[i];
@@ -142,32 +141,26 @@ void ThriftClientPlayer::getActions()
         {
             std::cout<<"Dash:"<<action.dash.power<<","<<action.dash.relative_direction<<std::endl;
             agent->doDash(action.dash.power, action.dash.relative_direction);
-            body_action_done++;
         }
         else if (action.__isset.kick)
         {
             agent->doKick(action.kick.power, action.kick.relative_direction);
-            body_action_done++;
         }
         else if (action.__isset.turn)
         {
             agent->doTurn(action.turn.relative_direction);
-            body_action_done++;
         }
         else if (action.__isset.tackle)
         {
             agent->doTackle(action.tackle.power_or_dir, action.tackle.foul);
-            body_action_done++;
         }
         else if (action.__isset.catch_action)
         {
             agent->doCatch();
-            body_action_done++;
         }
         else if (action.__isset.move)
         {
             agent->doMove(action.move.x, action.move.y);
-            body_action_done++;
         }
         else if (action.__isset.turn_neck)
         {
@@ -208,7 +201,6 @@ void ThriftClientPlayer::getActions()
             const auto &bodyGoToPoint = action.body_go_to_point;
             const auto &targetPoint = ThriftAgent::convertVector2D(bodyGoToPoint.target_point);
             Body_GoToPoint(targetPoint, bodyGoToPoint.distance_threshold, bodyGoToPoint.max_dash_power).execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_GoToPoint");                                                                      
         }
         else if (action.__isset.body_smart_kick)
@@ -217,7 +209,6 @@ void ThriftClientPlayer::getActions()
             const auto &targetPoint = ThriftAgent::convertVector2D(bodySmartKick.target_point);
             Body_SmartKick(targetPoint, bodySmartKick.first_speed, bodySmartKick.first_speed_threshold,
                            bodySmartKick.max_steps).execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_SmartKick");                                                                      
         }
         else if (action.__isset.bhv_before_kick_off)
@@ -230,7 +221,6 @@ void ThriftClientPlayer::getActions()
         else if (action.__isset.bhv_body_neck_to_ball)
         {
             Bhv_BodyNeckToBall().execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Bhv_BodyNeckToBall");                                                                      
         }
         else if (action.__isset.bhv_body_neck_to_point)
@@ -238,7 +228,6 @@ void ThriftClientPlayer::getActions()
             const auto &bhvBodyNeckToPoint = action.bhv_body_neck_to_point;
             const auto &targetPoint = ThriftAgent::convertVector2D(bhvBodyNeckToPoint.point);
             Bhv_BodyNeckToPoint(targetPoint).execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Bhv_BodyNeckToPoint");                                                                      
         }
         else if (action.__isset.bhv_emergency)
@@ -251,7 +240,6 @@ void ThriftClientPlayer::getActions()
             const auto &bhvGoToPointLookBall = action.bhv_go_to_point_look_ball;
             const auto &targetPoint = ThriftAgent::convertVector2D(bhvGoToPointLookBall.target_point);
             Bhv_GoToPointLookBall(targetPoint, bhvGoToPointLookBall.distance_threshold, bhvGoToPointLookBall.max_dash_power).execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Bhv_GoToPointLookBall");                                                                      
         }
         else if (action.__isset.bhv_neck_body_to_ball)
@@ -275,13 +263,11 @@ void ThriftClientPlayer::getActions()
         else if (action.__isset.body_advance_ball)
         {
             Body_AdvanceBall().execute(agent);
-            body_action_done++;            
             agent->debugClient().addMessage("Body_AdvanceBall");                                                                      
         }
         else if (action.__isset.body_clear_ball)
         {
             Body_ClearBall().execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_ClearBall");                                                                      
         }
         else if (action.__isset.body_dribble)
@@ -295,7 +281,6 @@ void ThriftClientPlayer::getActions()
                 bodyDribble.dash_count,
                 bodyDribble.dodge)
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_Dribble");                                                                      
         }
         else if (action.__isset.body_go_to_point_dodge)
@@ -306,7 +291,6 @@ void ThriftClientPlayer::getActions()
                 targetPoint,
                 bodyGoToPointDodge.dash_power)
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_GoToPointDodge");                                                                      
         }
         else if (action.__isset.body_hold_ball)
@@ -319,7 +303,6 @@ void ThriftClientPlayer::getActions()
                 turnTargetPoint,
                 kickTargetPoint)
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_HoldBall");                                                                      
         }
         else if (action.__isset.body_intercept)
@@ -330,7 +313,6 @@ void ThriftClientPlayer::getActions()
                 bodyIntercept.save_recovery,
                 facePoint)
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_Intercept");                                                                      
         }
         else if (action.__isset.body_kick_one_step)
@@ -342,13 +324,11 @@ void ThriftClientPlayer::getActions()
                 bodyKickOneStep.first_speed,
                 bodyKickOneStep.force_mode)
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_KickOneStep");                                                                      
         }
         else if (action.__isset.body_stop_ball)
         {
             Body_StopBall().execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_StopBall");                                                                      
         }
         else if (action.__isset.body_stop_dash)
@@ -357,7 +337,6 @@ void ThriftClientPlayer::getActions()
             Body_StopDash(
                 bodyStopDash.save_recovery)
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_StopDash");                                                              
         }
         else if (action.__isset.body_tackle_to_point)
@@ -369,7 +348,6 @@ void ThriftClientPlayer::getActions()
                 bodyTackleToPoint.min_probability,
                 bodyTackleToPoint.min_speed)
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_TackleToPoint");                                                              
         }
         else if (action.__isset.body_turn_to_angle)
@@ -378,7 +356,6 @@ void ThriftClientPlayer::getActions()
             Body_TurnToAngle(
                 bodyTurnToAngle.angle)
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_TurnToAngle");                                                          
         }
         else if (action.__isset.body_turn_to_ball)
@@ -387,7 +364,6 @@ void ThriftClientPlayer::getActions()
             Body_TurnToBall(
                 bodyTurnToBall.cycle)
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_TurnToBall");                                                          
         }
         else if (action.__isset.body_turn_to_point)
@@ -398,7 +374,6 @@ void ThriftClientPlayer::getActions()
                 targetPoint,
                 bodyTurnToPoint.cycle)
                 .execute(agent);
-            body_action_done++;
             agent->debugClient().addMessage("Body_TurnToPoint");                                              
         }
         else if (action.__isset.focus_move_to_point)
@@ -586,27 +561,27 @@ void ThriftClientPlayer::getActions()
             agent->debugClient().addMessage("sample_communication - execute");
 
         }
-        else if (action.__isset.helios_chain_action)
+        else if (action.__isset.helios_offensive_planner)
         {
             FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
             CompositeActionGenerator *g = new CompositeActionGenerator();
 
-            if (action.helios_chain_action.lead_pass
-                || action.helios_chain_action.direct_pass || action.helios_chain_action.through_pass)
+            if (action.helios_offensive_planner.lead_pass
+                || action.helios_offensive_planner.direct_pass || action.helios_offensive_planner.through_pass)
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_StrictCheckPass(), 1));
-            if (action.helios_chain_action.cross)
+            if (action.helios_offensive_planner.cross)
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_Cross(), 1));
-            if (action.helios_chain_action.simple_pass)
+            if (action.helios_offensive_planner.simple_pass)
                 g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_DirectPass(),
                                                                         2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (action.helios_chain_action.short_dribble)
+            if (action.helios_offensive_planner.short_dribble)
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_ShortDribble(), 1));
-            if (action.helios_chain_action.long_dribble)
+            if (action.helios_offensive_planner.long_dribble)
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_SelfPass(), 1));
-            if (action.helios_chain_action.simple_dribble)
+            if (action.helios_offensive_planner.simple_dribble)
                 g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_SimpleDribble(),
                                                                         2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (action.helios_chain_action.simple_shoot)
+            if (action.helios_offensive_planner.simple_shoot)
                 g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_Shoot(),
                                                                         2, ActGen_RangeActionChainLengthFilter::MAX));
             if (g->M_generators.empty())
@@ -620,7 +595,7 @@ void ThriftClientPlayer::getActions()
             ActionChainHolder::instance().setActionGenerator(action_generator);
             ActionChainHolder::instance().update(agent->world());
             
-            if (action.helios_chain_action.server_side_decision)
+            if (action.helios_offensive_planner.server_side_decision)
             {
                 if (GetBestPlannerAction())
                 {

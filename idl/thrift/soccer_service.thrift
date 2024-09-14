@@ -716,7 +716,7 @@ struct HeliosGoalieKick {}
 
 struct HeliosShoot {}
 
-struct HeliosChainAction {
+struct HeliosOffensivePlanner {
   1: bool direct_pass,
   2: bool lead_pass,
   3: bool through_pass,
@@ -798,7 +798,7 @@ struct PlayerAction {
   56: optional HeliosGoalieMove helios_goalie_move,
   57: optional HeliosGoalieKick helios_goalie_kick,
   58: optional HeliosShoot helios_shoot,
-  59: optional HeliosChainAction helios_chain_action,
+  59: optional HeliosOffensivePlanner helios_offensive_planner,
   60: optional HeliosBasicOffensive helios_basic_offensive,
   61: optional HeliosBasicMove helios_basic_move,
   62: optional HeliosSetPlay helios_set_play,

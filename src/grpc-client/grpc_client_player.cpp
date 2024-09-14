@@ -587,7 +587,8 @@ bool GrpcClientPlayer::GetBestPlannerAction()
     std::cout << "GetBestActionStatePair:" << "c" << M_agent->world().time().cycle() << std::endl;
     std::cout << "results size:" << ActionChainHolder::instance().graph().getAllResults().size() << std::endl;
     #endif
-    convertResultPairToRpcActionStatePair(action_state_pairs->mutable_pairs())
+    auto map = action_state_pairs->mutable_pairs();
+    convertResultPairToRpcActionStatePair(map);
     #ifdef DEBUG_CLIENT_PLAYER
     std::cout << "map size:" << action_state_pairs->pairs_size() << std::endl;
     #endif
@@ -831,7 +832,7 @@ void GrpcClientPlayer::addHomePosition(protos::WorldModel *res) const
         (*map)[i] = vec_msg;
     }
 }
-void GrpcClientPlayer::convertResultPairToRpcActionStatePair( std::map<int32_t, soccer::RpcActionState> * pairs)
+void GrpcClientPlayer::convertResultPairToRpcActionStatePair( google::protobuf::Map<int32_t, protos::RpcActionState> * map)
 {
     for (auto & index_resultPair : ActionChainHolder::instance().graph().getAllResults())
     {
@@ -847,7 +848,6 @@ void GrpcClientPlayer::convertResultPairToRpcActionStatePair( std::map<int32_t, 
             #ifdef DEBUG_CLIENT_PLAYER
             std::cout<<"index:"<<index_resultPair.first<<" "<<unique_index<<" "<<parent_index<<" "<<eval<<std::endl;
             #endif
-            auto map = pairs;
             auto rpc_action_state_pair = protos::RpcActionState();
             auto rpc_cooperative_action = new protos::RpcCooperativeAction();
             auto rpc_predict_state = new protos::RpcPredictState();

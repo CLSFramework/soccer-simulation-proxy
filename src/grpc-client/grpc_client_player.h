@@ -18,7 +18,7 @@ public:
 
     void getActions();
     bool GetBestPlannerAction();
-    void convertResultPairToRpcActionStatePair( std::map<int32_t, soccer::RpcActionState> * pairs);
+    void convertResultPairToRpcActionStatePair( google::protobuf::Map<int32_t, protos::RpcActionState> * map);
     void addSayMessage(protos::Say sayMessage) const;
     State generateState() const;
     void addHomePosition(protos::WorldModel *world_model) const;

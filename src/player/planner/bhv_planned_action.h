@@ -51,6 +51,8 @@ public:
 
     bool execute( rcsc::PlayerAgent * agent );
 
+    bool execute( rcsc::PlayerAgent * agent, int index );
+
 private:
 
     bool doTurnToForward( rcsc::PlayerAgent * agent );

@@ -68,9 +68,9 @@ using std::chrono::duration_cast;
 using std::chrono::high_resolution_clock;
 using std::chrono::milliseconds;
 
-#define DEBUG
+// #define DEBUG_CLIENT_PLAYER
 
-#ifdef DEBUG
+#ifdef DEBUG_CLIENT_PLAYER
 #define LOG(x) std::cout << x << std::endl
 #define LOGV(x) std::cout << #x << ": " << x << std::endl
 #else
@@ -134,173 +134,118 @@ void GrpcClientPlayer::getActions()
         }
     }
 
-    int body_action_done = 0;
     for (int i = 0; i < actions.actions_size(); i++)
     {
         auto action = actions.actions(i);
-        switch (action.action_case())
-        {
-        case PlayerAction::kDash:
-        {
+        if (action.action_case() == PlayerAction::kDash) {
             agent->doDash(action.dash().power(), action.dash().relative_direction());
-            body_action_done++;
-            break;
         }
-        case PlayerAction::kKick:
-        {
+        else if (action.action_case() == PlayerAction::kKick) {
             agent->doKick(action.kick().power(), action.kick().relative_direction());
-            body_action_done++;
-            break;
         }
-        case PlayerAction::kTurn:
-        {
+        else if (action.action_case() == PlayerAction::kTurn) {
             agent->doTurn(action.turn().relative_direction());
-            body_action_done++;
-            break;
         }
-        case PlayerAction::kTackle:
-        {
+        else if (action.action_case() == PlayerAction::kTackle) {
             agent->doTackle(action.tackle().power_or_dir(), action.tackle().foul());
-            body_action_done++;
-            break;
         }
-        case PlayerAction::kCatch:
-        {
+        else if (action.action_case() == PlayerAction::kCatch) {
             agent->doCatch();
-            body_action_done++;
-            break;
         }
-        case PlayerAction::kMove:
-        {
+        else if (action.action_case() == PlayerAction::kMove) {
             agent->doMove(action.move().x(), action.move().y());
-            body_action_done++;
-            break;
         }
-        case PlayerAction::kTurnNeck:
-        {
+        else if (action.action_case() == PlayerAction::kTurnNeck) {
             agent->doTurnNeck(action.turn_neck().moment());
-            break;
         }
-        case PlayerAction::kChangeView:
-        {
+        else if (action.action_case() == PlayerAction::kChangeView) {
             const rcsc::ViewWidth view_width = GrpcClient::convertViewWidth(action.change_view().view_width());
             agent->doChangeView(view_width);
-            break;
         }
-        case PlayerAction::kSay:
-        {
+        else if (action.action_case() == PlayerAction::kSay) {
             addSayMessage(action.say());
-            break;
         }
-        case PlayerAction::kPointTo:
-        {
+        else if (action.action_case() == PlayerAction::kPointTo) {
             agent->doPointto(action.point_to().x(), action.point_to().y());
-            break;
         }
-        case PlayerAction::kPointToOf:
-        {
+        else if (action.action_case() == PlayerAction::kPointToOf) {
+
             agent->doPointtoOff();
-            break;
         }
-        case PlayerAction::kAttentionTo:
-        {
+        else if (action.action_case() == PlayerAction::kAttentionTo) {
             const rcsc::SideID side = GrpcClient::convertSideID(action.attention_to().side());
             agent->doAttentionto(side, action.attention_to().unum());
-            break;
         }
-        case PlayerAction::kAttentionToOf:
-        {
+        else if (action.action_case() == PlayerAction::kAttentionToOf) {
             agent->doAttentiontoOff();
-            break;
         }
-        case PlayerAction::kLog:
-        {
+        else if (action.action_case() == PlayerAction::kLog) {
             addDlog(action.log());
-            break;
         }
-        // todo debugClient
-        case PlayerAction::kBodyGoToPoint:
-        {
+        else if (action.action_case() == PlayerAction::kBodyGoToPoint) {
             const auto &bodyGoToPoint = action.body_go_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(bodyGoToPoint.target_point());
             Body_GoToPoint(targetPoint, bodyGoToPoint.distance_threshold(), bodyGoToPoint.max_dash_power()).execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Body_GoToPoint");
         }
-        case PlayerAction::kBodySmartKick:
-        {
+        else if (action.action_case() == PlayerAction::kBodySmartKick) {
             const auto &bodySmartKick = action.body_smart_kick();
             const auto &targetPoint = GrpcClient::convertVector2D(bodySmartKick.target_point());
             Body_SmartKick(targetPoint, bodySmartKick.first_speed(), bodySmartKick.first_speed_threshold(), bodySmartKick.max_steps()).execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Body_SmartKick");
         }
-        case PlayerAction::kBhvBeforeKickOff:
-        {
+        else if (action.action_case() == PlayerAction::kBhvBeforeKickOff) {
             const auto &bhvBeforeKickOff = action.bhv_before_kick_off();
             const auto &point = GrpcClient::convertVector2D(bhvBeforeKickOff.point());
             Bhv_BeforeKickOff(point).execute(agent);
-            break;
+                agent->debugClient().addMessage("Bhv_BeforeKickOff");
         }
-        case PlayerAction::kBhvBodyNeckToBall:
-        {
+        else if (action.action_case() == PlayerAction::kBhvBodyNeckToBall) {
             Bhv_BodyNeckToBall().execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Bhv_BodyNeckToBall");
         }
-        case PlayerAction::kBhvBodyNeckToPoint:
-        {
+        else if (action.action_case() == PlayerAction::kBhvBodyNeckToPoint) {
             const auto &bhvBodyNeckToPoint = action.bhv_body_neck_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(bhvBodyNeckToPoint.point());
             Bhv_BodyNeckToPoint(targetPoint).execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Bhv_BodyNeckToPoint");
         }
-        case PlayerAction::kBhvEmergency:
-        {
+        else if (action.action_case() == PlayerAction::kBhvEmergency) {
             Bhv_Emergency().execute(agent);
-            break;
+            agent->debugClient().addMessage("Bhv_Emergency");
+
         }
-        case PlayerAction::kBhvGoToPointLookBall:
-        {
+        else if (action.action_case() == PlayerAction::kBhvGoToPointLookBall) {
             const auto &bhvGoToPointLookBall = action.bhv_go_to_point_look_ball();
             const auto &targetPoint = GrpcClient::convertVector2D(bhvGoToPointLookBall.target_point());
             Bhv_GoToPointLookBall(targetPoint, bhvGoToPointLookBall.distance_threshold(), bhvGoToPointLookBall.max_dash_power()).execute(agent);
-            body_action_done++;
-            break;
+                agent->debugClient().addMessage("Bhv_GoToPointLookBall");
         }
-        case PlayerAction::kBhvNeckBodyToBall:
-        {
+        else if (action.action_case() == PlayerAction::kBhvNeckBodyToBall) {
+            
             const auto &bhvNeckBodyToBall = action.bhv_neck_body_to_ball();
             Bhv_NeckBodyToBall(bhvNeckBodyToBall.angle_buf()).execute(agent);
-            break;
+            agent->debugClient().addMessage("Bhv_NeckBodyToBall");
         }
-        case PlayerAction::kBhvNeckBodyToPoint:
-        {
+        else if (action.action_case() == PlayerAction::kBhvNeckBodyToPoint) {
             const auto &bhvNeckBodyToPoint = action.bhv_neck_body_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(bhvNeckBodyToPoint.point());
             Bhv_NeckBodyToPoint(targetPoint, bhvNeckBodyToPoint.angle_buf()).execute(agent);
-            break;
+            agent->debugClient().addMessage("Bhv_NeckBodyToPoint");
         }
-        case PlayerAction::kBhvScanField:
-        {
+        else if (action.action_case() == PlayerAction::kBhvScanField) {
             Bhv_ScanField().execute(agent);
-            break;
+            agent->debugClient().addMessage("Bhv_ScanField");
         }
-        case PlayerAction::kBodyAdvanceBall:
-        {
+        else if (action.action_case() == PlayerAction::kBodyAdvanceBall) {
             Body_AdvanceBall().execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Body_AdvanceBall");
         }
-        case PlayerAction::kBodyClearBall:
-        {
+        else if (action.action_case() == PlayerAction::kBodyClearBall) {
             Body_ClearBall().execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Body_ClearBall");
         }
-        case PlayerAction::kBodyDribble:
-        {
+        else if (action.action_case() == PlayerAction::kBodyDribble) {
             const auto &bodyDribble = action.body_dribble();
             const auto &targetPoint = GrpcClient::convertVector2D(bodyDribble.target_point());
             Body_Dribble(
@@ -310,22 +255,18 @@ void GrpcClientPlayer::getActions()
                 bodyDribble.dash_count(),
                 bodyDribble.dodge())
                 .execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Body_Dribble");
         }
-        case PlayerAction::kBodyGoToPointDodge:
-        {
+        else if (action.action_case() == PlayerAction::kBodyGoToPointDodge) {
             const auto &bodyGoToPointDodge = action.body_go_to_point_dodge();
             const auto &targetPoint = GrpcClient::convertVector2D(bodyGoToPointDodge.target_point());
             Body_GoToPointDodge(
                 targetPoint,
                 bodyGoToPointDodge.dash_power())
                 .execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Body_GoToPointDodge");
         }
-        case PlayerAction::kBodyHoldBall:
-        {
+        else if (action.action_case() == PlayerAction::kBodyHoldBall) {
             const auto &bodyHoldBall = action.body_hold_ball();
             const auto &turnTargetPoint = GrpcClient::convertVector2D(bodyHoldBall.turn_target_point());
             const auto &kickTargetPoint = GrpcClient::convertVector2D(bodyHoldBall.kick_target_point());
@@ -334,22 +275,18 @@ void GrpcClientPlayer::getActions()
                 turnTargetPoint,
                 kickTargetPoint)
                 .execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Body_HoldBall");
         }
-        case PlayerAction::kBodyIntercept:
-        {
+        else if (action.action_case() == PlayerAction::kBodyIntercept) {
             const auto &bodyIntercept = action.body_intercept();
             const auto &facePoint = GrpcClient::convertVector2D(bodyIntercept.face_point());
             Body_Intercept(
                 bodyIntercept.save_recovery(),
                 facePoint)
                 .execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Body_Intercept");
         }
-        case PlayerAction::kBodyKickOneStep:
-        {
+        else if (action.action_case() == PlayerAction::kBodyKickOneStep) {
             const auto &bodyKickOneStep = action.body_kick_one_step();
             const auto &targetPoint = GrpcClient::convertVector2D(bodyKickOneStep.target_point());
             Body_KickOneStep(
@@ -357,26 +294,20 @@ void GrpcClientPlayer::getActions()
                 bodyKickOneStep.first_speed(),
                 bodyKickOneStep.force_mode())
                 .execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Body_KickOneStep");
         }
-        case PlayerAction::kBodyStopBall:
-        {
+        else if (action.action_case() == PlayerAction::kBodyStopBall) {
             Body_StopBall().execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Body_StopBall");
         }
-        case PlayerAction::kBodyStopDash:
-        {
+        else if (action.action_case() == PlayerAction::kBodyStopDash) {
             const auto &bodyStopDash = action.body_stop_dash();
             Body_StopDash(
                 bodyStopDash.save_recovery())
                 .execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Body_StopDash");
         }
-        case PlayerAction::kBodyTackleToPoint:
-        {
+        else if (action.action_case() == PlayerAction::kBodyTackleToPoint) {
             const auto &bodyTackleToPoint = action.body_tackle_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(bodyTackleToPoint.target_point());
             Body_TackleToPoint(
@@ -384,270 +315,285 @@ void GrpcClientPlayer::getActions()
                 bodyTackleToPoint.min_probability(),
                 bodyTackleToPoint.min_speed())
                 .execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Body_TackleToPoint");
         }
-        case PlayerAction::kBodyTurnToAngle:
-        {
+        else if (action.action_case() == PlayerAction::kBodyTurnToAngle) {
             const auto &bodyTurnToAngle = action.body_turn_to_angle();
             Body_TurnToAngle(
                 bodyTurnToAngle.angle())
                 .execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Body_TurnToAngle");
         }
-        case PlayerAction::kBodyTurnToBall:
-        {
+        else if (action.action_case() == PlayerAction::kBodyTurnToBall) {
             const auto &bodyTurnToBall = action.body_turn_to_ball();
             Body_TurnToBall(
                 bodyTurnToBall.cycle())
                 .execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Body_TurnToBall");
         }
-        case PlayerAction::kBodyTurnToPoint:
-        {
+        else if (action.action_case() == PlayerAction::kBodyTurnToPoint) {
             const auto &bodyTurnToPoint = action.body_turn_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(bodyTurnToPoint.target_point());
             Body_TurnToPoint(
                 targetPoint,
                 bodyTurnToPoint.cycle())
                 .execute(agent);
-            body_action_done++;
-            break;
+            agent->debugClient().addMessage("Body_TurnToPoint");
         }
-        case PlayerAction::kFocusMoveToPoint:
-        {
+        else if (action.action_case() == PlayerAction::kFocusMoveToPoint) {
             const auto &focusMoveToPoint = action.focus_move_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(focusMoveToPoint.target_point());
             rcsc::Focus_MoveToPoint(
                 targetPoint)
                 .execute(agent);
-            break;
+            agent->debugClient().addMessage("Focus_MoveToPoint");
         }
-        case PlayerAction::kFocusReset:
-        {
+        else if (action.action_case() == PlayerAction::kFocusReset) {
             rcsc::Focus_Reset().execute(agent);
-            break;
+            agent->debugClient().addMessage("Focus_Reset");
         }
-        case PlayerAction::kNeckScanField:
-        {
+        else if (action.action_case() == PlayerAction::kNeckScanField) {
             Neck_ScanField().execute(agent);
-            break;
+            agent->debugClient().addMessage("Neck_ScanField");
         }
-        case PlayerAction::kNeckScanPlayers:
-        {
+        else if (action.action_case() == PlayerAction::kNeckScanPlayers) {
             Neck_ScanPlayers().execute(agent);
-            break;
+            agent->debugClient().addMessage("Neck_ScanPlayers");
         }
-        case PlayerAction::kNeckTurnToBallAndPlayer:
-        {
+        else if (action.action_case() == PlayerAction::kNeckTurnToBallAndPlayer) {
             const auto &neckTurnToBallAndPlayer = action.neck_turn_to_ball_and_player();
             const rcsc::AbstractPlayerObject *player = nullptr;
-            if (neckTurnToBallAndPlayer.side() == protos::Side::LEFT && agent->world().ourSide() == rcsc::SideID::LEFT)
-            {
+            if (neckTurnToBallAndPlayer.side() == protos::Side::LEFT && agent->world().ourSide() == rcsc::SideID::LEFT){
                 player = agent->world().ourPlayer(neckTurnToBallAndPlayer.uniform_number());
             }
-            else
-            {
+            else{
                 player = agent->world().theirPlayer(neckTurnToBallAndPlayer.uniform_number());
             }
-            if (player != nullptr)
-            {
+            if (player != nullptr){
                 Neck_TurnToBallAndPlayer(
                     player,
                     neckTurnToBallAndPlayer.count_threshold())
                     .execute(agent);
+                agent->debugClient().addMessage("Neck_TurnToBallAndPlayer");
             }
-            break;
         }
-        case PlayerAction::kNeckTurnToBallOrScan:
-        {
+        else if (action.action_case() == PlayerAction::kNeckTurnToBallOrScan) {
             const auto &neckTurnToBallOrScan = action.neck_turn_to_ball_or_scan();
             Neck_TurnToBallOrScan(
                 neckTurnToBallOrScan.count_threshold())
                 .execute(agent);
-            break;
+            agent->debugClient().addMessage("Neck_TurnToBallOrScan");
         }
-        case PlayerAction::kNeckTurnToBall:
-        {
+        else if (action.action_case() == PlayerAction::kNeckTurnToBall) {
             Neck_TurnToBall().execute(agent);
-            break;
+            agent->debugClient().addMessage("Neck_TurnToBall");
         }
-        case PlayerAction::kNeckTurnToGoalieOrScan:
-        {
+        else if (action.action_case() == PlayerAction::kNeckTurnToGoalieOrScan) {
             const auto &neckTurnToGoalieOrScan = action.neck_turn_to_goalie_or_scan();
             Neck_TurnToGoalieOrScan(
                 neckTurnToGoalieOrScan.count_threshold())
                 .execute(agent);
-            break;
+            agent->debugClient().addMessage("Neck_TurnToGoalieOrScan");
         }
-        case PlayerAction::kNeckTurnToLowConfTeammate:
-        {
+        else if (action.action_case() == PlayerAction::kNeckTurnToLowConfTeammate) {
             const auto &neckTurnToLowConfTeammate = action.neck_turn_to_low_conf_teammate();
             Neck_TurnToLowConfTeammate().execute(agent);
-            break;
+            agent->debugClient().addMessage("Neck_TurnToLowConfTeammate");
         }
-        case PlayerAction::kNeckTurnToPlayerOrScan:
-        {
+        else if (action.action_case() == PlayerAction::kNeckTurnToPlayerOrScan) {
             const auto &neckTurnToPlayerOrScan = action.neck_turn_to_player_or_scan();
             const rcsc::AbstractPlayerObject *player = nullptr;
-            if (neckTurnToPlayerOrScan.side() == protos::Side::LEFT && agent->world().ourSide() == rcsc::SideID::LEFT)
-            {
+            if (neckTurnToPlayerOrScan.side() == protos::Side::LEFT && agent->world().ourSide() == rcsc::SideID::LEFT){
                 player = agent->world().ourPlayer(neckTurnToPlayerOrScan.uniform_number());
             }
-            else
-            {
+            else{
                 player = agent->world().theirPlayer(neckTurnToPlayerOrScan.uniform_number());
             }
-            if (player != nullptr)
-            {
+            if (player != nullptr){
                 Neck_TurnToPlayerOrScan(
                     player,
                     neckTurnToPlayerOrScan.count_threshold())
                     .execute(agent);
+                agent->debugClient().addMessage("Neck_TurnToPlayerOrScan");
             }
-            break;
         }
-        case PlayerAction::kNeckTurnToPoint:
-        {
+        else if (action.action_case() == PlayerAction::kNeckTurnToPoint) {
             const auto &neckTurnToPoint = action.neck_turn_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(neckTurnToPoint.target_point());
             Neck_TurnToPoint(
                 targetPoint)
                 .execute(agent);
-            break;
+            agent->debugClient().addMessage("Neck_TurnToPoint");
         }
-        case PlayerAction::kNeckTurnToRelative:
-        {
+        else if (action.action_case() == PlayerAction::kNeckTurnToRelative) {
             const auto &neckTurnToRelative = action.neck_turn_to_relative();
             Neck_TurnToRelative(
                 neckTurnToRelative.angle())
                 .execute(agent);
-            break;
+            agent->debugClient().addMessage("Neck_TurnToRelative");
         }
-        case PlayerAction::kViewChangeWidth:
-        {
+        else if (action.action_case() == PlayerAction::kViewChangeWidth) {
             const auto &viewChangeWidth = action.view_change_width();
             const rcsc::ViewWidth view_width = GrpcClient::convertViewWidth(viewChangeWidth.view_width());
             View_ChangeWidth(
                 view_width)
                 .execute(agent);
-            break;
+            agent->debugClient().addMessage("View_ChangeWidth");
         }
-        case PlayerAction::kViewNormal:
-        {
+        else if (action.action_case() == PlayerAction::kViewNormal) {
             View_Normal().execute(agent);
-            break;
+            agent->debugClient().addMessage("View_Normal");
         }
-        case PlayerAction::kViewWide:
-        {
+        else if (action.action_case() == PlayerAction::kViewWide) {
             View_Wide().execute(agent);
-            break;
+            agent->debugClient().addMessage("View_Wide");
         }
-        case PlayerAction::kViewSynch:
-        {
+        else if (action.action_case() == PlayerAction::kViewSynch) {
             View_Synch().execute(agent);
-            break;
+            agent->debugClient().addMessage("View_Synch");
         }
-        case PlayerAction::kHeliosGoalie:
-        {
+        else if (action.action_case() == PlayerAction::kHeliosGoalie) {
             RoleGoalie roleGoalie = RoleGoalie();
             roleGoalie.execute(agent);
-            break;
+            agent->debugClient().addMessage("RoleGoalie - execute");
         }
-        case PlayerAction::kHeliosGoalieMove:
-        {
+        else if (action.action_case() == PlayerAction::kHeliosGoalieMove) {
             RoleGoalie roleGoalie = RoleGoalie();
             roleGoalie.doMove(agent);
-            break;
+            agent->debugClient().addMessage("RoleGoalie - do Move");
         }
-        case PlayerAction::kHeliosGoalieKick:
-        {
+        else if (action.action_case() == PlayerAction::kHeliosGoalieKick) {
             RoleGoalie roleGoalie = RoleGoalie();
             roleGoalie.doKick(agent);
-            break;
+            agent->debugClient().addMessage("RoleGoalie - do Kick");
         }
-        case PlayerAction::kHeliosShoot:
-        {
+        else if (action.action_case() == PlayerAction::kHeliosShoot) {
             const rcsc::WorldModel &wm = agent->world();
-
+            
             if (wm.gameMode().type() != rcsc::GameMode::IndFreeKick_ && wm.time().stopped() == 0 && wm.self().isKickable() && Bhv_StrictCheckShoot().execute(agent))
-            {
+                {
             }
-            break;
         }
-        case PlayerAction::kHeliosBasicMove:
-        {
+        else if (action.action_case() == PlayerAction::kHeliosBasicMove) {
             Bhv_BasicMove().execute(agent);
-            break;
+            agent->debugClient().addMessage("Bhv_BasicMove");
         }
-        case PlayerAction::kHeliosSetPlay:
-        {
+        else if (action.action_case() == PlayerAction::kHeliosSetPlay) {
             Bhv_SetPlay().execute(agent);
-            break;
+            agent->debugClient().addMessage("Bhv_SetPlay");
         }
-        case PlayerAction::kHeliosPenalty:
-        {
+        else if (action.action_case() == PlayerAction::kHeliosPenalty) {
             Bhv_PenaltyKick().execute(agent);
-            break;
+            agent->debugClient().addMessage("Bhv_PenaltyKick");
         }
-        case PlayerAction::kHeliosCommunication:
-        {
-            sample_communication->execute(agent);
-            break;
+        else if (action.action_case() == PlayerAction::kHeliosCommunication) {
+                sample_communication->execute(agent);
+                agent->debugClient().addMessage("sample_communication - execute");
         }
-        case PlayerAction::kHeliosChainAction:
-        {
+        else if (action.action_case() == PlayerAction::kHeliosOffensivePlanner) {
             FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
             CompositeActionGenerator *g = new CompositeActionGenerator();
-
-            if (action.helios_chain_action().lead_pass() || action.helios_chain_action().direct_pass() || action.helios_chain_action().through_pass())
+            
+            if (action.helios_offensive_planner().lead_pass() 
+                || action.helios_offensive_planner().direct_pass() || action.helios_offensive_planner().through_pass())
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_StrictCheckPass(), 1));
-            if (action.helios_chain_action().cross())
+            if (action.helios_offensive_planner().cross())
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_Cross(), 1));
-            if (action.helios_chain_action().simple_pass())
+            if (action.helios_offensive_planner().simple_pass())
                 g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_DirectPass(),
                                                                         2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (action.helios_chain_action().short_dribble())
+            if (action.helios_offensive_planner().short_dribble())
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_ShortDribble(), 1));
-            if (action.helios_chain_action().long_dribble())
+            if (action.helios_offensive_planner().long_dribble())
                 g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_SelfPass(), 1));
-            if (action.helios_chain_action().simple_dribble())
+            if (action.helios_offensive_planner().simple_dribble())
                 g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_SimpleDribble(),
                                                                         2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (action.helios_chain_action().simple_shoot())
+            if (action.helios_offensive_planner().simple_shoot())
                 g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_Shoot(),
                                                                         2, ActGen_RangeActionChainLengthFilter::MAX));
             if (g->M_generators.empty())
             {
                 Body_HoldBall().execute(agent);
                 agent->setNeckAction(new Neck_ScanField());
-                break;
+                continue;
             }
             ActionGenerator::ConstPtr action_generator = ActionGenerator::ConstPtr(g);
             ActionChainHolder::instance().setFieldEvaluator(field_evaluator);
             ActionChainHolder::instance().setActionGenerator(action_generator);
             ActionChainHolder::instance().update(agent->world());
-            if (Bhv_PlannedAction().execute(agent))
+            
+            if (action.helios_offensive_planner().server_side_decision())
             {
-                agent->debugClient().addMessage("PlannedAction");
-                break;
+                if (GetBestPlannerAction())
+                {
+                    agent->debugClient().addMessage("GetBestPlannerAction");
+                }
+            }
+            else
+            {
+                if (Bhv_PlannedAction().execute(agent))
+                {
+                    agent->debugClient().addMessage("PlannedAction");
+                }
+                
             }
 
+        }
+        else 
+        {
+            #ifdef DEBUG_CLIENT_PLAYER
+            std::cout << "Unkown action"<<std::endl;
+            #endif
             Body_HoldBall().execute(agent);
             agent->setNeckAction(new Neck_ScanField());
-            break;
-        }
-
-            //                HeliosChainAction helios_chain_action = 59;
-        default:
-        {
-            LOG("unknown action");
-            break;
-        }
         }
     }
+}
+
+bool GrpcClientPlayer::GetBestPlannerAction()
+{
+    protos::BestPlannerActionRequest *action_state_pairs = new protos::BestPlannerActionRequest();
+    protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);
+    action_state_pairs->set_allocated_register_response(response);
+    State state = generateState();
+    action_state_pairs->set_allocated_state(&state);
+    #ifdef DEBUG_CLIENT_PLAYER
+    std::cout << "GetBestActionStatePair:" << "c" << M_agent->world().time().cycle() << std::endl;
+    std::cout << "results size:" << ActionChainHolder::instance().graph().getAllResults().size() << std::endl;
+    #endif
+    auto map = action_state_pairs->mutable_pairs();
+    convertResultPairToRpcActionStatePair(map);
+    #ifdef DEBUG_CLIENT_PLAYER
+    std::cout << "map size:" << action_state_pairs->pairs_size() << std::endl;
+    #endif
+    protos::BestPlannerActionResponse best_action;
+    ClientContext context;
+    Status status = M_stub_->GetBestPlannerAction(&context, *action_state_pairs, &best_action);
+
+    if (!status.ok())
+    {
+        std::cout << status.error_code() << ": " << status.error_message()
+                  << std::endl;
+        return false;
+    }
+
+    auto agent = M_agent;
+
+    #ifdef DEBUG_CLIENT_PLAYER
+    std::cout << "best action index:" << best_action.index() << std::endl;
+    #endif
+
+    if (Bhv_PlannedAction().execute(agent, best_action.index()))
+    {
+        #ifdef DEBUG_CLIENT_PLAYER
+        std::cout << "PlannedAction" << std::endl;
+        #endif
+        agent->debugClient().addMessage("PlannedAction");
+        return true;
+    }
+
+    return false;
 }
 
 void GrpcClientPlayer::addSayMessage(protos::Say sayMessage) const
@@ -859,5 +805,88 @@ void GrpcClientPlayer::addHomePosition(protos::WorldModel *res) const
         vec_msg.set_x(home_pos.x);
         vec_msg.set_y(home_pos.y);
         (*map)[i] = vec_msg;
+    }
+}
+void GrpcClientPlayer::convertResultPairToRpcActionStatePair( google::protobuf::Map<int32_t, protos::RpcActionState> * map)
+{
+    for (auto & index_resultPair : ActionChainHolder::instance().graph().getAllResults())
+    {
+        try
+        {
+            
+            auto & result_pair = index_resultPair.second;
+            auto action_ptr = result_pair.first->actionPtr();
+            auto state_ptr = result_pair.first->statePtr();
+            int unique_index = action_ptr->uniqueIndex();
+            int parent_index = action_ptr->parentIndex();
+            auto eval = result_pair.second;
+            #ifdef DEBUG_CLIENT_PLAYER
+            std::cout<<"index:"<<index_resultPair.first<<" "<<unique_index<<" "<<parent_index<<" "<<eval<<std::endl;
+            #endif
+            auto rpc_action_state_pair = protos::RpcActionState();
+            auto rpc_cooperative_action = new protos::RpcCooperativeAction();
+            auto rpc_predict_state = new protos::RpcPredictState();
+            auto category = protos::RpcActionCategory::AC_Hold;
+            
+            switch (action_ptr->category())
+            {
+            case CooperativeAction::Hold:
+                category = protos::RpcActionCategory::AC_Hold;
+                break;
+            case CooperativeAction::Dribble:
+                category = protos::RpcActionCategory::AC_Dribble;
+                break;
+            case CooperativeAction::Pass:
+                category = protos::RpcActionCategory::AC_Pass;
+                break;
+            case CooperativeAction::Shoot:
+                category = protos::RpcActionCategory::AC_Shoot;
+                break;
+            case CooperativeAction::Clear:
+                category = protos::RpcActionCategory::AC_Clear;
+                break;
+            case CooperativeAction::Move:
+                category = protos::RpcActionCategory::AC_Move;
+                break;
+            case CooperativeAction::NoAction:
+                category = protos::RpcActionCategory::AC_NoAction;
+                break;
+            default:
+                break;
+            }
+            rpc_cooperative_action->set_category(category);
+            rpc_cooperative_action->set_index(unique_index);
+            rpc_cooperative_action->set_sender_unum(action_ptr->playerUnum());
+            rpc_cooperative_action->set_target_unum(action_ptr->targetPlayerUnum());
+            rpc_cooperative_action->set_allocated_target_point(StateGenerator::convertVector2D(action_ptr->targetPoint()));
+            rpc_cooperative_action->set_first_ball_speed(action_ptr->firstBallSpeed());
+            rpc_cooperative_action->set_first_turn_moment(action_ptr->firstTurnMoment());
+            rpc_cooperative_action->set_first_dash_power(action_ptr->firstDashPower());
+            rpc_cooperative_action->set_first_dash_angle_relative(action_ptr->firstDashAngle().degree());
+            rpc_cooperative_action->set_duration_step(action_ptr->durationStep());
+            rpc_cooperative_action->set_kick_count(action_ptr->kickCount());
+            rpc_cooperative_action->set_turn_count(action_ptr->turnCount());
+            rpc_cooperative_action->set_dash_count(action_ptr->dashCount());
+            rpc_cooperative_action->set_final_action(action_ptr->isFinalAction());
+            rpc_cooperative_action->set_description(action_ptr->description());
+            rpc_cooperative_action->set_parent_index(parent_index);
+
+            rpc_predict_state->set_spend_time(state_ptr->spendTime());
+            rpc_predict_state->set_ball_holder_unum(state_ptr->ballHolderUnum());
+            rpc_predict_state->set_allocated_ball_position(StateGenerator::convertVector2D(state_ptr->ball().pos()));
+            rpc_predict_state->set_allocated_ball_velocity(StateGenerator::convertVector2D(state_ptr->ball().vel()));
+            rpc_predict_state->set_our_defense_line_x(state_ptr->ourDefenseLineX());
+            rpc_predict_state->set_our_offense_line_x(state_ptr->ourOffensePlayerLineX());
+
+            rpc_action_state_pair.set_allocated_action(rpc_cooperative_action);
+            rpc_action_state_pair.set_allocated_predict_state(rpc_predict_state);
+            rpc_action_state_pair.set_evaluation(eval);
+
+            (*map)[unique_index] = rpc_action_state_pair;
+        }
+        catch (const std::exception &e)
+        {
+            std::cout << e.what() << '\n';
+        }
     }
 }

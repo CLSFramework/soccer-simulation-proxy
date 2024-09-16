@@ -1,6 +1,7 @@
 #include "thrift_client.h"
 #include "player/sample_communication.h"
 #include "rpc-client/rpc-player-client.h"
+#include "planner/action_chain_graph.h"
 
 class ThriftClientPlayer : public ThriftAgent, public RpcPlayerClient {
     rcsc::PlayerAgent * M_agent;
@@ -15,6 +16,8 @@ class ThriftClientPlayer : public ThriftAgent, public RpcPlayerClient {
               bool add_20_to_grpc_port_if_right_side=false) override;
 
     void getActions();
+    bool GetBestPlannerAction();
+    void convertResultPairToRpcActionStatePair( std::map<int32_t, soccer::RpcActionState> * pairs);
     void addSayMessage(soccer::Say sayMessage) const;
     soccer::State generateState() const;
     void addHomePosition(soccer::WorldModel * world_model) const;

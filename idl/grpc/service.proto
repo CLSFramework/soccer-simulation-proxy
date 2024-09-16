@@ -1,3 +1,5 @@
+// version 1
+
 syntax = "proto3";
 
 package protos;
@@ -19,6 +21,18 @@ message RegisterRequest {
   AgentType agent_type = 1;
   string team_name = 2;
   int32 uniform_number = 3;
+  int32 rpc_version = 4;
+}
+
+enum RpcServerLanguageType {
+  UNKNOWN_LANGUAGE = 0;
+  PYThON = 1;
+  JAVA = 2;
+  CPP = 3;
+  CSHARP = 4;
+  RUBY = 5;
+  JAVE_SCRIPT = 6;
+  GO = 7;
 }
 
 message RegisterResponse {
@@ -26,6 +40,7 @@ message RegisterResponse {
   AgentType agent_type = 2;
   string team_name = 3;
   int32 uniform_number = 4;
+  RpcServerLanguageType rpc_server_language_type = 5;
 }
 
 message Ball {
@@ -79,6 +94,12 @@ enum LoggerLevel{
   PLAN = 0x00100000;
   // TRAINING = 0x80000000;
   // LEVEL_ANY = 0xffffffff;
+}
+
+enum CardType {
+  NO_CARD = 0;
+  YELLOW = 1;
+  RED = 2;
 }
 
 message Player {
@@ -151,6 +172,9 @@ message Self {
   ViewWidth view_width = 34;
   int32 type_id = 35;
   float kick_rate = 36;
+  float recovery = 37;
+  float stamina_capacity = 38;
+  CardType card = 39;
 }
 
 enum InterceptActionType {
@@ -254,6 +278,10 @@ message WorldModel {
   int32 their_team_score = 29;
   bool is_penalty_kick_mode = 30;
   map<int32, RpcVector2D> helios_home_positions = 31;
+  double our_defense_line_x = 32;
+  double their_defense_line_x = 33;
+  double our_defense_player_line_x = 34;
+  double their_defense_player_line_x = 35;
 }
 
 message State {
@@ -748,7 +776,7 @@ message HeliosGoalieKick {}
 
 message HeliosShoot {}
 
-message HeliosChainAction {
+message HeliosOffensivePlanner {
   bool direct_pass = 1;
   bool lead_pass = 2;
   bool through_pass = 3;
@@ -758,6 +786,7 @@ message HeliosChainAction {
   bool simple_pass = 7;
   bool simple_dribble = 8;
   bool simple_shoot = 9;
+  bool server_side_decision = 10;
 }
 
 message HeliosBasicOffensive {}
@@ -830,12 +859,13 @@ message PlayerAction {
       HeliosGoalieMove helios_goalie_move = 56;
       HeliosGoalieKick helios_goalie_kick = 57;
       HeliosShoot helios_shoot = 58;
-      HeliosChainAction helios_chain_action = 59;
+      HeliosOffensivePlanner helios_offensive_planner = 59;
       HeliosBasicOffensive helios_basic_offensive = 60;
       HeliosBasicMove helios_basic_move = 61;
       HeliosSetPlay helios_set_play = 62;
       HeliosPenalty helios_penalty = 63;
       HeliosCommunicaion helios_communication = 64;
+
   }
 }
 
@@ -1202,6 +1232,59 @@ message PlayerType {
   float player_speed_max = 34;
 }
 
+enum RpcActionCategory {
+  AC_Hold = 0;
+  AC_Dribble = 1;
+  AC_Pass = 2;
+  AC_Shoot = 3;
+  AC_Clear = 4;
+  AC_Move = 5;
+  AC_NoAction = 6;
+}
+message RpcCooperativeAction {
+  RpcActionCategory category = 1;
+  int32 index = 2;
+  int32 sender_unum = 3;
+  int32 target_unum = 4;
+  RpcVector2D target_point = 5;
+  double first_ball_speed = 6;
+  double first_turn_moment = 7;
+  double first_dash_power = 8;
+  double first_dash_angle_relative = 9;
+  int32 duration_step = 10;
+  int32 kick_count = 11;
+  int32 turn_count = 12;
+  int32 dash_count = 13;
+  bool final_action = 14;
+  string description = 15;
+  int32 parent_index = 16;
+}
+
+message RpcPredictState {
+  int32 spend_time = 1;
+  int32 ball_holder_unum = 2;
+  RpcVector2D ball_position = 3;
+  RpcVector2D ball_velocity = 4;
+  double our_defense_line_x = 5;
+  double our_offense_line_x = 6;
+}
+
+message RpcActionState {
+  RpcCooperativeAction action = 1;
+  RpcPredictState predict_state = 2;
+  double evaluation = 3;
+}
+
+message BestPlannerActionRequest {
+  RegisterResponse register_response = 1;
+  map<int32, RpcActionState> pairs = 2;
+  State state = 3;
+}
+
+message BestPlannerActionResponse {
+  int32 index = 1;
+}
+
 message Empty {
 }
 
@@ -1215,4 +1298,5 @@ service Game {
   rpc SendPlayerType(PlayerType) returns (Empty) {} //should be PlayerTypes
   rpc Register(RegisterRequest) returns (RegisterResponse) {}
   rpc SendByeCommand(RegisterResponse) returns (Empty) {}
+  rpc GetBestPlannerAction(BestPlannerActionRequest) returns (BestPlannerActionResponse) {}
 }

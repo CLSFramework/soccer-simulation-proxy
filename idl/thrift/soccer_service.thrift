@@ -1,3 +1,5 @@
+// version 1
+
 namespace cpp soccer
 namespace py soccer
 
@@ -23,14 +25,27 @@ struct RpcVector2D {
 struct RegisterRequest {
   1: AgentType agent_type,
   2: string team_name,
-  3: i32 uniform_number
+  3: i32 uniform_number,
+  4: i32 rpc_version
+}
+
+enum RpcServerLanguageType {
+  UNKNOWN_LANGUAGE = 0;
+  PYThON = 1;
+  JAVA = 2;
+  CPP = 3;
+  CSHARP = 4;
+  RUBY = 5;
+  JAVE_SCRIPT = 6;
+  GO = 7;
 }
 
 struct RegisterResponse {
   1: i32 client_id
   2: AgentType agent_type,
   3: string team_name,
-  4: i32 uniform_number
+  4: i32 uniform_number,
+  5: RpcServerLanguageType rpc_server_language_type
 }
 
 struct Ball {
@@ -82,6 +97,12 @@ enum LoggerLevel {
   ANALYZER = 262144,
   ACTION_CHAIN = 524288,
   PLAN = 1048576
+}
+
+enum CardType {
+  NO_CARD = 0,
+  YELLOW = 1,
+  RED = 2
 }
 
 struct Player {
@@ -153,7 +174,10 @@ struct Self {
   33: double foul_probability,
   34: ViewWidth view_width,
   35: i32 type_id,
-  36: double kick_rate
+  36: double kick_rate,
+  37: double recovery,
+  38: double stamina_capacity,
+  39: CardType card
 }
 
 enum InterceptActionType {
@@ -256,7 +280,11 @@ struct WorldModel {
   28: i32 our_team_score,
   29: i32 their_team_score,
   30: bool is_penalty_kick_mode,
-  31: map<i32, RpcVector2D> helios_home_positions
+  31: map<i32, RpcVector2D> helios_home_positions,
+  32: double our_defense_line_x,
+  33: double their_defense_line_x,
+  34: double our_defense_player_line_x,
+  35: double their_defense_player_line_x
 }
 
 struct State {
@@ -714,7 +742,7 @@ struct HeliosGoalieKick {}
 
 struct HeliosShoot {}
 
-struct HeliosChainAction {
+struct HeliosOffensivePlanner {
   1: bool direct_pass,
   2: bool lead_pass,
   3: bool through_pass,
@@ -724,6 +752,7 @@ struct HeliosChainAction {
   7: bool simple_pass,
   8: bool simple_dribble,
   9: bool simple_shoot
+  10: bool server_side_decision
 }
 
 struct HeliosBasicOffensive {}
@@ -795,7 +824,7 @@ struct PlayerAction {
   56: optional HeliosGoalieMove helios_goalie_move,
   57: optional HeliosGoalieKick helios_goalie_kick,
   58: optional HeliosShoot helios_shoot,
-  59: optional HeliosChainAction helios_chain_action,
+  59: optional HeliosOffensivePlanner helios_offensive_planner,
   60: optional HeliosBasicOffensive helios_basic_offensive,
   61: optional HeliosBasicMove helios_basic_move,
   62: optional HeliosSetPlay helios_set_play,
@@ -1162,6 +1191,60 @@ struct PlayerType {
   34: double player_speed_max,
 }
 
+enum RpcActionCategory {
+  AC_Hold = 0;
+  AC_Dribble = 1;
+  AC_Pass = 2;
+  AC_Shoot = 3;
+  AC_Clear = 4;
+  AC_Move = 5;
+  AC_NoAction = 6;
+}
+
+struct RpcCooperativeAction {
+  1: RpcActionCategory category;
+  2: i32 index;
+  3: i32 sender_unum;
+  4: i32 target_unum;
+  5: RpcVector2D target_point;
+  6: double first_ball_speed;
+  7: double first_turn_moment;
+  8: double first_dash_power;
+  9: double first_dash_angle_relative;
+  10: i32 duration_step;
+  11: i32 kick_count;
+  12: i32 turn_count;
+  13: i32 dash_count;
+  14: bool final_action;
+  15: string description;
+  16: i32 parent_index;
+}
+
+struct RpcPredictState {
+  1: i32 spend_time;
+  2: i32 ball_holder_unum;
+  3: RpcVector2D ball_position;
+  4: RpcVector2D ball_velocity;
+  5: double our_defense_line_x;
+  6: double our_offense_line_x;
+}
+
+struct RpcActionState {
+  1: RpcCooperativeAction action;
+  2: RpcPredictState predict_state;
+  3: double evaluation;
+}
+
+struct BestPlannerActionRequest {
+  1: RegisterResponse register_response,
+  2: map<i32, RpcActionState> pairs;
+  3: State state;
+}
+
+struct BestPlannerActionResponse {
+  1: i32 index;
+}
+
 struct Empty {}
 
 service Game {
@@ -1173,6 +1256,7 @@ service Game {
   Empty SendPlayerParams(1: PlayerParam player_param),
   Empty SendPlayerType(1: PlayerType player_type),
   RegisterResponse Register(1: RegisterRequest request),
-  Empty SendByeCommand(1: RegisterResponse register_response)
+  Empty SendByeCommand(1: RegisterResponse register_response),
+  BestPlannerActionResponse GetBestPlannerAction(1: BestPlannerActionRequest best_planner_action_request)
 }
 

@@ -57,6 +57,7 @@
 #include <rcsc/common/server_param.h>
 #include <rcsc/common/logger.h>
 
+// #define DEBUG_PLANNED_ACTION
 using namespace rcsc;
 
 namespace {
@@ -206,6 +207,21 @@ Bhv_PlannedAction::execute( PlayerAgent * agent )
     dlog.addText( Logger::TEAM,
                   __FILE__": Bhv_PlannedAction" );
 
+    const CooperativeAction & first_action = M_chain_graph.getFirstAction();
+
+    #ifdef DEBUG_PLANNED_ACTION
+    std::cout<<"planner execute"<<" i"<<first_action.uniqueIndex()<< " c"<<first_action.category()<<" t"<<first_action.targetPlayerUnum()<<" p"<<first_action.parentIndex()<<std::endl;
+    #endif
+
+    return execute( agent, first_action.uniqueIndex() );
+}
+
+bool
+Bhv_PlannedAction::execute( PlayerAgent * agent, int unique_index )
+{
+    dlog.addText( Logger::TEAM,
+                  __FILE__": Bhv_PlannedAction" );
+
     if ( doTurnToForward( agent ) )
     {
         return true;
@@ -214,9 +230,32 @@ Bhv_PlannedAction::execute( PlayerAgent * agent )
     const ServerParam & SP = ServerParam::i();
     const WorldModel & wm = agent->world();
 
-    const CooperativeAction & first_action = M_chain_graph.getFirstAction();
+    if ( M_chain_graph.getAllResults().find( unique_index ) == M_chain_graph.getAllResults().end() )
+    {
+        #ifdef DEBUG_PLANNED_ACTION
+        std::cout<<"Bhv_PlannedAction: invalid index"<<std::endl;
+        #endif
+        dlog.addText( Logger::TEAM,
+                      __FILE__" (Bhv_PlannedAction) invalid index" );
+        return false;
+    }
 
-    ActionChainGraph::debug_send_chain( agent, M_chain_graph.getAllChain() );
+    const CooperativeAction & first_action = M_chain_graph.getAllResults().at( unique_index ).first->action();
+    #ifdef DEBUG_PLANNED_ACTION
+    std::cout<<"planner execute"<<" i"<<first_action.uniqueIndex()<< " c"<<first_action.category()<<" t"<<first_action.targetPlayerUnum()<<" p"<<first_action.parentIndex()<<std::endl;
+    #endif
+
+    if ( first_action.parentIndex() != -1 )
+    {
+        #ifdef DEBUG_PLANNED_ACTION
+        std::cout<<"Bhv_PlannedAction: not root action"<<std::endl;
+        #endif
+        dlog.addText( Logger::TEAM,
+                      __FILE__" (Bhv_PlannedAction) not root action" );
+        return false;
+    }
+
+    // ActionChainGraph::debug_send_chain( agent, M_chain_graph.getAllChain() );
 
     const Vector2D goal_pos = SP.theirTeamGoalPos();
     agent->setNeckAction( new Neck_TurnToReceiver( M_chain_graph ) );

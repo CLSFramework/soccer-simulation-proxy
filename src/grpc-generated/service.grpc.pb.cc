@@ -31,6 +31,7 @@ static const char* Game_method_names[] = {
   "/protos.Game/SendPlayerType",
   "/protos.Game/Register",
   "/protos.Game/SendByeCommand",
+  "/protos.Game/GetBestPlannerAction",
 };
 
 std::unique_ptr< Game::Stub> Game::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -49,6 +50,7 @@ Game::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, cons
   , rpcmethod_SendPlayerType_(Game_method_names[6], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_Register_(Game_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_SendByeCommand_(Game_method_names[8], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetBestPlannerAction_(Game_method_names[9], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status Game::Stub::GetPlayerActions(::grpc::ClientContext* context, const ::protos::State& request, ::protos::PlayerActions* response) {
@@ -258,6 +260,29 @@ void Game::Stub::async::SendByeCommand(::grpc::ClientContext* context, const ::p
   return result;
 }
 
+::grpc::Status Game::Stub::GetBestPlannerAction(::grpc::ClientContext* context, const ::protos::BestPlannerActionRequest& request, ::protos::BestPlannerActionResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::protos::BestPlannerActionRequest, ::protos::BestPlannerActionResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetBestPlannerAction_, context, request, response);
+}
+
+void Game::Stub::async::GetBestPlannerAction(::grpc::ClientContext* context, const ::protos::BestPlannerActionRequest* request, ::protos::BestPlannerActionResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::protos::BestPlannerActionRequest, ::protos::BestPlannerActionResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetBestPlannerAction_, context, request, response, std::move(f));
+}
+
+void Game::Stub::async::GetBestPlannerAction(::grpc::ClientContext* context, const ::protos::BestPlannerActionRequest* request, ::protos::BestPlannerActionResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetBestPlannerAction_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::protos::BestPlannerActionResponse>* Game::Stub::PrepareAsyncGetBestPlannerActionRaw(::grpc::ClientContext* context, const ::protos::BestPlannerActionRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::protos::BestPlannerActionResponse, ::protos::BestPlannerActionRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetBestPlannerAction_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::protos::BestPlannerActionResponse>* Game::Stub::AsyncGetBestPlannerActionRaw(::grpc::ClientContext* context, const ::protos::BestPlannerActionRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetBestPlannerActionRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
 Game::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Game_method_names[0],
@@ -349,6 +374,16 @@ Game::Service::Service() {
              ::protos::Empty* resp) {
                return service->SendByeCommand(ctx, req, resp);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Game_method_names[9],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Game::Service, ::protos::BestPlannerActionRequest, ::protos::BestPlannerActionResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Game::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::protos::BestPlannerActionRequest* req,
+             ::protos::BestPlannerActionResponse* resp) {
+               return service->GetBestPlannerAction(ctx, req, resp);
+             }, this)));
 }
 
 Game::Service::~Service() {
@@ -411,6 +446,13 @@ Game::Service::~Service() {
 }
 
 ::grpc::Status Game::Service::SendByeCommand(::grpc::ServerContext* context, const ::protos::RegisterResponse* request, ::protos::Empty* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Game::Service::GetBestPlannerAction(::grpc::ServerContext* context, const ::protos::BestPlannerActionRequest* request, ::protos::BestPlannerActionResponse* response) {
   (void) context;
   (void) request;
   (void) response;

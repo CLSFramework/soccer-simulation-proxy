@@ -52,6 +52,8 @@ PROTOBUF_CONSTEXPR RegisterRequest::RegisterRequest(
 
   , /*decltype(_impl_.uniform_number_)*/ 0
 
+  , /*decltype(_impl_.rpc_version_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RegisterRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RegisterRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
@@ -75,6 +77,8 @@ PROTOBUF_CONSTEXPR RegisterResponse::RegisterResponse(
   , /*decltype(_impl_.agent_type_)*/ 0
 
   , /*decltype(_impl_.uniform_number_)*/ 0
+
+  , /*decltype(_impl_.rpc_server_language_type_)*/ 0
 
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RegisterResponseDefaultTypeInternal {
@@ -270,6 +274,12 @@ PROTOBUF_CONSTEXPR Self::Self(
   , /*decltype(_impl_.type_id_)*/ 0
 
   , /*decltype(_impl_.kick_rate_)*/ 0
+
+  , /*decltype(_impl_.recovery_)*/ 0
+
+  , /*decltype(_impl_.stamina_capacity_)*/ 0
+
+  , /*decltype(_impl_.card_)*/ 0
 } {}
 struct SelfDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SelfDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
@@ -448,6 +458,14 @@ PROTOBUF_CONSTEXPR WorldModel::WorldModel(
   , /*decltype(_impl_.our_team_score_)*/ 0
 
   , /*decltype(_impl_.their_team_score_)*/ 0
+
+  , /*decltype(_impl_.our_defense_line_x_)*/ 0
+
+  , /*decltype(_impl_.their_defense_line_x_)*/ 0
+
+  , /*decltype(_impl_.our_defense_player_line_x_)*/ 0
+
+  , /*decltype(_impl_.their_defense_player_line_x_)*/ 0
 } {}
 struct WorldModelDefaultTypeInternal {
   PROTOBUF_CONSTEXPR WorldModelDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
@@ -466,7 +484,9 @@ PROTOBUF_CONSTEXPR State::State(
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.register_response_)*/nullptr
   , /*decltype(_impl_.world_model_)*/nullptr
-  , /*decltype(_impl_.full_world_model_)*/nullptr} {}
+  , /*decltype(_impl_.full_world_model_)*/nullptr
+  , /*decltype(_impl_.need_preprocess_)*/ false
+} {}
 struct StateDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StateDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~StateDefaultTypeInternal() {}
@@ -2065,7 +2085,7 @@ struct HeliosShootDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HeliosShootDefaultTypeInternal _HeliosShoot_default_instance_;
 template <typename>
-PROTOBUF_CONSTEXPR HeliosChainAction::HeliosChainAction(
+PROTOBUF_CONSTEXPR HeliosOffensivePlanner::HeliosOffensivePlanner(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.direct_pass_)*/ false
 
@@ -2085,17 +2105,19 @@ PROTOBUF_CONSTEXPR HeliosChainAction::HeliosChainAction(
 
   , /*decltype(_impl_.simple_shoot_)*/ false
 
+  , /*decltype(_impl_.server_side_decision_)*/ false
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct HeliosChainActionDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR HeliosChainActionDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~HeliosChainActionDefaultTypeInternal() {}
+struct HeliosOffensivePlannerDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR HeliosOffensivePlannerDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~HeliosOffensivePlannerDefaultTypeInternal() {}
   union {
-    HeliosChainAction _instance;
+    HeliosOffensivePlanner _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HeliosChainActionDefaultTypeInternal _HeliosChainAction_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HeliosOffensivePlannerDefaultTypeInternal _HeliosOffensivePlanner_default_instance_;
 template <typename>
 PROTOBUF_CONSTEXPR HeliosBasicOffensive::HeliosBasicOffensive(
     ::_pbi::ConstantInitialized) {}
@@ -2181,6 +2203,8 @@ template <typename>
 PROTOBUF_CONSTEXPR PlayerActions::PlayerActions(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.actions_)*/{}
+  , /*decltype(_impl_.ignore_preprocess_)*/ false
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PlayerActionsDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PlayerActionsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
@@ -3046,6 +3070,145 @@ struct PlayerTypeDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PlayerTypeDefaultTypeInternal _PlayerType_default_instance_;
 template <typename>
+PROTOBUF_CONSTEXPR RpcCooperativeAction::RpcCooperativeAction(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.description_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.target_point_)*/nullptr
+  , /*decltype(_impl_.category_)*/ 0
+
+  , /*decltype(_impl_.index_)*/ 0
+
+  , /*decltype(_impl_.sender_unum_)*/ 0
+
+  , /*decltype(_impl_.target_unum_)*/ 0
+
+  , /*decltype(_impl_.first_ball_speed_)*/ 0
+
+  , /*decltype(_impl_.first_turn_moment_)*/ 0
+
+  , /*decltype(_impl_.first_dash_power_)*/ 0
+
+  , /*decltype(_impl_.first_dash_angle_relative_)*/ 0
+
+  , /*decltype(_impl_.duration_step_)*/ 0
+
+  , /*decltype(_impl_.kick_count_)*/ 0
+
+  , /*decltype(_impl_.turn_count_)*/ 0
+
+  , /*decltype(_impl_.dash_count_)*/ 0
+
+  , /*decltype(_impl_.final_action_)*/ false
+
+  , /*decltype(_impl_.parent_index_)*/ 0
+} {}
+struct RpcCooperativeActionDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RpcCooperativeActionDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~RpcCooperativeActionDefaultTypeInternal() {}
+  union {
+    RpcCooperativeAction _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RpcCooperativeActionDefaultTypeInternal _RpcCooperativeAction_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR RpcPredictState::RpcPredictState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.ball_position_)*/nullptr
+  , /*decltype(_impl_.ball_velocity_)*/nullptr
+  , /*decltype(_impl_.spend_time_)*/ 0
+
+  , /*decltype(_impl_.ball_holder_unum_)*/ 0
+
+  , /*decltype(_impl_.our_defense_line_x_)*/ 0
+
+  , /*decltype(_impl_.our_offense_line_x_)*/ 0
+} {}
+struct RpcPredictStateDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RpcPredictStateDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~RpcPredictStateDefaultTypeInternal() {}
+  union {
+    RpcPredictState _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RpcPredictStateDefaultTypeInternal _RpcPredictState_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR RpcActionState::RpcActionState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.action_)*/nullptr
+  , /*decltype(_impl_.predict_state_)*/nullptr
+  , /*decltype(_impl_.evaluation_)*/ 0
+} {}
+struct RpcActionStateDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR RpcActionStateDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~RpcActionStateDefaultTypeInternal() {}
+  union {
+    RpcActionState _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RpcActionStateDefaultTypeInternal _RpcActionState_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR BestPlannerActionRequest_PairsEntry_DoNotUse::BestPlannerActionRequest_PairsEntry_DoNotUse(
+    ::_pbi::ConstantInitialized) {}
+struct BestPlannerActionRequest_PairsEntry_DoNotUseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR BestPlannerActionRequest_PairsEntry_DoNotUseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~BestPlannerActionRequest_PairsEntry_DoNotUseDefaultTypeInternal() {}
+  union {
+    BestPlannerActionRequest_PairsEntry_DoNotUse _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BestPlannerActionRequest_PairsEntry_DoNotUseDefaultTypeInternal _BestPlannerActionRequest_PairsEntry_DoNotUse_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR BestPlannerActionRequest::BestPlannerActionRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.pairs_)*/{}
+  , /*decltype(_impl_.register_response_)*/nullptr
+  , /*decltype(_impl_.state_)*/nullptr} {}
+struct BestPlannerActionRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR BestPlannerActionRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~BestPlannerActionRequestDefaultTypeInternal() {}
+  union {
+    BestPlannerActionRequest _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BestPlannerActionRequestDefaultTypeInternal _BestPlannerActionRequest_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR BestPlannerActionResponse::BestPlannerActionResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.index_)*/ 0
+
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct BestPlannerActionResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR BestPlannerActionResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~BestPlannerActionResponseDefaultTypeInternal() {}
+  union {
+    BestPlannerActionResponse _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BestPlannerActionResponseDefaultTypeInternal _BestPlannerActionResponse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR Empty::Empty(
     ::_pbi::ConstantInitialized) {}
 struct EmptyDefaultTypeInternal {
@@ -3059,8 +3222,8 @@ struct EmptyDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EmptyDefaultTypeInternal _Empty_default_instance_;
 }  // namespace protos
-static ::_pb::Metadata file_level_metadata_service_2eproto[128];
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_service_2eproto[6];
+static ::_pb::Metadata file_level_metadata_service_2eproto[134];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_service_2eproto[9];
 static constexpr const ::_pb::ServiceDescriptor**
     file_level_service_descriptors_service_2eproto = nullptr;
 const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
@@ -3088,6 +3251,7 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     PROTOBUF_FIELD_OFFSET(::protos::RegisterRequest, _impl_.agent_type_),
     PROTOBUF_FIELD_OFFSET(::protos::RegisterRequest, _impl_.team_name_),
     PROTOBUF_FIELD_OFFSET(::protos::RegisterRequest, _impl_.uniform_number_),
+    PROTOBUF_FIELD_OFFSET(::protos::RegisterRequest, _impl_.rpc_version_),
     ~0u,  // no _has_bits_
     PROTOBUF_FIELD_OFFSET(::protos::RegisterResponse, _internal_metadata_),
     ~0u,  // no _extensions_
@@ -3100,6 +3264,7 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     PROTOBUF_FIELD_OFFSET(::protos::RegisterResponse, _impl_.agent_type_),
     PROTOBUF_FIELD_OFFSET(::protos::RegisterResponse, _impl_.team_name_),
     PROTOBUF_FIELD_OFFSET(::protos::RegisterResponse, _impl_.uniform_number_),
+    PROTOBUF_FIELD_OFFSET(::protos::RegisterResponse, _impl_.rpc_server_language_type_),
     PROTOBUF_FIELD_OFFSET(::protos::Ball, _impl_._has_bits_),
     PROTOBUF_FIELD_OFFSET(::protos::Ball, _internal_metadata_),
     ~0u,  // no _extensions_
@@ -3254,11 +3419,17 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     PROTOBUF_FIELD_OFFSET(::protos::Self, _impl_.view_width_),
     PROTOBUF_FIELD_OFFSET(::protos::Self, _impl_.type_id_),
     PROTOBUF_FIELD_OFFSET(::protos::Self, _impl_.kick_rate_),
+    PROTOBUF_FIELD_OFFSET(::protos::Self, _impl_.recovery_),
+    PROTOBUF_FIELD_OFFSET(::protos::Self, _impl_.stamina_capacity_),
+    PROTOBUF_FIELD_OFFSET(::protos::Self, _impl_.card_),
     0,
     1,
     2,
     3,
     4,
+    ~0u,
+    ~0u,
+    ~0u,
     ~0u,
     ~0u,
     ~0u,
@@ -3411,6 +3582,10 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     PROTOBUF_FIELD_OFFSET(::protos::WorldModel, _impl_.their_team_score_),
     PROTOBUF_FIELD_OFFSET(::protos::WorldModel, _impl_.is_penalty_kick_mode_),
     PROTOBUF_FIELD_OFFSET(::protos::WorldModel, _impl_.helios_home_positions_),
+    PROTOBUF_FIELD_OFFSET(::protos::WorldModel, _impl_.our_defense_line_x_),
+    PROTOBUF_FIELD_OFFSET(::protos::WorldModel, _impl_.their_defense_line_x_),
+    PROTOBUF_FIELD_OFFSET(::protos::WorldModel, _impl_.our_defense_player_line_x_),
+    PROTOBUF_FIELD_OFFSET(::protos::WorldModel, _impl_.their_defense_player_line_x_),
     0,
     ~0u,
     ~0u,
@@ -3418,6 +3593,10 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     ~0u,
     1,
     2,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
     ~0u,
     ~0u,
     ~0u,
@@ -3453,9 +3632,11 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     PROTOBUF_FIELD_OFFSET(::protos::State, _impl_.register_response_),
     PROTOBUF_FIELD_OFFSET(::protos::State, _impl_.world_model_),
     PROTOBUF_FIELD_OFFSET(::protos::State, _impl_.full_world_model_),
+    PROTOBUF_FIELD_OFFSET(::protos::State, _impl_.need_preprocess_),
     0,
     1,
     2,
+    ~0u,
     PROTOBUF_FIELD_OFFSET(::protos::InitMessage, _impl_._has_bits_),
     PROTOBUF_FIELD_OFFSET(::protos::InitMessage, _internal_metadata_),
     ~0u,  // no _extensions_
@@ -4500,22 +4681,23 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     ~0u,  // no _split_
     ~0u,  // no sizeof(Split)
     ~0u,  // no _has_bits_
-    PROTOBUF_FIELD_OFFSET(::protos::HeliosChainAction, _internal_metadata_),
+    PROTOBUF_FIELD_OFFSET(::protos::HeliosOffensivePlanner, _internal_metadata_),
     ~0u,  // no _extensions_
     ~0u,  // no _oneof_case_
     ~0u,  // no _weak_field_map_
     ~0u,  // no _inlined_string_donated_
     ~0u,  // no _split_
     ~0u,  // no sizeof(Split)
-    PROTOBUF_FIELD_OFFSET(::protos::HeliosChainAction, _impl_.direct_pass_),
-    PROTOBUF_FIELD_OFFSET(::protos::HeliosChainAction, _impl_.lead_pass_),
-    PROTOBUF_FIELD_OFFSET(::protos::HeliosChainAction, _impl_.through_pass_),
-    PROTOBUF_FIELD_OFFSET(::protos::HeliosChainAction, _impl_.short_dribble_),
-    PROTOBUF_FIELD_OFFSET(::protos::HeliosChainAction, _impl_.long_dribble_),
-    PROTOBUF_FIELD_OFFSET(::protos::HeliosChainAction, _impl_.cross_),
-    PROTOBUF_FIELD_OFFSET(::protos::HeliosChainAction, _impl_.simple_pass_),
-    PROTOBUF_FIELD_OFFSET(::protos::HeliosChainAction, _impl_.simple_dribble_),
-    PROTOBUF_FIELD_OFFSET(::protos::HeliosChainAction, _impl_.simple_shoot_),
+    PROTOBUF_FIELD_OFFSET(::protos::HeliosOffensivePlanner, _impl_.direct_pass_),
+    PROTOBUF_FIELD_OFFSET(::protos::HeliosOffensivePlanner, _impl_.lead_pass_),
+    PROTOBUF_FIELD_OFFSET(::protos::HeliosOffensivePlanner, _impl_.through_pass_),
+    PROTOBUF_FIELD_OFFSET(::protos::HeliosOffensivePlanner, _impl_.short_dribble_),
+    PROTOBUF_FIELD_OFFSET(::protos::HeliosOffensivePlanner, _impl_.long_dribble_),
+    PROTOBUF_FIELD_OFFSET(::protos::HeliosOffensivePlanner, _impl_.cross_),
+    PROTOBUF_FIELD_OFFSET(::protos::HeliosOffensivePlanner, _impl_.simple_pass_),
+    PROTOBUF_FIELD_OFFSET(::protos::HeliosOffensivePlanner, _impl_.simple_dribble_),
+    PROTOBUF_FIELD_OFFSET(::protos::HeliosOffensivePlanner, _impl_.simple_shoot_),
+    PROTOBUF_FIELD_OFFSET(::protos::HeliosOffensivePlanner, _impl_.server_side_decision_),
     ~0u,  // no _has_bits_
     PROTOBUF_FIELD_OFFSET(::protos::HeliosBasicOffensive, _internal_metadata_),
     ~0u,  // no _extensions_
@@ -4638,6 +4820,7 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     ~0u,  // no _split_
     ~0u,  // no sizeof(Split)
     PROTOBUF_FIELD_OFFSET(::protos::PlayerActions, _impl_.actions_),
+    PROTOBUF_FIELD_OFFSET(::protos::PlayerActions, _impl_.ignore_preprocess_),
     ~0u,  // no _has_bits_
     PROTOBUF_FIELD_OFFSET(::protos::ChangePlayerType, _internal_metadata_),
     ~0u,  // no _extensions_
@@ -5370,6 +5553,115 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     ~0u,
     ~0u,
     ~0u,
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.category_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.index_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.sender_unum_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.target_unum_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.target_point_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.first_ball_speed_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.first_turn_moment_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.first_dash_power_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.first_dash_angle_relative_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.duration_step_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.kick_count_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.turn_count_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.dash_count_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.final_action_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.description_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcCooperativeAction, _impl_.parent_index_),
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    0,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    ~0u,
+    PROTOBUF_FIELD_OFFSET(::protos::RpcPredictState, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcPredictState, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::protos::RpcPredictState, _impl_.spend_time_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcPredictState, _impl_.ball_holder_unum_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcPredictState, _impl_.ball_position_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcPredictState, _impl_.ball_velocity_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcPredictState, _impl_.our_defense_line_x_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcPredictState, _impl_.our_offense_line_x_),
+    ~0u,
+    ~0u,
+    0,
+    1,
+    ~0u,
+    ~0u,
+    PROTOBUF_FIELD_OFFSET(::protos::RpcActionState, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcActionState, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::protos::RpcActionState, _impl_.action_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcActionState, _impl_.predict_state_),
+    PROTOBUF_FIELD_OFFSET(::protos::RpcActionState, _impl_.evaluation_),
+    0,
+    1,
+    ~0u,
+    PROTOBUF_FIELD_OFFSET(::protos::BestPlannerActionRequest_PairsEntry_DoNotUse, _has_bits_),
+    PROTOBUF_FIELD_OFFSET(::protos::BestPlannerActionRequest_PairsEntry_DoNotUse, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::protos::BestPlannerActionRequest_PairsEntry_DoNotUse, key_),
+    PROTOBUF_FIELD_OFFSET(::protos::BestPlannerActionRequest_PairsEntry_DoNotUse, value_),
+    0,
+    1,
+    PROTOBUF_FIELD_OFFSET(::protos::BestPlannerActionRequest, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(::protos::BestPlannerActionRequest, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::protos::BestPlannerActionRequest, _impl_.register_response_),
+    PROTOBUF_FIELD_OFFSET(::protos::BestPlannerActionRequest, _impl_.pairs_),
+    PROTOBUF_FIELD_OFFSET(::protos::BestPlannerActionRequest, _impl_.state_),
+    0,
+    ~0u,
+    1,
+    ~0u,  // no _has_bits_
+    PROTOBUF_FIELD_OFFSET(::protos::BestPlannerActionResponse, _internal_metadata_),
+    ~0u,  // no _extensions_
+    ~0u,  // no _oneof_case_
+    ~0u,  // no _weak_field_map_
+    ~0u,  // no _inlined_string_donated_
+    ~0u,  // no _split_
+    ~0u,  // no sizeof(Split)
+    PROTOBUF_FIELD_OFFSET(::protos::BestPlannerActionResponse, _impl_.index_),
     ~0u,  // no _has_bits_
     PROTOBUF_FIELD_OFFSET(::protos::Empty, _internal_metadata_),
     ~0u,  // no _extensions_
@@ -5384,132 +5676,138 @@ static const ::_pbi::MigrationSchema
     schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
         { 0, -1, -1, sizeof(::protos::RpcVector2D)},
         { 12, -1, -1, sizeof(::protos::RegisterRequest)},
-        { 23, -1, -1, sizeof(::protos::RegisterResponse)},
-        { 35, 60, -1, sizeof(::protos::Ball)},
-        { 77, 115, -1, sizeof(::protos::Player)},
-        { 145, 189, -1, sizeof(::protos::Self)},
-        { 225, 243, -1, sizeof(::protos::InterceptInfo)},
-        { 253, -1, -1, sizeof(::protos::InterceptTable)},
-        { 271, 281, -1, sizeof(::protos::WorldModel_OurPlayersDictEntry_DoNotUse)},
-        { 283, 293, -1, sizeof(::protos::WorldModel_TheirPlayersDictEntry_DoNotUse)},
-        { 295, 305, -1, sizeof(::protos::WorldModel_HeliosHomePositionsEntry_DoNotUse)},
-        { 307, 346, -1, sizeof(::protos::WorldModel)},
-        { 377, 388, -1, sizeof(::protos::State)},
-        { 391, 401, -1, sizeof(::protos::InitMessage)},
-        { 403, -1, -1, sizeof(::protos::Dash)},
-        { 413, -1, -1, sizeof(::protos::Turn)},
-        { 422, -1, -1, sizeof(::protos::Kick)},
-        { 432, -1, -1, sizeof(::protos::Tackle)},
-        { 442, -1, -1, sizeof(::protos::Catch)},
-        { 450, -1, -1, sizeof(::protos::Move)},
-        { 460, -1, -1, sizeof(::protos::TurnNeck)},
-        { 469, -1, -1, sizeof(::protos::ChangeView)},
-        { 478, 488, -1, sizeof(::protos::BallMessage)},
-        { 490, 502, -1, sizeof(::protos::PassMessage)},
-        { 506, -1, -1, sizeof(::protos::InterceptMessage)},
-        { 517, 528, -1, sizeof(::protos::GoalieMessage)},
-        { 531, 544, -1, sizeof(::protos::GoalieAndPlayerMessage)},
-        { 549, -1, -1, sizeof(::protos::OffsideLineMessage)},
-        { 558, -1, -1, sizeof(::protos::DefenseLineMessage)},
-        { 567, -1, -1, sizeof(::protos::WaitRequestMessage)},
-        { 575, -1, -1, sizeof(::protos::SetplayMessage)},
-        { 584, 593, -1, sizeof(::protos::PassRequestMessage)},
-        { 594, -1, -1, sizeof(::protos::StaminaMessage)},
-        { 603, -1, -1, sizeof(::protos::RecoveryMessage)},
-        { 612, -1, -1, sizeof(::protos::StaminaCapacityMessage)},
-        { 621, 631, -1, sizeof(::protos::DribbleMessage)},
-        { 633, 645, -1, sizeof(::protos::BallGoalieMessage)},
-        { 649, 659, -1, sizeof(::protos::OnePlayerMessage)},
-        { 661, 673, -1, sizeof(::protos::TwoPlayerMessage)},
-        { 677, 691, -1, sizeof(::protos::ThreePlayerMessage)},
-        { 697, 708, -1, sizeof(::protos::SelfMessage)},
-        { 711, 722, -1, sizeof(::protos::TeammateMessage)},
-        { 725, 736, -1, sizeof(::protos::OpponentMessage)},
-        { 739, 752, -1, sizeof(::protos::BallPlayerMessage)},
-        { 757, -1, -1, sizeof(::protos::Say)},
-        { 788, -1, -1, sizeof(::protos::PointTo)},
-        { 798, -1, -1, sizeof(::protos::PointToOf)},
-        { 806, -1, -1, sizeof(::protos::AttentionTo)},
-        { 816, -1, -1, sizeof(::protos::AttentionToOf)},
-        { 824, -1, -1, sizeof(::protos::AddText)},
-        { 834, 845, -1, sizeof(::protos::AddPoint)},
-        { 848, 860, -1, sizeof(::protos::AddLine)},
-        { 864, 878, -1, sizeof(::protos::AddArc)},
-        { 884, 897, -1, sizeof(::protos::AddCircle)},
-        { 902, 916, -1, sizeof(::protos::AddTriangle)},
-        { 922, -1, -1, sizeof(::protos::AddRectangle)},
-        { 937, 953, -1, sizeof(::protos::AddSector)},
-        { 961, 973, -1, sizeof(::protos::AddMessage)},
-        { 977, -1, -1, sizeof(::protos::Log)},
-        { 995, -1, -1, sizeof(::protos::DebugClient)},
-        { 1004, 1015, -1, sizeof(::protos::Body_GoToPoint)},
-        { 1018, 1030, -1, sizeof(::protos::Body_SmartKick)},
-        { 1034, 1043, -1, sizeof(::protos::Bhv_BeforeKickOff)},
-        { 1044, -1, -1, sizeof(::protos::Bhv_BodyNeckToBall)},
-        { 1052, 1061, -1, sizeof(::protos::Bhv_BodyNeckToPoint)},
-        { 1062, -1, -1, sizeof(::protos::Bhv_Emergency)},
-        { 1070, 1081, -1, sizeof(::protos::Bhv_GoToPointLookBall)},
-        { 1084, -1, -1, sizeof(::protos::Bhv_NeckBodyToBall)},
-        { 1093, 1103, -1, sizeof(::protos::Bhv_NeckBodyToPoint)},
-        { 1105, -1, -1, sizeof(::protos::Bhv_ScanField)},
-        { 1113, -1, -1, sizeof(::protos::Body_AdvanceBall)},
-        { 1121, -1, -1, sizeof(::protos::Body_ClearBall)},
-        { 1129, 1142, -1, sizeof(::protos::Body_Dribble)},
-        { 1147, 1157, -1, sizeof(::protos::Body_GoToPointDodge)},
-        { 1159, 1170, -1, sizeof(::protos::Body_HoldBall)},
-        { 1173, 1183, -1, sizeof(::protos::Body_Intercept)},
-        { 1185, 1196, -1, sizeof(::protos::Body_KickOneStep)},
-        { 1199, -1, -1, sizeof(::protos::Body_StopBall)},
-        { 1207, -1, -1, sizeof(::protos::Body_StopDash)},
-        { 1216, 1227, -1, sizeof(::protos::Body_TackleToPoint)},
-        { 1230, -1, -1, sizeof(::protos::Body_TurnToAngle)},
-        { 1239, -1, -1, sizeof(::protos::Body_TurnToBall)},
-        { 1248, 1258, -1, sizeof(::protos::Body_TurnToPoint)},
-        { 1260, 1269, -1, sizeof(::protos::Focus_MoveToPoint)},
-        { 1270, -1, -1, sizeof(::protos::Focus_Reset)},
-        { 1278, -1, -1, sizeof(::protos::Neck_ScanField)},
-        { 1286, -1, -1, sizeof(::protos::Neck_ScanPlayers)},
-        { 1294, -1, -1, sizeof(::protos::Neck_TurnToBallAndPlayer)},
-        { 1305, -1, -1, sizeof(::protos::Neck_TurnToBallOrScan)},
-        { 1314, -1, -1, sizeof(::protos::Neck_TurnToBall)},
-        { 1322, -1, -1, sizeof(::protos::Neck_TurnToGoalieOrScan)},
-        { 1331, -1, -1, sizeof(::protos::Neck_TurnToLowConfTeammate)},
-        { 1339, -1, -1, sizeof(::protos::Neck_TurnToPlayerOrScan)},
-        { 1350, 1359, -1, sizeof(::protos::Neck_TurnToPoint)},
-        { 1360, -1, -1, sizeof(::protos::Neck_TurnToRelative)},
-        { 1369, -1, -1, sizeof(::protos::View_ChangeWidth)},
-        { 1378, -1, -1, sizeof(::protos::View_Normal)},
-        { 1386, -1, -1, sizeof(::protos::View_Synch)},
-        { 1394, -1, -1, sizeof(::protos::View_Wide)},
-        { 1402, -1, -1, sizeof(::protos::HeliosGoalie)},
-        { 1410, -1, -1, sizeof(::protos::HeliosGoalieMove)},
-        { 1418, -1, -1, sizeof(::protos::HeliosGoalieKick)},
-        { 1426, -1, -1, sizeof(::protos::HeliosShoot)},
-        { 1434, -1, -1, sizeof(::protos::HeliosChainAction)},
-        { 1451, -1, -1, sizeof(::protos::HeliosBasicOffensive)},
-        { 1459, -1, -1, sizeof(::protos::HeliosBasicMove)},
-        { 1467, -1, -1, sizeof(::protos::HeliosSetPlay)},
-        { 1475, -1, -1, sizeof(::protos::HeliosPenalty)},
-        { 1483, -1, -1, sizeof(::protos::HeliosCommunicaion)},
-        { 1491, -1, -1, sizeof(::protos::PlayerAction)},
-        { 1564, -1, -1, sizeof(::protos::PlayerActions)},
-        { 1573, -1, -1, sizeof(::protos::ChangePlayerType)},
-        { 1583, -1, -1, sizeof(::protos::DoHeliosSubstitute)},
-        { 1591, -1, -1, sizeof(::protos::DoHeliosSayPlayerTypes)},
-        { 1599, -1, -1, sizeof(::protos::CoachAction)},
-        { 1611, -1, -1, sizeof(::protos::CoachActions)},
-        { 1620, -1, -1, sizeof(::protos::DoKickOff)},
-        { 1628, 1638, -1, sizeof(::protos::DoMoveBall)},
-        { 1640, 1652, -1, sizeof(::protos::DoMovePlayer)},
-        { 1656, -1, -1, sizeof(::protos::DoRecover)},
-        { 1664, -1, -1, sizeof(::protos::DoChangeMode)},
-        { 1674, -1, -1, sizeof(::protos::DoChangePlayerType)},
-        { 1685, -1, -1, sizeof(::protos::TrainerAction)},
-        { 1700, -1, -1, sizeof(::protos::TrainerActions)},
-        { 1709, 1939, -1, sizeof(::protos::ServerParam)},
-        { 2161, 2199, -1, sizeof(::protos::PlayerParam)},
-        { 2229, 2271, -1, sizeof(::protos::PlayerType)},
-        { 2305, -1, -1, sizeof(::protos::Empty)},
+        { 24, -1, -1, sizeof(::protos::RegisterResponse)},
+        { 37, 62, -1, sizeof(::protos::Ball)},
+        { 79, 117, -1, sizeof(::protos::Player)},
+        { 147, 194, -1, sizeof(::protos::Self)},
+        { 233, 251, -1, sizeof(::protos::InterceptInfo)},
+        { 261, -1, -1, sizeof(::protos::InterceptTable)},
+        { 279, 289, -1, sizeof(::protos::WorldModel_OurPlayersDictEntry_DoNotUse)},
+        { 291, 301, -1, sizeof(::protos::WorldModel_TheirPlayersDictEntry_DoNotUse)},
+        { 303, 313, -1, sizeof(::protos::WorldModel_HeliosHomePositionsEntry_DoNotUse)},
+        { 315, 358, -1, sizeof(::protos::WorldModel)},
+        { 393, 405, -1, sizeof(::protos::State)},
+        { 409, 419, -1, sizeof(::protos::InitMessage)},
+        { 421, -1, -1, sizeof(::protos::Dash)},
+        { 431, -1, -1, sizeof(::protos::Turn)},
+        { 440, -1, -1, sizeof(::protos::Kick)},
+        { 450, -1, -1, sizeof(::protos::Tackle)},
+        { 460, -1, -1, sizeof(::protos::Catch)},
+        { 468, -1, -1, sizeof(::protos::Move)},
+        { 478, -1, -1, sizeof(::protos::TurnNeck)},
+        { 487, -1, -1, sizeof(::protos::ChangeView)},
+        { 496, 506, -1, sizeof(::protos::BallMessage)},
+        { 508, 520, -1, sizeof(::protos::PassMessage)},
+        { 524, -1, -1, sizeof(::protos::InterceptMessage)},
+        { 535, 546, -1, sizeof(::protos::GoalieMessage)},
+        { 549, 562, -1, sizeof(::protos::GoalieAndPlayerMessage)},
+        { 567, -1, -1, sizeof(::protos::OffsideLineMessage)},
+        { 576, -1, -1, sizeof(::protos::DefenseLineMessage)},
+        { 585, -1, -1, sizeof(::protos::WaitRequestMessage)},
+        { 593, -1, -1, sizeof(::protos::SetplayMessage)},
+        { 602, 611, -1, sizeof(::protos::PassRequestMessage)},
+        { 612, -1, -1, sizeof(::protos::StaminaMessage)},
+        { 621, -1, -1, sizeof(::protos::RecoveryMessage)},
+        { 630, -1, -1, sizeof(::protos::StaminaCapacityMessage)},
+        { 639, 649, -1, sizeof(::protos::DribbleMessage)},
+        { 651, 663, -1, sizeof(::protos::BallGoalieMessage)},
+        { 667, 677, -1, sizeof(::protos::OnePlayerMessage)},
+        { 679, 691, -1, sizeof(::protos::TwoPlayerMessage)},
+        { 695, 709, -1, sizeof(::protos::ThreePlayerMessage)},
+        { 715, 726, -1, sizeof(::protos::SelfMessage)},
+        { 729, 740, -1, sizeof(::protos::TeammateMessage)},
+        { 743, 754, -1, sizeof(::protos::OpponentMessage)},
+        { 757, 770, -1, sizeof(::protos::BallPlayerMessage)},
+        { 775, -1, -1, sizeof(::protos::Say)},
+        { 806, -1, -1, sizeof(::protos::PointTo)},
+        { 816, -1, -1, sizeof(::protos::PointToOf)},
+        { 824, -1, -1, sizeof(::protos::AttentionTo)},
+        { 834, -1, -1, sizeof(::protos::AttentionToOf)},
+        { 842, -1, -1, sizeof(::protos::AddText)},
+        { 852, 863, -1, sizeof(::protos::AddPoint)},
+        { 866, 878, -1, sizeof(::protos::AddLine)},
+        { 882, 896, -1, sizeof(::protos::AddArc)},
+        { 902, 915, -1, sizeof(::protos::AddCircle)},
+        { 920, 934, -1, sizeof(::protos::AddTriangle)},
+        { 940, -1, -1, sizeof(::protos::AddRectangle)},
+        { 955, 971, -1, sizeof(::protos::AddSector)},
+        { 979, 991, -1, sizeof(::protos::AddMessage)},
+        { 995, -1, -1, sizeof(::protos::Log)},
+        { 1013, -1, -1, sizeof(::protos::DebugClient)},
+        { 1022, 1033, -1, sizeof(::protos::Body_GoToPoint)},
+        { 1036, 1048, -1, sizeof(::protos::Body_SmartKick)},
+        { 1052, 1061, -1, sizeof(::protos::Bhv_BeforeKickOff)},
+        { 1062, -1, -1, sizeof(::protos::Bhv_BodyNeckToBall)},
+        { 1070, 1079, -1, sizeof(::protos::Bhv_BodyNeckToPoint)},
+        { 1080, -1, -1, sizeof(::protos::Bhv_Emergency)},
+        { 1088, 1099, -1, sizeof(::protos::Bhv_GoToPointLookBall)},
+        { 1102, -1, -1, sizeof(::protos::Bhv_NeckBodyToBall)},
+        { 1111, 1121, -1, sizeof(::protos::Bhv_NeckBodyToPoint)},
+        { 1123, -1, -1, sizeof(::protos::Bhv_ScanField)},
+        { 1131, -1, -1, sizeof(::protos::Body_AdvanceBall)},
+        { 1139, -1, -1, sizeof(::protos::Body_ClearBall)},
+        { 1147, 1160, -1, sizeof(::protos::Body_Dribble)},
+        { 1165, 1175, -1, sizeof(::protos::Body_GoToPointDodge)},
+        { 1177, 1188, -1, sizeof(::protos::Body_HoldBall)},
+        { 1191, 1201, -1, sizeof(::protos::Body_Intercept)},
+        { 1203, 1214, -1, sizeof(::protos::Body_KickOneStep)},
+        { 1217, -1, -1, sizeof(::protos::Body_StopBall)},
+        { 1225, -1, -1, sizeof(::protos::Body_StopDash)},
+        { 1234, 1245, -1, sizeof(::protos::Body_TackleToPoint)},
+        { 1248, -1, -1, sizeof(::protos::Body_TurnToAngle)},
+        { 1257, -1, -1, sizeof(::protos::Body_TurnToBall)},
+        { 1266, 1276, -1, sizeof(::protos::Body_TurnToPoint)},
+        { 1278, 1287, -1, sizeof(::protos::Focus_MoveToPoint)},
+        { 1288, -1, -1, sizeof(::protos::Focus_Reset)},
+        { 1296, -1, -1, sizeof(::protos::Neck_ScanField)},
+        { 1304, -1, -1, sizeof(::protos::Neck_ScanPlayers)},
+        { 1312, -1, -1, sizeof(::protos::Neck_TurnToBallAndPlayer)},
+        { 1323, -1, -1, sizeof(::protos::Neck_TurnToBallOrScan)},
+        { 1332, -1, -1, sizeof(::protos::Neck_TurnToBall)},
+        { 1340, -1, -1, sizeof(::protos::Neck_TurnToGoalieOrScan)},
+        { 1349, -1, -1, sizeof(::protos::Neck_TurnToLowConfTeammate)},
+        { 1357, -1, -1, sizeof(::protos::Neck_TurnToPlayerOrScan)},
+        { 1368, 1377, -1, sizeof(::protos::Neck_TurnToPoint)},
+        { 1378, -1, -1, sizeof(::protos::Neck_TurnToRelative)},
+        { 1387, -1, -1, sizeof(::protos::View_ChangeWidth)},
+        { 1396, -1, -1, sizeof(::protos::View_Normal)},
+        { 1404, -1, -1, sizeof(::protos::View_Synch)},
+        { 1412, -1, -1, sizeof(::protos::View_Wide)},
+        { 1420, -1, -1, sizeof(::protos::HeliosGoalie)},
+        { 1428, -1, -1, sizeof(::protos::HeliosGoalieMove)},
+        { 1436, -1, -1, sizeof(::protos::HeliosGoalieKick)},
+        { 1444, -1, -1, sizeof(::protos::HeliosShoot)},
+        { 1452, -1, -1, sizeof(::protos::HeliosOffensivePlanner)},
+        { 1470, -1, -1, sizeof(::protos::HeliosBasicOffensive)},
+        { 1478, -1, -1, sizeof(::protos::HeliosBasicMove)},
+        { 1486, -1, -1, sizeof(::protos::HeliosSetPlay)},
+        { 1494, -1, -1, sizeof(::protos::HeliosPenalty)},
+        { 1502, -1, -1, sizeof(::protos::HeliosCommunicaion)},
+        { 1510, -1, -1, sizeof(::protos::PlayerAction)},
+        { 1583, -1, -1, sizeof(::protos::PlayerActions)},
+        { 1593, -1, -1, sizeof(::protos::ChangePlayerType)},
+        { 1603, -1, -1, sizeof(::protos::DoHeliosSubstitute)},
+        { 1611, -1, -1, sizeof(::protos::DoHeliosSayPlayerTypes)},
+        { 1619, -1, -1, sizeof(::protos::CoachAction)},
+        { 1631, -1, -1, sizeof(::protos::CoachActions)},
+        { 1640, -1, -1, sizeof(::protos::DoKickOff)},
+        { 1648, 1658, -1, sizeof(::protos::DoMoveBall)},
+        { 1660, 1672, -1, sizeof(::protos::DoMovePlayer)},
+        { 1676, -1, -1, sizeof(::protos::DoRecover)},
+        { 1684, -1, -1, sizeof(::protos::DoChangeMode)},
+        { 1694, -1, -1, sizeof(::protos::DoChangePlayerType)},
+        { 1705, -1, -1, sizeof(::protos::TrainerAction)},
+        { 1720, -1, -1, sizeof(::protos::TrainerActions)},
+        { 1729, 1959, -1, sizeof(::protos::ServerParam)},
+        { 2181, 2219, -1, sizeof(::protos::PlayerParam)},
+        { 2249, 2291, -1, sizeof(::protos::PlayerType)},
+        { 2325, 2349, -1, sizeof(::protos::RpcCooperativeAction)},
+        { 2365, 2379, -1, sizeof(::protos::RpcPredictState)},
+        { 2385, 2396, -1, sizeof(::protos::RpcActionState)},
+        { 2399, 2409, -1, sizeof(::protos::BestPlannerActionRequest_PairsEntry_DoNotUse)},
+        { 2411, 2422, -1, sizeof(::protos::BestPlannerActionRequest)},
+        { 2425, -1, -1, sizeof(::protos::BestPlannerActionResponse)},
+        { 2434, -1, -1, sizeof(::protos::Empty)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -5616,7 +5914,7 @@ static const ::_pb::Message* const file_default_instances[] = {
     &::protos::_HeliosGoalieMove_default_instance_._instance,
     &::protos::_HeliosGoalieKick_default_instance_._instance,
     &::protos::_HeliosShoot_default_instance_._instance,
-    &::protos::_HeliosChainAction_default_instance_._instance,
+    &::protos::_HeliosOffensivePlanner_default_instance_._instance,
     &::protos::_HeliosBasicOffensive_default_instance_._instance,
     &::protos::_HeliosBasicMove_default_instance_._instance,
     &::protos::_HeliosSetPlay_default_instance_._instance,
@@ -5640,697 +5938,749 @@ static const ::_pb::Message* const file_default_instances[] = {
     &::protos::_ServerParam_default_instance_._instance,
     &::protos::_PlayerParam_default_instance_._instance,
     &::protos::_PlayerType_default_instance_._instance,
+    &::protos::_RpcCooperativeAction_default_instance_._instance,
+    &::protos::_RpcPredictState_default_instance_._instance,
+    &::protos::_RpcActionState_default_instance_._instance,
+    &::protos::_BestPlannerActionRequest_PairsEntry_DoNotUse_default_instance_._instance,
+    &::protos::_BestPlannerActionRequest_default_instance_._instance,
+    &::protos::_BestPlannerActionResponse_default_instance_._instance,
     &::protos::_Empty_default_instance_._instance,
 };
 const char descriptor_table_protodef_service_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
     "\n\rservice.proto\022\006protos\"@\n\013RpcVector2D\022\t"
     "\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\014\n\004dist\030\003 \001(\002\022\r\n\005an"
-    "gle\030\004 \001(\002\"c\n\017RegisterRequest\022%\n\nagent_ty"
+    "gle\030\004 \001(\002\"x\n\017RegisterRequest\022%\n\nagent_ty"
     "pe\030\001 \001(\0162\021.protos.AgentType\022\021\n\tteam_name"
-    "\030\002 \001(\t\022\026\n\016uniform_number\030\003 \001(\005\"w\n\020Regist"
-    "erResponse\022\021\n\tclient_id\030\001 \001(\005\022%\n\nagent_t"
-    "ype\030\002 \001(\0162\021.protos.AgentType\022\021\n\tteam_nam"
-    "e\030\003 \001(\t\022\026\n\016uniform_number\030\004 \001(\005\"\230\004\n\004Ball"
-    "\022%\n\010position\030\001 \001(\0132\023.protos.RpcVector2D\022"
-    ".\n\021relative_position\030\002 \001(\0132\023.protos.RpcV"
-    "ector2D\022*\n\rseen_position\030\003 \001(\0132\023.protos."
-    "RpcVector2D\022+\n\016heard_position\030\004 \001(\0132\023.pr"
-    "otos.RpcVector2D\022%\n\010velocity\030\005 \001(\0132\023.pro"
-    "tos.RpcVector2D\022*\n\rseen_velocity\030\006 \001(\0132\023"
-    ".protos.RpcVector2D\022+\n\016heard_velocity\030\007 "
-    "\001(\0132\023.protos.RpcVector2D\022\021\n\tpos_count\030\010 "
-    "\001(\005\022\026\n\016seen_pos_count\030\t \001(\005\022\027\n\017heard_pos"
-    "_count\030\n \001(\005\022\021\n\tvel_count\030\013 \001(\005\022\026\n\016seen_"
-    "vel_count\030\014 \001(\005\022\027\n\017heard_vel_count\030\r \001(\005"
-    "\022\022\n\nlost_count\030\016 \001(\005\022\023\n\013ghost_count\030\017 \001("
-    "\005\022\026\n\016dist_from_self\030\020 \001(\002\022\027\n\017angle_from_"
-    "self\030\021 \001(\002\"\260\006\n\006Player\022%\n\010position\030\001 \001(\0132"
-    "\023.protos.RpcVector2D\022*\n\rseen_position\030\002 "
-    "\001(\0132\023.protos.RpcVector2D\022+\n\016heard_positi"
-    "on\030\003 \001(\0132\023.protos.RpcVector2D\022%\n\010velocit"
-    "y\030\004 \001(\0132\023.protos.RpcVector2D\022*\n\rseen_vel"
-    "ocity\030\005 \001(\0132\023.protos.RpcVector2D\022\021\n\tpos_"
-    "count\030\006 \001(\005\022\026\n\016seen_pos_count\030\007 \001(\005\022\027\n\017h"
-    "eard_pos_count\030\010 \001(\005\022\021\n\tvel_count\030\t \001(\005\022"
-    "\026\n\016seen_vel_count\030\n \001(\005\022\023\n\013ghost_count\030\013"
-    " \001(\005\022\026\n\016dist_from_self\030\014 \001(\002\022\027\n\017angle_fr"
-    "om_self\030\r \001(\002\022\n\n\002id\030\016 \001(\005\022\032\n\004side\030\017 \001(\0162"
-    "\014.protos.Side\022\026\n\016uniform_number\030\020 \001(\005\022\034\n"
-    "\024uniform_number_count\030\021 \001(\005\022\021\n\tis_goalie"
-    "\030\022 \001(\010\022\026\n\016body_direction\030\023 \001(\002\022\034\n\024body_d"
-    "irection_count\030\024 \001(\005\022\026\n\016face_direction\030\025"
-    " \001(\002\022\034\n\024face_direction_count\030\026 \001(\005\022\032\n\022po"
-    "int_to_direction\030\027 \001(\002\022 \n\030point_to_direc"
-    "tion_count\030\030 \001(\005\022\022\n\nis_kicking\030\031 \001(\010\022\026\n\016"
-    "dist_from_ball\030\032 \001(\002\022\027\n\017angle_from_ball\030"
-    "\033 \001(\002\022\030\n\020ball_reach_steps\030\034 \001(\005\022\023\n\013is_ta"
-    "ckling\030\035 \001(\010\022\017\n\007type_id\030\036 \001(\005\"\317\007\n\004Self\022%"
-    "\n\010position\030\001 \001(\0132\023.protos.RpcVector2D\022*\n"
-    "\rseen_position\030\002 \001(\0132\023.protos.RpcVector2"
-    "D\022+\n\016heard_position\030\003 \001(\0132\023.protos.RpcVe"
-    "ctor2D\022%\n\010velocity\030\004 \001(\0132\023.protos.RpcVec"
-    "tor2D\022*\n\rseen_velocity\030\005 \001(\0132\023.protos.Rp"
-    "cVector2D\022\021\n\tpos_count\030\006 \001(\005\022\026\n\016seen_pos"
-    "_count\030\007 \001(\005\022\027\n\017heard_pos_count\030\010 \001(\005\022\021\n"
-    "\tvel_count\030\t \001(\005\022\026\n\016seen_vel_count\030\n \001(\005"
-    "\022\023\n\013ghost_count\030\013 \001(\005\022\n\n\002id\030\014 \001(\005\022\032\n\004sid"
-    "e\030\r \001(\0162\014.protos.Side\022\026\n\016uniform_number\030"
-    "\016 \001(\005\022\034\n\024uniform_number_count\030\017 \001(\005\022\021\n\ti"
-    "s_goalie\030\020 \001(\010\022\026\n\016body_direction\030\021 \001(\002\022\034"
-    "\n\024body_direction_count\030\022 \001(\005\022\026\n\016face_dir"
-    "ection\030\023 \001(\002\022\034\n\024face_direction_count\030\024 \001"
-    "(\005\022\032\n\022point_to_direction\030\025 \001(\002\022 \n\030point_"
-    "to_direction_count\030\026 \001(\005\022\022\n\nis_kicking\030\027"
-    " \001(\010\022\026\n\016dist_from_ball\030\030 \001(\002\022\027\n\017angle_fr"
-    "om_ball\030\031 \001(\002\022\030\n\020ball_reach_steps\030\032 \001(\005\022"
-    "\023\n\013is_tackling\030\033 \001(\010\022\037\n\027relative_neck_di"
-    "rection\030\034 \001(\002\022\017\n\007stamina\030\035 \001(\002\022\023\n\013is_kic"
-    "kable\030\036 \001(\010\022\031\n\021catch_probability\030\037 \001(\002\022\032"
-    "\n\022tackle_probability\030  \001(\002\022\030\n\020foul_proba"
-    "bility\030! \001(\002\022%\n\nview_width\030\" \001(\0162\021.proto"
-    "s.ViewWidth\022\017\n\007type_id\030# \001(\005\022\021\n\tkick_rat"
-    "e\030$ \001(\002\"\224\002\n\rInterceptInfo\0220\n\013action_type"
-    "\030\001 \001(\0162\033.protos.InterceptActionType\022\022\n\nt"
-    "urn_steps\030\002 \001(\005\022\022\n\nturn_angle\030\003 \001(\002\022\022\n\nd"
-    "ash_steps\030\004 \001(\005\022\022\n\ndash_power\030\005 \001(\002\022\020\n\010d"
-    "ash_dir\030\006 \001(\002\0220\n\023final_self_position\030\007 \001"
-    "(\0132\023.protos.RpcVector2D\022\027\n\017final_ball_di"
-    "st\030\010 \001(\002\022\025\n\rfinal_stamina\030\t \001(\002\022\r\n\005value"
-    "\030\n \001(\002\"\336\002\n\016InterceptTable\022\030\n\020self_reach_"
-    "steps\030\001 \001(\005\022\"\n\032first_teammate_reach_step"
-    "s\030\002 \001(\005\022#\n\033second_teammate_reach_steps\030\003"
-    " \001(\005\022\"\n\032first_opponent_reach_steps\030\004 \001(\005"
-    "\022#\n\033second_opponent_reach_steps\030\005 \001(\005\022\031\n"
-    "\021first_teammate_id\030\006 \001(\005\022\032\n\022second_teamm"
-    "ate_id\030\007 \001(\005\022\031\n\021first_opponent_id\030\010 \001(\005\022"
-    "\032\n\022second_opponent_id\030\t \001(\005\0222\n\023self_inte"
-    "rcept_info\030\n \003(\0132\025.protos.InterceptInfo\""
-    "\221\n\n\nWorldModel\022/\n\017intercept_table\030\001 \001(\0132"
-    "\026.protos.InterceptTable\022\025\n\rour_team_name"
-    "\030\002 \001(\t\022\027\n\017their_team_name\030\003 \001(\t\022\036\n\010our_s"
-    "ide\030\004 \001(\0162\014.protos.Side\022 \n\030last_set_play"
-    "_start_time\030\005 \001(\005\022\032\n\004self\030\006 \001(\0132\014.protos"
-    ".Self\022\032\n\004ball\030\007 \001(\0132\014.protos.Ball\022!\n\ttea"
-    "mmates\030\010 \003(\0132\016.protos.Player\022!\n\topponent"
-    "s\030\t \003(\0132\016.protos.Player\022 \n\010unknowns\030\n \003("
-    "\0132\016.protos.Player\022@\n\020our_players_dict\030\013 "
-    "\003(\0132&.protos.WorldModel.OurPlayersDictEn"
-    "try\022D\n\022their_players_dict\030\014 \003(\0132(.protos"
-    ".WorldModel.TheirPlayersDictEntry\022!\n\031our"
-    "_goalie_uniform_number\030\r \001(\005\022#\n\033their_go"
-    "alie_uniform_number\030\016 \001(\005\022\026\n\016offside_lin"
-    "e_x\030\017 \001(\002\022\033\n\023ofside_line_x_count\030\020 \001(\005\022\034"
-    "\n\024kickable_teammate_id\030\021 \001(\005\022\034\n\024kickable"
-    "_opponent_id\030\022 \001(\005\022$\n\016last_kick_side\030\023 \001"
-    "(\0162\014.protos.Side\022\"\n\032last_kicker_uniform_"
-    "number\030\024 \001(\005\022\r\n\005cycle\030\025 \001(\005\022,\n\016game_mode"
-    "_type\030\026 \001(\0162\024.protos.GameModeType\022\027\n\017lef"
-    "t_team_score\030\027 \001(\005\022\030\n\020right_team_score\030\030"
-    " \001(\005\022\027\n\017is_our_set_play\030\031 \001(\010\022\031\n\021is_thei"
-    "r_set_play\030\032 \001(\010\022\024\n\014stoped_cycle\030\033 \001(\005\022\026"
-    "\n\016our_team_score\030\034 \001(\005\022\030\n\020their_team_sco"
-    "re\030\035 \001(\005\022\034\n\024is_penalty_kick_mode\030\036 \001(\010\022J"
-    "\n\025helios_home_positions\030\037 \003(\0132+.protos.W"
-    "orldModel.HeliosHomePositionsEntry\032E\n\023Ou"
-    "rPlayersDictEntry\022\013\n\003key\030\001 \001(\005\022\035\n\005value\030"
-    "\002 \001(\0132\016.protos.Player:\0028\001\032G\n\025TheirPlayer"
-    "sDictEntry\022\013\n\003key\030\001 \001(\005\022\035\n\005value\030\002 \001(\0132\016"
-    ".protos.Player:\0028\001\032O\n\030HeliosHomePosition"
-    "sEntry\022\013\n\003key\030\001 \001(\005\022\"\n\005value\030\002 \001(\0132\023.pro"
-    "tos.RpcVector2D:\0028\001\"\223\001\n\005State\0223\n\021registe"
-    "r_response\030\001 \001(\0132\030.protos.RegisterRespon"
-    "se\022\'\n\013world_model\030\002 \001(\0132\022.protos.WorldMo"
-    "del\022,\n\020full_world_model\030\003 \001(\0132\022.protos.W"
-    "orldModel\"V\n\013InitMessage\0223\n\021register_res"
-    "ponse\030\001 \001(\0132\030.protos.RegisterResponse\022\022\n"
-    "\ndebug_mode\030\002 \001(\010\"1\n\004Dash\022\r\n\005power\030\001 \001(\002"
-    "\022\032\n\022relative_direction\030\002 \001(\002\"\"\n\004Turn\022\032\n\022"
-    "relative_direction\030\001 \001(\002\"1\n\004Kick\022\r\n\005powe"
-    "r\030\001 \001(\002\022\032\n\022relative_direction\030\002 \001(\002\",\n\006T"
-    "ackle\022\024\n\014power_or_dir\030\001 \001(\002\022\014\n\004foul\030\002 \001("
-    "\010\"\007\n\005Catch\"\034\n\004Move\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002"
-    "\"\032\n\010TurnNeck\022\016\n\006moment\030\001 \001(\002\"3\n\nChangeVi"
-    "ew\022%\n\nview_width\030\001 \001(\0162\021.protos.ViewWidt"
-    "h\"e\n\013BallMessage\022*\n\rball_position\030\001 \001(\0132"
-    "\023.protos.RpcVector2D\022*\n\rball_velocity\030\002 "
-    "\001(\0132\023.protos.RpcVector2D\"\263\001\n\013PassMessage"
-    "\022\037\n\027receiver_uniform_number\030\001 \001(\005\022+\n\016rec"
-    "eiver_point\030\002 \001(\0132\023.protos.RpcVector2D\022*"
-    "\n\rball_position\030\003 \001(\0132\023.protos.RpcVector"
-    "2D\022*\n\rball_velocity\030\004 \001(\0132\023.protos.RpcVe"
-    "ctor2D\"F\n\020InterceptMessage\022\013\n\003our\030\001 \001(\010\022"
-    "\026\n\016uniform_number\030\002 \001(\005\022\r\n\005cycle\030\003 \001(\005\"{"
-    "\n\rGoalieMessage\022\035\n\025goalie_uniform_number"
-    "\030\001 \001(\005\022,\n\017goalie_position\030\002 \001(\0132\023.protos"
-    ".RpcVector2D\022\035\n\025goalie_body_direction\030\003 "
-    "\001(\002\"\321\001\n\026GoalieAndPlayerMessage\022\035\n\025goalie"
-    "_uniform_number\030\001 \001(\005\022,\n\017goalie_position"
-    "\030\002 \001(\0132\023.protos.RpcVector2D\022\035\n\025goalie_bo"
-    "dy_direction\030\003 \001(\002\022\035\n\025player_uniform_num"
-    "ber\030\004 \001(\005\022,\n\017player_position\030\005 \001(\0132\023.pro"
-    "tos.RpcVector2D\",\n\022OffsideLineMessage\022\026\n"
-    "\016offside_line_x\030\001 \001(\002\",\n\022DefenseLineMess"
-    "age\022\026\n\016defense_line_x\030\001 \001(\002\"\024\n\022WaitReque"
-    "stMessage\"#\n\016SetplayMessage\022\021\n\twait_step"
-    "\030\001 \001(\005\"\?\n\022PassRequestMessage\022)\n\014target_p"
-    "oint\030\001 \001(\0132\023.protos.RpcVector2D\"!\n\016Stami"
-    "naMessage\022\017\n\007stamina\030\001 \001(\002\"#\n\017RecoveryMe"
-    "ssage\022\020\n\010recovery\030\001 \001(\002\"2\n\026StaminaCapaci"
-    "tyMessage\022\030\n\020stamina_capacity\030\001 \001(\002\"P\n\016D"
-    "ribbleMessage\022)\n\014target_point\030\001 \001(\0132\023.pr"
-    "otos.RpcVector2D\022\023\n\013queue_count\030\002 \001(\005\"\270\001"
-    "\n\021BallGoalieMessage\022*\n\rball_position\030\001 \001"
-    "(\0132\023.protos.RpcVector2D\022*\n\rball_velocity"
-    "\030\002 \001(\0132\023.protos.RpcVector2D\022,\n\017goalie_po"
-    "sition\030\003 \001(\0132\023.protos.RpcVector2D\022\035\n\025goa"
-    "lie_body_direction\030\004 \001(\002\"Q\n\020OnePlayerMes"
-    "sage\022\026\n\016uniform_number\030\001 \001(\005\022%\n\010position"
-    "\030\002 \001(\0132\023.protos.RpcVector2D\"\252\001\n\020TwoPlaye"
-    "rMessage\022\034\n\024first_uniform_number\030\001 \001(\005\022+"
-    "\n\016first_position\030\002 \001(\0132\023.protos.RpcVecto"
-    "r2D\022\035\n\025second_uniform_number\030\003 \001(\005\022,\n\017se"
-    "cond_position\030\004 \001(\0132\023.protos.RpcVector2D"
-    "\"\367\001\n\022ThreePlayerMessage\022\034\n\024first_uniform"
-    "_number\030\001 \001(\005\022+\n\016first_position\030\002 \001(\0132\023."
-    "protos.RpcVector2D\022\035\n\025second_uniform_num"
-    "ber\030\003 \001(\005\022,\n\017second_position\030\004 \001(\0132\023.pro"
-    "tos.RpcVector2D\022\034\n\024third_uniform_number\030"
-    "\005 \001(\005\022+\n\016third_position\030\006 \001(\0132\023.protos.R"
-    "pcVector2D\"l\n\013SelfMessage\022*\n\rself_positi"
-    "on\030\001 \001(\0132\023.protos.RpcVector2D\022\033\n\023self_bo"
-    "dy_direction\030\002 \001(\002\022\024\n\014self_stamina\030\003 \001(\002"
-    "\"h\n\017TeammateMessage\022\026\n\016uniform_number\030\001 "
-    "\001(\005\022%\n\010position\030\002 \001(\0132\023.protos.RpcVector"
-    "2D\022\026\n\016body_direction\030\003 \001(\002\"h\n\017OpponentMe"
-    "ssage\022\026\n\016uniform_number\030\001 \001(\005\022%\n\010positio"
-    "n\030\002 \001(\0132\023.protos.RpcVector2D\022\026\n\016body_dir"
-    "ection\030\003 \001(\002\"\311\001\n\021BallPlayerMessage\022*\n\rba"
-    "ll_position\030\001 \001(\0132\023.protos.RpcVector2D\022*"
-    "\n\rball_velocity\030\002 \001(\0132\023.protos.RpcVector"
-    "2D\022\026\n\016uniform_number\030\003 \001(\005\022,\n\017player_pos"
-    "ition\030\004 \001(\0132\023.protos.RpcVector2D\022\026\n\016body"
-    "_direction\030\005 \001(\002\"\320\t\n\003Say\022+\n\014ball_message"
-    "\030\001 \001(\0132\023.protos.BallMessageH\000\022+\n\014pass_me"
-    "ssage\030\002 \001(\0132\023.protos.PassMessageH\000\0225\n\021in"
-    "tercept_message\030\003 \001(\0132\030.protos.Intercept"
-    "MessageH\000\022/\n\016goalie_message\030\004 \001(\0132\025.prot"
-    "os.GoalieMessageH\000\022C\n\031goalie_and_player_"
-    "message\030\005 \001(\0132\036.protos.GoalieAndPlayerMe"
-    "ssageH\000\022:\n\024offside_line_message\030\006 \001(\0132\032."
-    "protos.OffsideLineMessageH\000\022:\n\024defense_l"
-    "ine_message\030\007 \001(\0132\032.protos.DefenseLineMe"
-    "ssageH\000\022:\n\024wait_request_message\030\010 \001(\0132\032."
-    "protos.WaitRequestMessageH\000\0221\n\017setplay_m"
-    "essage\030\t \001(\0132\026.protos.SetplayMessageH\000\022:"
-    "\n\024pass_request_message\030\n \001(\0132\032.protos.Pa"
-    "ssRequestMessageH\000\0221\n\017stamina_message\030\013 "
-    "\001(\0132\026.protos.StaminaMessageH\000\0223\n\020recover"
-    "y_message\030\014 \001(\0132\027.protos.RecoveryMessage"
-    "H\000\022B\n\030stamina_capacity_message\030\r \001(\0132\036.p"
-    "rotos.StaminaCapacityMessageH\000\0221\n\017dribbl"
-    "e_message\030\016 \001(\0132\026.protos.DribbleMessageH"
-    "\000\0228\n\023ball_goalie_message\030\017 \001(\0132\031.protos."
-    "BallGoalieMessageH\000\0226\n\022one_player_messag"
-    "e\030\020 \001(\0132\030.protos.OnePlayerMessageH\000\0226\n\022t"
-    "wo_player_message\030\021 \001(\0132\030.protos.TwoPlay"
-    "erMessageH\000\022:\n\024three_player_message\030\022 \001("
-    "\0132\032.protos.ThreePlayerMessageH\000\022+\n\014self_"
-    "message\030\023 \001(\0132\023.protos.SelfMessageH\000\0223\n\020"
-    "teammate_message\030\024 \001(\0132\027.protos.Teammate"
-    "MessageH\000\0223\n\020opponent_message\030\025 \001(\0132\027.pr"
-    "otos.OpponentMessageH\000\0228\n\023ball_player_me"
-    "ssage\030\026 \001(\0132\031.protos.BallPlayerMessageH\000"
-    "B\t\n\007message\"\037\n\007PointTo\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002"
-    " \001(\002\"\013\n\tPointToOf\"7\n\013AttentionTo\022\032\n\004side"
-    "\030\001 \001(\0162\014.protos.Side\022\014\n\004unum\030\002 \001(\005\"\017\n\rAt"
-    "tentionToOf\">\n\007AddText\022\"\n\005level\030\001 \001(\0162\023."
-    "protos.LoggerLevel\022\017\n\007message\030\002 \001(\t\"a\n\010A"
-    "ddPoint\022\"\n\005level\030\001 \001(\0162\023.protos.LoggerLe"
-    "vel\022\"\n\005point\030\002 \001(\0132\023.protos.RpcVector2D\022"
-    "\r\n\005color\030\003 \001(\t\"\202\001\n\007AddLine\022\"\n\005level\030\001 \001("
-    "\0162\023.protos.LoggerLevel\022\"\n\005start\030\002 \001(\0132\023."
-    "protos.RpcVector2D\022 \n\003end\030\003 \001(\0132\023.protos"
-    ".RpcVector2D\022\r\n\005color\030\004 \001(\t\"\231\001\n\006AddArc\022\""
-    "\n\005level\030\001 \001(\0162\023.protos.LoggerLevel\022#\n\006ce"
-    "nter\030\002 \001(\0132\023.protos.RpcVector2D\022\016\n\006radiu"
-    "s\030\003 \001(\002\022\023\n\013start_angle\030\004 \001(\002\022\022\n\nspan_ang"
-    "el\030\005 \001(\002\022\r\n\005color\030\006 \001(\t\"\201\001\n\tAddCircle\022\"\n"
-    "\005level\030\001 \001(\0162\023.protos.LoggerLevel\022#\n\006cen"
-    "ter\030\002 \001(\0132\023.protos.RpcVector2D\022\016\n\006radius"
-    "\030\003 \001(\002\022\r\n\005color\030\004 \001(\t\022\014\n\004fill\030\005 \001(\010\"\275\001\n\013"
-    "AddTriangle\022\"\n\005level\030\001 \001(\0162\023.protos.Logg"
-    "erLevel\022#\n\006point1\030\002 \001(\0132\023.protos.RpcVect"
-    "or2D\022#\n\006point2\030\003 \001(\0132\023.protos.RpcVector2"
-    "D\022#\n\006point3\030\004 \001(\0132\023.protos.RpcVector2D\022\r"
-    "\n\005color\030\005 \001(\t\022\014\n\004fill\030\006 \001(\010\"\211\001\n\014AddRecta"
-    "ngle\022\"\n\005level\030\001 \001(\0162\023.protos.LoggerLevel"
-    "\022\014\n\004left\030\002 \001(\002\022\013\n\003top\030\003 \001(\002\022\016\n\006length\030\004 "
-    "\001(\002\022\r\n\005width\030\005 \001(\002\022\r\n\005color\030\006 \001(\t\022\014\n\004fil"
-    "l\030\007 \001(\010\"\302\001\n\tAddSector\022\"\n\005level\030\001 \001(\0162\023.p"
-    "rotos.LoggerLevel\022#\n\006center\030\002 \001(\0132\023.prot"
-    "os.RpcVector2D\022\022\n\nmin_radius\030\003 \001(\002\022\022\n\nma"
-    "x_radius\030\004 \001(\002\022\023\n\013start_angle\030\005 \001(\002\022\022\n\ns"
-    "pan_angel\030\006 \001(\002\022\r\n\005color\030\007 \001(\t\022\014\n\004fill\030\010"
-    " \001(\010\"w\n\nAddMessage\022\"\n\005level\030\001 \001(\0162\023.prot"
-    "os.LoggerLevel\022%\n\010position\030\002 \001(\0132\023.proto"
-    "s.RpcVector2D\022\017\n\007message\030\003 \001(\t\022\r\n\005color\030"
-    "\004 \001(\t\"\371\002\n\003Log\022#\n\010add_text\030\001 \001(\0132\017.protos"
-    ".AddTextH\000\022%\n\tadd_point\030\002 \001(\0132\020.protos.A"
-    "ddPointH\000\022#\n\010add_line\030\003 \001(\0132\017.protos.Add"
-    "LineH\000\022!\n\007add_arc\030\004 \001(\0132\016.protos.AddArcH"
-    "\000\022\'\n\nadd_circle\030\005 \001(\0132\021.protos.AddCircle"
-    "H\000\022+\n\014add_triangle\030\006 \001(\0132\023.protos.AddTri"
-    "angleH\000\022-\n\radd_rectangle\030\007 \001(\0132\024.protos."
-    "AddRectangleH\000\022\'\n\nadd_sector\030\010 \001(\0132\021.pro"
-    "tos.AddSectorH\000\022)\n\013add_message\030\t \001(\0132\022.p"
-    "rotos.AddMessageH\000B\005\n\003log\"\036\n\013DebugClient"
-    "\022\017\n\007message\030\001 \001(\t\"o\n\016Body_GoToPoint\022)\n\014t"
-    "arget_point\030\001 \001(\0132\023.protos.RpcVector2D\022\032"
-    "\n\022distance_threshold\030\002 \001(\002\022\026\n\016max_dash_p"
-    "ower\030\003 \001(\002\"\202\001\n\016Body_SmartKick\022)\n\014target_"
-    "point\030\001 \001(\0132\023.protos.RpcVector2D\022\023\n\013firs"
-    "t_speed\030\002 \001(\002\022\035\n\025first_speed_threshold\030\003"
-    " \001(\002\022\021\n\tmax_steps\030\004 \001(\005\"7\n\021Bhv_BeforeKic"
-    "kOff\022\"\n\005point\030\001 \001(\0132\023.protos.RpcVector2D"
-    "\"\024\n\022Bhv_BodyNeckToBall\"9\n\023Bhv_BodyNeckTo"
-    "Point\022\"\n\005point\030\001 \001(\0132\023.protos.RpcVector2"
-    "D\"\017\n\rBhv_Emergency\"v\n\025Bhv_GoToPointLookB"
-    "all\022)\n\014target_point\030\001 \001(\0132\023.protos.RpcVe"
-    "ctor2D\022\032\n\022distance_threshold\030\002 \001(\002\022\026\n\016ma"
-    "x_dash_power\030\003 \001(\002\"\'\n\022Bhv_NeckBodyToBall"
-    "\022\021\n\tangle_buf\030\001 \001(\002\"L\n\023Bhv_NeckBodyToPoi"
-    "nt\022\"\n\005point\030\001 \001(\0132\023.protos.RpcVector2D\022\021"
-    "\n\tangle_buf\030\002 \001(\002\"\017\n\rBhv_ScanField\"\022\n\020Bo"
-    "dy_AdvanceBall\"\020\n\016Body_ClearBall\"\214\001\n\014Bod"
-    "y_Dribble\022)\n\014target_point\030\001 \001(\0132\023.protos"
-    ".RpcVector2D\022\032\n\022distance_threshold\030\002 \001(\002"
-    "\022\022\n\ndash_power\030\003 \001(\002\022\022\n\ndash_count\030\004 \001(\005"
-    "\022\r\n\005dodge\030\005 \001(\010\"T\n\023Body_GoToPointDodge\022)"
-    "\n\014target_point\030\001 \001(\0132\023.protos.RpcVector2"
-    "D\022\022\n\ndash_power\030\002 \001(\002\"\200\001\n\rBody_HoldBall\022"
-    "\017\n\007do_turn\030\001 \001(\010\022.\n\021turn_target_point\030\002 "
-    "\001(\0132\023.protos.RpcVector2D\022.\n\021kick_target_"
-    "point\030\003 \001(\0132\023.protos.RpcVector2D\"P\n\016Body"
-    "_Intercept\022\025\n\rsave_recovery\030\001 \001(\010\022\'\n\nfac"
-    "e_point\030\002 \001(\0132\023.protos.RpcVector2D\"f\n\020Bo"
-    "dy_KickOneStep\022)\n\014target_point\030\001 \001(\0132\023.p"
-    "rotos.RpcVector2D\022\023\n\013first_speed\030\002 \001(\002\022\022"
-    "\n\nforce_mode\030\003 \001(\010\"\017\n\rBody_StopBall\"&\n\rB"
-    "ody_StopDash\022\025\n\rsave_recovery\030\001 \001(\010\"k\n\022B"
-    "ody_TackleToPoint\022)\n\014target_point\030\001 \001(\0132"
-    "\023.protos.RpcVector2D\022\027\n\017min_probability\030"
-    "\002 \001(\002\022\021\n\tmin_speed\030\003 \001(\002\"!\n\020Body_TurnToA"
-    "ngle\022\r\n\005angle\030\001 \001(\002\" \n\017Body_TurnToBall\022\r"
-    "\n\005cycle\030\001 \001(\005\"L\n\020Body_TurnToPoint\022)\n\014tar"
-    "get_point\030\001 \001(\0132\023.protos.RpcVector2D\022\r\n\005"
-    "cycle\030\002 \001(\005\">\n\021Focus_MoveToPoint\022)\n\014targ"
-    "et_point\030\001 \001(\0132\023.protos.RpcVector2D\"\r\n\013F"
-    "ocus_Reset\"\020\n\016Neck_ScanField\"\022\n\020Neck_Sca"
-    "nPlayers\"g\n\030Neck_TurnToBallAndPlayer\022\032\n\004"
-    "side\030\001 \001(\0162\014.protos.Side\022\026\n\016uniform_numb"
-    "er\030\002 \001(\005\022\027\n\017count_threshold\030\003 \001(\005\"0\n\025Nec"
-    "k_TurnToBallOrScan\022\027\n\017count_threshold\030\001 "
-    "\001(\005\"\021\n\017Neck_TurnToBall\"2\n\027Neck_TurnToGoa"
-    "lieOrScan\022\027\n\017count_threshold\030\001 \001(\005\"\034\n\032Ne"
-    "ck_TurnToLowConfTeammate\"f\n\027Neck_TurnToP"
-    "layerOrScan\022\032\n\004side\030\001 \001(\0162\014.protos.Side\022"
-    "\026\n\016uniform_number\030\002 \001(\005\022\027\n\017count_thresho"
-    "ld\030\003 \001(\005\"=\n\020Neck_TurnToPoint\022)\n\014target_p"
-    "oint\030\001 \001(\0132\023.protos.RpcVector2D\"$\n\023Neck_"
-    "TurnToRelative\022\r\n\005angle\030\001 \001(\002\"9\n\020View_Ch"
-    "angeWidth\022%\n\nview_width\030\001 \001(\0162\021.protos.V"
-    "iewWidth\"\r\n\013View_Normal\"\014\n\nView_Synch\"\013\n"
-    "\tView_Wide\"\016\n\014HeliosGoalie\"\022\n\020HeliosGoal"
-    "ieMove\"\022\n\020HeliosGoalieKick\"\r\n\013HeliosShoo"
-    "t\"\320\001\n\021HeliosChainAction\022\023\n\013direct_pass\030\001"
-    " \001(\010\022\021\n\tlead_pass\030\002 \001(\010\022\024\n\014through_pass\030"
-    "\003 \001(\010\022\025\n\rshort_dribble\030\004 \001(\010\022\024\n\014long_dri"
-    "bble\030\005 \001(\010\022\r\n\005cross\030\006 \001(\010\022\023\n\013simple_pass"
-    "\030\007 \001(\010\022\026\n\016simple_dribble\030\010 \001(\010\022\024\n\014simple"
-    "_shoot\030\t \001(\010\"\026\n\024HeliosBasicOffensive\"\021\n\017"
-    "HeliosBasicMove\"\017\n\rHeliosSetPlay\"\017\n\rHeli"
-    "osPenalty\"\024\n\022HeliosCommunicaion\"\343\031\n\014Play"
-    "erAction\022\034\n\004dash\030\001 \001(\0132\014.protos.DashH\000\022\034"
-    "\n\004turn\030\002 \001(\0132\014.protos.TurnH\000\022\034\n\004kick\030\003 \001"
-    "(\0132\014.protos.KickH\000\022 \n\006tackle\030\004 \001(\0132\016.pro"
-    "tos.TackleH\000\022\036\n\005catch\030\005 \001(\0132\r.protos.Cat"
-    "chH\000\022\034\n\004move\030\006 \001(\0132\014.protos.MoveH\000\022%\n\ttu"
-    "rn_neck\030\007 \001(\0132\020.protos.TurnNeckH\000\022)\n\013cha"
-    "nge_view\030\010 \001(\0132\022.protos.ChangeViewH\000\022\032\n\003"
-    "say\030\t \001(\0132\013.protos.SayH\000\022#\n\010point_to\030\n \001"
-    "(\0132\017.protos.PointToH\000\022(\n\013point_to_of\030\013 \001"
-    "(\0132\021.protos.PointToOfH\000\022+\n\014attention_to\030"
-    "\014 \001(\0132\023.protos.AttentionToH\000\0220\n\017attentio"
-    "n_to_of\030\r \001(\0132\025.protos.AttentionToOfH\000\022\032"
-    "\n\003log\030\016 \001(\0132\013.protos.LogH\000\022+\n\014debug_clie"
-    "nt\030\017 \001(\0132\023.protos.DebugClientH\000\0222\n\020body_"
-    "go_to_point\030\020 \001(\0132\026.protos.Body_GoToPoin"
-    "tH\000\0221\n\017body_smart_kick\030\021 \001(\0132\026.protos.Bo"
-    "dy_SmartKickH\000\0228\n\023bhv_before_kick_off\030\022 "
-    "\001(\0132\031.protos.Bhv_BeforeKickOffH\000\022;\n\025bhv_"
-    "body_neck_to_ball\030\023 \001(\0132\032.protos.Bhv_Bod"
-    "yNeckToBallH\000\022=\n\026bhv_body_neck_to_point\030"
-    "\024 \001(\0132\033.protos.Bhv_BodyNeckToPointH\000\022.\n\r"
-    "bhv_emergency\030\025 \001(\0132\025.protos.Bhv_Emergen"
-    "cyH\000\022B\n\031bhv_go_to_point_look_ball\030\026 \001(\0132"
-    "\035.protos.Bhv_GoToPointLookBallH\000\022;\n\025bhv_"
-    "neck_body_to_ball\030\027 \001(\0132\032.protos.Bhv_Nec"
-    "kBodyToBallH\000\022=\n\026bhv_neck_body_to_point\030"
-    "\030 \001(\0132\033.protos.Bhv_NeckBodyToPointH\000\022/\n\016"
-    "bhv_scan_field\030\031 \001(\0132\025.protos.Bhv_ScanFi"
-    "eldH\000\0225\n\021body_advance_ball\030\032 \001(\0132\030.proto"
-    "s.Body_AdvanceBallH\000\0221\n\017body_clear_ball\030"
-    "\033 \001(\0132\026.protos.Body_ClearBallH\000\022,\n\014body_"
-    "dribble\030\034 \001(\0132\024.protos.Body_DribbleH\000\022=\n"
-    "\026body_go_to_point_dodge\030\035 \001(\0132\033.protos.B"
-    "ody_GoToPointDodgeH\000\022/\n\016body_hold_ball\030\036"
-    " \001(\0132\025.protos.Body_HoldBallH\000\0220\n\016body_in"
-    "tercept\030\037 \001(\0132\026.protos.Body_InterceptH\000\022"
-    "6\n\022body_kick_one_step\030  \001(\0132\030.protos.Bod"
-    "y_KickOneStepH\000\022/\n\016body_stop_ball\030! \001(\0132"
-    "\025.protos.Body_StopBallH\000\022/\n\016body_stop_da"
-    "sh\030\" \001(\0132\025.protos.Body_StopDashH\000\022:\n\024bod"
-    "y_tackle_to_point\030# \001(\0132\032.protos.Body_Ta"
-    "ckleToPointH\000\0226\n\022body_turn_to_angle\030$ \001("
-    "\0132\030.protos.Body_TurnToAngleH\000\0224\n\021body_tu"
-    "rn_to_ball\030% \001(\0132\027.protos.Body_TurnToBal"
-    "lH\000\0226\n\022body_turn_to_point\030& \001(\0132\030.protos"
-    ".Body_TurnToPointH\000\0228\n\023focus_move_to_poi"
-    "nt\030\' \001(\0132\031.protos.Focus_MoveToPointH\000\022*\n"
-    "\013focus_reset\030( \001(\0132\023.protos.Focus_ResetH"
-    "\000\0221\n\017neck_scan_field\030) \001(\0132\026.protos.Neck"
-    "_ScanFieldH\000\0225\n\021neck_scan_players\030* \001(\0132"
-    "\030.protos.Neck_ScanPlayersH\000\022H\n\034neck_turn"
-    "_to_ball_and_player\030+ \001(\0132 .protos.Neck_"
-    "TurnToBallAndPlayerH\000\022B\n\031neck_turn_to_ba"
-    "ll_or_scan\030, \001(\0132\035.protos.Neck_TurnToBal"
-    "lOrScanH\000\0224\n\021neck_turn_to_ball\030- \001(\0132\027.p"
-    "rotos.Neck_TurnToBallH\000\022F\n\033neck_turn_to_"
-    "goalie_or_scan\030. \001(\0132\037.protos.Neck_TurnT"
-    "oGoalieOrScanH\000\022L\n\036neck_turn_to_low_conf"
-    "_teammate\030/ \001(\0132\".protos.Neck_TurnToLowC"
-    "onfTeammateH\000\022F\n\033neck_turn_to_player_or_"
-    "scan\0300 \001(\0132\037.protos.Neck_TurnToPlayerOrS"
-    "canH\000\0226\n\022neck_turn_to_point\0301 \001(\0132\030.prot"
-    "os.Neck_TurnToPointH\000\022<\n\025neck_turn_to_re"
-    "lative\0302 \001(\0132\033.protos.Neck_TurnToRelativ"
-    "eH\000\0225\n\021view_change_width\0303 \001(\0132\030.protos."
-    "View_ChangeWidthH\000\022*\n\013view_normal\0304 \001(\0132"
-    "\023.protos.View_NormalH\000\022(\n\nview_synch\0305 \001"
-    "(\0132\022.protos.View_SynchH\000\022&\n\tview_wide\0306 "
-    "\001(\0132\021.protos.View_WideH\000\022-\n\rhelios_goali"
-    "e\0307 \001(\0132\024.protos.HeliosGoalieH\000\0226\n\022helio"
-    "s_goalie_move\0308 \001(\0132\030.protos.HeliosGoali"
-    "eMoveH\000\0226\n\022helios_goalie_kick\0309 \001(\0132\030.pr"
-    "otos.HeliosGoalieKickH\000\022+\n\014helios_shoot\030"
-    ": \001(\0132\023.protos.HeliosShootH\000\0228\n\023helios_c"
-    "hain_action\030; \001(\0132\031.protos.HeliosChainAc"
-    "tionH\000\022>\n\026helios_basic_offensive\030< \001(\0132\034"
-    ".protos.HeliosBasicOffensiveH\000\0224\n\021helios"
-    "_basic_move\030= \001(\0132\027.protos.HeliosBasicMo"
-    "veH\000\0220\n\017helios_set_play\030> \001(\0132\025.protos.H"
-    "eliosSetPlayH\000\022/\n\016helios_penalty\030\? \001(\0132\025"
-    ".protos.HeliosPenaltyH\000\022:\n\024helios_commun"
-    "ication\030@ \001(\0132\032.protos.HeliosCommunicaio"
-    "nH\000B\010\n\006action\"6\n\rPlayerActions\022%\n\007action"
-    "s\030\001 \003(\0132\024.protos.PlayerAction\"8\n\020ChangeP"
-    "layerType\022\026\n\016uniform_number\030\001 \001(\005\022\014\n\004typ"
-    "e\030\002 \001(\005\"\024\n\022DoHeliosSubstitute\"\030\n\026DoHelio"
-    "sSayPlayerTypes\"\322\001\n\013CoachAction\0227\n\023chang"
-    "e_player_types\030\001 \001(\0132\030.protos.ChangePlay"
-    "erTypeH\000\022:\n\024do_helios_substitute\030\002 \001(\0132\032"
-    ".protos.DoHeliosSubstituteH\000\022D\n\032do_helio"
-    "s_say_player_types\030\003 \001(\0132\036.protos.DoHeli"
-    "osSayPlayerTypesH\000B\010\n\006action\"4\n\014CoachAct"
-    "ions\022$\n\007actions\030\001 \003(\0132\023.protos.CoachActi"
-    "on\"\013\n\tDoKickOff\"Z\n\nDoMoveBall\022%\n\010positio"
-    "n\030\001 \001(\0132\023.protos.RpcVector2D\022%\n\010velocity"
-    "\030\002 \001(\0132\023.protos.RpcVector2D\"w\n\014DoMovePla"
-    "yer\022\020\n\010our_side\030\001 \001(\010\022\026\n\016uniform_number\030"
-    "\002 \001(\005\022%\n\010position\030\003 \001(\0132\023.protos.RpcVect"
-    "or2D\022\026\n\016body_direction\030\004 \001(\002\"\013\n\tDoRecove"
-    "r\"X\n\014DoChangeMode\022,\n\016game_mode_type\030\001 \001("
-    "\0162\024.protos.GameModeType\022\032\n\004side\030\002 \001(\0162\014."
-    "protos.Side\"L\n\022DoChangePlayerType\022\020\n\010our"
-    "_side\030\001 \001(\010\022\026\n\016uniform_number\030\002 \001(\005\022\014\n\004t"
-    "ype\030\003 \001(\005\"\265\002\n\rTrainerAction\022(\n\013do_kick_o"
-    "ff\030\001 \001(\0132\021.protos.DoKickOffH\000\022*\n\014do_move"
-    "_ball\030\002 \001(\0132\022.protos.DoMoveBallH\000\022.\n\016do_"
-    "move_player\030\003 \001(\0132\024.protos.DoMovePlayerH"
-    "\000\022\'\n\ndo_recover\030\004 \001(\0132\021.protos.DoRecover"
-    "H\000\022.\n\016do_change_mode\030\005 \001(\0132\024.protos.DoCh"
-    "angeModeH\000\022;\n\025do_change_player_type\030\006 \001("
-    "\0132\032.protos.DoChangePlayerTypeH\000B\010\n\006actio"
-    "n\"8\n\016TrainerActions\022&\n\007actions\030\001 \003(\0132\025.p"
-    "rotos.TrainerAction\"\335,\n\013ServerParam\0223\n\021r"
-    "egister_response\030\001 \001(\0132\030.protos.Register"
-    "Response\022\026\n\016inertia_moment\030\002 \001(\002\022\023\n\013play"
-    "er_size\030\003 \001(\002\022\024\n\014player_decay\030\004 \001(\002\022\023\n\013p"
-    "layer_rand\030\005 \001(\002\022\025\n\rplayer_weight\030\006 \001(\002\022"
-    "\030\n\020player_speed_max\030\007 \001(\002\022\030\n\020player_acce"
-    "l_max\030\010 \001(\002\022\023\n\013stamina_max\030\t \001(\002\022\027\n\017stam"
-    "ina_inc_max\030\n \001(\002\022\024\n\014recover_init\030\013 \001(\002\022"
-    "\027\n\017recover_dec_thr\030\014 \001(\002\022\023\n\013recover_min\030"
-    "\r \001(\002\022\023\n\013recover_dec\030\016 \001(\002\022\023\n\013effort_ini"
-    "t\030\017 \001(\002\022\026\n\016effort_dec_thr\030\020 \001(\002\022\022\n\neffor"
-    "t_min\030\021 \001(\002\022\022\n\neffort_dec\030\022 \001(\002\022\026\n\016effor"
-    "t_inc_thr\030\023 \001(\002\022\022\n\neffort_inc\030\024 \001(\002\022\021\n\tk"
-    "ick_rand\030\025 \001(\002\022\033\n\023team_actuator_noise\030\026 "
-    "\001(\010\022\034\n\024player_rand_factor_l\030\027 \001(\002\022\034\n\024pla"
-    "yer_rand_factor_r\030\030 \001(\002\022\032\n\022kick_rand_fac"
-    "tor_l\030\031 \001(\002\022\032\n\022kick_rand_factor_r\030\032 \001(\002\022"
-    "\021\n\tball_size\030\033 \001(\002\022\022\n\nball_decay\030\034 \001(\002\022\021"
-    "\n\tball_rand\030\035 \001(\002\022\023\n\013ball_weight\030\036 \001(\002\022\026"
-    "\n\016ball_speed_max\030\037 \001(\002\022\026\n\016ball_accel_max"
-    "\030  \001(\002\022\027\n\017dash_power_rate\030! \001(\002\022\027\n\017kick_"
-    "power_rate\030\" \001(\002\022\027\n\017kickable_margin\030# \001("
-    "\002\022\026\n\016control_radius\030$ \001(\002\022\034\n\024control_rad"
-    "ius_width\030% \001(\002\022\021\n\tmax_power\030& \001(\002\022\021\n\tmi"
-    "n_power\030\' \001(\002\022\022\n\nmax_moment\030( \001(\002\022\022\n\nmin"
-    "_moment\030) \001(\002\022\027\n\017max_neck_moment\030* \001(\002\022\027"
-    "\n\017min_neck_moment\030+ \001(\002\022\026\n\016max_neck_angl"
-    "e\030, \001(\002\022\026\n\016min_neck_angle\030- \001(\002\022\025\n\rvisib"
-    "le_angle\030. \001(\002\022\030\n\020visible_distance\030/ \001(\002"
-    "\022\020\n\010wind_dir\0300 \001(\002\022\022\n\nwind_force\0301 \001(\002\022\022"
-    "\n\nwind_angle\0302 \001(\002\022\021\n\twind_rand\0303 \001(\002\022\025\n"
-    "\rkickable_area\0304 \001(\002\022\024\n\014catch_area_l\0305 \001"
-    "(\002\022\024\n\014catch_area_w\0306 \001(\002\022\031\n\021catch_probab"
-    "ility\0307 \001(\002\022\030\n\020goalie_max_moves\0308 \001(\005\022\032\n"
-    "\022corner_kick_margin\0309 \001(\002\022 \n\030offside_act"
-    "ive_area_size\030: \001(\002\022\021\n\twind_none\030; \001(\010\022\027"
-    "\n\017use_wind_random\030< \001(\010\022\033\n\023coach_say_cou"
-    "nt_max\030= \001(\005\022\032\n\022coach_say_msg_size\030> \001(\005"
-    "\022\026\n\016clang_win_size\030\? \001(\005\022\030\n\020clang_define"
-    "_win\030@ \001(\005\022\026\n\016clang_meta_win\030A \001(\005\022\030\n\020cl"
-    "ang_advice_win\030B \001(\005\022\026\n\016clang_info_win\030C"
-    " \001(\005\022\030\n\020clang_mess_delay\030D \001(\005\022\034\n\024clang_"
-    "mess_per_cycle\030E \001(\005\022\021\n\thalf_time\030F \001(\005\022"
-    "\026\n\016simulator_step\030G \001(\005\022\021\n\tsend_step\030H \001"
-    "(\005\022\021\n\trecv_step\030I \001(\005\022\027\n\017sense_body_step"
-    "\030J \001(\005\022\020\n\010lcm_step\030K \001(\005\022\033\n\023player_say_m"
-    "sg_size\030L \001(\005\022\027\n\017player_hear_max\030M \001(\005\022\027"
-    "\n\017player_hear_inc\030N \001(\005\022\031\n\021player_hear_d"
-    "ecay\030O \001(\005\022\027\n\017catch_ban_cycle\030P \001(\005\022\030\n\020s"
-    "low_down_factor\030Q \001(\005\022\023\n\013use_offside\030R \001"
-    "(\010\022\027\n\017kickoff_offside\030S \001(\010\022\033\n\023offside_k"
-    "ick_margin\030T \001(\002\022\026\n\016audio_cut_dist\030U \001(\002"
-    "\022\032\n\022dist_quantize_step\030V \001(\002\022#\n\033landmark"
-    "_dist_quantize_step\030W \001(\002\022\031\n\021dir_quantiz"
-    "e_step\030X \001(\002\022\034\n\024dist_quantize_step_l\030Y \001"
-    "(\002\022\034\n\024dist_quantize_step_r\030Z \001(\002\022%\n\035land"
-    "mark_dist_quantize_step_l\030[ \001(\002\022%\n\035landm"
-    "ark_dist_quantize_step_r\030\\ \001(\002\022\033\n\023dir_qu"
-    "antize_step_l\030] \001(\002\022\033\n\023dir_quantize_step"
-    "_r\030^ \001(\002\022\022\n\ncoach_mode\030_ \001(\010\022\037\n\027coach_wi"
-    "th_referee_mode\030` \001(\010\022\032\n\022use_old_coach_h"
-    "ear\030a \001(\010\022%\n\035slowness_on_top_for_left_te"
-    "am\030b \001(\002\022&\n\036slowness_on_top_for_right_te"
-    "am\030c \001(\002\022\024\n\014start_goal_l\030d \001(\005\022\024\n\014start_"
-    "goal_r\030e \001(\005\022\023\n\013fullstate_l\030f \001(\010\022\023\n\013ful"
-    "lstate_r\030g \001(\010\022\026\n\016drop_ball_time\030h \001(\005\022\022"
-    "\n\nsynch_mode\030i \001(\010\022\024\n\014synch_offset\030j \001(\005"
-    "\022\031\n\021synch_micro_sleep\030k \001(\005\022\024\n\014point_to_"
-    "ban\030l \001(\005\022\031\n\021point_to_duration\030m \001(\005\022\023\n\013"
-    "player_port\030n \001(\005\022\024\n\014trainer_port\030o \001(\005\022"
-    "\031\n\021online_coach_port\030p \001(\005\022\024\n\014verbose_mo"
-    "de\030q \001(\010\022\032\n\022coach_send_vi_step\030r \001(\005\022\023\n\013"
-    "replay_file\030s \001(\t\022\025\n\rlandmark_file\030t \001(\t"
-    "\022\022\n\nsend_comms\030u \001(\010\022\024\n\014text_logging\030v \001"
-    "(\010\022\024\n\014game_logging\030w \001(\010\022\030\n\020game_log_ver"
-    "sion\030x \001(\005\022\024\n\014text_log_dir\030y \001(\t\022\024\n\014game"
-    "_log_dir\030z \001(\t\022\033\n\023text_log_fixed_name\030{ "
-    "\001(\t\022\033\n\023game_log_fixed_name\030| \001(\t\022\032\n\022use_"
-    "text_log_fixed\030} \001(\010\022\032\n\022use_game_log_fix"
-    "ed\030~ \001(\010\022\032\n\022use_text_log_dated\030\177 \001(\010\022\033\n\022"
-    "use_game_log_dated\030\200\001 \001(\010\022\030\n\017log_date_fo"
-    "rmat\030\201\001 \001(\t\022\022\n\tlog_times\030\202\001 \001(\010\022\027\n\016recor"
-    "d_message\030\203\001 \001(\010\022\035\n\024text_log_compression"
-    "\030\204\001 \001(\005\022\035\n\024game_log_compression\030\205\001 \001(\005\022\024"
-    "\n\013use_profile\030\206\001 \001(\010\022\024\n\013tackle_dist\030\207\001 \001"
-    "(\002\022\031\n\020tackle_back_dist\030\210\001 \001(\002\022\025\n\014tackle_"
-    "width\030\211\001 \001(\002\022\030\n\017tackle_exponent\030\212\001 \001(\002\022\026"
-    "\n\rtackle_cycles\030\213\001 \001(\005\022\032\n\021tackle_power_r"
-    "ate\030\214\001 \001(\002\022\035\n\024freeform_wait_period\030\215\001 \001("
-    "\005\022\035\n\024freeform_send_period\030\216\001 \001(\005\022\031\n\020free"
-    "_kick_faults\030\217\001 \001(\010\022\024\n\013back_passes\030\220\001 \001("
-    "\010\022\032\n\021proper_goal_kicks\030\221\001 \001(\010\022\031\n\020stopped"
-    "_ball_vel\030\222\001 \001(\002\022\027\n\016max_goal_kicks\030\223\001 \001("
-    "\005\022\026\n\rclang_del_win\030\224\001 \001(\005\022\027\n\016clang_rule_"
-    "win\030\225\001 \001(\005\022\022\n\tauto_mode\030\226\001 \001(\010\022\026\n\rkick_o"
-    "ff_wait\030\227\001 \001(\005\022\025\n\014connect_wait\030\230\001 \001(\005\022\027\n"
-    "\016game_over_wait\030\231\001 \001(\005\022\025\n\014team_l_start\030\232"
-    "\001 \001(\t\022\025\n\014team_r_start\030\233\001 \001(\t\022\026\n\rkeepaway"
-    "_mode\030\234\001 \001(\010\022\030\n\017keepaway_length\030\235\001 \001(\002\022\027"
-    "\n\016keepaway_width\030\236\001 \001(\002\022\031\n\020keepaway_logg"
-    "ing\030\237\001 \001(\010\022\031\n\020keepaway_log_dir\030\240\001 \001(\t\022 \n"
-    "\027keepaway_log_fixed_name\030\241\001 \001(\t\022\033\n\022keepa"
-    "way_log_fixed\030\242\001 \001(\010\022\033\n\022keepaway_log_dat"
-    "ed\030\243\001 \001(\010\022\027\n\016keepaway_start\030\244\001 \001(\005\022\030\n\017nr"
-    "_normal_halfs\030\245\001 \001(\005\022\027\n\016nr_extra_halfs\030\246"
-    "\001 \001(\005\022\033\n\022penalty_shoot_outs\030\247\001 \001(\010\022\036\n\025pe"
-    "n_before_setup_wait\030\250\001 \001(\005\022\027\n\016pen_setup_"
-    "wait\030\251\001 \001(\005\022\027\n\016pen_ready_wait\030\252\001 \001(\005\022\027\n\016"
-    "pen_taken_wait\030\253\001 \001(\005\022\025\n\014pen_nr_kicks\030\254\001"
-    " \001(\005\022\034\n\023pen_max_extra_kicks\030\255\001 \001(\005\022\023\n\npe"
-    "n_dist_x\030\256\001 \001(\002\022\032\n\021pen_random_winner\030\257\001 "
-    "\001(\010\022\035\n\024pen_allow_mult_kicks\030\260\001 \001(\010\022\036\n\025pe"
-    "n_max_goalie_dist_x\030\261\001 \001(\002\022 \n\027pen_coach_"
-    "moves_players\030\262\001 \001(\010\022\023\n\nmodule_dir\030\263\001 \001("
-    "\t\022\030\n\017ball_stuck_area\030\264\001 \001(\002\022\027\n\016coach_msg"
-    "_file\030\265\001 \001(\t\022\031\n\020max_tackle_power\030\266\001 \001(\002\022"
-    "\036\n\025max_back_tackle_power\030\267\001 \001(\002\022\035\n\024playe"
-    "r_speed_max_min\030\270\001 \001(\002\022\026\n\rextra_stamina\030"
-    "\271\001 \001(\002\022\031\n\020synch_see_offset\030\272\001 \001(\005\022\030\n\017ext"
-    "ra_half_time\030\273\001 \001(\005\022\031\n\020stamina_capacity\030"
-    "\274\001 \001(\002\022\027\n\016max_dash_angle\030\275\001 \001(\002\022\027\n\016min_d"
-    "ash_angle\030\276\001 \001(\002\022\030\n\017dash_angle_step\030\277\001 \001"
-    "(\002\022\027\n\016side_dash_rate\030\300\001 \001(\002\022\027\n\016back_dash"
-    "_rate\030\301\001 \001(\002\022\027\n\016max_dash_power\030\302\001 \001(\002\022\027\n"
-    "\016min_dash_power\030\303\001 \001(\002\022\033\n\022tackle_rand_fa"
-    "ctor\030\304\001 \001(\002\022 \n\027foul_detect_probability\030\305"
-    "\001 \001(\002\022\026\n\rfoul_exponent\030\306\001 \001(\002\022\024\n\013foul_cy"
-    "cles\030\307\001 \001(\005\022\024\n\013golden_goal\030\310\001 \001(\010\022\035\n\024red"
-    "_card_probability\030\311\001 \001(\002\022!\n\030illegal_defe"
-    "nse_duration\030\312\001 \001(\005\022\037\n\026illegal_defense_n"
-    "umber\030\313\001 \001(\005\022\037\n\026illegal_defense_dist_x\030\314"
-    "\001 \001(\002\022\036\n\025illegal_defense_width\030\315\001 \001(\002\022\031\n"
-    "\020fixed_teamname_l\030\316\001 \001(\t\022\031\n\020fixed_teamna"
-    "me_r\030\317\001 \001(\t\022\030\n\017max_catch_angle\030\320\001 \001(\002\022\030\n"
-    "\017min_catch_angle\030\321\001 \001(\002\022\024\n\013random_seed\030\322"
-    "\001 \001(\005\022\037\n\026long_kick_power_factor\030\323\001 \001(\002\022\030"
-    "\n\017long_kick_delay\030\324\001 \001(\005\022\025\n\014max_monitors"
-    "\030\325\001 \001(\005\022\027\n\016catchable_area\030\326\001 \001(\002\022\027\n\016real"
-    "_speed_max\030\327\001 \001(\002\022\032\n\021pitch_half_length\030\330"
-    "\001 \001(\002\022\031\n\020pitch_half_width\030\331\001 \001(\002\022 \n\027our_"
-    "penalty_area_line_x\030\332\001 \001(\002\022\"\n\031their_pena"
-    "lty_area_line_x\030\333\001 \001(\002\022 \n\027penalty_area_h"
-    "alf_width\030\334\001 \001(\002\022\034\n\023penalty_area_length\030"
-    "\335\001 \001(\002\022\023\n\ngoal_width\030\336\001 \001(\002\"\215\010\n\013PlayerPa"
-    "ram\0223\n\021register_response\030\001 \001(\0132\030.protos."
-    "RegisterResponse\022\024\n\014player_types\030\002 \001(\005\022\020"
-    "\n\010subs_max\030\003 \001(\005\022\016\n\006pt_max\030\004 \001(\005\022\037\n\027allo"
-    "w_mult_default_type\030\005 \001(\010\022\"\n\032player_spee"
-    "d_max_delta_min\030\006 \001(\002\022\"\n\032player_speed_ma"
-    "x_delta_max\030\007 \001(\002\022$\n\034stamina_inc_max_del"
-    "ta_factor\030\010 \001(\002\022\036\n\026player_decay_delta_mi"
-    "n\030\t \001(\002\022\036\n\026player_decay_delta_max\030\n \001(\002\022"
-    "#\n\033inertia_moment_delta_factor\030\013 \001(\002\022!\n\031"
-    "dash_power_rate_delta_min\030\014 \001(\002\022!\n\031dash_"
-    "power_rate_delta_max\030\r \001(\002\022 \n\030player_siz"
-    "e_delta_factor\030\016 \001(\002\022!\n\031kickable_margin_"
-    "delta_min\030\017 \001(\002\022!\n\031kickable_margin_delta"
-    "_max\030\020 \001(\002\022\036\n\026kick_rand_delta_factor\030\021 \001"
-    "(\002\022\037\n\027extra_stamina_delta_min\030\022 \001(\002\022\037\n\027e"
-    "xtra_stamina_delta_max\030\023 \001(\002\022\037\n\027effort_m"
-    "ax_delta_factor\030\024 \001(\002\022\037\n\027effort_min_delt"
-    "a_factor\030\025 \001(\002\022\023\n\013random_seed\030\026 \001(\005\022%\n\035n"
-    "ew_dash_power_rate_delta_min\030\027 \001(\002\022%\n\035ne"
-    "w_dash_power_rate_delta_max\030\030 \001(\002\022(\n new"
-    "_stamina_inc_max_delta_factor\030\031 \001(\002\022!\n\031k"
-    "ick_power_rate_delta_min\030\032 \001(\002\022!\n\031kick_p"
-    "ower_rate_delta_max\030\033 \001(\002\022,\n$foul_detect"
-    "_probability_delta_factor\030\034 \001(\002\022$\n\034catch"
-    "able_area_l_stretch_min\030\035 \001(\002\022$\n\034catchab"
-    "le_area_l_stretch_max\030\036 \001(\002\"\277\007\n\nPlayerTy"
-    "pe\0223\n\021register_response\030\001 \001(\0132\030.protos.R"
-    "egisterResponse\022\n\n\002id\030\002 \001(\005\022\027\n\017stamina_i"
-    "nc_max\030\003 \001(\002\022\024\n\014player_decay\030\004 \001(\002\022\026\n\016in"
-    "ertia_moment\030\005 \001(\002\022\027\n\017dash_power_rate\030\006 "
-    "\001(\002\022\023\n\013player_size\030\007 \001(\002\022\027\n\017kickable_mar"
-    "gin\030\010 \001(\002\022\021\n\tkick_rand\030\t \001(\002\022\025\n\rextra_st"
-    "amina\030\n \001(\002\022\022\n\neffort_max\030\013 \001(\002\022\022\n\neffor"
-    "t_min\030\014 \001(\002\022\027\n\017kick_power_rate\030\r \001(\002\022\037\n\027"
-    "foul_detect_probability\030\016 \001(\002\022 \n\030catchab"
-    "le_area_l_stretch\030\017 \001(\002\022\027\n\017unum_far_leng"
-    "th\030\020 \001(\002\022\033\n\023unum_too_far_length\030\021 \001(\002\022\027\n"
-    "\017team_far_length\030\022 \001(\002\022\033\n\023team_too_far_l"
-    "ength\030\023 \001(\002\022%\n\035player_max_observation_le"
-    "ngth\030\024 \001(\002\022\033\n\023ball_vel_far_length\030\025 \001(\002\022"
-    "\037\n\027ball_vel_too_far_length\030\026 \001(\002\022#\n\033ball"
-    "_max_observation_length\030\027 \001(\002\022\033\n\023flag_ch"
-    "g_far_length\030\030 \001(\002\022\037\n\027flag_chg_too_far_l"
-    "ength\030\031 \001(\002\022#\n\033flag_max_observation_leng"
-    "th\030\032 \001(\002\022\025\n\rkickable_area\030\033 \001(\002\022\037\n\027relia"
-    "ble_catchable_dist\030\034 \001(\002\022\032\n\022max_catchabl"
-    "e_dist\030\035 \001(\002\022\026\n\016real_speed_max\030\036 \001(\002\022\031\n\021"
-    "player_speed_max2\030\037 \001(\002\022\027\n\017real_speed_ma"
-    "x2\030  \001(\002\022!\n\031cycles_to_reach_max_speed\030! "
-    "\001(\005\022\030\n\020player_speed_max\030\" \001(\002\"\007\n\005Empty*-"
-    "\n\tViewWidth\022\n\n\006NARROW\020\000\022\n\n\006NORMAL\020\001\022\010\n\004W"
-    "IDE\020\002*(\n\004Side\022\013\n\007UNKNOWN\020\000\022\010\n\004LEFT\020\001\022\t\n\005"
-    "RIGHT\020\002*\262\002\n\013LoggerLevel\022\r\n\tNoneLevel\020\000\022\n"
-    "\n\006SYSTEM\020\001\022\n\n\006SENSOR\020\002\022\t\n\005WORLD\020\004\022\n\n\006ACT"
-    "ION\020\010\022\r\n\tINTERCEPT\020\020\022\010\n\004KICK\020 \022\010\n\004HOLD\020@"
-    "\022\014\n\007DRIBBLE\020\200\001\022\t\n\004PASS\020\200\002\022\n\n\005CROSS\020\200\004\022\n\n"
-    "\005SHOOT\020\200\010\022\n\n\005CLEAR\020\200\020\022\n\n\005BLOCK\020\200 \022\t\n\004MAR"
-    "K\020\200@\022\021\n\013POSITIONING\020\200\200\001\022\n\n\004ROLE\020\200\200\002\022\n\n\004T"
-    "EAM\020\200\200\004\022\023\n\rCOMMUNICATION\020\200\200\010\022\016\n\010ANALYZER"
-    "\020\200\200\020\022\022\n\014ACTION_CHAIN\020\200\200 \022\n\n\004PLAN\020\200\200@*v\n\023"
-    "InterceptActionType\022!\n\035UNKNOWN_Intercept"
-    "_Action_Type\020\000\022\r\n\tOMNI_DASH\020\001\022\025\n\021TURN_FO"
-    "RWARD_DASH\020\002\022\026\n\022TURN_BACKWARD_DASH\020\003*\273\004\n"
-    "\014GameModeType\022\021\n\rBeforeKickOff\020\000\022\014\n\010Time"
-    "Over\020\001\022\n\n\006PlayOn\020\002\022\014\n\010KickOff_\020\003\022\013\n\007Kick"
-    "In_\020\004\022\r\n\tFreeKick_\020\005\022\017\n\013CornerKick_\020\006\022\r\n"
-    "\tGoalKick_\020\007\022\016\n\nAfterGoal_\020\010\022\014\n\010OffSide_"
-    "\020\t\022\020\n\014PenaltyKick_\020\n\022\021\n\rFirstHalfOver\020\013\022"
-    "\t\n\005Pause\020\014\022\t\n\005Human\020\r\022\017\n\013FoulCharge_\020\016\022\r"
-    "\n\tFoulPush_\020\017\022\031\n\025FoulMultipleAttacker_\020\020"
-    "\022\020\n\014FoulBallOut_\020\021\022\r\n\tBackPass_\020\022\022\022\n\016Fre"
-    "eKickFault_\020\023\022\017\n\013CatchFault_\020\024\022\020\n\014IndFre"
-    "eKick_\020\025\022\021\n\rPenaltySetup_\020\026\022\021\n\rPenaltyRe"
-    "ady_\020\027\022\021\n\rPenaltyTaken_\020\030\022\020\n\014PenaltyMiss"
-    "_\020\031\022\021\n\rPenaltyScore_\020\032\022\023\n\017IllegalDefense"
-    "_\020\033\022\023\n\017PenaltyOnfield_\020\034\022\020\n\014PenaltyFoul_"
-    "\020\035\022\020\n\014GoalieCatch_\020\036\022\016\n\nExtendHalf\020\037\022\014\n\010"
-    "MODE_MAX\020 *2\n\tAgentType\022\013\n\007PlayerT\020\000\022\n\n\006"
-    "CoachT\020\001\022\014\n\010TrainerT\020\0022\234\004\n\004Game\022:\n\020GetPl"
-    "ayerActions\022\r.protos.State\032\025.protos.Play"
-    "erActions\"\000\0228\n\017GetCoachActions\022\r.protos."
-    "State\032\024.protos.CoachActions\"\000\022<\n\021GetTrai"
-    "nerActions\022\r.protos.State\032\026.protos.Train"
-    "erActions\"\000\0227\n\017SendInitMessage\022\023.protos."
-    "InitMessage\032\r.protos.Empty\"\000\0228\n\020SendServ"
-    "erParams\022\023.protos.ServerParam\032\r.protos.E"
-    "mpty\"\000\0228\n\020SendPlayerParams\022\023.protos.Play"
-    "erParam\032\r.protos.Empty\"\000\0225\n\016SendPlayerTy"
-    "pe\022\022.protos.PlayerType\032\r.protos.Empty\"\000\022"
-    "\?\n\010Register\022\027.protos.RegisterRequest\032\030.p"
-    "rotos.RegisterResponse\"\000\022;\n\016SendByeComma"
-    "nd\022\030.protos.RegisterResponse\032\r.protos.Em"
-    "pty\"\000b\006proto3"
+    "\030\002 \001(\t\022\026\n\016uniform_number\030\003 \001(\005\022\023\n\013rpc_ve"
+    "rsion\030\004 \001(\005\"\270\001\n\020RegisterResponse\022\021\n\tclie"
+    "nt_id\030\001 \001(\005\022%\n\nagent_type\030\002 \001(\0162\021.protos"
+    ".AgentType\022\021\n\tteam_name\030\003 \001(\t\022\026\n\016uniform"
+    "_number\030\004 \001(\005\022\?\n\030rpc_server_language_typ"
+    "e\030\005 \001(\0162\035.protos.RpcServerLanguageType\"\230"
+    "\004\n\004Ball\022%\n\010position\030\001 \001(\0132\023.protos.RpcVe"
+    "ctor2D\022.\n\021relative_position\030\002 \001(\0132\023.prot"
+    "os.RpcVector2D\022*\n\rseen_position\030\003 \001(\0132\023."
+    "protos.RpcVector2D\022+\n\016heard_position\030\004 \001"
+    "(\0132\023.protos.RpcVector2D\022%\n\010velocity\030\005 \001("
+    "\0132\023.protos.RpcVector2D\022*\n\rseen_velocity\030"
+    "\006 \001(\0132\023.protos.RpcVector2D\022+\n\016heard_velo"
+    "city\030\007 \001(\0132\023.protos.RpcVector2D\022\021\n\tpos_c"
+    "ount\030\010 \001(\005\022\026\n\016seen_pos_count\030\t \001(\005\022\027\n\017he"
+    "ard_pos_count\030\n \001(\005\022\021\n\tvel_count\030\013 \001(\005\022\026"
+    "\n\016seen_vel_count\030\014 \001(\005\022\027\n\017heard_vel_coun"
+    "t\030\r \001(\005\022\022\n\nlost_count\030\016 \001(\005\022\023\n\013ghost_cou"
+    "nt\030\017 \001(\005\022\026\n\016dist_from_self\030\020 \001(\002\022\027\n\017angl"
+    "e_from_self\030\021 \001(\002\"\260\006\n\006Player\022%\n\010position"
+    "\030\001 \001(\0132\023.protos.RpcVector2D\022*\n\rseen_posi"
+    "tion\030\002 \001(\0132\023.protos.RpcVector2D\022+\n\016heard"
+    "_position\030\003 \001(\0132\023.protos.RpcVector2D\022%\n\010"
+    "velocity\030\004 \001(\0132\023.protos.RpcVector2D\022*\n\rs"
+    "een_velocity\030\005 \001(\0132\023.protos.RpcVector2D\022"
+    "\021\n\tpos_count\030\006 \001(\005\022\026\n\016seen_pos_count\030\007 \001"
+    "(\005\022\027\n\017heard_pos_count\030\010 \001(\005\022\021\n\tvel_count"
+    "\030\t \001(\005\022\026\n\016seen_vel_count\030\n \001(\005\022\023\n\013ghost_"
+    "count\030\013 \001(\005\022\026\n\016dist_from_self\030\014 \001(\002\022\027\n\017a"
+    "ngle_from_self\030\r \001(\002\022\n\n\002id\030\016 \001(\005\022\032\n\004side"
+    "\030\017 \001(\0162\014.protos.Side\022\026\n\016uniform_number\030\020"
+    " \001(\005\022\034\n\024uniform_number_count\030\021 \001(\005\022\021\n\tis"
+    "_goalie\030\022 \001(\010\022\026\n\016body_direction\030\023 \001(\002\022\034\n"
+    "\024body_direction_count\030\024 \001(\005\022\026\n\016face_dire"
+    "ction\030\025 \001(\002\022\034\n\024face_direction_count\030\026 \001("
+    "\005\022\032\n\022point_to_direction\030\027 \001(\002\022 \n\030point_t"
+    "o_direction_count\030\030 \001(\005\022\022\n\nis_kicking\030\031 "
+    "\001(\010\022\026\n\016dist_from_ball\030\032 \001(\002\022\027\n\017angle_fro"
+    "m_ball\030\033 \001(\002\022\030\n\020ball_reach_steps\030\034 \001(\005\022\023"
+    "\n\013is_tackling\030\035 \001(\010\022\017\n\007type_id\030\036 \001(\005\"\233\010\n"
+    "\004Self\022%\n\010position\030\001 \001(\0132\023.protos.RpcVect"
+    "or2D\022*\n\rseen_position\030\002 \001(\0132\023.protos.Rpc"
+    "Vector2D\022+\n\016heard_position\030\003 \001(\0132\023.proto"
+    "s.RpcVector2D\022%\n\010velocity\030\004 \001(\0132\023.protos"
+    ".RpcVector2D\022*\n\rseen_velocity\030\005 \001(\0132\023.pr"
+    "otos.RpcVector2D\022\021\n\tpos_count\030\006 \001(\005\022\026\n\016s"
+    "een_pos_count\030\007 \001(\005\022\027\n\017heard_pos_count\030\010"
+    " \001(\005\022\021\n\tvel_count\030\t \001(\005\022\026\n\016seen_vel_coun"
+    "t\030\n \001(\005\022\023\n\013ghost_count\030\013 \001(\005\022\n\n\002id\030\014 \001(\005"
+    "\022\032\n\004side\030\r \001(\0162\014.protos.Side\022\026\n\016uniform_"
+    "number\030\016 \001(\005\022\034\n\024uniform_number_count\030\017 \001"
+    "(\005\022\021\n\tis_goalie\030\020 \001(\010\022\026\n\016body_direction\030"
+    "\021 \001(\002\022\034\n\024body_direction_count\030\022 \001(\005\022\026\n\016f"
+    "ace_direction\030\023 \001(\002\022\034\n\024face_direction_co"
+    "unt\030\024 \001(\005\022\032\n\022point_to_direction\030\025 \001(\002\022 \n"
+    "\030point_to_direction_count\030\026 \001(\005\022\022\n\nis_ki"
+    "cking\030\027 \001(\010\022\026\n\016dist_from_ball\030\030 \001(\002\022\027\n\017a"
+    "ngle_from_ball\030\031 \001(\002\022\030\n\020ball_reach_steps"
+    "\030\032 \001(\005\022\023\n\013is_tackling\030\033 \001(\010\022\037\n\027relative_"
+    "neck_direction\030\034 \001(\002\022\017\n\007stamina\030\035 \001(\002\022\023\n"
+    "\013is_kickable\030\036 \001(\010\022\031\n\021catch_probability\030"
+    "\037 \001(\002\022\032\n\022tackle_probability\030  \001(\002\022\030\n\020fou"
+    "l_probability\030! \001(\002\022%\n\nview_width\030\" \001(\0162"
+    "\021.protos.ViewWidth\022\017\n\007type_id\030# \001(\005\022\021\n\tk"
+    "ick_rate\030$ \001(\002\022\020\n\010recovery\030% \001(\002\022\030\n\020stam"
+    "ina_capacity\030& \001(\002\022\036\n\004card\030\' \001(\0162\020.proto"
+    "s.CardType\"\224\002\n\rInterceptInfo\0220\n\013action_t"
+    "ype\030\001 \001(\0162\033.protos.InterceptActionType\022\022"
+    "\n\nturn_steps\030\002 \001(\005\022\022\n\nturn_angle\030\003 \001(\002\022\022"
+    "\n\ndash_steps\030\004 \001(\005\022\022\n\ndash_power\030\005 \001(\002\022\020"
+    "\n\010dash_dir\030\006 \001(\002\0220\n\023final_self_position\030"
+    "\007 \001(\0132\023.protos.RpcVector2D\022\027\n\017final_ball"
+    "_dist\030\010 \001(\002\022\025\n\rfinal_stamina\030\t \001(\002\022\r\n\005va"
+    "lue\030\n \001(\002\"\336\002\n\016InterceptTable\022\030\n\020self_rea"
+    "ch_steps\030\001 \001(\005\022\"\n\032first_teammate_reach_s"
+    "teps\030\002 \001(\005\022#\n\033second_teammate_reach_step"
+    "s\030\003 \001(\005\022\"\n\032first_opponent_reach_steps\030\004 "
+    "\001(\005\022#\n\033second_opponent_reach_steps\030\005 \001(\005"
+    "\022\031\n\021first_teammate_id\030\006 \001(\005\022\032\n\022second_te"
+    "ammate_id\030\007 \001(\005\022\031\n\021first_opponent_id\030\010 \001"
+    "(\005\022\032\n\022second_opponent_id\030\t \001(\005\0222\n\023self_i"
+    "ntercept_info\030\n \003(\0132\025.protos.InterceptIn"
+    "fo\"\223\013\n\nWorldModel\022/\n\017intercept_table\030\001 \001"
+    "(\0132\026.protos.InterceptTable\022\025\n\rour_team_n"
+    "ame\030\002 \001(\t\022\027\n\017their_team_name\030\003 \001(\t\022\036\n\010ou"
+    "r_side\030\004 \001(\0162\014.protos.Side\022 \n\030last_set_p"
+    "lay_start_time\030\005 \001(\005\022\032\n\004self\030\006 \001(\0132\014.pro"
+    "tos.Self\022\032\n\004ball\030\007 \001(\0132\014.protos.Ball\022!\n\t"
+    "teammates\030\010 \003(\0132\016.protos.Player\022!\n\toppon"
+    "ents\030\t \003(\0132\016.protos.Player\022 \n\010unknowns\030\n"
+    " \003(\0132\016.protos.Player\022@\n\020our_players_dict"
+    "\030\013 \003(\0132&.protos.WorldModel.OurPlayersDic"
+    "tEntry\022D\n\022their_players_dict\030\014 \003(\0132(.pro"
+    "tos.WorldModel.TheirPlayersDictEntry\022!\n\031"
+    "our_goalie_uniform_number\030\r \001(\005\022#\n\033their"
+    "_goalie_uniform_number\030\016 \001(\005\022\026\n\016offside_"
+    "line_x\030\017 \001(\002\022\033\n\023ofside_line_x_count\030\020 \001("
+    "\005\022\034\n\024kickable_teammate_id\030\021 \001(\005\022\034\n\024kicka"
+    "ble_opponent_id\030\022 \001(\005\022$\n\016last_kick_side\030"
+    "\023 \001(\0162\014.protos.Side\022\"\n\032last_kicker_unifo"
+    "rm_number\030\024 \001(\005\022\r\n\005cycle\030\025 \001(\005\022,\n\016game_m"
+    "ode_type\030\026 \001(\0162\024.protos.GameModeType\022\027\n\017"
+    "left_team_score\030\027 \001(\005\022\030\n\020right_team_scor"
+    "e\030\030 \001(\005\022\027\n\017is_our_set_play\030\031 \001(\010\022\031\n\021is_t"
+    "heir_set_play\030\032 \001(\010\022\024\n\014stoped_cycle\030\033 \001("
+    "\005\022\026\n\016our_team_score\030\034 \001(\005\022\030\n\020their_team_"
+    "score\030\035 \001(\005\022\034\n\024is_penalty_kick_mode\030\036 \001("
+    "\010\022J\n\025helios_home_positions\030\037 \003(\0132+.proto"
+    "s.WorldModel.HeliosHomePositionsEntry\022\032\n"
+    "\022our_defense_line_x\030  \001(\001\022\034\n\024their_defen"
+    "se_line_x\030! \001(\001\022!\n\031our_defense_player_li"
+    "ne_x\030\" \001(\001\022#\n\033their_defense_player_line_"
+    "x\030# \001(\001\032E\n\023OurPlayersDictEntry\022\013\n\003key\030\001 "
+    "\001(\005\022\035\n\005value\030\002 \001(\0132\016.protos.Player:\0028\001\032G"
+    "\n\025TheirPlayersDictEntry\022\013\n\003key\030\001 \001(\005\022\035\n\005"
+    "value\030\002 \001(\0132\016.protos.Player:\0028\001\032O\n\030Helio"
+    "sHomePositionsEntry\022\013\n\003key\030\001 \001(\005\022\"\n\005valu"
+    "e\030\002 \001(\0132\023.protos.RpcVector2D:\0028\001\"\254\001\n\005Sta"
+    "te\0223\n\021register_response\030\001 \001(\0132\030.protos.R"
+    "egisterResponse\022\'\n\013world_model\030\002 \001(\0132\022.p"
+    "rotos.WorldModel\022,\n\020full_world_model\030\003 \001"
+    "(\0132\022.protos.WorldModel\022\027\n\017need_preproces"
+    "s\030\004 \001(\010\"V\n\013InitMessage\0223\n\021register_respo"
+    "nse\030\001 \001(\0132\030.protos.RegisterResponse\022\022\n\nd"
+    "ebug_mode\030\002 \001(\010\"1\n\004Dash\022\r\n\005power\030\001 \001(\002\022\032"
+    "\n\022relative_direction\030\002 \001(\002\"\"\n\004Turn\022\032\n\022re"
+    "lative_direction\030\001 \001(\002\"1\n\004Kick\022\r\n\005power\030"
+    "\001 \001(\002\022\032\n\022relative_direction\030\002 \001(\002\",\n\006Tac"
+    "kle\022\024\n\014power_or_dir\030\001 \001(\002\022\014\n\004foul\030\002 \001(\010\""
+    "\007\n\005Catch\"\034\n\004Move\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\"\032"
+    "\n\010TurnNeck\022\016\n\006moment\030\001 \001(\002\"3\n\nChangeView"
+    "\022%\n\nview_width\030\001 \001(\0162\021.protos.ViewWidth\""
+    "e\n\013BallMessage\022*\n\rball_position\030\001 \001(\0132\023."
+    "protos.RpcVector2D\022*\n\rball_velocity\030\002 \001("
+    "\0132\023.protos.RpcVector2D\"\263\001\n\013PassMessage\022\037"
+    "\n\027receiver_uniform_number\030\001 \001(\005\022+\n\016recei"
+    "ver_point\030\002 \001(\0132\023.protos.RpcVector2D\022*\n\r"
+    "ball_position\030\003 \001(\0132\023.protos.RpcVector2D"
+    "\022*\n\rball_velocity\030\004 \001(\0132\023.protos.RpcVect"
+    "or2D\"F\n\020InterceptMessage\022\013\n\003our\030\001 \001(\010\022\026\n"
+    "\016uniform_number\030\002 \001(\005\022\r\n\005cycle\030\003 \001(\005\"{\n\r"
+    "GoalieMessage\022\035\n\025goalie_uniform_number\030\001"
+    " \001(\005\022,\n\017goalie_position\030\002 \001(\0132\023.protos.R"
+    "pcVector2D\022\035\n\025goalie_body_direction\030\003 \001("
+    "\002\"\321\001\n\026GoalieAndPlayerMessage\022\035\n\025goalie_u"
+    "niform_number\030\001 \001(\005\022,\n\017goalie_position\030\002"
+    " \001(\0132\023.protos.RpcVector2D\022\035\n\025goalie_body"
+    "_direction\030\003 \001(\002\022\035\n\025player_uniform_numbe"
+    "r\030\004 \001(\005\022,\n\017player_position\030\005 \001(\0132\023.proto"
+    "s.RpcVector2D\",\n\022OffsideLineMessage\022\026\n\016o"
+    "ffside_line_x\030\001 \001(\002\",\n\022DefenseLineMessag"
+    "e\022\026\n\016defense_line_x\030\001 \001(\002\"\024\n\022WaitRequest"
+    "Message\"#\n\016SetplayMessage\022\021\n\twait_step\030\001"
+    " \001(\005\"\?\n\022PassRequestMessage\022)\n\014target_poi"
+    "nt\030\001 \001(\0132\023.protos.RpcVector2D\"!\n\016Stamina"
+    "Message\022\017\n\007stamina\030\001 \001(\002\"#\n\017RecoveryMess"
+    "age\022\020\n\010recovery\030\001 \001(\002\"2\n\026StaminaCapacity"
+    "Message\022\030\n\020stamina_capacity\030\001 \001(\002\"P\n\016Dri"
+    "bbleMessage\022)\n\014target_point\030\001 \001(\0132\023.prot"
+    "os.RpcVector2D\022\023\n\013queue_count\030\002 \001(\005\"\270\001\n\021"
+    "BallGoalieMessage\022*\n\rball_position\030\001 \001(\013"
+    "2\023.protos.RpcVector2D\022*\n\rball_velocity\030\002"
+    " \001(\0132\023.protos.RpcVector2D\022,\n\017goalie_posi"
+    "tion\030\003 \001(\0132\023.protos.RpcVector2D\022\035\n\025goali"
+    "e_body_direction\030\004 \001(\002\"Q\n\020OnePlayerMessa"
+    "ge\022\026\n\016uniform_number\030\001 \001(\005\022%\n\010position\030\002"
+    " \001(\0132\023.protos.RpcVector2D\"\252\001\n\020TwoPlayerM"
+    "essage\022\034\n\024first_uniform_number\030\001 \001(\005\022+\n\016"
+    "first_position\030\002 \001(\0132\023.protos.RpcVector2"
+    "D\022\035\n\025second_uniform_number\030\003 \001(\005\022,\n\017seco"
+    "nd_position\030\004 \001(\0132\023.protos.RpcVector2D\"\367"
+    "\001\n\022ThreePlayerMessage\022\034\n\024first_uniform_n"
+    "umber\030\001 \001(\005\022+\n\016first_position\030\002 \001(\0132\023.pr"
+    "otos.RpcVector2D\022\035\n\025second_uniform_numbe"
+    "r\030\003 \001(\005\022,\n\017second_position\030\004 \001(\0132\023.proto"
+    "s.RpcVector2D\022\034\n\024third_uniform_number\030\005 "
+    "\001(\005\022+\n\016third_position\030\006 \001(\0132\023.protos.Rpc"
+    "Vector2D\"l\n\013SelfMessage\022*\n\rself_position"
+    "\030\001 \001(\0132\023.protos.RpcVector2D\022\033\n\023self_body"
+    "_direction\030\002 \001(\002\022\024\n\014self_stamina\030\003 \001(\002\"h"
+    "\n\017TeammateMessage\022\026\n\016uniform_number\030\001 \001("
+    "\005\022%\n\010position\030\002 \001(\0132\023.protos.RpcVector2D"
+    "\022\026\n\016body_direction\030\003 \001(\002\"h\n\017OpponentMess"
+    "age\022\026\n\016uniform_number\030\001 \001(\005\022%\n\010position\030"
+    "\002 \001(\0132\023.protos.RpcVector2D\022\026\n\016body_direc"
+    "tion\030\003 \001(\002\"\311\001\n\021BallPlayerMessage\022*\n\rball"
+    "_position\030\001 \001(\0132\023.protos.RpcVector2D\022*\n\r"
+    "ball_velocity\030\002 \001(\0132\023.protos.RpcVector2D"
+    "\022\026\n\016uniform_number\030\003 \001(\005\022,\n\017player_posit"
+    "ion\030\004 \001(\0132\023.protos.RpcVector2D\022\026\n\016body_d"
+    "irection\030\005 \001(\002\"\320\t\n\003Say\022+\n\014ball_message\030\001"
+    " \001(\0132\023.protos.BallMessageH\000\022+\n\014pass_mess"
+    "age\030\002 \001(\0132\023.protos.PassMessageH\000\0225\n\021inte"
+    "rcept_message\030\003 \001(\0132\030.protos.InterceptMe"
+    "ssageH\000\022/\n\016goalie_message\030\004 \001(\0132\025.protos"
+    ".GoalieMessageH\000\022C\n\031goalie_and_player_me"
+    "ssage\030\005 \001(\0132\036.protos.GoalieAndPlayerMess"
+    "ageH\000\022:\n\024offside_line_message\030\006 \001(\0132\032.pr"
+    "otos.OffsideLineMessageH\000\022:\n\024defense_lin"
+    "e_message\030\007 \001(\0132\032.protos.DefenseLineMess"
+    "ageH\000\022:\n\024wait_request_message\030\010 \001(\0132\032.pr"
+    "otos.WaitRequestMessageH\000\0221\n\017setplay_mes"
+    "sage\030\t \001(\0132\026.protos.SetplayMessageH\000\022:\n\024"
+    "pass_request_message\030\n \001(\0132\032.protos.Pass"
+    "RequestMessageH\000\0221\n\017stamina_message\030\013 \001("
+    "\0132\026.protos.StaminaMessageH\000\0223\n\020recovery_"
+    "message\030\014 \001(\0132\027.protos.RecoveryMessageH\000"
+    "\022B\n\030stamina_capacity_message\030\r \001(\0132\036.pro"
+    "tos.StaminaCapacityMessageH\000\0221\n\017dribble_"
+    "message\030\016 \001(\0132\026.protos.DribbleMessageH\000\022"
+    "8\n\023ball_goalie_message\030\017 \001(\0132\031.protos.Ba"
+    "llGoalieMessageH\000\0226\n\022one_player_message\030"
+    "\020 \001(\0132\030.protos.OnePlayerMessageH\000\0226\n\022two"
+    "_player_message\030\021 \001(\0132\030.protos.TwoPlayer"
+    "MessageH\000\022:\n\024three_player_message\030\022 \001(\0132"
+    "\032.protos.ThreePlayerMessageH\000\022+\n\014self_me"
+    "ssage\030\023 \001(\0132\023.protos.SelfMessageH\000\0223\n\020te"
+    "ammate_message\030\024 \001(\0132\027.protos.TeammateMe"
+    "ssageH\000\0223\n\020opponent_message\030\025 \001(\0132\027.prot"
+    "os.OpponentMessageH\000\0228\n\023ball_player_mess"
+    "age\030\026 \001(\0132\031.protos.BallPlayerMessageH\000B\t"
+    "\n\007message\"\037\n\007PointTo\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001"
+    "(\002\"\013\n\tPointToOf\"7\n\013AttentionTo\022\032\n\004side\030\001"
+    " \001(\0162\014.protos.Side\022\014\n\004unum\030\002 \001(\005\"\017\n\rAtte"
+    "ntionToOf\">\n\007AddText\022\"\n\005level\030\001 \001(\0162\023.pr"
+    "otos.LoggerLevel\022\017\n\007message\030\002 \001(\t\"a\n\010Add"
+    "Point\022\"\n\005level\030\001 \001(\0162\023.protos.LoggerLeve"
+    "l\022\"\n\005point\030\002 \001(\0132\023.protos.RpcVector2D\022\r\n"
+    "\005color\030\003 \001(\t\"\202\001\n\007AddLine\022\"\n\005level\030\001 \001(\0162"
+    "\023.protos.LoggerLevel\022\"\n\005start\030\002 \001(\0132\023.pr"
+    "otos.RpcVector2D\022 \n\003end\030\003 \001(\0132\023.protos.R"
+    "pcVector2D\022\r\n\005color\030\004 \001(\t\"\231\001\n\006AddArc\022\"\n\005"
+    "level\030\001 \001(\0162\023.protos.LoggerLevel\022#\n\006cent"
+    "er\030\002 \001(\0132\023.protos.RpcVector2D\022\016\n\006radius\030"
+    "\003 \001(\002\022\023\n\013start_angle\030\004 \001(\002\022\022\n\nspan_angel"
+    "\030\005 \001(\002\022\r\n\005color\030\006 \001(\t\"\201\001\n\tAddCircle\022\"\n\005l"
+    "evel\030\001 \001(\0162\023.protos.LoggerLevel\022#\n\006cente"
+    "r\030\002 \001(\0132\023.protos.RpcVector2D\022\016\n\006radius\030\003"
+    " \001(\002\022\r\n\005color\030\004 \001(\t\022\014\n\004fill\030\005 \001(\010\"\275\001\n\013Ad"
+    "dTriangle\022\"\n\005level\030\001 \001(\0162\023.protos.Logger"
+    "Level\022#\n\006point1\030\002 \001(\0132\023.protos.RpcVector"
+    "2D\022#\n\006point2\030\003 \001(\0132\023.protos.RpcVector2D\022"
+    "#\n\006point3\030\004 \001(\0132\023.protos.RpcVector2D\022\r\n\005"
+    "color\030\005 \001(\t\022\014\n\004fill\030\006 \001(\010\"\211\001\n\014AddRectang"
+    "le\022\"\n\005level\030\001 \001(\0162\023.protos.LoggerLevel\022\014"
+    "\n\004left\030\002 \001(\002\022\013\n\003top\030\003 \001(\002\022\016\n\006length\030\004 \001("
+    "\002\022\r\n\005width\030\005 \001(\002\022\r\n\005color\030\006 \001(\t\022\014\n\004fill\030"
+    "\007 \001(\010\"\302\001\n\tAddSector\022\"\n\005level\030\001 \001(\0162\023.pro"
+    "tos.LoggerLevel\022#\n\006center\030\002 \001(\0132\023.protos"
+    ".RpcVector2D\022\022\n\nmin_radius\030\003 \001(\002\022\022\n\nmax_"
+    "radius\030\004 \001(\002\022\023\n\013start_angle\030\005 \001(\002\022\022\n\nspa"
+    "n_angel\030\006 \001(\002\022\r\n\005color\030\007 \001(\t\022\014\n\004fill\030\010 \001"
+    "(\010\"w\n\nAddMessage\022\"\n\005level\030\001 \001(\0162\023.protos"
+    ".LoggerLevel\022%\n\010position\030\002 \001(\0132\023.protos."
+    "RpcVector2D\022\017\n\007message\030\003 \001(\t\022\r\n\005color\030\004 "
+    "\001(\t\"\371\002\n\003Log\022#\n\010add_text\030\001 \001(\0132\017.protos.A"
+    "ddTextH\000\022%\n\tadd_point\030\002 \001(\0132\020.protos.Add"
+    "PointH\000\022#\n\010add_line\030\003 \001(\0132\017.protos.AddLi"
+    "neH\000\022!\n\007add_arc\030\004 \001(\0132\016.protos.AddArcH\000\022"
+    "\'\n\nadd_circle\030\005 \001(\0132\021.protos.AddCircleH\000"
+    "\022+\n\014add_triangle\030\006 \001(\0132\023.protos.AddTrian"
+    "gleH\000\022-\n\radd_rectangle\030\007 \001(\0132\024.protos.Ad"
+    "dRectangleH\000\022\'\n\nadd_sector\030\010 \001(\0132\021.proto"
+    "s.AddSectorH\000\022)\n\013add_message\030\t \001(\0132\022.pro"
+    "tos.AddMessageH\000B\005\n\003log\"\036\n\013DebugClient\022\017"
+    "\n\007message\030\001 \001(\t\"o\n\016Body_GoToPoint\022)\n\014tar"
+    "get_point\030\001 \001(\0132\023.protos.RpcVector2D\022\032\n\022"
+    "distance_threshold\030\002 \001(\002\022\026\n\016max_dash_pow"
+    "er\030\003 \001(\002\"\202\001\n\016Body_SmartKick\022)\n\014target_po"
+    "int\030\001 \001(\0132\023.protos.RpcVector2D\022\023\n\013first_"
+    "speed\030\002 \001(\002\022\035\n\025first_speed_threshold\030\003 \001"
+    "(\002\022\021\n\tmax_steps\030\004 \001(\005\"7\n\021Bhv_BeforeKickO"
+    "ff\022\"\n\005point\030\001 \001(\0132\023.protos.RpcVector2D\"\024"
+    "\n\022Bhv_BodyNeckToBall\"9\n\023Bhv_BodyNeckToPo"
+    "int\022\"\n\005point\030\001 \001(\0132\023.protos.RpcVector2D\""
+    "\017\n\rBhv_Emergency\"v\n\025Bhv_GoToPointLookBal"
+    "l\022)\n\014target_point\030\001 \001(\0132\023.protos.RpcVect"
+    "or2D\022\032\n\022distance_threshold\030\002 \001(\002\022\026\n\016max_"
+    "dash_power\030\003 \001(\002\"\'\n\022Bhv_NeckBodyToBall\022\021"
+    "\n\tangle_buf\030\001 \001(\002\"L\n\023Bhv_NeckBodyToPoint"
+    "\022\"\n\005point\030\001 \001(\0132\023.protos.RpcVector2D\022\021\n\t"
+    "angle_buf\030\002 \001(\002\"\017\n\rBhv_ScanField\"\022\n\020Body"
+    "_AdvanceBall\"\020\n\016Body_ClearBall\"\214\001\n\014Body_"
+    "Dribble\022)\n\014target_point\030\001 \001(\0132\023.protos.R"
+    "pcVector2D\022\032\n\022distance_threshold\030\002 \001(\002\022\022"
+    "\n\ndash_power\030\003 \001(\002\022\022\n\ndash_count\030\004 \001(\005\022\r"
+    "\n\005dodge\030\005 \001(\010\"T\n\023Body_GoToPointDodge\022)\n\014"
+    "target_point\030\001 \001(\0132\023.protos.RpcVector2D\022"
+    "\022\n\ndash_power\030\002 \001(\002\"\200\001\n\rBody_HoldBall\022\017\n"
+    "\007do_turn\030\001 \001(\010\022.\n\021turn_target_point\030\002 \001("
+    "\0132\023.protos.RpcVector2D\022.\n\021kick_target_po"
+    "int\030\003 \001(\0132\023.protos.RpcVector2D\"P\n\016Body_I"
+    "ntercept\022\025\n\rsave_recovery\030\001 \001(\010\022\'\n\nface_"
+    "point\030\002 \001(\0132\023.protos.RpcVector2D\"f\n\020Body"
+    "_KickOneStep\022)\n\014target_point\030\001 \001(\0132\023.pro"
+    "tos.RpcVector2D\022\023\n\013first_speed\030\002 \001(\002\022\022\n\n"
+    "force_mode\030\003 \001(\010\"\017\n\rBody_StopBall\"&\n\rBod"
+    "y_StopDash\022\025\n\rsave_recovery\030\001 \001(\010\"k\n\022Bod"
+    "y_TackleToPoint\022)\n\014target_point\030\001 \001(\0132\023."
+    "protos.RpcVector2D\022\027\n\017min_probability\030\002 "
+    "\001(\002\022\021\n\tmin_speed\030\003 \001(\002\"!\n\020Body_TurnToAng"
+    "le\022\r\n\005angle\030\001 \001(\002\" \n\017Body_TurnToBall\022\r\n\005"
+    "cycle\030\001 \001(\005\"L\n\020Body_TurnToPoint\022)\n\014targe"
+    "t_point\030\001 \001(\0132\023.protos.RpcVector2D\022\r\n\005cy"
+    "cle\030\002 \001(\005\">\n\021Focus_MoveToPoint\022)\n\014target"
+    "_point\030\001 \001(\0132\023.protos.RpcVector2D\"\r\n\013Foc"
+    "us_Reset\"\020\n\016Neck_ScanField\"\022\n\020Neck_ScanP"
+    "layers\"g\n\030Neck_TurnToBallAndPlayer\022\032\n\004si"
+    "de\030\001 \001(\0162\014.protos.Side\022\026\n\016uniform_number"
+    "\030\002 \001(\005\022\027\n\017count_threshold\030\003 \001(\005\"0\n\025Neck_"
+    "TurnToBallOrScan\022\027\n\017count_threshold\030\001 \001("
+    "\005\"\021\n\017Neck_TurnToBall\"2\n\027Neck_TurnToGoali"
+    "eOrScan\022\027\n\017count_threshold\030\001 \001(\005\"\034\n\032Neck"
+    "_TurnToLowConfTeammate\"f\n\027Neck_TurnToPla"
+    "yerOrScan\022\032\n\004side\030\001 \001(\0162\014.protos.Side\022\026\n"
+    "\016uniform_number\030\002 \001(\005\022\027\n\017count_threshold"
+    "\030\003 \001(\005\"=\n\020Neck_TurnToPoint\022)\n\014target_poi"
+    "nt\030\001 \001(\0132\023.protos.RpcVector2D\"$\n\023Neck_Tu"
+    "rnToRelative\022\r\n\005angle\030\001 \001(\002\"9\n\020View_Chan"
+    "geWidth\022%\n\nview_width\030\001 \001(\0162\021.protos.Vie"
+    "wWidth\"\r\n\013View_Normal\"\014\n\nView_Synch\"\013\n\tV"
+    "iew_Wide\"\016\n\014HeliosGoalie\"\022\n\020HeliosGoalie"
+    "Move\"\022\n\020HeliosGoalieKick\"\r\n\013HeliosShoot\""
+    "\363\001\n\026HeliosOffensivePlanner\022\023\n\013direct_pas"
+    "s\030\001 \001(\010\022\021\n\tlead_pass\030\002 \001(\010\022\024\n\014through_pa"
+    "ss\030\003 \001(\010\022\025\n\rshort_dribble\030\004 \001(\010\022\024\n\014long_"
+    "dribble\030\005 \001(\010\022\r\n\005cross\030\006 \001(\010\022\023\n\013simple_p"
+    "ass\030\007 \001(\010\022\026\n\016simple_dribble\030\010 \001(\010\022\024\n\014sim"
+    "ple_shoot\030\t \001(\010\022\034\n\024server_side_decision\030"
+    "\n \001(\010\"\026\n\024HeliosBasicOffensive\"\021\n\017HeliosB"
+    "asicMove\"\017\n\rHeliosSetPlay\"\017\n\rHeliosPenal"
+    "ty\"\024\n\022HeliosCommunicaion\"\355\031\n\014PlayerActio"
+    "n\022\034\n\004dash\030\001 \001(\0132\014.protos.DashH\000\022\034\n\004turn\030"
+    "\002 \001(\0132\014.protos.TurnH\000\022\034\n\004kick\030\003 \001(\0132\014.pr"
+    "otos.KickH\000\022 \n\006tackle\030\004 \001(\0132\016.protos.Tac"
+    "kleH\000\022\036\n\005catch\030\005 \001(\0132\r.protos.CatchH\000\022\034\n"
+    "\004move\030\006 \001(\0132\014.protos.MoveH\000\022%\n\tturn_neck"
+    "\030\007 \001(\0132\020.protos.TurnNeckH\000\022)\n\013change_vie"
+    "w\030\010 \001(\0132\022.protos.ChangeViewH\000\022\032\n\003say\030\t \001"
+    "(\0132\013.protos.SayH\000\022#\n\010point_to\030\n \001(\0132\017.pr"
+    "otos.PointToH\000\022(\n\013point_to_of\030\013 \001(\0132\021.pr"
+    "otos.PointToOfH\000\022+\n\014attention_to\030\014 \001(\0132\023"
+    ".protos.AttentionToH\000\0220\n\017attention_to_of"
+    "\030\r \001(\0132\025.protos.AttentionToOfH\000\022\032\n\003log\030\016"
+    " \001(\0132\013.protos.LogH\000\022+\n\014debug_client\030\017 \001("
+    "\0132\023.protos.DebugClientH\000\0222\n\020body_go_to_p"
+    "oint\030\020 \001(\0132\026.protos.Body_GoToPointH\000\0221\n\017"
+    "body_smart_kick\030\021 \001(\0132\026.protos.Body_Smar"
+    "tKickH\000\0228\n\023bhv_before_kick_off\030\022 \001(\0132\031.p"
+    "rotos.Bhv_BeforeKickOffH\000\022;\n\025bhv_body_ne"
+    "ck_to_ball\030\023 \001(\0132\032.protos.Bhv_BodyNeckTo"
+    "BallH\000\022=\n\026bhv_body_neck_to_point\030\024 \001(\0132\033"
+    ".protos.Bhv_BodyNeckToPointH\000\022.\n\rbhv_eme"
+    "rgency\030\025 \001(\0132\025.protos.Bhv_EmergencyH\000\022B\n"
+    "\031bhv_go_to_point_look_ball\030\026 \001(\0132\035.proto"
+    "s.Bhv_GoToPointLookBallH\000\022;\n\025bhv_neck_bo"
+    "dy_to_ball\030\027 \001(\0132\032.protos.Bhv_NeckBodyTo"
+    "BallH\000\022=\n\026bhv_neck_body_to_point\030\030 \001(\0132\033"
+    ".protos.Bhv_NeckBodyToPointH\000\022/\n\016bhv_sca"
+    "n_field\030\031 \001(\0132\025.protos.Bhv_ScanFieldH\000\0225"
+    "\n\021body_advance_ball\030\032 \001(\0132\030.protos.Body_"
+    "AdvanceBallH\000\0221\n\017body_clear_ball\030\033 \001(\0132\026"
+    ".protos.Body_ClearBallH\000\022,\n\014body_dribble"
+    "\030\034 \001(\0132\024.protos.Body_DribbleH\000\022=\n\026body_g"
+    "o_to_point_dodge\030\035 \001(\0132\033.protos.Body_GoT"
+    "oPointDodgeH\000\022/\n\016body_hold_ball\030\036 \001(\0132\025."
+    "protos.Body_HoldBallH\000\0220\n\016body_intercept"
+    "\030\037 \001(\0132\026.protos.Body_InterceptH\000\0226\n\022body"
+    "_kick_one_step\030  \001(\0132\030.protos.Body_KickO"
+    "neStepH\000\022/\n\016body_stop_ball\030! \001(\0132\025.proto"
+    "s.Body_StopBallH\000\022/\n\016body_stop_dash\030\" \001("
+    "\0132\025.protos.Body_StopDashH\000\022:\n\024body_tackl"
+    "e_to_point\030# \001(\0132\032.protos.Body_TackleToP"
+    "ointH\000\0226\n\022body_turn_to_angle\030$ \001(\0132\030.pro"
+    "tos.Body_TurnToAngleH\000\0224\n\021body_turn_to_b"
+    "all\030% \001(\0132\027.protos.Body_TurnToBallH\000\0226\n\022"
+    "body_turn_to_point\030& \001(\0132\030.protos.Body_T"
+    "urnToPointH\000\0228\n\023focus_move_to_point\030\' \001("
+    "\0132\031.protos.Focus_MoveToPointH\000\022*\n\013focus_"
+    "reset\030( \001(\0132\023.protos.Focus_ResetH\000\0221\n\017ne"
+    "ck_scan_field\030) \001(\0132\026.protos.Neck_ScanFi"
+    "eldH\000\0225\n\021neck_scan_players\030* \001(\0132\030.proto"
+    "s.Neck_ScanPlayersH\000\022H\n\034neck_turn_to_bal"
+    "l_and_player\030+ \001(\0132 .protos.Neck_TurnToB"
+    "allAndPlayerH\000\022B\n\031neck_turn_to_ball_or_s"
+    "can\030, \001(\0132\035.protos.Neck_TurnToBallOrScan"
+    "H\000\0224\n\021neck_turn_to_ball\030- \001(\0132\027.protos.N"
+    "eck_TurnToBallH\000\022F\n\033neck_turn_to_goalie_"
+    "or_scan\030. \001(\0132\037.protos.Neck_TurnToGoalie"
+    "OrScanH\000\022L\n\036neck_turn_to_low_conf_teamma"
+    "te\030/ \001(\0132\".protos.Neck_TurnToLowConfTeam"
+    "mateH\000\022F\n\033neck_turn_to_player_or_scan\0300 "
+    "\001(\0132\037.protos.Neck_TurnToPlayerOrScanH\000\0226"
+    "\n\022neck_turn_to_point\0301 \001(\0132\030.protos.Neck"
+    "_TurnToPointH\000\022<\n\025neck_turn_to_relative\030"
+    "2 \001(\0132\033.protos.Neck_TurnToRelativeH\000\0225\n\021"
+    "view_change_width\0303 \001(\0132\030.protos.View_Ch"
+    "angeWidthH\000\022*\n\013view_normal\0304 \001(\0132\023.proto"
+    "s.View_NormalH\000\022(\n\nview_synch\0305 \001(\0132\022.pr"
+    "otos.View_SynchH\000\022&\n\tview_wide\0306 \001(\0132\021.p"
+    "rotos.View_WideH\000\022-\n\rhelios_goalie\0307 \001(\013"
+    "2\024.protos.HeliosGoalieH\000\0226\n\022helios_goali"
+    "e_move\0308 \001(\0132\030.protos.HeliosGoalieMoveH\000"
+    "\0226\n\022helios_goalie_kick\0309 \001(\0132\030.protos.He"
+    "liosGoalieKickH\000\022+\n\014helios_shoot\030: \001(\0132\023"
+    ".protos.HeliosShootH\000\022B\n\030helios_offensiv"
+    "e_planner\030; \001(\0132\036.protos.HeliosOffensive"
+    "PlannerH\000\022>\n\026helios_basic_offensive\030< \001("
+    "\0132\034.protos.HeliosBasicOffensiveH\000\0224\n\021hel"
+    "ios_basic_move\030= \001(\0132\027.protos.HeliosBasi"
+    "cMoveH\000\0220\n\017helios_set_play\030> \001(\0132\025.proto"
+    "s.HeliosSetPlayH\000\022/\n\016helios_penalty\030\? \001("
+    "\0132\025.protos.HeliosPenaltyH\000\022:\n\024helios_com"
+    "munication\030@ \001(\0132\032.protos.HeliosCommunic"
+    "aionH\000B\010\n\006action\"Q\n\rPlayerActions\022%\n\007act"
+    "ions\030\001 \003(\0132\024.protos.PlayerAction\022\031\n\021igno"
+    "re_preprocess\030\002 \001(\010\"8\n\020ChangePlayerType\022"
+    "\026\n\016uniform_number\030\001 \001(\005\022\014\n\004type\030\002 \001(\005\"\024\n"
+    "\022DoHeliosSubstitute\"\030\n\026DoHeliosSayPlayer"
+    "Types\"\322\001\n\013CoachAction\0227\n\023change_player_t"
+    "ypes\030\001 \001(\0132\030.protos.ChangePlayerTypeH\000\022:"
+    "\n\024do_helios_substitute\030\002 \001(\0132\032.protos.Do"
+    "HeliosSubstituteH\000\022D\n\032do_helios_say_play"
+    "er_types\030\003 \001(\0132\036.protos.DoHeliosSayPlaye"
+    "rTypesH\000B\010\n\006action\"4\n\014CoachActions\022$\n\007ac"
+    "tions\030\001 \003(\0132\023.protos.CoachAction\"\013\n\tDoKi"
+    "ckOff\"Z\n\nDoMoveBall\022%\n\010position\030\001 \001(\0132\023."
+    "protos.RpcVector2D\022%\n\010velocity\030\002 \001(\0132\023.p"
+    "rotos.RpcVector2D\"w\n\014DoMovePlayer\022\020\n\010our"
+    "_side\030\001 \001(\010\022\026\n\016uniform_number\030\002 \001(\005\022%\n\010p"
+    "osition\030\003 \001(\0132\023.protos.RpcVector2D\022\026\n\016bo"
+    "dy_direction\030\004 \001(\002\"\013\n\tDoRecover\"X\n\014DoCha"
+    "ngeMode\022,\n\016game_mode_type\030\001 \001(\0162\024.protos"
+    ".GameModeType\022\032\n\004side\030\002 \001(\0162\014.protos.Sid"
+    "e\"L\n\022DoChangePlayerType\022\020\n\010our_side\030\001 \001("
+    "\010\022\026\n\016uniform_number\030\002 \001(\005\022\014\n\004type\030\003 \001(\005\""
+    "\265\002\n\rTrainerAction\022(\n\013do_kick_off\030\001 \001(\0132\021"
+    ".protos.DoKickOffH\000\022*\n\014do_move_ball\030\002 \001("
+    "\0132\022.protos.DoMoveBallH\000\022.\n\016do_move_playe"
+    "r\030\003 \001(\0132\024.protos.DoMovePlayerH\000\022\'\n\ndo_re"
+    "cover\030\004 \001(\0132\021.protos.DoRecoverH\000\022.\n\016do_c"
+    "hange_mode\030\005 \001(\0132\024.protos.DoChangeModeH\000"
+    "\022;\n\025do_change_player_type\030\006 \001(\0132\032.protos"
+    ".DoChangePlayerTypeH\000B\010\n\006action\"8\n\016Train"
+    "erActions\022&\n\007actions\030\001 \003(\0132\025.protos.Trai"
+    "nerAction\"\335,\n\013ServerParam\0223\n\021register_re"
+    "sponse\030\001 \001(\0132\030.protos.RegisterResponse\022\026"
+    "\n\016inertia_moment\030\002 \001(\002\022\023\n\013player_size\030\003 "
+    "\001(\002\022\024\n\014player_decay\030\004 \001(\002\022\023\n\013player_rand"
+    "\030\005 \001(\002\022\025\n\rplayer_weight\030\006 \001(\002\022\030\n\020player_"
+    "speed_max\030\007 \001(\002\022\030\n\020player_accel_max\030\010 \001("
+    "\002\022\023\n\013stamina_max\030\t \001(\002\022\027\n\017stamina_inc_ma"
+    "x\030\n \001(\002\022\024\n\014recover_init\030\013 \001(\002\022\027\n\017recover"
+    "_dec_thr\030\014 \001(\002\022\023\n\013recover_min\030\r \001(\002\022\023\n\013r"
+    "ecover_dec\030\016 \001(\002\022\023\n\013effort_init\030\017 \001(\002\022\026\n"
+    "\016effort_dec_thr\030\020 \001(\002\022\022\n\neffort_min\030\021 \001("
+    "\002\022\022\n\neffort_dec\030\022 \001(\002\022\026\n\016effort_inc_thr\030"
+    "\023 \001(\002\022\022\n\neffort_inc\030\024 \001(\002\022\021\n\tkick_rand\030\025"
+    " \001(\002\022\033\n\023team_actuator_noise\030\026 \001(\010\022\034\n\024pla"
+    "yer_rand_factor_l\030\027 \001(\002\022\034\n\024player_rand_f"
+    "actor_r\030\030 \001(\002\022\032\n\022kick_rand_factor_l\030\031 \001("
+    "\002\022\032\n\022kick_rand_factor_r\030\032 \001(\002\022\021\n\tball_si"
+    "ze\030\033 \001(\002\022\022\n\nball_decay\030\034 \001(\002\022\021\n\tball_ran"
+    "d\030\035 \001(\002\022\023\n\013ball_weight\030\036 \001(\002\022\026\n\016ball_spe"
+    "ed_max\030\037 \001(\002\022\026\n\016ball_accel_max\030  \001(\002\022\027\n\017"
+    "dash_power_rate\030! \001(\002\022\027\n\017kick_power_rate"
+    "\030\" \001(\002\022\027\n\017kickable_margin\030# \001(\002\022\026\n\016contr"
+    "ol_radius\030$ \001(\002\022\034\n\024control_radius_width\030"
+    "% \001(\002\022\021\n\tmax_power\030& \001(\002\022\021\n\tmin_power\030\' "
+    "\001(\002\022\022\n\nmax_moment\030( \001(\002\022\022\n\nmin_moment\030) "
+    "\001(\002\022\027\n\017max_neck_moment\030* \001(\002\022\027\n\017min_neck"
+    "_moment\030+ \001(\002\022\026\n\016max_neck_angle\030, \001(\002\022\026\n"
+    "\016min_neck_angle\030- \001(\002\022\025\n\rvisible_angle\030."
+    " \001(\002\022\030\n\020visible_distance\030/ \001(\002\022\020\n\010wind_d"
+    "ir\0300 \001(\002\022\022\n\nwind_force\0301 \001(\002\022\022\n\nwind_ang"
+    "le\0302 \001(\002\022\021\n\twind_rand\0303 \001(\002\022\025\n\rkickable_"
+    "area\0304 \001(\002\022\024\n\014catch_area_l\0305 \001(\002\022\024\n\014catc"
+    "h_area_w\0306 \001(\002\022\031\n\021catch_probability\0307 \001("
+    "\002\022\030\n\020goalie_max_moves\0308 \001(\005\022\032\n\022corner_ki"
+    "ck_margin\0309 \001(\002\022 \n\030offside_active_area_s"
+    "ize\030: \001(\002\022\021\n\twind_none\030; \001(\010\022\027\n\017use_wind"
+    "_random\030< \001(\010\022\033\n\023coach_say_count_max\030= \001"
+    "(\005\022\032\n\022coach_say_msg_size\030> \001(\005\022\026\n\016clang_"
+    "win_size\030\? \001(\005\022\030\n\020clang_define_win\030@ \001(\005"
+    "\022\026\n\016clang_meta_win\030A \001(\005\022\030\n\020clang_advice"
+    "_win\030B \001(\005\022\026\n\016clang_info_win\030C \001(\005\022\030\n\020cl"
+    "ang_mess_delay\030D \001(\005\022\034\n\024clang_mess_per_c"
+    "ycle\030E \001(\005\022\021\n\thalf_time\030F \001(\005\022\026\n\016simulat"
+    "or_step\030G \001(\005\022\021\n\tsend_step\030H \001(\005\022\021\n\trecv"
+    "_step\030I \001(\005\022\027\n\017sense_body_step\030J \001(\005\022\020\n\010"
+    "lcm_step\030K \001(\005\022\033\n\023player_say_msg_size\030L "
+    "\001(\005\022\027\n\017player_hear_max\030M \001(\005\022\027\n\017player_h"
+    "ear_inc\030N \001(\005\022\031\n\021player_hear_decay\030O \001(\005"
+    "\022\027\n\017catch_ban_cycle\030P \001(\005\022\030\n\020slow_down_f"
+    "actor\030Q \001(\005\022\023\n\013use_offside\030R \001(\010\022\027\n\017kick"
+    "off_offside\030S \001(\010\022\033\n\023offside_kick_margin"
+    "\030T \001(\002\022\026\n\016audio_cut_dist\030U \001(\002\022\032\n\022dist_q"
+    "uantize_step\030V \001(\002\022#\n\033landmark_dist_quan"
+    "tize_step\030W \001(\002\022\031\n\021dir_quantize_step\030X \001"
+    "(\002\022\034\n\024dist_quantize_step_l\030Y \001(\002\022\034\n\024dist"
+    "_quantize_step_r\030Z \001(\002\022%\n\035landmark_dist_"
+    "quantize_step_l\030[ \001(\002\022%\n\035landmark_dist_q"
+    "uantize_step_r\030\\ \001(\002\022\033\n\023dir_quantize_ste"
+    "p_l\030] \001(\002\022\033\n\023dir_quantize_step_r\030^ \001(\002\022\022"
+    "\n\ncoach_mode\030_ \001(\010\022\037\n\027coach_with_referee"
+    "_mode\030` \001(\010\022\032\n\022use_old_coach_hear\030a \001(\010\022"
+    "%\n\035slowness_on_top_for_left_team\030b \001(\002\022&"
+    "\n\036slowness_on_top_for_right_team\030c \001(\002\022\024"
+    "\n\014start_goal_l\030d \001(\005\022\024\n\014start_goal_r\030e \001"
+    "(\005\022\023\n\013fullstate_l\030f \001(\010\022\023\n\013fullstate_r\030g"
+    " \001(\010\022\026\n\016drop_ball_time\030h \001(\005\022\022\n\nsynch_mo"
+    "de\030i \001(\010\022\024\n\014synch_offset\030j \001(\005\022\031\n\021synch_"
+    "micro_sleep\030k \001(\005\022\024\n\014point_to_ban\030l \001(\005\022"
+    "\031\n\021point_to_duration\030m \001(\005\022\023\n\013player_por"
+    "t\030n \001(\005\022\024\n\014trainer_port\030o \001(\005\022\031\n\021online_"
+    "coach_port\030p \001(\005\022\024\n\014verbose_mode\030q \001(\010\022\032"
+    "\n\022coach_send_vi_step\030r \001(\005\022\023\n\013replay_fil"
+    "e\030s \001(\t\022\025\n\rlandmark_file\030t \001(\t\022\022\n\nsend_c"
+    "omms\030u \001(\010\022\024\n\014text_logging\030v \001(\010\022\024\n\014game"
+    "_logging\030w \001(\010\022\030\n\020game_log_version\030x \001(\005"
+    "\022\024\n\014text_log_dir\030y \001(\t\022\024\n\014game_log_dir\030z"
+    " \001(\t\022\033\n\023text_log_fixed_name\030{ \001(\t\022\033\n\023gam"
+    "e_log_fixed_name\030| \001(\t\022\032\n\022use_text_log_f"
+    "ixed\030} \001(\010\022\032\n\022use_game_log_fixed\030~ \001(\010\022\032"
+    "\n\022use_text_log_dated\030\177 \001(\010\022\033\n\022use_game_l"
+    "og_dated\030\200\001 \001(\010\022\030\n\017log_date_format\030\201\001 \001("
+    "\t\022\022\n\tlog_times\030\202\001 \001(\010\022\027\n\016record_message\030"
+    "\203\001 \001(\010\022\035\n\024text_log_compression\030\204\001 \001(\005\022\035\n"
+    "\024game_log_compression\030\205\001 \001(\005\022\024\n\013use_prof"
+    "ile\030\206\001 \001(\010\022\024\n\013tackle_dist\030\207\001 \001(\002\022\031\n\020tack"
+    "le_back_dist\030\210\001 \001(\002\022\025\n\014tackle_width\030\211\001 \001"
+    "(\002\022\030\n\017tackle_exponent\030\212\001 \001(\002\022\026\n\rtackle_c"
+    "ycles\030\213\001 \001(\005\022\032\n\021tackle_power_rate\030\214\001 \001(\002"
+    "\022\035\n\024freeform_wait_period\030\215\001 \001(\005\022\035\n\024freef"
+    "orm_send_period\030\216\001 \001(\005\022\031\n\020free_kick_faul"
+    "ts\030\217\001 \001(\010\022\024\n\013back_passes\030\220\001 \001(\010\022\032\n\021prope"
+    "r_goal_kicks\030\221\001 \001(\010\022\031\n\020stopped_ball_vel\030"
+    "\222\001 \001(\002\022\027\n\016max_goal_kicks\030\223\001 \001(\005\022\026\n\rclang"
+    "_del_win\030\224\001 \001(\005\022\027\n\016clang_rule_win\030\225\001 \001(\005"
+    "\022\022\n\tauto_mode\030\226\001 \001(\010\022\026\n\rkick_off_wait\030\227\001"
+    " \001(\005\022\025\n\014connect_wait\030\230\001 \001(\005\022\027\n\016game_over"
+    "_wait\030\231\001 \001(\005\022\025\n\014team_l_start\030\232\001 \001(\t\022\025\n\014t"
+    "eam_r_start\030\233\001 \001(\t\022\026\n\rkeepaway_mode\030\234\001 \001"
+    "(\010\022\030\n\017keepaway_length\030\235\001 \001(\002\022\027\n\016keepaway"
+    "_width\030\236\001 \001(\002\022\031\n\020keepaway_logging\030\237\001 \001(\010"
+    "\022\031\n\020keepaway_log_dir\030\240\001 \001(\t\022 \n\027keepaway_"
+    "log_fixed_name\030\241\001 \001(\t\022\033\n\022keepaway_log_fi"
+    "xed\030\242\001 \001(\010\022\033\n\022keepaway_log_dated\030\243\001 \001(\010\022"
+    "\027\n\016keepaway_start\030\244\001 \001(\005\022\030\n\017nr_normal_ha"
+    "lfs\030\245\001 \001(\005\022\027\n\016nr_extra_halfs\030\246\001 \001(\005\022\033\n\022p"
+    "enalty_shoot_outs\030\247\001 \001(\010\022\036\n\025pen_before_s"
+    "etup_wait\030\250\001 \001(\005\022\027\n\016pen_setup_wait\030\251\001 \001("
+    "\005\022\027\n\016pen_ready_wait\030\252\001 \001(\005\022\027\n\016pen_taken_"
+    "wait\030\253\001 \001(\005\022\025\n\014pen_nr_kicks\030\254\001 \001(\005\022\034\n\023pe"
+    "n_max_extra_kicks\030\255\001 \001(\005\022\023\n\npen_dist_x\030\256"
+    "\001 \001(\002\022\032\n\021pen_random_winner\030\257\001 \001(\010\022\035\n\024pen"
+    "_allow_mult_kicks\030\260\001 \001(\010\022\036\n\025pen_max_goal"
+    "ie_dist_x\030\261\001 \001(\002\022 \n\027pen_coach_moves_play"
+    "ers\030\262\001 \001(\010\022\023\n\nmodule_dir\030\263\001 \001(\t\022\030\n\017ball_"
+    "stuck_area\030\264\001 \001(\002\022\027\n\016coach_msg_file\030\265\001 \001"
+    "(\t\022\031\n\020max_tackle_power\030\266\001 \001(\002\022\036\n\025max_bac"
+    "k_tackle_power\030\267\001 \001(\002\022\035\n\024player_speed_ma"
+    "x_min\030\270\001 \001(\002\022\026\n\rextra_stamina\030\271\001 \001(\002\022\031\n\020"
+    "synch_see_offset\030\272\001 \001(\005\022\030\n\017extra_half_ti"
+    "me\030\273\001 \001(\005\022\031\n\020stamina_capacity\030\274\001 \001(\002\022\027\n\016"
+    "max_dash_angle\030\275\001 \001(\002\022\027\n\016min_dash_angle\030"
+    "\276\001 \001(\002\022\030\n\017dash_angle_step\030\277\001 \001(\002\022\027\n\016side"
+    "_dash_rate\030\300\001 \001(\002\022\027\n\016back_dash_rate\030\301\001 \001"
+    "(\002\022\027\n\016max_dash_power\030\302\001 \001(\002\022\027\n\016min_dash_"
+    "power\030\303\001 \001(\002\022\033\n\022tackle_rand_factor\030\304\001 \001("
+    "\002\022 \n\027foul_detect_probability\030\305\001 \001(\002\022\026\n\rf"
+    "oul_exponent\030\306\001 \001(\002\022\024\n\013foul_cycles\030\307\001 \001("
+    "\005\022\024\n\013golden_goal\030\310\001 \001(\010\022\035\n\024red_card_prob"
+    "ability\030\311\001 \001(\002\022!\n\030illegal_defense_durati"
+    "on\030\312\001 \001(\005\022\037\n\026illegal_defense_number\030\313\001 \001"
+    "(\005\022\037\n\026illegal_defense_dist_x\030\314\001 \001(\002\022\036\n\025i"
+    "llegal_defense_width\030\315\001 \001(\002\022\031\n\020fixed_tea"
+    "mname_l\030\316\001 \001(\t\022\031\n\020fixed_teamname_r\030\317\001 \001("
+    "\t\022\030\n\017max_catch_angle\030\320\001 \001(\002\022\030\n\017min_catch"
+    "_angle\030\321\001 \001(\002\022\024\n\013random_seed\030\322\001 \001(\005\022\037\n\026l"
+    "ong_kick_power_factor\030\323\001 \001(\002\022\030\n\017long_kic"
+    "k_delay\030\324\001 \001(\005\022\025\n\014max_monitors\030\325\001 \001(\005\022\027\n"
+    "\016catchable_area\030\326\001 \001(\002\022\027\n\016real_speed_max"
+    "\030\327\001 \001(\002\022\032\n\021pitch_half_length\030\330\001 \001(\002\022\031\n\020p"
+    "itch_half_width\030\331\001 \001(\002\022 \n\027our_penalty_ar"
+    "ea_line_x\030\332\001 \001(\002\022\"\n\031their_penalty_area_l"
+    "ine_x\030\333\001 \001(\002\022 \n\027penalty_area_half_width\030"
+    "\334\001 \001(\002\022\034\n\023penalty_area_length\030\335\001 \001(\002\022\023\n\n"
+    "goal_width\030\336\001 \001(\002\"\215\010\n\013PlayerParam\0223\n\021reg"
+    "ister_response\030\001 \001(\0132\030.protos.RegisterRe"
+    "sponse\022\024\n\014player_types\030\002 \001(\005\022\020\n\010subs_max"
+    "\030\003 \001(\005\022\016\n\006pt_max\030\004 \001(\005\022\037\n\027allow_mult_def"
+    "ault_type\030\005 \001(\010\022\"\n\032player_speed_max_delt"
+    "a_min\030\006 \001(\002\022\"\n\032player_speed_max_delta_ma"
+    "x\030\007 \001(\002\022$\n\034stamina_inc_max_delta_factor\030"
+    "\010 \001(\002\022\036\n\026player_decay_delta_min\030\t \001(\002\022\036\n"
+    "\026player_decay_delta_max\030\n \001(\002\022#\n\033inertia"
+    "_moment_delta_factor\030\013 \001(\002\022!\n\031dash_power"
+    "_rate_delta_min\030\014 \001(\002\022!\n\031dash_power_rate"
+    "_delta_max\030\r \001(\002\022 \n\030player_size_delta_fa"
+    "ctor\030\016 \001(\002\022!\n\031kickable_margin_delta_min\030"
+    "\017 \001(\002\022!\n\031kickable_margin_delta_max\030\020 \001(\002"
+    "\022\036\n\026kick_rand_delta_factor\030\021 \001(\002\022\037\n\027extr"
+    "a_stamina_delta_min\030\022 \001(\002\022\037\n\027extra_stami"
+    "na_delta_max\030\023 \001(\002\022\037\n\027effort_max_delta_f"
+    "actor\030\024 \001(\002\022\037\n\027effort_min_delta_factor\030\025"
+    " \001(\002\022\023\n\013random_seed\030\026 \001(\005\022%\n\035new_dash_po"
+    "wer_rate_delta_min\030\027 \001(\002\022%\n\035new_dash_pow"
+    "er_rate_delta_max\030\030 \001(\002\022(\n new_stamina_i"
+    "nc_max_delta_factor\030\031 \001(\002\022!\n\031kick_power_"
+    "rate_delta_min\030\032 \001(\002\022!\n\031kick_power_rate_"
+    "delta_max\030\033 \001(\002\022,\n$foul_detect_probabili"
+    "ty_delta_factor\030\034 \001(\002\022$\n\034catchable_area_"
+    "l_stretch_min\030\035 \001(\002\022$\n\034catchable_area_l_"
+    "stretch_max\030\036 \001(\002\"\277\007\n\nPlayerType\0223\n\021regi"
+    "ster_response\030\001 \001(\0132\030.protos.RegisterRes"
+    "ponse\022\n\n\002id\030\002 \001(\005\022\027\n\017stamina_inc_max\030\003 \001"
+    "(\002\022\024\n\014player_decay\030\004 \001(\002\022\026\n\016inertia_mome"
+    "nt\030\005 \001(\002\022\027\n\017dash_power_rate\030\006 \001(\002\022\023\n\013pla"
+    "yer_size\030\007 \001(\002\022\027\n\017kickable_margin\030\010 \001(\002\022"
+    "\021\n\tkick_rand\030\t \001(\002\022\025\n\rextra_stamina\030\n \001("
+    "\002\022\022\n\neffort_max\030\013 \001(\002\022\022\n\neffort_min\030\014 \001("
+    "\002\022\027\n\017kick_power_rate\030\r \001(\002\022\037\n\027foul_detec"
+    "t_probability\030\016 \001(\002\022 \n\030catchable_area_l_"
+    "stretch\030\017 \001(\002\022\027\n\017unum_far_length\030\020 \001(\002\022\033"
+    "\n\023unum_too_far_length\030\021 \001(\002\022\027\n\017team_far_"
+    "length\030\022 \001(\002\022\033\n\023team_too_far_length\030\023 \001("
+    "\002\022%\n\035player_max_observation_length\030\024 \001(\002"
+    "\022\033\n\023ball_vel_far_length\030\025 \001(\002\022\037\n\027ball_ve"
+    "l_too_far_length\030\026 \001(\002\022#\n\033ball_max_obser"
+    "vation_length\030\027 \001(\002\022\033\n\023flag_chg_far_leng"
+    "th\030\030 \001(\002\022\037\n\027flag_chg_too_far_length\030\031 \001("
+    "\002\022#\n\033flag_max_observation_length\030\032 \001(\002\022\025"
+    "\n\rkickable_area\030\033 \001(\002\022\037\n\027reliable_catcha"
+    "ble_dist\030\034 \001(\002\022\032\n\022max_catchable_dist\030\035 \001"
+    "(\002\022\026\n\016real_speed_max\030\036 \001(\002\022\031\n\021player_spe"
+    "ed_max2\030\037 \001(\002\022\027\n\017real_speed_max2\030  \001(\002\022!"
+    "\n\031cycles_to_reach_max_speed\030! \001(\005\022\030\n\020pla"
+    "yer_speed_max\030\" \001(\002\"\255\003\n\024RpcCooperativeAc"
+    "tion\022+\n\010category\030\001 \001(\0162\031.protos.RpcActio"
+    "nCategory\022\r\n\005index\030\002 \001(\005\022\023\n\013sender_unum\030"
+    "\003 \001(\005\022\023\n\013target_unum\030\004 \001(\005\022)\n\014target_poi"
+    "nt\030\005 \001(\0132\023.protos.RpcVector2D\022\030\n\020first_b"
+    "all_speed\030\006 \001(\001\022\031\n\021first_turn_moment\030\007 \001"
+    "(\001\022\030\n\020first_dash_power\030\010 \001(\001\022!\n\031first_da"
+    "sh_angle_relative\030\t \001(\001\022\025\n\rduration_step"
+    "\030\n \001(\005\022\022\n\nkick_count\030\013 \001(\005\022\022\n\nturn_count"
+    "\030\014 \001(\005\022\022\n\ndash_count\030\r \001(\005\022\024\n\014final_acti"
+    "on\030\016 \001(\010\022\023\n\013description\030\017 \001(\t\022\024\n\014parent_"
+    "index\030\020 \001(\005\"\317\001\n\017RpcPredictState\022\022\n\nspend"
+    "_time\030\001 \001(\005\022\030\n\020ball_holder_unum\030\002 \001(\005\022*\n"
+    "\rball_position\030\003 \001(\0132\023.protos.RpcVector2"
+    "D\022*\n\rball_velocity\030\004 \001(\0132\023.protos.RpcVec"
+    "tor2D\022\032\n\022our_defense_line_x\030\005 \001(\001\022\032\n\022our"
+    "_offense_line_x\030\006 \001(\001\"\202\001\n\016RpcActionState"
+    "\022,\n\006action\030\001 \001(\0132\034.protos.RpcCooperative"
+    "Action\022.\n\rpredict_state\030\002 \001(\0132\027.protos.R"
+    "pcPredictState\022\022\n\nevaluation\030\003 \001(\001\"\357\001\n\030B"
+    "estPlannerActionRequest\0223\n\021register_resp"
+    "onse\030\001 \001(\0132\030.protos.RegisterResponse\022:\n\005"
+    "pairs\030\002 \003(\0132+.protos.BestPlannerActionRe"
+    "quest.PairsEntry\022\034\n\005state\030\003 \001(\0132\r.protos"
+    ".State\032D\n\nPairsEntry\022\013\n\003key\030\001 \001(\005\022%\n\005val"
+    "ue\030\002 \001(\0132\026.protos.RpcActionState:\0028\001\"*\n\031"
+    "BestPlannerActionResponse\022\r\n\005index\030\001 \001(\005"
+    "\"\007\n\005Empty*-\n\tViewWidth\022\n\n\006NARROW\020\000\022\n\n\006NO"
+    "RMAL\020\001\022\010\n\004WIDE\020\002*{\n\025RpcServerLanguageTyp"
+    "e\022\024\n\020UNKNOWN_LANGUAGE\020\000\022\n\n\006PYThON\020\001\022\010\n\004J"
+    "AVA\020\002\022\007\n\003CPP\020\003\022\n\n\006CSHARP\020\004\022\010\n\004RUBY\020\005\022\017\n\013"
+    "JAVE_SCRIPT\020\006\022\006\n\002GO\020\007*(\n\004Side\022\013\n\007UNKNOWN"
+    "\020\000\022\010\n\004LEFT\020\001\022\t\n\005RIGHT\020\002*\262\002\n\013LoggerLevel\022"
+    "\r\n\tNoneLevel\020\000\022\n\n\006SYSTEM\020\001\022\n\n\006SENSOR\020\002\022\t"
+    "\n\005WORLD\020\004\022\n\n\006ACTION\020\010\022\r\n\tINTERCEPT\020\020\022\010\n\004"
+    "KICK\020 \022\010\n\004HOLD\020@\022\014\n\007DRIBBLE\020\200\001\022\t\n\004PASS\020\200"
+    "\002\022\n\n\005CROSS\020\200\004\022\n\n\005SHOOT\020\200\010\022\n\n\005CLEAR\020\200\020\022\n\n"
+    "\005BLOCK\020\200 \022\t\n\004MARK\020\200@\022\021\n\013POSITIONING\020\200\200\001\022"
+    "\n\n\004ROLE\020\200\200\002\022\n\n\004TEAM\020\200\200\004\022\023\n\rCOMMUNICATION"
+    "\020\200\200\010\022\016\n\010ANALYZER\020\200\200\020\022\022\n\014ACTION_CHAIN\020\200\200 "
+    "\022\n\n\004PLAN\020\200\200@*,\n\010CardType\022\013\n\007NO_CARD\020\000\022\n\n"
+    "\006YELLOW\020\001\022\007\n\003RED\020\002*v\n\023InterceptActionTyp"
+    "e\022!\n\035UNKNOWN_Intercept_Action_Type\020\000\022\r\n\t"
+    "OMNI_DASH\020\001\022\025\n\021TURN_FORWARD_DASH\020\002\022\026\n\022TU"
+    "RN_BACKWARD_DASH\020\003*\273\004\n\014GameModeType\022\021\n\rB"
+    "eforeKickOff\020\000\022\014\n\010TimeOver\020\001\022\n\n\006PlayOn\020\002"
+    "\022\014\n\010KickOff_\020\003\022\013\n\007KickIn_\020\004\022\r\n\tFreeKick_"
+    "\020\005\022\017\n\013CornerKick_\020\006\022\r\n\tGoalKick_\020\007\022\016\n\nAf"
+    "terGoal_\020\010\022\014\n\010OffSide_\020\t\022\020\n\014PenaltyKick_"
+    "\020\n\022\021\n\rFirstHalfOver\020\013\022\t\n\005Pause\020\014\022\t\n\005Huma"
+    "n\020\r\022\017\n\013FoulCharge_\020\016\022\r\n\tFoulPush_\020\017\022\031\n\025F"
+    "oulMultipleAttacker_\020\020\022\020\n\014FoulBallOut_\020\021"
+    "\022\r\n\tBackPass_\020\022\022\022\n\016FreeKickFault_\020\023\022\017\n\013C"
+    "atchFault_\020\024\022\020\n\014IndFreeKick_\020\025\022\021\n\rPenalt"
+    "ySetup_\020\026\022\021\n\rPenaltyReady_\020\027\022\021\n\rPenaltyT"
+    "aken_\020\030\022\020\n\014PenaltyMiss_\020\031\022\021\n\rPenaltyScor"
+    "e_\020\032\022\023\n\017IllegalDefense_\020\033\022\023\n\017PenaltyOnfi"
+    "eld_\020\034\022\020\n\014PenaltyFoul_\020\035\022\020\n\014GoalieCatch_"
+    "\020\036\022\016\n\nExtendHalf\020\037\022\014\n\010MODE_MAX\020 *2\n\tAgen"
+    "tType\022\013\n\007PlayerT\020\000\022\n\n\006CoachT\020\001\022\014\n\010Traine"
+    "rT\020\002*w\n\021RpcActionCategory\022\013\n\007AC_Hold\020\000\022\016"
+    "\n\nAC_Dribble\020\001\022\013\n\007AC_Pass\020\002\022\014\n\010AC_Shoot\020"
+    "\003\022\014\n\010AC_Clear\020\004\022\013\n\007AC_Move\020\005\022\017\n\013AC_NoAct"
+    "ion\020\0062\373\004\n\004Game\022:\n\020GetPlayerActions\022\r.pro"
+    "tos.State\032\025.protos.PlayerActions\"\000\0228\n\017Ge"
+    "tCoachActions\022\r.protos.State\032\024.protos.Co"
+    "achActions\"\000\022<\n\021GetTrainerActions\022\r.prot"
+    "os.State\032\026.protos.TrainerActions\"\000\0227\n\017Se"
+    "ndInitMessage\022\023.protos.InitMessage\032\r.pro"
+    "tos.Empty\"\000\0228\n\020SendServerParams\022\023.protos"
+    ".ServerParam\032\r.protos.Empty\"\000\0228\n\020SendPla"
+    "yerParams\022\023.protos.PlayerParam\032\r.protos."
+    "Empty\"\000\0225\n\016SendPlayerType\022\022.protos.Playe"
+    "rType\032\r.protos.Empty\"\000\022\?\n\010Register\022\027.pro"
+    "tos.RegisterRequest\032\030.protos.RegisterRes"
+    "ponse\"\000\022;\n\016SendByeCommand\022\030.protos.Regis"
+    "terResponse\032\r.protos.Empty\"\000\022]\n\024GetBestP"
+    "lannerAction\022 .protos.BestPlannerActionR"
+    "equest\032!.protos.BestPlannerActionRespons"
+    "e\"\000b\006proto3"
 };
 static ::absl::once_flag descriptor_table_service_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_service_2eproto = {
     false,
     false,
-    27013,
+    28851,
     descriptor_table_protodef_service_2eproto,
     "service.proto",
     &descriptor_table_service_2eproto_once,
     nullptr,
     0,
-    128,
+    134,
     schemas,
     file_default_instances,
     TableStruct_service_2eproto::offsets,
@@ -6371,9 +6721,28 @@ bool ViewWidth_IsValid(int value) {
       return false;
   }
 }
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Side_descriptor() {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RpcServerLanguageType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
   return file_level_enum_descriptors_service_2eproto[1];
+}
+bool RpcServerLanguageType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+      return true;
+    default:
+      return false;
+  }
+}
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Side_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
+  return file_level_enum_descriptors_service_2eproto[2];
 }
 bool Side_IsValid(int value) {
   switch (value) {
@@ -6387,7 +6756,7 @@ bool Side_IsValid(int value) {
 }
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LoggerLevel_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
-  return file_level_enum_descriptors_service_2eproto[2];
+  return file_level_enum_descriptors_service_2eproto[3];
 }
 bool LoggerLevel_IsValid(int value) {
   switch (value) {
@@ -6418,9 +6787,23 @@ bool LoggerLevel_IsValid(int value) {
       return false;
   }
 }
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CardType_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
+  return file_level_enum_descriptors_service_2eproto[4];
+}
+bool CardType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* InterceptActionType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
-  return file_level_enum_descriptors_service_2eproto[3];
+  return file_level_enum_descriptors_service_2eproto[5];
 }
 bool InterceptActionType_IsValid(int value) {
   switch (value) {
@@ -6435,7 +6818,7 @@ bool InterceptActionType_IsValid(int value) {
 }
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* GameModeType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
-  return file_level_enum_descriptors_service_2eproto[4];
+  return file_level_enum_descriptors_service_2eproto[6];
 }
 bool GameModeType_IsValid(int value) {
   switch (value) {
@@ -6479,13 +6862,31 @@ bool GameModeType_IsValid(int value) {
 }
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* AgentType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
-  return file_level_enum_descriptors_service_2eproto[5];
+  return file_level_enum_descriptors_service_2eproto[7];
 }
 bool AgentType_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
     case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RpcActionCategory_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
+  return file_level_enum_descriptors_service_2eproto[8];
+}
+bool RpcActionCategory_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
       return true;
     default:
       return false;
@@ -6817,6 +7218,8 @@ RegisterRequest::RegisterRequest(const RegisterRequest& from)
 
     , decltype(_impl_.uniform_number_) {}
 
+    , decltype(_impl_.rpc_version_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -6828,8 +7231,8 @@ RegisterRequest::RegisterRequest(const RegisterRequest& from)
     _this->_impl_.team_name_.Set(from._internal_team_name(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.agent_type_, &from._impl_.agent_type_,
-    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.uniform_number_) -
-    reinterpret_cast<char*>(&_impl_.agent_type_)) + sizeof(_impl_.uniform_number_));
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.rpc_version_) -
+    reinterpret_cast<char*>(&_impl_.agent_type_)) + sizeof(_impl_.rpc_version_));
   // @@protoc_insertion_point(copy_constructor:protos.RegisterRequest)
 }
 
@@ -6841,6 +7244,8 @@ inline void RegisterRequest::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.agent_type_) { 0 }
 
     , decltype(_impl_.uniform_number_) { 0 }
+
+    , decltype(_impl_.rpc_version_) { 0 }
 
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -6876,8 +7281,8 @@ void RegisterRequest::Clear() {
 
   _impl_.team_name_.ClearToEmpty();
   ::memset(&_impl_.agent_type_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.uniform_number_) -
-      reinterpret_cast<char*>(&_impl_.agent_type_)) + sizeof(_impl_.uniform_number_));
+      reinterpret_cast<char*>(&_impl_.rpc_version_) -
+      reinterpret_cast<char*>(&_impl_.agent_type_)) + sizeof(_impl_.rpc_version_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -6912,6 +7317,15 @@ const char* RegisterRequest::_InternalParse(const char* ptr, ::_pbi::ParseContex
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _impl_.uniform_number_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // int32 rpc_version = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
+          _impl_.rpc_version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else {
           goto handle_unusual;
@@ -6968,6 +7382,13 @@ failure:
         3, this->_internal_uniform_number(), target);
   }
 
+  // int32 rpc_version = 4;
+  if (this->_internal_rpc_version() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        4, this->_internal_rpc_version(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -7002,6 +7423,12 @@ failure:
         this->_internal_uniform_number());
   }
 
+  // int32 rpc_version = 4;
+  if (this->_internal_rpc_version() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_rpc_version());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -7029,6 +7456,9 @@ void RegisterRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   if (from._internal_uniform_number() != 0) {
     _this->_internal_set_uniform_number(from._internal_uniform_number());
   }
+  if (from._internal_rpc_version() != 0) {
+    _this->_internal_set_rpc_version(from._internal_rpc_version());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -7051,8 +7481,8 @@ void RegisterRequest::InternalSwap(RegisterRequest* other) {
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.team_name_, lhs_arena,
                                        &other->_impl_.team_name_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RegisterRequest, _impl_.uniform_number_)
-      + sizeof(RegisterRequest::_impl_.uniform_number_)
+      PROTOBUF_FIELD_OFFSET(RegisterRequest, _impl_.rpc_version_)
+      + sizeof(RegisterRequest::_impl_.rpc_version_)
       - PROTOBUF_FIELD_OFFSET(RegisterRequest, _impl_.agent_type_)>(
           reinterpret_cast<char*>(&_impl_.agent_type_),
           reinterpret_cast<char*>(&other->_impl_.agent_type_));
@@ -7086,6 +7516,8 @@ RegisterResponse::RegisterResponse(const RegisterResponse& from)
 
     , decltype(_impl_.uniform_number_) {}
 
+    , decltype(_impl_.rpc_server_language_type_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -7097,8 +7529,8 @@ RegisterResponse::RegisterResponse(const RegisterResponse& from)
     _this->_impl_.team_name_.Set(from._internal_team_name(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.client_id_, &from._impl_.client_id_,
-    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.uniform_number_) -
-    reinterpret_cast<char*>(&_impl_.client_id_)) + sizeof(_impl_.uniform_number_));
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.rpc_server_language_type_) -
+    reinterpret_cast<char*>(&_impl_.client_id_)) + sizeof(_impl_.rpc_server_language_type_));
   // @@protoc_insertion_point(copy_constructor:protos.RegisterResponse)
 }
 
@@ -7112,6 +7544,8 @@ inline void RegisterResponse::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.agent_type_) { 0 }
 
     , decltype(_impl_.uniform_number_) { 0 }
+
+    , decltype(_impl_.rpc_server_language_type_) { 0 }
 
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -7147,8 +7581,8 @@ void RegisterResponse::Clear() {
 
   _impl_.team_name_.ClearToEmpty();
   ::memset(&_impl_.client_id_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.uniform_number_) -
-      reinterpret_cast<char*>(&_impl_.client_id_)) + sizeof(_impl_.uniform_number_));
+      reinterpret_cast<char*>(&_impl_.rpc_server_language_type_) -
+      reinterpret_cast<char*>(&_impl_.client_id_)) + sizeof(_impl_.rpc_server_language_type_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -7193,6 +7627,16 @@ const char* RegisterResponse::_InternalParse(const char* ptr, ::_pbi::ParseConte
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _impl_.uniform_number_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // .protos.RpcServerLanguageType rpc_server_language_type = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+          _internal_set_rpc_server_language_type(static_cast<::protos::RpcServerLanguageType>(val));
         } else {
           goto handle_unusual;
         }
@@ -7255,6 +7699,13 @@ failure:
         4, this->_internal_uniform_number(), target);
   }
 
+  // .protos.RpcServerLanguageType rpc_server_language_type = 5;
+  if (this->_internal_rpc_server_language_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        5, this->_internal_rpc_server_language_type(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -7295,6 +7746,12 @@ failure:
         this->_internal_uniform_number());
   }
 
+  // .protos.RpcServerLanguageType rpc_server_language_type = 5;
+  if (this->_internal_rpc_server_language_type() != 0) {
+    total_size += 1 +
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_rpc_server_language_type());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -7325,6 +7782,9 @@ void RegisterResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const
   if (from._internal_uniform_number() != 0) {
     _this->_internal_set_uniform_number(from._internal_uniform_number());
   }
+  if (from._internal_rpc_server_language_type() != 0) {
+    _this->_internal_set_rpc_server_language_type(from._internal_rpc_server_language_type());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -7347,8 +7807,8 @@ void RegisterResponse::InternalSwap(RegisterResponse* other) {
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.team_name_, lhs_arena,
                                        &other->_impl_.team_name_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RegisterResponse, _impl_.uniform_number_)
-      + sizeof(RegisterResponse::_impl_.uniform_number_)
+      PROTOBUF_FIELD_OFFSET(RegisterResponse, _impl_.rpc_server_language_type_)
+      + sizeof(RegisterResponse::_impl_.rpc_server_language_type_)
       - PROTOBUF_FIELD_OFFSET(RegisterResponse, _impl_.client_id_)>(
           reinterpret_cast<char*>(&_impl_.client_id_),
           reinterpret_cast<char*>(&other->_impl_.client_id_));
@@ -9493,6 +9953,12 @@ Self::Self(const Self& from)
     , decltype(_impl_.type_id_) {}
 
     , decltype(_impl_.kick_rate_) {}
+
+    , decltype(_impl_.recovery_) {}
+
+    , decltype(_impl_.stamina_capacity_) {}
+
+    , decltype(_impl_.card_) {}
   };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -9512,8 +9978,8 @@ Self::Self(const Self& from)
     _this->_impl_.seen_velocity_ = new ::protos::RpcVector2D(*from._impl_.seen_velocity_);
   }
   ::memcpy(&_impl_.pos_count_, &from._impl_.pos_count_,
-    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.kick_rate_) -
-    reinterpret_cast<char*>(&_impl_.pos_count_)) + sizeof(_impl_.kick_rate_));
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.card_) -
+    reinterpret_cast<char*>(&_impl_.pos_count_)) + sizeof(_impl_.card_));
   // @@protoc_insertion_point(copy_constructor:protos.Self)
 }
 
@@ -9589,6 +10055,12 @@ inline void Self::SharedCtor(::_pb::Arena* arena) {
 
     , decltype(_impl_.kick_rate_) { 0 }
 
+    , decltype(_impl_.recovery_) { 0 }
+
+    , decltype(_impl_.stamina_capacity_) { 0 }
+
+    , decltype(_impl_.card_) { 0 }
+
   };
 }
 
@@ -9644,8 +10116,8 @@ void Self::Clear() {
     }
   }
   ::memset(&_impl_.pos_count_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.kick_rate_) -
-      reinterpret_cast<char*>(&_impl_.pos_count_)) + sizeof(_impl_.kick_rate_));
+      reinterpret_cast<char*>(&_impl_.card_) -
+      reinterpret_cast<char*>(&_impl_.pos_count_)) + sizeof(_impl_.card_));
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -9983,6 +10455,34 @@ const char* Self::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
           goto handle_unusual;
         }
         continue;
+      // float recovery = 37;
+      case 37:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 45)) {
+          _impl_.recovery_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // float stamina_capacity = 38;
+      case 38:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 53)) {
+          _impl_.stamina_capacity_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // .protos.CardType card = 39;
+      case 39:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 56)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+          _internal_set_card(static_cast<::protos::CardType>(val));
+        } else {
+          goto handle_unusual;
+        }
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -10310,6 +10810,35 @@ failure:
         36, this->_internal_kick_rate(), target);
   }
 
+  // float recovery = 37;
+  static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
+  float tmp_recovery = this->_internal_recovery();
+  ::uint32_t raw_recovery;
+  memcpy(&raw_recovery, &tmp_recovery, sizeof(tmp_recovery));
+  if (raw_recovery != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        37, this->_internal_recovery(), target);
+  }
+
+  // float stamina_capacity = 38;
+  static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
+  float tmp_stamina_capacity = this->_internal_stamina_capacity();
+  ::uint32_t raw_stamina_capacity;
+  memcpy(&raw_stamina_capacity, &tmp_stamina_capacity, sizeof(tmp_stamina_capacity));
+  if (raw_stamina_capacity != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(
+        38, this->_internal_stamina_capacity(), target);
+  }
+
+  // .protos.CardType card = 39;
+  if (this->_internal_card() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        39, this->_internal_card(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -10579,6 +11108,30 @@ failure:
     total_size += 6;
   }
 
+  // float recovery = 37;
+  static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
+  float tmp_recovery = this->_internal_recovery();
+  ::uint32_t raw_recovery;
+  memcpy(&raw_recovery, &tmp_recovery, sizeof(tmp_recovery));
+  if (raw_recovery != 0) {
+    total_size += 6;
+  }
+
+  // float stamina_capacity = 38;
+  static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
+  float tmp_stamina_capacity = this->_internal_stamina_capacity();
+  ::uint32_t raw_stamina_capacity;
+  memcpy(&raw_stamina_capacity, &tmp_stamina_capacity, sizeof(tmp_stamina_capacity));
+  if (raw_stamina_capacity != 0) {
+    total_size += 6;
+  }
+
+  // .protos.CardType card = 39;
+  if (this->_internal_card() != 0) {
+    total_size += 2 +
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_card());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -10757,6 +11310,23 @@ void Self::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_
   if (raw_kick_rate != 0) {
     _this->_internal_set_kick_rate(from._internal_kick_rate());
   }
+  static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
+  float tmp_recovery = from._internal_recovery();
+  ::uint32_t raw_recovery;
+  memcpy(&raw_recovery, &tmp_recovery, sizeof(tmp_recovery));
+  if (raw_recovery != 0) {
+    _this->_internal_set_recovery(from._internal_recovery());
+  }
+  static_assert(sizeof(::uint32_t) == sizeof(float), "Code assumes ::uint32_t and float are the same size.");
+  float tmp_stamina_capacity = from._internal_stamina_capacity();
+  ::uint32_t raw_stamina_capacity;
+  memcpy(&raw_stamina_capacity, &tmp_stamina_capacity, sizeof(tmp_stamina_capacity));
+  if (raw_stamina_capacity != 0) {
+    _this->_internal_set_stamina_capacity(from._internal_stamina_capacity());
+  }
+  if (from._internal_card() != 0) {
+    _this->_internal_set_card(from._internal_card());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -10776,8 +11346,8 @@ void Self::InternalSwap(Self* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Self, _impl_.kick_rate_)
-      + sizeof(Self::_impl_.kick_rate_)
+      PROTOBUF_FIELD_OFFSET(Self, _impl_.card_)
+      + sizeof(Self::_impl_.card_)
       - PROTOBUF_FIELD_OFFSET(Self, _impl_.position_)>(
           reinterpret_cast<char*>(&_impl_.position_),
           reinterpret_cast<char*>(&other->_impl_.position_));
@@ -11922,6 +12492,14 @@ WorldModel::WorldModel(const WorldModel& from)
     , decltype(_impl_.our_team_score_) {}
 
     , decltype(_impl_.their_team_score_) {}
+
+    , decltype(_impl_.our_defense_line_x_) {}
+
+    , decltype(_impl_.their_defense_line_x_) {}
+
+    , decltype(_impl_.our_defense_player_line_x_) {}
+
+    , decltype(_impl_.their_defense_player_line_x_) {}
   };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -11952,8 +12530,8 @@ WorldModel::WorldModel(const WorldModel& from)
     _this->_impl_.ball_ = new ::protos::Ball(*from._impl_.ball_);
   }
   ::memcpy(&_impl_.our_side_, &from._impl_.our_side_,
-    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.their_team_score_) -
-    reinterpret_cast<char*>(&_impl_.our_side_)) + sizeof(_impl_.their_team_score_));
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.their_defense_player_line_x_) -
+    reinterpret_cast<char*>(&_impl_.our_side_)) + sizeof(_impl_.their_defense_player_line_x_));
   // @@protoc_insertion_point(copy_constructor:protos.WorldModel)
 }
 
@@ -12014,6 +12592,14 @@ inline void WorldModel::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.our_team_score_) { 0 }
 
     , decltype(_impl_.their_team_score_) { 0 }
+
+    , decltype(_impl_.our_defense_line_x_) { 0 }
+
+    , decltype(_impl_.their_defense_line_x_) { 0 }
+
+    , decltype(_impl_.our_defense_player_line_x_) { 0 }
+
+    , decltype(_impl_.their_defense_player_line_x_) { 0 }
 
   };
   _impl_.our_team_name_.InitDefault();
@@ -12084,8 +12670,8 @@ void WorldModel::Clear() {
     }
   }
   ::memset(&_impl_.our_side_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.their_team_score_) -
-      reinterpret_cast<char*>(&_impl_.our_side_)) + sizeof(_impl_.their_team_score_));
+      reinterpret_cast<char*>(&_impl_.their_defense_player_line_x_) -
+      reinterpret_cast<char*>(&_impl_.our_side_)) + sizeof(_impl_.their_defense_player_line_x_));
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -12413,6 +12999,42 @@ const char* WorldModel::_InternalParse(const char* ptr, ::_pbi::ParseContext* ct
           goto handle_unusual;
         }
         continue;
+      // double our_defense_line_x = 32;
+      case 32:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 1)) {
+          _impl_.our_defense_line_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // double their_defense_line_x = 33;
+      case 33:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 9)) {
+          _impl_.their_defense_line_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // double our_defense_player_line_x = 34;
+      case 34:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 17)) {
+          _impl_.our_defense_player_line_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // double their_defense_player_line_x = 35;
+      case 35:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 25)) {
+          _impl_.their_defense_player_line_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -12700,6 +13322,50 @@ failure:
     }
   }
 
+  // double our_defense_line_x = 32;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_our_defense_line_x = this->_internal_our_defense_line_x();
+  ::uint64_t raw_our_defense_line_x;
+  memcpy(&raw_our_defense_line_x, &tmp_our_defense_line_x, sizeof(tmp_our_defense_line_x));
+  if (raw_our_defense_line_x != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        32, this->_internal_our_defense_line_x(), target);
+  }
+
+  // double their_defense_line_x = 33;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_their_defense_line_x = this->_internal_their_defense_line_x();
+  ::uint64_t raw_their_defense_line_x;
+  memcpy(&raw_their_defense_line_x, &tmp_their_defense_line_x, sizeof(tmp_their_defense_line_x));
+  if (raw_their_defense_line_x != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        33, this->_internal_their_defense_line_x(), target);
+  }
+
+  // double our_defense_player_line_x = 34;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_our_defense_player_line_x = this->_internal_our_defense_player_line_x();
+  ::uint64_t raw_our_defense_player_line_x;
+  memcpy(&raw_our_defense_player_line_x, &tmp_our_defense_player_line_x, sizeof(tmp_our_defense_player_line_x));
+  if (raw_our_defense_player_line_x != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        34, this->_internal_our_defense_player_line_x(), target);
+  }
+
+  // double their_defense_player_line_x = 35;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_their_defense_player_line_x = this->_internal_their_defense_player_line_x();
+  ::uint64_t raw_their_defense_player_line_x;
+  memcpy(&raw_their_defense_player_line_x, &tmp_their_defense_player_line_x, sizeof(tmp_their_defense_player_line_x));
+  if (raw_their_defense_player_line_x != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        35, this->_internal_their_defense_player_line_x(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -12920,6 +13586,42 @@ failure:
                                     this->_internal_their_team_score());
   }
 
+  // double our_defense_line_x = 32;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_our_defense_line_x = this->_internal_our_defense_line_x();
+  ::uint64_t raw_our_defense_line_x;
+  memcpy(&raw_our_defense_line_x, &tmp_our_defense_line_x, sizeof(tmp_our_defense_line_x));
+  if (raw_our_defense_line_x != 0) {
+    total_size += 10;
+  }
+
+  // double their_defense_line_x = 33;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_their_defense_line_x = this->_internal_their_defense_line_x();
+  ::uint64_t raw_their_defense_line_x;
+  memcpy(&raw_their_defense_line_x, &tmp_their_defense_line_x, sizeof(tmp_their_defense_line_x));
+  if (raw_their_defense_line_x != 0) {
+    total_size += 10;
+  }
+
+  // double our_defense_player_line_x = 34;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_our_defense_player_line_x = this->_internal_our_defense_player_line_x();
+  ::uint64_t raw_our_defense_player_line_x;
+  memcpy(&raw_our_defense_player_line_x, &tmp_our_defense_player_line_x, sizeof(tmp_our_defense_player_line_x));
+  if (raw_our_defense_player_line_x != 0) {
+    total_size += 10;
+  }
+
+  // double their_defense_player_line_x = 35;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_their_defense_player_line_x = this->_internal_their_defense_player_line_x();
+  ::uint64_t raw_their_defense_player_line_x;
+  memcpy(&raw_their_defense_player_line_x, &tmp_their_defense_player_line_x, sizeof(tmp_their_defense_player_line_x));
+  if (raw_their_defense_player_line_x != 0) {
+    total_size += 10;
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -13029,6 +13731,34 @@ void WorldModel::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PRO
   if (from._internal_their_team_score() != 0) {
     _this->_internal_set_their_team_score(from._internal_their_team_score());
   }
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_our_defense_line_x = from._internal_our_defense_line_x();
+  ::uint64_t raw_our_defense_line_x;
+  memcpy(&raw_our_defense_line_x, &tmp_our_defense_line_x, sizeof(tmp_our_defense_line_x));
+  if (raw_our_defense_line_x != 0) {
+    _this->_internal_set_our_defense_line_x(from._internal_our_defense_line_x());
+  }
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_their_defense_line_x = from._internal_their_defense_line_x();
+  ::uint64_t raw_their_defense_line_x;
+  memcpy(&raw_their_defense_line_x, &tmp_their_defense_line_x, sizeof(tmp_their_defense_line_x));
+  if (raw_their_defense_line_x != 0) {
+    _this->_internal_set_their_defense_line_x(from._internal_their_defense_line_x());
+  }
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_our_defense_player_line_x = from._internal_our_defense_player_line_x();
+  ::uint64_t raw_our_defense_player_line_x;
+  memcpy(&raw_our_defense_player_line_x, &tmp_our_defense_player_line_x, sizeof(tmp_our_defense_player_line_x));
+  if (raw_our_defense_player_line_x != 0) {
+    _this->_internal_set_our_defense_player_line_x(from._internal_our_defense_player_line_x());
+  }
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_their_defense_player_line_x = from._internal_their_defense_player_line_x();
+  ::uint64_t raw_their_defense_player_line_x;
+  memcpy(&raw_their_defense_player_line_x, &tmp_their_defense_player_line_x, sizeof(tmp_their_defense_player_line_x));
+  if (raw_their_defense_player_line_x != 0) {
+    _this->_internal_set_their_defense_player_line_x(from._internal_their_defense_player_line_x());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -13060,8 +13790,8 @@ void WorldModel::InternalSwap(WorldModel* other) {
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.their_team_name_, lhs_arena,
                                        &other->_impl_.their_team_name_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(WorldModel, _impl_.their_team_score_)
-      + sizeof(WorldModel::_impl_.their_team_score_)
+      PROTOBUF_FIELD_OFFSET(WorldModel, _impl_.their_defense_player_line_x_)
+      + sizeof(WorldModel::_impl_.their_defense_player_line_x_)
       - PROTOBUF_FIELD_OFFSET(WorldModel, _impl_.intercept_table_)>(
           reinterpret_cast<char*>(&_impl_.intercept_table_),
           reinterpret_cast<char*>(&other->_impl_.intercept_table_));
@@ -13118,7 +13848,9 @@ State::State(const State& from)
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.register_response_){nullptr}
     , decltype(_impl_.world_model_){nullptr}
-    , decltype(_impl_.full_world_model_){nullptr}};
+    , decltype(_impl_.full_world_model_){nullptr}
+    , decltype(_impl_.need_preprocess_) {}
+  };
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
@@ -13130,6 +13862,7 @@ State::State(const State& from)
   if ((from._impl_._has_bits_[0] & 0x00000004u) != 0) {
     _this->_impl_.full_world_model_ = new ::protos::WorldModel(*from._impl_.full_world_model_);
   }
+  _this->_impl_.need_preprocess_ = from._impl_.need_preprocess_;
   // @@protoc_insertion_point(copy_constructor:protos.State)
 }
 
@@ -13141,6 +13874,8 @@ inline void State::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.register_response_){nullptr}
     , decltype(_impl_.world_model_){nullptr}
     , decltype(_impl_.full_world_model_){nullptr}
+    , decltype(_impl_.need_preprocess_) { false }
+
   };
 }
 
@@ -13185,6 +13920,7 @@ void State::Clear() {
       _impl_.full_world_model_->Clear();
     }
   }
+  _impl_.need_preprocess_ = false;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -13218,6 +13954,15 @@ const char* State::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_full_world_model(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // bool need_preprocess = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
+          _impl_.need_preprocess_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else {
           goto handle_unusual;
@@ -13275,6 +14020,13 @@ failure:
         _Internal::full_world_model(this).GetCachedSize(), target, stream);
   }
 
+  // bool need_preprocess = 4;
+  if (this->_internal_need_preprocess() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        4, this->_internal_need_preprocess(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -13315,6 +14067,11 @@ failure:
     }
 
   }
+  // bool need_preprocess = 4;
+  if (this->_internal_need_preprocess() != 0) {
+    total_size += 2;
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -13348,6 +14105,9 @@ void State::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF
           from._internal_full_world_model());
     }
   }
+  if (from._internal_need_preprocess() != 0) {
+    _this->_internal_set_need_preprocess(from._internal_need_preprocess());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -13367,8 +14127,8 @@ void State::InternalSwap(State* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(State, _impl_.full_world_model_)
-      + sizeof(State::_impl_.full_world_model_)
+      PROTOBUF_FIELD_OFFSET(State, _impl_.need_preprocess_)
+      + sizeof(State::_impl_.need_preprocess_)
       - PROTOBUF_FIELD_OFFSET(State, _impl_.register_response_)>(
           reinterpret_cast<char*>(&_impl_.register_response_),
           reinterpret_cast<char*>(&other->_impl_.register_response_));
@@ -33458,23 +34218,23 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HeliosShoot::GetClassData() co
 }
 // ===================================================================
 
-class HeliosChainAction::_Internal {
+class HeliosOffensivePlanner::_Internal {
  public:
 };
 
-HeliosChainAction::HeliosChainAction(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+HeliosOffensivePlanner::HeliosOffensivePlanner(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:protos.HeliosChainAction)
+  // @@protoc_insertion_point(arena_constructor:protos.HeliosOffensivePlanner)
 }
-HeliosChainAction::HeliosChainAction(const HeliosChainAction& from)
+HeliosOffensivePlanner::HeliosOffensivePlanner(const HeliosOffensivePlanner& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
       from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:protos.HeliosChainAction)
+  // @@protoc_insertion_point(copy_constructor:protos.HeliosOffensivePlanner)
 }
 
-inline void HeliosChainAction::SharedCtor(::_pb::Arena* arena) {
+inline void HeliosOffensivePlanner::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
   new (&_impl_) Impl_{
       decltype(_impl_.direct_pass_) { false }
@@ -33495,12 +34255,14 @@ inline void HeliosChainAction::SharedCtor(::_pb::Arena* arena) {
 
     , decltype(_impl_.simple_shoot_) { false }
 
+    , decltype(_impl_.server_side_decision_) { false }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
 
-HeliosChainAction::~HeliosChainAction() {
-  // @@protoc_insertion_point(destructor:protos.HeliosChainAction)
+HeliosOffensivePlanner::~HeliosOffensivePlanner() {
+  // @@protoc_insertion_point(destructor:protos.HeliosOffensivePlanner)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -33508,27 +34270,27 @@ HeliosChainAction::~HeliosChainAction() {
   SharedDtor();
 }
 
-inline void HeliosChainAction::SharedDtor() {
+inline void HeliosOffensivePlanner::SharedDtor() {
   ABSL_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void HeliosChainAction::SetCachedSize(int size) const {
+void HeliosOffensivePlanner::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void HeliosChainAction::Clear() {
-// @@protoc_insertion_point(message_clear_start:protos.HeliosChainAction)
+void HeliosOffensivePlanner::Clear() {
+// @@protoc_insertion_point(message_clear_start:protos.HeliosOffensivePlanner)
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   ::memset(&_impl_.direct_pass_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.simple_shoot_) -
-      reinterpret_cast<char*>(&_impl_.direct_pass_)) + sizeof(_impl_.simple_shoot_));
+      reinterpret_cast<char*>(&_impl_.server_side_decision_) -
+      reinterpret_cast<char*>(&_impl_.direct_pass_)) + sizeof(_impl_.server_side_decision_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HeliosChainAction::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* HeliosOffensivePlanner::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::uint32_t tag;
@@ -33615,6 +34377,15 @@ const char* HeliosChainAction::_InternalParse(const char* ptr, ::_pbi::ParseCont
           goto handle_unusual;
         }
         continue;
+      // bool server_side_decision = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 80)) {
+          _impl_.server_side_decision_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -33638,9 +34409,9 @@ failure:
 #undef CHK_
 }
 
-::uint8_t* HeliosChainAction::_InternalSerialize(
+::uint8_t* HeliosOffensivePlanner::_InternalSerialize(
     ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:protos.HeliosChainAction)
+  // @@protoc_insertion_point(serialize_to_array_start:protos.HeliosOffensivePlanner)
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -33707,16 +34478,23 @@ failure:
         9, this->_internal_simple_shoot(), target);
   }
 
+  // bool server_side_decision = 10;
+  if (this->_internal_server_side_decision() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        10, this->_internal_server_side_decision(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:protos.HeliosChainAction)
+  // @@protoc_insertion_point(serialize_to_array_end:protos.HeliosOffensivePlanner)
   return target;
 }
 
-::size_t HeliosChainAction::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:protos.HeliosChainAction)
+::size_t HeliosOffensivePlanner::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:protos.HeliosOffensivePlanner)
   ::size_t total_size = 0;
 
   ::uint32_t cached_has_bits = 0;
@@ -33768,20 +34546,25 @@ failure:
     total_size += 2;
   }
 
+  // bool server_side_decision = 10;
+  if (this->_internal_server_side_decision() != 0) {
+    total_size += 2;
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HeliosChainAction::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HeliosOffensivePlanner::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    HeliosChainAction::MergeImpl
+    HeliosOffensivePlanner::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HeliosChainAction::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HeliosOffensivePlanner::GetClassData() const { return &_class_data_; }
 
 
-void HeliosChainAction::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<HeliosChainAction*>(&to_msg);
-  auto& from = static_cast<const HeliosChainAction&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:protos.HeliosChainAction)
+void HeliosOffensivePlanner::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HeliosOffensivePlanner*>(&to_msg);
+  auto& from = static_cast<const HeliosOffensivePlanner&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:protos.HeliosOffensivePlanner)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -33813,32 +34596,35 @@ void HeliosChainAction::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, cons
   if (from._internal_simple_shoot() != 0) {
     _this->_internal_set_simple_shoot(from._internal_simple_shoot());
   }
+  if (from._internal_server_side_decision() != 0) {
+    _this->_internal_set_server_side_decision(from._internal_server_side_decision());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void HeliosChainAction::CopyFrom(const HeliosChainAction& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:protos.HeliosChainAction)
+void HeliosOffensivePlanner::CopyFrom(const HeliosOffensivePlanner& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:protos.HeliosOffensivePlanner)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool HeliosChainAction::IsInitialized() const {
+bool HeliosOffensivePlanner::IsInitialized() const {
   return true;
 }
 
-void HeliosChainAction::InternalSwap(HeliosChainAction* other) {
+void HeliosOffensivePlanner::InternalSwap(HeliosOffensivePlanner* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(HeliosChainAction, _impl_.simple_shoot_)
-      + sizeof(HeliosChainAction::_impl_.simple_shoot_)
-      - PROTOBUF_FIELD_OFFSET(HeliosChainAction, _impl_.direct_pass_)>(
+      PROTOBUF_FIELD_OFFSET(HeliosOffensivePlanner, _impl_.server_side_decision_)
+      + sizeof(HeliosOffensivePlanner::_impl_.server_side_decision_)
+      - PROTOBUF_FIELD_OFFSET(HeliosOffensivePlanner, _impl_.direct_pass_)>(
           reinterpret_cast<char*>(&_impl_.direct_pass_),
           reinterpret_cast<char*>(&other->_impl_.direct_pass_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata HeliosChainAction::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata HeliosOffensivePlanner::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
       file_level_metadata_service_2eproto[103]);
@@ -34097,7 +34883,7 @@ class PlayerAction::_Internal {
   static const ::protos::HeliosGoalieMove& helios_goalie_move(const PlayerAction* msg);
   static const ::protos::HeliosGoalieKick& helios_goalie_kick(const PlayerAction* msg);
   static const ::protos::HeliosShoot& helios_shoot(const PlayerAction* msg);
-  static const ::protos::HeliosChainAction& helios_chain_action(const PlayerAction* msg);
+  static const ::protos::HeliosOffensivePlanner& helios_offensive_planner(const PlayerAction* msg);
   static const ::protos::HeliosBasicOffensive& helios_basic_offensive(const PlayerAction* msg);
   static const ::protos::HeliosBasicMove& helios_basic_move(const PlayerAction* msg);
   static const ::protos::HeliosSetPlay& helios_set_play(const PlayerAction* msg);
@@ -34337,9 +35123,9 @@ const ::protos::HeliosShoot&
 PlayerAction::_Internal::helios_shoot(const PlayerAction* msg) {
   return *msg->_impl_.action_.helios_shoot_;
 }
-const ::protos::HeliosChainAction&
-PlayerAction::_Internal::helios_chain_action(const PlayerAction* msg) {
-  return *msg->_impl_.action_.helios_chain_action_;
+const ::protos::HeliosOffensivePlanner&
+PlayerAction::_Internal::helios_offensive_planner(const PlayerAction* msg) {
+  return *msg->_impl_.action_.helios_offensive_planner_;
 }
 const ::protos::HeliosBasicOffensive&
 PlayerAction::_Internal::helios_basic_offensive(const PlayerAction* msg) {
@@ -35231,20 +36017,20 @@ void PlayerAction::set_allocated_helios_shoot(::protos::HeliosShoot* helios_shoo
   }
   // @@protoc_insertion_point(field_set_allocated:protos.PlayerAction.helios_shoot)
 }
-void PlayerAction::set_allocated_helios_chain_action(::protos::HeliosChainAction* helios_chain_action) {
+void PlayerAction::set_allocated_helios_offensive_planner(::protos::HeliosOffensivePlanner* helios_offensive_planner) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_action();
-  if (helios_chain_action) {
+  if (helios_offensive_planner) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(helios_chain_action);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(helios_offensive_planner);
     if (message_arena != submessage_arena) {
-      helios_chain_action = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, helios_chain_action, submessage_arena);
+      helios_offensive_planner = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, helios_offensive_planner, submessage_arena);
     }
-    set_has_helios_chain_action();
-    _impl_.action_.helios_chain_action_ = helios_chain_action;
+    set_has_helios_offensive_planner();
+    _impl_.action_.helios_offensive_planner_ = helios_offensive_planner;
   }
-  // @@protoc_insertion_point(field_set_allocated:protos.PlayerAction.helios_chain_action)
+  // @@protoc_insertion_point(field_set_allocated:protos.PlayerAction.helios_offensive_planner)
 }
 void PlayerAction::set_allocated_helios_basic_offensive(::protos::HeliosBasicOffensive* helios_basic_offensive) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
@@ -35627,9 +36413,9 @@ PlayerAction::PlayerAction(const PlayerAction& from)
           from._internal_helios_shoot());
       break;
     }
-    case kHeliosChainAction: {
-      _this->_internal_mutable_helios_chain_action()->::protos::HeliosChainAction::MergeFrom(
-          from._internal_helios_chain_action());
+    case kHeliosOffensivePlanner: {
+      _this->_internal_mutable_helios_offensive_planner()->::protos::HeliosOffensivePlanner::MergeFrom(
+          from._internal_helios_offensive_planner());
       break;
     }
     case kHeliosBasicOffensive: {
@@ -36045,9 +36831,9 @@ void PlayerAction::clear_action() {
       }
       break;
     }
-    case kHeliosChainAction: {
+    case kHeliosOffensivePlanner: {
       if (GetArenaForAllocation() == nullptr) {
-        delete _impl_.action_.helios_chain_action_;
+        delete _impl_.action_.helios_offensive_planner_;
       }
       break;
     }
@@ -36627,10 +37413,10 @@ const char* PlayerAction::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
           goto handle_unusual;
         }
         continue;
-      // .protos.HeliosChainAction helios_chain_action = 59;
+      // .protos.HeliosOffensivePlanner helios_offensive_planner = 59;
       case 59:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 218)) {
-          ptr = ctx->ParseMessage(_internal_mutable_helios_chain_action(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_helios_offensive_planner(), ptr);
           CHK_(ptr);
         } else {
           goto handle_unusual;
@@ -37059,10 +37845,10 @@ failure:
           _Internal::helios_shoot(this).GetCachedSize(), target, stream);
       break;
     }
-    case kHeliosChainAction: {
+    case kHeliosOffensivePlanner: {
       target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(59, _Internal::helios_chain_action(this),
-          _Internal::helios_chain_action(this).GetCachedSize(), target, stream);
+        InternalWriteMessage(59, _Internal::helios_offensive_planner(this),
+          _Internal::helios_offensive_planner(this).GetCachedSize(), target, stream);
       break;
     }
     case kHeliosBasicOffensive: {
@@ -37520,11 +38306,11 @@ failure:
           *_impl_.action_.helios_shoot_);
       break;
     }
-    // .protos.HeliosChainAction helios_chain_action = 59;
-    case kHeliosChainAction: {
+    // .protos.HeliosOffensivePlanner helios_offensive_planner = 59;
+    case kHeliosOffensivePlanner: {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *_impl_.action_.helios_chain_action_);
+          *_impl_.action_.helios_offensive_planner_);
       break;
     }
     // .protos.HeliosBasicOffensive helios_basic_offensive = 60;
@@ -37875,9 +38661,9 @@ void PlayerAction::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::P
           from._internal_helios_shoot());
       break;
     }
-    case kHeliosChainAction: {
-      _this->_internal_mutable_helios_chain_action()->::protos::HeliosChainAction::MergeFrom(
-          from._internal_helios_chain_action());
+    case kHeliosOffensivePlanner: {
+      _this->_internal_mutable_helios_offensive_planner()->::protos::HeliosOffensivePlanner::MergeFrom(
+          from._internal_helios_offensive_planner());
       break;
     }
     case kHeliosBasicOffensive: {
@@ -37951,9 +38737,12 @@ PlayerActions::PlayerActions(const PlayerActions& from)
   PlayerActions* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.actions_){from._impl_.actions_}
+    , decltype(_impl_.ignore_preprocess_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.ignore_preprocess_ = from._impl_.ignore_preprocess_;
   // @@protoc_insertion_point(copy_constructor:protos.PlayerActions)
 }
 
@@ -37961,6 +38750,8 @@ inline void PlayerActions::SharedCtor(::_pb::Arena* arena) {
   (void)arena;
   new (&_impl_) Impl_{
       decltype(_impl_.actions_){arena}
+    , decltype(_impl_.ignore_preprocess_) { false }
+
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -37990,6 +38781,7 @@ void PlayerActions::Clear() {
   (void) cached_has_bits;
 
   _internal_mutable_actions()->Clear();
+  _impl_.ignore_preprocess_ = false;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -38009,6 +38801,15 @@ const char* PlayerActions::_InternalParse(const char* ptr, ::_pbi::ParseContext*
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // bool ignore_preprocess = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          _impl_.ignore_preprocess_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else {
           goto handle_unusual;
         }
@@ -38050,6 +38851,13 @@ failure:
         InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // bool ignore_preprocess = 2;
+  if (this->_internal_ignore_preprocess() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        2, this->_internal_ignore_preprocess(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -38073,6 +38881,11 @@ failure:
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // bool ignore_preprocess = 2;
+  if (this->_internal_ignore_preprocess() != 0) {
+    total_size += 2;
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -38092,6 +38905,9 @@ void PlayerActions::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::
   (void) cached_has_bits;
 
   _this->_internal_mutable_actions()->MergeFrom(from._internal_actions());
+  if (from._internal_ignore_preprocess() != 0) {
+    _this->_internal_set_ignore_preprocess(from._internal_ignore_preprocess());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -38110,6 +38926,8 @@ void PlayerActions::InternalSwap(PlayerActions* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _internal_mutable_actions()->InternalSwap(other->_internal_mutable_actions());
+
+  swap(_impl_.ignore_preprocess_, other->_impl_.ignore_preprocess_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PlayerActions::GetMetadata() const {
@@ -51656,6 +52474,1927 @@ void PlayerType::InternalSwap(PlayerType* other) {
 }
 // ===================================================================
 
+class RpcCooperativeAction::_Internal {
+ public:
+  using HasBits = decltype(std::declval<RpcCooperativeAction>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(RpcCooperativeAction, _impl_._has_bits_);
+  static const ::protos::RpcVector2D& target_point(const RpcCooperativeAction* msg);
+  static void set_has_target_point(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+const ::protos::RpcVector2D&
+RpcCooperativeAction::_Internal::target_point(const RpcCooperativeAction* msg) {
+  return *msg->_impl_.target_point_;
+}
+RpcCooperativeAction::RpcCooperativeAction(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:protos.RpcCooperativeAction)
+}
+RpcCooperativeAction::RpcCooperativeAction(const RpcCooperativeAction& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  RpcCooperativeAction* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.description_) {}
+
+    , decltype(_impl_.target_point_){nullptr}
+    , decltype(_impl_.category_) {}
+
+    , decltype(_impl_.index_) {}
+
+    , decltype(_impl_.sender_unum_) {}
+
+    , decltype(_impl_.target_unum_) {}
+
+    , decltype(_impl_.first_ball_speed_) {}
+
+    , decltype(_impl_.first_turn_moment_) {}
+
+    , decltype(_impl_.first_dash_power_) {}
+
+    , decltype(_impl_.first_dash_angle_relative_) {}
+
+    , decltype(_impl_.duration_step_) {}
+
+    , decltype(_impl_.kick_count_) {}
+
+    , decltype(_impl_.turn_count_) {}
+
+    , decltype(_impl_.dash_count_) {}
+
+    , decltype(_impl_.final_action_) {}
+
+    , decltype(_impl_.parent_index_) {}
+  };
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.description_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.description_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_description().empty()) {
+    _this->_impl_.description_.Set(from._internal_description(), _this->GetArenaForAllocation());
+  }
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.target_point_ = new ::protos::RpcVector2D(*from._impl_.target_point_);
+  }
+  ::memcpy(&_impl_.category_, &from._impl_.category_,
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.parent_index_) -
+    reinterpret_cast<char*>(&_impl_.category_)) + sizeof(_impl_.parent_index_));
+  // @@protoc_insertion_point(copy_constructor:protos.RpcCooperativeAction)
+}
+
+inline void RpcCooperativeAction::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.description_) {}
+
+    , decltype(_impl_.target_point_){nullptr}
+    , decltype(_impl_.category_) { 0 }
+
+    , decltype(_impl_.index_) { 0 }
+
+    , decltype(_impl_.sender_unum_) { 0 }
+
+    , decltype(_impl_.target_unum_) { 0 }
+
+    , decltype(_impl_.first_ball_speed_) { 0 }
+
+    , decltype(_impl_.first_turn_moment_) { 0 }
+
+    , decltype(_impl_.first_dash_power_) { 0 }
+
+    , decltype(_impl_.first_dash_angle_relative_) { 0 }
+
+    , decltype(_impl_.duration_step_) { 0 }
+
+    , decltype(_impl_.kick_count_) { 0 }
+
+    , decltype(_impl_.turn_count_) { 0 }
+
+    , decltype(_impl_.dash_count_) { 0 }
+
+    , decltype(_impl_.final_action_) { false }
+
+    , decltype(_impl_.parent_index_) { 0 }
+
+  };
+  _impl_.description_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.description_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+RpcCooperativeAction::~RpcCooperativeAction() {
+  // @@protoc_insertion_point(destructor:protos.RpcCooperativeAction)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void RpcCooperativeAction::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.description_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.target_point_;
+}
+
+void RpcCooperativeAction::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void RpcCooperativeAction::Clear() {
+// @@protoc_insertion_point(message_clear_start:protos.RpcCooperativeAction)
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.description_.ClearToEmpty();
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.target_point_ != nullptr);
+    _impl_.target_point_->Clear();
+  }
+  ::memset(&_impl_.category_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.parent_index_) -
+      reinterpret_cast<char*>(&_impl_.category_)) + sizeof(_impl_.parent_index_));
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* RpcCooperativeAction::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .protos.RpcActionCategory category = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+          _internal_set_category(static_cast<::protos::RpcActionCategory>(val));
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // int32 index = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          _impl_.index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // int32 sender_unum = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
+          _impl_.sender_unum_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // int32 target_unum = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
+          _impl_.target_unum_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // .protos.RpcVector2D target_point = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_target_point(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // double first_ball_speed = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 49)) {
+          _impl_.first_ball_speed_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // double first_turn_moment = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 57)) {
+          _impl_.first_turn_moment_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // double first_dash_power = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 65)) {
+          _impl_.first_dash_power_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // double first_dash_angle_relative = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 73)) {
+          _impl_.first_dash_angle_relative_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // int32 duration_step = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 80)) {
+          _impl_.duration_step_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // int32 kick_count = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 88)) {
+          _impl_.kick_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // int32 turn_count = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 96)) {
+          _impl_.turn_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // int32 dash_count = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 104)) {
+          _impl_.dash_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // bool final_action = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 112)) {
+          _impl_.final_action_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // string description = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 122)) {
+          auto str = _internal_mutable_description();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "protos.RpcCooperativeAction.description"));
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // int32 parent_index = 16;
+      case 16:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 128)) {
+          _impl_.parent_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+::uint8_t* RpcCooperativeAction::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:protos.RpcCooperativeAction)
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .protos.RpcActionCategory category = 1;
+  if (this->_internal_category() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        1, this->_internal_category(), target);
+  }
+
+  // int32 index = 2;
+  if (this->_internal_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_index(), target);
+  }
+
+  // int32 sender_unum = 3;
+  if (this->_internal_sender_unum() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        3, this->_internal_sender_unum(), target);
+  }
+
+  // int32 target_unum = 4;
+  if (this->_internal_target_unum() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        4, this->_internal_target_unum(), target);
+  }
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // .protos.RpcVector2D target_point = 5;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(5, _Internal::target_point(this),
+        _Internal::target_point(this).GetCachedSize(), target, stream);
+  }
+
+  // double first_ball_speed = 6;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_first_ball_speed = this->_internal_first_ball_speed();
+  ::uint64_t raw_first_ball_speed;
+  memcpy(&raw_first_ball_speed, &tmp_first_ball_speed, sizeof(tmp_first_ball_speed));
+  if (raw_first_ball_speed != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        6, this->_internal_first_ball_speed(), target);
+  }
+
+  // double first_turn_moment = 7;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_first_turn_moment = this->_internal_first_turn_moment();
+  ::uint64_t raw_first_turn_moment;
+  memcpy(&raw_first_turn_moment, &tmp_first_turn_moment, sizeof(tmp_first_turn_moment));
+  if (raw_first_turn_moment != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        7, this->_internal_first_turn_moment(), target);
+  }
+
+  // double first_dash_power = 8;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_first_dash_power = this->_internal_first_dash_power();
+  ::uint64_t raw_first_dash_power;
+  memcpy(&raw_first_dash_power, &tmp_first_dash_power, sizeof(tmp_first_dash_power));
+  if (raw_first_dash_power != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        8, this->_internal_first_dash_power(), target);
+  }
+
+  // double first_dash_angle_relative = 9;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_first_dash_angle_relative = this->_internal_first_dash_angle_relative();
+  ::uint64_t raw_first_dash_angle_relative;
+  memcpy(&raw_first_dash_angle_relative, &tmp_first_dash_angle_relative, sizeof(tmp_first_dash_angle_relative));
+  if (raw_first_dash_angle_relative != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        9, this->_internal_first_dash_angle_relative(), target);
+  }
+
+  // int32 duration_step = 10;
+  if (this->_internal_duration_step() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        10, this->_internal_duration_step(), target);
+  }
+
+  // int32 kick_count = 11;
+  if (this->_internal_kick_count() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        11, this->_internal_kick_count(), target);
+  }
+
+  // int32 turn_count = 12;
+  if (this->_internal_turn_count() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        12, this->_internal_turn_count(), target);
+  }
+
+  // int32 dash_count = 13;
+  if (this->_internal_dash_count() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        13, this->_internal_dash_count(), target);
+  }
+
+  // bool final_action = 14;
+  if (this->_internal_final_action() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        14, this->_internal_final_action(), target);
+  }
+
+  // string description = 15;
+  if (!this->_internal_description().empty()) {
+    const std::string& _s = this->_internal_description();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "protos.RpcCooperativeAction.description");
+    target = stream->WriteStringMaybeAliased(15, _s, target);
+  }
+
+  // int32 parent_index = 16;
+  if (this->_internal_parent_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        16, this->_internal_parent_index(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:protos.RpcCooperativeAction)
+  return target;
+}
+
+::size_t RpcCooperativeAction::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:protos.RpcCooperativeAction)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string description = 15;
+  if (!this->_internal_description().empty()) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_description());
+  }
+
+  // .protos.RpcVector2D target_point = 5;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.target_point_);
+  }
+
+  // .protos.RpcActionCategory category = 1;
+  if (this->_internal_category() != 0) {
+    total_size += 1 +
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_category());
+  }
+
+  // int32 index = 2;
+  if (this->_internal_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_index());
+  }
+
+  // int32 sender_unum = 3;
+  if (this->_internal_sender_unum() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_sender_unum());
+  }
+
+  // int32 target_unum = 4;
+  if (this->_internal_target_unum() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_target_unum());
+  }
+
+  // double first_ball_speed = 6;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_first_ball_speed = this->_internal_first_ball_speed();
+  ::uint64_t raw_first_ball_speed;
+  memcpy(&raw_first_ball_speed, &tmp_first_ball_speed, sizeof(tmp_first_ball_speed));
+  if (raw_first_ball_speed != 0) {
+    total_size += 9;
+  }
+
+  // double first_turn_moment = 7;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_first_turn_moment = this->_internal_first_turn_moment();
+  ::uint64_t raw_first_turn_moment;
+  memcpy(&raw_first_turn_moment, &tmp_first_turn_moment, sizeof(tmp_first_turn_moment));
+  if (raw_first_turn_moment != 0) {
+    total_size += 9;
+  }
+
+  // double first_dash_power = 8;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_first_dash_power = this->_internal_first_dash_power();
+  ::uint64_t raw_first_dash_power;
+  memcpy(&raw_first_dash_power, &tmp_first_dash_power, sizeof(tmp_first_dash_power));
+  if (raw_first_dash_power != 0) {
+    total_size += 9;
+  }
+
+  // double first_dash_angle_relative = 9;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_first_dash_angle_relative = this->_internal_first_dash_angle_relative();
+  ::uint64_t raw_first_dash_angle_relative;
+  memcpy(&raw_first_dash_angle_relative, &tmp_first_dash_angle_relative, sizeof(tmp_first_dash_angle_relative));
+  if (raw_first_dash_angle_relative != 0) {
+    total_size += 9;
+  }
+
+  // int32 duration_step = 10;
+  if (this->_internal_duration_step() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_duration_step());
+  }
+
+  // int32 kick_count = 11;
+  if (this->_internal_kick_count() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_kick_count());
+  }
+
+  // int32 turn_count = 12;
+  if (this->_internal_turn_count() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_turn_count());
+  }
+
+  // int32 dash_count = 13;
+  if (this->_internal_dash_count() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_dash_count());
+  }
+
+  // bool final_action = 14;
+  if (this->_internal_final_action() != 0) {
+    total_size += 2;
+  }
+
+  // int32 parent_index = 16;
+  if (this->_internal_parent_index() != 0) {
+    total_size += 2 + ::_pbi::WireFormatLite::Int32Size(
+                                    this->_internal_parent_index());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RpcCooperativeAction::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    RpcCooperativeAction::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RpcCooperativeAction::GetClassData() const { return &_class_data_; }
+
+
+void RpcCooperativeAction::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RpcCooperativeAction*>(&to_msg);
+  auto& from = static_cast<const RpcCooperativeAction&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:protos.RpcCooperativeAction)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_description().empty()) {
+    _this->_internal_set_description(from._internal_description());
+  }
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_mutable_target_point()->::protos::RpcVector2D::MergeFrom(
+        from._internal_target_point());
+  }
+  if (from._internal_category() != 0) {
+    _this->_internal_set_category(from._internal_category());
+  }
+  if (from._internal_index() != 0) {
+    _this->_internal_set_index(from._internal_index());
+  }
+  if (from._internal_sender_unum() != 0) {
+    _this->_internal_set_sender_unum(from._internal_sender_unum());
+  }
+  if (from._internal_target_unum() != 0) {
+    _this->_internal_set_target_unum(from._internal_target_unum());
+  }
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_first_ball_speed = from._internal_first_ball_speed();
+  ::uint64_t raw_first_ball_speed;
+  memcpy(&raw_first_ball_speed, &tmp_first_ball_speed, sizeof(tmp_first_ball_speed));
+  if (raw_first_ball_speed != 0) {
+    _this->_internal_set_first_ball_speed(from._internal_first_ball_speed());
+  }
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_first_turn_moment = from._internal_first_turn_moment();
+  ::uint64_t raw_first_turn_moment;
+  memcpy(&raw_first_turn_moment, &tmp_first_turn_moment, sizeof(tmp_first_turn_moment));
+  if (raw_first_turn_moment != 0) {
+    _this->_internal_set_first_turn_moment(from._internal_first_turn_moment());
+  }
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_first_dash_power = from._internal_first_dash_power();
+  ::uint64_t raw_first_dash_power;
+  memcpy(&raw_first_dash_power, &tmp_first_dash_power, sizeof(tmp_first_dash_power));
+  if (raw_first_dash_power != 0) {
+    _this->_internal_set_first_dash_power(from._internal_first_dash_power());
+  }
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_first_dash_angle_relative = from._internal_first_dash_angle_relative();
+  ::uint64_t raw_first_dash_angle_relative;
+  memcpy(&raw_first_dash_angle_relative, &tmp_first_dash_angle_relative, sizeof(tmp_first_dash_angle_relative));
+  if (raw_first_dash_angle_relative != 0) {
+    _this->_internal_set_first_dash_angle_relative(from._internal_first_dash_angle_relative());
+  }
+  if (from._internal_duration_step() != 0) {
+    _this->_internal_set_duration_step(from._internal_duration_step());
+  }
+  if (from._internal_kick_count() != 0) {
+    _this->_internal_set_kick_count(from._internal_kick_count());
+  }
+  if (from._internal_turn_count() != 0) {
+    _this->_internal_set_turn_count(from._internal_turn_count());
+  }
+  if (from._internal_dash_count() != 0) {
+    _this->_internal_set_dash_count(from._internal_dash_count());
+  }
+  if (from._internal_final_action() != 0) {
+    _this->_internal_set_final_action(from._internal_final_action());
+  }
+  if (from._internal_parent_index() != 0) {
+    _this->_internal_set_parent_index(from._internal_parent_index());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void RpcCooperativeAction::CopyFrom(const RpcCooperativeAction& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:protos.RpcCooperativeAction)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RpcCooperativeAction::IsInitialized() const {
+  return true;
+}
+
+void RpcCooperativeAction::InternalSwap(RpcCooperativeAction* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.description_, lhs_arena,
+                                       &other->_impl_.description_, rhs_arena);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(RpcCooperativeAction, _impl_.parent_index_)
+      + sizeof(RpcCooperativeAction::_impl_.parent_index_)
+      - PROTOBUF_FIELD_OFFSET(RpcCooperativeAction, _impl_.target_point_)>(
+          reinterpret_cast<char*>(&_impl_.target_point_),
+          reinterpret_cast<char*>(&other->_impl_.target_point_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RpcCooperativeAction::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
+      file_level_metadata_service_2eproto[127]);
+}
+// ===================================================================
+
+class RpcPredictState::_Internal {
+ public:
+  using HasBits = decltype(std::declval<RpcPredictState>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(RpcPredictState, _impl_._has_bits_);
+  static const ::protos::RpcVector2D& ball_position(const RpcPredictState* msg);
+  static void set_has_ball_position(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static const ::protos::RpcVector2D& ball_velocity(const RpcPredictState* msg);
+  static void set_has_ball_velocity(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+const ::protos::RpcVector2D&
+RpcPredictState::_Internal::ball_position(const RpcPredictState* msg) {
+  return *msg->_impl_.ball_position_;
+}
+const ::protos::RpcVector2D&
+RpcPredictState::_Internal::ball_velocity(const RpcPredictState* msg) {
+  return *msg->_impl_.ball_velocity_;
+}
+RpcPredictState::RpcPredictState(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:protos.RpcPredictState)
+}
+RpcPredictState::RpcPredictState(const RpcPredictState& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  RpcPredictState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ball_position_){nullptr}
+    , decltype(_impl_.ball_velocity_){nullptr}
+    , decltype(_impl_.spend_time_) {}
+
+    , decltype(_impl_.ball_holder_unum_) {}
+
+    , decltype(_impl_.our_defense_line_x_) {}
+
+    , decltype(_impl_.our_offense_line_x_) {}
+  };
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.ball_position_ = new ::protos::RpcVector2D(*from._impl_.ball_position_);
+  }
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.ball_velocity_ = new ::protos::RpcVector2D(*from._impl_.ball_velocity_);
+  }
+  ::memcpy(&_impl_.spend_time_, &from._impl_.spend_time_,
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.our_offense_line_x_) -
+    reinterpret_cast<char*>(&_impl_.spend_time_)) + sizeof(_impl_.our_offense_line_x_));
+  // @@protoc_insertion_point(copy_constructor:protos.RpcPredictState)
+}
+
+inline void RpcPredictState::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ball_position_){nullptr}
+    , decltype(_impl_.ball_velocity_){nullptr}
+    , decltype(_impl_.spend_time_) { 0 }
+
+    , decltype(_impl_.ball_holder_unum_) { 0 }
+
+    , decltype(_impl_.our_defense_line_x_) { 0 }
+
+    , decltype(_impl_.our_offense_line_x_) { 0 }
+
+  };
+}
+
+RpcPredictState::~RpcPredictState() {
+  // @@protoc_insertion_point(destructor:protos.RpcPredictState)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void RpcPredictState::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.ball_position_;
+  if (this != internal_default_instance()) delete _impl_.ball_velocity_;
+}
+
+void RpcPredictState::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void RpcPredictState::Clear() {
+// @@protoc_insertion_point(message_clear_start:protos.RpcPredictState)
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      ABSL_DCHECK(_impl_.ball_position_ != nullptr);
+      _impl_.ball_position_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      ABSL_DCHECK(_impl_.ball_velocity_ != nullptr);
+      _impl_.ball_velocity_->Clear();
+    }
+  }
+  ::memset(&_impl_.spend_time_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.our_offense_line_x_) -
+      reinterpret_cast<char*>(&_impl_.spend_time_)) + sizeof(_impl_.our_offense_line_x_));
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* RpcPredictState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 spend_time = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          _impl_.spend_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // int32 ball_holder_unum = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          _impl_.ball_holder_unum_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // .protos.RpcVector2D ball_position = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_ball_position(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // .protos.RpcVector2D ball_velocity = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_ball_velocity(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // double our_defense_line_x = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 41)) {
+          _impl_.our_defense_line_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // double our_offense_line_x = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 49)) {
+          _impl_.our_offense_line_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+::uint8_t* RpcPredictState::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:protos.RpcPredictState)
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 spend_time = 1;
+  if (this->_internal_spend_time() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_spend_time(), target);
+  }
+
+  // int32 ball_holder_unum = 2;
+  if (this->_internal_ball_holder_unum() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        2, this->_internal_ball_holder_unum(), target);
+  }
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // .protos.RpcVector2D ball_position = 3;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::ball_position(this),
+        _Internal::ball_position(this).GetCachedSize(), target, stream);
+  }
+
+  // .protos.RpcVector2D ball_velocity = 4;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(4, _Internal::ball_velocity(this),
+        _Internal::ball_velocity(this).GetCachedSize(), target, stream);
+  }
+
+  // double our_defense_line_x = 5;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_our_defense_line_x = this->_internal_our_defense_line_x();
+  ::uint64_t raw_our_defense_line_x;
+  memcpy(&raw_our_defense_line_x, &tmp_our_defense_line_x, sizeof(tmp_our_defense_line_x));
+  if (raw_our_defense_line_x != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        5, this->_internal_our_defense_line_x(), target);
+  }
+
+  // double our_offense_line_x = 6;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_our_offense_line_x = this->_internal_our_offense_line_x();
+  ::uint64_t raw_our_offense_line_x;
+  memcpy(&raw_our_offense_line_x, &tmp_our_offense_line_x, sizeof(tmp_our_offense_line_x));
+  if (raw_our_offense_line_x != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        6, this->_internal_our_offense_line_x(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:protos.RpcPredictState)
+  return target;
+}
+
+::size_t RpcPredictState::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:protos.RpcPredictState)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // .protos.RpcVector2D ball_position = 3;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.ball_position_);
+    }
+
+    // .protos.RpcVector2D ball_velocity = 4;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.ball_velocity_);
+    }
+
+  }
+  // int32 spend_time = 1;
+  if (this->_internal_spend_time() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_spend_time());
+  }
+
+  // int32 ball_holder_unum = 2;
+  if (this->_internal_ball_holder_unum() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_ball_holder_unum());
+  }
+
+  // double our_defense_line_x = 5;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_our_defense_line_x = this->_internal_our_defense_line_x();
+  ::uint64_t raw_our_defense_line_x;
+  memcpy(&raw_our_defense_line_x, &tmp_our_defense_line_x, sizeof(tmp_our_defense_line_x));
+  if (raw_our_defense_line_x != 0) {
+    total_size += 9;
+  }
+
+  // double our_offense_line_x = 6;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_our_offense_line_x = this->_internal_our_offense_line_x();
+  ::uint64_t raw_our_offense_line_x;
+  memcpy(&raw_our_offense_line_x, &tmp_our_offense_line_x, sizeof(tmp_our_offense_line_x));
+  if (raw_our_offense_line_x != 0) {
+    total_size += 9;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RpcPredictState::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    RpcPredictState::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RpcPredictState::GetClassData() const { return &_class_data_; }
+
+
+void RpcPredictState::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RpcPredictState*>(&to_msg);
+  auto& from = static_cast<const RpcPredictState&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:protos.RpcPredictState)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_mutable_ball_position()->::protos::RpcVector2D::MergeFrom(
+          from._internal_ball_position());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_internal_mutable_ball_velocity()->::protos::RpcVector2D::MergeFrom(
+          from._internal_ball_velocity());
+    }
+  }
+  if (from._internal_spend_time() != 0) {
+    _this->_internal_set_spend_time(from._internal_spend_time());
+  }
+  if (from._internal_ball_holder_unum() != 0) {
+    _this->_internal_set_ball_holder_unum(from._internal_ball_holder_unum());
+  }
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_our_defense_line_x = from._internal_our_defense_line_x();
+  ::uint64_t raw_our_defense_line_x;
+  memcpy(&raw_our_defense_line_x, &tmp_our_defense_line_x, sizeof(tmp_our_defense_line_x));
+  if (raw_our_defense_line_x != 0) {
+    _this->_internal_set_our_defense_line_x(from._internal_our_defense_line_x());
+  }
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_our_offense_line_x = from._internal_our_offense_line_x();
+  ::uint64_t raw_our_offense_line_x;
+  memcpy(&raw_our_offense_line_x, &tmp_our_offense_line_x, sizeof(tmp_our_offense_line_x));
+  if (raw_our_offense_line_x != 0) {
+    _this->_internal_set_our_offense_line_x(from._internal_our_offense_line_x());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void RpcPredictState::CopyFrom(const RpcPredictState& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:protos.RpcPredictState)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RpcPredictState::IsInitialized() const {
+  return true;
+}
+
+void RpcPredictState::InternalSwap(RpcPredictState* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(RpcPredictState, _impl_.our_offense_line_x_)
+      + sizeof(RpcPredictState::_impl_.our_offense_line_x_)
+      - PROTOBUF_FIELD_OFFSET(RpcPredictState, _impl_.ball_position_)>(
+          reinterpret_cast<char*>(&_impl_.ball_position_),
+          reinterpret_cast<char*>(&other->_impl_.ball_position_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RpcPredictState::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
+      file_level_metadata_service_2eproto[128]);
+}
+// ===================================================================
+
+class RpcActionState::_Internal {
+ public:
+  using HasBits = decltype(std::declval<RpcActionState>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(RpcActionState, _impl_._has_bits_);
+  static const ::protos::RpcCooperativeAction& action(const RpcActionState* msg);
+  static void set_has_action(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static const ::protos::RpcPredictState& predict_state(const RpcActionState* msg);
+  static void set_has_predict_state(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+const ::protos::RpcCooperativeAction&
+RpcActionState::_Internal::action(const RpcActionState* msg) {
+  return *msg->_impl_.action_;
+}
+const ::protos::RpcPredictState&
+RpcActionState::_Internal::predict_state(const RpcActionState* msg) {
+  return *msg->_impl_.predict_state_;
+}
+RpcActionState::RpcActionState(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:protos.RpcActionState)
+}
+RpcActionState::RpcActionState(const RpcActionState& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  RpcActionState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.action_){nullptr}
+    , decltype(_impl_.predict_state_){nullptr}
+    , decltype(_impl_.evaluation_) {}
+  };
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.action_ = new ::protos::RpcCooperativeAction(*from._impl_.action_);
+  }
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.predict_state_ = new ::protos::RpcPredictState(*from._impl_.predict_state_);
+  }
+  _this->_impl_.evaluation_ = from._impl_.evaluation_;
+  // @@protoc_insertion_point(copy_constructor:protos.RpcActionState)
+}
+
+inline void RpcActionState::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.action_){nullptr}
+    , decltype(_impl_.predict_state_){nullptr}
+    , decltype(_impl_.evaluation_) { 0 }
+
+  };
+}
+
+RpcActionState::~RpcActionState() {
+  // @@protoc_insertion_point(destructor:protos.RpcActionState)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void RpcActionState::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.action_;
+  if (this != internal_default_instance()) delete _impl_.predict_state_;
+}
+
+void RpcActionState::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void RpcActionState::Clear() {
+// @@protoc_insertion_point(message_clear_start:protos.RpcActionState)
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      ABSL_DCHECK(_impl_.action_ != nullptr);
+      _impl_.action_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      ABSL_DCHECK(_impl_.predict_state_ != nullptr);
+      _impl_.predict_state_->Clear();
+    }
+  }
+  _impl_.evaluation_ = 0;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* RpcActionState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .protos.RpcCooperativeAction action = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_action(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // .protos.RpcPredictState predict_state = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_predict_state(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // double evaluation = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 25)) {
+          _impl_.evaluation_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+::uint8_t* RpcActionState::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:protos.RpcActionState)
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // .protos.RpcCooperativeAction action = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::action(this),
+        _Internal::action(this).GetCachedSize(), target, stream);
+  }
+
+  // .protos.RpcPredictState predict_state = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::predict_state(this),
+        _Internal::predict_state(this).GetCachedSize(), target, stream);
+  }
+
+  // double evaluation = 3;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_evaluation = this->_internal_evaluation();
+  ::uint64_t raw_evaluation;
+  memcpy(&raw_evaluation, &tmp_evaluation, sizeof(tmp_evaluation));
+  if (raw_evaluation != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+        3, this->_internal_evaluation(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:protos.RpcActionState)
+  return target;
+}
+
+::size_t RpcActionState::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:protos.RpcActionState)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // .protos.RpcCooperativeAction action = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.action_);
+    }
+
+    // .protos.RpcPredictState predict_state = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.predict_state_);
+    }
+
+  }
+  // double evaluation = 3;
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_evaluation = this->_internal_evaluation();
+  ::uint64_t raw_evaluation;
+  memcpy(&raw_evaluation, &tmp_evaluation, sizeof(tmp_evaluation));
+  if (raw_evaluation != 0) {
+    total_size += 9;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RpcActionState::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    RpcActionState::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RpcActionState::GetClassData() const { return &_class_data_; }
+
+
+void RpcActionState::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RpcActionState*>(&to_msg);
+  auto& from = static_cast<const RpcActionState&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:protos.RpcActionState)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_mutable_action()->::protos::RpcCooperativeAction::MergeFrom(
+          from._internal_action());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_internal_mutable_predict_state()->::protos::RpcPredictState::MergeFrom(
+          from._internal_predict_state());
+    }
+  }
+  static_assert(sizeof(::uint64_t) == sizeof(double), "Code assumes ::uint64_t and double are the same size.");
+  double tmp_evaluation = from._internal_evaluation();
+  ::uint64_t raw_evaluation;
+  memcpy(&raw_evaluation, &tmp_evaluation, sizeof(tmp_evaluation));
+  if (raw_evaluation != 0) {
+    _this->_internal_set_evaluation(from._internal_evaluation());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void RpcActionState::CopyFrom(const RpcActionState& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:protos.RpcActionState)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RpcActionState::IsInitialized() const {
+  return true;
+}
+
+void RpcActionState::InternalSwap(RpcActionState* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(RpcActionState, _impl_.evaluation_)
+      + sizeof(RpcActionState::_impl_.evaluation_)
+      - PROTOBUF_FIELD_OFFSET(RpcActionState, _impl_.action_)>(
+          reinterpret_cast<char*>(&_impl_.action_),
+          reinterpret_cast<char*>(&other->_impl_.action_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata RpcActionState::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
+      file_level_metadata_service_2eproto[129]);
+}
+// ===================================================================
+
+BestPlannerActionRequest_PairsEntry_DoNotUse::BestPlannerActionRequest_PairsEntry_DoNotUse() {}
+BestPlannerActionRequest_PairsEntry_DoNotUse::BestPlannerActionRequest_PairsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : SuperType(arena) {}
+void BestPlannerActionRequest_PairsEntry_DoNotUse::MergeFrom(const BestPlannerActionRequest_PairsEntry_DoNotUse& other) {
+  MergeFromInternal(other);
+}
+::PROTOBUF_NAMESPACE_ID::Metadata BestPlannerActionRequest_PairsEntry_DoNotUse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
+      file_level_metadata_service_2eproto[130]);
+}
+// ===================================================================
+
+class BestPlannerActionRequest::_Internal {
+ public:
+  using HasBits = decltype(std::declval<BestPlannerActionRequest>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(BestPlannerActionRequest, _impl_._has_bits_);
+  static const ::protos::RegisterResponse& register_response(const BestPlannerActionRequest* msg);
+  static void set_has_register_response(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static const ::protos::State& state(const BestPlannerActionRequest* msg);
+  static void set_has_state(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+const ::protos::RegisterResponse&
+BestPlannerActionRequest::_Internal::register_response(const BestPlannerActionRequest* msg) {
+  return *msg->_impl_.register_response_;
+}
+const ::protos::State&
+BestPlannerActionRequest::_Internal::state(const BestPlannerActionRequest* msg) {
+  return *msg->_impl_.state_;
+}
+BestPlannerActionRequest::BestPlannerActionRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:protos.BestPlannerActionRequest)
+}
+BestPlannerActionRequest::BestPlannerActionRequest(const BestPlannerActionRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  BestPlannerActionRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_.pairs_)*/{}
+    , decltype(_impl_.register_response_){nullptr}
+    , decltype(_impl_.state_){nullptr}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.pairs_.MergeFrom(from._impl_.pairs_);
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.register_response_ = new ::protos::RegisterResponse(*from._impl_.register_response_);
+  }
+  if ((from._impl_._has_bits_[0] & 0x00000002u) != 0) {
+    _this->_impl_.state_ = new ::protos::State(*from._impl_.state_);
+  }
+  // @@protoc_insertion_point(copy_constructor:protos.BestPlannerActionRequest)
+}
+
+inline void BestPlannerActionRequest::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_.pairs_)*/{::_pbi::ArenaInitialized(), arena}
+    , decltype(_impl_.register_response_){nullptr}
+    , decltype(_impl_.state_){nullptr}
+  };
+}
+
+BestPlannerActionRequest::~BestPlannerActionRequest() {
+  // @@protoc_insertion_point(destructor:protos.BestPlannerActionRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void BestPlannerActionRequest::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.pairs_.~MapField();
+  if (this != internal_default_instance()) delete _impl_.register_response_;
+  if (this != internal_default_instance()) delete _impl_.state_;
+}
+
+void BestPlannerActionRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void BestPlannerActionRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:protos.BestPlannerActionRequest)
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.pairs_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      ABSL_DCHECK(_impl_.register_response_ != nullptr);
+      _impl_.register_response_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      ABSL_DCHECK(_impl_.state_ != nullptr);
+      _impl_.state_->Clear();
+    }
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* BestPlannerActionRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .protos.RegisterResponse register_response = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_register_response(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // map<int32, .protos.RpcActionState> pairs = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(&_impl_.pairs_, ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // .protos.State state = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_state(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+::uint8_t* BestPlannerActionRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:protos.BestPlannerActionRequest)
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // .protos.RegisterResponse register_response = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::register_response(this),
+        _Internal::register_response(this).GetCachedSize(), target, stream);
+  }
+
+  // map<int32, .protos.RpcActionState> pairs = 2;
+  if (!this->_internal_pairs().empty()) {
+    using MapType = ::_pb::Map<::int32_t, ::protos::RpcActionState>;
+    using WireHelper = BestPlannerActionRequest_PairsEntry_DoNotUse::Funcs;
+    const auto& map_field = this->_internal_pairs();
+
+    if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
+      for (const auto& entry : ::_pbi::MapSorterFlat<MapType>(map_field)) {
+        target = WireHelper::InternalSerialize(2, entry.first, entry.second, target, stream);
+      }
+    } else {
+      for (const auto& entry : map_field) {
+        target = WireHelper::InternalSerialize(2, entry.first, entry.second, target, stream);
+      }
+    }
+  }
+
+  // .protos.State state = 3;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::state(this),
+        _Internal::state(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:protos.BestPlannerActionRequest)
+  return target;
+}
+
+::size_t BestPlannerActionRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:protos.BestPlannerActionRequest)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // map<int32, .protos.RpcActionState> pairs = 2;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_pairs_size());
+  for (::PROTOBUF_NAMESPACE_ID::Map< ::int32_t, ::protos::RpcActionState >::const_iterator
+      it = this->_internal_pairs().begin();
+      it != this->_internal_pairs().end(); ++it) {
+    total_size += BestPlannerActionRequest_PairsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
+  }
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // .protos.RegisterResponse register_response = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.register_response_);
+    }
+
+    // .protos.State state = 3;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.state_);
+    }
+
+  }
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData BestPlannerActionRequest::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    BestPlannerActionRequest::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*BestPlannerActionRequest::GetClassData() const { return &_class_data_; }
+
+
+void BestPlannerActionRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<BestPlannerActionRequest*>(&to_msg);
+  auto& from = static_cast<const BestPlannerActionRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:protos.BestPlannerActionRequest)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.pairs_.MergeFrom(from._impl_.pairs_);
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_mutable_register_response()->::protos::RegisterResponse::MergeFrom(
+          from._internal_register_response());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_internal_mutable_state()->::protos::State::MergeFrom(
+          from._internal_state());
+    }
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void BestPlannerActionRequest::CopyFrom(const BestPlannerActionRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:protos.BestPlannerActionRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BestPlannerActionRequest::IsInitialized() const {
+  return true;
+}
+
+void BestPlannerActionRequest::InternalSwap(BestPlannerActionRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.pairs_.InternalSwap(&other->_impl_.pairs_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(BestPlannerActionRequest, _impl_.state_)
+      + sizeof(BestPlannerActionRequest::_impl_.state_)
+      - PROTOBUF_FIELD_OFFSET(BestPlannerActionRequest, _impl_.register_response_)>(
+          reinterpret_cast<char*>(&_impl_.register_response_),
+          reinterpret_cast<char*>(&other->_impl_.register_response_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata BestPlannerActionRequest::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
+      file_level_metadata_service_2eproto[131]);
+}
+// ===================================================================
+
+class BestPlannerActionResponse::_Internal {
+ public:
+};
+
+BestPlannerActionResponse::BestPlannerActionResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:protos.BestPlannerActionResponse)
+}
+BestPlannerActionResponse::BestPlannerActionResponse(const BestPlannerActionResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(
+      from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:protos.BestPlannerActionResponse)
+}
+
+inline void BestPlannerActionResponse::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_.index_) { 0 }
+
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+BestPlannerActionResponse::~BestPlannerActionResponse() {
+  // @@protoc_insertion_point(destructor:protos.BestPlannerActionResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void BestPlannerActionResponse::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void BestPlannerActionResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void BestPlannerActionResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:protos.BestPlannerActionResponse)
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.index_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* BestPlannerActionResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 index = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          _impl_.index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+::uint8_t* BestPlannerActionResponse::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:protos.BestPlannerActionResponse)
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 index = 1;
+  if (this->_internal_index() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        1, this->_internal_index(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:protos.BestPlannerActionResponse)
+  return target;
+}
+
+::size_t BestPlannerActionResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:protos.BestPlannerActionResponse)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 index = 1;
+  if (this->_internal_index() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_index());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData BestPlannerActionResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    BestPlannerActionResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*BestPlannerActionResponse::GetClassData() const { return &_class_data_; }
+
+
+void BestPlannerActionResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<BestPlannerActionResponse*>(&to_msg);
+  auto& from = static_cast<const BestPlannerActionResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:protos.BestPlannerActionResponse)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_index() != 0) {
+    _this->_internal_set_index(from._internal_index());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void BestPlannerActionResponse::CopyFrom(const BestPlannerActionResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:protos.BestPlannerActionResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BestPlannerActionResponse::IsInitialized() const {
+  return true;
+}
+
+void BestPlannerActionResponse::InternalSwap(BestPlannerActionResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+
+  swap(_impl_.index_, other->_impl_.index_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata BestPlannerActionResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
+      file_level_metadata_service_2eproto[132]);
+}
+// ===================================================================
+
 class Empty::_Internal {
  public:
 };
@@ -51690,7 +54429,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Empty::GetClassData() const { 
 ::PROTOBUF_NAMESPACE_ID::Metadata Empty::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_service_2eproto_getter, &descriptor_table_service_2eproto_once,
-      file_level_metadata_service_2eproto[127]);
+      file_level_metadata_service_2eproto[133]);
 }
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace protos
@@ -52107,9 +54846,9 @@ template<> PROTOBUF_NOINLINE ::protos::HeliosShoot*
 Arena::CreateMaybeMessage< ::protos::HeliosShoot >(Arena* arena) {
   return Arena::CreateMessageInternal< ::protos::HeliosShoot >(arena);
 }
-template<> PROTOBUF_NOINLINE ::protos::HeliosChainAction*
-Arena::CreateMaybeMessage< ::protos::HeliosChainAction >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::protos::HeliosChainAction >(arena);
+template<> PROTOBUF_NOINLINE ::protos::HeliosOffensivePlanner*
+Arena::CreateMaybeMessage< ::protos::HeliosOffensivePlanner >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::protos::HeliosOffensivePlanner >(arena);
 }
 template<> PROTOBUF_NOINLINE ::protos::HeliosBasicOffensive*
 Arena::CreateMaybeMessage< ::protos::HeliosBasicOffensive >(Arena* arena) {
@@ -52202,6 +54941,30 @@ Arena::CreateMaybeMessage< ::protos::PlayerParam >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::protos::PlayerType*
 Arena::CreateMaybeMessage< ::protos::PlayerType >(Arena* arena) {
   return Arena::CreateMessageInternal< ::protos::PlayerType >(arena);
+}
+template<> PROTOBUF_NOINLINE ::protos::RpcCooperativeAction*
+Arena::CreateMaybeMessage< ::protos::RpcCooperativeAction >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::protos::RpcCooperativeAction >(arena);
+}
+template<> PROTOBUF_NOINLINE ::protos::RpcPredictState*
+Arena::CreateMaybeMessage< ::protos::RpcPredictState >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::protos::RpcPredictState >(arena);
+}
+template<> PROTOBUF_NOINLINE ::protos::RpcActionState*
+Arena::CreateMaybeMessage< ::protos::RpcActionState >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::protos::RpcActionState >(arena);
+}
+template<> PROTOBUF_NOINLINE ::protos::BestPlannerActionRequest_PairsEntry_DoNotUse*
+Arena::CreateMaybeMessage< ::protos::BestPlannerActionRequest_PairsEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::protos::BestPlannerActionRequest_PairsEntry_DoNotUse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::protos::BestPlannerActionRequest*
+Arena::CreateMaybeMessage< ::protos::BestPlannerActionRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::protos::BestPlannerActionRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::protos::BestPlannerActionResponse*
+Arena::CreateMaybeMessage< ::protos::BestPlannerActionResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::protos::BestPlannerActionResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::protos::Empty*
 Arena::CreateMaybeMessage< ::protos::Empty >(Arena* arena) {

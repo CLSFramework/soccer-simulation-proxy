@@ -43,6 +43,25 @@ protos::ViewWidth StateGenerator::convertViewWidth(rcsc::ViewWidth::Type viewWid
 }
 
 /**
+ * Converts the given `rcsc::Card` to `protos::CardType`.
+ *
+ * @param cardType The `rcsc::Card` to be converted.
+ * @return The converted `protos::CardType`.
+ */
+protos::CardType StateGenerator::convertCardType(rcsc::Card cardType)
+{
+    switch (cardType)
+    {
+    case rcsc::Card::YELLOW:
+        return protos::CardType::YELLOW;
+    case rcsc::Card::RED:
+        return protos::CardType::RED;
+    default:
+        return protos::CardType::NO_CARD;
+    }
+}
+
+/**
  * Converts an rcsc::Vector2D object to a protos::Vector2D object.
  *
  * @param vector2D The rcsc::Vector2D object to be converted.
@@ -150,6 +169,9 @@ protos::Self *StateGenerator::convertSelf(const rcsc::SelfObject &self, const rc
                                                   (wm.ball().angleFromSelf() - self.body()).degree());
     kick_rate = std::max(kick_rate, 0.0001);
     res->set_kick_rate(kick_rate);
+    res->set_recovery(static_cast<float>(self.recovery()));
+    res->set_stamina_capacity(static_cast<float>(self.staminaCapacity()));
+    res->set_card(convertCardType(self.card()));
 
     return res;
 }
@@ -467,6 +489,10 @@ protos::WorldModel *StateGenerator::convertWorldModel(const rcsc::WorldModel &wm
     res->set_our_team_score(wm.ourSide() == rcsc::SideID::LEFT ? wm.gameMode().scoreLeft() : wm.gameMode().scoreRight());
     res->set_their_team_score(wm.ourSide() == rcsc::SideID::LEFT ? wm.gameMode().scoreRight() : wm.gameMode().scoreLeft());
     res->set_is_penalty_kick_mode(wm.gameMode().isPenaltyKickMode());
+    res->set_our_defense_line_x(static_cast<float>(wm.ourDefenseLineX()));
+    res->set_their_defense_line_x(static_cast<float>(wm.theirDefenseLineX()));
+    res->set_our_defense_player_line_x(static_cast<float>(wm.ourDefensePlayerLineX()));
+    res->set_their_defense_player_line_x(static_cast<float>(wm.theirDefensePlayerLineX()));
     return res;
 }
 

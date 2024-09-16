@@ -35,6 +35,7 @@
 
 using namespace rcsc;
 
+int CooperativeAction::s_unique_index = 0;
 /*-------------------------------------------------------------------*/
 /*!
 
@@ -60,7 +61,7 @@ CooperativeAction::CooperativeAction( const ActionCategory & category,
       M_final_action( false ),
       M_description( description )
 {
-
+    M_unique_index = s_unique_index++;
 }
 
 /*-------------------------------------------------------------------*/

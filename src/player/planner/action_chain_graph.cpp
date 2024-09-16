@@ -30,6 +30,8 @@
 
 #include "hold_ball.h"
 
+#include "cooperative_action.h"
+
 #include <rcsc/player/player_agent.h>
 #include <rcsc/common/server_param.h>
 #include <rcsc/common/logger.h>
@@ -399,6 +401,9 @@ ActionChainGraph::calculateResultBestFirstSearch( const WorldModel & wm,
     //
     // initialize
     //
+    M_all_results.clear();
+    CooperativeAction::s_unique_index = 0;
+
     M_result.clear();
     M_best_evaluation = -std::numeric_limits< double >::max();
     *(n_evaluated) = 0;
@@ -434,6 +439,15 @@ ActionChainGraph::calculateResultBestFirstSearch( const WorldModel & wm,
     queue.push( std::pair< std::vector< ActionStatePair >, double >
                 ( empty_path, current_evaluation ) );
 
+    auto hold_action = std::shared_ptr<CooperativeAction>(new HoldBall(wm.self().unum(), wm.ball().pos(), 1, "Hold"));
+    hold_action->setFinalAction(true);
+    hold_action->setTargetPlayerUnum(wm.self().unum());
+    hold_action->setTargetPoint(wm.ball().pos());
+    hold_action->setKickCount(1);
+    hold_action->setParentIndex(-1);
+    auto hold_state = std::shared_ptr<PredictState>(new PredictState(current_state, 1));
+    auto hold_action_state_pair = std::shared_ptr<const ActionStatePair>(new ActionStatePair(hold_action, hold_state));
+    M_all_results[hold_action->uniqueIndex()] = std::make_pair(hold_action_state_pair, current_evaluation);
 
     //
     // main loop
@@ -484,11 +498,14 @@ ActionChainGraph::calculateResultBestFirstSearch( const WorldModel & wm,
 #endif
         }
 
-
+        int parent_index = -1;
+        if (!series.empty())
+            parent_index = series.rbegin()->action().uniqueIndex();
+        
         //
         // evaluate each candidate and push to priority queue
         //
-        for ( std::vector< ActionStatePair >::const_iterator it = candidates.begin();
+        for ( std::vector< ActionStatePair >::iterator it = candidates.begin();
               it != candidates.end();
               ++ it )
         {
@@ -497,6 +514,12 @@ ActionChainGraph::calculateResultBestFirstSearch( const WorldModel & wm,
             candidate_series.push_back( *it );
 
             double ev = (*M_evaluator)( (*it).state(), candidate_series );
+
+            auto copy_action = std::make_shared<CooperativeAction>(it->action());
+            auto copy_state = std::make_shared<PredictState>(it->state());
+            auto new_action_state_pair = std::shared_ptr<ActionStatePair>(new ActionStatePair(copy_action, copy_state));
+            M_all_results[copy_action->uniqueIndex()] = std::make_pair(new_action_state_pair, ev);
+
             ++(*n_evaluated);
 #ifdef ACTION_CHAIN_DEBUG
             write_chain_log( wm, M_chain_count, candidate_series, ev );

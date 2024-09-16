@@ -48,6 +48,8 @@ public:
     typedef std::shared_ptr< CooperativeAction > Ptr; //!< pointer type
     typedef std::shared_ptr< const CooperativeAction > ConstPtr; //!< const pointer type
 
+    static int s_unique_index; //!< unique index counter
+
     /*!
       \enum ActionCategory
       \brief action category enumeration.
@@ -67,6 +69,8 @@ private:
 
     ActionCategory M_category; //!< action category type
     int M_index;
+    int M_unique_index = -1; //!< unique index for each action
+    int M_parent_index = -1; //!< parent index for each action
 
     int M_player_unum; //!< acting player's uniform number
     int M_target_player_unum; //!< action target player's uniform number
@@ -90,10 +94,29 @@ private:
 
     // not used
     CooperativeAction();
-    CooperativeAction( const CooperativeAction & );
+    
     CooperativeAction & operator=( const CooperativeAction & );
-protected:
-
+public:
+    CooperativeAction( const CooperativeAction & other){
+      M_category = other.M_category;
+      M_index = other.M_index;
+      M_unique_index = other.M_unique_index;
+      M_parent_index = other.M_parent_index;
+      M_player_unum = other.M_player_unum;
+      M_target_player_unum = other.M_target_player_unum;
+      M_target_point = other.M_target_point;
+      M_first_ball_speed = other.M_first_ball_speed;
+      M_first_turn_moment = other.M_first_turn_moment;
+      M_first_dash_power = other.M_first_dash_power;
+      M_first_dash_angle = other.M_first_dash_angle;
+      M_duration_step = other.M_duration_step;
+      M_kick_count = other.M_kick_count;
+      M_turn_count = other.M_turn_count;
+      M_dash_count = other.M_dash_count;
+      M_final_action = other.M_final_action;
+      M_description = other.M_description;
+    }
+      
     /*!
       \brief construct with necessary variables
       \param category action category type
@@ -123,6 +146,8 @@ public:
       { }
 
     void setIndex( const int i ) { M_index = i; }
+    void setUniqueIndex( const int i ) { M_unique_index = i; }
+    void setParentIndex( const int i ) { M_parent_index = i; }
 
     void setFirstBallSpeed( const double & speed );
     void setFirstTurnMoment( const double & moment );
@@ -146,6 +171,14 @@ public:
     /*!
      */
     int index() const { return M_index; }
+
+    /*!
+     */
+    int uniqueIndex() const { return M_unique_index; }
+
+    /*!
+     */
+    int parentIndex() const { return M_parent_index; }
 
     /*!
      */

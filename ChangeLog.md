@@ -1,5 +1,23 @@
 # ChangeLog
 
+## [1.0.0] - 2024-09-15
+
+### Added
+- added rpc_version to the RegisterRequest message.
+- added rpc_server_language_type to the RegisterResponse message.
+- added server side planner decision maker.
+
+### Fixed
+- fixed bugs in the getActions functions in thrift and grpc. 
+
+### Changed
+- changed chain_action messages name to planner
+
+### Engineers
+- [NaderZare](https://github.com/naderzare)
+- [SadraKhanjari](https://github.com/SK2iP)
+
+
 ## [0.1.4] - 2024-09-03
 
 ### Added

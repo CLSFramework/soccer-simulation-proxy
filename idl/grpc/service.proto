@@ -21,6 +21,18 @@ message RegisterRequest {
   AgentType agent_type = 1;
   string team_name = 2;
   int32 uniform_number = 3;
+  int32 rpc_version = 4;
+}
+
+enum RpcServerLanguageType {
+  UNKNOWN_LANGUAGE = 0;
+  PYThON = 1;
+  JAVA = 2;
+  CPP = 3;
+  CSHARP = 4;
+  RUBY = 5;
+  JAVE_SCRIPT = 6;
+  GO = 7;
 }
 
 message RegisterResponse {
@@ -28,6 +40,7 @@ message RegisterResponse {
   AgentType agent_type = 2;
   string team_name = 3;
   int32 uniform_number = 4;
+  RpcServerLanguageType rpc_server_language_type = 5;
 }
 
 message Ball {

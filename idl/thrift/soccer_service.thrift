@@ -25,14 +25,27 @@ struct RpcVector2D {
 struct RegisterRequest {
   1: AgentType agent_type,
   2: string team_name,
-  3: i32 uniform_number
+  3: i32 uniform_number,
+  4: i32 rpc_version
+}
+
+enum RpcServerLanguageType {
+  UNKNOWN_LANGUAGE = 0;
+  PYThON = 1;
+  JAVA = 2;
+  CPP = 3;
+  CSHARP = 4;
+  RUBY = 5;
+  JAVE_SCRIPT = 6;
+  GO = 7;
 }
 
 struct RegisterResponse {
   1: i32 client_id
   2: AgentType agent_type,
   3: string team_name,
-  4: i32 uniform_number
+  4: i32 uniform_number,
+  5: RpcServerLanguageType rpc_server_language_type
 }
 
 struct Ball {

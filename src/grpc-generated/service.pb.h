@@ -764,6 +764,44 @@ inline bool ViewWidth_Parse(absl::string_view name, ViewWidth* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<ViewWidth>(
       ViewWidth_descriptor(), name, value);
 }
+enum RpcServerLanguageType : int {
+  UNKNOWN_LANGUAGE = 0,
+  PYThON = 1,
+  JAVA = 2,
+  CPP = 3,
+  CSHARP = 4,
+  RUBY = 5,
+  JAVE_SCRIPT = 6,
+  GO = 7,
+  RpcServerLanguageType_INT_MIN_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::min(),
+  RpcServerLanguageType_INT_MAX_SENTINEL_DO_NOT_USE_ =
+      std::numeric_limits<::int32_t>::max(),
+};
+
+bool RpcServerLanguageType_IsValid(int value);
+constexpr RpcServerLanguageType RpcServerLanguageType_MIN = static_cast<RpcServerLanguageType>(0);
+constexpr RpcServerLanguageType RpcServerLanguageType_MAX = static_cast<RpcServerLanguageType>(7);
+constexpr int RpcServerLanguageType_ARRAYSIZE = 7 + 1;
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+RpcServerLanguageType_descriptor();
+template <typename T>
+const std::string& RpcServerLanguageType_Name(T value) {
+  static_assert(std::is_same<T, RpcServerLanguageType>::value ||
+                    std::is_integral<T>::value,
+                "Incorrect type passed to RpcServerLanguageType_Name().");
+  return RpcServerLanguageType_Name(static_cast<RpcServerLanguageType>(value));
+}
+template <>
+inline const std::string& RpcServerLanguageType_Name(RpcServerLanguageType value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfDenseEnum<RpcServerLanguageType_descriptor,
+                                                 0, 7>(
+      static_cast<int>(value));
+}
+inline bool RpcServerLanguageType_Parse(absl::string_view name, RpcServerLanguageType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<RpcServerLanguageType>(
+      RpcServerLanguageType_descriptor(), name, value);
+}
 enum Side : int {
   UNKNOWN = 0,
   LEFT = 1,
@@ -1371,6 +1409,7 @@ class RegisterRequest final :
     kTeamNameFieldNumber = 2,
     kAgentTypeFieldNumber = 1,
     kUniformNumberFieldNumber = 3,
+    kRpcVersionFieldNumber = 4,
   };
   // string team_name = 2;
   void clear_team_name() ;
@@ -1412,6 +1451,16 @@ class RegisterRequest final :
   void _internal_set_uniform_number(::int32_t value);
 
   public:
+  // int32 rpc_version = 4;
+  void clear_rpc_version() ;
+  ::int32_t rpc_version() const;
+  void set_rpc_version(::int32_t value);
+
+  private:
+  ::int32_t _internal_rpc_version() const;
+  void _internal_set_rpc_version(::int32_t value);
+
+  public:
   // @@protoc_insertion_point(class_scope:protos.RegisterRequest)
  private:
   class _Internal;
@@ -1423,6 +1472,7 @@ class RegisterRequest final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr team_name_;
     int agent_type_;
     ::int32_t uniform_number_;
+    ::int32_t rpc_version_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1561,6 +1611,7 @@ class RegisterResponse final :
     kClientIdFieldNumber = 1,
     kAgentTypeFieldNumber = 2,
     kUniformNumberFieldNumber = 4,
+    kRpcServerLanguageTypeFieldNumber = 5,
   };
   // string team_name = 3;
   void clear_team_name() ;
@@ -1612,6 +1663,16 @@ class RegisterResponse final :
   void _internal_set_uniform_number(::int32_t value);
 
   public:
+  // .protos.RpcServerLanguageType rpc_server_language_type = 5;
+  void clear_rpc_server_language_type() ;
+  ::protos::RpcServerLanguageType rpc_server_language_type() const;
+  void set_rpc_server_language_type(::protos::RpcServerLanguageType value);
+
+  private:
+  ::protos::RpcServerLanguageType _internal_rpc_server_language_type() const;
+  void _internal_set_rpc_server_language_type(::protos::RpcServerLanguageType value);
+
+  public:
   // @@protoc_insertion_point(class_scope:protos.RegisterResponse)
  private:
   class _Internal;
@@ -1624,6 +1685,7 @@ class RegisterResponse final :
     ::int32_t client_id_;
     int agent_type_;
     ::int32_t uniform_number_;
+    int rpc_server_language_type_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -30515,6 +30577,26 @@ inline void RegisterRequest::_internal_set_uniform_number(::int32_t value) {
   _impl_.uniform_number_ = value;
 }
 
+// int32 rpc_version = 4;
+inline void RegisterRequest::clear_rpc_version() {
+  _impl_.rpc_version_ = 0;
+}
+inline ::int32_t RegisterRequest::rpc_version() const {
+  // @@protoc_insertion_point(field_get:protos.RegisterRequest.rpc_version)
+  return _internal_rpc_version();
+}
+inline void RegisterRequest::set_rpc_version(::int32_t value) {
+  _internal_set_rpc_version(value);
+  // @@protoc_insertion_point(field_set:protos.RegisterRequest.rpc_version)
+}
+inline ::int32_t RegisterRequest::_internal_rpc_version() const {
+  return _impl_.rpc_version_;
+}
+inline void RegisterRequest::_internal_set_rpc_version(::int32_t value) {
+  ;
+  _impl_.rpc_version_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // RegisterResponse
@@ -30624,6 +30706,26 @@ inline ::int32_t RegisterResponse::_internal_uniform_number() const {
 inline void RegisterResponse::_internal_set_uniform_number(::int32_t value) {
   ;
   _impl_.uniform_number_ = value;
+}
+
+// .protos.RpcServerLanguageType rpc_server_language_type = 5;
+inline void RegisterResponse::clear_rpc_server_language_type() {
+  _impl_.rpc_server_language_type_ = 0;
+}
+inline ::protos::RpcServerLanguageType RegisterResponse::rpc_server_language_type() const {
+  // @@protoc_insertion_point(field_get:protos.RegisterResponse.rpc_server_language_type)
+  return _internal_rpc_server_language_type();
+}
+inline void RegisterResponse::set_rpc_server_language_type(::protos::RpcServerLanguageType value) {
+   _internal_set_rpc_server_language_type(value);
+  // @@protoc_insertion_point(field_set:protos.RegisterResponse.rpc_server_language_type)
+}
+inline ::protos::RpcServerLanguageType RegisterResponse::_internal_rpc_server_language_type() const {
+  return static_cast<::protos::RpcServerLanguageType>(_impl_.rpc_server_language_type_);
+}
+inline void RegisterResponse::_internal_set_rpc_server_language_type(::protos::RpcServerLanguageType value) {
+  ;
+  _impl_.rpc_server_language_type_ = value;
 }
 
 // -------------------------------------------------------------------
@@ -58996,6 +59098,12 @@ struct is_proto_enum<::protos::ViewWidth> : std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor<::protos::ViewWidth>() {
   return ::protos::ViewWidth_descriptor();
+}
+template <>
+struct is_proto_enum<::protos::RpcServerLanguageType> : std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor<::protos::RpcServerLanguageType>() {
+  return ::protos::RpcServerLanguageType_descriptor();
 }
 template <>
 struct is_proto_enum<::protos::Side> : std::true_type {};

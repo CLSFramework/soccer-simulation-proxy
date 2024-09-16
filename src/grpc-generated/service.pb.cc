@@ -52,6 +52,8 @@ PROTOBUF_CONSTEXPR RegisterRequest::RegisterRequest(
 
   , /*decltype(_impl_.uniform_number_)*/ 0
 
+  , /*decltype(_impl_.rpc_version_)*/ 0
+
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RegisterRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RegisterRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
@@ -75,6 +77,8 @@ PROTOBUF_CONSTEXPR RegisterResponse::RegisterResponse(
   , /*decltype(_impl_.agent_type_)*/ 0
 
   , /*decltype(_impl_.uniform_number_)*/ 0
+
+  , /*decltype(_impl_.rpc_server_language_type_)*/ 0
 
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RegisterResponseDefaultTypeInternal {
@@ -3219,7 +3223,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EmptyDefaultTypeInternal _Empty_default_instance_;
 }  // namespace protos
 static ::_pb::Metadata file_level_metadata_service_2eproto[134];
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_service_2eproto[8];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_service_2eproto[9];
 static constexpr const ::_pb::ServiceDescriptor**
     file_level_service_descriptors_service_2eproto = nullptr;
 const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(
@@ -3247,6 +3251,7 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     PROTOBUF_FIELD_OFFSET(::protos::RegisterRequest, _impl_.agent_type_),
     PROTOBUF_FIELD_OFFSET(::protos::RegisterRequest, _impl_.team_name_),
     PROTOBUF_FIELD_OFFSET(::protos::RegisterRequest, _impl_.uniform_number_),
+    PROTOBUF_FIELD_OFFSET(::protos::RegisterRequest, _impl_.rpc_version_),
     ~0u,  // no _has_bits_
     PROTOBUF_FIELD_OFFSET(::protos::RegisterResponse, _internal_metadata_),
     ~0u,  // no _extensions_
@@ -3259,6 +3264,7 @@ const ::uint32_t TableStruct_service_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
     PROTOBUF_FIELD_OFFSET(::protos::RegisterResponse, _impl_.agent_type_),
     PROTOBUF_FIELD_OFFSET(::protos::RegisterResponse, _impl_.team_name_),
     PROTOBUF_FIELD_OFFSET(::protos::RegisterResponse, _impl_.uniform_number_),
+    PROTOBUF_FIELD_OFFSET(::protos::RegisterResponse, _impl_.rpc_server_language_type_),
     PROTOBUF_FIELD_OFFSET(::protos::Ball, _impl_._has_bits_),
     PROTOBUF_FIELD_OFFSET(::protos::Ball, _internal_metadata_),
     ~0u,  // no _extensions_
@@ -5670,138 +5676,138 @@ static const ::_pbi::MigrationSchema
     schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
         { 0, -1, -1, sizeof(::protos::RpcVector2D)},
         { 12, -1, -1, sizeof(::protos::RegisterRequest)},
-        { 23, -1, -1, sizeof(::protos::RegisterResponse)},
-        { 35, 60, -1, sizeof(::protos::Ball)},
-        { 77, 115, -1, sizeof(::protos::Player)},
-        { 145, 192, -1, sizeof(::protos::Self)},
-        { 231, 249, -1, sizeof(::protos::InterceptInfo)},
-        { 259, -1, -1, sizeof(::protos::InterceptTable)},
-        { 277, 287, -1, sizeof(::protos::WorldModel_OurPlayersDictEntry_DoNotUse)},
-        { 289, 299, -1, sizeof(::protos::WorldModel_TheirPlayersDictEntry_DoNotUse)},
-        { 301, 311, -1, sizeof(::protos::WorldModel_HeliosHomePositionsEntry_DoNotUse)},
-        { 313, 356, -1, sizeof(::protos::WorldModel)},
-        { 391, 403, -1, sizeof(::protos::State)},
-        { 407, 417, -1, sizeof(::protos::InitMessage)},
-        { 419, -1, -1, sizeof(::protos::Dash)},
-        { 429, -1, -1, sizeof(::protos::Turn)},
-        { 438, -1, -1, sizeof(::protos::Kick)},
-        { 448, -1, -1, sizeof(::protos::Tackle)},
-        { 458, -1, -1, sizeof(::protos::Catch)},
-        { 466, -1, -1, sizeof(::protos::Move)},
-        { 476, -1, -1, sizeof(::protos::TurnNeck)},
-        { 485, -1, -1, sizeof(::protos::ChangeView)},
-        { 494, 504, -1, sizeof(::protos::BallMessage)},
-        { 506, 518, -1, sizeof(::protos::PassMessage)},
-        { 522, -1, -1, sizeof(::protos::InterceptMessage)},
-        { 533, 544, -1, sizeof(::protos::GoalieMessage)},
-        { 547, 560, -1, sizeof(::protos::GoalieAndPlayerMessage)},
-        { 565, -1, -1, sizeof(::protos::OffsideLineMessage)},
-        { 574, -1, -1, sizeof(::protos::DefenseLineMessage)},
-        { 583, -1, -1, sizeof(::protos::WaitRequestMessage)},
-        { 591, -1, -1, sizeof(::protos::SetplayMessage)},
-        { 600, 609, -1, sizeof(::protos::PassRequestMessage)},
-        { 610, -1, -1, sizeof(::protos::StaminaMessage)},
-        { 619, -1, -1, sizeof(::protos::RecoveryMessage)},
-        { 628, -1, -1, sizeof(::protos::StaminaCapacityMessage)},
-        { 637, 647, -1, sizeof(::protos::DribbleMessage)},
-        { 649, 661, -1, sizeof(::protos::BallGoalieMessage)},
-        { 665, 675, -1, sizeof(::protos::OnePlayerMessage)},
-        { 677, 689, -1, sizeof(::protos::TwoPlayerMessage)},
-        { 693, 707, -1, sizeof(::protos::ThreePlayerMessage)},
-        { 713, 724, -1, sizeof(::protos::SelfMessage)},
-        { 727, 738, -1, sizeof(::protos::TeammateMessage)},
-        { 741, 752, -1, sizeof(::protos::OpponentMessage)},
-        { 755, 768, -1, sizeof(::protos::BallPlayerMessage)},
-        { 773, -1, -1, sizeof(::protos::Say)},
-        { 804, -1, -1, sizeof(::protos::PointTo)},
-        { 814, -1, -1, sizeof(::protos::PointToOf)},
-        { 822, -1, -1, sizeof(::protos::AttentionTo)},
-        { 832, -1, -1, sizeof(::protos::AttentionToOf)},
-        { 840, -1, -1, sizeof(::protos::AddText)},
-        { 850, 861, -1, sizeof(::protos::AddPoint)},
-        { 864, 876, -1, sizeof(::protos::AddLine)},
-        { 880, 894, -1, sizeof(::protos::AddArc)},
-        { 900, 913, -1, sizeof(::protos::AddCircle)},
-        { 918, 932, -1, sizeof(::protos::AddTriangle)},
-        { 938, -1, -1, sizeof(::protos::AddRectangle)},
-        { 953, 969, -1, sizeof(::protos::AddSector)},
-        { 977, 989, -1, sizeof(::protos::AddMessage)},
-        { 993, -1, -1, sizeof(::protos::Log)},
-        { 1011, -1, -1, sizeof(::protos::DebugClient)},
-        { 1020, 1031, -1, sizeof(::protos::Body_GoToPoint)},
-        { 1034, 1046, -1, sizeof(::protos::Body_SmartKick)},
-        { 1050, 1059, -1, sizeof(::protos::Bhv_BeforeKickOff)},
-        { 1060, -1, -1, sizeof(::protos::Bhv_BodyNeckToBall)},
-        { 1068, 1077, -1, sizeof(::protos::Bhv_BodyNeckToPoint)},
-        { 1078, -1, -1, sizeof(::protos::Bhv_Emergency)},
-        { 1086, 1097, -1, sizeof(::protos::Bhv_GoToPointLookBall)},
-        { 1100, -1, -1, sizeof(::protos::Bhv_NeckBodyToBall)},
-        { 1109, 1119, -1, sizeof(::protos::Bhv_NeckBodyToPoint)},
-        { 1121, -1, -1, sizeof(::protos::Bhv_ScanField)},
-        { 1129, -1, -1, sizeof(::protos::Body_AdvanceBall)},
-        { 1137, -1, -1, sizeof(::protos::Body_ClearBall)},
-        { 1145, 1158, -1, sizeof(::protos::Body_Dribble)},
-        { 1163, 1173, -1, sizeof(::protos::Body_GoToPointDodge)},
-        { 1175, 1186, -1, sizeof(::protos::Body_HoldBall)},
-        { 1189, 1199, -1, sizeof(::protos::Body_Intercept)},
-        { 1201, 1212, -1, sizeof(::protos::Body_KickOneStep)},
-        { 1215, -1, -1, sizeof(::protos::Body_StopBall)},
-        { 1223, -1, -1, sizeof(::protos::Body_StopDash)},
-        { 1232, 1243, -1, sizeof(::protos::Body_TackleToPoint)},
-        { 1246, -1, -1, sizeof(::protos::Body_TurnToAngle)},
-        { 1255, -1, -1, sizeof(::protos::Body_TurnToBall)},
-        { 1264, 1274, -1, sizeof(::protos::Body_TurnToPoint)},
-        { 1276, 1285, -1, sizeof(::protos::Focus_MoveToPoint)},
-        { 1286, -1, -1, sizeof(::protos::Focus_Reset)},
-        { 1294, -1, -1, sizeof(::protos::Neck_ScanField)},
-        { 1302, -1, -1, sizeof(::protos::Neck_ScanPlayers)},
-        { 1310, -1, -1, sizeof(::protos::Neck_TurnToBallAndPlayer)},
-        { 1321, -1, -1, sizeof(::protos::Neck_TurnToBallOrScan)},
-        { 1330, -1, -1, sizeof(::protos::Neck_TurnToBall)},
-        { 1338, -1, -1, sizeof(::protos::Neck_TurnToGoalieOrScan)},
-        { 1347, -1, -1, sizeof(::protos::Neck_TurnToLowConfTeammate)},
-        { 1355, -1, -1, sizeof(::protos::Neck_TurnToPlayerOrScan)},
-        { 1366, 1375, -1, sizeof(::protos::Neck_TurnToPoint)},
-        { 1376, -1, -1, sizeof(::protos::Neck_TurnToRelative)},
-        { 1385, -1, -1, sizeof(::protos::View_ChangeWidth)},
-        { 1394, -1, -1, sizeof(::protos::View_Normal)},
-        { 1402, -1, -1, sizeof(::protos::View_Synch)},
-        { 1410, -1, -1, sizeof(::protos::View_Wide)},
-        { 1418, -1, -1, sizeof(::protos::HeliosGoalie)},
-        { 1426, -1, -1, sizeof(::protos::HeliosGoalieMove)},
-        { 1434, -1, -1, sizeof(::protos::HeliosGoalieKick)},
-        { 1442, -1, -1, sizeof(::protos::HeliosShoot)},
-        { 1450, -1, -1, sizeof(::protos::HeliosOffensivePlanner)},
-        { 1468, -1, -1, sizeof(::protos::HeliosBasicOffensive)},
-        { 1476, -1, -1, sizeof(::protos::HeliosBasicMove)},
-        { 1484, -1, -1, sizeof(::protos::HeliosSetPlay)},
-        { 1492, -1, -1, sizeof(::protos::HeliosPenalty)},
-        { 1500, -1, -1, sizeof(::protos::HeliosCommunicaion)},
-        { 1508, -1, -1, sizeof(::protos::PlayerAction)},
-        { 1581, -1, -1, sizeof(::protos::PlayerActions)},
-        { 1591, -1, -1, sizeof(::protos::ChangePlayerType)},
-        { 1601, -1, -1, sizeof(::protos::DoHeliosSubstitute)},
-        { 1609, -1, -1, sizeof(::protos::DoHeliosSayPlayerTypes)},
-        { 1617, -1, -1, sizeof(::protos::CoachAction)},
-        { 1629, -1, -1, sizeof(::protos::CoachActions)},
-        { 1638, -1, -1, sizeof(::protos::DoKickOff)},
-        { 1646, 1656, -1, sizeof(::protos::DoMoveBall)},
-        { 1658, 1670, -1, sizeof(::protos::DoMovePlayer)},
-        { 1674, -1, -1, sizeof(::protos::DoRecover)},
-        { 1682, -1, -1, sizeof(::protos::DoChangeMode)},
-        { 1692, -1, -1, sizeof(::protos::DoChangePlayerType)},
-        { 1703, -1, -1, sizeof(::protos::TrainerAction)},
-        { 1718, -1, -1, sizeof(::protos::TrainerActions)},
-        { 1727, 1957, -1, sizeof(::protos::ServerParam)},
-        { 2179, 2217, -1, sizeof(::protos::PlayerParam)},
-        { 2247, 2289, -1, sizeof(::protos::PlayerType)},
-        { 2323, 2347, -1, sizeof(::protos::RpcCooperativeAction)},
-        { 2363, 2377, -1, sizeof(::protos::RpcPredictState)},
-        { 2383, 2394, -1, sizeof(::protos::RpcActionState)},
-        { 2397, 2407, -1, sizeof(::protos::BestPlannerActionRequest_PairsEntry_DoNotUse)},
-        { 2409, 2420, -1, sizeof(::protos::BestPlannerActionRequest)},
-        { 2423, -1, -1, sizeof(::protos::BestPlannerActionResponse)},
-        { 2432, -1, -1, sizeof(::protos::Empty)},
+        { 24, -1, -1, sizeof(::protos::RegisterResponse)},
+        { 37, 62, -1, sizeof(::protos::Ball)},
+        { 79, 117, -1, sizeof(::protos::Player)},
+        { 147, 194, -1, sizeof(::protos::Self)},
+        { 233, 251, -1, sizeof(::protos::InterceptInfo)},
+        { 261, -1, -1, sizeof(::protos::InterceptTable)},
+        { 279, 289, -1, sizeof(::protos::WorldModel_OurPlayersDictEntry_DoNotUse)},
+        { 291, 301, -1, sizeof(::protos::WorldModel_TheirPlayersDictEntry_DoNotUse)},
+        { 303, 313, -1, sizeof(::protos::WorldModel_HeliosHomePositionsEntry_DoNotUse)},
+        { 315, 358, -1, sizeof(::protos::WorldModel)},
+        { 393, 405, -1, sizeof(::protos::State)},
+        { 409, 419, -1, sizeof(::protos::InitMessage)},
+        { 421, -1, -1, sizeof(::protos::Dash)},
+        { 431, -1, -1, sizeof(::protos::Turn)},
+        { 440, -1, -1, sizeof(::protos::Kick)},
+        { 450, -1, -1, sizeof(::protos::Tackle)},
+        { 460, -1, -1, sizeof(::protos::Catch)},
+        { 468, -1, -1, sizeof(::protos::Move)},
+        { 478, -1, -1, sizeof(::protos::TurnNeck)},
+        { 487, -1, -1, sizeof(::protos::ChangeView)},
+        { 496, 506, -1, sizeof(::protos::BallMessage)},
+        { 508, 520, -1, sizeof(::protos::PassMessage)},
+        { 524, -1, -1, sizeof(::protos::InterceptMessage)},
+        { 535, 546, -1, sizeof(::protos::GoalieMessage)},
+        { 549, 562, -1, sizeof(::protos::GoalieAndPlayerMessage)},
+        { 567, -1, -1, sizeof(::protos::OffsideLineMessage)},
+        { 576, -1, -1, sizeof(::protos::DefenseLineMessage)},
+        { 585, -1, -1, sizeof(::protos::WaitRequestMessage)},
+        { 593, -1, -1, sizeof(::protos::SetplayMessage)},
+        { 602, 611, -1, sizeof(::protos::PassRequestMessage)},
+        { 612, -1, -1, sizeof(::protos::StaminaMessage)},
+        { 621, -1, -1, sizeof(::protos::RecoveryMessage)},
+        { 630, -1, -1, sizeof(::protos::StaminaCapacityMessage)},
+        { 639, 649, -1, sizeof(::protos::DribbleMessage)},
+        { 651, 663, -1, sizeof(::protos::BallGoalieMessage)},
+        { 667, 677, -1, sizeof(::protos::OnePlayerMessage)},
+        { 679, 691, -1, sizeof(::protos::TwoPlayerMessage)},
+        { 695, 709, -1, sizeof(::protos::ThreePlayerMessage)},
+        { 715, 726, -1, sizeof(::protos::SelfMessage)},
+        { 729, 740, -1, sizeof(::protos::TeammateMessage)},
+        { 743, 754, -1, sizeof(::protos::OpponentMessage)},
+        { 757, 770, -1, sizeof(::protos::BallPlayerMessage)},
+        { 775, -1, -1, sizeof(::protos::Say)},
+        { 806, -1, -1, sizeof(::protos::PointTo)},
+        { 816, -1, -1, sizeof(::protos::PointToOf)},
+        { 824, -1, -1, sizeof(::protos::AttentionTo)},
+        { 834, -1, -1, sizeof(::protos::AttentionToOf)},
+        { 842, -1, -1, sizeof(::protos::AddText)},
+        { 852, 863, -1, sizeof(::protos::AddPoint)},
+        { 866, 878, -1, sizeof(::protos::AddLine)},
+        { 882, 896, -1, sizeof(::protos::AddArc)},
+        { 902, 915, -1, sizeof(::protos::AddCircle)},
+        { 920, 934, -1, sizeof(::protos::AddTriangle)},
+        { 940, -1, -1, sizeof(::protos::AddRectangle)},
+        { 955, 971, -1, sizeof(::protos::AddSector)},
+        { 979, 991, -1, sizeof(::protos::AddMessage)},
+        { 995, -1, -1, sizeof(::protos::Log)},
+        { 1013, -1, -1, sizeof(::protos::DebugClient)},
+        { 1022, 1033, -1, sizeof(::protos::Body_GoToPoint)},
+        { 1036, 1048, -1, sizeof(::protos::Body_SmartKick)},
+        { 1052, 1061, -1, sizeof(::protos::Bhv_BeforeKickOff)},
+        { 1062, -1, -1, sizeof(::protos::Bhv_BodyNeckToBall)},
+        { 1070, 1079, -1, sizeof(::protos::Bhv_BodyNeckToPoint)},
+        { 1080, -1, -1, sizeof(::protos::Bhv_Emergency)},
+        { 1088, 1099, -1, sizeof(::protos::Bhv_GoToPointLookBall)},
+        { 1102, -1, -1, sizeof(::protos::Bhv_NeckBodyToBall)},
+        { 1111, 1121, -1, sizeof(::protos::Bhv_NeckBodyToPoint)},
+        { 1123, -1, -1, sizeof(::protos::Bhv_ScanField)},
+        { 1131, -1, -1, sizeof(::protos::Body_AdvanceBall)},
+        { 1139, -1, -1, sizeof(::protos::Body_ClearBall)},
+        { 1147, 1160, -1, sizeof(::protos::Body_Dribble)},
+        { 1165, 1175, -1, sizeof(::protos::Body_GoToPointDodge)},
+        { 1177, 1188, -1, sizeof(::protos::Body_HoldBall)},
+        { 1191, 1201, -1, sizeof(::protos::Body_Intercept)},
+        { 1203, 1214, -1, sizeof(::protos::Body_KickOneStep)},
+        { 1217, -1, -1, sizeof(::protos::Body_StopBall)},
+        { 1225, -1, -1, sizeof(::protos::Body_StopDash)},
+        { 1234, 1245, -1, sizeof(::protos::Body_TackleToPoint)},
+        { 1248, -1, -1, sizeof(::protos::Body_TurnToAngle)},
+        { 1257, -1, -1, sizeof(::protos::Body_TurnToBall)},
+        { 1266, 1276, -1, sizeof(::protos::Body_TurnToPoint)},
+        { 1278, 1287, -1, sizeof(::protos::Focus_MoveToPoint)},
+        { 1288, -1, -1, sizeof(::protos::Focus_Reset)},
+        { 1296, -1, -1, sizeof(::protos::Neck_ScanField)},
+        { 1304, -1, -1, sizeof(::protos::Neck_ScanPlayers)},
+        { 1312, -1, -1, sizeof(::protos::Neck_TurnToBallAndPlayer)},
+        { 1323, -1, -1, sizeof(::protos::Neck_TurnToBallOrScan)},
+        { 1332, -1, -1, sizeof(::protos::Neck_TurnToBall)},
+        { 1340, -1, -1, sizeof(::protos::Neck_TurnToGoalieOrScan)},
+        { 1349, -1, -1, sizeof(::protos::Neck_TurnToLowConfTeammate)},
+        { 1357, -1, -1, sizeof(::protos::Neck_TurnToPlayerOrScan)},
+        { 1368, 1377, -1, sizeof(::protos::Neck_TurnToPoint)},
+        { 1378, -1, -1, sizeof(::protos::Neck_TurnToRelative)},
+        { 1387, -1, -1, sizeof(::protos::View_ChangeWidth)},
+        { 1396, -1, -1, sizeof(::protos::View_Normal)},
+        { 1404, -1, -1, sizeof(::protos::View_Synch)},
+        { 1412, -1, -1, sizeof(::protos::View_Wide)},
+        { 1420, -1, -1, sizeof(::protos::HeliosGoalie)},
+        { 1428, -1, -1, sizeof(::protos::HeliosGoalieMove)},
+        { 1436, -1, -1, sizeof(::protos::HeliosGoalieKick)},
+        { 1444, -1, -1, sizeof(::protos::HeliosShoot)},
+        { 1452, -1, -1, sizeof(::protos::HeliosOffensivePlanner)},
+        { 1470, -1, -1, sizeof(::protos::HeliosBasicOffensive)},
+        { 1478, -1, -1, sizeof(::protos::HeliosBasicMove)},
+        { 1486, -1, -1, sizeof(::protos::HeliosSetPlay)},
+        { 1494, -1, -1, sizeof(::protos::HeliosPenalty)},
+        { 1502, -1, -1, sizeof(::protos::HeliosCommunicaion)},
+        { 1510, -1, -1, sizeof(::protos::PlayerAction)},
+        { 1583, -1, -1, sizeof(::protos::PlayerActions)},
+        { 1593, -1, -1, sizeof(::protos::ChangePlayerType)},
+        { 1603, -1, -1, sizeof(::protos::DoHeliosSubstitute)},
+        { 1611, -1, -1, sizeof(::protos::DoHeliosSayPlayerTypes)},
+        { 1619, -1, -1, sizeof(::protos::CoachAction)},
+        { 1631, -1, -1, sizeof(::protos::CoachActions)},
+        { 1640, -1, -1, sizeof(::protos::DoKickOff)},
+        { 1648, 1658, -1, sizeof(::protos::DoMoveBall)},
+        { 1660, 1672, -1, sizeof(::protos::DoMovePlayer)},
+        { 1676, -1, -1, sizeof(::protos::DoRecover)},
+        { 1684, -1, -1, sizeof(::protos::DoChangeMode)},
+        { 1694, -1, -1, sizeof(::protos::DoChangePlayerType)},
+        { 1705, -1, -1, sizeof(::protos::TrainerAction)},
+        { 1720, -1, -1, sizeof(::protos::TrainerActions)},
+        { 1729, 1959, -1, sizeof(::protos::ServerParam)},
+        { 2181, 2219, -1, sizeof(::protos::PlayerParam)},
+        { 2249, 2291, -1, sizeof(::protos::PlayerType)},
+        { 2325, 2349, -1, sizeof(::protos::RpcCooperativeAction)},
+        { 2365, 2379, -1, sizeof(::protos::RpcPredictState)},
+        { 2385, 2396, -1, sizeof(::protos::RpcActionState)},
+        { 2399, 2409, -1, sizeof(::protos::BestPlannerActionRequest_PairsEntry_DoNotUse)},
+        { 2411, 2422, -1, sizeof(::protos::BestPlannerActionRequest)},
+        { 2425, -1, -1, sizeof(::protos::BestPlannerActionResponse)},
+        { 2434, -1, -1, sizeof(::protos::Empty)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -5943,726 +5949,732 @@ static const ::_pb::Message* const file_default_instances[] = {
 const char descriptor_table_protodef_service_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
     "\n\rservice.proto\022\006protos\"@\n\013RpcVector2D\022\t"
     "\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\014\n\004dist\030\003 \001(\002\022\r\n\005an"
-    "gle\030\004 \001(\002\"c\n\017RegisterRequest\022%\n\nagent_ty"
+    "gle\030\004 \001(\002\"x\n\017RegisterRequest\022%\n\nagent_ty"
     "pe\030\001 \001(\0162\021.protos.AgentType\022\021\n\tteam_name"
-    "\030\002 \001(\t\022\026\n\016uniform_number\030\003 \001(\005\"w\n\020Regist"
-    "erResponse\022\021\n\tclient_id\030\001 \001(\005\022%\n\nagent_t"
-    "ype\030\002 \001(\0162\021.protos.AgentType\022\021\n\tteam_nam"
-    "e\030\003 \001(\t\022\026\n\016uniform_number\030\004 \001(\005\"\230\004\n\004Ball"
-    "\022%\n\010position\030\001 \001(\0132\023.protos.RpcVector2D\022"
-    ".\n\021relative_position\030\002 \001(\0132\023.protos.RpcV"
-    "ector2D\022*\n\rseen_position\030\003 \001(\0132\023.protos."
-    "RpcVector2D\022+\n\016heard_position\030\004 \001(\0132\023.pr"
-    "otos.RpcVector2D\022%\n\010velocity\030\005 \001(\0132\023.pro"
-    "tos.RpcVector2D\022*\n\rseen_velocity\030\006 \001(\0132\023"
-    ".protos.RpcVector2D\022+\n\016heard_velocity\030\007 "
-    "\001(\0132\023.protos.RpcVector2D\022\021\n\tpos_count\030\010 "
-    "\001(\005\022\026\n\016seen_pos_count\030\t \001(\005\022\027\n\017heard_pos"
-    "_count\030\n \001(\005\022\021\n\tvel_count\030\013 \001(\005\022\026\n\016seen_"
-    "vel_count\030\014 \001(\005\022\027\n\017heard_vel_count\030\r \001(\005"
-    "\022\022\n\nlost_count\030\016 \001(\005\022\023\n\013ghost_count\030\017 \001("
-    "\005\022\026\n\016dist_from_self\030\020 \001(\002\022\027\n\017angle_from_"
-    "self\030\021 \001(\002\"\260\006\n\006Player\022%\n\010position\030\001 \001(\0132"
-    "\023.protos.RpcVector2D\022*\n\rseen_position\030\002 "
-    "\001(\0132\023.protos.RpcVector2D\022+\n\016heard_positi"
-    "on\030\003 \001(\0132\023.protos.RpcVector2D\022%\n\010velocit"
-    "y\030\004 \001(\0132\023.protos.RpcVector2D\022*\n\rseen_vel"
-    "ocity\030\005 \001(\0132\023.protos.RpcVector2D\022\021\n\tpos_"
-    "count\030\006 \001(\005\022\026\n\016seen_pos_count\030\007 \001(\005\022\027\n\017h"
-    "eard_pos_count\030\010 \001(\005\022\021\n\tvel_count\030\t \001(\005\022"
-    "\026\n\016seen_vel_count\030\n \001(\005\022\023\n\013ghost_count\030\013"
-    " \001(\005\022\026\n\016dist_from_self\030\014 \001(\002\022\027\n\017angle_fr"
-    "om_self\030\r \001(\002\022\n\n\002id\030\016 \001(\005\022\032\n\004side\030\017 \001(\0162"
-    "\014.protos.Side\022\026\n\016uniform_number\030\020 \001(\005\022\034\n"
-    "\024uniform_number_count\030\021 \001(\005\022\021\n\tis_goalie"
-    "\030\022 \001(\010\022\026\n\016body_direction\030\023 \001(\002\022\034\n\024body_d"
-    "irection_count\030\024 \001(\005\022\026\n\016face_direction\030\025"
-    " \001(\002\022\034\n\024face_direction_count\030\026 \001(\005\022\032\n\022po"
-    "int_to_direction\030\027 \001(\002\022 \n\030point_to_direc"
-    "tion_count\030\030 \001(\005\022\022\n\nis_kicking\030\031 \001(\010\022\026\n\016"
-    "dist_from_ball\030\032 \001(\002\022\027\n\017angle_from_ball\030"
-    "\033 \001(\002\022\030\n\020ball_reach_steps\030\034 \001(\005\022\023\n\013is_ta"
-    "ckling\030\035 \001(\010\022\017\n\007type_id\030\036 \001(\005\"\233\010\n\004Self\022%"
-    "\n\010position\030\001 \001(\0132\023.protos.RpcVector2D\022*\n"
-    "\rseen_position\030\002 \001(\0132\023.protos.RpcVector2"
-    "D\022+\n\016heard_position\030\003 \001(\0132\023.protos.RpcVe"
-    "ctor2D\022%\n\010velocity\030\004 \001(\0132\023.protos.RpcVec"
-    "tor2D\022*\n\rseen_velocity\030\005 \001(\0132\023.protos.Rp"
-    "cVector2D\022\021\n\tpos_count\030\006 \001(\005\022\026\n\016seen_pos"
-    "_count\030\007 \001(\005\022\027\n\017heard_pos_count\030\010 \001(\005\022\021\n"
-    "\tvel_count\030\t \001(\005\022\026\n\016seen_vel_count\030\n \001(\005"
-    "\022\023\n\013ghost_count\030\013 \001(\005\022\n\n\002id\030\014 \001(\005\022\032\n\004sid"
-    "e\030\r \001(\0162\014.protos.Side\022\026\n\016uniform_number\030"
-    "\016 \001(\005\022\034\n\024uniform_number_count\030\017 \001(\005\022\021\n\ti"
-    "s_goalie\030\020 \001(\010\022\026\n\016body_direction\030\021 \001(\002\022\034"
-    "\n\024body_direction_count\030\022 \001(\005\022\026\n\016face_dir"
-    "ection\030\023 \001(\002\022\034\n\024face_direction_count\030\024 \001"
-    "(\005\022\032\n\022point_to_direction\030\025 \001(\002\022 \n\030point_"
-    "to_direction_count\030\026 \001(\005\022\022\n\nis_kicking\030\027"
-    " \001(\010\022\026\n\016dist_from_ball\030\030 \001(\002\022\027\n\017angle_fr"
-    "om_ball\030\031 \001(\002\022\030\n\020ball_reach_steps\030\032 \001(\005\022"
-    "\023\n\013is_tackling\030\033 \001(\010\022\037\n\027relative_neck_di"
-    "rection\030\034 \001(\002\022\017\n\007stamina\030\035 \001(\002\022\023\n\013is_kic"
-    "kable\030\036 \001(\010\022\031\n\021catch_probability\030\037 \001(\002\022\032"
-    "\n\022tackle_probability\030  \001(\002\022\030\n\020foul_proba"
-    "bility\030! \001(\002\022%\n\nview_width\030\" \001(\0162\021.proto"
-    "s.ViewWidth\022\017\n\007type_id\030# \001(\005\022\021\n\tkick_rat"
-    "e\030$ \001(\002\022\020\n\010recovery\030% \001(\002\022\030\n\020stamina_cap"
-    "acity\030& \001(\002\022\036\n\004card\030\' \001(\0162\020.protos.CardT"
-    "ype\"\224\002\n\rInterceptInfo\0220\n\013action_type\030\001 \001"
-    "(\0162\033.protos.InterceptActionType\022\022\n\nturn_"
-    "steps\030\002 \001(\005\022\022\n\nturn_angle\030\003 \001(\002\022\022\n\ndash_"
-    "steps\030\004 \001(\005\022\022\n\ndash_power\030\005 \001(\002\022\020\n\010dash_"
-    "dir\030\006 \001(\002\0220\n\023final_self_position\030\007 \001(\0132\023"
-    ".protos.RpcVector2D\022\027\n\017final_ball_dist\030\010"
-    " \001(\002\022\025\n\rfinal_stamina\030\t \001(\002\022\r\n\005value\030\n \001"
-    "(\002\"\336\002\n\016InterceptTable\022\030\n\020self_reach_step"
-    "s\030\001 \001(\005\022\"\n\032first_teammate_reach_steps\030\002 "
-    "\001(\005\022#\n\033second_teammate_reach_steps\030\003 \001(\005"
-    "\022\"\n\032first_opponent_reach_steps\030\004 \001(\005\022#\n\033"
-    "second_opponent_reach_steps\030\005 \001(\005\022\031\n\021fir"
-    "st_teammate_id\030\006 \001(\005\022\032\n\022second_teammate_"
-    "id\030\007 \001(\005\022\031\n\021first_opponent_id\030\010 \001(\005\022\032\n\022s"
-    "econd_opponent_id\030\t \001(\005\0222\n\023self_intercep"
-    "t_info\030\n \003(\0132\025.protos.InterceptInfo\"\223\013\n\n"
-    "WorldModel\022/\n\017intercept_table\030\001 \001(\0132\026.pr"
-    "otos.InterceptTable\022\025\n\rour_team_name\030\002 \001"
-    "(\t\022\027\n\017their_team_name\030\003 \001(\t\022\036\n\010our_side\030"
-    "\004 \001(\0162\014.protos.Side\022 \n\030last_set_play_sta"
-    "rt_time\030\005 \001(\005\022\032\n\004self\030\006 \001(\0132\014.protos.Sel"
-    "f\022\032\n\004ball\030\007 \001(\0132\014.protos.Ball\022!\n\tteammat"
-    "es\030\010 \003(\0132\016.protos.Player\022!\n\topponents\030\t "
-    "\003(\0132\016.protos.Player\022 \n\010unknowns\030\n \003(\0132\016."
-    "protos.Player\022@\n\020our_players_dict\030\013 \003(\0132"
-    "&.protos.WorldModel.OurPlayersDictEntry\022"
-    "D\n\022their_players_dict\030\014 \003(\0132(.protos.Wor"
-    "ldModel.TheirPlayersDictEntry\022!\n\031our_goa"
-    "lie_uniform_number\030\r \001(\005\022#\n\033their_goalie"
-    "_uniform_number\030\016 \001(\005\022\026\n\016offside_line_x\030"
-    "\017 \001(\002\022\033\n\023ofside_line_x_count\030\020 \001(\005\022\034\n\024ki"
-    "ckable_teammate_id\030\021 \001(\005\022\034\n\024kickable_opp"
-    "onent_id\030\022 \001(\005\022$\n\016last_kick_side\030\023 \001(\0162\014"
-    ".protos.Side\022\"\n\032last_kicker_uniform_numb"
-    "er\030\024 \001(\005\022\r\n\005cycle\030\025 \001(\005\022,\n\016game_mode_typ"
-    "e\030\026 \001(\0162\024.protos.GameModeType\022\027\n\017left_te"
-    "am_score\030\027 \001(\005\022\030\n\020right_team_score\030\030 \001(\005"
-    "\022\027\n\017is_our_set_play\030\031 \001(\010\022\031\n\021is_their_se"
-    "t_play\030\032 \001(\010\022\024\n\014stoped_cycle\030\033 \001(\005\022\026\n\016ou"
-    "r_team_score\030\034 \001(\005\022\030\n\020their_team_score\030\035"
-    " \001(\005\022\034\n\024is_penalty_kick_mode\030\036 \001(\010\022J\n\025he"
-    "lios_home_positions\030\037 \003(\0132+.protos.World"
-    "Model.HeliosHomePositionsEntry\022\032\n\022our_de"
-    "fense_line_x\030  \001(\001\022\034\n\024their_defense_line"
-    "_x\030! \001(\001\022!\n\031our_defense_player_line_x\030\" "
-    "\001(\001\022#\n\033their_defense_player_line_x\030# \001(\001"
-    "\032E\n\023OurPlayersDictEntry\022\013\n\003key\030\001 \001(\005\022\035\n\005"
-    "value\030\002 \001(\0132\016.protos.Player:\0028\001\032G\n\025Their"
-    "PlayersDictEntry\022\013\n\003key\030\001 \001(\005\022\035\n\005value\030\002"
-    " \001(\0132\016.protos.Player:\0028\001\032O\n\030HeliosHomePo"
-    "sitionsEntry\022\013\n\003key\030\001 \001(\005\022\"\n\005value\030\002 \001(\013"
-    "2\023.protos.RpcVector2D:\0028\001\"\254\001\n\005State\0223\n\021r"
-    "egister_response\030\001 \001(\0132\030.protos.Register"
-    "Response\022\'\n\013world_model\030\002 \001(\0132\022.protos.W"
-    "orldModel\022,\n\020full_world_model\030\003 \001(\0132\022.pr"
-    "otos.WorldModel\022\027\n\017need_preprocess\030\004 \001(\010"
-    "\"V\n\013InitMessage\0223\n\021register_response\030\001 \001"
-    "(\0132\030.protos.RegisterResponse\022\022\n\ndebug_mo"
-    "de\030\002 \001(\010\"1\n\004Dash\022\r\n\005power\030\001 \001(\002\022\032\n\022relat"
-    "ive_direction\030\002 \001(\002\"\"\n\004Turn\022\032\n\022relative_"
-    "direction\030\001 \001(\002\"1\n\004Kick\022\r\n\005power\030\001 \001(\002\022\032"
-    "\n\022relative_direction\030\002 \001(\002\",\n\006Tackle\022\024\n\014"
-    "power_or_dir\030\001 \001(\002\022\014\n\004foul\030\002 \001(\010\"\007\n\005Catc"
-    "h\"\034\n\004Move\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\"\032\n\010TurnN"
-    "eck\022\016\n\006moment\030\001 \001(\002\"3\n\nChangeView\022%\n\nvie"
-    "w_width\030\001 \001(\0162\021.protos.ViewWidth\"e\n\013Ball"
-    "Message\022*\n\rball_position\030\001 \001(\0132\023.protos."
-    "RpcVector2D\022*\n\rball_velocity\030\002 \001(\0132\023.pro"
-    "tos.RpcVector2D\"\263\001\n\013PassMessage\022\037\n\027recei"
-    "ver_uniform_number\030\001 \001(\005\022+\n\016receiver_poi"
-    "nt\030\002 \001(\0132\023.protos.RpcVector2D\022*\n\rball_po"
-    "sition\030\003 \001(\0132\023.protos.RpcVector2D\022*\n\rbal"
-    "l_velocity\030\004 \001(\0132\023.protos.RpcVector2D\"F\n"
-    "\020InterceptMessage\022\013\n\003our\030\001 \001(\010\022\026\n\016unifor"
-    "m_number\030\002 \001(\005\022\r\n\005cycle\030\003 \001(\005\"{\n\rGoalieM"
-    "essage\022\035\n\025goalie_uniform_number\030\001 \001(\005\022,\n"
-    "\017goalie_position\030\002 \001(\0132\023.protos.RpcVecto"
-    "r2D\022\035\n\025goalie_body_direction\030\003 \001(\002\"\321\001\n\026G"
-    "oalieAndPlayerMessage\022\035\n\025goalie_uniform_"
-    "number\030\001 \001(\005\022,\n\017goalie_position\030\002 \001(\0132\023."
-    "protos.RpcVector2D\022\035\n\025goalie_body_direct"
-    "ion\030\003 \001(\002\022\035\n\025player_uniform_number\030\004 \001(\005"
-    "\022,\n\017player_position\030\005 \001(\0132\023.protos.RpcVe"
-    "ctor2D\",\n\022OffsideLineMessage\022\026\n\016offside_"
-    "line_x\030\001 \001(\002\",\n\022DefenseLineMessage\022\026\n\016de"
-    "fense_line_x\030\001 \001(\002\"\024\n\022WaitRequestMessage"
-    "\"#\n\016SetplayMessage\022\021\n\twait_step\030\001 \001(\005\"\?\n"
-    "\022PassRequestMessage\022)\n\014target_point\030\001 \001("
-    "\0132\023.protos.RpcVector2D\"!\n\016StaminaMessage"
-    "\022\017\n\007stamina\030\001 \001(\002\"#\n\017RecoveryMessage\022\020\n\010"
-    "recovery\030\001 \001(\002\"2\n\026StaminaCapacityMessage"
-    "\022\030\n\020stamina_capacity\030\001 \001(\002\"P\n\016DribbleMes"
-    "sage\022)\n\014target_point\030\001 \001(\0132\023.protos.RpcV"
-    "ector2D\022\023\n\013queue_count\030\002 \001(\005\"\270\001\n\021BallGoa"
-    "lieMessage\022*\n\rball_position\030\001 \001(\0132\023.prot"
-    "os.RpcVector2D\022*\n\rball_velocity\030\002 \001(\0132\023."
-    "protos.RpcVector2D\022,\n\017goalie_position\030\003 "
-    "\001(\0132\023.protos.RpcVector2D\022\035\n\025goalie_body_"
-    "direction\030\004 \001(\002\"Q\n\020OnePlayerMessage\022\026\n\016u"
-    "niform_number\030\001 \001(\005\022%\n\010position\030\002 \001(\0132\023."
-    "protos.RpcVector2D\"\252\001\n\020TwoPlayerMessage\022"
-    "\034\n\024first_uniform_number\030\001 \001(\005\022+\n\016first_p"
-    "osition\030\002 \001(\0132\023.protos.RpcVector2D\022\035\n\025se"
-    "cond_uniform_number\030\003 \001(\005\022,\n\017second_posi"
-    "tion\030\004 \001(\0132\023.protos.RpcVector2D\"\367\001\n\022Thre"
-    "ePlayerMessage\022\034\n\024first_uniform_number\030\001"
-    " \001(\005\022+\n\016first_position\030\002 \001(\0132\023.protos.Rp"
-    "cVector2D\022\035\n\025second_uniform_number\030\003 \001(\005"
-    "\022,\n\017second_position\030\004 \001(\0132\023.protos.RpcVe"
-    "ctor2D\022\034\n\024third_uniform_number\030\005 \001(\005\022+\n\016"
-    "third_position\030\006 \001(\0132\023.protos.RpcVector2"
-    "D\"l\n\013SelfMessage\022*\n\rself_position\030\001 \001(\0132"
-    "\023.protos.RpcVector2D\022\033\n\023self_body_direct"
-    "ion\030\002 \001(\002\022\024\n\014self_stamina\030\003 \001(\002\"h\n\017Teamm"
-    "ateMessage\022\026\n\016uniform_number\030\001 \001(\005\022%\n\010po"
-    "sition\030\002 \001(\0132\023.protos.RpcVector2D\022\026\n\016bod"
-    "y_direction\030\003 \001(\002\"h\n\017OpponentMessage\022\026\n\016"
-    "uniform_number\030\001 \001(\005\022%\n\010position\030\002 \001(\0132\023"
-    ".protos.RpcVector2D\022\026\n\016body_direction\030\003 "
-    "\001(\002\"\311\001\n\021BallPlayerMessage\022*\n\rball_positi"
-    "on\030\001 \001(\0132\023.protos.RpcVector2D\022*\n\rball_ve"
-    "locity\030\002 \001(\0132\023.protos.RpcVector2D\022\026\n\016uni"
-    "form_number\030\003 \001(\005\022,\n\017player_position\030\004 \001"
-    "(\0132\023.protos.RpcVector2D\022\026\n\016body_directio"
-    "n\030\005 \001(\002\"\320\t\n\003Say\022+\n\014ball_message\030\001 \001(\0132\023."
-    "protos.BallMessageH\000\022+\n\014pass_message\030\002 \001"
-    "(\0132\023.protos.PassMessageH\000\0225\n\021intercept_m"
-    "essage\030\003 \001(\0132\030.protos.InterceptMessageH\000"
-    "\022/\n\016goalie_message\030\004 \001(\0132\025.protos.Goalie"
-    "MessageH\000\022C\n\031goalie_and_player_message\030\005"
-    " \001(\0132\036.protos.GoalieAndPlayerMessageH\000\022:"
-    "\n\024offside_line_message\030\006 \001(\0132\032.protos.Of"
-    "fsideLineMessageH\000\022:\n\024defense_line_messa"
-    "ge\030\007 \001(\0132\032.protos.DefenseLineMessageH\000\022:"
-    "\n\024wait_request_message\030\010 \001(\0132\032.protos.Wa"
-    "itRequestMessageH\000\0221\n\017setplay_message\030\t "
-    "\001(\0132\026.protos.SetplayMessageH\000\022:\n\024pass_re"
-    "quest_message\030\n \001(\0132\032.protos.PassRequest"
-    "MessageH\000\0221\n\017stamina_message\030\013 \001(\0132\026.pro"
-    "tos.StaminaMessageH\000\0223\n\020recovery_message"
-    "\030\014 \001(\0132\027.protos.RecoveryMessageH\000\022B\n\030sta"
-    "mina_capacity_message\030\r \001(\0132\036.protos.Sta"
-    "minaCapacityMessageH\000\0221\n\017dribble_message"
-    "\030\016 \001(\0132\026.protos.DribbleMessageH\000\0228\n\023ball"
-    "_goalie_message\030\017 \001(\0132\031.protos.BallGoali"
-    "eMessageH\000\0226\n\022one_player_message\030\020 \001(\0132\030"
-    ".protos.OnePlayerMessageH\000\0226\n\022two_player"
-    "_message\030\021 \001(\0132\030.protos.TwoPlayerMessage"
-    "H\000\022:\n\024three_player_message\030\022 \001(\0132\032.proto"
-    "s.ThreePlayerMessageH\000\022+\n\014self_message\030\023"
-    " \001(\0132\023.protos.SelfMessageH\000\0223\n\020teammate_"
-    "message\030\024 \001(\0132\027.protos.TeammateMessageH\000"
-    "\0223\n\020opponent_message\030\025 \001(\0132\027.protos.Oppo"
-    "nentMessageH\000\0228\n\023ball_player_message\030\026 \001"
-    "(\0132\031.protos.BallPlayerMessageH\000B\t\n\007messa"
-    "ge\"\037\n\007PointTo\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\"\013\n\tP"
-    "ointToOf\"7\n\013AttentionTo\022\032\n\004side\030\001 \001(\0162\014."
-    "protos.Side\022\014\n\004unum\030\002 \001(\005\"\017\n\rAttentionTo"
-    "Of\">\n\007AddText\022\"\n\005level\030\001 \001(\0162\023.protos.Lo"
-    "ggerLevel\022\017\n\007message\030\002 \001(\t\"a\n\010AddPoint\022\""
-    "\n\005level\030\001 \001(\0162\023.protos.LoggerLevel\022\"\n\005po"
-    "int\030\002 \001(\0132\023.protos.RpcVector2D\022\r\n\005color\030"
-    "\003 \001(\t\"\202\001\n\007AddLine\022\"\n\005level\030\001 \001(\0162\023.proto"
-    "s.LoggerLevel\022\"\n\005start\030\002 \001(\0132\023.protos.Rp"
-    "cVector2D\022 \n\003end\030\003 \001(\0132\023.protos.RpcVecto"
-    "r2D\022\r\n\005color\030\004 \001(\t\"\231\001\n\006AddArc\022\"\n\005level\030\001"
-    " \001(\0162\023.protos.LoggerLevel\022#\n\006center\030\002 \001("
-    "\0132\023.protos.RpcVector2D\022\016\n\006radius\030\003 \001(\002\022\023"
-    "\n\013start_angle\030\004 \001(\002\022\022\n\nspan_angel\030\005 \001(\002\022"
-    "\r\n\005color\030\006 \001(\t\"\201\001\n\tAddCircle\022\"\n\005level\030\001 "
-    "\001(\0162\023.protos.LoggerLevel\022#\n\006center\030\002 \001(\013"
-    "2\023.protos.RpcVector2D\022\016\n\006radius\030\003 \001(\002\022\r\n"
-    "\005color\030\004 \001(\t\022\014\n\004fill\030\005 \001(\010\"\275\001\n\013AddTriang"
-    "le\022\"\n\005level\030\001 \001(\0162\023.protos.LoggerLevel\022#"
-    "\n\006point1\030\002 \001(\0132\023.protos.RpcVector2D\022#\n\006p"
-    "oint2\030\003 \001(\0132\023.protos.RpcVector2D\022#\n\006poin"
-    "t3\030\004 \001(\0132\023.protos.RpcVector2D\022\r\n\005color\030\005"
-    " \001(\t\022\014\n\004fill\030\006 \001(\010\"\211\001\n\014AddRectangle\022\"\n\005l"
-    "evel\030\001 \001(\0162\023.protos.LoggerLevel\022\014\n\004left\030"
-    "\002 \001(\002\022\013\n\003top\030\003 \001(\002\022\016\n\006length\030\004 \001(\002\022\r\n\005wi"
-    "dth\030\005 \001(\002\022\r\n\005color\030\006 \001(\t\022\014\n\004fill\030\007 \001(\010\"\302"
-    "\001\n\tAddSector\022\"\n\005level\030\001 \001(\0162\023.protos.Log"
-    "gerLevel\022#\n\006center\030\002 \001(\0132\023.protos.RpcVec"
-    "tor2D\022\022\n\nmin_radius\030\003 \001(\002\022\022\n\nmax_radius\030"
-    "\004 \001(\002\022\023\n\013start_angle\030\005 \001(\002\022\022\n\nspan_angel"
-    "\030\006 \001(\002\022\r\n\005color\030\007 \001(\t\022\014\n\004fill\030\010 \001(\010\"w\n\nA"
-    "ddMessage\022\"\n\005level\030\001 \001(\0162\023.protos.Logger"
-    "Level\022%\n\010position\030\002 \001(\0132\023.protos.RpcVect"
-    "or2D\022\017\n\007message\030\003 \001(\t\022\r\n\005color\030\004 \001(\t\"\371\002\n"
-    "\003Log\022#\n\010add_text\030\001 \001(\0132\017.protos.AddTextH"
-    "\000\022%\n\tadd_point\030\002 \001(\0132\020.protos.AddPointH\000"
-    "\022#\n\010add_line\030\003 \001(\0132\017.protos.AddLineH\000\022!\n"
-    "\007add_arc\030\004 \001(\0132\016.protos.AddArcH\000\022\'\n\nadd_"
-    "circle\030\005 \001(\0132\021.protos.AddCircleH\000\022+\n\014add"
-    "_triangle\030\006 \001(\0132\023.protos.AddTriangleH\000\022-"
-    "\n\radd_rectangle\030\007 \001(\0132\024.protos.AddRectan"
-    "gleH\000\022\'\n\nadd_sector\030\010 \001(\0132\021.protos.AddSe"
-    "ctorH\000\022)\n\013add_message\030\t \001(\0132\022.protos.Add"
-    "MessageH\000B\005\n\003log\"\036\n\013DebugClient\022\017\n\007messa"
-    "ge\030\001 \001(\t\"o\n\016Body_GoToPoint\022)\n\014target_poi"
-    "nt\030\001 \001(\0132\023.protos.RpcVector2D\022\032\n\022distanc"
-    "e_threshold\030\002 \001(\002\022\026\n\016max_dash_power\030\003 \001("
-    "\002\"\202\001\n\016Body_SmartKick\022)\n\014target_point\030\001 \001"
-    "(\0132\023.protos.RpcVector2D\022\023\n\013first_speed\030\002"
-    " \001(\002\022\035\n\025first_speed_threshold\030\003 \001(\002\022\021\n\tm"
-    "ax_steps\030\004 \001(\005\"7\n\021Bhv_BeforeKickOff\022\"\n\005p"
-    "oint\030\001 \001(\0132\023.protos.RpcVector2D\"\024\n\022Bhv_B"
-    "odyNeckToBall\"9\n\023Bhv_BodyNeckToPoint\022\"\n\005"
-    "point\030\001 \001(\0132\023.protos.RpcVector2D\"\017\n\rBhv_"
-    "Emergency\"v\n\025Bhv_GoToPointLookBall\022)\n\014ta"
-    "rget_point\030\001 \001(\0132\023.protos.RpcVector2D\022\032\n"
-    "\022distance_threshold\030\002 \001(\002\022\026\n\016max_dash_po"
-    "wer\030\003 \001(\002\"\'\n\022Bhv_NeckBodyToBall\022\021\n\tangle"
-    "_buf\030\001 \001(\002\"L\n\023Bhv_NeckBodyToPoint\022\"\n\005poi"
-    "nt\030\001 \001(\0132\023.protos.RpcVector2D\022\021\n\tangle_b"
-    "uf\030\002 \001(\002\"\017\n\rBhv_ScanField\"\022\n\020Body_Advanc"
-    "eBall\"\020\n\016Body_ClearBall\"\214\001\n\014Body_Dribble"
-    "\022)\n\014target_point\030\001 \001(\0132\023.protos.RpcVecto"
-    "r2D\022\032\n\022distance_threshold\030\002 \001(\002\022\022\n\ndash_"
-    "power\030\003 \001(\002\022\022\n\ndash_count\030\004 \001(\005\022\r\n\005dodge"
-    "\030\005 \001(\010\"T\n\023Body_GoToPointDodge\022)\n\014target_"
-    "point\030\001 \001(\0132\023.protos.RpcVector2D\022\022\n\ndash"
-    "_power\030\002 \001(\002\"\200\001\n\rBody_HoldBall\022\017\n\007do_tur"
-    "n\030\001 \001(\010\022.\n\021turn_target_point\030\002 \001(\0132\023.pro"
-    "tos.RpcVector2D\022.\n\021kick_target_point\030\003 \001"
-    "(\0132\023.protos.RpcVector2D\"P\n\016Body_Intercep"
-    "t\022\025\n\rsave_recovery\030\001 \001(\010\022\'\n\nface_point\030\002"
-    " \001(\0132\023.protos.RpcVector2D\"f\n\020Body_KickOn"
-    "eStep\022)\n\014target_point\030\001 \001(\0132\023.protos.Rpc"
-    "Vector2D\022\023\n\013first_speed\030\002 \001(\002\022\022\n\nforce_m"
-    "ode\030\003 \001(\010\"\017\n\rBody_StopBall\"&\n\rBody_StopD"
-    "ash\022\025\n\rsave_recovery\030\001 \001(\010\"k\n\022Body_Tackl"
-    "eToPoint\022)\n\014target_point\030\001 \001(\0132\023.protos."
-    "RpcVector2D\022\027\n\017min_probability\030\002 \001(\002\022\021\n\t"
-    "min_speed\030\003 \001(\002\"!\n\020Body_TurnToAngle\022\r\n\005a"
-    "ngle\030\001 \001(\002\" \n\017Body_TurnToBall\022\r\n\005cycle\030\001"
-    " \001(\005\"L\n\020Body_TurnToPoint\022)\n\014target_point"
-    "\030\001 \001(\0132\023.protos.RpcVector2D\022\r\n\005cycle\030\002 \001"
-    "(\005\">\n\021Focus_MoveToPoint\022)\n\014target_point\030"
-    "\001 \001(\0132\023.protos.RpcVector2D\"\r\n\013Focus_Rese"
-    "t\"\020\n\016Neck_ScanField\"\022\n\020Neck_ScanPlayers\""
-    "g\n\030Neck_TurnToBallAndPlayer\022\032\n\004side\030\001 \001("
-    "\0162\014.protos.Side\022\026\n\016uniform_number\030\002 \001(\005\022"
-    "\027\n\017count_threshold\030\003 \001(\005\"0\n\025Neck_TurnToB"
-    "allOrScan\022\027\n\017count_threshold\030\001 \001(\005\"\021\n\017Ne"
-    "ck_TurnToBall\"2\n\027Neck_TurnToGoalieOrScan"
-    "\022\027\n\017count_threshold\030\001 \001(\005\"\034\n\032Neck_TurnTo"
-    "LowConfTeammate\"f\n\027Neck_TurnToPlayerOrSc"
-    "an\022\032\n\004side\030\001 \001(\0162\014.protos.Side\022\026\n\016unifor"
-    "m_number\030\002 \001(\005\022\027\n\017count_threshold\030\003 \001(\005\""
-    "=\n\020Neck_TurnToPoint\022)\n\014target_point\030\001 \001("
-    "\0132\023.protos.RpcVector2D\"$\n\023Neck_TurnToRel"
-    "ative\022\r\n\005angle\030\001 \001(\002\"9\n\020View_ChangeWidth"
+    "\030\002 \001(\t\022\026\n\016uniform_number\030\003 \001(\005\022\023\n\013rpc_ve"
+    "rsion\030\004 \001(\005\"\270\001\n\020RegisterResponse\022\021\n\tclie"
+    "nt_id\030\001 \001(\005\022%\n\nagent_type\030\002 \001(\0162\021.protos"
+    ".AgentType\022\021\n\tteam_name\030\003 \001(\t\022\026\n\016uniform"
+    "_number\030\004 \001(\005\022\?\n\030rpc_server_language_typ"
+    "e\030\005 \001(\0162\035.protos.RpcServerLanguageType\"\230"
+    "\004\n\004Ball\022%\n\010position\030\001 \001(\0132\023.protos.RpcVe"
+    "ctor2D\022.\n\021relative_position\030\002 \001(\0132\023.prot"
+    "os.RpcVector2D\022*\n\rseen_position\030\003 \001(\0132\023."
+    "protos.RpcVector2D\022+\n\016heard_position\030\004 \001"
+    "(\0132\023.protos.RpcVector2D\022%\n\010velocity\030\005 \001("
+    "\0132\023.protos.RpcVector2D\022*\n\rseen_velocity\030"
+    "\006 \001(\0132\023.protos.RpcVector2D\022+\n\016heard_velo"
+    "city\030\007 \001(\0132\023.protos.RpcVector2D\022\021\n\tpos_c"
+    "ount\030\010 \001(\005\022\026\n\016seen_pos_count\030\t \001(\005\022\027\n\017he"
+    "ard_pos_count\030\n \001(\005\022\021\n\tvel_count\030\013 \001(\005\022\026"
+    "\n\016seen_vel_count\030\014 \001(\005\022\027\n\017heard_vel_coun"
+    "t\030\r \001(\005\022\022\n\nlost_count\030\016 \001(\005\022\023\n\013ghost_cou"
+    "nt\030\017 \001(\005\022\026\n\016dist_from_self\030\020 \001(\002\022\027\n\017angl"
+    "e_from_self\030\021 \001(\002\"\260\006\n\006Player\022%\n\010position"
+    "\030\001 \001(\0132\023.protos.RpcVector2D\022*\n\rseen_posi"
+    "tion\030\002 \001(\0132\023.protos.RpcVector2D\022+\n\016heard"
+    "_position\030\003 \001(\0132\023.protos.RpcVector2D\022%\n\010"
+    "velocity\030\004 \001(\0132\023.protos.RpcVector2D\022*\n\rs"
+    "een_velocity\030\005 \001(\0132\023.protos.RpcVector2D\022"
+    "\021\n\tpos_count\030\006 \001(\005\022\026\n\016seen_pos_count\030\007 \001"
+    "(\005\022\027\n\017heard_pos_count\030\010 \001(\005\022\021\n\tvel_count"
+    "\030\t \001(\005\022\026\n\016seen_vel_count\030\n \001(\005\022\023\n\013ghost_"
+    "count\030\013 \001(\005\022\026\n\016dist_from_self\030\014 \001(\002\022\027\n\017a"
+    "ngle_from_self\030\r \001(\002\022\n\n\002id\030\016 \001(\005\022\032\n\004side"
+    "\030\017 \001(\0162\014.protos.Side\022\026\n\016uniform_number\030\020"
+    " \001(\005\022\034\n\024uniform_number_count\030\021 \001(\005\022\021\n\tis"
+    "_goalie\030\022 \001(\010\022\026\n\016body_direction\030\023 \001(\002\022\034\n"
+    "\024body_direction_count\030\024 \001(\005\022\026\n\016face_dire"
+    "ction\030\025 \001(\002\022\034\n\024face_direction_count\030\026 \001("
+    "\005\022\032\n\022point_to_direction\030\027 \001(\002\022 \n\030point_t"
+    "o_direction_count\030\030 \001(\005\022\022\n\nis_kicking\030\031 "
+    "\001(\010\022\026\n\016dist_from_ball\030\032 \001(\002\022\027\n\017angle_fro"
+    "m_ball\030\033 \001(\002\022\030\n\020ball_reach_steps\030\034 \001(\005\022\023"
+    "\n\013is_tackling\030\035 \001(\010\022\017\n\007type_id\030\036 \001(\005\"\233\010\n"
+    "\004Self\022%\n\010position\030\001 \001(\0132\023.protos.RpcVect"
+    "or2D\022*\n\rseen_position\030\002 \001(\0132\023.protos.Rpc"
+    "Vector2D\022+\n\016heard_position\030\003 \001(\0132\023.proto"
+    "s.RpcVector2D\022%\n\010velocity\030\004 \001(\0132\023.protos"
+    ".RpcVector2D\022*\n\rseen_velocity\030\005 \001(\0132\023.pr"
+    "otos.RpcVector2D\022\021\n\tpos_count\030\006 \001(\005\022\026\n\016s"
+    "een_pos_count\030\007 \001(\005\022\027\n\017heard_pos_count\030\010"
+    " \001(\005\022\021\n\tvel_count\030\t \001(\005\022\026\n\016seen_vel_coun"
+    "t\030\n \001(\005\022\023\n\013ghost_count\030\013 \001(\005\022\n\n\002id\030\014 \001(\005"
+    "\022\032\n\004side\030\r \001(\0162\014.protos.Side\022\026\n\016uniform_"
+    "number\030\016 \001(\005\022\034\n\024uniform_number_count\030\017 \001"
+    "(\005\022\021\n\tis_goalie\030\020 \001(\010\022\026\n\016body_direction\030"
+    "\021 \001(\002\022\034\n\024body_direction_count\030\022 \001(\005\022\026\n\016f"
+    "ace_direction\030\023 \001(\002\022\034\n\024face_direction_co"
+    "unt\030\024 \001(\005\022\032\n\022point_to_direction\030\025 \001(\002\022 \n"
+    "\030point_to_direction_count\030\026 \001(\005\022\022\n\nis_ki"
+    "cking\030\027 \001(\010\022\026\n\016dist_from_ball\030\030 \001(\002\022\027\n\017a"
+    "ngle_from_ball\030\031 \001(\002\022\030\n\020ball_reach_steps"
+    "\030\032 \001(\005\022\023\n\013is_tackling\030\033 \001(\010\022\037\n\027relative_"
+    "neck_direction\030\034 \001(\002\022\017\n\007stamina\030\035 \001(\002\022\023\n"
+    "\013is_kickable\030\036 \001(\010\022\031\n\021catch_probability\030"
+    "\037 \001(\002\022\032\n\022tackle_probability\030  \001(\002\022\030\n\020fou"
+    "l_probability\030! \001(\002\022%\n\nview_width\030\" \001(\0162"
+    "\021.protos.ViewWidth\022\017\n\007type_id\030# \001(\005\022\021\n\tk"
+    "ick_rate\030$ \001(\002\022\020\n\010recovery\030% \001(\002\022\030\n\020stam"
+    "ina_capacity\030& \001(\002\022\036\n\004card\030\' \001(\0162\020.proto"
+    "s.CardType\"\224\002\n\rInterceptInfo\0220\n\013action_t"
+    "ype\030\001 \001(\0162\033.protos.InterceptActionType\022\022"
+    "\n\nturn_steps\030\002 \001(\005\022\022\n\nturn_angle\030\003 \001(\002\022\022"
+    "\n\ndash_steps\030\004 \001(\005\022\022\n\ndash_power\030\005 \001(\002\022\020"
+    "\n\010dash_dir\030\006 \001(\002\0220\n\023final_self_position\030"
+    "\007 \001(\0132\023.protos.RpcVector2D\022\027\n\017final_ball"
+    "_dist\030\010 \001(\002\022\025\n\rfinal_stamina\030\t \001(\002\022\r\n\005va"
+    "lue\030\n \001(\002\"\336\002\n\016InterceptTable\022\030\n\020self_rea"
+    "ch_steps\030\001 \001(\005\022\"\n\032first_teammate_reach_s"
+    "teps\030\002 \001(\005\022#\n\033second_teammate_reach_step"
+    "s\030\003 \001(\005\022\"\n\032first_opponent_reach_steps\030\004 "
+    "\001(\005\022#\n\033second_opponent_reach_steps\030\005 \001(\005"
+    "\022\031\n\021first_teammate_id\030\006 \001(\005\022\032\n\022second_te"
+    "ammate_id\030\007 \001(\005\022\031\n\021first_opponent_id\030\010 \001"
+    "(\005\022\032\n\022second_opponent_id\030\t \001(\005\0222\n\023self_i"
+    "ntercept_info\030\n \003(\0132\025.protos.InterceptIn"
+    "fo\"\223\013\n\nWorldModel\022/\n\017intercept_table\030\001 \001"
+    "(\0132\026.protos.InterceptTable\022\025\n\rour_team_n"
+    "ame\030\002 \001(\t\022\027\n\017their_team_name\030\003 \001(\t\022\036\n\010ou"
+    "r_side\030\004 \001(\0162\014.protos.Side\022 \n\030last_set_p"
+    "lay_start_time\030\005 \001(\005\022\032\n\004self\030\006 \001(\0132\014.pro"
+    "tos.Self\022\032\n\004ball\030\007 \001(\0132\014.protos.Ball\022!\n\t"
+    "teammates\030\010 \003(\0132\016.protos.Player\022!\n\toppon"
+    "ents\030\t \003(\0132\016.protos.Player\022 \n\010unknowns\030\n"
+    " \003(\0132\016.protos.Player\022@\n\020our_players_dict"
+    "\030\013 \003(\0132&.protos.WorldModel.OurPlayersDic"
+    "tEntry\022D\n\022their_players_dict\030\014 \003(\0132(.pro"
+    "tos.WorldModel.TheirPlayersDictEntry\022!\n\031"
+    "our_goalie_uniform_number\030\r \001(\005\022#\n\033their"
+    "_goalie_uniform_number\030\016 \001(\005\022\026\n\016offside_"
+    "line_x\030\017 \001(\002\022\033\n\023ofside_line_x_count\030\020 \001("
+    "\005\022\034\n\024kickable_teammate_id\030\021 \001(\005\022\034\n\024kicka"
+    "ble_opponent_id\030\022 \001(\005\022$\n\016last_kick_side\030"
+    "\023 \001(\0162\014.protos.Side\022\"\n\032last_kicker_unifo"
+    "rm_number\030\024 \001(\005\022\r\n\005cycle\030\025 \001(\005\022,\n\016game_m"
+    "ode_type\030\026 \001(\0162\024.protos.GameModeType\022\027\n\017"
+    "left_team_score\030\027 \001(\005\022\030\n\020right_team_scor"
+    "e\030\030 \001(\005\022\027\n\017is_our_set_play\030\031 \001(\010\022\031\n\021is_t"
+    "heir_set_play\030\032 \001(\010\022\024\n\014stoped_cycle\030\033 \001("
+    "\005\022\026\n\016our_team_score\030\034 \001(\005\022\030\n\020their_team_"
+    "score\030\035 \001(\005\022\034\n\024is_penalty_kick_mode\030\036 \001("
+    "\010\022J\n\025helios_home_positions\030\037 \003(\0132+.proto"
+    "s.WorldModel.HeliosHomePositionsEntry\022\032\n"
+    "\022our_defense_line_x\030  \001(\001\022\034\n\024their_defen"
+    "se_line_x\030! \001(\001\022!\n\031our_defense_player_li"
+    "ne_x\030\" \001(\001\022#\n\033their_defense_player_line_"
+    "x\030# \001(\001\032E\n\023OurPlayersDictEntry\022\013\n\003key\030\001 "
+    "\001(\005\022\035\n\005value\030\002 \001(\0132\016.protos.Player:\0028\001\032G"
+    "\n\025TheirPlayersDictEntry\022\013\n\003key\030\001 \001(\005\022\035\n\005"
+    "value\030\002 \001(\0132\016.protos.Player:\0028\001\032O\n\030Helio"
+    "sHomePositionsEntry\022\013\n\003key\030\001 \001(\005\022\"\n\005valu"
+    "e\030\002 \001(\0132\023.protos.RpcVector2D:\0028\001\"\254\001\n\005Sta"
+    "te\0223\n\021register_response\030\001 \001(\0132\030.protos.R"
+    "egisterResponse\022\'\n\013world_model\030\002 \001(\0132\022.p"
+    "rotos.WorldModel\022,\n\020full_world_model\030\003 \001"
+    "(\0132\022.protos.WorldModel\022\027\n\017need_preproces"
+    "s\030\004 \001(\010\"V\n\013InitMessage\0223\n\021register_respo"
+    "nse\030\001 \001(\0132\030.protos.RegisterResponse\022\022\n\nd"
+    "ebug_mode\030\002 \001(\010\"1\n\004Dash\022\r\n\005power\030\001 \001(\002\022\032"
+    "\n\022relative_direction\030\002 \001(\002\"\"\n\004Turn\022\032\n\022re"
+    "lative_direction\030\001 \001(\002\"1\n\004Kick\022\r\n\005power\030"
+    "\001 \001(\002\022\032\n\022relative_direction\030\002 \001(\002\",\n\006Tac"
+    "kle\022\024\n\014power_or_dir\030\001 \001(\002\022\014\n\004foul\030\002 \001(\010\""
+    "\007\n\005Catch\"\034\n\004Move\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\"\032"
+    "\n\010TurnNeck\022\016\n\006moment\030\001 \001(\002\"3\n\nChangeView"
     "\022%\n\nview_width\030\001 \001(\0162\021.protos.ViewWidth\""
-    "\r\n\013View_Normal\"\014\n\nView_Synch\"\013\n\tView_Wid"
-    "e\"\016\n\014HeliosGoalie\"\022\n\020HeliosGoalieMove\"\022\n"
-    "\020HeliosGoalieKick\"\r\n\013HeliosShoot\"\363\001\n\026Hel"
-    "iosOffensivePlanner\022\023\n\013direct_pass\030\001 \001(\010"
-    "\022\021\n\tlead_pass\030\002 \001(\010\022\024\n\014through_pass\030\003 \001("
-    "\010\022\025\n\rshort_dribble\030\004 \001(\010\022\024\n\014long_dribble"
-    "\030\005 \001(\010\022\r\n\005cross\030\006 \001(\010\022\023\n\013simple_pass\030\007 \001"
-    "(\010\022\026\n\016simple_dribble\030\010 \001(\010\022\024\n\014simple_sho"
-    "ot\030\t \001(\010\022\034\n\024server_side_decision\030\n \001(\010\"\026"
-    "\n\024HeliosBasicOffensive\"\021\n\017HeliosBasicMov"
-    "e\"\017\n\rHeliosSetPlay\"\017\n\rHeliosPenalty\"\024\n\022H"
-    "eliosCommunicaion\"\355\031\n\014PlayerAction\022\034\n\004da"
-    "sh\030\001 \001(\0132\014.protos.DashH\000\022\034\n\004turn\030\002 \001(\0132\014"
-    ".protos.TurnH\000\022\034\n\004kick\030\003 \001(\0132\014.protos.Ki"
-    "ckH\000\022 \n\006tackle\030\004 \001(\0132\016.protos.TackleH\000\022\036"
-    "\n\005catch\030\005 \001(\0132\r.protos.CatchH\000\022\034\n\004move\030\006"
-    " \001(\0132\014.protos.MoveH\000\022%\n\tturn_neck\030\007 \001(\0132"
-    "\020.protos.TurnNeckH\000\022)\n\013change_view\030\010 \001(\013"
-    "2\022.protos.ChangeViewH\000\022\032\n\003say\030\t \001(\0132\013.pr"
-    "otos.SayH\000\022#\n\010point_to\030\n \001(\0132\017.protos.Po"
-    "intToH\000\022(\n\013point_to_of\030\013 \001(\0132\021.protos.Po"
-    "intToOfH\000\022+\n\014attention_to\030\014 \001(\0132\023.protos"
-    ".AttentionToH\000\0220\n\017attention_to_of\030\r \001(\0132"
-    "\025.protos.AttentionToOfH\000\022\032\n\003log\030\016 \001(\0132\013."
-    "protos.LogH\000\022+\n\014debug_client\030\017 \001(\0132\023.pro"
-    "tos.DebugClientH\000\0222\n\020body_go_to_point\030\020 "
-    "\001(\0132\026.protos.Body_GoToPointH\000\0221\n\017body_sm"
-    "art_kick\030\021 \001(\0132\026.protos.Body_SmartKickH\000"
-    "\0228\n\023bhv_before_kick_off\030\022 \001(\0132\031.protos.B"
-    "hv_BeforeKickOffH\000\022;\n\025bhv_body_neck_to_b"
-    "all\030\023 \001(\0132\032.protos.Bhv_BodyNeckToBallH\000\022"
-    "=\n\026bhv_body_neck_to_point\030\024 \001(\0132\033.protos"
-    ".Bhv_BodyNeckToPointH\000\022.\n\rbhv_emergency\030"
-    "\025 \001(\0132\025.protos.Bhv_EmergencyH\000\022B\n\031bhv_go"
-    "_to_point_look_ball\030\026 \001(\0132\035.protos.Bhv_G"
-    "oToPointLookBallH\000\022;\n\025bhv_neck_body_to_b"
-    "all\030\027 \001(\0132\032.protos.Bhv_NeckBodyToBallH\000\022"
-    "=\n\026bhv_neck_body_to_point\030\030 \001(\0132\033.protos"
-    ".Bhv_NeckBodyToPointH\000\022/\n\016bhv_scan_field"
-    "\030\031 \001(\0132\025.protos.Bhv_ScanFieldH\000\0225\n\021body_"
-    "advance_ball\030\032 \001(\0132\030.protos.Body_Advance"
-    "BallH\000\0221\n\017body_clear_ball\030\033 \001(\0132\026.protos"
-    ".Body_ClearBallH\000\022,\n\014body_dribble\030\034 \001(\0132"
-    "\024.protos.Body_DribbleH\000\022=\n\026body_go_to_po"
-    "int_dodge\030\035 \001(\0132\033.protos.Body_GoToPointD"
-    "odgeH\000\022/\n\016body_hold_ball\030\036 \001(\0132\025.protos."
-    "Body_HoldBallH\000\0220\n\016body_intercept\030\037 \001(\0132"
-    "\026.protos.Body_InterceptH\000\0226\n\022body_kick_o"
-    "ne_step\030  \001(\0132\030.protos.Body_KickOneStepH"
-    "\000\022/\n\016body_stop_ball\030! \001(\0132\025.protos.Body_"
-    "StopBallH\000\022/\n\016body_stop_dash\030\" \001(\0132\025.pro"
-    "tos.Body_StopDashH\000\022:\n\024body_tackle_to_po"
-    "int\030# \001(\0132\032.protos.Body_TackleToPointH\000\022"
-    "6\n\022body_turn_to_angle\030$ \001(\0132\030.protos.Bod"
-    "y_TurnToAngleH\000\0224\n\021body_turn_to_ball\030% \001"
-    "(\0132\027.protos.Body_TurnToBallH\000\0226\n\022body_tu"
-    "rn_to_point\030& \001(\0132\030.protos.Body_TurnToPo"
-    "intH\000\0228\n\023focus_move_to_point\030\' \001(\0132\031.pro"
-    "tos.Focus_MoveToPointH\000\022*\n\013focus_reset\030("
-    " \001(\0132\023.protos.Focus_ResetH\000\0221\n\017neck_scan"
-    "_field\030) \001(\0132\026.protos.Neck_ScanFieldH\000\0225"
-    "\n\021neck_scan_players\030* \001(\0132\030.protos.Neck_"
-    "ScanPlayersH\000\022H\n\034neck_turn_to_ball_and_p"
-    "layer\030+ \001(\0132 .protos.Neck_TurnToBallAndP"
-    "layerH\000\022B\n\031neck_turn_to_ball_or_scan\030, \001"
-    "(\0132\035.protos.Neck_TurnToBallOrScanH\000\0224\n\021n"
-    "eck_turn_to_ball\030- \001(\0132\027.protos.Neck_Tur"
-    "nToBallH\000\022F\n\033neck_turn_to_goalie_or_scan"
-    "\030. \001(\0132\037.protos.Neck_TurnToGoalieOrScanH"
-    "\000\022L\n\036neck_turn_to_low_conf_teammate\030/ \001("
-    "\0132\".protos.Neck_TurnToLowConfTeammateH\000\022"
-    "F\n\033neck_turn_to_player_or_scan\0300 \001(\0132\037.p"
-    "rotos.Neck_TurnToPlayerOrScanH\000\0226\n\022neck_"
-    "turn_to_point\0301 \001(\0132\030.protos.Neck_TurnTo"
-    "PointH\000\022<\n\025neck_turn_to_relative\0302 \001(\0132\033"
-    ".protos.Neck_TurnToRelativeH\000\0225\n\021view_ch"
-    "ange_width\0303 \001(\0132\030.protos.View_ChangeWid"
-    "thH\000\022*\n\013view_normal\0304 \001(\0132\023.protos.View_"
-    "NormalH\000\022(\n\nview_synch\0305 \001(\0132\022.protos.Vi"
-    "ew_SynchH\000\022&\n\tview_wide\0306 \001(\0132\021.protos.V"
-    "iew_WideH\000\022-\n\rhelios_goalie\0307 \001(\0132\024.prot"
-    "os.HeliosGoalieH\000\0226\n\022helios_goalie_move\030"
-    "8 \001(\0132\030.protos.HeliosGoalieMoveH\000\0226\n\022hel"
-    "ios_goalie_kick\0309 \001(\0132\030.protos.HeliosGoa"
-    "lieKickH\000\022+\n\014helios_shoot\030: \001(\0132\023.protos"
-    ".HeliosShootH\000\022B\n\030helios_offensive_plann"
-    "er\030; \001(\0132\036.protos.HeliosOffensivePlanner"
-    "H\000\022>\n\026helios_basic_offensive\030< \001(\0132\034.pro"
-    "tos.HeliosBasicOffensiveH\000\0224\n\021helios_bas"
-    "ic_move\030= \001(\0132\027.protos.HeliosBasicMoveH\000"
-    "\0220\n\017helios_set_play\030> \001(\0132\025.protos.Helio"
-    "sSetPlayH\000\022/\n\016helios_penalty\030\? \001(\0132\025.pro"
-    "tos.HeliosPenaltyH\000\022:\n\024helios_communicat"
-    "ion\030@ \001(\0132\032.protos.HeliosCommunicaionH\000B"
-    "\010\n\006action\"Q\n\rPlayerActions\022%\n\007actions\030\001 "
-    "\003(\0132\024.protos.PlayerAction\022\031\n\021ignore_prep"
-    "rocess\030\002 \001(\010\"8\n\020ChangePlayerType\022\026\n\016unif"
-    "orm_number\030\001 \001(\005\022\014\n\004type\030\002 \001(\005\"\024\n\022DoHeli"
-    "osSubstitute\"\030\n\026DoHeliosSayPlayerTypes\"\322"
-    "\001\n\013CoachAction\0227\n\023change_player_types\030\001 "
-    "\001(\0132\030.protos.ChangePlayerTypeH\000\022:\n\024do_he"
-    "lios_substitute\030\002 \001(\0132\032.protos.DoHeliosS"
-    "ubstituteH\000\022D\n\032do_helios_say_player_type"
-    "s\030\003 \001(\0132\036.protos.DoHeliosSayPlayerTypesH"
-    "\000B\010\n\006action\"4\n\014CoachActions\022$\n\007actions\030\001"
-    " \003(\0132\023.protos.CoachAction\"\013\n\tDoKickOff\"Z"
-    "\n\nDoMoveBall\022%\n\010position\030\001 \001(\0132\023.protos."
-    "RpcVector2D\022%\n\010velocity\030\002 \001(\0132\023.protos.R"
-    "pcVector2D\"w\n\014DoMovePlayer\022\020\n\010our_side\030\001"
-    " \001(\010\022\026\n\016uniform_number\030\002 \001(\005\022%\n\010position"
-    "\030\003 \001(\0132\023.protos.RpcVector2D\022\026\n\016body_dire"
-    "ction\030\004 \001(\002\"\013\n\tDoRecover\"X\n\014DoChangeMode"
-    "\022,\n\016game_mode_type\030\001 \001(\0162\024.protos.GameMo"
-    "deType\022\032\n\004side\030\002 \001(\0162\014.protos.Side\"L\n\022Do"
-    "ChangePlayerType\022\020\n\010our_side\030\001 \001(\010\022\026\n\016un"
-    "iform_number\030\002 \001(\005\022\014\n\004type\030\003 \001(\005\"\265\002\n\rTra"
-    "inerAction\022(\n\013do_kick_off\030\001 \001(\0132\021.protos"
-    ".DoKickOffH\000\022*\n\014do_move_ball\030\002 \001(\0132\022.pro"
-    "tos.DoMoveBallH\000\022.\n\016do_move_player\030\003 \001(\013"
-    "2\024.protos.DoMovePlayerH\000\022\'\n\ndo_recover\030\004"
-    " \001(\0132\021.protos.DoRecoverH\000\022.\n\016do_change_m"
-    "ode\030\005 \001(\0132\024.protos.DoChangeModeH\000\022;\n\025do_"
-    "change_player_type\030\006 \001(\0132\032.protos.DoChan"
-    "gePlayerTypeH\000B\010\n\006action\"8\n\016TrainerActio"
-    "ns\022&\n\007actions\030\001 \003(\0132\025.protos.TrainerActi"
-    "on\"\335,\n\013ServerParam\0223\n\021register_response\030"
-    "\001 \001(\0132\030.protos.RegisterResponse\022\026\n\016inert"
-    "ia_moment\030\002 \001(\002\022\023\n\013player_size\030\003 \001(\002\022\024\n\014"
-    "player_decay\030\004 \001(\002\022\023\n\013player_rand\030\005 \001(\002\022"
-    "\025\n\rplayer_weight\030\006 \001(\002\022\030\n\020player_speed_m"
-    "ax\030\007 \001(\002\022\030\n\020player_accel_max\030\010 \001(\002\022\023\n\013st"
-    "amina_max\030\t \001(\002\022\027\n\017stamina_inc_max\030\n \001(\002"
-    "\022\024\n\014recover_init\030\013 \001(\002\022\027\n\017recover_dec_th"
-    "r\030\014 \001(\002\022\023\n\013recover_min\030\r \001(\002\022\023\n\013recover_"
-    "dec\030\016 \001(\002\022\023\n\013effort_init\030\017 \001(\002\022\026\n\016effort"
-    "_dec_thr\030\020 \001(\002\022\022\n\neffort_min\030\021 \001(\002\022\022\n\nef"
-    "fort_dec\030\022 \001(\002\022\026\n\016effort_inc_thr\030\023 \001(\002\022\022"
-    "\n\neffort_inc\030\024 \001(\002\022\021\n\tkick_rand\030\025 \001(\002\022\033\n"
-    "\023team_actuator_noise\030\026 \001(\010\022\034\n\024player_ran"
-    "d_factor_l\030\027 \001(\002\022\034\n\024player_rand_factor_r"
-    "\030\030 \001(\002\022\032\n\022kick_rand_factor_l\030\031 \001(\002\022\032\n\022ki"
-    "ck_rand_factor_r\030\032 \001(\002\022\021\n\tball_size\030\033 \001("
-    "\002\022\022\n\nball_decay\030\034 \001(\002\022\021\n\tball_rand\030\035 \001(\002"
-    "\022\023\n\013ball_weight\030\036 \001(\002\022\026\n\016ball_speed_max\030"
-    "\037 \001(\002\022\026\n\016ball_accel_max\030  \001(\002\022\027\n\017dash_po"
-    "wer_rate\030! \001(\002\022\027\n\017kick_power_rate\030\" \001(\002\022"
-    "\027\n\017kickable_margin\030# \001(\002\022\026\n\016control_radi"
-    "us\030$ \001(\002\022\034\n\024control_radius_width\030% \001(\002\022\021"
-    "\n\tmax_power\030& \001(\002\022\021\n\tmin_power\030\' \001(\002\022\022\n\n"
-    "max_moment\030( \001(\002\022\022\n\nmin_moment\030) \001(\002\022\027\n\017"
-    "max_neck_moment\030* \001(\002\022\027\n\017min_neck_moment"
-    "\030+ \001(\002\022\026\n\016max_neck_angle\030, \001(\002\022\026\n\016min_ne"
-    "ck_angle\030- \001(\002\022\025\n\rvisible_angle\030. \001(\002\022\030\n"
-    "\020visible_distance\030/ \001(\002\022\020\n\010wind_dir\0300 \001("
-    "\002\022\022\n\nwind_force\0301 \001(\002\022\022\n\nwind_angle\0302 \001("
-    "\002\022\021\n\twind_rand\0303 \001(\002\022\025\n\rkickable_area\0304 "
-    "\001(\002\022\024\n\014catch_area_l\0305 \001(\002\022\024\n\014catch_area_"
-    "w\0306 \001(\002\022\031\n\021catch_probability\0307 \001(\002\022\030\n\020go"
-    "alie_max_moves\0308 \001(\005\022\032\n\022corner_kick_marg"
-    "in\0309 \001(\002\022 \n\030offside_active_area_size\030: \001"
-    "(\002\022\021\n\twind_none\030; \001(\010\022\027\n\017use_wind_random"
-    "\030< \001(\010\022\033\n\023coach_say_count_max\030= \001(\005\022\032\n\022c"
-    "oach_say_msg_size\030> \001(\005\022\026\n\016clang_win_siz"
-    "e\030\? \001(\005\022\030\n\020clang_define_win\030@ \001(\005\022\026\n\016cla"
-    "ng_meta_win\030A \001(\005\022\030\n\020clang_advice_win\030B "
-    "\001(\005\022\026\n\016clang_info_win\030C \001(\005\022\030\n\020clang_mes"
-    "s_delay\030D \001(\005\022\034\n\024clang_mess_per_cycle\030E "
-    "\001(\005\022\021\n\thalf_time\030F \001(\005\022\026\n\016simulator_step"
-    "\030G \001(\005\022\021\n\tsend_step\030H \001(\005\022\021\n\trecv_step\030I"
-    " \001(\005\022\027\n\017sense_body_step\030J \001(\005\022\020\n\010lcm_ste"
-    "p\030K \001(\005\022\033\n\023player_say_msg_size\030L \001(\005\022\027\n\017"
-    "player_hear_max\030M \001(\005\022\027\n\017player_hear_inc"
-    "\030N \001(\005\022\031\n\021player_hear_decay\030O \001(\005\022\027\n\017cat"
-    "ch_ban_cycle\030P \001(\005\022\030\n\020slow_down_factor\030Q"
-    " \001(\005\022\023\n\013use_offside\030R \001(\010\022\027\n\017kickoff_off"
-    "side\030S \001(\010\022\033\n\023offside_kick_margin\030T \001(\002\022"
-    "\026\n\016audio_cut_dist\030U \001(\002\022\032\n\022dist_quantize"
-    "_step\030V \001(\002\022#\n\033landmark_dist_quantize_st"
-    "ep\030W \001(\002\022\031\n\021dir_quantize_step\030X \001(\002\022\034\n\024d"
-    "ist_quantize_step_l\030Y \001(\002\022\034\n\024dist_quanti"
-    "ze_step_r\030Z \001(\002\022%\n\035landmark_dist_quantiz"
-    "e_step_l\030[ \001(\002\022%\n\035landmark_dist_quantize"
-    "_step_r\030\\ \001(\002\022\033\n\023dir_quantize_step_l\030] \001"
-    "(\002\022\033\n\023dir_quantize_step_r\030^ \001(\002\022\022\n\ncoach"
-    "_mode\030_ \001(\010\022\037\n\027coach_with_referee_mode\030`"
-    " \001(\010\022\032\n\022use_old_coach_hear\030a \001(\010\022%\n\035slow"
-    "ness_on_top_for_left_team\030b \001(\002\022&\n\036slown"
-    "ess_on_top_for_right_team\030c \001(\002\022\024\n\014start"
-    "_goal_l\030d \001(\005\022\024\n\014start_goal_r\030e \001(\005\022\023\n\013f"
-    "ullstate_l\030f \001(\010\022\023\n\013fullstate_r\030g \001(\010\022\026\n"
-    "\016drop_ball_time\030h \001(\005\022\022\n\nsynch_mode\030i \001("
-    "\010\022\024\n\014synch_offset\030j \001(\005\022\031\n\021synch_micro_s"
-    "leep\030k \001(\005\022\024\n\014point_to_ban\030l \001(\005\022\031\n\021poin"
-    "t_to_duration\030m \001(\005\022\023\n\013player_port\030n \001(\005"
-    "\022\024\n\014trainer_port\030o \001(\005\022\031\n\021online_coach_p"
-    "ort\030p \001(\005\022\024\n\014verbose_mode\030q \001(\010\022\032\n\022coach"
-    "_send_vi_step\030r \001(\005\022\023\n\013replay_file\030s \001(\t"
-    "\022\025\n\rlandmark_file\030t \001(\t\022\022\n\nsend_comms\030u "
-    "\001(\010\022\024\n\014text_logging\030v \001(\010\022\024\n\014game_loggin"
-    "g\030w \001(\010\022\030\n\020game_log_version\030x \001(\005\022\024\n\014tex"
-    "t_log_dir\030y \001(\t\022\024\n\014game_log_dir\030z \001(\t\022\033\n"
-    "\023text_log_fixed_name\030{ \001(\t\022\033\n\023game_log_f"
-    "ixed_name\030| \001(\t\022\032\n\022use_text_log_fixed\030} "
-    "\001(\010\022\032\n\022use_game_log_fixed\030~ \001(\010\022\032\n\022use_t"
-    "ext_log_dated\030\177 \001(\010\022\033\n\022use_game_log_date"
-    "d\030\200\001 \001(\010\022\030\n\017log_date_format\030\201\001 \001(\t\022\022\n\tlo"
-    "g_times\030\202\001 \001(\010\022\027\n\016record_message\030\203\001 \001(\010\022"
-    "\035\n\024text_log_compression\030\204\001 \001(\005\022\035\n\024game_l"
-    "og_compression\030\205\001 \001(\005\022\024\n\013use_profile\030\206\001 "
-    "\001(\010\022\024\n\013tackle_dist\030\207\001 \001(\002\022\031\n\020tackle_back"
-    "_dist\030\210\001 \001(\002\022\025\n\014tackle_width\030\211\001 \001(\002\022\030\n\017t"
-    "ackle_exponent\030\212\001 \001(\002\022\026\n\rtackle_cycles\030\213"
-    "\001 \001(\005\022\032\n\021tackle_power_rate\030\214\001 \001(\002\022\035\n\024fre"
-    "eform_wait_period\030\215\001 \001(\005\022\035\n\024freeform_sen"
-    "d_period\030\216\001 \001(\005\022\031\n\020free_kick_faults\030\217\001 \001"
-    "(\010\022\024\n\013back_passes\030\220\001 \001(\010\022\032\n\021proper_goal_"
-    "kicks\030\221\001 \001(\010\022\031\n\020stopped_ball_vel\030\222\001 \001(\002\022"
-    "\027\n\016max_goal_kicks\030\223\001 \001(\005\022\026\n\rclang_del_wi"
-    "n\030\224\001 \001(\005\022\027\n\016clang_rule_win\030\225\001 \001(\005\022\022\n\taut"
-    "o_mode\030\226\001 \001(\010\022\026\n\rkick_off_wait\030\227\001 \001(\005\022\025\n"
-    "\014connect_wait\030\230\001 \001(\005\022\027\n\016game_over_wait\030\231"
-    "\001 \001(\005\022\025\n\014team_l_start\030\232\001 \001(\t\022\025\n\014team_r_s"
-    "tart\030\233\001 \001(\t\022\026\n\rkeepaway_mode\030\234\001 \001(\010\022\030\n\017k"
-    "eepaway_length\030\235\001 \001(\002\022\027\n\016keepaway_width\030"
-    "\236\001 \001(\002\022\031\n\020keepaway_logging\030\237\001 \001(\010\022\031\n\020kee"
-    "paway_log_dir\030\240\001 \001(\t\022 \n\027keepaway_log_fix"
-    "ed_name\030\241\001 \001(\t\022\033\n\022keepaway_log_fixed\030\242\001 "
-    "\001(\010\022\033\n\022keepaway_log_dated\030\243\001 \001(\010\022\027\n\016keep"
-    "away_start\030\244\001 \001(\005\022\030\n\017nr_normal_halfs\030\245\001 "
-    "\001(\005\022\027\n\016nr_extra_halfs\030\246\001 \001(\005\022\033\n\022penalty_"
-    "shoot_outs\030\247\001 \001(\010\022\036\n\025pen_before_setup_wa"
-    "it\030\250\001 \001(\005\022\027\n\016pen_setup_wait\030\251\001 \001(\005\022\027\n\016pe"
-    "n_ready_wait\030\252\001 \001(\005\022\027\n\016pen_taken_wait\030\253\001"
-    " \001(\005\022\025\n\014pen_nr_kicks\030\254\001 \001(\005\022\034\n\023pen_max_e"
-    "xtra_kicks\030\255\001 \001(\005\022\023\n\npen_dist_x\030\256\001 \001(\002\022\032"
-    "\n\021pen_random_winner\030\257\001 \001(\010\022\035\n\024pen_allow_"
-    "mult_kicks\030\260\001 \001(\010\022\036\n\025pen_max_goalie_dist"
-    "_x\030\261\001 \001(\002\022 \n\027pen_coach_moves_players\030\262\001 "
-    "\001(\010\022\023\n\nmodule_dir\030\263\001 \001(\t\022\030\n\017ball_stuck_a"
-    "rea\030\264\001 \001(\002\022\027\n\016coach_msg_file\030\265\001 \001(\t\022\031\n\020m"
-    "ax_tackle_power\030\266\001 \001(\002\022\036\n\025max_back_tackl"
-    "e_power\030\267\001 \001(\002\022\035\n\024player_speed_max_min\030\270"
-    "\001 \001(\002\022\026\n\rextra_stamina\030\271\001 \001(\002\022\031\n\020synch_s"
-    "ee_offset\030\272\001 \001(\005\022\030\n\017extra_half_time\030\273\001 \001"
-    "(\005\022\031\n\020stamina_capacity\030\274\001 \001(\002\022\027\n\016max_das"
-    "h_angle\030\275\001 \001(\002\022\027\n\016min_dash_angle\030\276\001 \001(\002\022"
-    "\030\n\017dash_angle_step\030\277\001 \001(\002\022\027\n\016side_dash_r"
-    "ate\030\300\001 \001(\002\022\027\n\016back_dash_rate\030\301\001 \001(\002\022\027\n\016m"
-    "ax_dash_power\030\302\001 \001(\002\022\027\n\016min_dash_power\030\303"
-    "\001 \001(\002\022\033\n\022tackle_rand_factor\030\304\001 \001(\002\022 \n\027fo"
-    "ul_detect_probability\030\305\001 \001(\002\022\026\n\rfoul_exp"
-    "onent\030\306\001 \001(\002\022\024\n\013foul_cycles\030\307\001 \001(\005\022\024\n\013go"
-    "lden_goal\030\310\001 \001(\010\022\035\n\024red_card_probability"
-    "\030\311\001 \001(\002\022!\n\030illegal_defense_duration\030\312\001 \001"
-    "(\005\022\037\n\026illegal_defense_number\030\313\001 \001(\005\022\037\n\026i"
-    "llegal_defense_dist_x\030\314\001 \001(\002\022\036\n\025illegal_"
-    "defense_width\030\315\001 \001(\002\022\031\n\020fixed_teamname_l"
-    "\030\316\001 \001(\t\022\031\n\020fixed_teamname_r\030\317\001 \001(\t\022\030\n\017ma"
-    "x_catch_angle\030\320\001 \001(\002\022\030\n\017min_catch_angle\030"
-    "\321\001 \001(\002\022\024\n\013random_seed\030\322\001 \001(\005\022\037\n\026long_kic"
-    "k_power_factor\030\323\001 \001(\002\022\030\n\017long_kick_delay"
-    "\030\324\001 \001(\005\022\025\n\014max_monitors\030\325\001 \001(\005\022\027\n\016catcha"
-    "ble_area\030\326\001 \001(\002\022\027\n\016real_speed_max\030\327\001 \001(\002"
-    "\022\032\n\021pitch_half_length\030\330\001 \001(\002\022\031\n\020pitch_ha"
-    "lf_width\030\331\001 \001(\002\022 \n\027our_penalty_area_line"
-    "_x\030\332\001 \001(\002\022\"\n\031their_penalty_area_line_x\030\333"
-    "\001 \001(\002\022 \n\027penalty_area_half_width\030\334\001 \001(\002\022"
-    "\034\n\023penalty_area_length\030\335\001 \001(\002\022\023\n\ngoal_wi"
-    "dth\030\336\001 \001(\002\"\215\010\n\013PlayerParam\0223\n\021register_r"
-    "esponse\030\001 \001(\0132\030.protos.RegisterResponse\022"
-    "\024\n\014player_types\030\002 \001(\005\022\020\n\010subs_max\030\003 \001(\005\022"
-    "\016\n\006pt_max\030\004 \001(\005\022\037\n\027allow_mult_default_ty"
-    "pe\030\005 \001(\010\022\"\n\032player_speed_max_delta_min\030\006"
-    " \001(\002\022\"\n\032player_speed_max_delta_max\030\007 \001(\002"
-    "\022$\n\034stamina_inc_max_delta_factor\030\010 \001(\002\022\036"
-    "\n\026player_decay_delta_min\030\t \001(\002\022\036\n\026player"
-    "_decay_delta_max\030\n \001(\002\022#\n\033inertia_moment"
-    "_delta_factor\030\013 \001(\002\022!\n\031dash_power_rate_d"
-    "elta_min\030\014 \001(\002\022!\n\031dash_power_rate_delta_"
-    "max\030\r \001(\002\022 \n\030player_size_delta_factor\030\016 "
-    "\001(\002\022!\n\031kickable_margin_delta_min\030\017 \001(\002\022!"
-    "\n\031kickable_margin_delta_max\030\020 \001(\002\022\036\n\026kic"
-    "k_rand_delta_factor\030\021 \001(\002\022\037\n\027extra_stami"
-    "na_delta_min\030\022 \001(\002\022\037\n\027extra_stamina_delt"
-    "a_max\030\023 \001(\002\022\037\n\027effort_max_delta_factor\030\024"
-    " \001(\002\022\037\n\027effort_min_delta_factor\030\025 \001(\002\022\023\n"
-    "\013random_seed\030\026 \001(\005\022%\n\035new_dash_power_rat"
-    "e_delta_min\030\027 \001(\002\022%\n\035new_dash_power_rate"
-    "_delta_max\030\030 \001(\002\022(\n new_stamina_inc_max_"
-    "delta_factor\030\031 \001(\002\022!\n\031kick_power_rate_de"
-    "lta_min\030\032 \001(\002\022!\n\031kick_power_rate_delta_m"
-    "ax\030\033 \001(\002\022,\n$foul_detect_probability_delt"
-    "a_factor\030\034 \001(\002\022$\n\034catchable_area_l_stret"
-    "ch_min\030\035 \001(\002\022$\n\034catchable_area_l_stretch"
-    "_max\030\036 \001(\002\"\277\007\n\nPlayerType\0223\n\021register_re"
-    "sponse\030\001 \001(\0132\030.protos.RegisterResponse\022\n"
-    "\n\002id\030\002 \001(\005\022\027\n\017stamina_inc_max\030\003 \001(\002\022\024\n\014p"
-    "layer_decay\030\004 \001(\002\022\026\n\016inertia_moment\030\005 \001("
-    "\002\022\027\n\017dash_power_rate\030\006 \001(\002\022\023\n\013player_siz"
-    "e\030\007 \001(\002\022\027\n\017kickable_margin\030\010 \001(\002\022\021\n\tkick"
-    "_rand\030\t \001(\002\022\025\n\rextra_stamina\030\n \001(\002\022\022\n\nef"
-    "fort_max\030\013 \001(\002\022\022\n\neffort_min\030\014 \001(\002\022\027\n\017ki"
-    "ck_power_rate\030\r \001(\002\022\037\n\027foul_detect_proba"
-    "bility\030\016 \001(\002\022 \n\030catchable_area_l_stretch"
-    "\030\017 \001(\002\022\027\n\017unum_far_length\030\020 \001(\002\022\033\n\023unum_"
-    "too_far_length\030\021 \001(\002\022\027\n\017team_far_length\030"
-    "\022 \001(\002\022\033\n\023team_too_far_length\030\023 \001(\002\022%\n\035pl"
-    "ayer_max_observation_length\030\024 \001(\002\022\033\n\023bal"
-    "l_vel_far_length\030\025 \001(\002\022\037\n\027ball_vel_too_f"
-    "ar_length\030\026 \001(\002\022#\n\033ball_max_observation_"
-    "length\030\027 \001(\002\022\033\n\023flag_chg_far_length\030\030 \001("
-    "\002\022\037\n\027flag_chg_too_far_length\030\031 \001(\002\022#\n\033fl"
-    "ag_max_observation_length\030\032 \001(\002\022\025\n\rkicka"
-    "ble_area\030\033 \001(\002\022\037\n\027reliable_catchable_dis"
-    "t\030\034 \001(\002\022\032\n\022max_catchable_dist\030\035 \001(\002\022\026\n\016r"
-    "eal_speed_max\030\036 \001(\002\022\031\n\021player_speed_max2"
-    "\030\037 \001(\002\022\027\n\017real_speed_max2\030  \001(\002\022!\n\031cycle"
-    "s_to_reach_max_speed\030! \001(\005\022\030\n\020player_spe"
-    "ed_max\030\" \001(\002\"\255\003\n\024RpcCooperativeAction\022+\n"
-    "\010category\030\001 \001(\0162\031.protos.RpcActionCatego"
-    "ry\022\r\n\005index\030\002 \001(\005\022\023\n\013sender_unum\030\003 \001(\005\022\023"
-    "\n\013target_unum\030\004 \001(\005\022)\n\014target_point\030\005 \001("
-    "\0132\023.protos.RpcVector2D\022\030\n\020first_ball_spe"
-    "ed\030\006 \001(\001\022\031\n\021first_turn_moment\030\007 \001(\001\022\030\n\020f"
-    "irst_dash_power\030\010 \001(\001\022!\n\031first_dash_angl"
-    "e_relative\030\t \001(\001\022\025\n\rduration_step\030\n \001(\005\022"
-    "\022\n\nkick_count\030\013 \001(\005\022\022\n\nturn_count\030\014 \001(\005\022"
-    "\022\n\ndash_count\030\r \001(\005\022\024\n\014final_action\030\016 \001("
-    "\010\022\023\n\013description\030\017 \001(\t\022\024\n\014parent_index\030\020"
-    " \001(\005\"\317\001\n\017RpcPredictState\022\022\n\nspend_time\030\001"
-    " \001(\005\022\030\n\020ball_holder_unum\030\002 \001(\005\022*\n\rball_p"
-    "osition\030\003 \001(\0132\023.protos.RpcVector2D\022*\n\rba"
-    "ll_velocity\030\004 \001(\0132\023.protos.RpcVector2D\022\032"
-    "\n\022our_defense_line_x\030\005 \001(\001\022\032\n\022our_offens"
-    "e_line_x\030\006 \001(\001\"\202\001\n\016RpcActionState\022,\n\006act"
-    "ion\030\001 \001(\0132\034.protos.RpcCooperativeAction\022"
-    ".\n\rpredict_state\030\002 \001(\0132\027.protos.RpcPredi"
-    "ctState\022\022\n\nevaluation\030\003 \001(\001\"\357\001\n\030BestPlan"
-    "nerActionRequest\0223\n\021register_response\030\001 "
-    "\001(\0132\030.protos.RegisterResponse\022:\n\005pairs\030\002"
-    " \003(\0132+.protos.BestPlannerActionRequest.P"
-    "airsEntry\022\034\n\005state\030\003 \001(\0132\r.protos.State\032"
-    "D\n\nPairsEntry\022\013\n\003key\030\001 \001(\005\022%\n\005value\030\002 \001("
-    "\0132\026.protos.RpcActionState:\0028\001\"*\n\031BestPla"
-    "nnerActionResponse\022\r\n\005index\030\001 \001(\005\"\007\n\005Emp"
-    "ty*-\n\tViewWidth\022\n\n\006NARROW\020\000\022\n\n\006NORMAL\020\001\022"
-    "\010\n\004WIDE\020\002*(\n\004Side\022\013\n\007UNKNOWN\020\000\022\010\n\004LEFT\020\001"
-    "\022\t\n\005RIGHT\020\002*\262\002\n\013LoggerLevel\022\r\n\tNoneLevel"
-    "\020\000\022\n\n\006SYSTEM\020\001\022\n\n\006SENSOR\020\002\022\t\n\005WORLD\020\004\022\n\n"
-    "\006ACTION\020\010\022\r\n\tINTERCEPT\020\020\022\010\n\004KICK\020 \022\010\n\004HO"
-    "LD\020@\022\014\n\007DRIBBLE\020\200\001\022\t\n\004PASS\020\200\002\022\n\n\005CROSS\020\200"
-    "\004\022\n\n\005SHOOT\020\200\010\022\n\n\005CLEAR\020\200\020\022\n\n\005BLOCK\020\200 \022\t\n"
-    "\004MARK\020\200@\022\021\n\013POSITIONING\020\200\200\001\022\n\n\004ROLE\020\200\200\002\022"
-    "\n\n\004TEAM\020\200\200\004\022\023\n\rCOMMUNICATION\020\200\200\010\022\016\n\010ANAL"
-    "YZER\020\200\200\020\022\022\n\014ACTION_CHAIN\020\200\200 \022\n\n\004PLAN\020\200\200@"
-    "*,\n\010CardType\022\013\n\007NO_CARD\020\000\022\n\n\006YELLOW\020\001\022\007\n"
-    "\003RED\020\002*v\n\023InterceptActionType\022!\n\035UNKNOWN"
-    "_Intercept_Action_Type\020\000\022\r\n\tOMNI_DASH\020\001\022"
-    "\025\n\021TURN_FORWARD_DASH\020\002\022\026\n\022TURN_BACKWARD_"
-    "DASH\020\003*\273\004\n\014GameModeType\022\021\n\rBeforeKickOff"
-    "\020\000\022\014\n\010TimeOver\020\001\022\n\n\006PlayOn\020\002\022\014\n\010KickOff_"
-    "\020\003\022\013\n\007KickIn_\020\004\022\r\n\tFreeKick_\020\005\022\017\n\013Corner"
-    "Kick_\020\006\022\r\n\tGoalKick_\020\007\022\016\n\nAfterGoal_\020\010\022\014"
-    "\n\010OffSide_\020\t\022\020\n\014PenaltyKick_\020\n\022\021\n\rFirstH"
-    "alfOver\020\013\022\t\n\005Pause\020\014\022\t\n\005Human\020\r\022\017\n\013FoulC"
-    "harge_\020\016\022\r\n\tFoulPush_\020\017\022\031\n\025FoulMultipleA"
-    "ttacker_\020\020\022\020\n\014FoulBallOut_\020\021\022\r\n\tBackPass"
-    "_\020\022\022\022\n\016FreeKickFault_\020\023\022\017\n\013CatchFault_\020\024"
-    "\022\020\n\014IndFreeKick_\020\025\022\021\n\rPenaltySetup_\020\026\022\021\n"
-    "\rPenaltyReady_\020\027\022\021\n\rPenaltyTaken_\020\030\022\020\n\014P"
-    "enaltyMiss_\020\031\022\021\n\rPenaltyScore_\020\032\022\023\n\017Ille"
-    "galDefense_\020\033\022\023\n\017PenaltyOnfield_\020\034\022\020\n\014Pe"
-    "naltyFoul_\020\035\022\020\n\014GoalieCatch_\020\036\022\016\n\nExtend"
-    "Half\020\037\022\014\n\010MODE_MAX\020 *2\n\tAgentType\022\013\n\007Pla"
-    "yerT\020\000\022\n\n\006CoachT\020\001\022\014\n\010TrainerT\020\002*w\n\021RpcA"
-    "ctionCategory\022\013\n\007AC_Hold\020\000\022\016\n\nAC_Dribble"
-    "\020\001\022\013\n\007AC_Pass\020\002\022\014\n\010AC_Shoot\020\003\022\014\n\010AC_Clea"
-    "r\020\004\022\013\n\007AC_Move\020\005\022\017\n\013AC_NoAction\020\0062\373\004\n\004Ga"
-    "me\022:\n\020GetPlayerActions\022\r.protos.State\032\025."
-    "protos.PlayerActions\"\000\0228\n\017GetCoachAction"
-    "s\022\r.protos.State\032\024.protos.CoachActions\"\000"
-    "\022<\n\021GetTrainerActions\022\r.protos.State\032\026.p"
-    "rotos.TrainerActions\"\000\0227\n\017SendInitMessag"
-    "e\022\023.protos.InitMessage\032\r.protos.Empty\"\000\022"
-    "8\n\020SendServerParams\022\023.protos.ServerParam"
-    "\032\r.protos.Empty\"\000\0228\n\020SendPlayerParams\022\023."
-    "protos.PlayerParam\032\r.protos.Empty\"\000\0225\n\016S"
-    "endPlayerType\022\022.protos.PlayerType\032\r.prot"
-    "os.Empty\"\000\022\?\n\010Register\022\027.protos.Register"
-    "Request\032\030.protos.RegisterResponse\"\000\022;\n\016S"
-    "endByeCommand\022\030.protos.RegisterResponse\032"
-    "\r.protos.Empty\"\000\022]\n\024GetBestPlannerAction"
-    "\022 .protos.BestPlannerActionRequest\032!.pro"
-    "tos.BestPlannerActionResponse\"\000b\006proto3"
+    "e\n\013BallMessage\022*\n\rball_position\030\001 \001(\0132\023."
+    "protos.RpcVector2D\022*\n\rball_velocity\030\002 \001("
+    "\0132\023.protos.RpcVector2D\"\263\001\n\013PassMessage\022\037"
+    "\n\027receiver_uniform_number\030\001 \001(\005\022+\n\016recei"
+    "ver_point\030\002 \001(\0132\023.protos.RpcVector2D\022*\n\r"
+    "ball_position\030\003 \001(\0132\023.protos.RpcVector2D"
+    "\022*\n\rball_velocity\030\004 \001(\0132\023.protos.RpcVect"
+    "or2D\"F\n\020InterceptMessage\022\013\n\003our\030\001 \001(\010\022\026\n"
+    "\016uniform_number\030\002 \001(\005\022\r\n\005cycle\030\003 \001(\005\"{\n\r"
+    "GoalieMessage\022\035\n\025goalie_uniform_number\030\001"
+    " \001(\005\022,\n\017goalie_position\030\002 \001(\0132\023.protos.R"
+    "pcVector2D\022\035\n\025goalie_body_direction\030\003 \001("
+    "\002\"\321\001\n\026GoalieAndPlayerMessage\022\035\n\025goalie_u"
+    "niform_number\030\001 \001(\005\022,\n\017goalie_position\030\002"
+    " \001(\0132\023.protos.RpcVector2D\022\035\n\025goalie_body"
+    "_direction\030\003 \001(\002\022\035\n\025player_uniform_numbe"
+    "r\030\004 \001(\005\022,\n\017player_position\030\005 \001(\0132\023.proto"
+    "s.RpcVector2D\",\n\022OffsideLineMessage\022\026\n\016o"
+    "ffside_line_x\030\001 \001(\002\",\n\022DefenseLineMessag"
+    "e\022\026\n\016defense_line_x\030\001 \001(\002\"\024\n\022WaitRequest"
+    "Message\"#\n\016SetplayMessage\022\021\n\twait_step\030\001"
+    " \001(\005\"\?\n\022PassRequestMessage\022)\n\014target_poi"
+    "nt\030\001 \001(\0132\023.protos.RpcVector2D\"!\n\016Stamina"
+    "Message\022\017\n\007stamina\030\001 \001(\002\"#\n\017RecoveryMess"
+    "age\022\020\n\010recovery\030\001 \001(\002\"2\n\026StaminaCapacity"
+    "Message\022\030\n\020stamina_capacity\030\001 \001(\002\"P\n\016Dri"
+    "bbleMessage\022)\n\014target_point\030\001 \001(\0132\023.prot"
+    "os.RpcVector2D\022\023\n\013queue_count\030\002 \001(\005\"\270\001\n\021"
+    "BallGoalieMessage\022*\n\rball_position\030\001 \001(\013"
+    "2\023.protos.RpcVector2D\022*\n\rball_velocity\030\002"
+    " \001(\0132\023.protos.RpcVector2D\022,\n\017goalie_posi"
+    "tion\030\003 \001(\0132\023.protos.RpcVector2D\022\035\n\025goali"
+    "e_body_direction\030\004 \001(\002\"Q\n\020OnePlayerMessa"
+    "ge\022\026\n\016uniform_number\030\001 \001(\005\022%\n\010position\030\002"
+    " \001(\0132\023.protos.RpcVector2D\"\252\001\n\020TwoPlayerM"
+    "essage\022\034\n\024first_uniform_number\030\001 \001(\005\022+\n\016"
+    "first_position\030\002 \001(\0132\023.protos.RpcVector2"
+    "D\022\035\n\025second_uniform_number\030\003 \001(\005\022,\n\017seco"
+    "nd_position\030\004 \001(\0132\023.protos.RpcVector2D\"\367"
+    "\001\n\022ThreePlayerMessage\022\034\n\024first_uniform_n"
+    "umber\030\001 \001(\005\022+\n\016first_position\030\002 \001(\0132\023.pr"
+    "otos.RpcVector2D\022\035\n\025second_uniform_numbe"
+    "r\030\003 \001(\005\022,\n\017second_position\030\004 \001(\0132\023.proto"
+    "s.RpcVector2D\022\034\n\024third_uniform_number\030\005 "
+    "\001(\005\022+\n\016third_position\030\006 \001(\0132\023.protos.Rpc"
+    "Vector2D\"l\n\013SelfMessage\022*\n\rself_position"
+    "\030\001 \001(\0132\023.protos.RpcVector2D\022\033\n\023self_body"
+    "_direction\030\002 \001(\002\022\024\n\014self_stamina\030\003 \001(\002\"h"
+    "\n\017TeammateMessage\022\026\n\016uniform_number\030\001 \001("
+    "\005\022%\n\010position\030\002 \001(\0132\023.protos.RpcVector2D"
+    "\022\026\n\016body_direction\030\003 \001(\002\"h\n\017OpponentMess"
+    "age\022\026\n\016uniform_number\030\001 \001(\005\022%\n\010position\030"
+    "\002 \001(\0132\023.protos.RpcVector2D\022\026\n\016body_direc"
+    "tion\030\003 \001(\002\"\311\001\n\021BallPlayerMessage\022*\n\rball"
+    "_position\030\001 \001(\0132\023.protos.RpcVector2D\022*\n\r"
+    "ball_velocity\030\002 \001(\0132\023.protos.RpcVector2D"
+    "\022\026\n\016uniform_number\030\003 \001(\005\022,\n\017player_posit"
+    "ion\030\004 \001(\0132\023.protos.RpcVector2D\022\026\n\016body_d"
+    "irection\030\005 \001(\002\"\320\t\n\003Say\022+\n\014ball_message\030\001"
+    " \001(\0132\023.protos.BallMessageH\000\022+\n\014pass_mess"
+    "age\030\002 \001(\0132\023.protos.PassMessageH\000\0225\n\021inte"
+    "rcept_message\030\003 \001(\0132\030.protos.InterceptMe"
+    "ssageH\000\022/\n\016goalie_message\030\004 \001(\0132\025.protos"
+    ".GoalieMessageH\000\022C\n\031goalie_and_player_me"
+    "ssage\030\005 \001(\0132\036.protos.GoalieAndPlayerMess"
+    "ageH\000\022:\n\024offside_line_message\030\006 \001(\0132\032.pr"
+    "otos.OffsideLineMessageH\000\022:\n\024defense_lin"
+    "e_message\030\007 \001(\0132\032.protos.DefenseLineMess"
+    "ageH\000\022:\n\024wait_request_message\030\010 \001(\0132\032.pr"
+    "otos.WaitRequestMessageH\000\0221\n\017setplay_mes"
+    "sage\030\t \001(\0132\026.protos.SetplayMessageH\000\022:\n\024"
+    "pass_request_message\030\n \001(\0132\032.protos.Pass"
+    "RequestMessageH\000\0221\n\017stamina_message\030\013 \001("
+    "\0132\026.protos.StaminaMessageH\000\0223\n\020recovery_"
+    "message\030\014 \001(\0132\027.protos.RecoveryMessageH\000"
+    "\022B\n\030stamina_capacity_message\030\r \001(\0132\036.pro"
+    "tos.StaminaCapacityMessageH\000\0221\n\017dribble_"
+    "message\030\016 \001(\0132\026.protos.DribbleMessageH\000\022"
+    "8\n\023ball_goalie_message\030\017 \001(\0132\031.protos.Ba"
+    "llGoalieMessageH\000\0226\n\022one_player_message\030"
+    "\020 \001(\0132\030.protos.OnePlayerMessageH\000\0226\n\022two"
+    "_player_message\030\021 \001(\0132\030.protos.TwoPlayer"
+    "MessageH\000\022:\n\024three_player_message\030\022 \001(\0132"
+    "\032.protos.ThreePlayerMessageH\000\022+\n\014self_me"
+    "ssage\030\023 \001(\0132\023.protos.SelfMessageH\000\0223\n\020te"
+    "ammate_message\030\024 \001(\0132\027.protos.TeammateMe"
+    "ssageH\000\0223\n\020opponent_message\030\025 \001(\0132\027.prot"
+    "os.OpponentMessageH\000\0228\n\023ball_player_mess"
+    "age\030\026 \001(\0132\031.protos.BallPlayerMessageH\000B\t"
+    "\n\007message\"\037\n\007PointTo\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001"
+    "(\002\"\013\n\tPointToOf\"7\n\013AttentionTo\022\032\n\004side\030\001"
+    " \001(\0162\014.protos.Side\022\014\n\004unum\030\002 \001(\005\"\017\n\rAtte"
+    "ntionToOf\">\n\007AddText\022\"\n\005level\030\001 \001(\0162\023.pr"
+    "otos.LoggerLevel\022\017\n\007message\030\002 \001(\t\"a\n\010Add"
+    "Point\022\"\n\005level\030\001 \001(\0162\023.protos.LoggerLeve"
+    "l\022\"\n\005point\030\002 \001(\0132\023.protos.RpcVector2D\022\r\n"
+    "\005color\030\003 \001(\t\"\202\001\n\007AddLine\022\"\n\005level\030\001 \001(\0162"
+    "\023.protos.LoggerLevel\022\"\n\005start\030\002 \001(\0132\023.pr"
+    "otos.RpcVector2D\022 \n\003end\030\003 \001(\0132\023.protos.R"
+    "pcVector2D\022\r\n\005color\030\004 \001(\t\"\231\001\n\006AddArc\022\"\n\005"
+    "level\030\001 \001(\0162\023.protos.LoggerLevel\022#\n\006cent"
+    "er\030\002 \001(\0132\023.protos.RpcVector2D\022\016\n\006radius\030"
+    "\003 \001(\002\022\023\n\013start_angle\030\004 \001(\002\022\022\n\nspan_angel"
+    "\030\005 \001(\002\022\r\n\005color\030\006 \001(\t\"\201\001\n\tAddCircle\022\"\n\005l"
+    "evel\030\001 \001(\0162\023.protos.LoggerLevel\022#\n\006cente"
+    "r\030\002 \001(\0132\023.protos.RpcVector2D\022\016\n\006radius\030\003"
+    " \001(\002\022\r\n\005color\030\004 \001(\t\022\014\n\004fill\030\005 \001(\010\"\275\001\n\013Ad"
+    "dTriangle\022\"\n\005level\030\001 \001(\0162\023.protos.Logger"
+    "Level\022#\n\006point1\030\002 \001(\0132\023.protos.RpcVector"
+    "2D\022#\n\006point2\030\003 \001(\0132\023.protos.RpcVector2D\022"
+    "#\n\006point3\030\004 \001(\0132\023.protos.RpcVector2D\022\r\n\005"
+    "color\030\005 \001(\t\022\014\n\004fill\030\006 \001(\010\"\211\001\n\014AddRectang"
+    "le\022\"\n\005level\030\001 \001(\0162\023.protos.LoggerLevel\022\014"
+    "\n\004left\030\002 \001(\002\022\013\n\003top\030\003 \001(\002\022\016\n\006length\030\004 \001("
+    "\002\022\r\n\005width\030\005 \001(\002\022\r\n\005color\030\006 \001(\t\022\014\n\004fill\030"
+    "\007 \001(\010\"\302\001\n\tAddSector\022\"\n\005level\030\001 \001(\0162\023.pro"
+    "tos.LoggerLevel\022#\n\006center\030\002 \001(\0132\023.protos"
+    ".RpcVector2D\022\022\n\nmin_radius\030\003 \001(\002\022\022\n\nmax_"
+    "radius\030\004 \001(\002\022\023\n\013start_angle\030\005 \001(\002\022\022\n\nspa"
+    "n_angel\030\006 \001(\002\022\r\n\005color\030\007 \001(\t\022\014\n\004fill\030\010 \001"
+    "(\010\"w\n\nAddMessage\022\"\n\005level\030\001 \001(\0162\023.protos"
+    ".LoggerLevel\022%\n\010position\030\002 \001(\0132\023.protos."
+    "RpcVector2D\022\017\n\007message\030\003 \001(\t\022\r\n\005color\030\004 "
+    "\001(\t\"\371\002\n\003Log\022#\n\010add_text\030\001 \001(\0132\017.protos.A"
+    "ddTextH\000\022%\n\tadd_point\030\002 \001(\0132\020.protos.Add"
+    "PointH\000\022#\n\010add_line\030\003 \001(\0132\017.protos.AddLi"
+    "neH\000\022!\n\007add_arc\030\004 \001(\0132\016.protos.AddArcH\000\022"
+    "\'\n\nadd_circle\030\005 \001(\0132\021.protos.AddCircleH\000"
+    "\022+\n\014add_triangle\030\006 \001(\0132\023.protos.AddTrian"
+    "gleH\000\022-\n\radd_rectangle\030\007 \001(\0132\024.protos.Ad"
+    "dRectangleH\000\022\'\n\nadd_sector\030\010 \001(\0132\021.proto"
+    "s.AddSectorH\000\022)\n\013add_message\030\t \001(\0132\022.pro"
+    "tos.AddMessageH\000B\005\n\003log\"\036\n\013DebugClient\022\017"
+    "\n\007message\030\001 \001(\t\"o\n\016Body_GoToPoint\022)\n\014tar"
+    "get_point\030\001 \001(\0132\023.protos.RpcVector2D\022\032\n\022"
+    "distance_threshold\030\002 \001(\002\022\026\n\016max_dash_pow"
+    "er\030\003 \001(\002\"\202\001\n\016Body_SmartKick\022)\n\014target_po"
+    "int\030\001 \001(\0132\023.protos.RpcVector2D\022\023\n\013first_"
+    "speed\030\002 \001(\002\022\035\n\025first_speed_threshold\030\003 \001"
+    "(\002\022\021\n\tmax_steps\030\004 \001(\005\"7\n\021Bhv_BeforeKickO"
+    "ff\022\"\n\005point\030\001 \001(\0132\023.protos.RpcVector2D\"\024"
+    "\n\022Bhv_BodyNeckToBall\"9\n\023Bhv_BodyNeckToPo"
+    "int\022\"\n\005point\030\001 \001(\0132\023.protos.RpcVector2D\""
+    "\017\n\rBhv_Emergency\"v\n\025Bhv_GoToPointLookBal"
+    "l\022)\n\014target_point\030\001 \001(\0132\023.protos.RpcVect"
+    "or2D\022\032\n\022distance_threshold\030\002 \001(\002\022\026\n\016max_"
+    "dash_power\030\003 \001(\002\"\'\n\022Bhv_NeckBodyToBall\022\021"
+    "\n\tangle_buf\030\001 \001(\002\"L\n\023Bhv_NeckBodyToPoint"
+    "\022\"\n\005point\030\001 \001(\0132\023.protos.RpcVector2D\022\021\n\t"
+    "angle_buf\030\002 \001(\002\"\017\n\rBhv_ScanField\"\022\n\020Body"
+    "_AdvanceBall\"\020\n\016Body_ClearBall\"\214\001\n\014Body_"
+    "Dribble\022)\n\014target_point\030\001 \001(\0132\023.protos.R"
+    "pcVector2D\022\032\n\022distance_threshold\030\002 \001(\002\022\022"
+    "\n\ndash_power\030\003 \001(\002\022\022\n\ndash_count\030\004 \001(\005\022\r"
+    "\n\005dodge\030\005 \001(\010\"T\n\023Body_GoToPointDodge\022)\n\014"
+    "target_point\030\001 \001(\0132\023.protos.RpcVector2D\022"
+    "\022\n\ndash_power\030\002 \001(\002\"\200\001\n\rBody_HoldBall\022\017\n"
+    "\007do_turn\030\001 \001(\010\022.\n\021turn_target_point\030\002 \001("
+    "\0132\023.protos.RpcVector2D\022.\n\021kick_target_po"
+    "int\030\003 \001(\0132\023.protos.RpcVector2D\"P\n\016Body_I"
+    "ntercept\022\025\n\rsave_recovery\030\001 \001(\010\022\'\n\nface_"
+    "point\030\002 \001(\0132\023.protos.RpcVector2D\"f\n\020Body"
+    "_KickOneStep\022)\n\014target_point\030\001 \001(\0132\023.pro"
+    "tos.RpcVector2D\022\023\n\013first_speed\030\002 \001(\002\022\022\n\n"
+    "force_mode\030\003 \001(\010\"\017\n\rBody_StopBall\"&\n\rBod"
+    "y_StopDash\022\025\n\rsave_recovery\030\001 \001(\010\"k\n\022Bod"
+    "y_TackleToPoint\022)\n\014target_point\030\001 \001(\0132\023."
+    "protos.RpcVector2D\022\027\n\017min_probability\030\002 "
+    "\001(\002\022\021\n\tmin_speed\030\003 \001(\002\"!\n\020Body_TurnToAng"
+    "le\022\r\n\005angle\030\001 \001(\002\" \n\017Body_TurnToBall\022\r\n\005"
+    "cycle\030\001 \001(\005\"L\n\020Body_TurnToPoint\022)\n\014targe"
+    "t_point\030\001 \001(\0132\023.protos.RpcVector2D\022\r\n\005cy"
+    "cle\030\002 \001(\005\">\n\021Focus_MoveToPoint\022)\n\014target"
+    "_point\030\001 \001(\0132\023.protos.RpcVector2D\"\r\n\013Foc"
+    "us_Reset\"\020\n\016Neck_ScanField\"\022\n\020Neck_ScanP"
+    "layers\"g\n\030Neck_TurnToBallAndPlayer\022\032\n\004si"
+    "de\030\001 \001(\0162\014.protos.Side\022\026\n\016uniform_number"
+    "\030\002 \001(\005\022\027\n\017count_threshold\030\003 \001(\005\"0\n\025Neck_"
+    "TurnToBallOrScan\022\027\n\017count_threshold\030\001 \001("
+    "\005\"\021\n\017Neck_TurnToBall\"2\n\027Neck_TurnToGoali"
+    "eOrScan\022\027\n\017count_threshold\030\001 \001(\005\"\034\n\032Neck"
+    "_TurnToLowConfTeammate\"f\n\027Neck_TurnToPla"
+    "yerOrScan\022\032\n\004side\030\001 \001(\0162\014.protos.Side\022\026\n"
+    "\016uniform_number\030\002 \001(\005\022\027\n\017count_threshold"
+    "\030\003 \001(\005\"=\n\020Neck_TurnToPoint\022)\n\014target_poi"
+    "nt\030\001 \001(\0132\023.protos.RpcVector2D\"$\n\023Neck_Tu"
+    "rnToRelative\022\r\n\005angle\030\001 \001(\002\"9\n\020View_Chan"
+    "geWidth\022%\n\nview_width\030\001 \001(\0162\021.protos.Vie"
+    "wWidth\"\r\n\013View_Normal\"\014\n\nView_Synch\"\013\n\tV"
+    "iew_Wide\"\016\n\014HeliosGoalie\"\022\n\020HeliosGoalie"
+    "Move\"\022\n\020HeliosGoalieKick\"\r\n\013HeliosShoot\""
+    "\363\001\n\026HeliosOffensivePlanner\022\023\n\013direct_pas"
+    "s\030\001 \001(\010\022\021\n\tlead_pass\030\002 \001(\010\022\024\n\014through_pa"
+    "ss\030\003 \001(\010\022\025\n\rshort_dribble\030\004 \001(\010\022\024\n\014long_"
+    "dribble\030\005 \001(\010\022\r\n\005cross\030\006 \001(\010\022\023\n\013simple_p"
+    "ass\030\007 \001(\010\022\026\n\016simple_dribble\030\010 \001(\010\022\024\n\014sim"
+    "ple_shoot\030\t \001(\010\022\034\n\024server_side_decision\030"
+    "\n \001(\010\"\026\n\024HeliosBasicOffensive\"\021\n\017HeliosB"
+    "asicMove\"\017\n\rHeliosSetPlay\"\017\n\rHeliosPenal"
+    "ty\"\024\n\022HeliosCommunicaion\"\355\031\n\014PlayerActio"
+    "n\022\034\n\004dash\030\001 \001(\0132\014.protos.DashH\000\022\034\n\004turn\030"
+    "\002 \001(\0132\014.protos.TurnH\000\022\034\n\004kick\030\003 \001(\0132\014.pr"
+    "otos.KickH\000\022 \n\006tackle\030\004 \001(\0132\016.protos.Tac"
+    "kleH\000\022\036\n\005catch\030\005 \001(\0132\r.protos.CatchH\000\022\034\n"
+    "\004move\030\006 \001(\0132\014.protos.MoveH\000\022%\n\tturn_neck"
+    "\030\007 \001(\0132\020.protos.TurnNeckH\000\022)\n\013change_vie"
+    "w\030\010 \001(\0132\022.protos.ChangeViewH\000\022\032\n\003say\030\t \001"
+    "(\0132\013.protos.SayH\000\022#\n\010point_to\030\n \001(\0132\017.pr"
+    "otos.PointToH\000\022(\n\013point_to_of\030\013 \001(\0132\021.pr"
+    "otos.PointToOfH\000\022+\n\014attention_to\030\014 \001(\0132\023"
+    ".protos.AttentionToH\000\0220\n\017attention_to_of"
+    "\030\r \001(\0132\025.protos.AttentionToOfH\000\022\032\n\003log\030\016"
+    " \001(\0132\013.protos.LogH\000\022+\n\014debug_client\030\017 \001("
+    "\0132\023.protos.DebugClientH\000\0222\n\020body_go_to_p"
+    "oint\030\020 \001(\0132\026.protos.Body_GoToPointH\000\0221\n\017"
+    "body_smart_kick\030\021 \001(\0132\026.protos.Body_Smar"
+    "tKickH\000\0228\n\023bhv_before_kick_off\030\022 \001(\0132\031.p"
+    "rotos.Bhv_BeforeKickOffH\000\022;\n\025bhv_body_ne"
+    "ck_to_ball\030\023 \001(\0132\032.protos.Bhv_BodyNeckTo"
+    "BallH\000\022=\n\026bhv_body_neck_to_point\030\024 \001(\0132\033"
+    ".protos.Bhv_BodyNeckToPointH\000\022.\n\rbhv_eme"
+    "rgency\030\025 \001(\0132\025.protos.Bhv_EmergencyH\000\022B\n"
+    "\031bhv_go_to_point_look_ball\030\026 \001(\0132\035.proto"
+    "s.Bhv_GoToPointLookBallH\000\022;\n\025bhv_neck_bo"
+    "dy_to_ball\030\027 \001(\0132\032.protos.Bhv_NeckBodyTo"
+    "BallH\000\022=\n\026bhv_neck_body_to_point\030\030 \001(\0132\033"
+    ".protos.Bhv_NeckBodyToPointH\000\022/\n\016bhv_sca"
+    "n_field\030\031 \001(\0132\025.protos.Bhv_ScanFieldH\000\0225"
+    "\n\021body_advance_ball\030\032 \001(\0132\030.protos.Body_"
+    "AdvanceBallH\000\0221\n\017body_clear_ball\030\033 \001(\0132\026"
+    ".protos.Body_ClearBallH\000\022,\n\014body_dribble"
+    "\030\034 \001(\0132\024.protos.Body_DribbleH\000\022=\n\026body_g"
+    "o_to_point_dodge\030\035 \001(\0132\033.protos.Body_GoT"
+    "oPointDodgeH\000\022/\n\016body_hold_ball\030\036 \001(\0132\025."
+    "protos.Body_HoldBallH\000\0220\n\016body_intercept"
+    "\030\037 \001(\0132\026.protos.Body_InterceptH\000\0226\n\022body"
+    "_kick_one_step\030  \001(\0132\030.protos.Body_KickO"
+    "neStepH\000\022/\n\016body_stop_ball\030! \001(\0132\025.proto"
+    "s.Body_StopBallH\000\022/\n\016body_stop_dash\030\" \001("
+    "\0132\025.protos.Body_StopDashH\000\022:\n\024body_tackl"
+    "e_to_point\030# \001(\0132\032.protos.Body_TackleToP"
+    "ointH\000\0226\n\022body_turn_to_angle\030$ \001(\0132\030.pro"
+    "tos.Body_TurnToAngleH\000\0224\n\021body_turn_to_b"
+    "all\030% \001(\0132\027.protos.Body_TurnToBallH\000\0226\n\022"
+    "body_turn_to_point\030& \001(\0132\030.protos.Body_T"
+    "urnToPointH\000\0228\n\023focus_move_to_point\030\' \001("
+    "\0132\031.protos.Focus_MoveToPointH\000\022*\n\013focus_"
+    "reset\030( \001(\0132\023.protos.Focus_ResetH\000\0221\n\017ne"
+    "ck_scan_field\030) \001(\0132\026.protos.Neck_ScanFi"
+    "eldH\000\0225\n\021neck_scan_players\030* \001(\0132\030.proto"
+    "s.Neck_ScanPlayersH\000\022H\n\034neck_turn_to_bal"
+    "l_and_player\030+ \001(\0132 .protos.Neck_TurnToB"
+    "allAndPlayerH\000\022B\n\031neck_turn_to_ball_or_s"
+    "can\030, \001(\0132\035.protos.Neck_TurnToBallOrScan"
+    "H\000\0224\n\021neck_turn_to_ball\030- \001(\0132\027.protos.N"
+    "eck_TurnToBallH\000\022F\n\033neck_turn_to_goalie_"
+    "or_scan\030. \001(\0132\037.protos.Neck_TurnToGoalie"
+    "OrScanH\000\022L\n\036neck_turn_to_low_conf_teamma"
+    "te\030/ \001(\0132\".protos.Neck_TurnToLowConfTeam"
+    "mateH\000\022F\n\033neck_turn_to_player_or_scan\0300 "
+    "\001(\0132\037.protos.Neck_TurnToPlayerOrScanH\000\0226"
+    "\n\022neck_turn_to_point\0301 \001(\0132\030.protos.Neck"
+    "_TurnToPointH\000\022<\n\025neck_turn_to_relative\030"
+    "2 \001(\0132\033.protos.Neck_TurnToRelativeH\000\0225\n\021"
+    "view_change_width\0303 \001(\0132\030.protos.View_Ch"
+    "angeWidthH\000\022*\n\013view_normal\0304 \001(\0132\023.proto"
+    "s.View_NormalH\000\022(\n\nview_synch\0305 \001(\0132\022.pr"
+    "otos.View_SynchH\000\022&\n\tview_wide\0306 \001(\0132\021.p"
+    "rotos.View_WideH\000\022-\n\rhelios_goalie\0307 \001(\013"
+    "2\024.protos.HeliosGoalieH\000\0226\n\022helios_goali"
+    "e_move\0308 \001(\0132\030.protos.HeliosGoalieMoveH\000"
+    "\0226\n\022helios_goalie_kick\0309 \001(\0132\030.protos.He"
+    "liosGoalieKickH\000\022+\n\014helios_shoot\030: \001(\0132\023"
+    ".protos.HeliosShootH\000\022B\n\030helios_offensiv"
+    "e_planner\030; \001(\0132\036.protos.HeliosOffensive"
+    "PlannerH\000\022>\n\026helios_basic_offensive\030< \001("
+    "\0132\034.protos.HeliosBasicOffensiveH\000\0224\n\021hel"
+    "ios_basic_move\030= \001(\0132\027.protos.HeliosBasi"
+    "cMoveH\000\0220\n\017helios_set_play\030> \001(\0132\025.proto"
+    "s.HeliosSetPlayH\000\022/\n\016helios_penalty\030\? \001("
+    "\0132\025.protos.HeliosPenaltyH\000\022:\n\024helios_com"
+    "munication\030@ \001(\0132\032.protos.HeliosCommunic"
+    "aionH\000B\010\n\006action\"Q\n\rPlayerActions\022%\n\007act"
+    "ions\030\001 \003(\0132\024.protos.PlayerAction\022\031\n\021igno"
+    "re_preprocess\030\002 \001(\010\"8\n\020ChangePlayerType\022"
+    "\026\n\016uniform_number\030\001 \001(\005\022\014\n\004type\030\002 \001(\005\"\024\n"
+    "\022DoHeliosSubstitute\"\030\n\026DoHeliosSayPlayer"
+    "Types\"\322\001\n\013CoachAction\0227\n\023change_player_t"
+    "ypes\030\001 \001(\0132\030.protos.ChangePlayerTypeH\000\022:"
+    "\n\024do_helios_substitute\030\002 \001(\0132\032.protos.Do"
+    "HeliosSubstituteH\000\022D\n\032do_helios_say_play"
+    "er_types\030\003 \001(\0132\036.protos.DoHeliosSayPlaye"
+    "rTypesH\000B\010\n\006action\"4\n\014CoachActions\022$\n\007ac"
+    "tions\030\001 \003(\0132\023.protos.CoachAction\"\013\n\tDoKi"
+    "ckOff\"Z\n\nDoMoveBall\022%\n\010position\030\001 \001(\0132\023."
+    "protos.RpcVector2D\022%\n\010velocity\030\002 \001(\0132\023.p"
+    "rotos.RpcVector2D\"w\n\014DoMovePlayer\022\020\n\010our"
+    "_side\030\001 \001(\010\022\026\n\016uniform_number\030\002 \001(\005\022%\n\010p"
+    "osition\030\003 \001(\0132\023.protos.RpcVector2D\022\026\n\016bo"
+    "dy_direction\030\004 \001(\002\"\013\n\tDoRecover\"X\n\014DoCha"
+    "ngeMode\022,\n\016game_mode_type\030\001 \001(\0162\024.protos"
+    ".GameModeType\022\032\n\004side\030\002 \001(\0162\014.protos.Sid"
+    "e\"L\n\022DoChangePlayerType\022\020\n\010our_side\030\001 \001("
+    "\010\022\026\n\016uniform_number\030\002 \001(\005\022\014\n\004type\030\003 \001(\005\""
+    "\265\002\n\rTrainerAction\022(\n\013do_kick_off\030\001 \001(\0132\021"
+    ".protos.DoKickOffH\000\022*\n\014do_move_ball\030\002 \001("
+    "\0132\022.protos.DoMoveBallH\000\022.\n\016do_move_playe"
+    "r\030\003 \001(\0132\024.protos.DoMovePlayerH\000\022\'\n\ndo_re"
+    "cover\030\004 \001(\0132\021.protos.DoRecoverH\000\022.\n\016do_c"
+    "hange_mode\030\005 \001(\0132\024.protos.DoChangeModeH\000"
+    "\022;\n\025do_change_player_type\030\006 \001(\0132\032.protos"
+    ".DoChangePlayerTypeH\000B\010\n\006action\"8\n\016Train"
+    "erActions\022&\n\007actions\030\001 \003(\0132\025.protos.Trai"
+    "nerAction\"\335,\n\013ServerParam\0223\n\021register_re"
+    "sponse\030\001 \001(\0132\030.protos.RegisterResponse\022\026"
+    "\n\016inertia_moment\030\002 \001(\002\022\023\n\013player_size\030\003 "
+    "\001(\002\022\024\n\014player_decay\030\004 \001(\002\022\023\n\013player_rand"
+    "\030\005 \001(\002\022\025\n\rplayer_weight\030\006 \001(\002\022\030\n\020player_"
+    "speed_max\030\007 \001(\002\022\030\n\020player_accel_max\030\010 \001("
+    "\002\022\023\n\013stamina_max\030\t \001(\002\022\027\n\017stamina_inc_ma"
+    "x\030\n \001(\002\022\024\n\014recover_init\030\013 \001(\002\022\027\n\017recover"
+    "_dec_thr\030\014 \001(\002\022\023\n\013recover_min\030\r \001(\002\022\023\n\013r"
+    "ecover_dec\030\016 \001(\002\022\023\n\013effort_init\030\017 \001(\002\022\026\n"
+    "\016effort_dec_thr\030\020 \001(\002\022\022\n\neffort_min\030\021 \001("
+    "\002\022\022\n\neffort_dec\030\022 \001(\002\022\026\n\016effort_inc_thr\030"
+    "\023 \001(\002\022\022\n\neffort_inc\030\024 \001(\002\022\021\n\tkick_rand\030\025"
+    " \001(\002\022\033\n\023team_actuator_noise\030\026 \001(\010\022\034\n\024pla"
+    "yer_rand_factor_l\030\027 \001(\002\022\034\n\024player_rand_f"
+    "actor_r\030\030 \001(\002\022\032\n\022kick_rand_factor_l\030\031 \001("
+    "\002\022\032\n\022kick_rand_factor_r\030\032 \001(\002\022\021\n\tball_si"
+    "ze\030\033 \001(\002\022\022\n\nball_decay\030\034 \001(\002\022\021\n\tball_ran"
+    "d\030\035 \001(\002\022\023\n\013ball_weight\030\036 \001(\002\022\026\n\016ball_spe"
+    "ed_max\030\037 \001(\002\022\026\n\016ball_accel_max\030  \001(\002\022\027\n\017"
+    "dash_power_rate\030! \001(\002\022\027\n\017kick_power_rate"
+    "\030\" \001(\002\022\027\n\017kickable_margin\030# \001(\002\022\026\n\016contr"
+    "ol_radius\030$ \001(\002\022\034\n\024control_radius_width\030"
+    "% \001(\002\022\021\n\tmax_power\030& \001(\002\022\021\n\tmin_power\030\' "
+    "\001(\002\022\022\n\nmax_moment\030( \001(\002\022\022\n\nmin_moment\030) "
+    "\001(\002\022\027\n\017max_neck_moment\030* \001(\002\022\027\n\017min_neck"
+    "_moment\030+ \001(\002\022\026\n\016max_neck_angle\030, \001(\002\022\026\n"
+    "\016min_neck_angle\030- \001(\002\022\025\n\rvisible_angle\030."
+    " \001(\002\022\030\n\020visible_distance\030/ \001(\002\022\020\n\010wind_d"
+    "ir\0300 \001(\002\022\022\n\nwind_force\0301 \001(\002\022\022\n\nwind_ang"
+    "le\0302 \001(\002\022\021\n\twind_rand\0303 \001(\002\022\025\n\rkickable_"
+    "area\0304 \001(\002\022\024\n\014catch_area_l\0305 \001(\002\022\024\n\014catc"
+    "h_area_w\0306 \001(\002\022\031\n\021catch_probability\0307 \001("
+    "\002\022\030\n\020goalie_max_moves\0308 \001(\005\022\032\n\022corner_ki"
+    "ck_margin\0309 \001(\002\022 \n\030offside_active_area_s"
+    "ize\030: \001(\002\022\021\n\twind_none\030; \001(\010\022\027\n\017use_wind"
+    "_random\030< \001(\010\022\033\n\023coach_say_count_max\030= \001"
+    "(\005\022\032\n\022coach_say_msg_size\030> \001(\005\022\026\n\016clang_"
+    "win_size\030\? \001(\005\022\030\n\020clang_define_win\030@ \001(\005"
+    "\022\026\n\016clang_meta_win\030A \001(\005\022\030\n\020clang_advice"
+    "_win\030B \001(\005\022\026\n\016clang_info_win\030C \001(\005\022\030\n\020cl"
+    "ang_mess_delay\030D \001(\005\022\034\n\024clang_mess_per_c"
+    "ycle\030E \001(\005\022\021\n\thalf_time\030F \001(\005\022\026\n\016simulat"
+    "or_step\030G \001(\005\022\021\n\tsend_step\030H \001(\005\022\021\n\trecv"
+    "_step\030I \001(\005\022\027\n\017sense_body_step\030J \001(\005\022\020\n\010"
+    "lcm_step\030K \001(\005\022\033\n\023player_say_msg_size\030L "
+    "\001(\005\022\027\n\017player_hear_max\030M \001(\005\022\027\n\017player_h"
+    "ear_inc\030N \001(\005\022\031\n\021player_hear_decay\030O \001(\005"
+    "\022\027\n\017catch_ban_cycle\030P \001(\005\022\030\n\020slow_down_f"
+    "actor\030Q \001(\005\022\023\n\013use_offside\030R \001(\010\022\027\n\017kick"
+    "off_offside\030S \001(\010\022\033\n\023offside_kick_margin"
+    "\030T \001(\002\022\026\n\016audio_cut_dist\030U \001(\002\022\032\n\022dist_q"
+    "uantize_step\030V \001(\002\022#\n\033landmark_dist_quan"
+    "tize_step\030W \001(\002\022\031\n\021dir_quantize_step\030X \001"
+    "(\002\022\034\n\024dist_quantize_step_l\030Y \001(\002\022\034\n\024dist"
+    "_quantize_step_r\030Z \001(\002\022%\n\035landmark_dist_"
+    "quantize_step_l\030[ \001(\002\022%\n\035landmark_dist_q"
+    "uantize_step_r\030\\ \001(\002\022\033\n\023dir_quantize_ste"
+    "p_l\030] \001(\002\022\033\n\023dir_quantize_step_r\030^ \001(\002\022\022"
+    "\n\ncoach_mode\030_ \001(\010\022\037\n\027coach_with_referee"
+    "_mode\030` \001(\010\022\032\n\022use_old_coach_hear\030a \001(\010\022"
+    "%\n\035slowness_on_top_for_left_team\030b \001(\002\022&"
+    "\n\036slowness_on_top_for_right_team\030c \001(\002\022\024"
+    "\n\014start_goal_l\030d \001(\005\022\024\n\014start_goal_r\030e \001"
+    "(\005\022\023\n\013fullstate_l\030f \001(\010\022\023\n\013fullstate_r\030g"
+    " \001(\010\022\026\n\016drop_ball_time\030h \001(\005\022\022\n\nsynch_mo"
+    "de\030i \001(\010\022\024\n\014synch_offset\030j \001(\005\022\031\n\021synch_"
+    "micro_sleep\030k \001(\005\022\024\n\014point_to_ban\030l \001(\005\022"
+    "\031\n\021point_to_duration\030m \001(\005\022\023\n\013player_por"
+    "t\030n \001(\005\022\024\n\014trainer_port\030o \001(\005\022\031\n\021online_"
+    "coach_port\030p \001(\005\022\024\n\014verbose_mode\030q \001(\010\022\032"
+    "\n\022coach_send_vi_step\030r \001(\005\022\023\n\013replay_fil"
+    "e\030s \001(\t\022\025\n\rlandmark_file\030t \001(\t\022\022\n\nsend_c"
+    "omms\030u \001(\010\022\024\n\014text_logging\030v \001(\010\022\024\n\014game"
+    "_logging\030w \001(\010\022\030\n\020game_log_version\030x \001(\005"
+    "\022\024\n\014text_log_dir\030y \001(\t\022\024\n\014game_log_dir\030z"
+    " \001(\t\022\033\n\023text_log_fixed_name\030{ \001(\t\022\033\n\023gam"
+    "e_log_fixed_name\030| \001(\t\022\032\n\022use_text_log_f"
+    "ixed\030} \001(\010\022\032\n\022use_game_log_fixed\030~ \001(\010\022\032"
+    "\n\022use_text_log_dated\030\177 \001(\010\022\033\n\022use_game_l"
+    "og_dated\030\200\001 \001(\010\022\030\n\017log_date_format\030\201\001 \001("
+    "\t\022\022\n\tlog_times\030\202\001 \001(\010\022\027\n\016record_message\030"
+    "\203\001 \001(\010\022\035\n\024text_log_compression\030\204\001 \001(\005\022\035\n"
+    "\024game_log_compression\030\205\001 \001(\005\022\024\n\013use_prof"
+    "ile\030\206\001 \001(\010\022\024\n\013tackle_dist\030\207\001 \001(\002\022\031\n\020tack"
+    "le_back_dist\030\210\001 \001(\002\022\025\n\014tackle_width\030\211\001 \001"
+    "(\002\022\030\n\017tackle_exponent\030\212\001 \001(\002\022\026\n\rtackle_c"
+    "ycles\030\213\001 \001(\005\022\032\n\021tackle_power_rate\030\214\001 \001(\002"
+    "\022\035\n\024freeform_wait_period\030\215\001 \001(\005\022\035\n\024freef"
+    "orm_send_period\030\216\001 \001(\005\022\031\n\020free_kick_faul"
+    "ts\030\217\001 \001(\010\022\024\n\013back_passes\030\220\001 \001(\010\022\032\n\021prope"
+    "r_goal_kicks\030\221\001 \001(\010\022\031\n\020stopped_ball_vel\030"
+    "\222\001 \001(\002\022\027\n\016max_goal_kicks\030\223\001 \001(\005\022\026\n\rclang"
+    "_del_win\030\224\001 \001(\005\022\027\n\016clang_rule_win\030\225\001 \001(\005"
+    "\022\022\n\tauto_mode\030\226\001 \001(\010\022\026\n\rkick_off_wait\030\227\001"
+    " \001(\005\022\025\n\014connect_wait\030\230\001 \001(\005\022\027\n\016game_over"
+    "_wait\030\231\001 \001(\005\022\025\n\014team_l_start\030\232\001 \001(\t\022\025\n\014t"
+    "eam_r_start\030\233\001 \001(\t\022\026\n\rkeepaway_mode\030\234\001 \001"
+    "(\010\022\030\n\017keepaway_length\030\235\001 \001(\002\022\027\n\016keepaway"
+    "_width\030\236\001 \001(\002\022\031\n\020keepaway_logging\030\237\001 \001(\010"
+    "\022\031\n\020keepaway_log_dir\030\240\001 \001(\t\022 \n\027keepaway_"
+    "log_fixed_name\030\241\001 \001(\t\022\033\n\022keepaway_log_fi"
+    "xed\030\242\001 \001(\010\022\033\n\022keepaway_log_dated\030\243\001 \001(\010\022"
+    "\027\n\016keepaway_start\030\244\001 \001(\005\022\030\n\017nr_normal_ha"
+    "lfs\030\245\001 \001(\005\022\027\n\016nr_extra_halfs\030\246\001 \001(\005\022\033\n\022p"
+    "enalty_shoot_outs\030\247\001 \001(\010\022\036\n\025pen_before_s"
+    "etup_wait\030\250\001 \001(\005\022\027\n\016pen_setup_wait\030\251\001 \001("
+    "\005\022\027\n\016pen_ready_wait\030\252\001 \001(\005\022\027\n\016pen_taken_"
+    "wait\030\253\001 \001(\005\022\025\n\014pen_nr_kicks\030\254\001 \001(\005\022\034\n\023pe"
+    "n_max_extra_kicks\030\255\001 \001(\005\022\023\n\npen_dist_x\030\256"
+    "\001 \001(\002\022\032\n\021pen_random_winner\030\257\001 \001(\010\022\035\n\024pen"
+    "_allow_mult_kicks\030\260\001 \001(\010\022\036\n\025pen_max_goal"
+    "ie_dist_x\030\261\001 \001(\002\022 \n\027pen_coach_moves_play"
+    "ers\030\262\001 \001(\010\022\023\n\nmodule_dir\030\263\001 \001(\t\022\030\n\017ball_"
+    "stuck_area\030\264\001 \001(\002\022\027\n\016coach_msg_file\030\265\001 \001"
+    "(\t\022\031\n\020max_tackle_power\030\266\001 \001(\002\022\036\n\025max_bac"
+    "k_tackle_power\030\267\001 \001(\002\022\035\n\024player_speed_ma"
+    "x_min\030\270\001 \001(\002\022\026\n\rextra_stamina\030\271\001 \001(\002\022\031\n\020"
+    "synch_see_offset\030\272\001 \001(\005\022\030\n\017extra_half_ti"
+    "me\030\273\001 \001(\005\022\031\n\020stamina_capacity\030\274\001 \001(\002\022\027\n\016"
+    "max_dash_angle\030\275\001 \001(\002\022\027\n\016min_dash_angle\030"
+    "\276\001 \001(\002\022\030\n\017dash_angle_step\030\277\001 \001(\002\022\027\n\016side"
+    "_dash_rate\030\300\001 \001(\002\022\027\n\016back_dash_rate\030\301\001 \001"
+    "(\002\022\027\n\016max_dash_power\030\302\001 \001(\002\022\027\n\016min_dash_"
+    "power\030\303\001 \001(\002\022\033\n\022tackle_rand_factor\030\304\001 \001("
+    "\002\022 \n\027foul_detect_probability\030\305\001 \001(\002\022\026\n\rf"
+    "oul_exponent\030\306\001 \001(\002\022\024\n\013foul_cycles\030\307\001 \001("
+    "\005\022\024\n\013golden_goal\030\310\001 \001(\010\022\035\n\024red_card_prob"
+    "ability\030\311\001 \001(\002\022!\n\030illegal_defense_durati"
+    "on\030\312\001 \001(\005\022\037\n\026illegal_defense_number\030\313\001 \001"
+    "(\005\022\037\n\026illegal_defense_dist_x\030\314\001 \001(\002\022\036\n\025i"
+    "llegal_defense_width\030\315\001 \001(\002\022\031\n\020fixed_tea"
+    "mname_l\030\316\001 \001(\t\022\031\n\020fixed_teamname_r\030\317\001 \001("
+    "\t\022\030\n\017max_catch_angle\030\320\001 \001(\002\022\030\n\017min_catch"
+    "_angle\030\321\001 \001(\002\022\024\n\013random_seed\030\322\001 \001(\005\022\037\n\026l"
+    "ong_kick_power_factor\030\323\001 \001(\002\022\030\n\017long_kic"
+    "k_delay\030\324\001 \001(\005\022\025\n\014max_monitors\030\325\001 \001(\005\022\027\n"
+    "\016catchable_area\030\326\001 \001(\002\022\027\n\016real_speed_max"
+    "\030\327\001 \001(\002\022\032\n\021pitch_half_length\030\330\001 \001(\002\022\031\n\020p"
+    "itch_half_width\030\331\001 \001(\002\022 \n\027our_penalty_ar"
+    "ea_line_x\030\332\001 \001(\002\022\"\n\031their_penalty_area_l"
+    "ine_x\030\333\001 \001(\002\022 \n\027penalty_area_half_width\030"
+    "\334\001 \001(\002\022\034\n\023penalty_area_length\030\335\001 \001(\002\022\023\n\n"
+    "goal_width\030\336\001 \001(\002\"\215\010\n\013PlayerParam\0223\n\021reg"
+    "ister_response\030\001 \001(\0132\030.protos.RegisterRe"
+    "sponse\022\024\n\014player_types\030\002 \001(\005\022\020\n\010subs_max"
+    "\030\003 \001(\005\022\016\n\006pt_max\030\004 \001(\005\022\037\n\027allow_mult_def"
+    "ault_type\030\005 \001(\010\022\"\n\032player_speed_max_delt"
+    "a_min\030\006 \001(\002\022\"\n\032player_speed_max_delta_ma"
+    "x\030\007 \001(\002\022$\n\034stamina_inc_max_delta_factor\030"
+    "\010 \001(\002\022\036\n\026player_decay_delta_min\030\t \001(\002\022\036\n"
+    "\026player_decay_delta_max\030\n \001(\002\022#\n\033inertia"
+    "_moment_delta_factor\030\013 \001(\002\022!\n\031dash_power"
+    "_rate_delta_min\030\014 \001(\002\022!\n\031dash_power_rate"
+    "_delta_max\030\r \001(\002\022 \n\030player_size_delta_fa"
+    "ctor\030\016 \001(\002\022!\n\031kickable_margin_delta_min\030"
+    "\017 \001(\002\022!\n\031kickable_margin_delta_max\030\020 \001(\002"
+    "\022\036\n\026kick_rand_delta_factor\030\021 \001(\002\022\037\n\027extr"
+    "a_stamina_delta_min\030\022 \001(\002\022\037\n\027extra_stami"
+    "na_delta_max\030\023 \001(\002\022\037\n\027effort_max_delta_f"
+    "actor\030\024 \001(\002\022\037\n\027effort_min_delta_factor\030\025"
+    " \001(\002\022\023\n\013random_seed\030\026 \001(\005\022%\n\035new_dash_po"
+    "wer_rate_delta_min\030\027 \001(\002\022%\n\035new_dash_pow"
+    "er_rate_delta_max\030\030 \001(\002\022(\n new_stamina_i"
+    "nc_max_delta_factor\030\031 \001(\002\022!\n\031kick_power_"
+    "rate_delta_min\030\032 \001(\002\022!\n\031kick_power_rate_"
+    "delta_max\030\033 \001(\002\022,\n$foul_detect_probabili"
+    "ty_delta_factor\030\034 \001(\002\022$\n\034catchable_area_"
+    "l_stretch_min\030\035 \001(\002\022$\n\034catchable_area_l_"
+    "stretch_max\030\036 \001(\002\"\277\007\n\nPlayerType\0223\n\021regi"
+    "ster_response\030\001 \001(\0132\030.protos.RegisterRes"
+    "ponse\022\n\n\002id\030\002 \001(\005\022\027\n\017stamina_inc_max\030\003 \001"
+    "(\002\022\024\n\014player_decay\030\004 \001(\002\022\026\n\016inertia_mome"
+    "nt\030\005 \001(\002\022\027\n\017dash_power_rate\030\006 \001(\002\022\023\n\013pla"
+    "yer_size\030\007 \001(\002\022\027\n\017kickable_margin\030\010 \001(\002\022"
+    "\021\n\tkick_rand\030\t \001(\002\022\025\n\rextra_stamina\030\n \001("
+    "\002\022\022\n\neffort_max\030\013 \001(\002\022\022\n\neffort_min\030\014 \001("
+    "\002\022\027\n\017kick_power_rate\030\r \001(\002\022\037\n\027foul_detec"
+    "t_probability\030\016 \001(\002\022 \n\030catchable_area_l_"
+    "stretch\030\017 \001(\002\022\027\n\017unum_far_length\030\020 \001(\002\022\033"
+    "\n\023unum_too_far_length\030\021 \001(\002\022\027\n\017team_far_"
+    "length\030\022 \001(\002\022\033\n\023team_too_far_length\030\023 \001("
+    "\002\022%\n\035player_max_observation_length\030\024 \001(\002"
+    "\022\033\n\023ball_vel_far_length\030\025 \001(\002\022\037\n\027ball_ve"
+    "l_too_far_length\030\026 \001(\002\022#\n\033ball_max_obser"
+    "vation_length\030\027 \001(\002\022\033\n\023flag_chg_far_leng"
+    "th\030\030 \001(\002\022\037\n\027flag_chg_too_far_length\030\031 \001("
+    "\002\022#\n\033flag_max_observation_length\030\032 \001(\002\022\025"
+    "\n\rkickable_area\030\033 \001(\002\022\037\n\027reliable_catcha"
+    "ble_dist\030\034 \001(\002\022\032\n\022max_catchable_dist\030\035 \001"
+    "(\002\022\026\n\016real_speed_max\030\036 \001(\002\022\031\n\021player_spe"
+    "ed_max2\030\037 \001(\002\022\027\n\017real_speed_max2\030  \001(\002\022!"
+    "\n\031cycles_to_reach_max_speed\030! \001(\005\022\030\n\020pla"
+    "yer_speed_max\030\" \001(\002\"\255\003\n\024RpcCooperativeAc"
+    "tion\022+\n\010category\030\001 \001(\0162\031.protos.RpcActio"
+    "nCategory\022\r\n\005index\030\002 \001(\005\022\023\n\013sender_unum\030"
+    "\003 \001(\005\022\023\n\013target_unum\030\004 \001(\005\022)\n\014target_poi"
+    "nt\030\005 \001(\0132\023.protos.RpcVector2D\022\030\n\020first_b"
+    "all_speed\030\006 \001(\001\022\031\n\021first_turn_moment\030\007 \001"
+    "(\001\022\030\n\020first_dash_power\030\010 \001(\001\022!\n\031first_da"
+    "sh_angle_relative\030\t \001(\001\022\025\n\rduration_step"
+    "\030\n \001(\005\022\022\n\nkick_count\030\013 \001(\005\022\022\n\nturn_count"
+    "\030\014 \001(\005\022\022\n\ndash_count\030\r \001(\005\022\024\n\014final_acti"
+    "on\030\016 \001(\010\022\023\n\013description\030\017 \001(\t\022\024\n\014parent_"
+    "index\030\020 \001(\005\"\317\001\n\017RpcPredictState\022\022\n\nspend"
+    "_time\030\001 \001(\005\022\030\n\020ball_holder_unum\030\002 \001(\005\022*\n"
+    "\rball_position\030\003 \001(\0132\023.protos.RpcVector2"
+    "D\022*\n\rball_velocity\030\004 \001(\0132\023.protos.RpcVec"
+    "tor2D\022\032\n\022our_defense_line_x\030\005 \001(\001\022\032\n\022our"
+    "_offense_line_x\030\006 \001(\001\"\202\001\n\016RpcActionState"
+    "\022,\n\006action\030\001 \001(\0132\034.protos.RpcCooperative"
+    "Action\022.\n\rpredict_state\030\002 \001(\0132\027.protos.R"
+    "pcPredictState\022\022\n\nevaluation\030\003 \001(\001\"\357\001\n\030B"
+    "estPlannerActionRequest\0223\n\021register_resp"
+    "onse\030\001 \001(\0132\030.protos.RegisterResponse\022:\n\005"
+    "pairs\030\002 \003(\0132+.protos.BestPlannerActionRe"
+    "quest.PairsEntry\022\034\n\005state\030\003 \001(\0132\r.protos"
+    ".State\032D\n\nPairsEntry\022\013\n\003key\030\001 \001(\005\022%\n\005val"
+    "ue\030\002 \001(\0132\026.protos.RpcActionState:\0028\001\"*\n\031"
+    "BestPlannerActionResponse\022\r\n\005index\030\001 \001(\005"
+    "\"\007\n\005Empty*-\n\tViewWidth\022\n\n\006NARROW\020\000\022\n\n\006NO"
+    "RMAL\020\001\022\010\n\004WIDE\020\002*{\n\025RpcServerLanguageTyp"
+    "e\022\024\n\020UNKNOWN_LANGUAGE\020\000\022\n\n\006PYThON\020\001\022\010\n\004J"
+    "AVA\020\002\022\007\n\003CPP\020\003\022\n\n\006CSHARP\020\004\022\010\n\004RUBY\020\005\022\017\n\013"
+    "JAVE_SCRIPT\020\006\022\006\n\002GO\020\007*(\n\004Side\022\013\n\007UNKNOWN"
+    "\020\000\022\010\n\004LEFT\020\001\022\t\n\005RIGHT\020\002*\262\002\n\013LoggerLevel\022"
+    "\r\n\tNoneLevel\020\000\022\n\n\006SYSTEM\020\001\022\n\n\006SENSOR\020\002\022\t"
+    "\n\005WORLD\020\004\022\n\n\006ACTION\020\010\022\r\n\tINTERCEPT\020\020\022\010\n\004"
+    "KICK\020 \022\010\n\004HOLD\020@\022\014\n\007DRIBBLE\020\200\001\022\t\n\004PASS\020\200"
+    "\002\022\n\n\005CROSS\020\200\004\022\n\n\005SHOOT\020\200\010\022\n\n\005CLEAR\020\200\020\022\n\n"
+    "\005BLOCK\020\200 \022\t\n\004MARK\020\200@\022\021\n\013POSITIONING\020\200\200\001\022"
+    "\n\n\004ROLE\020\200\200\002\022\n\n\004TEAM\020\200\200\004\022\023\n\rCOMMUNICATION"
+    "\020\200\200\010\022\016\n\010ANALYZER\020\200\200\020\022\022\n\014ACTION_CHAIN\020\200\200 "
+    "\022\n\n\004PLAN\020\200\200@*,\n\010CardType\022\013\n\007NO_CARD\020\000\022\n\n"
+    "\006YELLOW\020\001\022\007\n\003RED\020\002*v\n\023InterceptActionTyp"
+    "e\022!\n\035UNKNOWN_Intercept_Action_Type\020\000\022\r\n\t"
+    "OMNI_DASH\020\001\022\025\n\021TURN_FORWARD_DASH\020\002\022\026\n\022TU"
+    "RN_BACKWARD_DASH\020\003*\273\004\n\014GameModeType\022\021\n\rB"
+    "eforeKickOff\020\000\022\014\n\010TimeOver\020\001\022\n\n\006PlayOn\020\002"
+    "\022\014\n\010KickOff_\020\003\022\013\n\007KickIn_\020\004\022\r\n\tFreeKick_"
+    "\020\005\022\017\n\013CornerKick_\020\006\022\r\n\tGoalKick_\020\007\022\016\n\nAf"
+    "terGoal_\020\010\022\014\n\010OffSide_\020\t\022\020\n\014PenaltyKick_"
+    "\020\n\022\021\n\rFirstHalfOver\020\013\022\t\n\005Pause\020\014\022\t\n\005Huma"
+    "n\020\r\022\017\n\013FoulCharge_\020\016\022\r\n\tFoulPush_\020\017\022\031\n\025F"
+    "oulMultipleAttacker_\020\020\022\020\n\014FoulBallOut_\020\021"
+    "\022\r\n\tBackPass_\020\022\022\022\n\016FreeKickFault_\020\023\022\017\n\013C"
+    "atchFault_\020\024\022\020\n\014IndFreeKick_\020\025\022\021\n\rPenalt"
+    "ySetup_\020\026\022\021\n\rPenaltyReady_\020\027\022\021\n\rPenaltyT"
+    "aken_\020\030\022\020\n\014PenaltyMiss_\020\031\022\021\n\rPenaltyScor"
+    "e_\020\032\022\023\n\017IllegalDefense_\020\033\022\023\n\017PenaltyOnfi"
+    "eld_\020\034\022\020\n\014PenaltyFoul_\020\035\022\020\n\014GoalieCatch_"
+    "\020\036\022\016\n\nExtendHalf\020\037\022\014\n\010MODE_MAX\020 *2\n\tAgen"
+    "tType\022\013\n\007PlayerT\020\000\022\n\n\006CoachT\020\001\022\014\n\010Traine"
+    "rT\020\002*w\n\021RpcActionCategory\022\013\n\007AC_Hold\020\000\022\016"
+    "\n\nAC_Dribble\020\001\022\013\n\007AC_Pass\020\002\022\014\n\010AC_Shoot\020"
+    "\003\022\014\n\010AC_Clear\020\004\022\013\n\007AC_Move\020\005\022\017\n\013AC_NoAct"
+    "ion\020\0062\373\004\n\004Game\022:\n\020GetPlayerActions\022\r.pro"
+    "tos.State\032\025.protos.PlayerActions\"\000\0228\n\017Ge"
+    "tCoachActions\022\r.protos.State\032\024.protos.Co"
+    "achActions\"\000\022<\n\021GetTrainerActions\022\r.prot"
+    "os.State\032\026.protos.TrainerActions\"\000\0227\n\017Se"
+    "ndInitMessage\022\023.protos.InitMessage\032\r.pro"
+    "tos.Empty\"\000\0228\n\020SendServerParams\022\023.protos"
+    ".ServerParam\032\r.protos.Empty\"\000\0228\n\020SendPla"
+    "yerParams\022\023.protos.PlayerParam\032\r.protos."
+    "Empty\"\000\0225\n\016SendPlayerType\022\022.protos.Playe"
+    "rType\032\r.protos.Empty\"\000\022\?\n\010Register\022\027.pro"
+    "tos.RegisterRequest\032\030.protos.RegisterRes"
+    "ponse\"\000\022;\n\016SendByeCommand\022\030.protos.Regis"
+    "terResponse\032\r.protos.Empty\"\000\022]\n\024GetBestP"
+    "lannerAction\022 .protos.BestPlannerActionR"
+    "equest\032!.protos.BestPlannerActionRespons"
+    "e\"\000b\006proto3"
 };
 static ::absl::once_flag descriptor_table_service_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_service_2eproto = {
     false,
     false,
-    28639,
+    28851,
     descriptor_table_protodef_service_2eproto,
     "service.proto",
     &descriptor_table_service_2eproto_once,
@@ -6709,9 +6721,28 @@ bool ViewWidth_IsValid(int value) {
       return false;
   }
 }
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Side_descriptor() {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RpcServerLanguageType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
   return file_level_enum_descriptors_service_2eproto[1];
+}
+bool RpcServerLanguageType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+      return true;
+    default:
+      return false;
+  }
+}
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Side_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
+  return file_level_enum_descriptors_service_2eproto[2];
 }
 bool Side_IsValid(int value) {
   switch (value) {
@@ -6725,7 +6756,7 @@ bool Side_IsValid(int value) {
 }
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LoggerLevel_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
-  return file_level_enum_descriptors_service_2eproto[2];
+  return file_level_enum_descriptors_service_2eproto[3];
 }
 bool LoggerLevel_IsValid(int value) {
   switch (value) {
@@ -6758,7 +6789,7 @@ bool LoggerLevel_IsValid(int value) {
 }
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CardType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
-  return file_level_enum_descriptors_service_2eproto[3];
+  return file_level_enum_descriptors_service_2eproto[4];
 }
 bool CardType_IsValid(int value) {
   switch (value) {
@@ -6772,7 +6803,7 @@ bool CardType_IsValid(int value) {
 }
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* InterceptActionType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
-  return file_level_enum_descriptors_service_2eproto[4];
+  return file_level_enum_descriptors_service_2eproto[5];
 }
 bool InterceptActionType_IsValid(int value) {
   switch (value) {
@@ -6787,7 +6818,7 @@ bool InterceptActionType_IsValid(int value) {
 }
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* GameModeType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
-  return file_level_enum_descriptors_service_2eproto[5];
+  return file_level_enum_descriptors_service_2eproto[6];
 }
 bool GameModeType_IsValid(int value) {
   switch (value) {
@@ -6831,7 +6862,7 @@ bool GameModeType_IsValid(int value) {
 }
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* AgentType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
-  return file_level_enum_descriptors_service_2eproto[6];
+  return file_level_enum_descriptors_service_2eproto[7];
 }
 bool AgentType_IsValid(int value) {
   switch (value) {
@@ -6845,7 +6876,7 @@ bool AgentType_IsValid(int value) {
 }
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* RpcActionCategory_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_service_2eproto);
-  return file_level_enum_descriptors_service_2eproto[7];
+  return file_level_enum_descriptors_service_2eproto[8];
 }
 bool RpcActionCategory_IsValid(int value) {
   switch (value) {
@@ -7187,6 +7218,8 @@ RegisterRequest::RegisterRequest(const RegisterRequest& from)
 
     , decltype(_impl_.uniform_number_) {}
 
+    , decltype(_impl_.rpc_version_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -7198,8 +7231,8 @@ RegisterRequest::RegisterRequest(const RegisterRequest& from)
     _this->_impl_.team_name_.Set(from._internal_team_name(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.agent_type_, &from._impl_.agent_type_,
-    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.uniform_number_) -
-    reinterpret_cast<char*>(&_impl_.agent_type_)) + sizeof(_impl_.uniform_number_));
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.rpc_version_) -
+    reinterpret_cast<char*>(&_impl_.agent_type_)) + sizeof(_impl_.rpc_version_));
   // @@protoc_insertion_point(copy_constructor:protos.RegisterRequest)
 }
 
@@ -7211,6 +7244,8 @@ inline void RegisterRequest::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.agent_type_) { 0 }
 
     , decltype(_impl_.uniform_number_) { 0 }
+
+    , decltype(_impl_.rpc_version_) { 0 }
 
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -7246,8 +7281,8 @@ void RegisterRequest::Clear() {
 
   _impl_.team_name_.ClearToEmpty();
   ::memset(&_impl_.agent_type_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.uniform_number_) -
-      reinterpret_cast<char*>(&_impl_.agent_type_)) + sizeof(_impl_.uniform_number_));
+      reinterpret_cast<char*>(&_impl_.rpc_version_) -
+      reinterpret_cast<char*>(&_impl_.agent_type_)) + sizeof(_impl_.rpc_version_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -7282,6 +7317,15 @@ const char* RegisterRequest::_InternalParse(const char* ptr, ::_pbi::ParseContex
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _impl_.uniform_number_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // int32 rpc_version = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
+          _impl_.rpc_version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else {
           goto handle_unusual;
@@ -7338,6 +7382,13 @@ failure:
         3, this->_internal_uniform_number(), target);
   }
 
+  // int32 rpc_version = 4;
+  if (this->_internal_rpc_version() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(
+        4, this->_internal_rpc_version(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -7372,6 +7423,12 @@ failure:
         this->_internal_uniform_number());
   }
 
+  // int32 rpc_version = 4;
+  if (this->_internal_rpc_version() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+        this->_internal_rpc_version());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -7399,6 +7456,9 @@ void RegisterRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   if (from._internal_uniform_number() != 0) {
     _this->_internal_set_uniform_number(from._internal_uniform_number());
   }
+  if (from._internal_rpc_version() != 0) {
+    _this->_internal_set_rpc_version(from._internal_rpc_version());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -7421,8 +7481,8 @@ void RegisterRequest::InternalSwap(RegisterRequest* other) {
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.team_name_, lhs_arena,
                                        &other->_impl_.team_name_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RegisterRequest, _impl_.uniform_number_)
-      + sizeof(RegisterRequest::_impl_.uniform_number_)
+      PROTOBUF_FIELD_OFFSET(RegisterRequest, _impl_.rpc_version_)
+      + sizeof(RegisterRequest::_impl_.rpc_version_)
       - PROTOBUF_FIELD_OFFSET(RegisterRequest, _impl_.agent_type_)>(
           reinterpret_cast<char*>(&_impl_.agent_type_),
           reinterpret_cast<char*>(&other->_impl_.agent_type_));
@@ -7456,6 +7516,8 @@ RegisterResponse::RegisterResponse(const RegisterResponse& from)
 
     , decltype(_impl_.uniform_number_) {}
 
+    , decltype(_impl_.rpc_server_language_type_) {}
+
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -7467,8 +7529,8 @@ RegisterResponse::RegisterResponse(const RegisterResponse& from)
     _this->_impl_.team_name_.Set(from._internal_team_name(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.client_id_, &from._impl_.client_id_,
-    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.uniform_number_) -
-    reinterpret_cast<char*>(&_impl_.client_id_)) + sizeof(_impl_.uniform_number_));
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.rpc_server_language_type_) -
+    reinterpret_cast<char*>(&_impl_.client_id_)) + sizeof(_impl_.rpc_server_language_type_));
   // @@protoc_insertion_point(copy_constructor:protos.RegisterResponse)
 }
 
@@ -7482,6 +7544,8 @@ inline void RegisterResponse::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.agent_type_) { 0 }
 
     , decltype(_impl_.uniform_number_) { 0 }
+
+    , decltype(_impl_.rpc_server_language_type_) { 0 }
 
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -7517,8 +7581,8 @@ void RegisterResponse::Clear() {
 
   _impl_.team_name_.ClearToEmpty();
   ::memset(&_impl_.client_id_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.uniform_number_) -
-      reinterpret_cast<char*>(&_impl_.client_id_)) + sizeof(_impl_.uniform_number_));
+      reinterpret_cast<char*>(&_impl_.rpc_server_language_type_) -
+      reinterpret_cast<char*>(&_impl_.client_id_)) + sizeof(_impl_.rpc_server_language_type_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -7563,6 +7627,16 @@ const char* RegisterResponse::_InternalParse(const char* ptr, ::_pbi::ParseConte
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
           _impl_.uniform_number_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // .protos.RpcServerLanguageType rpc_server_language_type = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+          _internal_set_rpc_server_language_type(static_cast<::protos::RpcServerLanguageType>(val));
         } else {
           goto handle_unusual;
         }
@@ -7625,6 +7699,13 @@ failure:
         4, this->_internal_uniform_number(), target);
   }
 
+  // .protos.RpcServerLanguageType rpc_server_language_type = 5;
+  if (this->_internal_rpc_server_language_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        5, this->_internal_rpc_server_language_type(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -7665,6 +7746,12 @@ failure:
         this->_internal_uniform_number());
   }
 
+  // .protos.RpcServerLanguageType rpc_server_language_type = 5;
+  if (this->_internal_rpc_server_language_type() != 0) {
+    total_size += 1 +
+                  ::_pbi::WireFormatLite::EnumSize(this->_internal_rpc_server_language_type());
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -7695,6 +7782,9 @@ void RegisterResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const
   if (from._internal_uniform_number() != 0) {
     _this->_internal_set_uniform_number(from._internal_uniform_number());
   }
+  if (from._internal_rpc_server_language_type() != 0) {
+    _this->_internal_set_rpc_server_language_type(from._internal_rpc_server_language_type());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -7717,8 +7807,8 @@ void RegisterResponse::InternalSwap(RegisterResponse* other) {
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.team_name_, lhs_arena,
                                        &other->_impl_.team_name_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RegisterResponse, _impl_.uniform_number_)
-      + sizeof(RegisterResponse::_impl_.uniform_number_)
+      PROTOBUF_FIELD_OFFSET(RegisterResponse, _impl_.rpc_server_language_type_)
+      + sizeof(RegisterResponse::_impl_.rpc_server_language_type_)
       - PROTOBUF_FIELD_OFFSET(RegisterResponse, _impl_.client_id_)>(
           reinterpret_cast<char*>(&_impl_.client_id_),
           reinterpret_cast<char*>(&other->_impl_.client_id_));

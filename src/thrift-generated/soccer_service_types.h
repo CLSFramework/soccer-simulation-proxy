@@ -49,6 +49,25 @@ std::ostream& operator<<(std::ostream& out, const AgentType::type& val);
 
 std::string to_string(const AgentType::type& val);
 
+struct RpcServerLanguageType {
+  enum type {
+    UNKNOWN_LANGUAGE = 0,
+    PYThON = 1,
+    JAVA = 2,
+    CPP = 3,
+    CSHARP = 4,
+    RUBY = 5,
+    JAVE_SCRIPT = 6,
+    GO = 7
+  };
+};
+
+extern const std::map<int, const char*> _RpcServerLanguageType_VALUES_TO_NAMES;
+
+std::ostream& operator<<(std::ostream& out, const RpcServerLanguageType::type& val);
+
+std::string to_string(const RpcServerLanguageType::type& val);
+
 struct Side {
   enum type {
     UNKNOWN = 0,
@@ -512,10 +531,11 @@ void swap(RpcVector2D &a, RpcVector2D &b);
 std::ostream& operator<<(std::ostream& out, const RpcVector2D& obj);
 
 typedef struct _RegisterRequest__isset {
-  _RegisterRequest__isset() : agent_type(false), team_name(false), uniform_number(false) {}
+  _RegisterRequest__isset() : agent_type(false), team_name(false), uniform_number(false), rpc_version(false) {}
   bool agent_type :1;
   bool team_name :1;
   bool uniform_number :1;
+  bool rpc_version :1;
 } _RegisterRequest__isset;
 
 class RegisterRequest : public virtual ::apache::thrift::TBase {
@@ -526,7 +546,8 @@ class RegisterRequest : public virtual ::apache::thrift::TBase {
   RegisterRequest() noexcept
                   : agent_type(static_cast<AgentType::type>(0)),
                     team_name(),
-                    uniform_number(0) {
+                    uniform_number(0),
+                    rpc_version(0) {
   }
 
   virtual ~RegisterRequest() noexcept;
@@ -537,6 +558,7 @@ class RegisterRequest : public virtual ::apache::thrift::TBase {
   AgentType::type agent_type;
   std::string team_name;
   int32_t uniform_number;
+  int32_t rpc_version;
 
   _RegisterRequest__isset __isset;
 
@@ -546,6 +568,8 @@ class RegisterRequest : public virtual ::apache::thrift::TBase {
 
   void __set_uniform_number(const int32_t val);
 
+  void __set_rpc_version(const int32_t val);
+
   bool operator == (const RegisterRequest & rhs) const
   {
     if (!(agent_type == rhs.agent_type))
@@ -553,6 +577,8 @@ class RegisterRequest : public virtual ::apache::thrift::TBase {
     if (!(team_name == rhs.team_name))
       return false;
     if (!(uniform_number == rhs.uniform_number))
+      return false;
+    if (!(rpc_version == rhs.rpc_version))
       return false;
     return true;
   }
@@ -573,11 +599,12 @@ void swap(RegisterRequest &a, RegisterRequest &b);
 std::ostream& operator<<(std::ostream& out, const RegisterRequest& obj);
 
 typedef struct _RegisterResponse__isset {
-  _RegisterResponse__isset() : client_id(false), agent_type(false), team_name(false), uniform_number(false) {}
+  _RegisterResponse__isset() : client_id(false), agent_type(false), team_name(false), uniform_number(false), rpc_server_language_type(false) {}
   bool client_id :1;
   bool agent_type :1;
   bool team_name :1;
   bool uniform_number :1;
+  bool rpc_server_language_type :1;
 } _RegisterResponse__isset;
 
 class RegisterResponse : public virtual ::apache::thrift::TBase {
@@ -589,7 +616,8 @@ class RegisterResponse : public virtual ::apache::thrift::TBase {
                    : client_id(0),
                      agent_type(static_cast<AgentType::type>(0)),
                      team_name(),
-                     uniform_number(0) {
+                     uniform_number(0),
+                     rpc_server_language_type(static_cast<RpcServerLanguageType::type>(0)) {
   }
 
   virtual ~RegisterResponse() noexcept;
@@ -601,6 +629,11 @@ class RegisterResponse : public virtual ::apache::thrift::TBase {
   AgentType::type agent_type;
   std::string team_name;
   int32_t uniform_number;
+  /**
+   * 
+   * @see RpcServerLanguageType
+   */
+  RpcServerLanguageType::type rpc_server_language_type;
 
   _RegisterResponse__isset __isset;
 
@@ -612,6 +645,8 @@ class RegisterResponse : public virtual ::apache::thrift::TBase {
 
   void __set_uniform_number(const int32_t val);
 
+  void __set_rpc_server_language_type(const RpcServerLanguageType::type val);
+
   bool operator == (const RegisterResponse & rhs) const
   {
     if (!(client_id == rhs.client_id))
@@ -621,6 +656,8 @@ class RegisterResponse : public virtual ::apache::thrift::TBase {
     if (!(team_name == rhs.team_name))
       return false;
     if (!(uniform_number == rhs.uniform_number))
+      return false;
+    if (!(rpc_server_language_type == rhs.rpc_server_language_type))
       return false;
     return true;
   }

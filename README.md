@@ -5,18 +5,26 @@ RoboCup is an international competition aimed at advancing autonomous robotics a
 
 ![image](https://github.com/Cross-Language-Soccer-Framework/cross-language-soccer-framework/assets/25696836/7b0b1d49-7001-479c-889f-46a96a8802c4)
 
+To run a game in the **RoboCup Soccer Simulation 2D**, you need to operate the [rcssserver](https://github.com/rcsoccersim/rcssserver) for hosting games, [rcssmonitor](https://github.com/rcsoccersim/rcssmonitor) to display them, and engage 12 agents (11 players and a coach) per team. Each cycle, agents receive data from the server and must execute actions such as dash and kick.
 
-To run a game in the RoboCup Soccer Simulation 2D, you need to operate the rcssserver for hosting games, rcssmonitor to display them, and engage 12 agents (11 players and a coach) per team. Each cycle, agents receive data from the server and must execute actions such as dash and kick. Developing a team can be complex due to the environment's intricacy, typically necessitating C++ programming. However, our framework allows for other languages development, leveraging the helios-base features. By using SoccerSimulationProxy, you can develop a team in any language supported by gRPC, such as C#, C++, Dart, Go, Java, Kotlin, Node, Objective-C, PHP, Python, and Ruby. You just need to develop a gRPC server based on proto messages and gRPC services ([protofile](https://github.com/CLSFramework/soccer-simulation-proxy/blob/master/grpc/protos/service.proto), check [wiki](https://github.com/CLSFramework/cross-language-soccer-framework/wiki/Protobuf) to be more familier with messages and services) to receive data from the SoccerSimulationProxy and send actions back to it. This way, you can focus on developing your team's strategy and AI algorithms without worrying about the server's complexity. If you would like to develop a team or research in this area by using Python, C# or JavaScript you can check the following links:
+Developing a team can be complex due to the environment's intricacy, typically necessitating C++ programming. However, our framework allows for development in other languages by leveraging the [helios-base](https://github.com/helios-base/helios-base) features. By using **SoccerSimulationProxy**, you can develop a team in any language supported by **gRPC** or **Thrift**, such as **C#, C++, Dart, Go, Java, Kotlin, Node.js, Objective-C, PHP, Python, and Ruby**.
+
+To use **gRPC**, you just need to develop a gRPC server based on proto messages and gRPC services ([protofile](https://github.com/CLSFramework/soccer-simulation-proxy/blob/master/idl/grpc/service.proto), check the [wiki](https://github.com/CLSFramework/cross-language-soccer-framework/wiki/Protobuf) to become more familiar with messages and services) to receive data from the **SoccerSimulationProxy** and send actions back to it.
+
+To use **Thrift**, you can similarly develop a Thrift server by generating code from the Thrift [IDL](https://github.com/CLSFramework/soccer-simulation-proxy/blob/master/idl/thrift/soccer_service.thrift) (Interface Definition Language) provided. This way, your team can interact with the proxy using the Thrift-generated code to receive data and send actions.
+
+This allows you to focus on developing your team's strategy and AI algorithms without worrying about the server's underlying complexity.
+
+If you would like to develop a team or conduct research using **Python**, **C#**, or **JavaScript**, you can check the following links:
+
 - [Playmaker-Server-Python](https://github.com/CLSFramework/playmaker-server-python)
 - [Playmaker-Server-CSharp](https://github.com/CLSFramework/playmaker-server-csharp)
 - [Playmaker-Server-NodeJs](https://github.com/CLSFramework/playmaker-server-nodejs)
 
-![image](https://github.com/Cross-Language-Soccer-Framework/cross-language-soccer-framework/assets/25696836/d152797b-53f0-490f-a8dd-b8c0ef667317)
+![image](https://github-production-user-asset-6210df.s3.amazonaws.com/25696836/364993436-4daee216-1479-4acd-88f2-9e772b8c7837.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240923%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240923T175355Z&X-Amz-Expires=300&X-Amz-Signature=f985fcc6c8a34d6db99f322fd5f3a0dacee317097dd5519329ea3bdb7cb5d818&X-Amz-SignedHeaders=host)
 
 To find more information about the framework, you can visit the [CLSFramework Wiki Pages](https://github.com/CLSFramework/cross-language-soccer-framework/wiki)
 
-
-![Screenshot 2024-04-07 012226](https://github.com/Cyrus2D/SoccerSimulationProxy/assets/25696836/abb24e0c-61b9-497d-926f-941d1c90e2ee)
 
 This new base code is powered by Helios-Base code and gRPC to help researcher developing a soccer simulation 2D team or researching in this area by using any languages supported by gRPC: 
  - [C#](https://grpc.io/docs/languages/csharp/) 

@@ -428,7 +428,7 @@ protos::GameModeType StateGenerator::converGameMode(const rcsc::GameMode::Type g
  */
 protos::WorldModel *StateGenerator::convertWorldModel(const rcsc::WorldModel &wm)
 {
-    auto *res = new WorldModel();
+    auto *res = new protos::WorldModel();
     res->set_allocated_intercept_table(convertInterceptTable(wm.interceptTable()));
     res->set_allocated_our_team_name(new std::string(wm.ourTeamName()));
     res->set_allocated_their_team_name(new std::string(wm.theirTeamName()));
@@ -438,11 +438,17 @@ protos::WorldModel *StateGenerator::convertWorldModel(const rcsc::WorldModel &wm
     res->set_allocated_ball(convertBall(wm.ball()));
     for (auto player : wm.teammates())
     {
+        if(player == nullptr || !player->posValid() || player->unum() < 1 || player->unum() > 11 ){
+            continue;
+        }
         auto p = res->add_teammates();
         updatePlayerObject(p, player);
     }
     for (auto player : wm.opponents())
     {
+        if(player == nullptr || !player->posValid() || player->unum() < 1 || player->unum() > 11 ){
+            continue;
+        }
         auto p = res->add_opponents();
         updatePlayerObject(p, player);
     }

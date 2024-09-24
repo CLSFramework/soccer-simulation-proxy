@@ -466,13 +466,21 @@ soccer::WorldModel ThriftStateGenerator::convertWorldModel(const rcsc::WorldMode
     res.ball = convertBall(wm.ball());
     for (auto player : wm.teammates())
     {
+        if(player == nullptr || !player->posValid() || player->unum() < 1 || player->unum() > 11 ){
+            continue;
+        }
         auto p = soccer::Player();
         updatePlayerObject(p, player);
+        res.teammates.push_back(p);
     }
     for (auto player : wm.opponents())
     {
+        if(player == nullptr || !player->posValid() || player->unum() < 1 || player->unum() > 11 ){
+            continue;
+        }
         auto p = soccer::Player();
         updatePlayerObject(p, player);
+        res.opponents.push_back(p);
     }
     // unknowns
     int counter = -1;

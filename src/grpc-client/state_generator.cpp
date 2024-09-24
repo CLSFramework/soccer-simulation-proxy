@@ -428,7 +428,7 @@ protos::GameModeType StateGenerator::converGameMode(const rcsc::GameMode::Type g
  */
 protos::WorldModel *StateGenerator::convertWorldModel(const rcsc::WorldModel &wm)
 {
-    auto *res = new protos::WorldModel();
+    auto *res = new WorldModel();
     res->set_allocated_intercept_table(convertInterceptTable(wm.interceptTable()));
     res->set_allocated_our_team_name(new std::string(wm.ourTeamName()));
     res->set_allocated_their_team_name(new std::string(wm.theirTeamName()));

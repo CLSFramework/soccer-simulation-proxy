@@ -1,5 +1,19 @@
 # ChangeLog
 
+## [1.0.1] - 2024-09-15
+
+### Added
+- catch_time has been added to the proxy in the self message.
+
+### Fixed
+- 
+
+### Changed
+- 
+
+### Engineers
+- [SoroushMazloum](https://github.com/)
+
 ## [1.0.0] - 2024-09-15
 
 ### Added

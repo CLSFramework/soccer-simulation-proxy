@@ -175,6 +175,7 @@ message Self {
   float recovery = 37;
   float stamina_capacity = 38;
   CardType card = 39;
+  int32 catch_time;
 }
 
 enum InterceptActionType {

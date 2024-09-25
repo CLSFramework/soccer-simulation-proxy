@@ -177,6 +177,7 @@ soccer::Self ThriftStateGenerator::convertSelf(const rcsc::SelfObject &self, con
     res.recovery = static_cast<float>(self.recovery());
     res.stamina_capacity = static_cast<float>(self.staminaCapacity());
     res.card = convertCardType(self.card());
+    res.catch_time = self.catchTime().cycle();
     
     return res;
 }

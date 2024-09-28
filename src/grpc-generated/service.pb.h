@@ -29333,15 +29333,17 @@ class WorldModel final : public ::google::protobuf::Message
     kLeftTeamScoreFieldNumber = 23,
     kRightTeamScoreFieldNumber = 24,
     kStopedCycleFieldNumber = 27,
+    kOurTeamScoreFieldNumber = 28,
+    kTheirTeamScoreFieldNumber = 29,
     kIsOurSetPlayFieldNumber = 25,
     kIsTheirSetPlayFieldNumber = 26,
     kIsPenaltyKickModeFieldNumber = 30,
-    kOurTeamScoreFieldNumber = 28,
-    kTheirTeamScoreFieldNumber = 29,
+    kKickableTeammateFieldNumber = 36,
     kOurDefenseLineXFieldNumber = 32,
     kTheirDefenseLineXFieldNumber = 33,
     kOurDefensePlayerLineXFieldNumber = 34,
     kTheirDefensePlayerLineXFieldNumber = 35,
+    kKickableOpponentFieldNumber = 37,
   };
   // repeated .protos.Player teammates = 8;
   int teammates_size() const;
@@ -29666,6 +29668,26 @@ class WorldModel final : public ::google::protobuf::Message
   void _internal_set_stoped_cycle(::int32_t value);
 
   public:
+  // int32 our_team_score = 28;
+  void clear_our_team_score() ;
+  ::int32_t our_team_score() const;
+  void set_our_team_score(::int32_t value);
+
+  private:
+  ::int32_t _internal_our_team_score() const;
+  void _internal_set_our_team_score(::int32_t value);
+
+  public:
+  // int32 their_team_score = 29;
+  void clear_their_team_score() ;
+  ::int32_t their_team_score() const;
+  void set_their_team_score(::int32_t value);
+
+  private:
+  ::int32_t _internal_their_team_score() const;
+  void _internal_set_their_team_score(::int32_t value);
+
+  public:
   // bool is_our_set_play = 25;
   void clear_is_our_set_play() ;
   bool is_our_set_play() const;
@@ -29696,24 +29718,14 @@ class WorldModel final : public ::google::protobuf::Message
   void _internal_set_is_penalty_kick_mode(bool value);
 
   public:
-  // int32 our_team_score = 28;
-  void clear_our_team_score() ;
-  ::int32_t our_team_score() const;
-  void set_our_team_score(::int32_t value);
+  // bool kickable_teammate = 36;
+  void clear_kickable_teammate() ;
+  bool kickable_teammate() const;
+  void set_kickable_teammate(bool value);
 
   private:
-  ::int32_t _internal_our_team_score() const;
-  void _internal_set_our_team_score(::int32_t value);
-
-  public:
-  // int32 their_team_score = 29;
-  void clear_their_team_score() ;
-  ::int32_t their_team_score() const;
-  void set_their_team_score(::int32_t value);
-
-  private:
-  ::int32_t _internal_their_team_score() const;
-  void _internal_set_their_team_score(::int32_t value);
+  bool _internal_kickable_teammate() const;
+  void _internal_set_kickable_teammate(bool value);
 
   public:
   // double our_defense_line_x = 32;
@@ -29756,12 +29768,22 @@ class WorldModel final : public ::google::protobuf::Message
   void _internal_set_their_defense_player_line_x(double value);
 
   public:
+  // bool kickable_opponent = 37;
+  void clear_kickable_opponent() ;
+  bool kickable_opponent() const;
+  void set_kickable_opponent(bool value);
+
+  private:
+  bool _internal_kickable_opponent() const;
+  void _internal_set_kickable_opponent(bool value);
+
+  public:
   // @@protoc_insertion_point(class_scope:protos.WorldModel)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      5, 35, 12,
+      5, 37, 12,
       86, 7>
       _table_;
 
@@ -29819,15 +29841,17 @@ class WorldModel final : public ::google::protobuf::Message
     ::int32_t left_team_score_;
     ::int32_t right_team_score_;
     ::int32_t stoped_cycle_;
+    ::int32_t our_team_score_;
+    ::int32_t their_team_score_;
     bool is_our_set_play_;
     bool is_their_set_play_;
     bool is_penalty_kick_mode_;
-    ::int32_t our_team_score_;
-    ::int32_t their_team_score_;
+    bool kickable_teammate_;
     double our_defense_line_x_;
     double their_defense_line_x_;
     double our_defense_player_line_x_;
     double their_defense_player_line_x_;
+    bool kickable_opponent_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -37560,6 +37584,50 @@ inline double WorldModel::_internal_their_defense_player_line_x() const {
 inline void WorldModel::_internal_set_their_defense_player_line_x(double value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.their_defense_player_line_x_ = value;
+}
+
+// bool kickable_teammate = 36;
+inline void WorldModel::clear_kickable_teammate() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.kickable_teammate_ = false;
+}
+inline bool WorldModel::kickable_teammate() const {
+  // @@protoc_insertion_point(field_get:protos.WorldModel.kickable_teammate)
+  return _internal_kickable_teammate();
+}
+inline void WorldModel::set_kickable_teammate(bool value) {
+  _internal_set_kickable_teammate(value);
+  // @@protoc_insertion_point(field_set:protos.WorldModel.kickable_teammate)
+}
+inline bool WorldModel::_internal_kickable_teammate() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.kickable_teammate_;
+}
+inline void WorldModel::_internal_set_kickable_teammate(bool value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.kickable_teammate_ = value;
+}
+
+// bool kickable_opponent = 37;
+inline void WorldModel::clear_kickable_opponent() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.kickable_opponent_ = false;
+}
+inline bool WorldModel::kickable_opponent() const {
+  // @@protoc_insertion_point(field_get:protos.WorldModel.kickable_opponent)
+  return _internal_kickable_opponent();
+}
+inline void WorldModel::set_kickable_opponent(bool value) {
+  _internal_set_kickable_opponent(value);
+  // @@protoc_insertion_point(field_set:protos.WorldModel.kickable_opponent)
+}
+inline bool WorldModel::_internal_kickable_opponent() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.kickable_opponent_;
+}
+inline void WorldModel::_internal_set_kickable_opponent(bool value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.kickable_opponent_ = value;
 }
 
 // -------------------------------------------------------------------

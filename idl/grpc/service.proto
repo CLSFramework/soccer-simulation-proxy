@@ -1,4 +1,4 @@
-// version 1.1
+// version 1.2
 
 syntax = "proto3";
 
@@ -283,6 +283,8 @@ message WorldModel {
   double their_defense_line_x = 33;
   double our_defense_player_line_x = 34;
   double their_defense_player_line_x = 35;
+  bool kickable_teammate = 36;
+  bool kickable_opponent = 37;
 }
 
 message State {

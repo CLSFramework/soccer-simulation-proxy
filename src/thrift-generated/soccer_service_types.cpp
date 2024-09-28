@@ -3566,6 +3566,14 @@ void WorldModel::__set_our_defense_player_line_x(const double val) {
 void WorldModel::__set_their_defense_player_line_x(const double val) {
   this->their_defense_player_line_x = val;
 }
+
+void WorldModel::__set_kickable_teammate(const bool val) {
+  this->kickable_teammate = val;
+}
+
+void WorldModel::__set_kickable_opponent(const bool val) {
+  this->kickable_opponent = val;
+}
 std::ostream& operator<<(std::ostream& out, const WorldModel& obj)
 {
   obj.printTo(out);
@@ -3961,6 +3969,22 @@ uint32_t WorldModel::read(::apache::thrift::protocol::TProtocol* iprot) {
           xfer += iprot->skip(ftype);
         }
         break;
+      case 36:
+        if (ftype == ::apache::thrift::protocol::T_BOOL) {
+          xfer += iprot->readBool(this->kickable_teammate);
+          this->__isset.kickable_teammate = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 37:
+        if (ftype == ::apache::thrift::protocol::T_BOOL) {
+          xfer += iprot->readBool(this->kickable_opponent);
+          this->__isset.kickable_opponent = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       default:
         xfer += iprot->skip(ftype);
         break;
@@ -4169,6 +4193,14 @@ uint32_t WorldModel::write(::apache::thrift::protocol::TProtocol* oprot) const {
   xfer += oprot->writeDouble(this->their_defense_player_line_x);
   xfer += oprot->writeFieldEnd();
 
+  xfer += oprot->writeFieldBegin("kickable_teammate", ::apache::thrift::protocol::T_BOOL, 36);
+  xfer += oprot->writeBool(this->kickable_teammate);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("kickable_opponent", ::apache::thrift::protocol::T_BOOL, 37);
+  xfer += oprot->writeBool(this->kickable_opponent);
+  xfer += oprot->writeFieldEnd();
+
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -4211,6 +4243,8 @@ void swap(WorldModel &a, WorldModel &b) {
   swap(a.their_defense_line_x, b.their_defense_line_x);
   swap(a.our_defense_player_line_x, b.our_defense_player_line_x);
   swap(a.their_defense_player_line_x, b.their_defense_player_line_x);
+  swap(a.kickable_teammate, b.kickable_teammate);
+  swap(a.kickable_opponent, b.kickable_opponent);
   swap(a.__isset, b.__isset);
 }
 
@@ -4250,6 +4284,8 @@ WorldModel::WorldModel(const WorldModel& other75) {
   their_defense_line_x = other75.their_defense_line_x;
   our_defense_player_line_x = other75.our_defense_player_line_x;
   their_defense_player_line_x = other75.their_defense_player_line_x;
+  kickable_teammate = other75.kickable_teammate;
+  kickable_opponent = other75.kickable_opponent;
   __isset = other75.__isset;
 }
 WorldModel& WorldModel::operator=(const WorldModel& other76) {
@@ -4288,6 +4324,8 @@ WorldModel& WorldModel::operator=(const WorldModel& other76) {
   their_defense_line_x = other76.their_defense_line_x;
   our_defense_player_line_x = other76.our_defense_player_line_x;
   their_defense_player_line_x = other76.their_defense_player_line_x;
+  kickable_teammate = other76.kickable_teammate;
+  kickable_opponent = other76.kickable_opponent;
   __isset = other76.__isset;
   return *this;
 }
@@ -4329,6 +4367,8 @@ void WorldModel::printTo(std::ostream& out) const {
   out << ", " << "their_defense_line_x=" << to_string(their_defense_line_x);
   out << ", " << "our_defense_player_line_x=" << to_string(our_defense_player_line_x);
   out << ", " << "their_defense_player_line_x=" << to_string(their_defense_player_line_x);
+  out << ", " << "kickable_teammate=" << to_string(kickable_teammate);
+  out << ", " << "kickable_opponent=" << to_string(kickable_opponent);
   out << ")";
 }
 

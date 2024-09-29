@@ -2,7 +2,7 @@
 // If you make any local change, they will be lost.
 // source: service.proto
 // Original file comments:
-// version 1
+// version 1.2
 //
 #ifndef GRPC_service_2eproto__INCLUDED
 #define GRPC_service_2eproto__INCLUDED

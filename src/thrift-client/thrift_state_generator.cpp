@@ -177,6 +177,7 @@ soccer::Self ThriftStateGenerator::convertSelf(const rcsc::SelfObject &self, con
     res.recovery = static_cast<float>(self.recovery());
     res.stamina_capacity = static_cast<float>(self.staminaCapacity());
     res.card = convertCardType(self.card());
+    res.catch_time = self.catchTime().cycle();
     
     return res;
 }
@@ -508,9 +509,23 @@ soccer::WorldModel ThriftStateGenerator::convertWorldModel(const rcsc::WorldMode
     res.offside_line_x = wm.offsideLineX();
     res.offside_line_x_count = wm.offsideLineCount();
     if (wm.kickableTeammate())
+    {
+        res.kickable_teammate = true;
         res.kickable_teammate_id = wm.kickableTeammate()->id();
+    }
+    else
+    {
+        res.kickable_teammate = false;
+    }
     if (wm.kickableOpponent())
+    {
+        res.kickable_opponent = true;
         res.kickable_opponent_id = wm.kickableOpponent()->id();
+    }
+    else
+    {
+        res.kickable_opponent = false;
+    }
     res.last_kick_side = convertSide(wm.lastKickerSide());
     res.last_kicker_uniform_number = wm.lastKickerUnum();
     res.cycle = wm.time().cycle();
@@ -527,6 +542,7 @@ soccer::WorldModel ThriftStateGenerator::convertWorldModel(const rcsc::WorldMode
     res.their_defense_line_x = static_cast<float>(wm.theirDefenseLineX());
     res.our_defense_player_line_x = static_cast<float>(wm.ourDefensePlayerLineX());
     res.their_defense_player_line_x = static_cast<float>(wm.theirDefensePlayerLineX());
+
     return res;
 }
 

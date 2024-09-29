@@ -510,21 +510,21 @@ soccer::WorldModel ThriftStateGenerator::convertWorldModel(const rcsc::WorldMode
     res.offside_line_x_count = wm.offsideLineCount();
     if (wm.kickableTeammate())
     {
-        res.kickable_teammate = true;
+        res.kickable_teammate_existance = true;
         res.kickable_teammate_id = wm.kickableTeammate()->id();
     }
     else
     {
-        res.kickable_teammate = false;
+        res.kickable_teammate_existance = false;
     }
     if (wm.kickableOpponent())
     {
-        res.kickable_opponent = true;
+        res.kickable_opponent_existance = true;
         res.kickable_opponent_id = wm.kickableOpponent()->id();
     }
     else
     {
-        res.kickable_opponent = false;
+        res.kickable_opponent_existance = false;
     }
     res.last_kick_side = convertSide(wm.lastKickerSide());
     res.last_kicker_uniform_number = wm.lastKickerUnum();

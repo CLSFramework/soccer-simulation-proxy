@@ -1,4 +1,4 @@
-// version 1.3
+// version 1.1
 
 namespace cpp soccer
 namespace py soccer
@@ -286,8 +286,8 @@ struct WorldModel {
   33: double their_defense_line_x,
   34: double our_defense_player_line_x,
   35: double their_defense_player_line_x,
-  36: bool kickable_teammate,
-  37: bool kickable_opponent
+  36: bool kickable_teammate_existance,
+  37: bool kickable_opponent_existance
 }
 
 struct State {

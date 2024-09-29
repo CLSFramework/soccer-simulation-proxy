@@ -1,4 +1,4 @@
-// version 1.2
+// version 1.3
 
 namespace cpp soccer
 namespace py soccer
@@ -768,6 +768,8 @@ struct HeliosPenalty {}
 
 struct HeliosCommunicaion {}
 
+struct bhv_doForceKick {}
+
 struct PlayerAction {
   1: optional Dash dash,
   2: optional Turn turn,
@@ -832,7 +834,8 @@ struct PlayerAction {
   61: optional HeliosBasicMove helios_basic_move,
   62: optional HeliosSetPlay helios_set_play,
   63: optional HeliosPenalty helios_penalty,
-  64: optional HeliosCommunicaion helios_communication
+  64: optional HeliosCommunicaion helios_communication,
+  65: optional bhv_doForceKick bhv_do_force_kick
 }
 
 struct PlayerActions {

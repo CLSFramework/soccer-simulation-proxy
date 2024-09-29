@@ -420,6 +420,10 @@ void ThriftClientPlayer::getActions()
                     .execute(agent);
                 agent->debugClient().addMessage("Neck_TurnToBallAndPlayer");                                              
             }
+            else 
+            {
+                agent->debugClient().addMessage("Neck_TurnToBallAndPlayer null player");                                              
+            }
             
         }
         else if (action.__isset.neck_turn_to_ball_or_scan)
@@ -468,6 +472,10 @@ void ThriftClientPlayer::getActions()
                     neckTurnToPlayerOrScan.count_threshold)
                     .execute(agent);
                 agent->debugClient().addMessage("Neck_TurnToPlayerOrScan");                                   
+            }
+            else 
+            {
+                agent->debugClient().addMessage("Neck_TurnToPlayerOrScan null player");                                   
             }
         }
         else if (action.__isset.neck_turn_to_point)
@@ -537,6 +545,7 @@ void ThriftClientPlayer::getActions()
             if (wm.gameMode().type() != rcsc::GameMode::IndFreeKick_
                 && wm.time().stopped() == 0 && wm.self().isKickable() && Bhv_StrictCheckShoot().execute(agent))
             {
+                agent->debugClient().addMessage("Bhv_StrictCheckShoot");
             }
             
         }
@@ -560,6 +569,17 @@ void ThriftClientPlayer::getActions()
             sample_communication->execute(agent);
             agent->debugClient().addMessage("sample_communication - execute");
 
+        }
+        else if (action.__isset.bhv_do_force_kick)
+        {
+            if (doForceKick(agent))
+            {
+                agent->debugClient().addMessage("doForceKick");
+            }
+            else 
+            {
+                agent->debugClient().addMessage("doForceKick - false");
+            }
         }
         else if (action.__isset.helios_offensive_planner)
         {

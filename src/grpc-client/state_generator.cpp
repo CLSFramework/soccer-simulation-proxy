@@ -486,14 +486,18 @@ protos::WorldModel *StateGenerator::convertWorldModel(const rcsc::WorldModel &wm
         res->set_kickable_teammate_id(wm.kickableTeammate()->id());
     }
     else
+    {
         res->set_kickable_teammate(false);
+    }
     if (wm.kickableOpponent())
     {
         res->set_kickable_opponent(true);
         res->set_kickable_opponent_id(wm.kickableOpponent()->id());
     }
     else
+    {
         res->set_kickable_opponent(false);
+    }
     res->set_last_kick_side(convertSide(wm.lastKickerSide()));
     res->set_last_kicker_uniform_number(wm.lastKickerUnum());
     res->set_cycle(wm.time().cycle());

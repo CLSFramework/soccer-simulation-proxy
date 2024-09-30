@@ -804,14 +804,20 @@ void GrpcClientPlayer::addSayMessage(protos::Say sayMessage) const
     }
 }
 
-State GrpcClientPlayer::generateState() const
+protos::State GrpcClientPlayer::generateState() 
 {
     const rcsc::WorldModel &wm = M_agent->world();
+    if (M_state_update_time == wm.time())
+    {
+        return M_state;
+    }
+    M_state_update_time = wm.time();
     WorldModel *worldModel = StateGenerator::convertWorldModel(wm);
     addHomePosition(worldModel);
-    State state;
+    protos::State state;
     state.set_allocated_world_model(worldModel);
-    return state;
+    M_state = state;
+    return M_state;
 }
 
 void GrpcClientPlayer::addHomePosition(protos::WorldModel *res) const

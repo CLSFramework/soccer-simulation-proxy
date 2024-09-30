@@ -20,6 +20,9 @@ public:
     bool GetBestPlannerAction();
     void convertResultPairToRpcActionStatePair( google::protobuf::Map<int32_t, protos::RpcActionState> * map);
     void addSayMessage(protos::Say sayMessage) const;
-    State generateState() const;
+    State generateState();
     void addHomePosition(protos::WorldModel *world_model) const;
+private:
+    rcsc::GameTime M_state_update_time;
+    protos::State M_state;
 };

@@ -846,14 +846,20 @@ void ThriftClientPlayer::addSayMessage(soccer::Say sayMessage) const
     }
 }
 //
-soccer::State ThriftClientPlayer::generateState() const
+soccer::State ThriftClientPlayer::generateState() 
 {
     const rcsc::WorldModel &wm = M_agent->world();
+    if (M_state_update_time == wm.time())
+    {
+        return M_state;
+    }
+    M_state_update_time = wm.time();
     soccer::WorldModel worldModel = ThriftStateGenerator::convertWorldModel(wm);
     addHomePosition(&worldModel);
     soccer::State state;
     state.world_model = worldModel;
-    return state;
+    M_state = state;
+    return M_state;
 }
 
 void ThriftClientPlayer::addHomePosition(soccer::WorldModel *res) const

@@ -804,6 +804,8 @@ message HeliosCommunicaion {}
 
 message bhv_doForceKick {}
 
+message bhv_doHeardPassRecieve {}
+
 message PlayerAction {
   oneof action {
       Dash dash = 1;
@@ -871,6 +873,7 @@ message PlayerAction {
       HeliosPenalty helios_penalty = 63;
       HeliosCommunicaion helios_communication = 64;
       bhv_doForceKick bhv_do_force_kick = 65;
+      bhv_doHeardPassRecieve bhv_do_heard_pass_recieve = 66;
 
   }
 }

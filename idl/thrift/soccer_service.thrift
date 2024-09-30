@@ -770,6 +770,8 @@ struct HeliosCommunicaion {}
 
 struct bhv_doForceKick {}
 
+struct bhv_doHeardPassRecieve {}
+
 struct PlayerAction {
   1: optional Dash dash,
   2: optional Turn turn,
@@ -835,7 +837,8 @@ struct PlayerAction {
   62: optional HeliosSetPlay helios_set_play,
   63: optional HeliosPenalty helios_penalty,
   64: optional HeliosCommunicaion helios_communication,
-  65: optional bhv_doForceKick bhv_do_force_kick
+  65: optional bhv_doForceKick bhv_do_force_kick,
+  66: optional bhv_doHeardPassRecieve bhv_do_heard_pass_recieve
 }
 
 struct PlayerActions {

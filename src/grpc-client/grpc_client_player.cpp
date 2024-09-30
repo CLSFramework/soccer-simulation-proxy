@@ -531,6 +531,17 @@ void GrpcClientPlayer::getActions()
                 agent->debugClient().addMessage("doForceKick - false");
             }
         }
+        else if (action.action_case() == PlayerAction::kBhvDoHeardPassRecieve)
+        {
+            if(doHeardPassReceive(agent))
+            {
+                agent->debugClient().addMessage("doHeardPassReceive");
+            }
+            else
+            {
+                agent->debugClient().addMessage("doHeardPassReceive - false");
+            }
+        }
         else if (action.action_case() == PlayerAction::kHeliosOffensivePlanner) {
             FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
             CompositeActionGenerator *g = new CompositeActionGenerator();

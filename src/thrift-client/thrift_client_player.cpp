@@ -599,6 +599,17 @@ void ThriftClientPlayer::getActions()
                 agent->debugClient().addMessage("doForceKick - false");
             }
         }
+        else if (action.__isset.bhv_do_heard_pass_recieve)
+        {
+            if (doHeardPassReceive(agent))
+            {
+                agent->debugClient().addMessage("doHeardPassReceive");
+            }
+            else 
+            {
+                agent->debugClient().addMessage("doHeardPassReceive - false");
+            }
+        }
         else if (action.__isset.helios_offensive_planner)
         {
             FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);

@@ -1,4 +1,4 @@
-// version 1.1
+// version 1.2
 
 syntax = "proto3";
 
@@ -878,6 +878,8 @@ message PlayerAction {
 message PlayerActions {
   repeated PlayerAction actions = 1;
   bool ignore_preprocess = 2;
+  bool ignore_doforcekick = 3;
+  bool ignore_doHeardPassRecieve = 4;
 }
 
 message ChangePlayerType {

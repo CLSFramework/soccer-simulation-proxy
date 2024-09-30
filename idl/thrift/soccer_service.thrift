@@ -1,4 +1,4 @@
-// version 1.1
+// version 1.2
 
 namespace cpp soccer
 namespace py soccer
@@ -840,7 +840,9 @@ struct PlayerAction {
 
 struct PlayerActions {
   1: list<PlayerAction> actions,
-  2: bool ignore_preprocess
+  2: bool ignore_preprocess,
+  3: bool ignore_doforcekick,
+  4: bool ignore_doHeardPassRecieve
 }
 
 struct ChangePlayerType {

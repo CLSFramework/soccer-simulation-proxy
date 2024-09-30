@@ -109,6 +109,8 @@ void GrpcClientPlayer::getActions()
 {
     auto agent = M_agent;
     bool pre_process = checkPreprocess(agent);
+    bool do_forceKick = checkdoForceKick(agent);
+    bool do_heardPassReceive = checkdoHeardPassReceive(agent);
     State state = generateState();
     state.set_need_preprocess(pre_process);
     protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);
@@ -130,6 +132,26 @@ void GrpcClientPlayer::getActions()
         {
             rcsc::dlog.addText( rcsc::Logger::TEAM,
                       __FILE__": preprocess done" );
+            return;
+        }
+    }
+
+    if (do_forceKick && !actions.ignore_doforcekick())
+    {
+        if (doForceKick(agent))
+        {
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doForceKick done" );
+            return;
+        }
+    }
+
+    if (do_heardPassReceive && !actions.ignore_doheardpassrecieve())
+    {
+        if (doHeardPassReceive(agent))
+        {
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doHeardPassReceive done" );
             return;
         }
     }

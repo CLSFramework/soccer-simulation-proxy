@@ -110,6 +110,8 @@ void ThriftClientPlayer::getActions()
 {
     auto agent = M_agent;
     bool pre_process = checkPreprocess(agent);
+    bool do_forceKick = checkdoForceKick(agent);
+    bool do_heardPassReceive = checkdoHeardPassReceive(agent);
     soccer::State state = generateState();
     soccer::PlayerActions actions;
     soccer::RegisterResponse response = M_register_response;
@@ -129,6 +131,22 @@ void ThriftClientPlayer::getActions()
         if (doPreprocess(agent)){
             rcsc::dlog.addText( rcsc::Logger::TEAM,
                         __FILE__": preprocess done" );
+            return;
+        }
+    }
+    if(do_forceKick && !actions.ignore_doforcekick)
+    {
+        if(doForceKick(agent)){
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                        __FILE__": doForceKick done" );
+            return;
+        }
+    }
+    if(do_heardPassReceive && !actions.ignore_doHeardPassRecieve)
+    {
+        if(doHeardPassReceive(agent)){
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                        __FILE__": doHeardPassReceive done" );
             return;
         }
     }

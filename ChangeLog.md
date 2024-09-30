@@ -18,12 +18,14 @@
 
 # ChangeLog
 
+=======
 ## [1.0.1] - 2024-09-15
 
 ### Added
 - catch_time has been added to the proxy in the self message.
 - kickable_opponent_existance and kickable_teammate_existance has been added to the proxy in the worldmodel message.
 - bhv_doforceKick action has been added as a message and to the actions message.
+=======
 
 ### Fixed
 - 
@@ -34,6 +36,8 @@
 ### Engineers
 - [SoroushMazloum](https://github.com/SoroushMazloum)
 - [SadraKhanjari](https://github.com/SK2iP)
+
+=======
 
 
 ## [1.0.0] - 2024-09-15

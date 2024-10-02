@@ -102,6 +102,16 @@ enum CardType {
   RED = 2;
 }
 
+message PenaltyKickState {
+  Side on_field_side = 1;
+  Side current_taker_side = 2;
+  int32 our_taker_counter = 3;
+  int32 their_taker_counter = 4;
+  int32 our_score = 5;
+  int32 their_score = 6;
+  bool is_kick_taker = 7;
+}
+
 message Player {
   RpcVector2D  position = 1;
   RpcVector2D  seen_position = 2;
@@ -282,6 +292,7 @@ message WorldModel {
   double their_defense_line_x = 33;
   double our_defense_player_line_x = 34;
   double their_defense_player_line_x = 35;
+  PenaltyKickState penalty_kick_state = 36;
 }
 
 message State {

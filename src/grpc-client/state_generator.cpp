@@ -172,6 +172,7 @@ protos::Self *StateGenerator::convertSelf(const rcsc::SelfObject &self, const rc
     res->set_recovery(static_cast<float>(self.recovery()));
     res->set_stamina_capacity(static_cast<float>(self.staminaCapacity()));
     res->set_card(convertCardType(self.card()));
+    res->set_catch_time(self.catchTime().cycle());
 
     return res;
 }
@@ -494,9 +495,23 @@ protos::WorldModel *StateGenerator::convertWorldModel(const rcsc::WorldModel &wm
     res->set_offside_line_x(wm.offsideLineX());
     res->set_ofside_line_x_count(wm.offsideLineCount());
     if (wm.kickableTeammate())
+    {
+        res->set_kickable_teammate_existance(true);
         res->set_kickable_teammate_id(wm.kickableTeammate()->id());
+    }
+    else
+    {
+        res->set_kickable_teammate_existance(false);
+    }
     if (wm.kickableOpponent())
+    {
+        res->set_kickable_opponent_existance(true);
         res->set_kickable_opponent_id(wm.kickableOpponent()->id());
+    }
+    else
+    {
+        res->set_kickable_opponent_existance(false);
+    }
     res->set_last_kick_side(convertSide(wm.lastKickerSide()));
     res->set_last_kicker_uniform_number(wm.lastKickerUnum());
     res->set_cycle(wm.time().cycle());

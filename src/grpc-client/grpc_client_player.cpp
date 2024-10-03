@@ -109,6 +109,8 @@ void GrpcClientPlayer::getActions()
 {
     auto agent = M_agent;
     bool pre_process = checkPreprocess(agent);
+    bool do_forceKick = checkdoForceKick(agent);
+    bool do_heardPassReceive = checkdoHeardPassReceive(agent);
     State state = generateState();
     state.set_need_preprocess(pre_process);
     protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);
@@ -130,6 +132,26 @@ void GrpcClientPlayer::getActions()
         {
             rcsc::dlog.addText( rcsc::Logger::TEAM,
                       __FILE__": preprocess done" );
+            return;
+        }
+    }
+
+    if (do_forceKick && !actions.ignore_doforcekick())
+    {
+        if (doForceKick(agent))
+        {
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doForceKick done" );
+            return;
+        }
+    }
+
+    if (do_heardPassReceive && !actions.ignore_doheardpassrecieve())
+    {
+        if (doHeardPassReceive(agent))
+        {
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doHeardPassReceive done" );
             return;
         }
     }
@@ -376,6 +398,10 @@ void GrpcClientPlayer::getActions()
                     .execute(agent);
                 agent->debugClient().addMessage("Neck_TurnToBallAndPlayer");
             }
+            else 
+            {
+                agent->debugClient().addMessage("Neck_TurnToBallAndPlayer null player");
+            }
         }
         else if (action.action_case() == PlayerAction::kNeckTurnToBallOrScan) {
             const auto &neckTurnToBallOrScan = action.neck_turn_to_ball_or_scan();
@@ -415,6 +441,10 @@ void GrpcClientPlayer::getActions()
                     neckTurnToPlayerOrScan.count_threshold())
                     .execute(agent);
                 agent->debugClient().addMessage("Neck_TurnToPlayerOrScan");
+            }
+            else 
+            {
+                agent->debugClient().addMessage("Neck_TurnToPlayerOrScan null player");
             }
         }
         else if (action.action_case() == PlayerAction::kNeckTurnToPoint) {
@@ -489,6 +519,28 @@ void GrpcClientPlayer::getActions()
         else if (action.action_case() == PlayerAction::kHeliosCommunication) {
                 sample_communication->execute(agent);
                 agent->debugClient().addMessage("sample_communication - execute");
+        }
+        else if (action.action_case() == PlayerAction::kBhvDoForceKick)
+        {
+            if(doForceKick(agent))
+            {
+                agent->debugClient().addMessage("doForceKick");
+            }
+            else
+            {
+                agent->debugClient().addMessage("doForceKick - false");
+            }
+        }
+        else if (action.action_case() == PlayerAction::kBhvDoHeardPassRecieve)
+        {
+            if(doHeardPassReceive(agent))
+            {
+                agent->debugClient().addMessage("doHeardPassReceive");
+            }
+            else
+            {
+                agent->debugClient().addMessage("doHeardPassReceive - false");
+            }
         }
         else if (action.action_case() == PlayerAction::kHeliosOffensivePlanner) {
             FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
@@ -785,14 +837,20 @@ void GrpcClientPlayer::addSayMessage(protos::Say sayMessage) const
     }
 }
 
-State GrpcClientPlayer::generateState() const
+protos::State GrpcClientPlayer::generateState() 
 {
     const rcsc::WorldModel &wm = M_agent->world();
+    if (M_state_update_time == wm.time())
+    {
+        return M_state;
+    }
+    M_state_update_time = wm.time();
     WorldModel *worldModel = StateGenerator::convertWorldModel(wm);
     addHomePosition(worldModel);
-    State state;
+    protos::State state;
     state.set_allocated_world_model(worldModel);
-    return state;
+    M_state = state;
+    return M_state;
 }
 
 void GrpcClientPlayer::addHomePosition(protos::WorldModel *res) const

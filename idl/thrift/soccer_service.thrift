@@ -1,4 +1,4 @@
-// version 1
+// version 1.2
 
 namespace cpp soccer
 namespace py soccer
@@ -177,7 +177,8 @@ struct Self {
   36: double kick_rate,
   37: double recovery,
   38: double stamina_capacity,
-  39: CardType card
+  39: CardType card,
+  40: i32 catch_time
 }
 
 enum InterceptActionType {
@@ -284,7 +285,9 @@ struct WorldModel {
   32: double our_defense_line_x,
   33: double their_defense_line_x,
   34: double our_defense_player_line_x,
-  35: double their_defense_player_line_x
+  35: double their_defense_player_line_x,
+  36: bool kickable_teammate_existance,
+  37: bool kickable_opponent_existance
 }
 
 struct State {
@@ -765,6 +768,10 @@ struct HeliosPenalty {}
 
 struct HeliosCommunicaion {}
 
+struct bhv_doForceKick {}
+
+struct bhv_doHeardPassRecieve {}
+
 struct PlayerAction {
   1: optional Dash dash,
   2: optional Turn turn,
@@ -829,12 +836,16 @@ struct PlayerAction {
   61: optional HeliosBasicMove helios_basic_move,
   62: optional HeliosSetPlay helios_set_play,
   63: optional HeliosPenalty helios_penalty,
-  64: optional HeliosCommunicaion helios_communication
+  64: optional HeliosCommunicaion helios_communication,
+  65: optional bhv_doForceKick bhv_do_force_kick,
+  66: optional bhv_doHeardPassRecieve bhv_do_heard_pass_recieve
 }
 
 struct PlayerActions {
   1: list<PlayerAction> actions,
-  2: bool ignore_preprocess
+  2: bool ignore_preprocess,
+  3: bool ignore_doforcekick,
+  4: bool ignore_doHeardPassRecieve
 }
 
 struct ChangePlayerType {

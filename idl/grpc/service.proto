@@ -1,4 +1,4 @@
-// version 1
+// version 1.2
 
 syntax = "proto3";
 
@@ -175,6 +175,7 @@ message Self {
   float recovery = 37;
   float stamina_capacity = 38;
   CardType card = 39;
+  int32 catch_time = 40;
 }
 
 enum InterceptActionType {
@@ -282,6 +283,8 @@ message WorldModel {
   double their_defense_line_x = 33;
   double our_defense_player_line_x = 34;
   double their_defense_player_line_x = 35;
+  bool kickable_teammate_existance = 36;
+  bool kickable_opponent_existance = 37;
 }
 
 message State {
@@ -799,6 +802,10 @@ message HeliosPenalty {}
 
 message HeliosCommunicaion {}
 
+message bhv_doForceKick {}
+
+message bhv_doHeardPassRecieve {}
+
 message PlayerAction {
   oneof action {
       Dash dash = 1;
@@ -865,6 +872,8 @@ message PlayerAction {
       HeliosSetPlay helios_set_play = 62;
       HeliosPenalty helios_penalty = 63;
       HeliosCommunicaion helios_communication = 64;
+      bhv_doForceKick bhv_do_force_kick = 65;
+      bhv_doHeardPassRecieve bhv_do_heard_pass_recieve = 66;
 
   }
 }
@@ -872,6 +881,8 @@ message PlayerAction {
 message PlayerActions {
   repeated PlayerAction actions = 1;
   bool ignore_preprocess = 2;
+  bool ignore_doforcekick = 3;
+  bool ignore_doHeardPassRecieve = 4;
 }
 
 message ChangePlayerType {

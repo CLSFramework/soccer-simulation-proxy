@@ -528,7 +528,10 @@ protos::WorldModel *StateGenerator::convertWorldModel(const rcsc::WorldModel &wm
     res->set_their_defense_line_x(static_cast<float>(wm.theirDefenseLineX()));
     res->set_our_defense_player_line_x(static_cast<float>(wm.ourDefensePlayerLineX()));
     res->set_their_defense_player_line_x(static_cast<float>(wm.theirDefensePlayerLineX()));
-    res->set_allocated_penalty_kick_state(convertPenaltyKickState(wm, wm.penaltyKickState()));
+    if(wm.gameMode().isPenaltyKickMode())
+    {
+        res->set_allocated_penalty_kick_state(convertPenaltyKickState(wm, wm.penaltyKickState()));
+    }
     return res;
 }
 

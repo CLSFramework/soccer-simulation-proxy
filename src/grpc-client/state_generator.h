@@ -1,5 +1,6 @@
 #include "../grpc-generated/service.pb.h"
 #include <rcsc/player/player_agent.h>
+#include <rcsc/player/penalty_kick_state.h>
 #include <rcsc/coach/coach_agent.h>
 #include <rcsc/trainer/trainer_agent.h>
 #include <rcsc/player/world_model.h>
@@ -22,6 +23,7 @@ public:
     static protos::Self *convertSelf(const rcsc::SelfObject &self, const rcsc::WorldModel &wm);
     static protos::InterceptActionType convertInterceptActionType(rcsc::Intercept::ActionType actionType);
     static protos::InterceptTable *convertInterceptTable(const rcsc::InterceptTable &interceptTable);
+    static protos::PenaltyKickState *convertPenaltyKickState(const rcsc::WorldModel &wm, const rcsc::PenaltyKickState *state);
     static void updatePlayerObject(protos::Player *p, const rcsc::PlayerObject *player);
     static void updatePlayerObject(protos::Player *p, const rcsc::CoachPlayerObject *player);
     static void updateAbstractPlayerObject(protos::Player *p, const rcsc::AbstractPlayerObject *player);

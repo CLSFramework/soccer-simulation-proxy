@@ -245,6 +245,20 @@ soccer::InterceptTable ThriftStateGenerator::convertInterceptTable(const rcsc::I
     return res;
 }
 
+soccer::PenaltyKickState ThriftStateGenerator::convertPenaltyKickState(const rcsc::WorldModel &wm, const rcsc::PenaltyKickState *state)
+{
+    auto res = soccer::PenaltyKickState();
+    res.on_field_side = convertSide(state->onfieldSide());
+    res.current_taker_side = convertSide(state->currentTakerSide());
+    res.our_taker_counter = state->ourTakerCounter();
+    res.their_taker_counter = state->theirTakerCounter();
+    res.our_score = state->ourScore();
+    res.their_score = state->theirScore();
+    res.is_kick_taker = state->isKickTaker(wm.ourSide(), wm.self().unum());
+    
+    return res;
+}
+
 /**
  * Updates the player object with the given player information.
  *
@@ -542,7 +556,10 @@ soccer::WorldModel ThriftStateGenerator::convertWorldModel(const rcsc::WorldMode
     res.their_defense_line_x = static_cast<float>(wm.theirDefenseLineX());
     res.our_defense_player_line_x = static_cast<float>(wm.ourDefensePlayerLineX());
     res.their_defense_player_line_x = static_cast<float>(wm.theirDefensePlayerLineX());
-
+    if(wm.gameMode().isPenaltyKickMode())
+    {
+        res.penalty_kick_state = convertPenaltyKickState(wm, wm.penaltyKickState());
+    }
     return res;
 }
 

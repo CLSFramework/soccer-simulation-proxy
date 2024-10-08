@@ -188,7 +188,8 @@ struct Self {
   37: double recovery,
   38: double stamina_capacity,
   39: CardType card,
-  40: i32 catch_time
+  40: i32 catch_time,
+  41: double effort
 }
 
 enum InterceptActionType {

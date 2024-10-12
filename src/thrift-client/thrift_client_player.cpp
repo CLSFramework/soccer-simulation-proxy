@@ -110,6 +110,8 @@ void ThriftClientPlayer::getActions()
 {
     auto agent = M_agent;
     bool pre_process = checkPreprocess(agent);
+    bool do_forceKick = checkdoForceKick(agent);
+    bool do_heardPassReceive = checkdoHeardPassReceive(agent);
     soccer::State state = generateState();
     soccer::PlayerActions actions;
     soccer::RegisterResponse response = M_register_response;
@@ -129,6 +131,22 @@ void ThriftClientPlayer::getActions()
         if (doPreprocess(agent)){
             rcsc::dlog.addText( rcsc::Logger::TEAM,
                         __FILE__": preprocess done" );
+            return;
+        }
+    }
+    if(do_forceKick && !actions.ignore_doforcekick)
+    {
+        if(doForceKick(agent)){
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                        __FILE__": doForceKick done" );
+            return;
+        }
+    }
+    if(do_heardPassReceive && !actions.ignore_doHeardPassRecieve)
+    {
+        if(doHeardPassReceive(agent)){
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                        __FILE__": doHeardPassReceive done" );
             return;
         }
     }
@@ -420,6 +438,10 @@ void ThriftClientPlayer::getActions()
                     .execute(agent);
                 agent->debugClient().addMessage("Neck_TurnToBallAndPlayer");                                              
             }
+            else 
+            {
+                agent->debugClient().addMessage("Neck_TurnToBallAndPlayer null player");                                              
+            }
             
         }
         else if (action.__isset.neck_turn_to_ball_or_scan)
@@ -468,6 +490,10 @@ void ThriftClientPlayer::getActions()
                     neckTurnToPlayerOrScan.count_threshold)
                     .execute(agent);
                 agent->debugClient().addMessage("Neck_TurnToPlayerOrScan");                                   
+            }
+            else 
+            {
+                agent->debugClient().addMessage("Neck_TurnToPlayerOrScan null player");                                   
             }
         }
         else if (action.__isset.neck_turn_to_point)
@@ -537,6 +563,7 @@ void ThriftClientPlayer::getActions()
             if (wm.gameMode().type() != rcsc::GameMode::IndFreeKick_
                 && wm.time().stopped() == 0 && wm.self().isKickable() && Bhv_StrictCheckShoot().execute(agent))
             {
+                agent->debugClient().addMessage("Bhv_StrictCheckShoot");
             }
             
         }
@@ -560,6 +587,28 @@ void ThriftClientPlayer::getActions()
             sample_communication->execute(agent);
             agent->debugClient().addMessage("sample_communication - execute");
 
+        }
+        else if (action.__isset.bhv_do_force_kick)
+        {
+            if (doForceKick(agent))
+            {
+                agent->debugClient().addMessage("doForceKick");
+            }
+            else 
+            {
+                agent->debugClient().addMessage("doForceKick - false");
+            }
+        }
+        else if (action.__isset.bhv_do_heard_pass_recieve)
+        {
+            if (doHeardPassReceive(agent))
+            {
+                agent->debugClient().addMessage("doHeardPassReceive");
+            }
+            else 
+            {
+                agent->debugClient().addMessage("doHeardPassReceive - false");
+            }
         }
         else if (action.__isset.helios_offensive_planner)
         {
@@ -826,14 +875,20 @@ void ThriftClientPlayer::addSayMessage(soccer::Say sayMessage) const
     }
 }
 //
-soccer::State ThriftClientPlayer::generateState() const
+soccer::State ThriftClientPlayer::generateState() 
 {
     const rcsc::WorldModel &wm = M_agent->world();
+    if (M_state_update_time == wm.time())
+    {
+        return M_state;
+    }
+    M_state_update_time = wm.time();
     soccer::WorldModel worldModel = ThriftStateGenerator::convertWorldModel(wm);
     addHomePosition(&worldModel);
     soccer::State state;
     state.world_model = worldModel;
-    return state;
+    M_state = state;
+    return M_state;
 }
 
 void ThriftClientPlayer::addHomePosition(soccer::WorldModel *res) const

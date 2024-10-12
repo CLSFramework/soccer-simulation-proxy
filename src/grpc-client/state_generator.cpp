@@ -172,7 +172,8 @@ protos::Self *StateGenerator::convertSelf(const rcsc::SelfObject &self, const rc
     res->set_recovery(static_cast<float>(self.recovery()));
     res->set_stamina_capacity(static_cast<float>(self.staminaCapacity()));
     res->set_card(convertCardType(self.card()));
-
+    res->set_catch_time(self.catchTime().cycle());
+    res->set_effort(static_cast<float>(self.effort()));
     return res;
 }
 
@@ -232,6 +233,20 @@ protos::InterceptTable *StateGenerator::convertInterceptTable(const rcsc::Interc
         info->set_final_stamina(static_cast<float>(intercept.stamina()));
         info->set_value(static_cast<float>(intercept.value()));
     }
+    return res;
+}
+
+protos::PenaltyKickState *StateGenerator::convertPenaltyKickState(const rcsc::WorldModel &wm, const rcsc::PenaltyKickState *state)
+{
+    auto res = new protos::PenaltyKickState();
+    res->set_on_field_side(convertSide(state->onfieldSide()));
+    res->set_current_taker_side(convertSide(state->currentTakerSide()));
+    res->set_our_taker_counter(state->ourTakerCounter());
+    res->set_their_taker_counter(state->theirTakerCounter());
+    res->set_our_score(state->ourScore());
+    res->set_their_score(state->theirScore());
+    res->set_is_kick_taker(state->isKickTaker(wm.ourSide(), wm.self().unum()));
+    
     return res;
 }
 
@@ -438,11 +453,17 @@ protos::WorldModel *StateGenerator::convertWorldModel(const rcsc::WorldModel &wm
     res->set_allocated_ball(convertBall(wm.ball()));
     for (auto player : wm.teammates())
     {
+        if(player == nullptr || !player->posValid() || player->unum() < 1 || player->unum() > 11 ){
+            continue;
+        }
         auto p = res->add_teammates();
         updatePlayerObject(p, player);
     }
     for (auto player : wm.opponents())
     {
+        if(player == nullptr || !player->posValid() || player->unum() < 1 || player->unum() > 11 ){
+            continue;
+        }
         auto p = res->add_opponents();
         updatePlayerObject(p, player);
     }
@@ -474,9 +495,23 @@ protos::WorldModel *StateGenerator::convertWorldModel(const rcsc::WorldModel &wm
     res->set_offside_line_x(wm.offsideLineX());
     res->set_ofside_line_x_count(wm.offsideLineCount());
     if (wm.kickableTeammate())
+    {
+        res->set_kickable_teammate_existance(true);
         res->set_kickable_teammate_id(wm.kickableTeammate()->id());
+    }
+    else
+    {
+        res->set_kickable_teammate_existance(false);
+    }
     if (wm.kickableOpponent())
+    {
+        res->set_kickable_opponent_existance(true);
         res->set_kickable_opponent_id(wm.kickableOpponent()->id());
+    }
+    else
+    {
+        res->set_kickable_opponent_existance(false);
+    }
     res->set_last_kick_side(convertSide(wm.lastKickerSide()));
     res->set_last_kicker_uniform_number(wm.lastKickerUnum());
     res->set_cycle(wm.time().cycle());
@@ -493,6 +528,11 @@ protos::WorldModel *StateGenerator::convertWorldModel(const rcsc::WorldModel &wm
     res->set_their_defense_line_x(static_cast<float>(wm.theirDefenseLineX()));
     res->set_our_defense_player_line_x(static_cast<float>(wm.ourDefensePlayerLineX()));
     res->set_their_defense_player_line_x(static_cast<float>(wm.theirDefensePlayerLineX()));
+    if(wm.gameMode().isPenaltyKickMode())
+    {
+        res->set_allocated_penalty_kick_state(convertPenaltyKickState(wm, wm.penaltyKickState()));
+    }
+    res->set_see_time(wm.seeTime().cycle());
     return res;
 }
 

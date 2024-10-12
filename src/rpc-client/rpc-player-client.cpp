@@ -91,9 +91,15 @@ RpcPlayerClient::checkPreprocess(PlayerAgent * agent) {
     //     return true;
     // }
 
+
+    return false;
+}
+
+bool RpcPlayerClient::checkdoForceKick(PlayerAgent * agent) {
     //
     // check simultaneous kick
     //
+    const WorldModel & wm = agent->world();
     if ( wm.gameMode().type() == GameMode::PlayOn
          && ! wm.self().goalie()
          && wm.self().isKickable()
@@ -113,6 +119,11 @@ RpcPlayerClient::checkPreprocess(PlayerAgent * agent) {
         }
         return true;
     }
+    return false;
+}
+
+bool RpcPlayerClient::checkdoHeardPassReceive(PlayerAgent * agent) {
+    const WorldModel & wm = agent->world();
 
     //
     // check pass message
@@ -216,18 +227,18 @@ RpcPlayerClient::doPreprocess(PlayerAgent * agent) {
     //
     // check simultaneous kick
     //
-    if ( doForceKick(agent) )
-    {
-        return true;
-    }
+    // if ( doForceKick(agent) )
+    // {
+    //     return true;
+    // }
 
     //
     // check pass message
     //
-    if ( doHeardPassReceive(agent) )
-    {
-        return true;
-    }
+    // if ( doHeardPassReceive(agent) )
+    // {
+    //     return true;
+    // }
 
     return false;
 }

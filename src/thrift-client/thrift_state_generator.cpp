@@ -178,7 +178,7 @@ soccer::Self ThriftStateGenerator::convertSelf(const rcsc::SelfObject &self, con
     res.stamina_capacity = static_cast<float>(self.staminaCapacity());
     res.card = convertCardType(self.card());
     res.catch_time = self.catchTime().cycle();
-    
+    res.effort = static_cast<float>(self.effort());
     return res;
 }
 
@@ -242,6 +242,20 @@ soccer::InterceptTable ThriftStateGenerator::convertInterceptTable(const rcsc::I
         res.self_intercept_info.push_back(info);
     }
 
+    return res;
+}
+
+soccer::PenaltyKickState ThriftStateGenerator::convertPenaltyKickState(const rcsc::WorldModel &wm, const rcsc::PenaltyKickState *state)
+{
+    auto res = soccer::PenaltyKickState();
+    res.on_field_side = convertSide(state->onfieldSide());
+    res.current_taker_side = convertSide(state->currentTakerSide());
+    res.our_taker_counter = state->ourTakerCounter();
+    res.their_taker_counter = state->theirTakerCounter();
+    res.our_score = state->ourScore();
+    res.their_score = state->theirScore();
+    res.is_kick_taker = state->isKickTaker(wm.ourSide(), wm.self().unum());
+    
     return res;
 }
 
@@ -542,7 +556,11 @@ soccer::WorldModel ThriftStateGenerator::convertWorldModel(const rcsc::WorldMode
     res.their_defense_line_x = static_cast<float>(wm.theirDefenseLineX());
     res.our_defense_player_line_x = static_cast<float>(wm.ourDefensePlayerLineX());
     res.their_defense_player_line_x = static_cast<float>(wm.theirDefensePlayerLineX());
-
+    if(wm.gameMode().isPenaltyKickMode())
+    {
+        res.penalty_kick_state = convertPenaltyKickState(wm, wm.penaltyKickState());
+    }
+    res.see_time = wm.seeTime().cycle();
     return res;
 }
 

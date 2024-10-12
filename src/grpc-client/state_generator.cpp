@@ -173,7 +173,7 @@ protos::Self *StateGenerator::convertSelf(const rcsc::SelfObject &self, const rc
     res->set_stamina_capacity(static_cast<float>(self.staminaCapacity()));
     res->set_card(convertCardType(self.card()));
     res->set_catch_time(self.catchTime().cycle());
-
+    res->set_effort(static_cast<float>(self.effort()));
     return res;
 }
 
@@ -233,6 +233,20 @@ protos::InterceptTable *StateGenerator::convertInterceptTable(const rcsc::Interc
         info->set_final_stamina(static_cast<float>(intercept.stamina()));
         info->set_value(static_cast<float>(intercept.value()));
     }
+    return res;
+}
+
+protos::PenaltyKickState *StateGenerator::convertPenaltyKickState(const rcsc::WorldModel &wm, const rcsc::PenaltyKickState *state)
+{
+    auto res = new protos::PenaltyKickState();
+    res->set_on_field_side(convertSide(state->onfieldSide()));
+    res->set_current_taker_side(convertSide(state->currentTakerSide()));
+    res->set_our_taker_counter(state->ourTakerCounter());
+    res->set_their_taker_counter(state->theirTakerCounter());
+    res->set_our_score(state->ourScore());
+    res->set_their_score(state->theirScore());
+    res->set_is_kick_taker(state->isKickTaker(wm.ourSide(), wm.self().unum()));
+    
     return res;
 }
 
@@ -514,6 +528,11 @@ protos::WorldModel *StateGenerator::convertWorldModel(const rcsc::WorldModel &wm
     res->set_their_defense_line_x(static_cast<float>(wm.theirDefenseLineX()));
     res->set_our_defense_player_line_x(static_cast<float>(wm.ourDefensePlayerLineX()));
     res->set_their_defense_player_line_x(static_cast<float>(wm.theirDefensePlayerLineX()));
+    if(wm.gameMode().isPenaltyKickMode())
+    {
+        res->set_allocated_penalty_kick_state(convertPenaltyKickState(wm, wm.penaltyKickState()));
+    }
+    res->set_see_time(wm.seeTime().cycle());
     return res;
 }
 

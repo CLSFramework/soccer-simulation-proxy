@@ -1,4 +1,4 @@
-// version 1.2
+// version 1.4
 
 namespace cpp soccer
 namespace py soccer
@@ -105,6 +105,16 @@ enum CardType {
   RED = 2
 }
 
+struct PenaltyKickState {
+  1: Side on_field_side,
+  2: Side current_taker_side,
+  3: i32 our_taker_counter,
+  4: i32 their_taker_counter,
+  5: i32 our_score,
+  6: i32 their_score,
+  7: bool is_kick_taker
+}
+
 struct Player {
   1: RpcVector2D position,
   2: RpcVector2D seen_position,
@@ -178,7 +188,8 @@ struct Self {
   37: double recovery,
   38: double stamina_capacity,
   39: CardType card,
-  40: i32 catch_time
+  40: i32 catch_time,
+  41: double effort
 }
 
 enum InterceptActionType {
@@ -287,7 +298,9 @@ struct WorldModel {
   34: double our_defense_player_line_x,
   35: double their_defense_player_line_x,
   36: bool kickable_teammate_existance,
-  37: bool kickable_opponent_existance
+  37: bool kickable_opponent_existance,
+  38: PenaltyKickState penalty_kick_state,
+  39: i32 see_time
 }
 
 struct State {

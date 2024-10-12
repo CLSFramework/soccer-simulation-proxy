@@ -1,5 +1,41 @@
 # ChangeLog
 
+## [1.0.4] - 2024-10-8
+
+### Added
+- self.effort and wm.see_time are added
+
+### Fixed
+-
+
+### Changed
+- 
+
+### Engineers
+- [NaderZare](https://github.com/naderzare)
+- [SadraKhanjari](https://github.com/SK2iP)
+- [SoroushMazloum](https://github.com/SoroushMazloum)
+
+=======
+
+## [1.0.3] - 2024-10-7
+
+### Added
+- penalty_kick_state has been added to the proxy in the WorldModel message.
+
+### Fixed
+-
+
+### Changed
+- 
+
+### Engineers
+- [NaderZare](https://github.com/naderzare)
+- [SadraKhanjari](https://github.com/SK2iP)
+- [SoroushMazloum](https://github.com/SoroushMazloum)
+
+=======
+
 ## [1.0.2] - 2024-09-15
 
 ### Added

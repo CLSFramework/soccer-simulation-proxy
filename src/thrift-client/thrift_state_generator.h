@@ -1,6 +1,7 @@
 //#include "service.pb.h"
 
 #include <rcsc/player/player_agent.h>
+#include <rcsc/player/penalty_kick_state.h>
 #include <rcsc/coach/coach_agent.h>
 #include <rcsc/trainer/trainer_agent.h>
 #include <rcsc/player/world_model.h>
@@ -31,6 +32,7 @@ public:
     static soccer::Self convertSelf(const rcsc::SelfObject &self, const rcsc::WorldModel &wm);
     static soccer::InterceptActionType::type convertInterceptActionType(rcsc::Intercept::ActionType actionType);
     static soccer::InterceptTable convertInterceptTable(const rcsc::InterceptTable &interceptTable);
+    static soccer::PenaltyKickState convertPenaltyKickState(const rcsc::WorldModel &wm, const rcsc::PenaltyKickState *state);
     static void updatePlayerObject(soccer::Player &p, const rcsc::PlayerObject *player);
     static void updatePlayerObject(soccer::Player &p, const rcsc::CoachPlayerObject *player);
     static void updateAbstractPlayerObject(soccer::Player &p, const rcsc::AbstractPlayerObject *player);

@@ -1,4 +1,4 @@
-// version 1.2
+// version 1.4
 
 syntax = "proto3";
 
@@ -102,6 +102,16 @@ enum CardType {
   RED = 2;
 }
 
+message PenaltyKickState {
+  Side on_field_side = 1;
+  Side current_taker_side = 2;
+  int32 our_taker_counter = 3;
+  int32 their_taker_counter = 4;
+  int32 our_score = 5;
+  int32 their_score = 6;
+  bool is_kick_taker = 7;
+}
+
 message Player {
   RpcVector2D  position = 1;
   RpcVector2D  seen_position = 2;
@@ -176,6 +186,7 @@ message Self {
   float stamina_capacity = 38;
   CardType card = 39;
   int32 catch_time = 40;
+  float effort = 41;
 }
 
 enum InterceptActionType {
@@ -285,6 +296,8 @@ message WorldModel {
   double their_defense_player_line_x = 35;
   bool kickable_teammate_existance = 36;
   bool kickable_opponent_existance = 37;
+  PenaltyKickState penalty_kick_state = 38;
+  int32 see_time = 39;
 }
 
 message State {

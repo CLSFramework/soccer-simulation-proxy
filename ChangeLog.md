@@ -11,12 +11,9 @@
 ### Changed
 - 
 
-### Engineers
-- [NaderZare](https://github.com/naderzare)
-- [SadraKhanjari](https://github.com/SK2iP)
+### Developer 
 - [SoroushMazloum](https://github.com/SoroushMazloum)
 
-=======
 
 ## [1.0.3] - 2024-10-7
 
@@ -29,12 +26,10 @@
 ### Changed
 - 
 
-### Engineers
-- [NaderZare](https://github.com/naderzare)
+### Developer
 - [SadraKhanjari](https://github.com/SK2iP)
 - [SoroushMazloum](https://github.com/SoroushMazloum)
 
-=======
 
 ## [1.0.2] - 2024-09-15
 
@@ -48,20 +43,16 @@
 ### Changed
 - 
 
-### Engineers
+### Developer
 - [NaderZare](https://github.com/naderzare)
 - [SadraKhanjari](https://github.com/SK2iP)
 
-# ChangeLog
-
-=======
 ## [1.0.1] - 2024-09-15
 
 ### Added
 - catch_time has been added to the proxy in the self message.
 - kickable_opponent_existance and kickable_teammate_existance has been added to the proxy in the worldmodel message.
 - bhv_doforceKick action has been added as a message and to the actions message.
-=======
 
 ### Fixed
 - 
@@ -69,12 +60,9 @@
 ### Changed
 - 
 
-### Engineers
+### Developer
 - [SoroushMazloum](https://github.com/SoroushMazloum)
 - [SadraKhanjari](https://github.com/SK2iP)
-
-=======
-
 
 ## [1.0.0] - 2024-09-15
 
@@ -89,7 +77,7 @@
 ### Changed
 - changed chain_action messages name to planner
 
-### Engineers
+### Developer
 - [NaderZare](https://github.com/naderzare)
 - [SadraKhanjari](https://github.com/SK2iP)
 

@@ -173,7 +173,7 @@ protos::Self *StateGenerator::convertSelf(const rcsc::SelfObject &self, const rc
     res->set_stamina_capacity(static_cast<float>(self.staminaCapacity()));
     res->set_card(convertCardType(self.card()));
     res->set_catch_time(self.catchTime().cycle());
-
+    res->set_effort(static_cast<float>(self.effort()));
     return res;
 }
 
@@ -532,6 +532,7 @@ protos::WorldModel *StateGenerator::convertWorldModel(const rcsc::WorldModel &wm
     {
         res->set_allocated_penalty_kick_state(convertPenaltyKickState(wm, wm.penaltyKickState()));
     }
+    res->set_see_time(wm.seeTime().cycle());
     return res;
 }
 

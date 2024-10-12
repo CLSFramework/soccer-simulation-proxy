@@ -1,4 +1,4 @@
-// version 1.3
+// version 1.4
 
 syntax = "proto3";
 
@@ -186,6 +186,7 @@ message Self {
   float stamina_capacity = 38;
   CardType card = 39;
   int32 catch_time = 40;
+  float effort = 41;
 }
 
 enum InterceptActionType {
@@ -296,6 +297,7 @@ message WorldModel {
   bool kickable_teammate_existance = 36;
   bool kickable_opponent_existance = 37;
   PenaltyKickState penalty_kick_state = 38;
+  int32 see_time = 39;
 }
 
 message State {

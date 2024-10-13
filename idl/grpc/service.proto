@@ -298,6 +298,7 @@ message WorldModel {
   bool kickable_opponent_existance = 37;
   PenaltyKickState penalty_kick_state = 38;
   int32 see_time = 39;
+  int32 time_stopped = 40;
 }
 
 message State {

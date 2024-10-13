@@ -533,6 +533,7 @@ protos::WorldModel *StateGenerator::convertWorldModel(const rcsc::WorldModel &wm
         res->set_allocated_penalty_kick_state(convertPenaltyKickState(wm, wm.penaltyKickState()));
     }
     res->set_see_time(wm.seeTime().cycle());
+    res->set_time_stopped(wm.time().stopped());
     return res;
 }
 

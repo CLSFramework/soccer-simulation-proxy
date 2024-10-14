@@ -2917,7 +2917,7 @@ todo min/max_angle
 
 ### ViewWidth
 Enum representing the different view widths available in the soccer simulation.
-For more information, see the documentation at [link](link)
+For more information, see the documentation at [link](https:://link.com).
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |

@@ -368,28 +368,28 @@
 <a name="protos-Ball"></a>
 
 ### Ball
-
+Ball is the message that represents the ball in the soccer simulation.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| position | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| relative_position | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| seen_position | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| heard_position | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| velocity | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| seen_velocity | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| heard_velocity | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| pos_count | [int32](#int32) |  |  |
-| seen_pos_count | [int32](#int32) |  |  |
-| heard_pos_count | [int32](#int32) |  |  |
-| vel_count | [int32](#int32) |  |  |
-| seen_vel_count | [int32](#int32) |  |  |
-| heard_vel_count | [int32](#int32) |  |  |
-| lost_count | [int32](#int32) |  |  |
+| position | [RpcVector2D](#protos-RpcVector2D) |  | The position of the ball. |
+| relative_position | [RpcVector2D](#protos-RpcVector2D) |  | The relative position of the ball to the agent who is sending the message. |
+| seen_position | [RpcVector2D](#protos-RpcVector2D) |  | The position of the ball that the agent has seen. |
+| heard_position | [RpcVector2D](#protos-RpcVector2D) |  | The position of the ball that the agent has heard. |
+| velocity | [RpcVector2D](#protos-RpcVector2D) |  | The velocity of the ball. |
+| seen_velocity | [RpcVector2D](#protos-RpcVector2D) |  | The velocity of the ball that the agent has seen. |
+| heard_velocity | [RpcVector2D](#protos-RpcVector2D) |  | The velocity of the ball that the agent has heard. |
+| pos_count | [int32](#int32) |  | How many cycles ago the agent has seen or heard the ball. |
+| seen_pos_count | [int32](#int32) |  | How many cycles ago the agent has seen the ball. |
+| heard_pos_count | [int32](#int32) |  | How many cycles ago the agent has heard the ball. |
+| vel_count | [int32](#int32) |  | How many cycles ago the agent has seen or heard the velocity of the ball. |
+| seen_vel_count | [int32](#int32) |  | How many cycles ago the agent has seen the velocity of the ball. |
+| heard_vel_count | [int32](#int32) |  | How many cycles ago the agent has heard the velocity of the ball. |
+| lost_count | [int32](#int32) |  | How many cycles ago the agent has lost the ball. |
 | ghost_count | [int32](#int32) |  |  |
-| dist_from_self | [float](#float) |  |  |
-| angle_from_self | [float](#float) |  |  |
+| dist_from_self | [float](#float) |  | The distance of the ball from the agent who is sending the message. |
+| angle_from_self | [float](#float) |  | The angle of the ball from the agent who is sending the message. |
 
 
 
@@ -1635,41 +1635,42 @@ todo min/max_angle
 <a name="protos-Player"></a>
 
 ### Player
-
+Player is the message that represents a player in the soccer simulation.
+To get type information of the player, you can use the type_id field and player type information.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| position | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| seen_position | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| heard_position | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| velocity | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| seen_velocity | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| pos_count | [int32](#int32) |  |  |
-| seen_pos_count | [int32](#int32) |  |  |
-| heard_pos_count | [int32](#int32) |  |  |
-| vel_count | [int32](#int32) |  |  |
-| seen_vel_count | [int32](#int32) |  |  |
-| ghost_count | [int32](#int32) |  |  |
-| dist_from_self | [float](#float) |  |  |
-| angle_from_self | [float](#float) |  |  |
-| id | [int32](#int32) |  |  |
-| side | [Side](#protos-Side) |  |  |
-| uniform_number | [int32](#int32) |  |  |
-| uniform_number_count | [int32](#int32) |  |  |
-| is_goalie | [bool](#bool) |  |  |
-| body_direction | [float](#float) |  |  |
-| body_direction_count | [int32](#int32) |  |  |
-| face_direction | [float](#float) |  |  |
-| face_direction_count | [int32](#int32) |  |  |
-| point_to_direction | [float](#float) |  |  |
-| point_to_direction_count | [int32](#int32) |  |  |
-| is_kicking | [bool](#bool) |  |  |
-| dist_from_ball | [float](#float) |  |  |
-| angle_from_ball | [float](#float) |  |  |
-| ball_reach_steps | [int32](#int32) |  |  |
-| is_tackling | [bool](#bool) |  |  |
-| type_id | [int32](#int32) |  |  |
+| position | [RpcVector2D](#protos-RpcVector2D) |  | The position of the player. |
+| seen_position | [RpcVector2D](#protos-RpcVector2D) |  | The position of the player that the agent has seen. |
+| heard_position | [RpcVector2D](#protos-RpcVector2D) |  | The position of the player that the agent has heard. |
+| velocity | [RpcVector2D](#protos-RpcVector2D) |  | The velocity of the player. |
+| seen_velocity | [RpcVector2D](#protos-RpcVector2D) |  | The velocity of the player that the agent has seen. |
+| pos_count | [int32](#int32) |  | How many cycles ago the agent has seen or heard the player. |
+| seen_pos_count | [int32](#int32) |  | How many cycles ago the agent has seen the player. |
+| heard_pos_count | [int32](#int32) |  | How many cycles ago the agent has heard the player. |
+| vel_count | [int32](#int32) |  | How many cycles ago the agent has seen or heard the velocity of the player. |
+| seen_vel_count | [int32](#int32) |  | How many cycles ago the agent has seen the velocity of the player. |
+| ghost_count | [int32](#int32) |  | How many cycles ago the agent has lost the player. |
+| dist_from_self | [float](#float) |  | The distance of the player from the agent who is sending the message. |
+| angle_from_self | [float](#float) |  | The angle of the player from the agent who is sending the message. |
+| id | [int32](#int32) |  | The unique identifier of the player. |
+| side | [Side](#protos-Side) |  | The side of the player. It can be LEFT or RIGHT or UNKNOWN if the side is not known. |
+| uniform_number | [int32](#int32) |  | The uniform number of the player. |
+| uniform_number_count | [int32](#int32) |  | How many cycles ago the agent has seen the uniform number of the player. |
+| is_goalie | [bool](#bool) |  | Whether the player is a goalie or not. |
+| body_direction | [float](#float) |  | The body direction of the player. |
+| body_direction_count | [int32](#int32) |  | How many cycles ago the agent has seen the body direction of the player. |
+| face_direction | [float](#float) |  | The face direction of the player. In soccer simulation 2D, face direction is the direction that the player is looking at. |
+| face_direction_count | [int32](#int32) |  | How many cycles ago the agent has seen the face direction of the player. |
+| point_to_direction | [float](#float) |  | The direction that the player is pointing to. |
+| point_to_direction_count | [int32](#int32) |  | How many cycles ago the agent has seen the point to direction of the player. |
+| is_kicking | [bool](#bool) |  | Whether the player is kicking or not. |
+| dist_from_ball | [float](#float) |  | The distance of the player from the ball. |
+| angle_from_ball | [float](#float) |  | The angle of the player from the ball. |
+| ball_reach_steps | [int32](#int32) |  | How many cycles the player needs to reach the ball. |
+| is_tackling | [bool](#bool) |  | Whether the player is tackling or not. |
+| type_id | [int32](#int32) |  | The type identifier of the player. |
 
 
 
@@ -1910,15 +1911,17 @@ todo min/max_angle
 <a name="protos-RegisterRequest"></a>
 
 ### RegisterRequest
-
+RegisterRequest is the message that the client sends to the server to register itself.
+The client should send this message to the server to register itself.
+The server will respond with a RegisterResponse message.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| agent_type | [AgentType](#protos-AgentType) |  |  |
-| team_name | [string](#string) |  |  |
-| uniform_number | [int32](#int32) |  |  |
-| rpc_version | [int32](#int32) |  |  |
+| agent_type | [AgentType](#protos-AgentType) |  | The type of the agent. It can be PlayerT, CoachT, or TrainerT. |
+| team_name | [string](#string) |  | The name of the team that the agent belongs to. |
+| uniform_number | [int32](#int32) |  | The uniform number of the agent. |
+| rpc_version | [int32](#int32) |  | The version of the RPC protocol that the client supports. |
 
 
 
@@ -1928,16 +1931,18 @@ todo min/max_angle
 <a name="protos-RegisterResponse"></a>
 
 ### RegisterResponse
-
+RegisterResponse is the message that the server sends to the client in response to a RegisterRequest message.
+The server will respond with this message after receiving a RegisterRequest message.
+The client should use the information in this message to identify itself to the server.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| client_id | [int32](#int32) |  |  |
-| agent_type | [AgentType](#protos-AgentType) |  |  |
-| team_name | [string](#string) |  |  |
-| uniform_number | [int32](#int32) |  |  |
-| rpc_server_language_type | [RpcServerLanguageType](#protos-RpcServerLanguageType) |  |  |
+| client_id | [int32](#int32) |  | The unique identifier assigned to the client by the server. |
+| agent_type | [AgentType](#protos-AgentType) |  | The type of the agent. It can be PlayerT, CoachT, or TrainerT. |
+| team_name | [string](#string) |  | The name of the team that the agent belongs to. |
+| uniform_number | [int32](#int32) |  | The uniform number of the agent. |
+| rpc_server_language_type | [RpcServerLanguageType](#protos-RpcServerLanguageType) |  | The language that the server is implemented in. |
 
 
 
@@ -2014,15 +2019,17 @@ todo min/max_angle
 <a name="protos-RpcVector2D"></a>
 
 ### RpcVector2D
-
+RpcVector2D represents a 2D vector with additional properties.
+If you want to have access to geometric operations, you can use Vector2D class in [pyrusgeom package](https://github.com/Cyrus2D/PyrusGeom)
+To use this class, you need to install pyrusgeom package, import Vector2D class and create a Vector2D object with x and y values.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| x | [float](#float) |  |  |
-| y | [float](#float) |  |  |
-| dist | [float](#float) |  |  |
-| angle | [float](#float) |  |  |
+| x | [float](#float) |  | The x-coordinate of the vector. |
+| y | [float](#float) |  | The y-coordinate of the vector. |
+| dist | [float](#float) |  | The distance magnitude of the vector. |
+| angle | [float](#float) |  | The angle of the vector in degrees. In soccer simulation 2D environment, the 0 degree is opponent&#39;s goal, and the angle increases in the counter-clock direction. So, if your team is in left side, -90 degree is up, 0 degree is right (opponent gole), 90 degree is down. |
 
 
 
@@ -2936,29 +2943,39 @@ For more information, see the documentation at [link](https://link.com).
 ### Game
 The Game service provides various RPC methods for interacting with a soccer simulation.
 
-Methods:
-- GetPlayerActions(State): Retrieves actions available to a player based on the current state.
-- GetCoachActions(State): Retrieves actions available to a coach based on the current state.
-- GetTrainerActions(State): Retrieves actions available to a trainer based on the current state.
-- SendInitMessage(InitMessage): Sends an initialization message to the server.
-- SendServerParams(ServerParam): Sends server parameters to the server.
-- SendPlayerParams(PlayerParam): Sends player parameters to the server.
-- SendPlayerType(PlayerType): Sends player type information to the server. (Note: Should be PlayerTypes)
-- Register(RegisterRequest): Registers a new entity and returns a registration response.
-- SendByeCommand(RegisterResponse): Sends a bye command to the server.
-- GetBestPlannerAction(BestPlannerActionRequest): Retrieves the best planner action based on the request.
 ```mermaid
 sequenceDiagram
-participant Alice
-participant Bob
-Alice->>John: Hello John, how are you?
-loop HealthCheck
-John->>John: Fight against hypochondria
-end
-Note right of John: Rational thoughts <br/>prevail!
-John-->>Alice: Great!
-John->>Bob: How about you?
-Bob-->>John: Jolly good!
+participant SS as SoccerSimulationServer
+participant SP as SoccerSimulationProxy
+participant PM as PlayMakerServer
+Note over SS,PM: Run
+SP->>SS: Connect
+SS->>SP: OK, Unum
+SS->>SP: ServerParam
+SS->>SP: PlayerParam
+SS->>SP: PlayerType (0)
+SS->>SP: PlayerType (1)
+SS->>SP: PlayerType (17)
+SP->>PM: Register(RegisterRequest)
+PM->>SP: RegisterResponse
+SP->>PM: SendInitMessage(InitMessage)
+PM->>SP: Empty
+SP->>PM: SendServerParams(ServerParam)
+PM->>SP: Empty
+SP->>PM: SendPlayerParams(PlayerParam)
+PM->>SP: Empty
+SP->>PM: SendPlayerType(PlayerType(0))
+PM->>SP: Empty
+SP->>PM: SendPlayerType(PlayerType(1))
+PM->>SP: Empty
+SP->>PM: SendPlayerType(PlayerType(17))
+PM->>SP: Empty
+SS->>SP: Observation
+Note over SP: Convert observation to State
+SP->>PM: GetPlayerActions(State)
+PM->>SP: PlayerActions
+Note over SP: Convert Actions to Low-Level Commands
+SP->>SS: Commands
 ```
 
 | Method Name | Request Type | Response Type | Description |

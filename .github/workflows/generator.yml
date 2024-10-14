@@ -78,14 +78,16 @@ jobs:
         git config --global user.name "GitHub Action"
         git config --global user.email "action@github.com"
 
-    # Step 9: Commit and push the changes
-    - name: Commit and Push Changes
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # Step 10: Stage and Commit Changes
+    - name: Stage and Commit Changes
       run: |
-        pwd
         ls ./idl
         git status
-        git add ./idl/readme.md
-        git commit -m "Update protobuf documentation with version and fixed Mermaid symbols"
-        git push
+        git add ./idl/readme.md  # Ensure the correct file is added
+        git diff --quiet || git commit -m "Update protobuf documentation with version and fixed Mermaid symbols" || echo "No changes to commit"
+
+    # Step 11: Push the changes
+    - name: Push Changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: git push

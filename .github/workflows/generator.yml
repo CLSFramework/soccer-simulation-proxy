@@ -26,16 +26,12 @@ jobs:
         # Install the protoc-gen-doc plugin
         go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
 
-        # Ensure that Go binaries are added to the PATH
-        echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> $HOME/.bashrc
+        # Add Go bin directory to PATH directly
         export PATH=$PATH:$(go env GOPATH)/bin
 
     # Step 4: Generate Markdown from the Protobuf file
     - name: Generate Protobuf Documentation
       run: |
-        # Regenerate the shell environment to include Go binaries
-        source $HOME/.bashrc
-
         # Generate markdown from .proto file
         protoc --doc_out=./idl --doc_opt=markdown,protobuf.md ./idl/grpc/service.proto
 

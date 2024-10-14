@@ -83,6 +83,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        pwd
+        ls ./idl
+        git status
         git add ./idl/readme.md
         git commit -m "Update protobuf documentation with version and fixed Mermaid symbols"
         git push

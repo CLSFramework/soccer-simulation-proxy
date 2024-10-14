@@ -1,4 +1,4 @@
-name: Build and Create AppImage
+name: Generate Protobuf Documentation
 
 # Define a manual trigger with input for version
 on:

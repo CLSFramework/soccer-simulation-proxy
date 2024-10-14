@@ -4,10 +4,14 @@ syntax = "proto3";
 
 package protos;
 
+/**
+ * Enum representing the different view widths available in the soccer simulation.
+ * For more information, see the documentation at [link](link)
+ */
 enum ViewWidth {
-  NARROW = 0;
-  NORMAL = 1;
-  WIDE = 2;
+  NARROW = 0; // Narrow view width (60 degrees).
+  NORMAL = 1; // Normal view width (90 degrees).
+  WIDE = 2; // Wide view width (180 degrees).
 }
 
 message RpcVector2D  {

@@ -13,6 +13,24 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
     
+    # Step 1.1: Install dependencies for protoc-gen-doc
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y protobuf-compiler
+
+    # Step 1.2: Generate Markdown from the Protobuf file
+    - name: Generate Protobuf Documentation
+      run: |
+        # Install protoc-gen-doc plugin if not already available
+        go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
+        
+        # Generate markdown from .proto file
+        protoc --doc_out=./idl --doc_opt=markdown,protobuf.md ./idl/grpc/service.proto
+        
+        # Ensure the generated markdown file is added to the repository
+        git add ./idl/protobuf.md
+        git commit -m "Update protobuf documentation"
+        git push
+    
     # Step 2: Pull Docker image from Docker Hub
     - name: Set up Docker
       uses: docker/setup-buildx-action@v2

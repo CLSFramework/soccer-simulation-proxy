@@ -34,8 +34,18 @@ jobs:
       run: |
         # Generate markdown from .proto file
         protoc --doc_out=./idl --doc_opt=markdown,protobuf.md ./idl/grpc/service.proto
-        
-        # Ensure the generated markdown file is added to the repository
+
+    # Step 5: Configure Git and commit the updated protobuf.md
+    - name: Configure Git
+      run: |
+        git config --global user.name "GitHub Action"
+        git config --global user.email "naderzare@github.com"
+
+    # Step 6: Commit and push the changes
+    - name: Commit and Push Changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
         git add ./idl/protobuf.md
         git commit -m "Update protobuf documentation"
         git push

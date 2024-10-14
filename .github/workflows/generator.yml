@@ -13,21 +13,21 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
     
-    # Step 2: Install dependencies for protoc-gen-doc and set up Go environment
-    - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install -y protobuf-compiler
+    # Step 2: Install dependencies for protoc
+    - name: Install protoc dependencies
+      run: sudo apt-get update && sudo apt-get install -y protobuf-compiler curl
 
-    # Step 3: Install protoc-gen-doc plugin
-    - name: Install protoc-gen-doc plugin
+    # Step 3: Download precompiled protoc-gen-doc binary
+    - name: Download protoc-gen-doc binary
       run: |
-        # Set Go modules on
-        export GO111MODULE=on
+        # Download the appropriate precompiled binary for Linux
+        curl -L -o protoc-gen-doc https://github.com/pseudomuto/protoc-gen-doc/releases/download/v1.5.1/protoc-gen-doc-1.5.1.linux-amd64
         
-        # Install the protoc-gen-doc plugin
-        go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
-
-        # Add Go bin directory to PATH directly
-        export PATH=$PATH:$(go env GOPATH)/bin
+        # Make it executable
+        chmod +x protoc-gen-doc
+        
+        # Move the binary to /usr/local/bin
+        sudo mv protoc-gen-doc /usr/local/bin/
 
     # Step 4: Generate Markdown from the Protobuf file
     - name: Generate Protobuf Documentation

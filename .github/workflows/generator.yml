@@ -15,13 +15,19 @@ jobs:
     
     # Step 2: Install dependencies for protoc
     - name: Install protoc dependencies
-      run: sudo apt-get update && sudo apt-get install -y protobuf-compiler curl
+      run: sudo apt-get update && sudo apt-get install -y protobuf-compiler wget
 
     # Step 3: Download precompiled protoc-gen-doc binary
     - name: Download protoc-gen-doc binary
       run: |
         # Download the appropriate precompiled binary for Linux
-        curl -L -o protoc-gen-doc https://github.com/pseudomuto/protoc-gen-doc/releases/download/v1.5.1/protoc-gen-doc-1.5.1.linux-amd64
+        wget https://github.com/pseudomuto/protoc-gen-doc/releases/download/v1.5.1/protoc-gen-doc_1.5.1_linux_amd64.tar.gz -O protoc-gen-doc.tar.gz
+
+        # Extract the binary from the tarball
+        tar -xvf protoc-gen-doc.tar.gz
+                     
+        # Ensure it's an executable binary
+        file protoc-gen-doc
         
         # Make it executable
         chmod +x protoc-gen-doc

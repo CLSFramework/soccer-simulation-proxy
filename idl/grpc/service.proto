@@ -299,6 +299,7 @@ message WorldModel {
   PenaltyKickState penalty_kick_state = 38;
   int32 see_time = 39;
   int32 time_stopped = 40;
+  int32 set_play_count = 41;
 }
 
 message State {

@@ -301,7 +301,8 @@ struct WorldModel {
   37: bool kickable_opponent_existance,
   38: PenaltyKickState penalty_kick_state,
   39: i32 see_time,
-  40: i32 time_stopped
+  40: i32 time_stopped,
+  41: i32 set_play_count
 }
 
 struct State {

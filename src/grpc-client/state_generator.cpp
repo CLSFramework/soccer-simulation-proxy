@@ -534,6 +534,7 @@ protos::WorldModel *StateGenerator::convertWorldModel(const rcsc::WorldModel &wm
     }
     res->set_see_time(wm.seeTime().cycle());
     res->set_time_stopped(wm.time().stopped());
+    res->set_set_play_count(wm.getSetPlayCount());
     return res;
 }
 

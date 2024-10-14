@@ -48,3 +48,4 @@ src/thrift-generated/Game.cpp
 src/thrift-generated/Game.h
 src/thrift-generated/soccer_service_types.cpp
 src/thrift-generated/soccer_service_types.h
+idl/test.md

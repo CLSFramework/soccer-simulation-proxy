@@ -17,12 +17,12 @@
 # # Move the binary to /usr/local/bin
 # sudo mv protoc-gen-doc /usr/local/bin/
 
-protoc --doc_out=./test.md --doc_opt=markdown,readme.md ./grpc/service.proto
+protoc --doc_out=./ --doc_opt=markdown,test.md ./grpc/service.proto
 
 VERSION=$(grep -oP '(?<=version\s)[0-9]+\.[0-9]+' ./grpc/service.proto)
-echo "VERSION=$VERSION" >> $GITHUB_ENV
+echo "VERSION=$VERSION"
 
-sed -i '3a\\n## Version: '"${{ env.VERSION }}"'\n' ./readme.md
+sed -i '3a\\n## Version: '"$VERSION"'\n' ./test.md
 
-sed -i 's/&gt;/>/g' ./readme.md
-sed -i 's/&lt;/</g' ./readme.md
+sed -i 's/&gt;/>/g' ./test.md
+sed -i 's/&lt;/</g' ./test.md

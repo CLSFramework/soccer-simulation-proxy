@@ -14,18 +14,28 @@ enum ViewWidth {
   WIDE = 2; // Wide view width (180 degrees).
 }
 
+/**
+ * RpcVector2D represents a 2D vector with additional properties.
+ * If you want to have access to geometric operations, you can use Vector2D class in [pyrusgeom package](https://github.com/Cyrus2D/PyrusGeom)
+ * To use this class, you need to install pyrusgeom package, import Vector2D class and create a Vector2D object with x and y values.
+ */
 message RpcVector2D  {
-  float x = 1;
-  float y = 2;
-  float dist = 3;
-  float angle = 4;
+  float x = 1; // The x-coordinate of the vector.
+  float y = 2; // The y-coordinate of the vector.
+  float dist = 3; // The distance magnitude of the vector.
+  float angle = 4; // The angle of the vector in degrees. In soccer simulation 2D environment, the 0 degree is opponent's goal, and the angle increases in the counter-clock direction. So, if your team is in left side, -90 degree is up, 0 degree is right (opponent gole), 90 degree is down.
 }
 
+/**
+  * RegisterRequest is the message that the client sends to the server to register itself.
+  * The client should send this message to the server to register itself.
+  * The server will respond with a RegisterResponse message.
+  */
 message RegisterRequest {
-  AgentType agent_type = 1;
-  string team_name = 2;
-  int32 uniform_number = 3;
-  int32 rpc_version = 4;
+  AgentType agent_type = 1; // The type of the agent. It can be PlayerT, CoachT, or TrainerT.
+  string team_name = 2; // The name of the team that the agent belongs to.
+  int32 uniform_number = 3; // The uniform number of the agent.
+  int32 rpc_version = 4; // The version of the RPC protocol that the client supports.
 }
 
 enum RpcServerLanguageType {
@@ -39,32 +49,40 @@ enum RpcServerLanguageType {
   GO = 7;
 }
 
+/**
+  * RegisterResponse is the message that the server sends to the client in response to a RegisterRequest message.
+  * The server will respond with this message after receiving a RegisterRequest message.
+  * The client should use the information in this message to identify itself to the server.
+  */
 message RegisterResponse {
-  int32 client_id = 1;
-  AgentType agent_type = 2;
-  string team_name = 3;
-  int32 uniform_number = 4;
-  RpcServerLanguageType rpc_server_language_type = 5;
+  int32 client_id = 1; // The unique identifier assigned to the client by the server.
+  AgentType agent_type = 2; // The type of the agent. It can be PlayerT, CoachT, or TrainerT.
+  string team_name = 3; // The name of the team that the agent belongs to.
+  int32 uniform_number = 4; // The uniform number of the agent.
+  RpcServerLanguageType rpc_server_language_type = 5; // The language that the server is implemented in.
 }
 
+/**
+  * Ball is the message that represents the ball in the soccer simulation.
+*/
 message Ball {
-  RpcVector2D  position = 1;
-  RpcVector2D  relative_position = 2;
-  RpcVector2D  seen_position = 3;
-  RpcVector2D  heard_position = 4;
-  RpcVector2D  velocity = 5;
-  RpcVector2D  seen_velocity = 6;
-  RpcVector2D  heard_velocity = 7;
-  int32 pos_count = 8;
-  int32 seen_pos_count = 9;
-  int32 heard_pos_count = 10;
-  int32 vel_count = 11;
-  int32 seen_vel_count = 12;
-  int32 heard_vel_count = 13;
-  int32 lost_count = 14;
+  RpcVector2D  position = 1; // The position of the ball.
+  RpcVector2D  relative_position = 2; // The relative position of the ball to the agent who is sending the message.
+  RpcVector2D  seen_position = 3; // The position of the ball that the agent has seen.
+  RpcVector2D  heard_position = 4; // The position of the ball that the agent has heard.
+  RpcVector2D  velocity = 5; // The velocity of the ball.
+  RpcVector2D  seen_velocity = 6; // The velocity of the ball that the agent has seen.
+  RpcVector2D  heard_velocity = 7; // The velocity of the ball that the agent has heard.
+  int32 pos_count = 8; // How many cycles ago the agent has seen or heard the ball.
+  int32 seen_pos_count = 9; // How many cycles ago the agent has seen the ball.
+  int32 heard_pos_count = 10; // How many cycles ago the agent has heard the ball.
+  int32 vel_count = 11; // How many cycles ago the agent has seen or heard the velocity of the ball.
+  int32 seen_vel_count = 12; // How many cycles ago the agent has seen the velocity of the ball.
+  int32 heard_vel_count = 13; // How many cycles ago the agent has heard the velocity of the ball.
+  int32 lost_count = 14; // How many cycles ago the agent has lost the ball.
   int32 ghost_count = 15;
-  float dist_from_self = 16;
-  float angle_from_self = 17;
+  float dist_from_self = 16; // The distance of the ball from the agent who is sending the message.
+  float angle_from_self = 17; // The angle of the ball from the agent who is sending the message.
 }
 
 enum Side {
@@ -116,37 +134,41 @@ message PenaltyKickState {
   bool is_kick_taker = 7;
 }
 
+/**
+  * Player is the message that represents a player in the soccer simulation.
+  * To get type information of the player, you can use the type_id field and player type information.
+*/
 message Player {
-  RpcVector2D  position = 1;
-  RpcVector2D  seen_position = 2;
-  RpcVector2D  heard_position = 3;
-  RpcVector2D  velocity = 4;
-  RpcVector2D  seen_velocity = 5;
-  int32 pos_count = 6;
-  int32 seen_pos_count = 7;
-  int32 heard_pos_count = 8;
-  int32 vel_count = 9;
-  int32 seen_vel_count = 10;
-  int32 ghost_count = 11;
-  float dist_from_self = 12;
-  float angle_from_self = 13;
-  int32 id = 14;
-  Side side = 15;
-  int32 uniform_number = 16;
-  int32 uniform_number_count = 17;
-  bool is_goalie = 18;
-  float body_direction = 19;
-  int32 body_direction_count = 20;
-  float face_direction = 21;
-  int32 face_direction_count = 22;
-  float point_to_direction = 23;
-  int32 point_to_direction_count = 24;
-  bool is_kicking = 25;
-  float dist_from_ball = 26;
-  float angle_from_ball = 27;
-  int32 ball_reach_steps = 28;
-  bool is_tackling = 29;
-  int32 type_id = 30;
+  RpcVector2D  position = 1; // The position of the player.
+  RpcVector2D  seen_position = 2; // The position of the player that the agent has seen.
+  RpcVector2D  heard_position = 3; // The position of the player that the agent has heard.
+  RpcVector2D  velocity = 4; // The velocity of the player.
+  RpcVector2D  seen_velocity = 5; // The velocity of the player that the agent has seen.
+  int32 pos_count = 6; // How many cycles ago the agent has seen or heard the player.
+  int32 seen_pos_count = 7; // How many cycles ago the agent has seen the player.
+  int32 heard_pos_count = 8; // How many cycles ago the agent has heard the player.
+  int32 vel_count = 9; // How many cycles ago the agent has seen or heard the velocity of the player.
+  int32 seen_vel_count = 10; // How many cycles ago the agent has seen the velocity of the player.
+  int32 ghost_count = 11; // How many cycles ago the agent has lost the player.
+  float dist_from_self = 12; // The distance of the player from the agent who is sending the message.
+  float angle_from_self = 13; // The angle of the player from the agent who is sending the message.
+  int32 id = 14; // The unique identifier of the player.
+  Side side = 15; // The side of the player. It can be LEFT or RIGHT or UNKNOWN if the side is not known.
+  int32 uniform_number = 16;  // The uniform number of the player.
+  int32 uniform_number_count = 17; // How many cycles ago the agent has seen the uniform number of the player.
+  bool is_goalie = 18; // Whether the player is a goalie or not.
+  float body_direction = 19; // The body direction of the player.
+  int32 body_direction_count = 20; // How many cycles ago the agent has seen the body direction of the player.
+  float face_direction = 21; // The face direction of the player. In soccer simulation 2D, face direction is the direction that the player is looking at.
+  int32 face_direction_count = 22; // How many cycles ago the agent has seen the face direction of the player.
+  float point_to_direction = 23; // The direction that the player is pointing to.
+  int32 point_to_direction_count = 24; // How many cycles ago the agent has seen the point to direction of the player.
+  bool is_kicking = 25; // Whether the player is kicking or not.
+  float dist_from_ball = 26; // The distance of the player from the ball.
+  float angle_from_ball = 27; // The angle of the player from the ball.
+  int32 ball_reach_steps = 28; // How many cycles the player needs to reach the ball.
+  bool is_tackling = 29; // Whether the player is tackling or not.
+  int32 type_id = 30; // The type identifier of the player.
 }
 
 message Self {
@@ -1320,29 +1342,39 @@ service Game {
   /*
  * The Game service provides various RPC methods for interacting with a soccer simulation.
  * 
- * Methods:
- * - GetPlayerActions(State): Retrieves actions available to a player based on the current state.
- * - GetCoachActions(State): Retrieves actions available to a coach based on the current state.
- * - GetTrainerActions(State): Retrieves actions available to a trainer based on the current state.
- * - SendInitMessage(InitMessage): Sends an initialization message to the server.
- * - SendServerParams(ServerParam): Sends server parameters to the server.
- * - SendPlayerParams(PlayerParam): Sends player parameters to the server.
- * - SendPlayerType(PlayerType): Sends player type information to the server. (Note: Should be PlayerTypes)
- * - Register(RegisterRequest): Registers a new entity and returns a registration response.
- * - SendByeCommand(RegisterResponse): Sends a bye command to the server.
- * - GetBestPlannerAction(BestPlannerActionRequest): Retrieves the best planner action based on the request.
- ```mermaid
- sequenceDiagram
-    participant Alice
-    participant Bob
-    Alice->>John: Hello John, how are you?
-    loop HealthCheck
-        John->>John: Fight against hypochondria
-    end
-    Note right of John: Rational thoughts <br/>prevail!
-    John-->>Alice: Great!
-    John->>Bob: How about you?
-    Bob-->>John: Jolly good!
+  ```mermaid
+  sequenceDiagram
+      participant SS as SoccerSimulationServer
+      participant SP as SoccerSimulationProxy
+      participant PM as PlayMakerServer
+      Note over SS,PM: Run
+      SP->>SS: Connect
+      SS->>SP: OK, Unum
+      SS->>SP: ServerParam
+      SS->>SP: PlayerParam
+      SS->>SP: PlayerType (0)
+      SS->>SP: PlayerType (1)
+      SS->>SP: PlayerType (17)
+      SP->>PM: Register(RegisterRequest)
+      PM->>SP: RegisterResponse
+      SP->>PM: SendInitMessage(InitMessage)
+      PM->>SP: Empty
+      SP->>PM: SendServerParams(ServerParam)
+      PM->>SP: Empty
+      SP->>PM: SendPlayerParams(PlayerParam)
+      PM->>SP: Empty
+      SP->>PM: SendPlayerType(PlayerType(0))
+      PM->>SP: Empty
+      SP->>PM: SendPlayerType(PlayerType(1))
+      PM->>SP: Empty
+      SP->>PM: SendPlayerType(PlayerType(17))
+      PM->>SP: Empty
+      SS->>SP: Observation
+      Note over SP: Convert observation to State
+      SP->>PM: GetPlayerActions(State)
+      PM->>SP: PlayerActions
+      Note over SP: Convert Actions to Low-Level Commands
+      SP->>SS: Commands
   ```
  */
 

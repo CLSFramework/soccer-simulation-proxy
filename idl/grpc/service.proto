@@ -6,7 +6,7 @@ package protos;
 
 /**
  * Enum representing the different view widths available in the soccer simulation.
- * For more information, see the documentation at [link](https:://link.com).
+ * For more information, see the documentation at [link](https://link.com).
  */
 enum ViewWidth {
   NARROW = 0; // Narrow view width (60 degrees).

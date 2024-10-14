@@ -39,7 +39,7 @@ jobs:
     - name: Generate Protobuf Documentation
       run: |
         # Generate markdown from .proto file
-        protoc --doc_out=./idl --doc_opt=markdown,protobuf.md ./idl/grpc/service.proto
+        protoc --doc_out=./idl --doc_opt=markdown,readme.md ./idl/grpc/service.proto
 
     # Step 5: Extract version from the first line of the .proto file
     - name: Extract version from .proto file
@@ -51,7 +51,7 @@ jobs:
     # Step 6: Insert version into the generated Markdown file
     - name: Insert version into markdown
       run: |
-        sed -i '3a\\n## Version: '"${{ env.VERSION }}"'\n' ./idl/protobuf.md
+        sed -i '3a\\n## Version: '"${{ env.VERSION }}"'\n' ./idl/readme.md
 
     # Step 7: Configure Git and commit the updated protobuf.md
     - name: Configure Git
@@ -64,6 +64,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        git add ./idl/protobuf.md
+        git add ./idl/readme.md
         git commit -m "Update protobuf documentation with version"
         git push

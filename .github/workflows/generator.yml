@@ -91,3 +91,25 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: git push
+    
+    # Step 12: Clone the website repository and push the updated protobuf.md
+    - name: Push to Website Repo
+      env:
+        WEBSITE_TOKEN: ${{ secrets.WEBSITE_TOKEN }}  # Add your Personal Access Token (PAT) as a secret
+      run: |
+        # Clone the website repository
+        git clone https://$WEBSITE_TOKEN@github.com/CLSFramework/CLSFramework.github.io.git website
+        
+        ls
+        ls website
+        
+        # Copy the generated readme.md and rename it to protobuf.md
+        mv ./idl/readme.md ./website/docs/3-idl/protobuf.md
+
+        # Commit and push changes to the website repo
+        cd website
+        git config --global user.name "GitHub Action"
+        git config --global user.email "action@github.com"
+        git add ./docs/3-idl/protobuf.md
+        git commit -m "Update protobuf documentation with version and fixed Mermaid symbols"
+        git push

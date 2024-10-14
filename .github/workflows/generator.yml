@@ -100,16 +100,19 @@ jobs:
         # Clone the website repository
         git clone https://$WEBSITE_TOKEN@github.com/CLSFramework/CLSFramework.github.io.git website
         
-        ls
-        ls website
-        
         # Copy the generated readme.md and rename it to protobuf.md
         mv ./idl/readme.md ./website/docs/3-idl/protobuf.md
 
-        # Commit and push changes to the website repo
+        # Commit and push changes to the website repo only if there are changes
         cd website
         git config --global user.name "GitHub Action"
         git config --global user.email "action@github.com"
-        git add ./docs/3-idl/protobuf.md
-        git commit -m "Update protobuf documentation with version and fixed Mermaid symbols"
-        git push
+        
+        # Check if there are any changes
+        if git diff --quiet; then
+            echo "No changes detected, skipping commit and push."
+        else
+            git add ./docs/3-idl/protobuf.md
+            git commit -m "Update protobuf documentation with version and fixed Mermaid symbols"
+            git push
+        fi

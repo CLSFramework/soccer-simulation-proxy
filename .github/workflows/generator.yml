@@ -26,12 +26,16 @@ jobs:
         # Install the protoc-gen-doc plugin
         go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
 
-        # Add Go bin directory to PATH
+        # Ensure that Go binaries are added to the PATH
+        echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> $HOME/.bashrc
         export PATH=$PATH:$(go env GOPATH)/bin
 
     # Step 4: Generate Markdown from the Protobuf file
     - name: Generate Protobuf Documentation
       run: |
+        # Regenerate the shell environment to include Go binaries
+        source $HOME/.bashrc
+
         # Generate markdown from .proto file
         protoc --doc_out=./idl --doc_opt=markdown,protobuf.md ./idl/grpc/service.proto
 
@@ -39,7 +43,7 @@ jobs:
     - name: Configure Git
       run: |
         git config --global user.name "GitHub Action"
-        git config --global user.email "naderzare@github.com"
+        git config --global user.email "action@github.com"
 
     # Step 6: Commit and push the changes
     - name: Commit and Push Changes

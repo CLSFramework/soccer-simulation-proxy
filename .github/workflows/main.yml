@@ -13,16 +13,25 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
     
-    # Step 1.1: Install dependencies for protoc-gen-doc
+    # Step 2: Install dependencies for protoc-gen-doc and set up Go environment
     - name: Install dependencies
       run: sudo apt-get update && sudo apt-get install -y protobuf-compiler
 
-    # Step 1.2: Generate Markdown from the Protobuf file
+    # Step 3: Install protoc-gen-doc plugin
+    - name: Install protoc-gen-doc plugin
+      run: |
+        # Set Go modules on
+        export GO111MODULE=on
+        
+        # Install the protoc-gen-doc plugin
+        go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
+
+        # Add Go bin directory to PATH
+        export PATH=$PATH:$(go env GOPATH)/bin
+
+    # Step 4: Generate Markdown from the Protobuf file
     - name: Generate Protobuf Documentation
       run: |
-        # Install protoc-gen-doc plugin if not already available
-        go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
-        
         # Generate markdown from .proto file
         protoc --doc_out=./idl --doc_opt=markdown,protobuf.md ./idl/grpc/service.proto
         
@@ -30,7 +39,6 @@ jobs:
         git add ./idl/protobuf.md
         git commit -m "Update protobuf documentation"
         git push
-    
     # Step 2: Pull Docker image from Docker Hub
     - name: Set up Docker
       uses: docker/setup-buildx-action@v2

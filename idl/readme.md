@@ -2934,7 +2934,32 @@ For more information, see the documentation at [link](link)
 <a name="protos-Game"></a>
 
 ### Game
+The Game service provides various RPC methods for interacting with a soccer simulation.
 
+Methods:
+- GetPlayerActions(State): Retrieves actions available to a player based on the current state.
+- GetCoachActions(State): Retrieves actions available to a coach based on the current state.
+- GetTrainerActions(State): Retrieves actions available to a trainer based on the current state.
+- SendInitMessage(InitMessage): Sends an initialization message to the server.
+- SendServerParams(ServerParam): Sends server parameters to the server.
+- SendPlayerParams(PlayerParam): Sends player parameters to the server.
+- SendPlayerType(PlayerType): Sends player type information to the server. (Note: Should be PlayerTypes)
+- Register(RegisterRequest): Registers a new entity and returns a registration response.
+- SendByeCommand(RegisterResponse): Sends a bye command to the server.
+- GetBestPlannerAction(BestPlannerActionRequest): Retrieves the best planner action based on the request.
+```mermaid
+sequenceDiagram
+participant Alice
+participant Bob
+Alice->>John: Hello John, how are you?
+loop HealthCheck
+John->>John: Fight against hypochondria
+end
+Note right of John: Rational thoughts <br/>prevail!
+John-->>Alice: Great!
+John->>Bob: How about you?
+Bob-->>John: Jolly good!
+```
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|

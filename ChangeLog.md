@@ -3,7 +3,7 @@
 ## [1.0.5] - 2024-10-16
 
 ### Added
-- wm.see_time, serverParams.goal_area_width/length
+- wm.time_stopped, wm.set_play_count, serverParams.goal_area_width/length
 
 ### Fixed
 -

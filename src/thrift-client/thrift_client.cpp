@@ -258,6 +258,8 @@ void ThriftAgent::sendServerParam() const
     serverParam.their_penalty_area_line_x = SP.theirPenaltyAreaLineX();
     serverParam.penalty_area_half_width = SP.penaltyAreaHalfWidth();
     serverParam.penalty_area_length = SP.penaltyAreaLength();
+    serverParam.goal_area_width = SP.goalAreaWidth();
+    serverParam.goal_area_length = SP.goalAreaLength();
 
     try{
         soccer::Empty empty;

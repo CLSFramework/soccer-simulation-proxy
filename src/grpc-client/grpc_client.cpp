@@ -277,6 +277,8 @@ void GrpcClient::sendServerParam() const
     serverParam.set_their_penalty_area_line_x(SP.theirPenaltyAreaLineX());
     serverParam.set_penalty_area_half_width(SP.penaltyAreaHalfWidth());
     serverParam.set_penalty_area_length(SP.penaltyAreaLength());
+    serverParam.set_goal_area_width(SP.goalAreaWidth());
+    serverParam.set_goal_area_length(SP.goalAreaLength());
 
     ClientContext context;
     protos::Empty empty;

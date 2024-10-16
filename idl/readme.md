@@ -909,13 +909,15 @@ todo more variables
 <a name="protos-Dash"></a>
 
 ### Dash
-
+Dash is the message that represents the dash action in the soccer simulation.
+By using this action, agent can dash (run or walk) to a direction with a power.
+The rcssserver, calculates the next position and velocity of the agent based on current position, velocity, power and direction.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| power | [float](#float) |  |  |
-| relative_direction | [float](#float) |  |  |
+| power | [float](#float) |  | The power of the dash action. The power can be between -100 to 100. If the power is negative, the agent will dash in the backward direction by using two times of the power. |
+| relative_direction | [float](#float) |  | The relative direction of the dash action to the body direction of the agent. The direction can be between -180 to 180. |
 
 
 
@@ -1209,21 +1211,25 @@ todo more variables
 <a name="protos-HeliosOffensivePlanner"></a>
 
 ### HeliosOffensivePlanner
-
+HeliosOffensivePlanner is the message that represents the offensive planner of the agent in the soccer simulation.
+The offensive planner is responsible for making decisions about the offensive actions of the agent by creating a tree of actions, finding the best chain of actions, and executing the first action in the chain.
+The best action is an action with best incomming predicted state.
+The best predicted state is the state that has the best evalution value by using this formula: value = ball.x &#43; max(0.0, 40.0 - ball.dist(opponent goal center))
+Due to the complexity of the not simple actions, the agent can not calculate the best action in the first layer of the tree. So, the agent can use the simple actions in the first layer of the tree.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| direct_pass | [bool](#bool) |  |  |
-| lead_pass | [bool](#bool) |  |  |
-| through_pass | [bool](#bool) |  |  |
-| short_dribble | [bool](#bool) |  |  |
-| long_dribble | [bool](#bool) |  |  |
-| cross | [bool](#bool) |  |  |
-| simple_pass | [bool](#bool) |  |  |
-| simple_dribble | [bool](#bool) |  |  |
-| simple_shoot | [bool](#bool) |  |  |
-| server_side_decision | [bool](#bool) |  |  |
+| direct_pass | [bool](#bool) |  | Whether the agent can make a direct pass or not. The direct pass is a pass action that the agent can pass the ball to the position of a teammate player. This action is just used in the first layer of the tree. |
+| lead_pass | [bool](#bool) |  | Whether the agent can make a lead pass or not. The lead pass is a pass action that the agent can pass the ball to the position of a teammate player with a lead (very cloase to the teammate). This action is just used in the first layer of the tree. |
+| through_pass | [bool](#bool) |  | Whether the agent can make a through pass or not. The through pass is a pass action that the agent can pass the ball to the position of a teammate player with a through (close or very far from the teammate, between teammates and opponent goal). This action is just used in the first layer of the tree. |
+| short_dribble | [bool](#bool) |  | Whether the agent can make a short dribble or not. The short dribble is a dribble action that the agent can dribble the ball to a position. This action is just used in the first layer of the tree. |
+| long_dribble | [bool](#bool) |  | Whether the agent can make a long dribble or not. The long dribble is a dribble action that the agent can dribble the ball to a position. This dribble is longer than the short dribble. This action is just used in the first layer of the tree |
+| cross | [bool](#bool) |  | Whether the agent can make a cross or not. The cross is a kick action that the agent can kick the ball to the position close to teammate, but it does not care that the teammate can control the ball or not. This action is just used in the first layer of the tree. |
+| simple_pass | [bool](#bool) |  | Whether the agent can make a simple pass or not. The simple pass is a pass action that the agent can pass the ball to the position of a teammate player. This action is just used in the second or more layers of the tree. This action is not very accurate. |
+| simple_dribble | [bool](#bool) |  | Whether the agent can make a simple dribble or not. The simple dribble is a dribble action that the agent can dribble the ball to a position. This action is just used in the second or more layers of the tree. This action is not very accurate. |
+| simple_shoot | [bool](#bool) |  | Whether the agent can make a simple shoot or not. The simple shoot is a kick action that the agent can kick the ball to the opponent goal. This action is just used in the second or more layers of the tree. This action is not very accurate. |
+| server_side_decision | [bool](#bool) |  | If this value is true, the proxy agent, will create the tree and send all of the nodes to the playmaker server to choose the best action. If this value is false, the proxy agent will choose the best action by itself. |
 
 
 
@@ -1279,21 +1285,21 @@ todo more variables
 <a name="protos-InterceptInfo"></a>
 
 ### InterceptInfo
-
+InterceptInfo is the message that represents the information about an intercept action.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| action_type | [InterceptActionType](#protos-InterceptActionType) |  |  |
-| turn_steps | [int32](#int32) |  |  |
-| turn_angle | [float](#float) |  |  |
-| dash_steps | [int32](#int32) |  |  |
-| dash_power | [float](#float) |  |  |
-| dash_dir | [float](#float) |  |  |
-| final_self_position | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| final_ball_dist | [float](#float) |  |  |
-| final_stamina | [float](#float) |  |  |
-| value | [float](#float) |  |  |
+| action_type | [InterceptActionType](#protos-InterceptActionType) |  | The type of the intercept action. |
+| turn_steps | [int32](#int32) |  | The number of steps that the agent needs to turn to the ball. |
+| turn_angle | [float](#float) |  | The angle that the agent needs to turn to the ball. |
+| dash_steps | [int32](#int32) |  | The number of steps that the agent needs to dash to the ball. |
+| dash_power | [float](#float) |  | The power of the dash action. |
+| dash_dir | [float](#float) |  | The direction of the dash action to player&#39;s body direction. |
+| final_self_position | [RpcVector2D](#protos-RpcVector2D) |  | The final position of the agent after the intercept action. |
+| final_ball_dist | [float](#float) |  | The final distance of the ball from the agent after the intercept action. |
+| final_stamina | [float](#float) |  | The final stamina of the agent after the intercept action. |
+| value | [float](#float) |  | The value of the intercept action. TODO less is better or more is better? |
 
 
 
@@ -1320,21 +1326,21 @@ todo more variables
 <a name="protos-InterceptTable"></a>
 
 ### InterceptTable
-
+InterceptTable is the message that represents the intercept table of the agent.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| self_reach_steps | [int32](#int32) |  |  |
-| first_teammate_reach_steps | [int32](#int32) |  |  |
-| second_teammate_reach_steps | [int32](#int32) |  |  |
-| first_opponent_reach_steps | [int32](#int32) |  |  |
-| second_opponent_reach_steps | [int32](#int32) |  |  |
-| first_teammate_id | [int32](#int32) |  |  |
-| second_teammate_id | [int32](#int32) |  |  |
-| first_opponent_id | [int32](#int32) |  |  |
-| second_opponent_id | [int32](#int32) |  |  |
-| self_intercept_info | [InterceptInfo](#protos-InterceptInfo) | repeated |  |
+| self_reach_steps | [int32](#int32) |  | The number of steps that the agent needs to reach the ball. |
+| first_teammate_reach_steps | [int32](#int32) |  | The number of steps that the first teammate needs to reach the ball. |
+| second_teammate_reach_steps | [int32](#int32) |  | The number of steps that the second teammate needs to reach the ball. |
+| first_opponent_reach_steps | [int32](#int32) |  | The number of steps that the first opponent needs to reach the ball. |
+| second_opponent_reach_steps | [int32](#int32) |  | The number of steps that the second opponent needs to reach the ball. |
+| first_teammate_id | [int32](#int32) |  | The ID of the first teammate. This ID is unique for each player&#39;s object in the each agent proxy. If the ID is 0, it means the agent has no first teammate. |
+| second_teammate_id | [int32](#int32) |  | The ID of the second teammate. This ID is unique for each player&#39;s object in the each agent proxy. If the ID is 0, it means the agent has no second teammate. |
+| first_opponent_id | [int32](#int32) |  | The ID of the first opponent. This ID is unique for each player&#39;s object in the each agent proxy. If the ID is 0, it means the agent has no first opponent. |
+| second_opponent_id | [int32](#int32) |  | The ID of the second opponent. This ID is unique for each player&#39;s object in the each agent proxy. If the ID is 0, it means the agent has no second opponent. |
+| self_intercept_info | [InterceptInfo](#protos-InterceptInfo) | repeated | The intercept information of the agent. |
 
 
 
@@ -2075,52 +2081,53 @@ To use this class, you need to install pyrusgeom package, import Vector2D class 
 <a name="protos-Self"></a>
 
 ### Self
-
+Self is the message that represents the agent itself in the soccer simulation.
+When an agent send a message to the playmaker server, self is information about the agent itself.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| position | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| seen_position | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| heard_position | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| velocity | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| seen_velocity | [RpcVector2D](#protos-RpcVector2D) |  |  |
-| pos_count | [int32](#int32) |  |  |
-| seen_pos_count | [int32](#int32) |  |  |
-| heard_pos_count | [int32](#int32) |  |  |
-| vel_count | [int32](#int32) |  |  |
-| seen_vel_count | [int32](#int32) |  |  |
-| ghost_count | [int32](#int32) |  |  |
-| id | [int32](#int32) |  |  |
-| side | [Side](#protos-Side) |  |  |
-| uniform_number | [int32](#int32) |  |  |
-| uniform_number_count | [int32](#int32) |  |  |
-| is_goalie | [bool](#bool) |  |  |
-| body_direction | [float](#float) |  |  |
-| body_direction_count | [int32](#int32) |  |  |
-| face_direction | [float](#float) |  |  |
-| face_direction_count | [int32](#int32) |  |  |
-| point_to_direction | [float](#float) |  |  |
-| point_to_direction_count | [int32](#int32) |  |  |
-| is_kicking | [bool](#bool) |  |  |
-| dist_from_ball | [float](#float) |  |  |
-| angle_from_ball | [float](#float) |  |  |
-| ball_reach_steps | [int32](#int32) |  |  |
-| is_tackling | [bool](#bool) |  |  |
-| relative_neck_direction | [float](#float) |  |  |
-| stamina | [float](#float) |  |  |
-| is_kickable | [bool](#bool) |  |  |
-| catch_probability | [float](#float) |  |  |
-| tackle_probability | [float](#float) |  |  |
-| foul_probability | [float](#float) |  |  |
-| view_width | [ViewWidth](#protos-ViewWidth) |  |  |
-| type_id | [int32](#int32) |  |  |
-| kick_rate | [float](#float) |  |  |
-| recovery | [float](#float) |  |  |
-| stamina_capacity | [float](#float) |  |  |
-| card | [CardType](#protos-CardType) |  |  |
-| catch_time | [int32](#int32) |  |  |
-| effort | [float](#float) |  |  |
+| position | [RpcVector2D](#protos-RpcVector2D) |  | The position of the agent. |
+| seen_position | [RpcVector2D](#protos-RpcVector2D) |  | The position of the agent that the agent has seen. (By using flags) |
+| heard_position | [RpcVector2D](#protos-RpcVector2D) |  | The position of the agent that the agent has heard. (This is not very useful) |
+| velocity | [RpcVector2D](#protos-RpcVector2D) |  | The velocity of the agent. |
+| seen_velocity | [RpcVector2D](#protos-RpcVector2D) |  | The velocity of the agent that the agent has seen. (By using flags) |
+| pos_count | [int32](#int32) |  | How many cycles ago the agent has seen or heard itself. |
+| seen_pos_count | [int32](#int32) |  | How many cycles ago the agent has seen itself. |
+| heard_pos_count | [int32](#int32) |  | How many cycles ago the agent has heard itself. |
+| vel_count | [int32](#int32) |  | How many cycles ago the agent has seen or heard the velocity of itself. |
+| seen_vel_count | [int32](#int32) |  | How many cycles ago the agent has seen the velocity of itself. |
+| ghost_count | [int32](#int32) |  | How many cycles ago the agent has lost itself. |
+| id | [int32](#int32) |  | The ID number for this object in proxy. |
+| side | [Side](#protos-Side) |  | The side of the agent. It can be LEFT or RIGHT or UNKNOWN if the side is not known. |
+| uniform_number | [int32](#int32) |  | The uniform number of the agent. |
+| uniform_number_count | [int32](#int32) |  | How many cycles ago the agent has seen the uniform number of itself. |
+| is_goalie | [bool](#bool) |  | Whether the agent is a goalie or not. |
+| body_direction | [float](#float) |  | The body direction of the agent. |
+| body_direction_count | [int32](#int32) |  | How many cycles ago the agent has seen the body direction of itself. |
+| face_direction | [float](#float) |  | The face direction of the agent. In soccer simulation 2D, face direction is the direction that the agent is looking at. This is a global direction. |
+| face_direction_count | [int32](#int32) |  | How many cycles ago the agent has seen the face direction of itself. |
+| point_to_direction | [float](#float) |  | The direction that the agent is pointing to. This is a global direction. |
+| point_to_direction_count | [int32](#int32) |  | How many cycles ago the agent has seen the point to direction of itself. |
+| is_kicking | [bool](#bool) |  | Whether the agent is kicking or not. |
+| dist_from_ball | [float](#float) |  | The distance of the agent from the ball. |
+| angle_from_ball | [float](#float) |  | The angle of the agent from the ball. |
+| ball_reach_steps | [int32](#int32) |  | How many cycles the agent needs to reach the ball. |
+| is_tackling | [bool](#bool) |  | Whether the agent is tackling or not. |
+| relative_neck_direction | [float](#float) |  | The relative neck direction of the agent to the body direction. |
+| stamina | [float](#float) |  | The stamina of the agent. This number is between TODO |
+| is_kickable | [bool](#bool) |  | Whether the agent is kickable or not. Means the agent can kick the ball. |
+| catch_probability | [float](#float) |  | The probability of the agent to catch the ball. This number is important for goalies. |
+| tackle_probability | [float](#float) |  | The probability of the agent to tackle the ball. |
+| foul_probability | [float](#float) |  | The probability of the agent to foul. |
+| view_width | [ViewWidth](#protos-ViewWidth) |  | The view width of the agent. It can be NARROW, NORMAL, or WIDE. |
+| type_id | [int32](#int32) |  | The type identifier of the agent. The RcssServer generates 18 different types of agents. The coach is reponsible to give the type information to the agent. |
+| kick_rate | [float](#float) |  | The kick rate of the agent. This number is calculated by this formula: self.playerType().kickRate(wm.ball().distFromSelf(), (wm.ball().angleFromSelf() - self.body()).degree()), So, if the kick rate is more, the agent can kick the ball with more first speed to any angle. |
+| recovery | [float](#float) |  | The current estimated recovery value. TODO more info |
+| stamina_capacity | [float](#float) |  | The stamina capacity of the agent. This number is between 0 to ~130000 depending on the server param. |
+| card | [CardType](#protos-CardType) |  | The card type of the agent. It can be NO_CARD, YELLOW, or RED. |
+| catch_time | [int32](#int32) |  | The time when the last catch command is performed. |
+| effort | [float](#float) |  | The effort of the agent. TODO more info |
 
 
 
@@ -2428,15 +2435,15 @@ To use this class, you need to install pyrusgeom package, import Vector2D class 
 <a name="protos-State"></a>
 
 ### State
-
+State is the message that represents the state of the agent in the soccer simulation.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| register_response | [RegisterResponse](#protos-RegisterResponse) |  |  |
-| world_model | [WorldModel](#protos-WorldModel) |  |  |
-| full_world_model | [WorldModel](#protos-WorldModel) |  |  |
-| need_preprocess | [bool](#bool) |  |  |
+| register_response | [RegisterResponse](#protos-RegisterResponse) |  | The response of the agent registration. The agent should use this information to identify itself to the playermaker server. |
+| world_model | [WorldModel](#protos-WorldModel) |  | The world model of the agent. The agent should use this information to make decisions. If the server is in full state mode, the world model will be full state without noise. |
+| full_world_model | [WorldModel](#protos-WorldModel) |  | The full world model of the agent. This value will be set only if the server is in full state mode and proxy agent is in debug mode. TODO add more information |
+| need_preprocess | [bool](#bool) |  | Whether the agent needs to preprocess the world model or not. If the agent needs to do some preprocessing actions, it means the proxy agent will igonre the playmaker actions, you can ignore preprocessing. |
 
 
 
@@ -2534,12 +2541,14 @@ To use this class, you need to install pyrusgeom package, import Vector2D class 
 <a name="protos-Turn"></a>
 
 ### Turn
-
+Turn is the message that represents the turn action in the soccer simulation.
+By using this action, agent can turn to a direction relative to the current body direction.
+The rcssserver, calculates the next body direction of the agent based on current body direction, relative direction and velocity of the agent.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| relative_direction | [float](#float) |  |  |
+| relative_direction | [float](#float) |  | The relative direction of the turn action to the body direction of the agent. The direction can be between -180 to 180. |
 
 
 
@@ -2637,50 +2646,50 @@ To use this class, you need to install pyrusgeom package, import Vector2D class 
 <a name="protos-WorldModel"></a>
 
 ### WorldModel
-
+WorldModel is the message that represents the world model in the soccer simulation. The WorldModel message contains all the information about the current state of the game.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| intercept_table | [InterceptTable](#protos-InterceptTable) |  |  |
-| our_team_name | [string](#string) |  |  |
-| their_team_name | [string](#string) |  |  |
-| our_side | [Side](#protos-Side) |  |  |
-| last_set_play_start_time | [int32](#int32) |  |  |
-| self | [Self](#protos-Self) |  |  |
-| ball | [Ball](#protos-Ball) |  |  |
+| intercept_table | [InterceptTable](#protos-InterceptTable) |  | The intercept table of the agent. |
+| our_team_name | [string](#string) |  | The name of our team. |
+| their_team_name | [string](#string) |  | The name of their team. |
+| our_side | [Side](#protos-Side) |  | The side of our team. It can be LEFT or RIGHT. |
+| last_set_play_start_time | [int32](#int32) |  | The last set play start time. |
+| self | [Self](#protos-Self) |  | The information about the agent itself. |
+| ball | [Ball](#protos-Ball) |  | The information about the ball. |
 | teammates | [Player](#protos-Player) | repeated |  |
 | opponents | [Player](#protos-Player) | repeated |  |
 | unknowns | [Player](#protos-Player) | repeated |  |
 | our_players_dict | [WorldModel.OurPlayersDictEntry](#protos-WorldModel-OurPlayersDictEntry) | repeated |  |
 | their_players_dict | [WorldModel.TheirPlayersDictEntry](#protos-WorldModel-TheirPlayersDictEntry) | repeated |  |
-| our_goalie_uniform_number | [int32](#int32) |  |  |
-| their_goalie_uniform_number | [int32](#int32) |  |  |
-| offside_line_x | [float](#float) |  |  |
-| ofside_line_x_count | [int32](#int32) |  |  |
-| kickable_teammate_id | [int32](#int32) |  |  |
-| kickable_opponent_id | [int32](#int32) |  |  |
-| last_kick_side | [Side](#protos-Side) |  |  |
-| last_kicker_uniform_number | [int32](#int32) |  |  |
-| cycle | [int32](#int32) |  |  |
-| game_mode_type | [GameModeType](#protos-GameModeType) |  |  |
-| left_team_score | [int32](#int32) |  |  |
-| right_team_score | [int32](#int32) |  |  |
-| is_our_set_play | [bool](#bool) |  |  |
-| is_their_set_play | [bool](#bool) |  |  |
-| stoped_cycle | [int32](#int32) |  |  |
-| our_team_score | [int32](#int32) |  |  |
-| their_team_score | [int32](#int32) |  |  |
-| is_penalty_kick_mode | [bool](#bool) |  |  |
-| helios_home_positions | [WorldModel.HeliosHomePositionsEntry](#protos-WorldModel-HeliosHomePositionsEntry) | repeated |  |
-| our_defense_line_x | [double](#double) |  |  |
-| their_defense_line_x | [double](#double) |  |  |
-| our_defense_player_line_x | [double](#double) |  |  |
-| their_defense_player_line_x | [double](#double) |  |  |
-| kickable_teammate_existance | [bool](#bool) |  |  |
-| kickable_opponent_existance | [bool](#bool) |  |  |
-| penalty_kick_state | [PenaltyKickState](#protos-PenaltyKickState) |  |  |
-| see_time | [int32](#int32) |  |  |
+| our_goalie_uniform_number | [int32](#int32) |  | The uniform number of our goalie. |
+| their_goalie_uniform_number | [int32](#int32) |  | The uniform number of their goalie. |
+| offside_line_x | [float](#float) |  | The x-coordinate of the offside line of opponent team. |
+| ofside_line_x_count | [int32](#int32) |  | How many cycles ago the agent has seen (calculated) the offside line. |
+| kickable_teammate_id | [int32](#int32) |  | The ID of the kickable teammate. To get the information about the kickable teammate, you can find a player in teammates or our_players_dict with this ID. |
+| kickable_opponent_id | [int32](#int32) |  | The ID of the kickable opponent. To get the information about the kickable opponent, you can find a player in opponents or their_players_dict with this ID. |
+| last_kick_side | [Side](#protos-Side) |  | The last side that the ball was kicked. |
+| last_kicker_uniform_number | [int32](#int32) |  | The last uniform number that the ball was kicked. |
+| cycle | [int32](#int32) |  | The current cycle of the game. |
+| game_mode_type | [GameModeType](#protos-GameModeType) |  | The current game mode type. |
+| left_team_score | [int32](#int32) |  | The score of the left team. |
+| right_team_score | [int32](#int32) |  | The score of the right team. |
+| is_our_set_play | [bool](#bool) |  | Whether it is our set play or not. |
+| is_their_set_play | [bool](#bool) |  | Whether it is their set play or not. |
+| stoped_cycle | [int32](#int32) |  | The number of cycles that the game has stopped. For example, when the cycle is 90, and stoped_cycle is 10, it means the game has stopped at 90th cycle for 10 cycles. |
+| our_team_score | [int32](#int32) |  | The score of our team. |
+| their_team_score | [int32](#int32) |  | The score of their team. |
+| is_penalty_kick_mode | [bool](#bool) |  | Whether it is penalty kick mode or not. |
+| helios_home_positions | [WorldModel.HeliosHomePositionsEntry](#protos-WorldModel-HeliosHomePositionsEntry) | repeated | The home positions of the agents in the helios strategy. Helios base code is using Delanaray triangulation to calculate the home positions. |
+| our_defense_line_x | [double](#double) |  | The x-coordinate of our defense line. The diffence line is minimum x-coordinate of our players (except goalie) and ball. |
+| their_defense_line_x | [double](#double) |  | The x-coordinate of their defense line. The diffence line is minimum x-coordinate of their players (except goalie) and ball. |
+| our_defense_player_line_x | [double](#double) |  | The x-coordinate of our defense player line. The diffence player line is minimum x-coordinate of our players (except goalie). |
+| their_defense_player_line_x | [double](#double) |  | The x-coordinate of their defense player line. The diffence player line is minimum x-coordinate of their players (except goalie). |
+| kickable_teammate_existance | [bool](#bool) |  | Whether the kickable teammate exists or not. |
+| kickable_opponent_existance | [bool](#bool) |  | Whether the kickable opponent exists or not. |
+| penalty_kick_state | [PenaltyKickState](#protos-PenaltyKickState) |  | The penalty kick state. |
+| see_time | [int32](#int32) |  | The time that the agent has seen the world model. |
 
 
 
@@ -2760,7 +2769,7 @@ To use this class, you need to install pyrusgeom package, import Vector2D class 
 <a name="protos-AgentType"></a>
 
 ### AgentType
-
+AgentType is the enum that represents the different types of agents.
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
@@ -2829,14 +2838,14 @@ To use this class, you need to install pyrusgeom package, import Vector2D class 
 <a name="protos-InterceptActionType"></a>
 
 ### InterceptActionType
-
+InterceptActionType is the enum that represents the different types of intercept actions.
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| UNKNOWN_Intercept_Action_Type | 0 |  |
-| OMNI_DASH | 1 |  |
-| TURN_FORWARD_DASH | 2 |  |
-| TURN_BACKWARD_DASH | 3 |  |
+| UNKNOWN_Intercept_Action_Type | 0 | Unknown intercept action type. |
+| OMNI_DASH | 1 | Omni dash intercept action type. Means the agent will dash to the ball in any direction. |
+| TURN_FORWARD_DASH | 2 | Turn forward dash intercept action type. Means the agent will turn to the ball and dash to the ball. |
+| TURN_BACKWARD_DASH | 3 | Turn backward dash intercept action type. Means the agent will turn to the ball and dash to the ball in the backward direction. |
 
 
 

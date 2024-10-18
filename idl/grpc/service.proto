@@ -1,4 +1,4 @@
-// version 1.4
+// version 1.5
 
 syntax = "proto3";
 
@@ -298,6 +298,8 @@ message WorldModel {
   bool kickable_opponent_existance = 37;
   PenaltyKickState penalty_kick_state = 38;
   int32 see_time = 39;
+  int32 time_stopped = 40;
+  int32 set_play_count = 41;
 }
 
 message State {
@@ -1184,6 +1186,8 @@ message ServerParam {
   float penalty_area_half_width = 220;
   float penalty_area_length = 221;
   float goal_width = 222;
+  float goal_area_width = 223;
+  float goal_area_length = 224;
 }
 
 message PlayerParam {

@@ -1,5 +1,23 @@
 # ChangeLog
 
+## [1.0.5] - 2024-10-16
+
+### Added
+- wm.time_stopped, wm.set_play_count, serverParams.goal_area_width/length
+
+### Fixed
+-
+
+### Changed
+- 
+
+### Engineers
+- [NaderZare](https://github.com/naderzare)
+- [SadraKhanjari](https://github.com/SK2iP)
+- [SoroushMazloum](https://github.com/SoroushMazloum)
+
+=======
+
 ## [1.0.4] - 2024-10-8
 
 ### Added

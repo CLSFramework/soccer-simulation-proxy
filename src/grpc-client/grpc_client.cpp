@@ -277,7 +277,10 @@ void GrpcClient::sendServerParam() const
     serverParam.set_their_penalty_area_line_x(SP.theirPenaltyAreaLineX());
     serverParam.set_penalty_area_half_width(SP.penaltyAreaHalfWidth());
     serverParam.set_penalty_area_length(SP.penaltyAreaLength());
-
+    serverParam.set_goal_area_width(SP.goalAreaWidth());
+    serverParam.set_goal_area_length(SP.goalAreaLength());
+    serverParam.set_center_circle_r(SP.centerCircleR());
+    serverParam.set_goal_post_radius(SP.goalPostRadius());
     ClientContext context;
     protos::Empty empty;
     protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);

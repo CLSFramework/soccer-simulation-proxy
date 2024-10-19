@@ -1,4 +1,4 @@
-// version 1.4
+// version 1.6
 
 namespace cpp soccer
 namespace py soccer
@@ -300,7 +300,10 @@ struct WorldModel {
   36: bool kickable_teammate_existance,
   37: bool kickable_opponent_existance,
   38: PenaltyKickState penalty_kick_state,
-  39: i32 see_time
+  39: i32 see_time,
+  40: i32 time_stopped,
+  41: i32 set_play_count,
+  42: Side game_mode_side
 }
 
 struct State {
@@ -1142,7 +1145,11 @@ struct ServerParam {
   219: double their_penalty_area_line_x,
   220: double penalty_area_half_width,
   221: double penalty_area_length,
-  222: double goal_width
+  222: double goal_width,
+  223: double goal_area_width,
+  224: double goal_area_length,
+  225: double center_circle_r,
+  226: double goal_post_radius
 }
 
 struct PlayerParam {

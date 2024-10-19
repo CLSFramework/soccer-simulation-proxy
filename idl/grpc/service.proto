@@ -1,4 +1,4 @@
-// version 1.4
+// version 1.6
 
 syntax = "proto3";
 
@@ -313,7 +313,7 @@ message WorldModel {
   repeated Player unknowns = 10;
   map<int32, Player> our_players_dict = 11;
   map<int32, Player> their_players_dict = 12;
-  int32 our_goalie_uniform_number = 13; // The uniform number of our goalie.
+ int32 our_goalie_uniform_number = 13; // The uniform number of our goalie.
   int32 their_goalie_uniform_number = 14; // The uniform number of their goalie.
   float offside_line_x = 15; // The x-coordinate of the offside line of opponent team.
   int32 ofside_line_x_count = 16; // How many cycles ago the agent has seen (calculated) the offside line.
@@ -340,6 +340,9 @@ message WorldModel {
   bool kickable_opponent_existance = 37; // Whether the kickable opponent exists or not.
   PenaltyKickState penalty_kick_state = 38; // The penalty kick state.
   int32 see_time = 39; // The time that the agent has seen the world model.
+  int32 time_stopped = 40;
+  int32 set_play_count = 41;
+  Side game_mode_side = 42;
 }
 
 /**
@@ -1249,6 +1252,10 @@ message ServerParam {
   float penalty_area_half_width = 220;
   float penalty_area_length = 221;
   float goal_width = 222;
+  float goal_area_width = 223;
+  float goal_area_length = 224;
+  float center_circle_r = 225;
+  float goal_post_radius = 226;
 }
 
 message PlayerParam {

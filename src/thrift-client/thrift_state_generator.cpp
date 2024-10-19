@@ -563,6 +563,7 @@ soccer::WorldModel ThriftStateGenerator::convertWorldModel(const rcsc::WorldMode
     res.see_time = wm.seeTime().cycle();
     res.time_stopped = wm.time().stopped();
     res.set_play_count = wm.getSetPlayCount();
+    res.game_mode_side = convertSide(wm.gameMode().side());
     return res;
 }
 

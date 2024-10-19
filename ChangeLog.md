@@ -1,5 +1,21 @@
 # ChangeLog
 
+## [1.0.6] - 2024-10-19
+
+### Added
+- ServerParam.center_circle_r, ServerParam.goal_post_radius, WorldModel.game_mode_side
+
+### Fixed
+-
+
+### Changed
+- 
+
+### Engineers
+- [ErfanFathi](https://github.com/ErfanFathii)
+
+=======
+
 ## [1.0.5] - 2024-10-16
 
 ### Added

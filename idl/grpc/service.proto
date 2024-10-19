@@ -1,4 +1,4 @@
-// version 1.5
+// version 1.6
 
 syntax = "proto3";
 
@@ -300,6 +300,7 @@ message WorldModel {
   int32 see_time = 39;
   int32 time_stopped = 40;
   int32 set_play_count = 41;
+  Side game_mode_side = 42;
 }
 
 message State {
@@ -1188,6 +1189,8 @@ message ServerParam {
   float goal_width = 222;
   float goal_area_width = 223;
   float goal_area_length = 224;
+  float center_circle_r = 225;
+  float goal_post_radius = 226;
 }
 
 message PlayerParam {

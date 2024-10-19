@@ -4,24 +4,38 @@ syntax = "proto3";
 
 package protos;
 
+/**
+ * Enum representing the different view widths available in the soccer simulation.
+ * For more information, see the documentation at [link](https://link.com).
+ */
 enum ViewWidth {
-  NARROW = 0;
-  NORMAL = 1;
-  WIDE = 2;
+  NARROW = 0; // Narrow view width (60 degrees).
+  NORMAL = 1; // Normal view width (90 degrees).
+  WIDE = 2; // Wide view width (180 degrees).
 }
 
+/**
+ * RpcVector2D represents a 2D vector with additional properties.
+ * If you want to have access to geometric operations, you can use Vector2D class in [pyrusgeom package](https://github.com/Cyrus2D/PyrusGeom)
+ * To use this class, you need to install pyrusgeom package, import Vector2D class and create a Vector2D object with x and y values.
+ */
 message RpcVector2D  {
-  float x = 1;
-  float y = 2;
-  float dist = 3;
-  float angle = 4;
+  float x = 1; // The x-coordinate of the vector.
+  float y = 2; // The y-coordinate of the vector.
+  float dist = 3; // The distance magnitude of the vector.
+  float angle = 4; // The angle of the vector in degrees. In soccer simulation 2D environment, the 0 degree is opponent's goal, and the angle increases in the counter-clock direction. So, if your team is in left side, -90 degree is up, 0 degree is right (opponent gole), 90 degree is down.
 }
 
+/**
+  * RegisterRequest is the message that the client sends to the server to register itself.
+  * The client should send this message to the server to register itself.
+  * The server will respond with a RegisterResponse message.
+  */
 message RegisterRequest {
-  AgentType agent_type = 1;
-  string team_name = 2;
-  int32 uniform_number = 3;
-  int32 rpc_version = 4;
+  AgentType agent_type = 1; // The type of the agent. It can be PlayerT, CoachT, or TrainerT.
+  string team_name = 2; // The name of the team that the agent belongs to.
+  int32 uniform_number = 3; // The uniform number of the agent.
+  int32 rpc_version = 4; // The version of the RPC protocol that the client supports.
 }
 
 enum RpcServerLanguageType {
@@ -35,32 +49,40 @@ enum RpcServerLanguageType {
   GO = 7;
 }
 
+/**
+  * RegisterResponse is the message that the server sends to the client in response to a RegisterRequest message.
+  * The server will respond with this message after receiving a RegisterRequest message.
+  * The client should use the information in this message to identify itself to the server.
+  */
 message RegisterResponse {
-  int32 client_id = 1;
-  AgentType agent_type = 2;
-  string team_name = 3;
-  int32 uniform_number = 4;
-  RpcServerLanguageType rpc_server_language_type = 5;
+  int32 client_id = 1; // The unique identifier assigned to the client by the server.
+  AgentType agent_type = 2; // The type of the agent. It can be PlayerT, CoachT, or TrainerT.
+  string team_name = 3; // The name of the team that the agent belongs to.
+  int32 uniform_number = 4; // The uniform number of the agent.
+  RpcServerLanguageType rpc_server_language_type = 5; // The language that the server is implemented in.
 }
 
+/**
+  * Ball is the message that represents the ball in the soccer simulation.
+*/
 message Ball {
-  RpcVector2D  position = 1;
-  RpcVector2D  relative_position = 2;
-  RpcVector2D  seen_position = 3;
-  RpcVector2D  heard_position = 4;
-  RpcVector2D  velocity = 5;
-  RpcVector2D  seen_velocity = 6;
-  RpcVector2D  heard_velocity = 7;
-  int32 pos_count = 8;
-  int32 seen_pos_count = 9;
-  int32 heard_pos_count = 10;
-  int32 vel_count = 11;
-  int32 seen_vel_count = 12;
-  int32 heard_vel_count = 13;
-  int32 lost_count = 14;
+  RpcVector2D  position = 1; // The position of the ball.
+  RpcVector2D  relative_position = 2; // The relative position of the ball to the agent who is sending the message.
+  RpcVector2D  seen_position = 3; // The position of the ball that the agent has seen.
+  RpcVector2D  heard_position = 4; // The position of the ball that the agent has heard.
+  RpcVector2D  velocity = 5; // The velocity of the ball.
+  RpcVector2D  seen_velocity = 6; // The velocity of the ball that the agent has seen.
+  RpcVector2D  heard_velocity = 7; // The velocity of the ball that the agent has heard.
+  int32 pos_count = 8; // How many cycles ago the agent has seen or heard the ball.
+  int32 seen_pos_count = 9; // How many cycles ago the agent has seen the ball.
+  int32 heard_pos_count = 10; // How many cycles ago the agent has heard the ball.
+  int32 vel_count = 11; // How many cycles ago the agent has seen or heard the velocity of the ball.
+  int32 seen_vel_count = 12; // How many cycles ago the agent has seen the velocity of the ball.
+  int32 heard_vel_count = 13; // How many cycles ago the agent has heard the velocity of the ball.
+  int32 lost_count = 14; // How many cycles ago the agent has lost the ball.
   int32 ghost_count = 15;
-  float dist_from_self = 16;
-  float angle_from_self = 17;
+  float dist_from_self = 16; // The distance of the ball from the agent who is sending the message.
+  float angle_from_self = 17; // The angle of the ball from the agent who is sending the message.
 }
 
 enum Side {
@@ -112,114 +134,131 @@ message PenaltyKickState {
   bool is_kick_taker = 7;
 }
 
+/**
+  * Player is the message that represents a player in the soccer simulation.
+  * To get type information of the player, you can use the type_id field and player type information.
+*/
 message Player {
-  RpcVector2D  position = 1;
-  RpcVector2D  seen_position = 2;
-  RpcVector2D  heard_position = 3;
-  RpcVector2D  velocity = 4;
-  RpcVector2D  seen_velocity = 5;
-  int32 pos_count = 6;
-  int32 seen_pos_count = 7;
-  int32 heard_pos_count = 8;
-  int32 vel_count = 9;
-  int32 seen_vel_count = 10;
-  int32 ghost_count = 11;
-  float dist_from_self = 12;
-  float angle_from_self = 13;
-  int32 id = 14;
-  Side side = 15;
-  int32 uniform_number = 16;
-  int32 uniform_number_count = 17;
-  bool is_goalie = 18;
-  float body_direction = 19;
-  int32 body_direction_count = 20;
-  float face_direction = 21;
-  int32 face_direction_count = 22;
-  float point_to_direction = 23;
-  int32 point_to_direction_count = 24;
-  bool is_kicking = 25;
-  float dist_from_ball = 26;
-  float angle_from_ball = 27;
-  int32 ball_reach_steps = 28;
-  bool is_tackling = 29;
-  int32 type_id = 30;
+  RpcVector2D  position = 1; // The position of the player.
+  RpcVector2D  seen_position = 2; // The position of the player that the agent has seen.
+  RpcVector2D  heard_position = 3; // The position of the player that the agent has heard.
+  RpcVector2D  velocity = 4; // The velocity of the player.
+  RpcVector2D  seen_velocity = 5; // The velocity of the player that the agent has seen.
+  int32 pos_count = 6; // How many cycles ago the agent has seen or heard the player.
+  int32 seen_pos_count = 7; // How many cycles ago the agent has seen the player.
+  int32 heard_pos_count = 8; // How many cycles ago the agent has heard the player.
+  int32 vel_count = 9; // How many cycles ago the agent has seen or heard the velocity of the player.
+  int32 seen_vel_count = 10; // How many cycles ago the agent has seen the velocity of the player.
+  int32 ghost_count = 11; // How many cycles ago the agent has lost the player.
+  float dist_from_self = 12; // The distance of the player from the agent who is sending the message.
+  float angle_from_self = 13; // The angle of the player from the agent who is sending the message.
+  int32 id = 14; // The unique identifier of the player.
+  Side side = 15; // The side of the player. It can be LEFT or RIGHT or UNKNOWN if the side is not known.
+  int32 uniform_number = 16;  // The uniform number of the player.
+  int32 uniform_number_count = 17; // How many cycles ago the agent has seen the uniform number of the player.
+  bool is_goalie = 18; // Whether the player is a goalie or not.
+  float body_direction = 19; // The body direction of the player.
+  int32 body_direction_count = 20; // How many cycles ago the agent has seen the body direction of the player.
+  float face_direction = 21; // The face direction of the player. In soccer simulation 2D, face direction is the direction that the player is looking at.
+  int32 face_direction_count = 22; // How many cycles ago the agent has seen the face direction of the player.
+  float point_to_direction = 23; // The direction that the player is pointing to.
+  int32 point_to_direction_count = 24; // How many cycles ago the agent has seen the point to direction of the player.
+  bool is_kicking = 25; // Whether the player is kicking or not.
+  float dist_from_ball = 26; // The distance of the player from the ball.
+  float angle_from_ball = 27; // The angle of the player from the ball.
+  int32 ball_reach_steps = 28; // How many cycles the player needs to reach the ball.
+  bool is_tackling = 29; // Whether the player is tackling or not.
+  int32 type_id = 30; // The type identifier of the player.
 }
 
+/**
+  * Self is the message that represents the agent itself in the soccer simulation.
+  * When an agent send a message to the playmaker server, self is information about the agent itself.
+*/
 message Self {
-  RpcVector2D  position = 1;
-  RpcVector2D  seen_position = 2;
-  RpcVector2D  heard_position = 3;
-  RpcVector2D  velocity = 4;
-  RpcVector2D  seen_velocity = 5;
-  int32 pos_count = 6;
-  int32 seen_pos_count = 7;
-  int32 heard_pos_count = 8;
-  int32 vel_count = 9;
-  int32 seen_vel_count = 10;
-  int32 ghost_count = 11;
-  int32 id = 12;
-  Side side = 13;
-  int32 uniform_number = 14;
-  int32 uniform_number_count = 15;
-  bool is_goalie = 16;
-  float body_direction = 17;
-  int32 body_direction_count = 18;
-  float face_direction = 19;
-  int32 face_direction_count = 20;
-  float point_to_direction = 21;
-  int32 point_to_direction_count = 22;
-  bool is_kicking = 23;
-  float dist_from_ball = 24;
-  float angle_from_ball = 25;
-  int32 ball_reach_steps = 26;
-  bool is_tackling = 27;
-  float relative_neck_direction = 28;
-  float stamina = 29;
-  bool is_kickable = 30;
-  float catch_probability = 31;
-  float tackle_probability = 32;
-  float foul_probability = 33;
-  ViewWidth view_width = 34;
-  int32 type_id = 35;
-  float kick_rate = 36;
-  float recovery = 37;
-  float stamina_capacity = 38;
-  CardType card = 39;
-  int32 catch_time = 40;
-  float effort = 41;
+  RpcVector2D  position = 1; // The position of the agent.
+  RpcVector2D  seen_position = 2; // The position of the agent that the agent has seen. (By using flags)
+  RpcVector2D  heard_position = 3; // The position of the agent that the agent has heard. (This is not very useful)
+  RpcVector2D  velocity = 4; // The velocity of the agent.
+  RpcVector2D  seen_velocity = 5; // The velocity of the agent that the agent has seen. (By using flags)
+  int32 pos_count = 6; // How many cycles ago the agent has seen or heard itself.
+  int32 seen_pos_count = 7; // How many cycles ago the agent has seen itself.
+  int32 heard_pos_count = 8; // How many cycles ago the agent has heard itself.
+  int32 vel_count = 9; // How many cycles ago the agent has seen or heard the velocity of itself.
+  int32 seen_vel_count = 10; // How many cycles ago the agent has seen the velocity of itself.
+  int32 ghost_count = 11; // How many cycles ago the agent has lost itself.
+  int32 id = 12; // The ID number for this object in proxy.
+  Side side = 13; // The side of the agent. It can be LEFT or RIGHT or UNKNOWN if the side is not known.
+  int32 uniform_number = 14; // The uniform number of the agent.
+  int32 uniform_number_count = 15; // How many cycles ago the agent has seen the uniform number of itself.
+  bool is_goalie = 16; // Whether the agent is a goalie or not.
+  float body_direction = 17; // The body direction of the agent.
+  int32 body_direction_count = 18; // How many cycles ago the agent has seen the body direction of itself.
+  float face_direction = 19; // The face direction of the agent. In soccer simulation 2D, face direction is the direction that the agent is looking at. This is a global direction.
+  int32 face_direction_count = 20; // How many cycles ago the agent has seen the face direction of itself.
+  float point_to_direction = 21; // The direction that the agent is pointing to. This is a global direction.
+  int32 point_to_direction_count = 22; // How many cycles ago the agent has seen the point to direction of itself.
+  bool is_kicking = 23; // Whether the agent is kicking or not.
+  float dist_from_ball = 24; // The distance of the agent from the ball.
+  float angle_from_ball = 25; // The angle of the agent from the ball.
+  int32 ball_reach_steps = 26; // How many cycles the agent needs to reach the ball.
+  bool is_tackling = 27; // Whether the agent is tackling or not.
+  float relative_neck_direction = 28; // The relative neck direction of the agent to the body direction.
+  float stamina = 29; // The stamina of the agent. This number is between TODO
+  bool is_kickable = 30; // Whether the agent is kickable or not. Means the agent can kick the ball.
+  float catch_probability = 31; // The probability of the agent to catch the ball. This number is important for goalies.
+  float tackle_probability = 32; // The probability of the agent to tackle the ball.
+  float foul_probability = 33; // The probability of the agent to foul.
+  ViewWidth view_width = 34; // The view width of the agent. It can be NARROW, NORMAL, or WIDE.
+  int32 type_id = 35; // The type identifier of the agent. The RcssServer generates 18 different types of agents. The coach is reponsible to give the type information to the agent.
+  float kick_rate = 36; // The kick rate of the agent. This number is calculated by this formula: self.playerType().kickRate(wm.ball().distFromSelf(), (wm.ball().angleFromSelf() - self.body()).degree()), So, if the kick rate is more, the agent can kick the ball with more first speed to any angle.
+  float recovery = 37; // The current estimated recovery value. TODO more info
+  float stamina_capacity = 38; // The stamina capacity of the agent. This number is between 0 to ~130000 depending on the server param.
+  CardType card = 39; // The card type of the agent. It can be NO_CARD, YELLOW, or RED.
+  int32 catch_time = 40; // The time when the last catch command is performed.
+  float effort = 41; // The effort of the agent. TODO more info
 }
 
+/**
+  * InterceptActionType is the enum that represents the different types of intercept actions.
+*/
 enum InterceptActionType {
-  UNKNOWN_Intercept_Action_Type = 0;
-  OMNI_DASH = 1;
-  TURN_FORWARD_DASH = 2;
-  TURN_BACKWARD_DASH = 3;
+  UNKNOWN_Intercept_Action_Type = 0; // Unknown intercept action type.
+  OMNI_DASH = 1; // Omni dash intercept action type. Means the agent will dash to the ball in any direction.
+  TURN_FORWARD_DASH = 2; // Turn forward dash intercept action type. Means the agent will turn to the ball and dash to the ball.
+  TURN_BACKWARD_DASH = 3; // Turn backward dash intercept action type. Means the agent will turn to the ball and dash to the ball in the backward direction.
 }
 
+/**
+  * InterceptInfo is the message that represents the information about an intercept action.
+*/
 message InterceptInfo {
-  InterceptActionType action_type = 1;
-  int32 turn_steps = 2;
-  float turn_angle = 3;
-  int32 dash_steps = 4;
-  float dash_power = 5;
-  float dash_dir = 6;
-  RpcVector2D  final_self_position = 7;
-  float final_ball_dist = 8;
-  float final_stamina = 9;
-  float value = 10;
+  InterceptActionType action_type = 1; // The type of the intercept action.
+  int32 turn_steps = 2; // The number of steps that the agent needs to turn to the ball.
+  float turn_angle = 3; // The angle that the agent needs to turn to the ball.
+  int32 dash_steps = 4; // The number of steps that the agent needs to dash to the ball.
+  float dash_power = 5; // The power of the dash action.
+  float dash_dir = 6; // The direction of the dash action to player's body direction.
+  RpcVector2D  final_self_position = 7; // The final position of the agent after the intercept action.
+  float final_ball_dist = 8; // The final distance of the ball from the agent after the intercept action.
+  float final_stamina = 9; // The final stamina of the agent after the intercept action.
+  float value = 10; // The value of the intercept action. TODO less is better or more is better?
 }
 
+/**
+  * InterceptTable is the message that represents the intercept table of the agent.
+*/
 message InterceptTable {
-  int32 self_reach_steps = 1;
-  int32 first_teammate_reach_steps = 2;
-  int32 second_teammate_reach_steps = 3;
-  int32 first_opponent_reach_steps = 4;
-  int32 second_opponent_reach_steps = 5;
-  int32 first_teammate_id = 6;
-  int32 second_teammate_id = 7;
-  int32 first_opponent_id = 8;
-  int32 second_opponent_id = 9;
-  repeated InterceptInfo self_intercept_info = 10;
+  int32 self_reach_steps = 1; // The number of steps that the agent needs to reach the ball.
+  int32 first_teammate_reach_steps = 2; // The number of steps that the first teammate needs to reach the ball.
+  int32 second_teammate_reach_steps = 3; // The number of steps that the second teammate needs to reach the ball.
+  int32 first_opponent_reach_steps = 4; // The number of steps that the first opponent needs to reach the ball.
+  int32 second_opponent_reach_steps = 5; // The number of steps that the second opponent needs to reach the ball.
+  int32 first_teammate_id = 6; // The ID of the first teammate. This ID is unique for each player's object in the each agent proxy. If the ID is 0, it means the agent has no first teammate.
+  int32 second_teammate_id = 7; // The ID of the second teammate. This ID is unique for each player's object in the each agent proxy. If the ID is 0, it means the agent has no second teammate.
+  int32 first_opponent_id = 8; // The ID of the first opponent. This ID is unique for each player's object in the each agent proxy. If the ID is 0, it means the agent has no first opponent.
+  int32 second_opponent_id = 9; // The ID of the second opponent. This ID is unique for each player's object in the each agent proxy. If the ID is 0, it means the agent has no second opponent.
+  repeated InterceptInfo self_intercept_info = 10; // The intercept information of the agent.
 }
 
 enum GameModeType {
@@ -258,58 +297,67 @@ enum GameModeType {
   MODE_MAX = 32;
 }
 
+/**
+  * WorldModel is the message that represents the world model in the soccer simulation. The WorldModel message contains all the information about the current state of the game.
+*/
 message WorldModel {
-  InterceptTable intercept_table = 1;
-  string our_team_name = 2;
-  string their_team_name = 3;
-  Side our_side = 4;
-  int32 last_set_play_start_time = 5;
-  Self self = 6;
-  Ball ball = 7;
+  InterceptTable intercept_table = 1; // The intercept table of the agent.
+  string our_team_name = 2; // The name of our team.
+  string their_team_name = 3; // The name of their team.
+  Side our_side = 4; // The side of our team. It can be LEFT or RIGHT.
+  int32 last_set_play_start_time = 5; // The last set play start time.
+  Self self = 6; // The information about the agent itself.
+  Ball ball = 7; // The information about the ball.
   repeated Player teammates = 8;
   repeated Player opponents = 9;
   repeated Player unknowns = 10;
   map<int32, Player> our_players_dict = 11;
   map<int32, Player> their_players_dict = 12;
-  int32 our_goalie_uniform_number = 13;
-  int32 their_goalie_uniform_number = 14;
-  float offside_line_x = 15;
-  int32 ofside_line_x_count = 16;
-  int32 kickable_teammate_id = 17;
-  int32 kickable_opponent_id = 18;
-  Side last_kick_side = 19;
-  int32 last_kicker_uniform_number = 20;
-  int32 cycle = 21;
-  GameModeType game_mode_type = 22;
-  int32 left_team_score = 23;
-  int32 right_team_score = 24;
-  bool is_our_set_play = 25;
-  bool is_their_set_play = 26;
-  int32 stoped_cycle = 27;
-  int32 our_team_score = 28;
-  int32 their_team_score = 29;
-  bool is_penalty_kick_mode = 30;
-  map<int32, RpcVector2D> helios_home_positions = 31;
-  double our_defense_line_x = 32;
-  double their_defense_line_x = 33;
-  double our_defense_player_line_x = 34;
-  double their_defense_player_line_x = 35;
-  bool kickable_teammate_existance = 36;
-  bool kickable_opponent_existance = 37;
-  PenaltyKickState penalty_kick_state = 38;
-  int32 see_time = 39;
+ int32 our_goalie_uniform_number = 13; // The uniform number of our goalie.
+  int32 their_goalie_uniform_number = 14; // The uniform number of their goalie.
+  float offside_line_x = 15; // The x-coordinate of the offside line of opponent team.
+  int32 ofside_line_x_count = 16; // How many cycles ago the agent has seen (calculated) the offside line.
+  int32 kickable_teammate_id = 17; // The ID of the kickable teammate. To get the information about the kickable teammate, you can find a player in teammates or our_players_dict with this ID.
+  int32 kickable_opponent_id = 18; // The ID of the kickable opponent. To get the information about the kickable opponent, you can find a player in opponents or their_players_dict with this ID.
+  Side last_kick_side = 19; // The last side that the ball was kicked.
+  int32 last_kicker_uniform_number = 20; // The last uniform number that the ball was kicked.
+  int32 cycle = 21; // The current cycle of the game.
+  GameModeType game_mode_type = 22; // The current game mode type.
+  int32 left_team_score = 23; // The score of the left team.
+  int32 right_team_score = 24; // The score of the right team.
+  bool is_our_set_play = 25; // Whether it is our set play or not.
+  bool is_their_set_play = 26; // Whether it is their set play or not.
+  int32 stoped_cycle = 27; // The number of cycles that the game has stopped. For example, when the cycle is 90, and stoped_cycle is 10, it means the game has stopped at 90th cycle for 10 cycles.
+  int32 our_team_score = 28; // The score of our team.
+  int32 their_team_score = 29; // The score of their team.
+  bool is_penalty_kick_mode = 30; // Whether it is penalty kick mode or not.
+  map<int32, RpcVector2D> helios_home_positions = 31; // The home positions of the agents in the helios strategy. Helios base code is using Delanaray triangulation to calculate the home positions.
+  double our_defense_line_x = 32; // The x-coordinate of our defense line. The diffence line is minimum x-coordinate of our players (except goalie) and ball.
+  double their_defense_line_x = 33; // The x-coordinate of their defense line. The diffence line is minimum x-coordinate of their players (except goalie) and ball.
+  double our_defense_player_line_x = 34; // The x-coordinate of our defense player line. The diffence player line is minimum x-coordinate of our players (except goalie).
+  double their_defense_player_line_x = 35; // The x-coordinate of their defense player line. The diffence player line is minimum x-coordinate of their players (except goalie).
+  bool kickable_teammate_existance = 36; // Whether the kickable teammate exists or not.
+  bool kickable_opponent_existance = 37; // Whether the kickable opponent exists or not.
+  PenaltyKickState penalty_kick_state = 38; // The penalty kick state.
+  int32 see_time = 39; // The time that the agent has seen the world model.
   int32 time_stopped = 40;
   int32 set_play_count = 41;
   Side game_mode_side = 42;
 }
 
+/**
+  * State is the message that represents the state of the agent in the soccer simulation.
+*/
 message State {
-  RegisterResponse register_response = 1;
-  WorldModel world_model = 2;
-  WorldModel full_world_model = 3;
-  bool need_preprocess = 4;
+  RegisterResponse register_response = 1; // The response of the agent registration. The agent should use this information to identify itself to the playermaker server.
+  WorldModel world_model = 2; // The world model of the agent. The agent should use this information to make decisions. If the server is in full state mode, the world model will be full state without noise.
+  WorldModel full_world_model = 3; // The full world model of the agent. This value will be set only if the server is in full state mode and proxy agent is in debug mode. TODO add more information
+  bool need_preprocess = 4; // Whether the agent needs to preprocess the world model or not. If the agent needs to do some preprocessing actions, it means the proxy agent will igonre the playmaker actions, you can ignore preprocessing.
 }
 
+/**
+  * AgentType is the enum that represents the different types of agents.
+*/
 enum AgentType {
   PlayerT = 0;
   CoachT = 1;
@@ -321,13 +369,23 @@ message InitMessage {
   bool debug_mode = 2;
 }
 
+/**
+  * Dash is the message that represents the dash action in the soccer simulation.
+  * By using this action, agent can dash (run or walk) to a direction with a power.
+  * The rcssserver, calculates the next position and velocity of the agent based on current position, velocity, power and direction.
+*/
 message Dash {
-  float power = 1;
-  float relative_direction = 2;
+  float power = 1; // The power of the dash action. The power can be between -100 to 100. If the power is negative, the agent will dash in the backward direction by using two times of the power.
+  float relative_direction = 2; // The relative direction of the dash action to the body direction of the agent. The direction can be between -180 to 180.
 }
 
+/**
+  * Turn is the message that represents the turn action in the soccer simulation.
+  * By using this action, agent can turn to a direction relative to the current body direction.
+  * The rcssserver, calculates the next body direction of the agent based on current body direction, relative direction and velocity of the agent.
+*/
 message Turn {
-  float relative_direction = 1;
+  float relative_direction = 1; // The relative direction of the turn action to the body direction of the agent. The direction can be between -180 to 180.
 }
 
 message Kick {
@@ -795,17 +853,24 @@ message HeliosGoalieKick {}
 
 message HeliosShoot {}
 
+/**
+  * HeliosOffensivePlanner is the message that represents the offensive planner of the agent in the soccer simulation.
+  * The offensive planner is responsible for making decisions about the offensive actions of the agent by creating a tree of actions, finding the best chain of actions, and executing the first action in the chain.
+  * The best action is an action with best incomming predicted state.
+  * The best predicted state is the state that has the best evalution value by using this formula: value = ball.x + max(0.0, 40.0 - ball.dist(opponent goal center))
+  * Due to the complexity of the not simple actions, the agent can not calculate the best action in the first layer of the tree. So, the agent can use the simple actions in the first layer of the tree.
+*/
 message HeliosOffensivePlanner {
-  bool direct_pass = 1;
-  bool lead_pass = 2;
-  bool through_pass = 3;
-  bool short_dribble = 4;
-  bool long_dribble = 5;
-  bool cross = 6;
-  bool simple_pass = 7;
-  bool simple_dribble = 8;
-  bool simple_shoot = 9;
-  bool server_side_decision = 10;
+  bool direct_pass = 1; // Whether the agent can make a direct pass or not. The direct pass is a pass action that the agent can pass the ball to the position of a teammate player. This action is just used in the first layer of the tree.
+  bool lead_pass = 2; // Whether the agent can make a lead pass or not. The lead pass is a pass action that the agent can pass the ball to the position of a teammate player with a lead (very cloase to the teammate). This action is just used in the first layer of the tree.
+  bool through_pass = 3; // Whether the agent can make a through pass or not. The through pass is a pass action that the agent can pass the ball to the position of a teammate player with a through (close or very far from the teammate, between teammates and opponent goal). This action is just used in the first layer of the tree.
+  bool short_dribble = 4; // Whether the agent can make a short dribble or not. The short dribble is a dribble action that the agent can dribble the ball to a position. This action is just used in the first layer of the tree.
+  bool long_dribble = 5; // Whether the agent can make a long dribble or not. The long dribble is a dribble action that the agent can dribble the ball to a position. This dribble is longer than the short dribble. This action is just used in the first layer of the tree
+  bool cross = 6; // Whether the agent can make a cross or not. The cross is a kick action that the agent can kick the ball to the position close to teammate, but it does not care that the teammate can control the ball or not. This action is just used in the first layer of the tree.
+  bool simple_pass = 7; // Whether the agent can make a simple pass or not. The simple pass is a pass action that the agent can pass the ball to the position of a teammate player. This action is just used in the second or more layers of the tree. This action is not very accurate.
+  bool simple_dribble = 8; // Whether the agent can make a simple dribble or not. The simple dribble is a dribble action that the agent can dribble the ball to a position. This action is just used in the second or more layers of the tree. This action is not very accurate.
+  bool simple_shoot = 9; // Whether the agent can make a simple shoot or not. The simple shoot is a kick action that the agent can kick the ball to the opponent goal. This action is just used in the second or more layers of the tree. This action is not very accurate.
+  bool server_side_decision = 10; // If this value is true, the proxy agent, will create the tree and send all of the nodes to the playmaker server to choose the best action. If this value is false, the proxy agent will choose the best action by itself.
 }
 
 message HeliosBasicOffensive {}
@@ -1320,6 +1385,45 @@ message Empty {
 }
 
 service Game {
+  /*
+ * The Game service provides various RPC methods for interacting with a soccer simulation.
+ * 
+  ```mermaid
+  sequenceDiagram
+      participant SS as SoccerSimulationServer
+      participant SP as SoccerSimulationProxy
+      participant PM as PlayMakerServer
+      Note over SS,PM: Run
+      SP->>SS: Connect
+      SS->>SP: OK, Unum
+      SS->>SP: ServerParam
+      SS->>SP: PlayerParam
+      SS->>SP: PlayerType (0)
+      SS->>SP: PlayerType (1)
+      SS->>SP: PlayerType (17)
+      SP->>PM: Register(RegisterRequest)
+      PM->>SP: RegisterResponse
+      SP->>PM: SendInitMessage(InitMessage)
+      PM->>SP: Empty
+      SP->>PM: SendServerParams(ServerParam)
+      PM->>SP: Empty
+      SP->>PM: SendPlayerParams(PlayerParam)
+      PM->>SP: Empty
+      SP->>PM: SendPlayerType(PlayerType(0))
+      PM->>SP: Empty
+      SP->>PM: SendPlayerType(PlayerType(1))
+      PM->>SP: Empty
+      SP->>PM: SendPlayerType(PlayerType(17))
+      PM->>SP: Empty
+      SS->>SP: Observation
+      Note over SP: Convert observation to State
+      SP->>PM: GetPlayerActions(State)
+      PM->>SP: PlayerActions
+      Note over SP: Convert Actions to Low-Level Commands
+      SP->>SS: Commands
+  ```
+ */
+
   rpc GetPlayerActions(State) returns (PlayerActions) {}
   rpc GetCoachActions(State) returns (CoachActions) {}
   rpc GetTrainerActions(State) returns (TrainerActions) {}

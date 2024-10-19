@@ -609,6 +609,7 @@ bool GrpcClientPlayer::GetBestPlannerAction()
     protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);
     action_state_pairs->set_allocated_register_response(response);
     State state = generateState();
+    state.set_allocated_register_response(response);
     action_state_pairs->set_allocated_state(&state);
     #ifdef DEBUG_CLIENT_PLAYER
     std::cout << "GetBestActionStatePair:" << "c" << M_agent->world().time().cycle() << std::endl;

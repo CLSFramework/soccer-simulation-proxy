@@ -38,3 +38,14 @@ grpc/python-v1/src/__pycache__/
 cmake-build-debug-event-trace/
 __pycache__/
 grpc/python-v1/src/__pycache__/
+
+src/grpc-generated/service.grpc.pb.cc
+src/grpc-generated/service.grpc.pb.h
+src/grpc-generated/service.pb.cc
+src/grpc-generated/service.pb.h
+src/thrift-generated/Game_server.skeleton.cpp
+src/thrift-generated/Game.cpp
+src/thrift-generated/Game.h
+src/thrift-generated/soccer_service_types.cpp
+src/thrift-generated/soccer_service_types.h
+idl/test.md

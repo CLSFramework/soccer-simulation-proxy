@@ -52,7 +52,13 @@ static const int VALID_PLAYER_THRESHOLD = 8;
 /*!
 
  */
-static double evaluate_state( const PredictState & state );
+static double evaluate_state( const PredictState & state,
+                              const double & helios_x_term = 1.0,
+                              const double & helios_ball_dist_to_goal_term = 1.0,
+                              const double & helios_effective_max_ball_dist_to_goal = 40.0 );
+
+static double evaluate_state_2d( const PredictState & state,
+                                 const std::vector < std::vector < double > > & field_evaluator_2d);
 
 
 /*-------------------------------------------------------------------*/
@@ -73,33 +79,225 @@ SampleFieldEvaluator::~SampleFieldEvaluator()
 
 }
 
+#ifdef USE_GRPC
+using protos::PlannerEvalutionEfector;
+using protos::PlannerEvalutionFieldEvaluator;
+void 
+SampleFieldEvaluator::set_grpc_evalution_method( const PlannerEvalution & evalution )
+{
+    auto effectors = evalution.effectors();
+    auto field_evaluators = evalution.field_evaluators();
+
+    for ( auto & effector : effectors )
+    {
+        if ( effector.efector_case() == PlannerEvalutionEfector::kOpponentEffect )
+        {
+            if (effector.opponent_effect().negetive_effect_by_distance().size() > 0)
+                m_opponent_negetive_effect_by_distance.assign(
+                    effector.opponent_effect().negetive_effect_by_distance().begin(),
+                    effector.opponent_effect().negetive_effect_by_distance().end()
+                );
+            if (effector.opponent_effect().negetive_effect_by_reach_steps().size() > 0)
+                m_opponent_negetive_effect_by_reach_steps.assign(
+                    effector.opponent_effect().negetive_effect_by_reach_steps().begin(),
+                    effector.opponent_effect().negetive_effect_by_reach_steps().end()
+                );
+        }
+        if ( effector.efector_case() == PlannerEvalutionEfector::kActionTypeEffect )
+        {
+            m_use_action_term = true;
+            m_direct_pass_term = effector.action_type_effect().direct_pass();
+            m_lead_pass_term = effector.action_type_effect().lead_pass();
+            m_through_pass_term = effector.action_type_effect().through_pass();
+            m_short_dribble_term = effector.action_type_effect().short_dribble();
+            m_long_dribble_term = effector.action_type_effect().long_dribble();
+            m_cross_term = effector.action_type_effect().cross();
+            m_hold_term = effector.action_type_effect().hold();
+        }
+
+        if ( effector.efector_case() == PlannerEvalutionEfector::kTeammateEffect )
+        {
+            for ( auto & effect : effector.teammate_effect().positive_effect() )
+            {
+                m_teammate_positive_effect[effect.first] = effect.second;
+            }
+        }
+    }
+
+    for ( auto & field_evaluator : field_evaluators )
+    {
+        if ( field_evaluator.field_evaluator_case() == PlannerEvalutionFieldEvaluator::kFieldEvaluatorHelios )
+        {
+            m_use_heleos = true;
+            m_helios_x_term = field_evaluator.field_evaluator_helios().x_term();
+            m_helios_ball_dist_to_goal_term = field_evaluator.field_evaluator_helios().ball_dist_to_goal_term();
+            m_helios_effective_max_ball_dist_to_goal = field_evaluator.field_evaluator_helios().effective_max_ball_dist_to_goal();
+        }
+
+        if ( field_evaluator.field_evaluator_case() == PlannerEvalutionFieldEvaluator::kFieldEvaluator2D )
+        {
+            m_use_field_evaluator_2d = true;
+            m_field_evaluator_2d.clear();
+            for ( auto & x_row : field_evaluator.field_evaluator_2d().evals() )
+            {
+                std::vector< double > row;
+                for ( auto & y_row : x_row.evals() )
+                {
+                    row.push_back( y_row );
+                }
+                m_field_evaluator_2d.push_back( row );
+            }
+        }
+    }
+}
+#endif
+
 /*-------------------------------------------------------------------*/
 /*!
 
  */
 double
 SampleFieldEvaluator::operator()( const PredictState & state,
-                                  const std::vector< ActionStatePair > & /*path*/ ) const
+                                  const std::vector< ActionStatePair > & path,
+                                  const rcsc::WorldModel & wm ) const
 {
-    const double final_state_evaluation = evaluate_state( state );
+    double state_evaluation = 0;
+    
+    if ( m_use_heleos )
+        state_evaluation += evaluate_state( state,
+                                                  m_helios_x_term,
+                                                  m_helios_ball_dist_to_goal_term,
+                                                  m_helios_effective_max_ball_dist_to_goal );
 
+    if ( m_use_field_evaluator_2d )
+        state_evaluation += evaluate_state_2d( state, m_field_evaluator_2d );
+
+    if ( m_use_action_term )
+        state_evaluation = effected_by_action_term( state, path, state_evaluation );
+    
+    state_evaluation = effected_by_opponent_distance( state, state_evaluation, wm );
+
+    state_evaluation = effected_by_opponent_reach_step( state, state_evaluation, wm );
+
+    state_evaluation = effected_by_teammate( state, state_evaluation );
     //
     // ???
     //
 
-    double result = final_state_evaluation;
+    double result = state_evaluation;
 
     return result;
 }
 
 
+double
+SampleFieldEvaluator::effected_by_action_term( const PredictState & state,
+                                               const std::vector< ActionStatePair > & path,
+                                               const double & eval ) const
+{
+    if ( path.size() == 0 )
+        return eval * m_hold_term;
+    const ActionStatePair asp = path.at(0);
+    if ( asp.action().description() == "strictDirect" )
+        return eval * m_direct_pass_term;
+    else if ( asp.action().description() == "strictLead" )
+        return eval * m_lead_pass_term;
+    else if ( asp.action().description() == "strictThrough" )
+        return eval * m_through_pass_term;
+    else if ( asp.action().description() == "shortDribble" )
+        return eval * m_short_dribble_term;
+    else if ( asp.action().description() == "SelfPass" )
+        return eval * m_long_dribble_term;
+    else if ( asp.action().description() == "cross" )
+        return eval * m_cross_term;
+    return eval;
+}
+
+double 
+SampleFieldEvaluator::effected_by_opponent_distance( const PredictState & state,
+                                                     const double & eval,
+                                                     const WorldModel & wm ) const
+{
+    if ( m_opponent_negetive_effect_by_distance.size() == 0 )
+        return eval;
+    auto ball_pos = state.ball().pos();
+
+    double min_dist = 1000.0;
+
+    for ( auto & opp : wm.theirPlayers() )
+    {
+        if ( opp->unum() <= 0 )
+            continue;
+
+        double dist = ball_pos.dist( opp->pos() );
+
+        if ( dist < min_dist )
+            min_dist = dist;
+    }
+
+    int min_dist_int = (int) min_dist;
+
+    if ( min_dist_int >= m_opponent_negetive_effect_by_distance.size() )
+        return eval;
+    
+    return eval - m_opponent_negetive_effect_by_distance[min_dist_int];
+}
+
+double 
+SampleFieldEvaluator::effected_by_opponent_reach_step( const PredictState & state,
+                                                       const double & eval,
+                                                       const WorldModel & wm ) const
+{
+    if ( m_opponent_negetive_effect_by_reach_steps.size() == 0 )
+        return eval;
+    auto ball_pos = state.ball().pos();
+
+    int min_reach = 1000;
+
+    for ( auto & opp : wm.theirPlayers() )
+    {
+        if ( opp->unum() <= 0 )
+            continue;
+
+        double reach = opp->playerTypePtr()->cyclesToReachDistance( ball_pos.dist( opp->pos() ) );
+
+        if ( reach < min_reach )
+            min_reach = reach;
+    }
+
+    if ( min_reach >= m_opponent_negetive_effect_by_reach_steps.size() )
+        return eval;
+    
+    return eval - m_opponent_negetive_effect_by_reach_steps[min_reach];
+}
+
+double 
+SampleFieldEvaluator::effected_by_teammate( const PredictState & state,
+                                            const double & eval ) const
+{
+    if ( m_teammate_positive_effect.size() == 0 )
+        return eval;
+    const ServerParam & SP = ServerParam::i();
+
+    const AbstractPlayerObject * holder = state.ballHolder();
+
+    int unum = holder->unum();
+
+    if ( m_teammate_positive_effect.find( unum ) == m_teammate_positive_effect.end() )
+        return eval;
+    
+    return eval * m_teammate_positive_effect.at( unum );
+}
 /*-------------------------------------------------------------------*/
 /*!
 
  */
 static
 double
-evaluate_state( const PredictState & state )
+evaluate_state( const PredictState & state,
+                const double & helios_x_term,
+                const double & helios_ball_dist_to_goal_term,
+                const double & helios_effective_max_ball_dist_to_goal)
 {
     const ServerParam & SP = ServerParam::i();
 
@@ -171,10 +369,12 @@ evaluate_state( const PredictState & state )
     //
     // set basic evaluation
     //
-    double point = state.ball().pos().x;
+    double point = helios_x_term * state.ball().pos().x;
 
-    point += std::max( 0.0,
-                       40.0 - ServerParam::i().theirTeamGoalPos().dist( state.ball().pos() ) );
+    point += helios_ball_dist_to_goal_term * 
+             std::max( 0.0,
+                       helios_effective_max_ball_dist_to_goal 
+                       - ServerParam::i().theirTeamGoalPos().dist( state.ball().pos() ) );
 
 #ifdef DEBUG_PRINT
     dlog.addText( Logger::ACTION_CHAIN,
@@ -211,3 +411,48 @@ evaluate_state( const PredictState & state )
 
     return point;
 }
+
+/*-------------------------------------------------------------------*/
+/*!
+
+ */
+static double evaluate_state_2d( const PredictState & state,
+                                 const std::vector < std::vector < double > > & field_evaluator_2d)
+{
+    const ServerParam & SP = ServerParam::i();
+
+    const AbstractPlayerObject * holder = state.ballHolder();
+
+    auto ball_pos = state.ball().pos();
+    ball_pos.x += SP.pitchHalfLength();
+    ball_pos.y += SP.pitchHalfWidth();
+
+    int x_size = field_evaluator_2d.size();
+
+    if (x_size == 0)
+        return 0;
+
+    int y_size = field_evaluator_2d[0].size();
+
+    if (y_size == 0)
+        return 0;
+
+    double x_step = 2.0 * SP.pitchHalfLength() / x_size;
+    double y_step = 2.0 * SP.pitchHalfWidth() / y_size;
+
+    int x_index = (int) (ball_pos.x / x_step);
+    int y_index = (int) (ball_pos.y / y_step);
+
+    if (x_index < 0)
+        x_index = 0;
+    if (x_index >= x_size)
+        x_index = x_size - 1;
+    
+    if (y_index < 0)
+        y_index = 0;
+    if (y_index >= y_size)
+        y_index = y_size - 1;
+
+    return field_evaluator_2d[x_index][y_index];
+}
+

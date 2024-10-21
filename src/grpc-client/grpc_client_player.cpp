@@ -543,7 +543,9 @@ void GrpcClientPlayer::getActions()
             }
         }
         else if (action.action_case() == PlayerAction::kHeliosOffensivePlanner) {
-            FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
+            FieldEvaluator::Ptr field_evaluator = FieldEvaluator::Ptr(new SampleFieldEvaluator);
+            field_evaluator->set_grpc_evalution_method(action.helios_offensive_planner().evalution());
+            
             CompositeActionGenerator *g = new CompositeActionGenerator();
             
             if (action.helios_offensive_planner().lead_pass() 

@@ -547,6 +547,8 @@ void GrpcClientPlayer::getActions()
             field_evaluator->set_grpc_evalution_method(action.helios_offensive_planner().evalution());
             
             CompositeActionGenerator *g = new CompositeActionGenerator();
+            g->max_depth = action.helios_offensive_planner().max_depth();
+            g->max_nodes = action.helios_offensive_planner().max_nodes();
             
             if (action.helios_offensive_planner().lead_pass() 
                 || action.helios_offensive_planner().direct_pass() || action.helios_offensive_planner().through_pass())

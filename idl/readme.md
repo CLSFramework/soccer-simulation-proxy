@@ -2,7 +2,7 @@
 <a name="top"></a>
 
 
-## Version: 1.4
+## Version: 1.6
 
 ## Table of Contents
 
@@ -2381,6 +2381,10 @@ When an agent send a message to the playmaker server, self is information about 
 | penalty_area_half_width | [float](#float) |  |  |
 | penalty_area_length | [float](#float) |  |  |
 | goal_width | [float](#float) |  |  |
+| goal_area_width | [float](#float) |  |  |
+| goal_area_length | [float](#float) |  |  |
+| center_circle_r | [float](#float) |  |  |
+| goal_post_radius | [float](#float) |  |  |
 
 
 
@@ -2690,6 +2694,9 @@ WorldModel is the message that represents the world model in the soccer simulati
 | kickable_opponent_existance | [bool](#bool) |  | Whether the kickable opponent exists or not. |
 | penalty_kick_state | [PenaltyKickState](#protos-PenaltyKickState) |  | The penalty kick state. |
 | see_time | [int32](#int32) |  | The time that the agent has seen the world model. |
+| time_stopped | [int32](#int32) |  |  |
+| set_play_count | [int32](#int32) |  |  |
+| game_mode_side | [Side](#protos-Side) |  |  |
 
 
 

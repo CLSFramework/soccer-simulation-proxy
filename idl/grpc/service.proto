@@ -1,4 +1,4 @@
-// version 1.6
+// version 1.7
 
 syntax = "proto3";
 
@@ -110,6 +110,7 @@ message PenaltyKickState {
   int32 our_score = 5;
   int32 their_score = 6;
   bool is_kick_taker = 7;
+  int32 cycle = 8;
 }
 
 message Player {
@@ -143,6 +144,7 @@ message Player {
   int32 ball_reach_steps = 28;
   bool is_tackling = 29;
   int32 type_id = 30;
+  RpcVector2D inertia_final_point = 31;
 }
 
 message Self {
@@ -187,6 +189,7 @@ message Self {
   CardType card = 39;
   int32 catch_time = 40;
   float effort = 41;
+  float get_safety_dash_power = 42;
 }
 
 enum InterceptActionType {

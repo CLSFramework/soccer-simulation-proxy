@@ -1,5 +1,21 @@
 # ChangeLog
 
+## [1.0.7] - 2024-10-22
+
+### Added
+- Player.inertia_final_point, PenaltyKickState.cycle, self.get_safety_dash_power.
+
+### Fixed
+-
+
+### Changed
+- 
+
+### Engineers
+- [SoroushMazloum](https://github.com/SoroushMazloum)
+
+=======
+
 ## [1.0.6] - 2024-10-19
 
 ### Added

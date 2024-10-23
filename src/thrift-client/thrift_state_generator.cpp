@@ -179,6 +179,7 @@ soccer::Self ThriftStateGenerator::convertSelf(const rcsc::SelfObject &self, con
     res.card = convertCardType(self.card());
     res.catch_time = self.catchTime().cycle();
     res.effort = static_cast<float>(self.effort());
+    res.get_safety_dash_power = static_cast<float>(self.getSafetyDashPower(rcsc::ServerParam::i().maxDashPower()));
     return res;
 }
 
@@ -255,7 +256,7 @@ soccer::PenaltyKickState ThriftStateGenerator::convertPenaltyKickState(const rcs
     res.our_score = state->ourScore();
     res.their_score = state->theirScore();
     res.is_kick_taker = state->isKickTaker(wm.ourSide(), wm.self().unum());
-    
+    res.cycle = state->time().cycle();
     return res;
 }
 
@@ -304,6 +305,7 @@ void ThriftStateGenerator::updatePlayerObject(soccer::Player & p, const rcsc::Pl
     {
         p.type_id = player->playerTypePtr()->id();
     }
+    p.inertia_final_point = convertVector2D(player->inertiaFinalPoint());
 }
 
 /**

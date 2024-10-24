@@ -1,4 +1,4 @@
-// version 1.7
+// version 1.8
 
 syntax = "proto3";
 
@@ -1194,6 +1194,7 @@ message ServerParam {
   float goal_area_length = 224;
   float center_circle_r = 225;
   float goal_post_radius = 226;
+  float pitch_margin = 227;
 }
 
 message PlayerParam {

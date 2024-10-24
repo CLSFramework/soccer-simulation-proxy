@@ -1,5 +1,21 @@
 # ChangeLog
 
+## [1.0.8] - 2024-10-24
+
+### Added
+- ServerParams.pitch_margin
+
+### Fixed
+-
+
+### Changed
+- 
+
+### Engineers
+- [SoroushMazloum](https://github.com/SoroushMazloum)
+
+=======
+
 ## [1.0.7] - 2024-10-22
 
 ### Added

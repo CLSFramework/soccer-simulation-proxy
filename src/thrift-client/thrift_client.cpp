@@ -262,6 +262,7 @@ void ThriftAgent::sendServerParam() const
     serverParam.goal_area_length = SP.goalAreaLength();
     serverParam.center_circle_r = SP.centerCircleR();
     serverParam.goal_post_radius = SP.goalPostRadius();
+    serverParam.pitch_margin = SP.pitchMargin();
     try{
         soccer::Empty empty;
         serverParam.register_response = M_register_response;

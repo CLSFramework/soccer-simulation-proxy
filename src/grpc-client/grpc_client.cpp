@@ -281,6 +281,7 @@ void GrpcClient::sendServerParam() const
     serverParam.set_goal_area_length(SP.goalAreaLength());
     serverParam.set_center_circle_r(SP.centerCircleR());
     serverParam.set_goal_post_radius(SP.goalPostRadius());
+    serverParam.set_pitch_margin(SP.pitchMargin());
     ClientContext context;
     protos::Empty empty;
     protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);

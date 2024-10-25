@@ -109,7 +109,7 @@ jobs:
     - name: Set up authentication using PAT for CLSFramework.github.io
       run: |
         cd cls-repo
-        git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/CLSFramework/CLSFramework.github.io.git
+        git remote set-url origin https://x-access-token:${{ secrets.WEBSITE_TOKEN }}@github.com/CLSFramework/CLSFramework.github.io.git
     - name: Commit and Push Changes to CLSFramework.github.io
       run: |
         cd cls-repo
@@ -123,7 +123,7 @@ jobs:
         git push origin update-proto-doc-${{ steps.random.outputs.random_number }}
     - name: Create Pull Request in CLSFramework.github.io using GitHub API
       run: |
-        PR_RESPONSE=$(curl -X POST -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
+        PR_RESPONSE=$(curl -X POST -H "Authorization: token ${{ secrets.WEBSITE_TOKEN }}" \
           -H "Accept: application/vnd.github.v3+json" \
           https://api.github.com/repos/CLSFramework/CLSFramework.github.io/pulls \
           -d '{"title":"Update proto documentation","head":"update-proto-doc-${{ steps.random.outputs.random_number }}","base":"main","body":"This PR updates the proto documentation based on changes made in grpc file."}')

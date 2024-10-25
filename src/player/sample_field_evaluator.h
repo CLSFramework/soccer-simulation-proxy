@@ -52,25 +52,25 @@ private:
     std::vector< double > m_opponent_negetive_effect_by_distance;
     std::vector< double > m_opponent_negetive_effect_by_reach_steps;
 
-    bool m_use_action_term = false;
-    double m_direct_pass_term = 1.0;
-    double m_lead_pass_term = 1.0;
-    double m_through_pass_term = 1.0;
-    double m_short_dribble_term = 1.0;
-    double m_long_dribble_term = 1.0;
-    double m_cross_term = 1.0;
-    double m_hold_term = 1.0;
+    bool m_use_action_coefficients = false;
+    double m_direct_pass_coefficient = 1.0;
+    double m_lead_pass_coefficient = 1.0;
+    double m_through_pass_coefficient = 1.0;
+    double m_short_dribble_coefficient = 1.0;
+    double m_long_dribble_coefficient = 1.0;
+    double m_cross_coefficient = 1.0;
+    double m_hold_coefficient = 1.0;
 
-    std::map< int, double > m_teammate_positive_effect;
+    std::map< int, double > m_teammate_positive_coefficients;
 
     // evaluator methods
-    bool m_use_heleos = true;
-    double m_helios_x_term = 1.0;
-    double m_helios_ball_dist_to_goal_term = 1.0;
+    bool m_use_heleos_field_evaluator = true;
+    double m_helios_x_coefficient = 1.0;
+    double m_helios_ball_dist_to_goal_coefficient = 1.0;
     double m_helios_effective_max_ball_dist_to_goal = 40.0;
 
-    bool m_use_field_evaluator_2d = false;
-    std::vector < std::vector < double > > m_field_evaluator_2d; // [i_x][i_y] 
+    bool m_use_matrix_field_evaluator = false;
+    std::vector < std::vector < double > > m_matrix_field_evaluator; // [i_x][i_y] 
 public:
     SampleFieldEvaluator();
 

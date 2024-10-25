@@ -944,15 +944,15 @@ message HeliosOffensivePlanner {
   * Using this method causes the predicted state eval to be decreased based on the distance or reach steps of the opponent players to the position of the ball in the predicted state.
   * Each variable in the message is a list of float values.
   * For example, if you want to decrease the predicted state eval if the distance of the opponent player to the ball is less than 5,
-  You can set the negetive_effect_by_distance variable with the value of [9.0, 8.5, 7.2, 6.1, 3.8]. It means the predicted state eval will be decreased by 9.0 if the distance is less than 1,
+  You can set the negetive_effect_by_distance variable with the value of [-9.0, -8.5, -7.2, -6.1, -3.8]. It means the predicted state eval will be decreased by 9.0 if the distance is less than 1,
   8.5 if the distance is less than 2, 7.2 if the distance is less than 3, 6.1 if the distance is less than 4, 3.8 if the distance is less than 5.
 */
-message PlannerEvalutionByOpponentEffect {
+message OpponentEffector {
   repeated float negetive_effect_by_distance = 1; /** The list of float values that represents the negetive effect of the distance of the opponent player to the ball in the predicted state. */
   repeated float negetive_effect_by_reach_steps = 2; /** The list of float values that represents the negetive effect of the reach steps of the opponent player to the ball in the predicted state. */
 }
 
-message PlannerEvalutionByActionTypeEfect {
+message ActionTypeEfector {
   float direct_pass = 1;
   float lead_pass = 2;
   float through_pass = 3;
@@ -962,42 +962,42 @@ message PlannerEvalutionByActionTypeEfect {
   float hold = 7;
 }
 
-message PlannerEvalutionByTeammateEffect {
-  map<int32, float> positive_effect = 1;
+message TeammateEffector {
+  map<int32, float> coefficients = 1;
 }
 
-message PlannerEvalutionEfector {
+message PlannerEvaluationEfector {
   oneof efector {
-    PlannerEvalutionByOpponentEffect opponent_effect = 1;
-    PlannerEvalutionByActionTypeEfect action_type_effect = 2;
-    PlannerEvalutionByTeammateEffect teammate_effect = 3;
+    OpponentEffector opponent_effector = 1;
+    ActionTypeEfector action_type_effector = 2;
+    TeammateEffector teammate_effector = 3;
   }
 }
 
-message PlannerEvalutionHeliosFieldEvaluator {
-  float x_term = 1;
-  float ball_dist_to_goal_term = 2;
+message HeliosFieldEvaluator {
+  float x_coefficient = 1;
+  float ball_dist_to_goal_coefficient = 2;
   float effective_max_ball_dist_to_goal = 3;
 }
 
-message PlannerEvalutionFieldEvaluator2DY {
+message MatrixFieldEvaluatorY {
   repeated float evals = 1;
 }
 
-message PlannerEvalutionFieldEvaluator2D {
-  repeated PlannerEvalutionFieldEvaluator2DY evals = 1;
+message MatrixFieldEvaluator {
+  repeated MatrixFieldEvaluatorY evals = 1;
 }
 
-message PlannerEvalutionFieldEvaluator {
+message PlannerFieldEvaluator {
   oneof field_evaluator {
-    PlannerEvalutionHeliosFieldEvaluator field_evaluator_helios = 1;
-    PlannerEvalutionFieldEvaluator2D field_evaluator_2d = 2;
+    HeliosFieldEvaluator helios_field_evaluator = 1;
+    MatrixFieldEvaluator matrix_field_evaluator = 2;
   }
 }
 
 message PlannerEvalution {
-  repeated PlannerEvalutionEfector effectors = 1;
-  repeated PlannerEvalutionFieldEvaluator field_evaluators = 2;
+  repeated PlannerEvaluationEfector effectors = 1;
+  repeated PlannerFieldEvaluator field_evaluators = 2;
 }
 
 message HeliosBasicOffensive {}

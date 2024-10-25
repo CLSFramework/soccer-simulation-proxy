@@ -948,39 +948,66 @@ message HeliosOffensivePlanner {
   8.5 if the distance is less than 2, 7.2 if the distance is less than 3, 6.1 if the distance is less than 4, 3.8 if the distance is less than 5.
 */
 message OpponentEffector {
-  repeated float negetive_effect_by_distance = 1; /** The list of float values that represents the negetive effect of the distance of the opponent player to the ball in the predicted state. */
-  bool negetive_effect_by_distance_based_on_first_layer = 2; 
+  repeated float negetive_effect_by_distance = 1; /** The list of float values that represents the negetive effect of the distance of the opponent player to the ball in the predicted state. 
+  The values of this list should be negetive numbers. */
+  bool negetive_effect_by_distance_based_on_first_layer = 2;  /** If this value is true, the negetive_effect_by_distance will be calculated based on the first action of each action chain. 
+  For example, if we have a chain of actions like [direct_pass, simple_pass, simple_dribble], the negetive_effect_by_distance will be calculated based on the direct_pass action for all of the actions. */
   repeated float negetive_effect_by_reach_steps = 3; /** The list of float values that represents the negetive effect of the reach steps of the opponent player to the ball in the predicted state. */
-  bool negetive_effect_by_reach_steps_based_on_first_layer = 4;
+  bool negetive_effect_by_reach_steps_based_on_first_layer = 4; /** If this value is true, the negetive_effect_by_reach_steps will be calculated based on the first action of each action chain. 
+  For example, if we have a chain of actions like [direct_pass, simple_pass, simple_dribble], the negetive_effect_by_reach_steps will be calculated based on the direct_pass action for all of the actions. */
 }
 
+/**
+  * ActionTypeEfector is the message that represents coefficients of the action types in the tree to calculate the predicted state evalution.
+  * Each number should start from 0.0. For example, if evaluation of an action-state is 10, the action is direct pass, and value of direct_pass is 0.5, so the final evaluation of the action-state will be 5.
+*/
 message ActionTypeEfector {
-  float direct_pass = 1;
-  float lead_pass = 2;
-  float through_pass = 3;
-  float short_dribble = 4;
-  float long_dribble = 5;
-  float cross = 6;
-  float hold = 7;
+  float direct_pass = 1; /** The coefficient of the direct pass action. */
+  float lead_pass = 2; /** The coefficient of the lead pass action. */
+  float through_pass = 3; /** The coefficient of the through pass action. */
+  float short_dribble = 4; /** The coefficient of the short dribble action. */
+  float long_dribble = 5; /** The coefficient of the long dribble action. */
+  float cross = 6; /** The coefficient of the cross action. */
+  float hold = 7; /** The coefficient of the hold action. */
 }
 
+/**
+  * TeammateEffector is the message that represents the coefficients of the teammates in the tree to calculate the predicted state evalution.
+  * Each number should start from 0.0. For example, if evaluation of an action-state is 10, the action is direct pass to player 5, 
+  and value of player 5 is 0.5, so the final evaluation of the action-state will be 5.
+*/
 message TeammateEffector {
-  map<int32, float> coefficients = 1;
-  bool apply_based_on_first_layer = 2;
+  map<int32, float> coefficients = 1; /** The map of the coefficients of the teammates. The key of the map is the uniform number of the teammate, and the value is the coefficient of the teammate. 
+  The value should be started from 0.0. */
+  bool apply_based_on_first_layer = 2; /** If this value is true, the coefficients will be calculated based on the first action target of each action chain.
+  For example, if we have a chain of actions like [direct_pass to 5, simple_pass to 6, simple_pass to 7], the coefficients will be calculated based on the coeeficient of the player 5 for all of the actions. */
 }
 
+/**
+  * PlannerEvaluationEfector is the message that represents the effectors of the planner evaluation methods.
+  * The proxy agent will update the predicted state evalution based on the effectors.
+*/
 message PlannerEvaluationEfector {
   oneof efector {
-    OpponentEffector opponent_effector = 1;
-    ActionTypeEfector action_type_effector = 2;
-    TeammateEffector teammate_effector = 3;
+    OpponentEffector opponent_effector = 1; /** The effector of the opponent players. You can set the negetive effect of the distance or reach steps of the opponent players to the ball in the predicted state.
+    By using this effector, the proxy agent will decrease the predicted state evalution based on the distance or reach steps of the opponent players to the ball in the predicted state. */
+    ActionTypeEfector action_type_effector = 2; /** The effector of the action types. You can set the coefficients of the action types in the tree to calculate the predicted state evalution.
+    By using this effector, the proxy agent will update the predicted state evalution based on the coefficients of the action types in the tree. */
+    TeammateEffector teammate_effector = 3; /** The effector of the teammates. You can set the coefficients of the teammates in the tree to calculate the predicted state evalution.
+    By using this effector, the proxy agent will update the predicted state evalution based on the coefficients of the teammates in the tree. */
   }
 }
 
+/**
+  * HeliosFieldEvaluator is the message that represents the field evaluator of the proxy agent to evaluate each node (predicted state) in the planner tree.
+  * If you dont set the field evaluator, the proxy agent will use the default field evaluator (HeliosFieldEvaluator) to evaluate each node in the planner tree.
+  * This field evaluator calculate the value of the predicted state by using this formula: 
+  value = x_coefficient * (ball.x + 52.5) + ball_dist_to_goal_coefficient * max(0.0, effective_max_ball_dist_to_goal - ball.dist(opponent goal center))
+*/
 message HeliosFieldEvaluator {
-  float x_coefficient = 1;
-  float ball_dist_to_goal_coefficient = 2;
-  float effective_max_ball_dist_to_goal = 3;
+  float x_coefficient = 1; // The coefficient of the x-coordinate of the ball in the predicted state. The default value is 1.
+  float ball_dist_to_goal_coefficient = 2; // The coefficient of the distance of the ball to the opponent goal center in the predicted state. The default value is 1.
+  float effective_max_ball_dist_to_goal = 3; // The effective maximum distance of the ball to the opponent goal center in the predicted state. The default value is 40.0.
 }
 
 message MatrixFieldEvaluatorY {

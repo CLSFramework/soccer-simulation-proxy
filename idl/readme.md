@@ -2789,7 +2789,7 @@ AgentType is the enum that represents the different types of agents.
 <a name="protos-CardType"></a>
 
 ### CardType
-
+Type of player&#39;s card.
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |

@@ -107,6 +107,7 @@ SampleFieldEvaluator::set_grpc_evalution_method( const PlannerEvalution & evalut
                     }
                     dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_distance: %f", value );
                 }
+                m_opponent_negetive_effect_by_distance_based_on_first_layer = effector.opponent_effector().negetive_effect_by_distance_based_on_first_layer();
             }
             if (effector.opponent_effector().negetive_effect_by_reach_steps().size() > 0)
             {
@@ -121,6 +122,7 @@ SampleFieldEvaluator::set_grpc_evalution_method( const PlannerEvalution & evalut
                     }
                     dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_reach_steps: %f", value );
                 }
+                m_opponent_negetive_effect_by_reach_steps_based_on_first_layer = effector.opponent_effector().negetive_effect_by_reach_steps_based_on_first_layer();
             }
                 
         }
@@ -152,6 +154,7 @@ SampleFieldEvaluator::set_grpc_evalution_method( const PlannerEvalution & evalut
                 m_teammate_positive_coefficients[effect.first] = (effect.second < 0.0 ? 0.0 : effect.second);
                 dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: teammate effector: %d: %f", effect.first, effect.second );
             }
+            m_teammate_positive_coefficients_based_on_first_layer = effector.teammate_effector().apply_based_on_first_layer();
         }
     }
 
@@ -236,17 +239,17 @@ SampleFieldEvaluator::operator()( const PredictState & state,
     dlog.addText( Logger::ACTION_CHAIN, "eval action: %f", state_evaluation );
 #endif
     
-    state_evaluation = effected_by_opponent_distance( state, state_evaluation, wm );
+    state_evaluation = effected_by_opponent_distance( state, path, state_evaluation, wm );
 #ifdef DEBUG_PRINT
     dlog.addText( Logger::ACTION_CHAIN, "eval opponent distance: %f", state_evaluation );
 #endif
 
-    state_evaluation = effected_by_opponent_reach_step( state, state_evaluation, wm );
+    state_evaluation = effected_by_opponent_reach_step( state, path, state_evaluation, wm );
 #ifdef DEBUG_PRINT
     dlog.addText( Logger::ACTION_CHAIN, "eval opponent reach step: %f", state_evaluation );
 #endif
 
-    state_evaluation = effected_by_teammate( state, state_evaluation );
+    state_evaluation = effected_by_teammate( state, path, state_evaluation );
 #ifdef DEBUG_PRINT
     dlog.addText( Logger::ACTION_CHAIN, "eval teammate: %f", state_evaluation );
 #endif
@@ -285,12 +288,17 @@ SampleFieldEvaluator::effected_by_action_term( const PredictState & state,
 
 double 
 SampleFieldEvaluator::effected_by_opponent_distance( const PredictState & state,
+                                                     const std::vector< ActionStatePair > & path,
                                                      const double & eval,
                                                      const WorldModel & wm ) const
 {
     if ( m_opponent_negetive_effect_by_distance.size() == 0 )
         return eval;
     auto ball_pos = state.ball().pos();
+    if ( path.size() > 0 && m_opponent_negetive_effect_by_distance_based_on_first_layer )
+    {
+        ball_pos = path.at(0).state().ball().pos();
+    }
 
     double min_dist = 1000.0;
 
@@ -317,12 +325,17 @@ SampleFieldEvaluator::effected_by_opponent_distance( const PredictState & state,
 
 double 
 SampleFieldEvaluator::effected_by_opponent_reach_step( const PredictState & state,
+                                                       const std::vector< ActionStatePair > & path,
                                                        const double & eval,
                                                        const WorldModel & wm ) const
 {
     if ( m_opponent_negetive_effect_by_reach_steps.size() == 0 )
         return eval;
     auto ball_pos = state.ball().pos();
+    if ( path.size() > 0 && m_opponent_negetive_effect_by_reach_steps_based_on_first_layer )
+    {
+        ball_pos = path.at(0).state().ball().pos();
+    }
 
     int min_reach = 1000;
 
@@ -348,16 +361,28 @@ SampleFieldEvaluator::effected_by_opponent_reach_step( const PredictState & stat
 
 double 
 SampleFieldEvaluator::effected_by_teammate( const PredictState & state,
+                                            const std::vector< ActionStatePair > & path,
                                             const double & eval ) const
 {
     if ( m_teammate_positive_coefficients.size() == 0 )
         return eval;
     const ServerParam & SP = ServerParam::i();
 
-    const AbstractPlayerObject * holder = state.ballHolder();
-
-    int unum = holder->unum();
-
+    int unum = 0;
+    if (m_teammate_positive_coefficients_based_on_first_layer && path.size() > 0)
+    {
+        const ActionStatePair asp = path.at(0);
+        const AbstractPlayerObject * holder = state.ballHolder();
+        if ( ! holder)
+            unum = holder->unum();
+    }
+    else
+    {
+        const AbstractPlayerObject * holder = state.ballHolder();
+        if ( ! holder)
+            unum = holder->unum();
+    }
+    
     if ( m_teammate_positive_coefficients.find( unum ) == m_teammate_positive_coefficients.end() )
         return eval;
     

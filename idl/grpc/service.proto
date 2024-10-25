@@ -949,7 +949,9 @@ message HeliosOffensivePlanner {
 */
 message OpponentEffector {
   repeated float negetive_effect_by_distance = 1; /** The list of float values that represents the negetive effect of the distance of the opponent player to the ball in the predicted state. */
-  repeated float negetive_effect_by_reach_steps = 2; /** The list of float values that represents the negetive effect of the reach steps of the opponent player to the ball in the predicted state. */
+  bool negetive_effect_by_distance_based_on_first_layer = 2; 
+  repeated float negetive_effect_by_reach_steps = 3; /** The list of float values that represents the negetive effect of the reach steps of the opponent player to the ball in the predicted state. */
+  bool negetive_effect_by_reach_steps_based_on_first_layer = 4;
 }
 
 message ActionTypeEfector {
@@ -964,6 +966,7 @@ message ActionTypeEfector {
 
 message TeammateEffector {
   map<int32, float> coefficients = 1;
+  bool apply_based_on_first_layer = 2;
 }
 
 message PlannerEvaluationEfector {

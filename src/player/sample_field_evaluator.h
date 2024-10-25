@@ -50,7 +50,9 @@ class SampleFieldEvaluator
     : public FieldEvaluator {
 private:
     std::vector< double > m_opponent_negetive_effect_by_distance;
+    bool m_opponent_negetive_effect_by_distance_based_on_first_layer = false;
     std::vector< double > m_opponent_negetive_effect_by_reach_steps;
+    bool m_opponent_negetive_effect_by_reach_steps_based_on_first_layer = false;
 
     bool m_use_action_coefficients = false;
     double m_direct_pass_coefficient = 1.0;
@@ -62,6 +64,7 @@ private:
     double m_hold_coefficient = 1.0;
 
     std::map< int, double > m_teammate_positive_coefficients;
+    bool m_teammate_positive_coefficients_based_on_first_layer = false;
 
     // evaluator methods
     bool m_use_heleos_field_evaluator = true;
@@ -91,14 +94,17 @@ public:
                                     const double & eval ) const;
 
     double effected_by_opponent_distance( const PredictState & state,
+                                          const std::vector< ActionStatePair > & path,
                                           const double & eval,
                                           const rcsc::WorldModel & wm ) const;
                                  
     double effected_by_opponent_reach_step( const PredictState & state,
+                                            const std::vector< ActionStatePair > & path,
                                             const double & eval,
                                             const rcsc::WorldModel & wm ) const;
 
     double effected_by_teammate( const PredictState & state,
+                                 const std::vector< ActionStatePair > & path,
                                  const double & eval ) const;
 
 };

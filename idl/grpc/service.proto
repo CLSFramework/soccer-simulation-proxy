@@ -118,6 +118,9 @@ enum LoggerLevel{
   // LEVEL_ANY = 0xffffffff;
 }
 
+/**
+  * Type of player's card.
+*/
 enum CardType {
   NO_CARD = 0;
   YELLOW = 1;

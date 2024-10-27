@@ -577,7 +577,7 @@ ActionChainGraph::debugPrintCurrentState( const WorldModel & wm )
         }
         else
         {
-            const AbstractPlayerObject * t = wm.teammate( n );
+            const AbstractPlayerObject * t = wm.ourPlayer( n );
 
             if ( t )
             {
@@ -594,12 +594,10 @@ ActionChainGraph::debugPrintCurrentState( const WorldModel & wm )
     dlog.addText( Logger::ACTION_CHAIN, "=====" );
 
 
-    AbstractPlayerCont::const_iterator end = wm.allTeammates().end();
-    for ( AbstractPlayerCont::const_iterator it = wm.allTeammates().begin();
-          it != end;
-          ++it )
+    auto end = wm.teammates().end();
+    for ( auto it : wm.teammates())
     {
-        if ( (*it)->isSelf() )
+        if ( (it)->isSelf() )
         {
             dlog.addText( Logger::ACTION_CHAIN,
                           "teammate %d, self", (*it)->unum() );
@@ -607,7 +605,7 @@ ActionChainGraph::debugPrintCurrentState( const WorldModel & wm )
         else
         {
             dlog.addText( Logger::ACTION_CHAIN,
-                          "teammate %d", (*it)->unum() );
+                          "teammate %d", (it)->unum() );
         }
     }
 

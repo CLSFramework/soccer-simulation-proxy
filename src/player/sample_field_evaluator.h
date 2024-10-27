@@ -49,8 +49,10 @@ class ActionStatePair;
 class SampleFieldEvaluator
     : public FieldEvaluator {
 private:
+    bool m_use_opponent_effector_by_distance = false;
     std::vector< double > m_opponent_negetive_effect_by_distance;
     bool m_opponent_negetive_effect_by_distance_based_on_first_layer = false;
+    bool m_use_opponent_effector_by_reach_steps = false;
     std::vector< double > m_opponent_negetive_effect_by_reach_steps;
     bool m_opponent_negetive_effect_by_reach_steps_based_on_first_layer = false;
 
@@ -63,6 +65,7 @@ private:
     double m_cross_coefficient = 1.0;
     double m_hold_coefficient = 1.0;
 
+    bool m_use_teammate_effector = false;
     std::map< int, double > m_teammate_positive_coefficients;
     bool m_teammate_positive_coefficients_based_on_first_layer = false;
 

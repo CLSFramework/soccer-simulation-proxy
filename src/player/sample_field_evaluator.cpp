@@ -97,6 +97,7 @@ SampleFieldEvaluator::set_grpc_evalution_method( const PlannerEvalution & evalut
             if (effector.opponent_effector().negetive_effect_by_distance().size() > 0)
             {
                 dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_distance" );
+                m_use_opponent_effector_by_distance = true;
                 m_opponent_negetive_effect_by_distance.assign(
                     effector.opponent_effector().negetive_effect_by_distance().begin(),
                     effector.opponent_effector().negetive_effect_by_distance().end()
@@ -112,6 +113,7 @@ SampleFieldEvaluator::set_grpc_evalution_method( const PlannerEvalution & evalut
             if (effector.opponent_effector().negetive_effect_by_reach_steps().size() > 0)
             {
                 dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_reach_steps" );
+                m_use_opponent_effector_by_reach_steps = true;
                 m_opponent_negetive_effect_by_reach_steps.assign(
                     effector.opponent_effector().negetive_effect_by_reach_steps().begin(),
                     effector.opponent_effector().negetive_effect_by_reach_steps().end()
@@ -149,6 +151,7 @@ SampleFieldEvaluator::set_grpc_evalution_method( const PlannerEvalution & evalut
         if ( effector.efector_case() == PlannerEvaluationEfector::kTeammateEffector )
         {
             dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: teammate effector" );
+            m_use_teammate_effector = true;
             for ( auto & effect : effector.teammate_effector().coefficients() )
             {
                 m_teammate_positive_coefficients[effect.first] = (effect.second < 0.0 ? 0.0 : effect.second);
@@ -218,41 +221,57 @@ SampleFieldEvaluator::operator()( const PredictState & state,
 {
     double state_evaluation = 0;
     
-    if ( m_use_heleos_field_evaluator )
+    if ( m_use_heleos_field_evaluator ){
         state_evaluation += evaluate_state( state,
-                                                  m_helios_x_coefficient,
-                                                  m_helios_ball_dist_to_goal_coefficient,
-                                                  m_helios_effective_max_ball_dist_to_goal );
-#ifdef DEBUG_PRINT
-    dlog.addText( Logger::ACTION_CHAIN, "eval helios: %f", state_evaluation );
-#endif
+                                            m_helios_x_coefficient,
+                                            m_helios_ball_dist_to_goal_coefficient,
+                                            m_helios_effective_max_ball_dist_to_goal );
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "eval after helios: %f", state_evaluation );
+        #endif
+    }
+        
 
     if ( m_use_matrix_field_evaluator )
+    {
         state_evaluation += evaluate_state_2d( state, m_matrix_field_evaluator );
-#ifdef DEBUG_PRINT
-    dlog.addText( Logger::ACTION_CHAIN, "eval matrix: %f", state_evaluation );
-#endif
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "eval after matrix: %f", state_evaluation );
+        #endif
+    }
 
     if ( m_use_action_coefficients )
+    {
         state_evaluation = effected_by_action_term( state, path, state_evaluation );
-#ifdef DEBUG_PRINT
-    dlog.addText( Logger::ACTION_CHAIN, "eval action: %f", state_evaluation );
-#endif
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "eval after action effector: %f", state_evaluation );
+        #endif
+    }
     
-    state_evaluation = effected_by_opponent_distance( state, path, state_evaluation, wm );
-#ifdef DEBUG_PRINT
-    dlog.addText( Logger::ACTION_CHAIN, "eval opponent distance: %f", state_evaluation );
-#endif
+    if ( m_use_opponent_effector_by_distance )
+    {
+        state_evaluation = effected_by_opponent_distance( state, path, state_evaluation, wm );
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "eval after opponent distance effector: %f", state_evaluation );
+        #endif
+    }
+    
+    if ( m_use_opponent_effector_by_reach_steps )
+    {
+        state_evaluation = effected_by_opponent_reach_step( state, path, state_evaluation, wm );
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "eval after opponent reach step effector: %f", state_evaluation );
+        #endif
+    }
 
-    state_evaluation = effected_by_opponent_reach_step( state, path, state_evaluation, wm );
-#ifdef DEBUG_PRINT
-    dlog.addText( Logger::ACTION_CHAIN, "eval opponent reach step: %f", state_evaluation );
-#endif
-
-    state_evaluation = effected_by_teammate( state, path, state_evaluation );
-#ifdef DEBUG_PRINT
-    dlog.addText( Logger::ACTION_CHAIN, "eval teammate: %f", state_evaluation );
-#endif
+    if ( m_use_teammate_effector )
+    {
+        state_evaluation = effected_by_teammate( state, path, state_evaluation );
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "eval after teammate effector: %f", state_evaluation );
+        #endif
+    }
+    
     //
     // ???
     //
@@ -318,7 +337,16 @@ SampleFieldEvaluator::effected_by_opponent_distance( const PredictState & state,
     double min_effect = *std::min_element(m_opponent_negetive_effect_by_distance.begin(), m_opponent_negetive_effect_by_distance.end());
     double new_eval = eval - min_effect;
     if ( min_dist_int >= m_opponent_negetive_effect_by_distance.size() )
+    {
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "opp dist effect -> min_dist_int: %d > m_opponent_negetive_effect_by_distance.size(): %d", min_dist_int, m_opponent_negetive_effect_by_distance.size() );
+        #endif
         return new_eval;
+    }
+        
+    #ifdef DEBUG_PRINT
+        dlog.addText( Logger::ACTION_CHAIN, "opp dist effect -> min_dist_int: %d, min_effect: %f, eval: %f, effect: %f", min_dist_int, min_effect, new_eval, m_opponent_negetive_effect_by_distance[min_dist_int] );
+    #endif
     
     return new_eval + m_opponent_negetive_effect_by_distance[min_dist_int];
 }
@@ -354,7 +382,16 @@ SampleFieldEvaluator::effected_by_opponent_reach_step( const PredictState & stat
     double new_eval = eval - min_effect;
 
     if ( min_reach >= m_opponent_negetive_effect_by_reach_steps.size() )
+    {
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "opp reach effect -> min_reach: %d > m_opponent_negetive_effect_by_reach_steps.size(): %d", min_reach, m_opponent_negetive_effect_by_reach_steps.size() );
+        #endif
         return new_eval;
+    }
+        
+    #ifdef DEBUG_PRINT
+        dlog.addText( Logger::ACTION_CHAIN, "opp reach effect -> min_reach: %d, min_effect: %f, eval: %f, effect: %f", min_reach, min_effect, new_eval, m_opponent_negetive_effect_by_reach_steps[min_reach] );
+    #endif
     
     return new_eval + m_opponent_negetive_effect_by_reach_steps[min_reach];
 }

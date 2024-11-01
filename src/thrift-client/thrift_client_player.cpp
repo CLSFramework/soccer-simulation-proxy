@@ -106,6 +106,57 @@ void ThriftClientPlayer::init(rcsc::SoccerAgent *agent,
     sample_communication = Communication::Ptr(new SampleCommunication());
 }
 
+void ThriftClientPlayer::updateChainByDefault(const rcsc::WorldModel &wm)
+{
+    FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
+    CompositeActionGenerator *g = new CompositeActionGenerator();
+    
+    g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_StrictCheckPass(), 1));
+    g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_Cross(), 1));
+    g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_ShortDribble(), 1));
+    g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_SelfPass(), 1));
+
+    g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_Shoot(),
+                                                            2, ActGen_RangeActionChainLengthFilter::MAX));
+    ActionGenerator::ConstPtr action_generator = ActionGenerator::ConstPtr(g);
+    ActionChainHolder::instance().setFieldEvaluator(field_evaluator);
+    ActionChainHolder::instance().setActionGenerator(action_generator);
+    ActionChainHolder::instance().update(wm);
+}
+
+void ThriftClientPlayer::updateChainByPlannerAction(const rcsc::WorldModel &wm, const soccer::PlayerAction &action)
+{
+    FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
+    CompositeActionGenerator *g = new CompositeActionGenerator();
+
+    if (action.helios_offensive_planner.lead_pass
+        || action.helios_offensive_planner.direct_pass || action.helios_offensive_planner.through_pass)
+        g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_StrictCheckPass(), 1));
+    if (action.helios_offensive_planner.cross)
+        g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_Cross(), 1));
+    if (action.helios_offensive_planner.simple_pass)
+        g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_DirectPass(),
+                                                                2, ActGen_RangeActionChainLengthFilter::MAX));
+    if (action.helios_offensive_planner.short_dribble)
+        g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_ShortDribble(), 1));
+    if (action.helios_offensive_planner.long_dribble)
+        g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_SelfPass(), 1));
+    if (action.helios_offensive_planner.simple_dribble)
+        g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_SimpleDribble(),
+                                                                2, ActGen_RangeActionChainLengthFilter::MAX));
+    if (action.helios_offensive_planner.simple_shoot)
+        g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_Shoot(),
+                                                                2, ActGen_RangeActionChainLengthFilter::MAX));
+    if (g->M_generators.empty())
+    {
+        return;
+    }
+    ActionGenerator::ConstPtr action_generator = ActionGenerator::ConstPtr(g);
+    ActionChainHolder::instance().setFieldEvaluator(field_evaluator);
+    ActionChainHolder::instance().setActionGenerator(action_generator);
+    ActionChainHolder::instance().update(wm);
+}
+
 void ThriftClientPlayer::getActions()
 {
     auto agent = M_agent;
@@ -134,6 +185,30 @@ void ThriftClientPlayer::getActions()
             return;
         }
     }
+
+        const rcsc::WorldModel & wm = agent->world();
+
+    if ( !actions.ignore_shootInPreprocess )
+    {
+        if ( wm.gameMode().type() != rcsc::GameMode::IndFreeKick_
+            && wm.time().stopped() == 0
+            && wm.self().isKickable()
+            && Bhv_StrictCheckShoot().execute( agent ) )
+        {
+            // reset intention
+            agent->setIntention( static_cast< rcsc::SoccerIntention * >( 0 ) );
+            return;
+        }
+    }
+    
+    if ( !actions.ignore_doIntention )
+    {
+        if ( agent->doIntention() )
+        {
+            return;
+        }
+    }
+
     if(do_forceKick && !actions.ignore_doforcekick)
     {
         if(doForceKick(agent)){
@@ -150,6 +225,27 @@ void ThriftClientPlayer::getActions()
             return;
         }
     }
+
+    int planner_action_index = -1;
+    for (int i = 0; i < actions.actions.size(); i++)
+    {
+        auto action = actions.actions[i];
+        if (action.__isset.helios_offensive_planner)
+        {
+            planner_action_index = i;
+            break;
+        }
+    }
+
+    if (planner_action_index != -1)
+    {
+        updateChainByPlannerAction(wm, actions.actions[planner_action_index]);
+    }
+    else
+    {
+        updateChainByDefault(wm);
+    }
+    
     std::cout<<"action size:"<<actions.actions.size()<<std::endl;
     for (int i = 0; i < actions.actions.size(); i++)
     {
@@ -612,38 +708,6 @@ void ThriftClientPlayer::getActions()
         }
         else if (action.__isset.helios_offensive_planner)
         {
-            FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
-            CompositeActionGenerator *g = new CompositeActionGenerator();
-
-            if (action.helios_offensive_planner.lead_pass
-                || action.helios_offensive_planner.direct_pass || action.helios_offensive_planner.through_pass)
-                g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_StrictCheckPass(), 1));
-            if (action.helios_offensive_planner.cross)
-                g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_Cross(), 1));
-            if (action.helios_offensive_planner.simple_pass)
-                g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_DirectPass(),
-                                                                        2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (action.helios_offensive_planner.short_dribble)
-                g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_ShortDribble(), 1));
-            if (action.helios_offensive_planner.long_dribble)
-                g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_SelfPass(), 1));
-            if (action.helios_offensive_planner.simple_dribble)
-                g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_SimpleDribble(),
-                                                                        2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (action.helios_offensive_planner.simple_shoot)
-                g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_Shoot(),
-                                                                        2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (g->M_generators.empty())
-            {
-                Body_HoldBall().execute(agent);
-                agent->setNeckAction(new Neck_ScanField());
-                continue;
-            }
-            ActionGenerator::ConstPtr action_generator = ActionGenerator::ConstPtr(g);
-            ActionChainHolder::instance().setFieldEvaluator(field_evaluator);
-            ActionChainHolder::instance().setActionGenerator(action_generator);
-            ActionChainHolder::instance().update(agent->world());
-            
             if (action.helios_offensive_planner.server_side_decision)
             {
                 if (GetBestPlannerAction())
@@ -656,6 +720,11 @@ void ThriftClientPlayer::getActions()
                 if (Bhv_PlannedAction().execute(agent))
                 {
                     agent->debugClient().addMessage("PlannedAction");
+                }
+                else
+                {
+                    Body_HoldBall().execute(agent);
+                    agent->setNeckAction(new Neck_ScanField());        
                 }
             }
         }

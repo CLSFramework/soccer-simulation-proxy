@@ -37,6 +37,10 @@
 #include "../grpc-generated/service.pb.h"
 using protos::PlannerEvalution;
 #endif
+#ifdef USE_THRIFT
+#include "thrift-generated/Game.h"
+#include "thrift-generated/soccer_service_types.h"
+#endif
 
 namespace rcsc {
 class AbstractPlayerObject;
@@ -82,6 +86,10 @@ public:
 
 #ifdef USE_GRPC
     void set_grpc_evalution_method( const PlannerEvalution & evalution );
+#endif
+
+#ifdef USE_THRIFT
+    void set_thrift_evalution_method( const soccer::PlannerEvalution & evalution );
 #endif
 
     virtual

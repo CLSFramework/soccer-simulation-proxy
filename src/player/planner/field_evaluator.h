@@ -41,6 +41,11 @@
 using protos::PlannerEvalution;
 #endif
 
+#ifdef USE_THRIFT
+#include "../../thrift-generated/Game.h"
+#include "../../thrift-generated/soccer_service_types.h"
+#endif
+
 /*!
   \class FieldEvaluator
   \brief abstract field evaluator function object class
@@ -79,7 +84,10 @@ public:
     virtual
     void set_grpc_evalution_method( const PlannerEvalution & evalution ) = 0;
 #endif
-
+#ifdef USE_THRIFT
+    virtual
+    void set_thrift_evalution_method( const soccer::PlannerEvalution & evalution ) = 0;
+#endif
 };
 
 #endif

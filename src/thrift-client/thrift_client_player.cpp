@@ -126,7 +126,8 @@ void ThriftClientPlayer::updateChainByDefault(const rcsc::WorldModel &wm)
 
 void ThriftClientPlayer::updateChainByPlannerAction(const rcsc::WorldModel &wm, const soccer::PlayerAction &action)
 {
-    FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
+    FieldEvaluator::Ptr field_evaluator = FieldEvaluator::Ptr(new SampleFieldEvaluator);
+    field_evaluator->set_thrift_evalution_method(action.helios_offensive_planner.evalution);
     CompositeActionGenerator *g = new CompositeActionGenerator();
 
     if (action.helios_offensive_planner.lead_pass

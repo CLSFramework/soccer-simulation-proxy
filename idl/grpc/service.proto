@@ -967,6 +967,8 @@ message PlayerActions {
   bool ignore_preprocess = 2;
   bool ignore_doforcekick = 3;
   bool ignore_doHeardPassRecieve = 4;
+  bool ignore_doIntention = 5;
+  bool ignore_shootInPreprocess = 6;
 }
 
 message ChangePlayerType {

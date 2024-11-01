@@ -188,19 +188,25 @@ void GrpcClientPlayer::getActions()
     }
     const rcsc::WorldModel & wm = agent->world();
 
-    if ( wm.gameMode().type() != rcsc::GameMode::IndFreeKick_
-         && wm.time().stopped() == 0
-         && wm.self().isKickable()
-         && Bhv_StrictCheckShoot().execute( agent ) )
+    if ( !actions.ignore_shootinpreprocess() )
     {
-        // reset intention
-        agent->setIntention( static_cast< rcsc::SoccerIntention * >( 0 ) );
-        return;
+        if ( wm.gameMode().type() != rcsc::GameMode::IndFreeKick_
+            && wm.time().stopped() == 0
+            && wm.self().isKickable()
+            && Bhv_StrictCheckShoot().execute( agent ) )
+        {
+            // reset intention
+            agent->setIntention( static_cast< rcsc::SoccerIntention * >( 0 ) );
+            return;
+        }
     }
     
-    if ( agent->doIntention() )
+    if ( !actions.ignore_dointention() )
     {
-        return;
+        if ( agent->doIntention() )
+        {
+            return;
+        }
     }
 
     if (do_forceKick && !actions.ignore_doforcekick())

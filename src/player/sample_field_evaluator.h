@@ -31,10 +31,17 @@
 #include "predict_state.h"
 
 #include <vector>
+#include <map>
+
+#ifdef USE_GRPC
+#include "../grpc-generated/service.pb.h"
+using protos::PlannerEvalution;
+#endif
 
 namespace rcsc {
 class AbstractPlayerObject;
 class Vector2D;
+class WorldModel;
 }
 
 class ActionStatePair;
@@ -42,16 +49,67 @@ class ActionStatePair;
 class SampleFieldEvaluator
     : public FieldEvaluator {
 private:
+    bool m_use_opponent_effector_by_distance = false;
+    std::vector< double > m_opponent_negetive_effect_by_distance;
+    bool m_opponent_negetive_effect_by_distance_based_on_first_layer = false;
+    bool m_use_opponent_effector_by_reach_steps = false;
+    std::vector< double > m_opponent_negetive_effect_by_reach_steps;
+    bool m_opponent_negetive_effect_by_reach_steps_based_on_first_layer = false;
 
+    bool m_use_action_coefficients = false;
+    double m_direct_pass_coefficient = 1.0;
+    double m_lead_pass_coefficient = 1.0;
+    double m_through_pass_coefficient = 1.0;
+    double m_short_dribble_coefficient = 1.0;
+    double m_long_dribble_coefficient = 1.0;
+    double m_cross_coefficient = 1.0;
+    double m_hold_coefficient = 1.0;
+
+    bool m_use_teammate_effector = false;
+    std::map< int, double > m_teammate_positive_coefficients;
+    bool m_teammate_positive_coefficients_based_on_first_layer = false;
+
+    // evaluator methods
+    bool m_use_heleos_field_evaluator = true;
+    double m_helios_x_coefficient = 1.0;
+    double m_helios_ball_dist_to_goal_coefficient = 1.0;
+    double m_helios_effective_max_ball_dist_to_goal = 40.0;
+
+    bool m_use_matrix_field_evaluator = false;
+    std::vector < std::vector < double > > m_matrix_field_evaluator; // [i_x][i_y] 
 public:
     SampleFieldEvaluator();
+
+#ifdef USE_GRPC
+    void set_grpc_evalution_method( const PlannerEvalution & evalution );
+#endif
 
     virtual
     ~SampleFieldEvaluator();
 
     virtual
     double operator()( const PredictState & state,
-                       const std::vector< ActionStatePair > & path ) const;
+                       const std::vector< ActionStatePair > & path,
+                       const rcsc::WorldModel & wm ) const;
+
+    double effected_by_action_term( const PredictState & state,
+                                    const std::vector< ActionStatePair > & path,
+                                    const double & eval ) const;
+
+    double effected_by_opponent_distance( const PredictState & state,
+                                          const std::vector< ActionStatePair > & path,
+                                          const double & eval,
+                                          const rcsc::WorldModel & wm ) const;
+                                 
+    double effected_by_opponent_reach_step( const PredictState & state,
+                                            const std::vector< ActionStatePair > & path,
+                                            const double & eval,
+                                            const rcsc::WorldModel & wm ) const;
+
+    double effected_by_teammate( const PredictState & state,
+                                 const std::vector< ActionStatePair > & path,
+                                 const double & eval ) const;
+
 };
 
 #endif

@@ -133,7 +133,7 @@ ActionChainHolder::update( const WorldModel & wm )
     s_update_evaluator = M_evaluator;
     s_update_generator = M_generator;
 
-    M_graph = ActionChainGraph::Ptr( new ActionChainGraph( M_evaluator, M_generator ) );
+    M_graph = ActionChainGraph::Ptr( new ActionChainGraph( M_evaluator, M_generator, M_generator->max_depth, M_generator->max_nodes) );
     M_graph->calculate( wm );
 }
 

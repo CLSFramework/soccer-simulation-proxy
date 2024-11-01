@@ -125,8 +125,9 @@ void GrpcClientPlayer::updateChainByDefault(const rcsc::WorldModel &wm)
 
 void GrpcClientPlayer::updateChainByPlannerAction(const rcsc::WorldModel &wm, const protos::PlayerAction &action)
 {
-    FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
     CompositeActionGenerator *g = new CompositeActionGenerator();
+    FieldEvaluator::Ptr field_evaluator = FieldEvaluator::Ptr(new SampleFieldEvaluator);
+    field_evaluator->set_grpc_evalution_method(action.helios_offensive_planner().evalution());
     
     if (action.helios_offensive_planner().lead_pass() 
         || action.helios_offensive_planner().direct_pass() || action.helios_offensive_planner().through_pass())
@@ -721,8 +722,6 @@ void GrpcClientPlayer::getActions()
             }
         }
         else if (action.action_case() == PlayerAction::kHeliosOffensivePlanner) {
-            
-            
             if (action.helios_offensive_planner().server_side_decision())
             {
                 if (GetBestPlannerAction())

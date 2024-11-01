@@ -36,6 +36,11 @@
 #include <memory>
 #include <vector>
 
+#ifdef USE_GRPC
+#include "../../grpc-generated/service.pb.h"
+using protos::PlannerEvalution;
+#endif
+
 /*!
   \class FieldEvaluator
   \brief abstract field evaluator function object class
@@ -67,7 +72,14 @@ public:
      */
     virtual
     double operator() ( const PredictState & state,
-                        const std::vector< ActionStatePair > & path ) const = 0;
+                        const std::vector< ActionStatePair > & path,
+                        const rcsc::WorldModel & wm ) const = 0;
+
+#ifdef USE_GRPC
+    virtual
+    void set_grpc_evalution_method( const PlannerEvalution & evalution ) = 0;
+#endif
+
 };
 
 #endif

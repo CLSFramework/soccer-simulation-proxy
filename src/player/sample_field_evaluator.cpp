@@ -52,7 +52,13 @@ static const int VALID_PLAYER_THRESHOLD = 8;
 /*!
 
  */
-static double evaluate_state( const PredictState & state );
+static double evaluate_state( const PredictState & state,
+                              const double & helios_x_coefficient = 1.0,
+                              const double & helios_ball_dist_to_goal_coefficient = 1.0,
+                              const double & helios_effective_max_ball_dist_to_goal = 40.0 );
+
+static double evaluate_state_2d( const PredictState & state,
+                                 const std::vector < std::vector < double > > & matrix_field_evaluator);
 
 
 /*-------------------------------------------------------------------*/
@@ -73,33 +79,362 @@ SampleFieldEvaluator::~SampleFieldEvaluator()
 
 }
 
+#ifdef USE_GRPC
+using protos::PlannerEvaluationEfector;
+using protos::PlannerFieldEvaluator;
+void 
+SampleFieldEvaluator::set_grpc_evalution_method( const PlannerEvalution & evalution )
+{
+    dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method" );
+    auto effectors = evalution.effectors();
+    auto field_evaluators = evalution.field_evaluators();
+
+    for ( auto & effector : effectors )
+    {
+        if ( effector.efector_case() == PlannerEvaluationEfector::kOpponentEffector )
+        {
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector" );
+            if (effector.opponent_effector().negetive_effect_by_distance().size() > 0)
+            {
+                dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_distance" );
+                m_use_opponent_effector_by_distance = true;
+                m_opponent_negetive_effect_by_distance.assign(
+                    effector.opponent_effector().negetive_effect_by_distance().begin(),
+                    effector.opponent_effector().negetive_effect_by_distance().end()
+                );
+                for (auto & value : m_opponent_negetive_effect_by_distance) {
+                    if (value > 0) {
+                        value = 0;
+                    }
+                    dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_distance: %f", value );
+                }
+                m_opponent_negetive_effect_by_distance_based_on_first_layer = effector.opponent_effector().negetive_effect_by_distance_based_on_first_layer();
+            }
+            if (effector.opponent_effector().negetive_effect_by_reach_steps().size() > 0)
+            {
+                dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_reach_steps" );
+                m_use_opponent_effector_by_reach_steps = true;
+                m_opponent_negetive_effect_by_reach_steps.assign(
+                    effector.opponent_effector().negetive_effect_by_reach_steps().begin(),
+                    effector.opponent_effector().negetive_effect_by_reach_steps().end()
+                );
+                for (auto & value : m_opponent_negetive_effect_by_reach_steps) {
+                    if (value > 0) {
+                        value = 0;
+                    }
+                    dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_reach_steps: %f", value );
+                }
+                m_opponent_negetive_effect_by_reach_steps_based_on_first_layer = effector.opponent_effector().negetive_effect_by_reach_steps_based_on_first_layer();
+            }
+                
+        }
+        if ( effector.efector_case() == PlannerEvaluationEfector::kActionTypeEffector )
+        {
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector" );
+            m_use_action_coefficients = true;
+            m_direct_pass_coefficient = (effector.action_type_effector().direct_pass() < 0.0 ? 0.0 : effector.action_type_effector().direct_pass());
+            m_lead_pass_coefficient = (effector.action_type_effector().lead_pass() < 0.0 ? 0.0 : effector.action_type_effector().lead_pass());
+            m_through_pass_coefficient = (effector.action_type_effector().through_pass() < 0.0 ? 0.0 : effector.action_type_effector().through_pass());
+            m_short_dribble_coefficient = (effector.action_type_effector().short_dribble() < 0.0 ? 0.0 : effector.action_type_effector().short_dribble());
+            m_long_dribble_coefficient = (effector.action_type_effector().long_dribble() < 0.0 ? 0.0 : effector.action_type_effector().long_dribble());
+            m_cross_coefficient = (effector.action_type_effector().cross() < 0.0 ? 0.0 : effector.action_type_effector().cross());
+            m_hold_coefficient = (effector.action_type_effector().hold() < 0.0 ? 0.0 : effector.action_type_effector().hold());
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: direct_pass: %f", m_direct_pass_coefficient );
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: lead_pass: %f", m_lead_pass_coefficient );
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: through_pass: %f", m_through_pass_coefficient );
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: short_dribble: %f", m_short_dribble_coefficient );
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: long_dribble: %f", m_long_dribble_coefficient );
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: cross: %f", m_cross_coefficient );
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: hold: %f", m_hold_coefficient );
+        }
+
+        if ( effector.efector_case() == PlannerEvaluationEfector::kTeammateEffector )
+        {
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: teammate effector" );
+            m_use_teammate_effector = true;
+            for ( auto & effect : effector.teammate_effector().coefficients() )
+            {
+                m_teammate_positive_coefficients[effect.first] = (effect.second < 0.0 ? 0.0 : effect.second);
+                dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: teammate effector: %d: %f", effect.first, effect.second );
+            }
+            m_teammate_positive_coefficients_based_on_first_layer = effector.teammate_effector().apply_based_on_first_layer();
+        }
+    }
+
+    m_use_heleos_field_evaluator = false;
+    for ( auto & field_evaluator : field_evaluators )
+    {
+        if ( field_evaluator.field_evaluator_case() == PlannerFieldEvaluator::kHeliosFieldEvaluator )
+        {
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator" );
+            m_use_heleos_field_evaluator = true;
+            m_helios_x_coefficient = field_evaluator.helios_field_evaluator().x_coefficient();
+            m_helios_x_coefficient = ( m_helios_x_coefficient < 0.0 ? 0.0 : m_helios_x_coefficient );
+            m_helios_ball_dist_to_goal_coefficient = field_evaluator.helios_field_evaluator().ball_dist_to_goal_coefficient();
+            m_helios_ball_dist_to_goal_coefficient = ( m_helios_ball_dist_to_goal_coefficient < 0.0 ? 0.0 : m_helios_ball_dist_to_goal_coefficient );
+            m_helios_effective_max_ball_dist_to_goal = field_evaluator.helios_field_evaluator().effective_max_ball_dist_to_goal();
+
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator: x_coefficient: %f", m_helios_x_coefficient );
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator: ball_dist_to_goal_coefficient: %f", m_helios_ball_dist_to_goal_coefficient );
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator: effective_max_ball_dist_to_goal: %f", m_helios_effective_max_ball_dist_to_goal );
+        }
+
+        if ( field_evaluator.field_evaluator_case() == PlannerFieldEvaluator::kMatrixFieldEvaluator )
+        {
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: matrix field evaluator" );
+            m_use_matrix_field_evaluator = true;
+            m_matrix_field_evaluator.clear();
+            double min_value = std::numeric_limits<double>::max();
+            for (const auto& x_row : field_evaluator.matrix_field_evaluator().evals()) {
+                for (const auto& y_row : x_row.evals()) {
+                    min_value = std::min(min_value, static_cast<double>(y_row));
+                }
+            }
+            for ( auto & x_row : field_evaluator.matrix_field_evaluator().evals() )
+            {
+                std::vector< double > row;
+                std::string row_str;
+                for ( auto & y_row : x_row.evals() )
+                {
+                    row.push_back( y_row - min_value ); // make all values positive
+                    row_str += std::to_string( y_row ) + " ";
+                }
+                m_matrix_field_evaluator.push_back( row );
+                dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: matrix field evaluator: %s", row_str.c_str() );
+            }
+        }
+    }
+
+    if ( !m_use_matrix_field_evaluator)
+        m_use_heleos_field_evaluator = true;
+}
+#endif
+
 /*-------------------------------------------------------------------*/
 /*!
 
  */
 double
 SampleFieldEvaluator::operator()( const PredictState & state,
-                                  const std::vector< ActionStatePair > & /*path*/ ) const
+                                  const std::vector< ActionStatePair > & path,
+                                  const rcsc::WorldModel & wm ) const
 {
-    const double final_state_evaluation = evaluate_state( state );
+    double state_evaluation = 0;
+    
+    if ( m_use_heleos_field_evaluator ){
+        state_evaluation += evaluate_state( state,
+                                            m_helios_x_coefficient,
+                                            m_helios_ball_dist_to_goal_coefficient,
+                                            m_helios_effective_max_ball_dist_to_goal );
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "eval after helios: %f", state_evaluation );
+        #endif
+    }
+        
 
+    if ( m_use_matrix_field_evaluator )
+    {
+        state_evaluation += evaluate_state_2d( state, m_matrix_field_evaluator );
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "eval after matrix: %f", state_evaluation );
+        #endif
+    }
+
+    if ( m_use_action_coefficients )
+    {
+        state_evaluation = effected_by_action_term( state, path, state_evaluation );
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "eval after action effector: %f", state_evaluation );
+        #endif
+    }
+    
+    if ( m_use_opponent_effector_by_distance )
+    {
+        state_evaluation = effected_by_opponent_distance( state, path, state_evaluation, wm );
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "eval after opponent distance effector: %f", state_evaluation );
+        #endif
+    }
+    
+    if ( m_use_opponent_effector_by_reach_steps )
+    {
+        state_evaluation = effected_by_opponent_reach_step( state, path, state_evaluation, wm );
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "eval after opponent reach step effector: %f", state_evaluation );
+        #endif
+    }
+
+    if ( m_use_teammate_effector )
+    {
+        state_evaluation = effected_by_teammate( state, path, state_evaluation );
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "eval after teammate effector: %f", state_evaluation );
+        #endif
+    }
+    
     //
     // ???
     //
 
-    double result = final_state_evaluation;
+    double result = state_evaluation;
 
     return result;
 }
 
 
+double
+SampleFieldEvaluator::effected_by_action_term( const PredictState & state,
+                                               const std::vector< ActionStatePair > & path,
+                                               const double & eval ) const
+{
+    if ( path.size() == 0 )
+        return eval * m_hold_coefficient;
+    const ActionStatePair asp = path.at(0);
+    if ( asp.action().description() == "strictDirect" )
+        return eval * m_direct_pass_coefficient;
+    else if ( asp.action().description() == "strictLead" )
+        return eval * m_lead_pass_coefficient;
+    else if ( asp.action().description() == "strictThrough" )
+        return eval * m_through_pass_coefficient;
+    else if ( asp.action().description() == "shortDribble" )
+        return eval * m_short_dribble_coefficient;
+    else if ( asp.action().description() == "SelfPass" )
+        return eval * m_long_dribble_coefficient;
+    else if ( asp.action().description() == "cross" )
+        return eval * m_cross_coefficient;
+    return eval;
+}
+
+double 
+SampleFieldEvaluator::effected_by_opponent_distance( const PredictState & state,
+                                                     const std::vector< ActionStatePair > & path,
+                                                     const double & eval,
+                                                     const WorldModel & wm ) const
+{
+    if ( m_opponent_negetive_effect_by_distance.size() == 0 )
+        return eval;
+    auto ball_pos = state.ball().pos();
+    if ( path.size() > 0 && m_opponent_negetive_effect_by_distance_based_on_first_layer )
+    {
+        ball_pos = path.at(0).state().ball().pos();
+    }
+
+    double min_dist = 1000.0;
+
+    for ( auto & opp : wm.theirPlayers() )
+    {
+        if ( opp->unum() <= 0 )
+            continue;
+
+        double dist = ball_pos.dist( opp->pos() );
+
+        if ( dist < min_dist )
+            min_dist = dist;
+    }
+
+    int min_dist_int = (int) min_dist;
+
+    double min_effect = *std::min_element(m_opponent_negetive_effect_by_distance.begin(), m_opponent_negetive_effect_by_distance.end());
+    double new_eval = eval - min_effect;
+    if ( min_dist_int >= m_opponent_negetive_effect_by_distance.size() )
+    {
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "opp dist effect -> min_dist_int: %d > m_opponent_negetive_effect_by_distance.size(): %d", min_dist_int, m_opponent_negetive_effect_by_distance.size() );
+        #endif
+        return new_eval;
+    }
+        
+    #ifdef DEBUG_PRINT
+        dlog.addText( Logger::ACTION_CHAIN, "opp dist effect -> min_dist_int: %d, min_effect: %f, eval: %f, effect: %f", min_dist_int, min_effect, new_eval, m_opponent_negetive_effect_by_distance[min_dist_int] );
+    #endif
+    
+    return new_eval + m_opponent_negetive_effect_by_distance[min_dist_int];
+}
+
+double 
+SampleFieldEvaluator::effected_by_opponent_reach_step( const PredictState & state,
+                                                       const std::vector< ActionStatePair > & path,
+                                                       const double & eval,
+                                                       const WorldModel & wm ) const
+{
+    if ( m_opponent_negetive_effect_by_reach_steps.size() == 0 )
+        return eval;
+    auto ball_pos = state.ball().pos();
+    if ( path.size() > 0 && m_opponent_negetive_effect_by_reach_steps_based_on_first_layer )
+    {
+        ball_pos = path.at(0).state().ball().pos();
+    }
+
+    int min_reach = 1000;
+
+    for ( auto & opp : wm.theirPlayers() )
+    {
+        if ( opp->unum() <= 0 )
+            continue;
+
+        double reach = opp->playerTypePtr()->cyclesToReachDistance( ball_pos.dist( opp->pos() ) );
+
+        if ( reach < min_reach )
+            min_reach = reach;
+    }
+
+    double min_effect = *std::min_element(m_opponent_negetive_effect_by_reach_steps.begin(), m_opponent_negetive_effect_by_reach_steps.end());
+    double new_eval = eval - min_effect;
+
+    if ( min_reach >= m_opponent_negetive_effect_by_reach_steps.size() )
+    {
+        #ifdef DEBUG_PRINT
+            dlog.addText( Logger::ACTION_CHAIN, "opp reach effect -> min_reach: %d > m_opponent_negetive_effect_by_reach_steps.size(): %d", min_reach, m_opponent_negetive_effect_by_reach_steps.size() );
+        #endif
+        return new_eval;
+    }
+        
+    #ifdef DEBUG_PRINT
+        dlog.addText( Logger::ACTION_CHAIN, "opp reach effect -> min_reach: %d, min_effect: %f, eval: %f, effect: %f", min_reach, min_effect, new_eval, m_opponent_negetive_effect_by_reach_steps[min_reach] );
+    #endif
+    
+    return new_eval + m_opponent_negetive_effect_by_reach_steps[min_reach];
+}
+
+double 
+SampleFieldEvaluator::effected_by_teammate( const PredictState & state,
+                                            const std::vector< ActionStatePair > & path,
+                                            const double & eval ) const
+{
+    if ( m_teammate_positive_coefficients.size() == 0 )
+        return eval;
+    const ServerParam & SP = ServerParam::i();
+
+    int unum = 0;
+    if (m_teammate_positive_coefficients_based_on_first_layer && path.size() > 0)
+    {
+        const ActionStatePair asp = path.at(0);
+        const AbstractPlayerObject * holder = state.ballHolder();
+        if ( ! holder)
+            unum = holder->unum();
+    }
+    else
+    {
+        const AbstractPlayerObject * holder = state.ballHolder();
+        if ( ! holder)
+            unum = holder->unum();
+    }
+    
+    if ( m_teammate_positive_coefficients.find( unum ) == m_teammate_positive_coefficients.end() )
+        return eval;
+    
+    return eval * m_teammate_positive_coefficients.at( unum );
+}
 /*-------------------------------------------------------------------*/
 /*!
 
  */
 static
 double
-evaluate_state( const PredictState & state )
+evaluate_state( const PredictState & state,
+                const double & helios_x_coefficient,
+                const double & helios_ball_dist_to_goal_coefficient,
+                const double & helios_effective_max_ball_dist_to_goal)
 {
     const ServerParam & SP = ServerParam::i();
 
@@ -171,10 +506,12 @@ evaluate_state( const PredictState & state )
     //
     // set basic evaluation
     //
-    double point = state.ball().pos().x;
+    double point = helios_x_coefficient * (state.ball().pos().x + SP.pitchHalfLength());
 
-    point += std::max( 0.0,
-                       40.0 - ServerParam::i().theirTeamGoalPos().dist( state.ball().pos() ) );
+    point += helios_ball_dist_to_goal_coefficient * 
+             std::max( 0.0,
+                       helios_effective_max_ball_dist_to_goal 
+                       - ServerParam::i().theirTeamGoalPos().dist( state.ball().pos() ) );
 
 #ifdef DEBUG_PRINT
     dlog.addText( Logger::ACTION_CHAIN,
@@ -211,3 +548,48 @@ evaluate_state( const PredictState & state )
 
     return point;
 }
+
+/*-------------------------------------------------------------------*/
+/*!
+
+ */
+static double evaluate_state_2d( const PredictState & state,
+                                 const std::vector < std::vector < double > > & matrix_field_evaluator)
+{
+    const ServerParam & SP = ServerParam::i();
+
+    const AbstractPlayerObject * holder = state.ballHolder();
+
+    auto ball_pos = state.ball().pos();
+    ball_pos.x += SP.pitchHalfLength();
+    ball_pos.y += SP.pitchHalfWidth();
+
+    int x_size = matrix_field_evaluator.size();
+
+    if (x_size == 0)
+        return 0;
+
+    int y_size = matrix_field_evaluator[0].size();
+
+    if (y_size == 0)
+        return 0;
+
+    double x_step = 2.0 * SP.pitchHalfLength() / x_size;
+    double y_step = 2.0 * SP.pitchHalfWidth() / y_size;
+
+    int x_index = (int) (ball_pos.x / x_step);
+    int y_index = (int) (ball_pos.y / y_step);
+
+    if (x_index < 0)
+        x_index = 0;
+    if (x_index >= x_size)
+        x_index = x_size - 1;
+    
+    if (y_index < 0)
+        y_index = 0;
+    if (y_index >= y_size)
+        y_index = y_size - 1;
+
+    return matrix_field_evaluator[x_index][y_index];
+}
+

@@ -290,7 +290,7 @@ ActionChainGraph::doSearch( const WorldModel & wm,
     // check current state
     //
     std::vector< ActionStatePair > best_path = path;
-    double max_ev = (*M_evaluator)( state, path );
+    double max_ev = (*M_evaluator)( state, path, wm );
 #ifdef DO_MONTECARLO_SEARCH
     double eval_sum = 0;
     long n_eval = 0;
@@ -423,7 +423,7 @@ ActionChainGraph::calculateResultBestFirstSearch( const WorldModel & wm,
     //
     const PredictState current_state( wm );
     const std::vector< ActionStatePair > empty_path;
-    const double current_evaluation = (*M_evaluator)( current_state, empty_path );
+    const double current_evaluation = (*M_evaluator)( current_state, empty_path, wm );
     ++M_chain_count;
     ++(*n_evaluated);
 #ifdef ACTION_CHAIN_DEBUG
@@ -513,7 +513,7 @@ ActionChainGraph::calculateResultBestFirstSearch( const WorldModel & wm,
             std::vector< ActionStatePair > candidate_series = series;
             candidate_series.push_back( *it );
 
-            double ev = (*M_evaluator)( (*it).state(), candidate_series );
+            double ev = (*M_evaluator)( (*it).state(), candidate_series, wm);
 
             auto copy_action = std::make_shared<CooperativeAction>(it->action());
             auto copy_state = std::make_shared<PredictState>(it->state());
@@ -577,7 +577,7 @@ ActionChainGraph::debugPrintCurrentState( const WorldModel & wm )
         }
         else
         {
-            const AbstractPlayerObject * t = wm.teammate( n );
+            const AbstractPlayerObject * t = wm.ourPlayer( n );
 
             if ( t )
             {
@@ -594,12 +594,10 @@ ActionChainGraph::debugPrintCurrentState( const WorldModel & wm )
     dlog.addText( Logger::ACTION_CHAIN, "=====" );
 
 
-    AbstractPlayerCont::const_iterator end = wm.allTeammates().end();
-    for ( AbstractPlayerCont::const_iterator it = wm.allTeammates().begin();
-          it != end;
-          ++it )
+    auto end = wm.teammates().end();
+    for ( auto it : wm.teammates())
     {
-        if ( (*it)->isSelf() )
+        if ( (it)->isSelf() )
         {
             dlog.addText( Logger::ACTION_CHAIN,
                           "teammate %d, self", (*it)->unum() );
@@ -607,7 +605,7 @@ ActionChainGraph::debugPrintCurrentState( const WorldModel & wm )
         else
         {
             dlog.addText( Logger::ACTION_CHAIN,
-                          "teammate %d", (*it)->unum() );
+                          "teammate %d", (it)->unum() );
         }
     }
 

@@ -168,12 +168,21 @@ void GrpcClientPlayer::getActions()
     state.set_allocated_register_response(response);
     protos::PlayerActions actions;
     ClientContext context;
+    // Set the deadline to 1 second from now
+    auto deadline = std::chrono::system_clock::now() + std::chrono::seconds(1);
+    context.set_deadline(deadline);
+
     Status status = M_stub_->GetPlayerActions(&context, state, &actions);
 
     if (!status.ok())
     {
-        std::cout << status.error_code() << ": " << status.error_message()
+        std::cout << "rpcerror:" << status.error_code() << ": " << status.error_message()
                   << std::endl;
+        
+        if (status.error_code() == grpc::StatusCode::DEADLINE_EXCEEDED) {
+            // The call timed out
+            std::cerr << "rpcerror-timeout" << std::endl;
+        }
         return;
     }
 

@@ -105,6 +105,57 @@ void GrpcClientPlayer::init(rcsc::SoccerAgent *agent,
     sample_communication = Communication::Ptr(new SampleCommunication());
 }
 
+void GrpcClientPlayer::updateChainByDefault(const rcsc::WorldModel &wm)
+{
+    FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
+    CompositeActionGenerator *g = new CompositeActionGenerator();
+    
+    g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_StrictCheckPass(), 1));
+    g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_Cross(), 1));
+    g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_ShortDribble(), 1));
+    g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_SelfPass(), 1));
+
+    g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_Shoot(),
+                                                            2, ActGen_RangeActionChainLengthFilter::MAX));
+    ActionGenerator::ConstPtr action_generator = ActionGenerator::ConstPtr(g);
+    ActionChainHolder::instance().setFieldEvaluator(field_evaluator);
+    ActionChainHolder::instance().setActionGenerator(action_generator);
+    ActionChainHolder::instance().update(wm);
+}
+
+void GrpcClientPlayer::updateChainByPlannerAction(const rcsc::WorldModel &wm, const protos::PlayerAction &action)
+{
+    FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
+    CompositeActionGenerator *g = new CompositeActionGenerator();
+    
+    if (action.helios_offensive_planner().lead_pass() 
+        || action.helios_offensive_planner().direct_pass() || action.helios_offensive_planner().through_pass())
+        g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_StrictCheckPass(), 1));
+    if (action.helios_offensive_planner().cross())
+        g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_Cross(), 1));
+    if (action.helios_offensive_planner().simple_pass())
+        g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_DirectPass(),
+                                                                2, ActGen_RangeActionChainLengthFilter::MAX));
+    if (action.helios_offensive_planner().short_dribble())
+        g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_ShortDribble(), 1));
+    if (action.helios_offensive_planner().long_dribble())
+        g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_SelfPass(), 1));
+    if (action.helios_offensive_planner().simple_dribble())
+        g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_SimpleDribble(),
+                                                                2, ActGen_RangeActionChainLengthFilter::MAX));
+    if (action.helios_offensive_planner().simple_shoot())
+        g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_Shoot(),
+                                                                2, ActGen_RangeActionChainLengthFilter::MAX));
+    if (g->M_generators.empty())
+    {
+        return;
+    }
+    ActionGenerator::ConstPtr action_generator = ActionGenerator::ConstPtr(g);
+    ActionChainHolder::instance().setFieldEvaluator(field_evaluator);
+    ActionChainHolder::instance().setActionGenerator(action_generator);
+    ActionChainHolder::instance().update(wm);
+}
+
 void GrpcClientPlayer::getActions()
 {
     auto agent = M_agent;
@@ -135,6 +186,22 @@ void GrpcClientPlayer::getActions()
             return;
         }
     }
+    const rcsc::WorldModel & wm = agent->world();
+
+    if ( wm.gameMode().type() != rcsc::GameMode::IndFreeKick_
+         && wm.time().stopped() == 0
+         && wm.self().isKickable()
+         && Bhv_StrictCheckShoot().execute( agent ) )
+    {
+        // reset intention
+        agent->setIntention( static_cast< rcsc::SoccerIntention * >( 0 ) );
+        return;
+    }
+    
+    if ( agent->doIntention() )
+    {
+        return;
+    }
 
     if (do_forceKick && !actions.ignore_doforcekick())
     {
@@ -145,7 +212,7 @@ void GrpcClientPlayer::getActions()
             return;
         }
     }
-
+    
     if (do_heardPassReceive && !actions.ignore_doheardpassrecieve())
     {
         if (doHeardPassReceive(agent))
@@ -155,6 +222,102 @@ void GrpcClientPlayer::getActions()
             return;
         }
     }
+    
+    // if (agent->world().gameMode().type() == rcsc::GameMode::PlayOn)
+    // {
+    //     if (agent->world().self().goalie())
+    //     {
+    //         protos::PlayerAction action;
+    //         action.set_allocated_helios_goalie(new protos::HeliosGoalie());
+    //         actions.add_actions()->CopyFrom(action);
+    //     }
+    //     else if (agent->world().self().isKickable())
+    //     {
+    //         const auto &wm = agent->world();
+    //         protos::PlayerAction action;
+
+    //         auto planner = new protos::HeliosOffensivePlanner();
+    //         planner->set_direct_pass(true);
+    //         planner->set_lead_pass(true);
+    //         planner->set_through_pass(true);
+    //         planner->set_short_dribble(true);
+    //         planner->set_long_dribble(true);
+    //         planner->set_cross(true);
+    //         planner->set_simple_pass(false);
+    //         planner->set_simple_dribble(false);
+    //         planner->set_simple_shoot(true);
+
+    //         action.set_allocated_helios_offensive_planner(planner);
+    //         actions.add_actions()->CopyFrom(action);
+    //     }
+    //     else
+    //     {
+    //         protos::PlayerAction action;
+    //         auto move = new protos::HeliosBasicMove();
+    //         action.set_allocated_helios_basic_move(move);
+    //         actions.add_actions()->CopyFrom(action);
+    //     }
+    // }
+    // else
+    // {
+    //     protos::PlayerAction action;
+    //     auto set_play = new protos::HeliosSetPlay();
+    //     action.set_allocated_helios_set_play(set_play);
+    //     actions.add_actions()->CopyFrom(action);
+    // }
+    
+    int planner_action_index = -1;
+    for (int i = 0; i < actions.actions_size(); i++)
+    {
+        auto action = actions.actions(i);
+        if (action.action_case() == PlayerAction::kHeliosOffensivePlanner)
+        {
+            planner_action_index = i;
+            break;
+        }
+    }
+
+    if (planner_action_index != -1)
+    {
+        updateChainByPlannerAction(wm, actions.actions(planner_action_index));
+    }
+    else
+    {
+        updateChainByDefault(wm);
+    }
+
+    // if (agent->world().gameMode().type() == rcsc::GameMode::PlayOn)
+    // {
+    //     if (agent->world().self().goalie())
+    //     {
+    //         RoleGoalie().execute(agent);
+    //         return;
+    //     }
+    //     else if (agent->world().self().isKickable())
+    //     {
+    //         const auto &wm = agent->world();
+    //         if (Bhv_PlannedAction().execute(agent))
+    //         {
+    //             agent->debugClient().addMessage("PlannedAction");
+    //         }
+    //         else
+    //         {
+    //             Body_HoldBall().execute(agent);
+    //             agent->setNeckAction(new Neck_ScanField());        
+    //         }
+    //     }
+    //     else
+    //     {
+    //         Bhv_BasicMove().execute(agent);
+    //         return;
+    //     }
+    // }
+    // else
+    // {
+    //     Bhv_SetPlay().execute(agent);
+    //     return;
+    // }
+
 
     for (int i = 0; i < actions.actions_size(); i++)
     {
@@ -543,37 +706,7 @@ void GrpcClientPlayer::getActions()
             }
         }
         else if (action.action_case() == PlayerAction::kHeliosOffensivePlanner) {
-            FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
-            CompositeActionGenerator *g = new CompositeActionGenerator();
             
-            if (action.helios_offensive_planner().lead_pass() 
-                || action.helios_offensive_planner().direct_pass() || action.helios_offensive_planner().through_pass())
-                g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_StrictCheckPass(), 1));
-            if (action.helios_offensive_planner().cross())
-                g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_Cross(), 1));
-            if (action.helios_offensive_planner().simple_pass())
-                g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_DirectPass(),
-                                                                        2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (action.helios_offensive_planner().short_dribble())
-                g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_ShortDribble(), 1));
-            if (action.helios_offensive_planner().long_dribble())
-                g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_SelfPass(), 1));
-            if (action.helios_offensive_planner().simple_dribble())
-                g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_SimpleDribble(),
-                                                                        2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (action.helios_offensive_planner().simple_shoot())
-                g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_Shoot(),
-                                                                        2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (g->M_generators.empty())
-            {
-                Body_HoldBall().execute(agent);
-                agent->setNeckAction(new Neck_ScanField());
-                continue;
-            }
-            ActionGenerator::ConstPtr action_generator = ActionGenerator::ConstPtr(g);
-            ActionChainHolder::instance().setFieldEvaluator(field_evaluator);
-            ActionChainHolder::instance().setActionGenerator(action_generator);
-            ActionChainHolder::instance().update(agent->world());
             
             if (action.helios_offensive_planner().server_side_decision())
             {
@@ -588,7 +721,11 @@ void GrpcClientPlayer::getActions()
                 {
                     agent->debugClient().addMessage("PlannedAction");
                 }
-                
+                else
+                {
+                    Body_HoldBall().execute(agent);
+                    agent->setNeckAction(new Neck_ScanField());        
+                }
             }
 
         }

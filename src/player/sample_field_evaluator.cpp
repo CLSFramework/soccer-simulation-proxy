@@ -722,6 +722,19 @@ static double evaluate_state_2d( const PredictState & state,
     if (y_index >= y_size)
         y_index = y_size - 1;
 
+#ifdef DEBUG_PRINT
+    dlog.addText( Logger::ACTION_CHAIN,
+                  "(eval) ball pos (%f, %f)",
+                  state.ball().pos().x, state.ball().pos().y );
+    dlog.addText( Logger::ACTION_CHAIN,
+                  "matrix_field_evaluator size: %d, %d", x_size, y_size );
+    dlog.addText( Logger::ACTION_CHAIN,
+                  "matrix_field_evaluator step: %f, %f", x_step, y_step );
+    dlog.addText( Logger::ACTION_CHAIN,
+                  "matrix_field_evaluator index: %d, %d", x_index, y_index );
+    dlog.addText( Logger::ACTION_CHAIN,
+                  "(eval) initial value (%f)", matrix_field_evaluator[x_index][y_index] );
+#endif
     return matrix_field_evaluator[x_index][y_index];
 }
 

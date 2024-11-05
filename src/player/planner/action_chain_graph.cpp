@@ -398,6 +398,13 @@ ActionChainGraph::calculateResultBestFirstSearch( const WorldModel & wm,
                                                   unsigned long * n_evaluated )
 
 {
+    #ifdef ACTION_CHAIN_DEBUG
+        dlog.addText( Logger::ACTION_CHAIN,
+                      "***** Best First Search *****" );
+        dlog.addText( Logger::ACTION_CHAIN,
+                      "max_chain_length=%d, max_evaluate_limit=%d",
+                      M_max_chain_length, M_max_evaluate_limit );
+    #endif
     //
     // initialize
     //
@@ -600,7 +607,7 @@ ActionChainGraph::debugPrintCurrentState( const WorldModel & wm )
         if ( (it)->isSelf() )
         {
             dlog.addText( Logger::ACTION_CHAIN,
-                          "teammate %d, self", (*it)->unum() );
+                          "teammate %d, self", (it)->unum() );
         }
         else
         {

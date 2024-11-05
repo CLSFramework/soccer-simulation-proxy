@@ -126,8 +126,14 @@ void GrpcClientPlayer::updateChainByDefault(const rcsc::WorldModel &wm)
 void GrpcClientPlayer::updateChainByPlannerAction(const rcsc::WorldModel &wm, const protos::PlayerAction &action)
 {
     CompositeActionGenerator *g = new CompositeActionGenerator();
+    if (action.helios_offensive_planner().max_depth() > 0)
+        g->max_depth = action.helios_offensive_planner().max_depth();
+    if (action.helios_offensive_planner().max_nodes() > 0)
+        g->max_nodes = action.helios_offensive_planner().max_nodes();
+
     FieldEvaluator::Ptr field_evaluator = FieldEvaluator::Ptr(new SampleFieldEvaluator);
-    field_evaluator->set_grpc_evalution_method(action.helios_offensive_planner().evalution());
+    if (action.helios_offensive_planner().has_evalution())
+        field_evaluator->set_grpc_evalution_method(action.helios_offensive_planner().evalution());
     
     if (action.helios_offensive_planner().lead_pass() 
         || action.helios_offensive_planner().direct_pass() || action.helios_offensive_planner().through_pass())
@@ -152,6 +158,7 @@ void GrpcClientPlayer::updateChainByPlannerAction(const rcsc::WorldModel &wm, co
         return;
     }
     ActionGenerator::ConstPtr action_generator = ActionGenerator::ConstPtr(g);
+
     ActionChainHolder::instance().setFieldEvaluator(field_evaluator);
     ActionChainHolder::instance().setActionGenerator(action_generator);
     ActionChainHolder::instance().update(wm);

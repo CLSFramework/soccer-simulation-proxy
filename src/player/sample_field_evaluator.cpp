@@ -647,7 +647,9 @@ evaluate_state( const PredictState & state,
     dlog.addText( Logger::ACTION_CHAIN,
                   "(eval) ball pos (%f, %f)",
                   state.ball().pos().x, state.ball().pos().y );
-
+    dlog.addText( Logger::ACTION_CHAIN,
+                  "helios_x_coefficient: %f, helios_ball_dist_to_goal_coefficient: %f, helios_effective_max_ball_dist_to_goal: %f",
+                  helios_x_coefficient, helios_ball_dist_to_goal_coefficient, helios_effective_max_ball_dist_to_goal );
     dlog.addText( Logger::ACTION_CHAIN,
                   "(eval) initial value (%f)", point );
 #endif

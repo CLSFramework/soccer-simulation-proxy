@@ -768,7 +768,7 @@ struct OpponentEffector {
   4: bool negetive_effect_by_reach_steps_based_on_first_layer
 }
 
-struct ActionTypeEfector {
+struct ActionTypeEffector {
   1: double direct_pass,
   2: double lead_pass,
   3: double through_pass,
@@ -783,9 +783,9 @@ struct TeammateEffector {
   2: bool apply_based_on_first_layer
 }
 
-struct PlannerEvaluationEfector {
+struct PlannerEvaluationEffector {
   1: optional OpponentEffector opponent_effector,
-  2: optional ActionTypeEfector action_type_effector,
+  2: optional ActionTypeEffector action_type_effector,
   3: optional TeammateEffector teammate_effector
 }
 
@@ -808,9 +808,9 @@ struct PlannerFieldEvaluator {
   2: optional MatrixFieldEvaluator matrix_field_evaluator
 }
 
-struct PlannerEvalution {
-  1: list<PlannerEvaluationEfector> effectors,
-  2: list<PlannerFieldEvaluator> field_evaluators
+struct PlannerEvaluation {
+  1: PlannerEvaluationEffector effectors,
+  2: PlannerFieldEvaluator field_evaluators
 }
 
 struct HeliosOffensivePlanner {
@@ -826,7 +826,7 @@ struct HeliosOffensivePlanner {
   10: bool server_side_decision,
   11: i32 max_depth,
   12: i32 max_nodes,
-  13: PlannerEvalution evalution
+  13: PlannerEvaluation evaluation
 }
 
 struct HeliosBasicOffensive {}

@@ -80,128 +80,126 @@ SampleFieldEvaluator::~SampleFieldEvaluator()
 }
 
 #ifdef USE_GRPC
-using protos::PlannerEvaluationEfector;
+using protos::PlannerEvaluationEffector;
 using protos::PlannerFieldEvaluator;
 void 
-SampleFieldEvaluator::set_grpc_evalution_method( const PlannerEvalution & evalution )
+SampleFieldEvaluator::set_grpc_evalution_method( const PlannerEvaluation & evalution )
 {
     dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method" );
     auto effectors = evalution.effectors();
     auto field_evaluators = evalution.field_evaluators();
 
-    for ( auto & effector : effectors )
+    if ( effectors.has_opponent_effector() )
     {
-        if ( effector.efector_case() == PlannerEvaluationEfector::kOpponentEffector )
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector" );
+        if (effectors.opponent_effector().negetive_effect_by_distance().size() > 0)
         {
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector" );
-            if (effector.opponent_effector().negetive_effect_by_distance().size() > 0)
-            {
-                dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_distance" );
-                m_use_opponent_effector_by_distance = true;
-                m_opponent_negetive_effect_by_distance.assign(
-                    effector.opponent_effector().negetive_effect_by_distance().begin(),
-                    effector.opponent_effector().negetive_effect_by_distance().end()
-                );
-                for (auto & value : m_opponent_negetive_effect_by_distance) {
-                    if (value > 0) {
-                        value = 0;
-                    }
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_distance" );
+            m_use_opponent_effector_by_distance = true;
+            for (auto & value : effectors.opponent_effector().negetive_effect_by_distance()) {
+                if (value > 0) {
+                    dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_distance to 0: %f", 0.0 );
+                    m_opponent_negetive_effect_by_distance.push_back(0);
+                }
+                else{
                     dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_distance: %f", value );
+                    m_opponent_negetive_effect_by_distance.push_back(value);
                 }
-                m_opponent_negetive_effect_by_distance_based_on_first_layer = effector.opponent_effector().negetive_effect_by_distance_based_on_first_layer();
             }
-            if (effector.opponent_effector().negetive_effect_by_reach_steps().size() > 0)
-            {
-                dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_reach_steps" );
-                m_use_opponent_effector_by_reach_steps = true;
-                m_opponent_negetive_effect_by_reach_steps.assign(
-                    effector.opponent_effector().negetive_effect_by_reach_steps().begin(),
-                    effector.opponent_effector().negetive_effect_by_reach_steps().end()
-                );
-                for (auto & value : m_opponent_negetive_effect_by_reach_steps) {
-                    if (value > 0) {
-                        value = 0;
-                    }
-                    dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_reach_steps: %f", value );
-                }
-                m_opponent_negetive_effect_by_reach_steps_based_on_first_layer = effector.opponent_effector().negetive_effect_by_reach_steps_based_on_first_layer();
-            }
-                
+            m_opponent_negetive_effect_by_distance_based_on_first_layer = effectors.opponent_effector().negetive_effect_by_distance_based_on_first_layer();
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_distance_based_on_first_layer: %d", 
+                            m_opponent_negetive_effect_by_distance_based_on_first_layer );
         }
-        if ( effector.efector_case() == PlannerEvaluationEfector::kActionTypeEffector )
+        if (effectors.opponent_effector().negetive_effect_by_reach_steps().size() > 0)
         {
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector" );
-            m_use_action_coefficients = true;
-            m_direct_pass_coefficient = (effector.action_type_effector().direct_pass() < 0.0 ? 0.0 : effector.action_type_effector().direct_pass());
-            m_lead_pass_coefficient = (effector.action_type_effector().lead_pass() < 0.0 ? 0.0 : effector.action_type_effector().lead_pass());
-            m_through_pass_coefficient = (effector.action_type_effector().through_pass() < 0.0 ? 0.0 : effector.action_type_effector().through_pass());
-            m_short_dribble_coefficient = (effector.action_type_effector().short_dribble() < 0.0 ? 0.0 : effector.action_type_effector().short_dribble());
-            m_long_dribble_coefficient = (effector.action_type_effector().long_dribble() < 0.0 ? 0.0 : effector.action_type_effector().long_dribble());
-            m_cross_coefficient = (effector.action_type_effector().cross() < 0.0 ? 0.0 : effector.action_type_effector().cross());
-            m_hold_coefficient = (effector.action_type_effector().hold() < 0.0 ? 0.0 : effector.action_type_effector().hold());
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: direct_pass: %f", m_direct_pass_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: lead_pass: %f", m_lead_pass_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: through_pass: %f", m_through_pass_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: short_dribble: %f", m_short_dribble_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: long_dribble: %f", m_long_dribble_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: cross: %f", m_cross_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: hold: %f", m_hold_coefficient );
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_reach_steps" );
+            m_use_opponent_effector_by_reach_steps = true;
+            for (auto & value : effectors.opponent_effector().negetive_effect_by_reach_steps()) {
+                if (value > 0) {
+                    dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_reach_steps to 0: %f", 0.0 );
+                    m_opponent_negetive_effect_by_reach_steps.push_back(0);
+                }
+                else{
+                    dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_reach_steps: %f", value );
+                    m_opponent_negetive_effect_by_reach_steps.push_back(value);
+                }
+            }
+            m_opponent_negetive_effect_by_reach_steps_based_on_first_layer = effectors.opponent_effector().negetive_effect_by_reach_steps_based_on_first_layer();
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: opponent effector: negetive_effect_by_reach_steps_based_on_first_layer: %d", 
+                            m_opponent_negetive_effect_by_reach_steps_based_on_first_layer );
         }
+            
+    }
+    if ( effectors.has_action_type_effector() )
+    {
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector" );
+        m_use_action_coefficients = true;
+        m_direct_pass_coefficient = (effectors.action_type_effector().direct_pass() < 0.0 ? 0.0 : effectors.action_type_effector().direct_pass());
+        m_lead_pass_coefficient = (effectors.action_type_effector().lead_pass() < 0.0 ? 0.0 : effectors.action_type_effector().lead_pass());
+        m_through_pass_coefficient = (effectors.action_type_effector().through_pass() < 0.0 ? 0.0 : effectors.action_type_effector().through_pass());
+        m_short_dribble_coefficient = (effectors.action_type_effector().short_dribble() < 0.0 ? 0.0 : effectors.action_type_effector().short_dribble());
+        m_long_dribble_coefficient = (effectors.action_type_effector().long_dribble() < 0.0 ? 0.0 : effectors.action_type_effector().long_dribble());
+        m_cross_coefficient = (effectors.action_type_effector().cross() < 0.0 ? 0.0 : effectors.action_type_effector().cross());
+        m_hold_coefficient = (effectors.action_type_effector().hold() < 0.0 ? 0.0 : effectors.action_type_effector().hold());
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: direct_pass: %f", m_direct_pass_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: lead_pass: %f", m_lead_pass_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: through_pass: %f", m_through_pass_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: short_dribble: %f", m_short_dribble_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: long_dribble: %f", m_long_dribble_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: cross: %f", m_cross_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: action type effector: hold: %f", m_hold_coefficient );
+    }
 
-        if ( effector.efector_case() == PlannerEvaluationEfector::kTeammateEffector )
+    if ( effectors.has_teammate_effector() )
         {
             dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: teammate effector" );
             m_use_teammate_effector = true;
-            for ( auto & effect : effector.teammate_effector().coefficients() )
+            for ( auto & effect : effectors.teammate_effector().coefficients() )
             {
                 m_teammate_positive_coefficients[effect.first] = (effect.second < 0.0 ? 0.0 : effect.second);
                 dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: teammate effector: %d: %f", effect.first, effect.second );
             }
-            m_teammate_positive_coefficients_based_on_first_layer = effector.teammate_effector().apply_based_on_first_layer();
+            m_teammate_positive_coefficients_based_on_first_layer = effectors.teammate_effector().apply_based_on_first_layer();
         }
-    }
 
     m_use_heleos_field_evaluator = false;
-    for ( auto & field_evaluator : field_evaluators )
+    if ( field_evaluators.has_helios_field_evaluator() )
     {
-        if ( field_evaluator.field_evaluator_case() == PlannerFieldEvaluator::kHeliosFieldEvaluator )
-        {
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator" );
-            m_use_heleos_field_evaluator = true;
-            m_helios_x_coefficient = field_evaluator.helios_field_evaluator().x_coefficient();
-            m_helios_x_coefficient = ( m_helios_x_coefficient < 0.0 ? 0.0 : m_helios_x_coefficient );
-            m_helios_ball_dist_to_goal_coefficient = field_evaluator.helios_field_evaluator().ball_dist_to_goal_coefficient();
-            m_helios_ball_dist_to_goal_coefficient = ( m_helios_ball_dist_to_goal_coefficient < 0.0 ? 0.0 : m_helios_ball_dist_to_goal_coefficient );
-            m_helios_effective_max_ball_dist_to_goal = field_evaluator.helios_field_evaluator().effective_max_ball_dist_to_goal();
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator" );
+        m_use_heleos_field_evaluator = true;
+        m_helios_x_coefficient = field_evaluators.helios_field_evaluator().x_coefficient();
+        m_helios_x_coefficient = ( m_helios_x_coefficient < 0.0 ? 0.0 : m_helios_x_coefficient );
+        m_helios_ball_dist_to_goal_coefficient = field_evaluators.helios_field_evaluator().ball_dist_to_goal_coefficient();
+        m_helios_ball_dist_to_goal_coefficient = ( m_helios_ball_dist_to_goal_coefficient < 0.0 ? 0.0 : m_helios_ball_dist_to_goal_coefficient );
+        m_helios_effective_max_ball_dist_to_goal = field_evaluators.helios_field_evaluator().effective_max_ball_dist_to_goal();
 
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator: x_coefficient: %f", m_helios_x_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator: ball_dist_to_goal_coefficient: %f", m_helios_ball_dist_to_goal_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator: effective_max_ball_dist_to_goal: %f", m_helios_effective_max_ball_dist_to_goal );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator: x_coefficient: %f", m_helios_x_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator: ball_dist_to_goal_coefficient: %f", m_helios_ball_dist_to_goal_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator: effective_max_ball_dist_to_goal: %f", m_helios_effective_max_ball_dist_to_goal );
+    }
+
+    if ( field_evaluators.has_matrix_field_evaluator() )
+    {
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: matrix field evaluator" );
+        m_use_matrix_field_evaluator = true;
+        m_matrix_field_evaluator.clear();
+        double min_value = std::numeric_limits<double>::max();
+        for (const auto& x_row : field_evaluators.matrix_field_evaluator().evals()) {
+            for (const auto& y_row : x_row.evals()) {
+                min_value = std::min(min_value, static_cast<double>(y_row));
+            }
         }
-
-        if ( field_evaluator.field_evaluator_case() == PlannerFieldEvaluator::kMatrixFieldEvaluator )
+        for ( auto & x_row : field_evaluators.matrix_field_evaluator().evals() )
         {
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: matrix field evaluator" );
-            m_use_matrix_field_evaluator = true;
-            m_matrix_field_evaluator.clear();
-            double min_value = std::numeric_limits<double>::max();
-            for (const auto& x_row : field_evaluator.matrix_field_evaluator().evals()) {
-                for (const auto& y_row : x_row.evals()) {
-                    min_value = std::min(min_value, static_cast<double>(y_row));
-                }
-            }
-            for ( auto & x_row : field_evaluator.matrix_field_evaluator().evals() )
+            std::vector< double > row;
+            std::string row_str;
+            for ( auto & y_row : x_row.evals() )
             {
-                std::vector< double > row;
-                std::string row_str;
-                for ( auto & y_row : x_row.evals() )
-                {
-                    row.push_back( y_row - min_value ); // make all values positive
-                    row_str += std::to_string( y_row ) + " ";
-                }
-                m_matrix_field_evaluator.push_back( row );
-                dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: matrix field evaluator: %s", row_str.c_str() );
+                row.push_back( y_row - min_value ); // make all values positive
+                row_str += std::to_string( y_row ) + " ";
             }
+            m_matrix_field_evaluator.push_back( row );
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: matrix field evaluator: %s", row_str.c_str() );
         }
     }
 
@@ -212,126 +210,119 @@ SampleFieldEvaluator::set_grpc_evalution_method( const PlannerEvalution & evalut
 
 #ifdef USE_THRIFT
 void 
-SampleFieldEvaluator::set_thrift_evalution_method( const soccer::PlannerEvalution & evalution )
+SampleFieldEvaluator::set_thrift_evalution_method( const soccer::PlannerEvaluation & evalution )
 {
     dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method" );
     auto effectors = evalution.effectors;
     auto field_evaluators = evalution.field_evaluators;
 
-    for ( auto & effector : effectors )
+    if ( effectors.__isset.opponent_effector )
     {
-        if ( effector.__isset.opponent_effector )
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: opponent effector" );
+        if (effectors.opponent_effector.negetive_effect_by_distance.size() > 0)
         {
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: opponent effector" );
-            if (effector.opponent_effector.negetive_effect_by_distance.size() > 0)
-            {
-                dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: opponent effector: negetive_effect_by_distance" );
-                m_use_opponent_effector_by_distance = true;
-                m_opponent_negetive_effect_by_distance.assign(
-                    effector.opponent_effector.negetive_effect_by_distance.begin(),
-                    effector.opponent_effector.negetive_effect_by_distance.end()
-                );
-                for (auto & value : m_opponent_negetive_effect_by_distance) {
-                    if (value > 0) {
-                        value = 0;
-                    }
-                    dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: opponent effector: negetive_effect_by_distance: %f", value );
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: opponent effector: negetive_effect_by_distance" );
+            m_use_opponent_effector_by_distance = true;
+            m_opponent_negetive_effect_by_distance.clear();
+            for (auto & value : effectors.opponent_effector.negetive_effect_by_distance) {
+                if (value > 0) {
+                    m_opponent_negetive_effect_by_distance.push_back(0);
                 }
-                m_opponent_negetive_effect_by_distance_based_on_first_layer = effector.opponent_effector.negetive_effect_by_distance_based_on_first_layer;
-            }
-            if (effector.opponent_effector.negetive_effect_by_reach_steps.size() > 0)
-            {
-                dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: opponent effector: negetive_effect_by_reach_steps" );
-                m_use_opponent_effector_by_reach_steps = true;
-                m_opponent_negetive_effect_by_reach_steps.assign(
-                    effector.opponent_effector.negetive_effect_by_reach_steps.begin(),
-                    effector.opponent_effector.negetive_effect_by_reach_steps.end()
-                );
-                for (auto & value : m_opponent_negetive_effect_by_reach_steps) {
-                    if (value > 0) {
-                        value = 0;
-                    }
-                    dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: opponent effector: negetive_effect_by_reach_steps: %f", value );
+                else{
+                    m_opponent_negetive_effect_by_distance.push_back(value);
                 }
-                m_opponent_negetive_effect_by_reach_steps_based_on_first_layer = effector.opponent_effector.negetive_effect_by_reach_steps_based_on_first_layer;
+                dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: opponent effector: negetive_effect_by_distance: %f", value );
             }
-                
+            m_opponent_negetive_effect_by_distance_based_on_first_layer = effectors.opponent_effector.negetive_effect_by_distance_based_on_first_layer;
         }
-        if ( effector.__isset.action_type_effector )
+        if (effectors.opponent_effector.negetive_effect_by_reach_steps.size() > 0)
         {
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector" );
-            m_use_action_coefficients = true;
-            m_direct_pass_coefficient = (effector.action_type_effector.direct_pass < 0.0 ? 0.0 : effector.action_type_effector.direct_pass);
-            m_lead_pass_coefficient = (effector.action_type_effector.lead_pass < 0.0 ? 0.0 : effector.action_type_effector.lead_pass);
-            m_through_pass_coefficient = (effector.action_type_effector.through_pass < 0.0 ? 0.0 : effector.action_type_effector.through_pass);
-            m_short_dribble_coefficient = (effector.action_type_effector.short_dribble < 0.0 ? 0.0 : effector.action_type_effector.short_dribble);
-            m_long_dribble_coefficient = (effector.action_type_effector.long_dribble < 0.0 ? 0.0 : effector.action_type_effector.long_dribble);
-            m_cross_coefficient = (effector.action_type_effector.cross < 0.0 ? 0.0 : effector.action_type_effector.cross);
-            m_hold_coefficient = (effector.action_type_effector.hold < 0.0 ? 0.0 : effector.action_type_effector.hold);
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector: direct_pass: %f", m_direct_pass_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector: lead_pass: %f", m_lead_pass_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector: through_pass: %f", m_through_pass_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector: short_dribble: %f", m_short_dribble_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector: long_dribble: %f", m_long_dribble_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector: cross: %f", m_cross_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector: hold: %f", m_hold_coefficient );
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: opponent effector: negetive_effect_by_reach_steps" );
+            m_use_opponent_effector_by_reach_steps = true;
+            m_opponent_negetive_effect_by_reach_steps.clear();
+            for (auto & value : effectors.opponent_effector.negetive_effect_by_reach_steps) {
+                if (value > 0) {
+                    m_opponent_negetive_effect_by_reach_steps.push_back(0);
+                }
+                else{
+                    m_opponent_negetive_effect_by_reach_steps.push_back(value);
+                }
+                dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: opponent effector: negetive_effect_by_reach_steps: %f", value );
+            }
+            m_opponent_negetive_effect_by_reach_steps_based_on_first_layer = effectors.opponent_effector.negetive_effect_by_reach_steps_based_on_first_layer;
         }
+    }
+    if ( effectors.__isset.action_type_effector )
+    {
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector" );
+        m_use_action_coefficients = true;
+        m_direct_pass_coefficient = (effectors.action_type_effector.direct_pass < 0.0 ? 0.0 : effectors.action_type_effector.direct_pass);
+        m_lead_pass_coefficient = (effectors.action_type_effector.lead_pass < 0.0 ? 0.0 : effectors.action_type_effector.lead_pass);
+        m_through_pass_coefficient = (effectors.action_type_effector.through_pass < 0.0 ? 0.0 : effectors.action_type_effector.through_pass);
+        m_short_dribble_coefficient = (effectors.action_type_effector.short_dribble < 0.0 ? 0.0 : effectors.action_type_effector.short_dribble);
+        m_long_dribble_coefficient = (effectors.action_type_effector.long_dribble < 0.0 ? 0.0 : effectors.action_type_effector.long_dribble);
+        m_cross_coefficient = (effectors.action_type_effector.cross < 0.0 ? 0.0 : effectors.action_type_effector.cross);
+        m_hold_coefficient = (effectors.action_type_effector.hold < 0.0 ? 0.0 : effectors.action_type_effector.hold);
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector: direct_pass: %f", m_direct_pass_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector: lead_pass: %f", m_lead_pass_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector: through_pass: %f", m_through_pass_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector: short_dribble: %f", m_short_dribble_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector: long_dribble: %f", m_long_dribble_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector: cross: %f", m_cross_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: action type effector: hold: %f", m_hold_coefficient );
+    }
 
-        if ( effector.__isset.teammate_effector )
+    if ( effectors.__isset.teammate_effector )
+    {
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: teammate effector" );
+        m_use_teammate_effector = true;
+        for ( auto & effect : effectors.teammate_effector.coefficients )
         {
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: teammate effector" );
-            m_use_teammate_effector = true;
-            for ( auto & effect : effector.teammate_effector.coefficients )
-            {
-                m_teammate_positive_coefficients[effect.first] = (effect.second < 0.0 ? 0.0 : effect.second);
-                dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: teammate effector: %d: %f", effect.first, effect.second );
-            }
-            m_teammate_positive_coefficients_based_on_first_layer = effector.teammate_effector.apply_based_on_first_layer;
+            m_teammate_positive_coefficients[effect.first] = (effect.second < 0.0 ? 0.0 : effect.second);
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_thrift_evalution_method: teammate effector: %d: %f", effect.first, effect.second );
         }
+        m_teammate_positive_coefficients_based_on_first_layer = effectors.teammate_effector.apply_based_on_first_layer;
     }
 
     m_use_heleos_field_evaluator = false;
-    for ( auto & field_evaluator : field_evaluators )
+    if ( field_evaluators.__isset.helios_field_evaluator )
     {
-        if ( field_evaluator.__isset.helios_field_evaluator )
-        {
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator" );
-            m_use_heleos_field_evaluator = true;
-            m_helios_x_coefficient = field_evaluator.helios_field_evaluator.x_coefficient;
-            m_helios_x_coefficient = ( m_helios_x_coefficient < 0.0 ? 0.0 : m_helios_x_coefficient );
-            m_helios_ball_dist_to_goal_coefficient = field_evaluator.helios_field_evaluator.ball_dist_to_goal_coefficient;
-            m_helios_ball_dist_to_goal_coefficient = ( m_helios_ball_dist_to_goal_coefficient < 0.0 ? 0.0 : m_helios_ball_dist_to_goal_coefficient );
-            m_helios_effective_max_ball_dist_to_goal = field_evaluator.helios_field_evaluator.effective_max_ball_dist_to_goal;
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator" );
+        m_use_heleos_field_evaluator = true;
+        m_helios_x_coefficient = field_evaluators.helios_field_evaluator.x_coefficient;
+        m_helios_x_coefficient = ( m_helios_x_coefficient < 0.0 ? 0.0 : m_helios_x_coefficient );
+        m_helios_ball_dist_to_goal_coefficient = field_evaluators.helios_field_evaluator.ball_dist_to_goal_coefficient;
+        m_helios_ball_dist_to_goal_coefficient = ( m_helios_ball_dist_to_goal_coefficient < 0.0 ? 0.0 : m_helios_ball_dist_to_goal_coefficient );
+        m_helios_effective_max_ball_dist_to_goal = field_evaluators.helios_field_evaluator.effective_max_ball_dist_to_goal;
 
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator: x_coefficient: %f", m_helios_x_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator: ball_dist_to_goal_coefficient: %f", m_helios_ball_dist_to_goal_coefficient );
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator: effective_max_ball_dist_to_goal: %f", m_helios_effective_max_ball_dist_to_goal );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator: x_coefficient: %f", m_helios_x_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator: ball_dist_to_goal_coefficient: %f", m_helios_ball_dist_to_goal_coefficient );
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: helios field evaluator: effective_max_ball_dist_to_goal: %f", m_helios_effective_max_ball_dist_to_goal );
+    }
+
+    if ( field_evaluators.__isset.matrix_field_evaluator )
+    {
+        dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: matrix field evaluator" );
+        m_use_matrix_field_evaluator = true;
+        m_matrix_field_evaluator.clear();
+        double min_value = std::numeric_limits<double>::max();
+        for (const auto& x_row : field_evaluators.matrix_field_evaluator.evals) {
+            for (const auto& y_row : x_row.evals) {
+                min_value = std::min(min_value, static_cast<double>(y_row));
+            }
         }
-
-        if ( field_evaluator.__isset.matrix_field_evaluator )
+        for ( auto & x_row : field_evaluators.matrix_field_evaluator
+        .evals )
         {
-            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: matrix field evaluator" );
-            m_use_matrix_field_evaluator = true;
-            m_matrix_field_evaluator.clear();
-            double min_value = std::numeric_limits<double>::max();
-            for (const auto& x_row : field_evaluator.matrix_field_evaluator.evals) {
-                for (const auto& y_row : x_row.evals) {
-                    min_value = std::min(min_value, static_cast<double>(y_row));
-                }
-            }
-            for ( auto & x_row : field_evaluator.matrix_field_evaluator
-            .evals )
+            std::vector< double > row;
+            std::string row_str;
+            for ( auto & y_row : x_row.evals )
             {
-                std::vector< double > row;
-                std::string row_str;
-                for ( auto & y_row : x_row.evals )
-                {
-                    row.push_back( y_row - min_value ); // make all values positive
-                    row_str += std::to_string( y_row ) + " ";
-                }
-                m_matrix_field_evaluator.push_back( row );
-                dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: matrix field evaluator: %s", row_str.c_str() );
+                row.push_back( y_row - min_value ); // make all values positive
+                row_str += std::to_string( y_row ) + " ";
             }
+            m_matrix_field_evaluator.push_back( row );
+            dlog.addText( Logger::ANALYZER, "SampleFieldEvaluator::set_grpc_evalution_method: matrix field evaluator: %s", row_str.c_str() );
         }
     }
 

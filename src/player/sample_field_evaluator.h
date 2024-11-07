@@ -35,7 +35,7 @@
 
 #ifdef USE_GRPC
 #include "../grpc-generated/service.pb.h"
-using protos::PlannerEvalution;
+using protos::PlannerEvaluation;
 #endif
 #ifdef USE_THRIFT
 #include "thrift-generated/Game.h"
@@ -85,11 +85,11 @@ public:
     SampleFieldEvaluator();
 
 #ifdef USE_GRPC
-    void set_grpc_evalution_method( const PlannerEvalution & evalution );
+    void set_grpc_evalution_method( const PlannerEvaluation & evaluation );
 #endif
 
 #ifdef USE_THRIFT
-    void set_thrift_evalution_method( const soccer::PlannerEvalution & evalution );
+    void set_thrift_evalution_method( const soccer::PlannerEvaluation & evaluation );
 #endif
 
     virtual

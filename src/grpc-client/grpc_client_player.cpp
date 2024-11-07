@@ -132,8 +132,8 @@ void GrpcClientPlayer::updateChainByPlannerAction(const rcsc::WorldModel &wm, co
         g->max_nodes = action.helios_offensive_planner().max_nodes();
 
     FieldEvaluator::Ptr field_evaluator = FieldEvaluator::Ptr(new SampleFieldEvaluator);
-    if (action.helios_offensive_planner().has_evalution())
-        field_evaluator->set_grpc_evalution_method(action.helios_offensive_planner().evalution());
+    if (action.helios_offensive_planner().has_evaluation())
+        field_evaluator->set_grpc_evalution_method(action.helios_offensive_planner().evaluation());
     
     if (action.helios_offensive_planner().lead_pass() 
         || action.helios_offensive_planner().direct_pass() || action.helios_offensive_planner().through_pass())

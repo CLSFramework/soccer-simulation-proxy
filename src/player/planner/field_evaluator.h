@@ -38,7 +38,7 @@
 
 #ifdef USE_GRPC
 #include "../../grpc-generated/service.pb.h"
-using protos::PlannerEvalution;
+using protos::PlannerEvaluation;
 #endif
 
 #ifdef USE_THRIFT
@@ -82,11 +82,11 @@ public:
 
 #ifdef USE_GRPC
     virtual
-    void set_grpc_evalution_method( const PlannerEvalution & evalution ) = 0;
+    void set_grpc_evalution_method( const PlannerEvaluation & evaluation ) = 0;
 #endif
 #ifdef USE_THRIFT
     virtual
-    void set_thrift_evalution_method( const soccer::PlannerEvalution & evalution ) = 0;
+    void set_thrift_evalution_method( const soccer::PlannerEvaluation & evaluation ) = 0;
 #endif
 };
 

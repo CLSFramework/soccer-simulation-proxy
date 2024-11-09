@@ -58,6 +58,7 @@
 #include "planner/action_chain_holder.h"
 #include "planner/bhv_planned_action.h"
 #include "player/strategy.h"
+#include "player/bhv_goalie_free_kick.h"
 #include <rcsc/player/say_message_builder.h>
 #include <rcsc/common/player_param.h>
 
@@ -609,6 +610,11 @@ void ThriftClientPlayer::getActions()
             {
                 agent->debugClient().addMessage("doHeardPassReceive - false");
             }
+        }
+        else if(action.__isset.bhv_goalie_free_kick)
+        {
+            Bhv_GoalieFreeKick().execute(agent);
+            agent->debugClient().addMessage("bhvGoalieFreeKick");
         }
         else if (action.__isset.helios_offensive_planner)
         {

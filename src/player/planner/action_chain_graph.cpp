@@ -853,3 +853,46 @@ ActionChainGraph::write_chain_log( const std::string & pre_log_message,
         }
     }
 }
+
+/*-------------------------------------------------------------------*/
+/*!
+
+ */
+void 
+ActionChainGraph::updateBestChain(int unique_index)
+{
+    std::cout<<"updateBestChain"<<std::endl;
+    M_result.clear();
+    M_best_evaluation = -std::numeric_limits< double >::max();
+
+    dlog.addText( Logger::ACTION_CHAIN,
+                  "updateBestChain: unique_index=%d", unique_index );
+
+    std::cout<<"updateBestChain: unique_index="<<unique_index<<std::endl;
+    while (unique_index != -1){
+        if (M_all_results.find(unique_index) == M_all_results.end())
+        {
+            std::cout<<"updateBestChain: not found"<<std::endl;
+            return;
+        }
+        auto result = M_all_results.at(unique_index);
+        auto action_state_pair = result.first;
+        auto eval = result.second;
+        if (M_best_evaluation == -std::numeric_limits< double >::max())
+        {
+            M_best_evaluation = eval;
+        }
+        // push action state pair to front of the vector M_result
+        std::cout<<"updateBestChain: "<<unique_index<<" "<<action_state_pair->action().description()<<" parrentIndex="<<action_state_pair->action().parentIndex()<<std::endl;
+        M_result.insert(M_result.begin(), *action_state_pair);
+        unique_index = action_state_pair->action().parentIndex();
+    }
+
+    for (size_t i = 0; i < M_result.size(); ++i)
+    {
+        dlog.addText( Logger::ACTION_CHAIN,
+                      "updateBestChain: %d: %s",
+                      i, M_result[i].action().description() );
+        std::cout<<"updateBestChain: "<<i<<": "<<M_result[i].action().description()<<std::endl;
+    }
+}

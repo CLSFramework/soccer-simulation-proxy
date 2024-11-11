@@ -776,9 +776,9 @@ bool ThriftClientPlayer::GetBestPlannerAction()
     }
     auto agent = M_agent;
 
+    ActionChainHolder::instance().updateBestChain(best_action.index);
 
-
-    if (Bhv_PlannedAction().execute(agent, best_action.index))
+    if (Bhv_PlannedAction().execute(agent))
     {
         #ifdef DEBUG_CLIENT_PLAYER
         std::cout << "PlannedAction = "<< best_action.index  << std::endl;

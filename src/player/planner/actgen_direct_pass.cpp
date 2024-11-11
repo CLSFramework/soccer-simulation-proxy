@@ -305,14 +305,6 @@ ActGen_DirectPass::generate( std::vector< ActionStatePair > * result,
                                                  kick_step,
                                                  false,
                                                  "actgenDirect" ) );
-        if (path.empty())
-        {
-            action->setParentIndex(-1);
-        }
-        else
-        {
-            action->setParentIndex(( *( path.rbegin() ) ).action().uniqueIndex());
-        }
         ++s_action_count;
         ++generated_count;
         action->setIndex( s_action_count );

@@ -788,6 +788,7 @@ bool GrpcClientPlayer::GetBestPlannerAction()
                   << std::endl;
         return false;
     }
+    ActionChainHolder::instance().updateBestChain(best_action.index());
 
     auto agent = M_agent;
 
@@ -795,7 +796,7 @@ bool GrpcClientPlayer::GetBestPlannerAction()
     std::cout << "best action index:" << best_action.index() << std::endl;
     #endif
 
-    if (Bhv_PlannedAction().execute(agent, best_action.index()))
+    if (Bhv_PlannedAction().execute(agent))
     {
         #ifdef DEBUG_CLIENT_PLAYER
         std::cout << "PlannedAction" << std::endl;

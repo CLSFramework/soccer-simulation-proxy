@@ -146,3 +146,12 @@ ActionChainHolder::graph() const
 {
     return *M_graph;
 }
+
+/*-------------------------------------------------------------------*/
+/*!
+
+ */
+void ActionChainHolder::updateBestChain(int unique_index)
+{
+    M_graph->updateBestChain(unique_index);
+}

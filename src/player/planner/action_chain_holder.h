@@ -81,6 +81,8 @@ public:
 
     void update( const rcsc::WorldModel & wm );
 
+    void updateBestChain(int unique_index);
+
     const ActionChainGraph & graph() const;
 };
 

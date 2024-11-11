@@ -146,7 +146,6 @@ public:
       { }
 
     void setIndex( const int i ) { M_index = i; }
-    void setUniqueIndex( const int i ) { M_unique_index = i; }
     void setParentIndex( const int i ) { M_parent_index = i; }
 
     void setFirstBallSpeed( const double & speed );

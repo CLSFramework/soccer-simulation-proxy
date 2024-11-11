@@ -78,6 +78,9 @@ public:
                    const PredictState & state,
                    const rcsc::WorldModel & wm,
                    const std::vector< ActionStatePair > & path ) const = 0;
+
+    int max_depth = 4;
+    int max_nodes = 500;
 };
 
 

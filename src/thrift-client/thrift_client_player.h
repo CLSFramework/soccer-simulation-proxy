@@ -15,6 +15,8 @@ class ThriftClientPlayer : public ThriftAgent, public RpcPlayerClient {
               bool use_same_grpc_port=true,
               bool add_20_to_grpc_port_if_right_side=false) override;
 
+    void updateChainByDefault(const rcsc::WorldModel &wm);
+    void updateChainByPlannerAction(const rcsc::WorldModel &wm, const soccer::PlayerAction &action);
     void getActions();
     bool GetBestPlannerAction();
     void convertResultPairToRpcActionStatePair( std::map<int32_t, soccer::RpcActionState> * pairs);

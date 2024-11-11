@@ -191,14 +191,6 @@ ActGen_SimpleDribble::generate( std::vector< ActionStatePair > * result,
                                                         holder_reach_step - 2,
                                                         "actgenDribble" ) );
      
-            if (path.empty())
-            {
-                action->setParentIndex(-1);
-            }
-            else
-            {
-                action->setParentIndex(( *( path.rbegin() ) ).action().uniqueIndex());
-            }
             ++s_action_count;
             ++generated_count;
             action->setIndex( s_action_count );

@@ -290,7 +290,7 @@ ActionChainGraph::doSearch( const WorldModel & wm,
     // check current state
     //
     std::vector< ActionStatePair > best_path = path;
-    double max_ev = (*M_evaluator)( state, path );
+    double max_ev = (*M_evaluator)( state, path, wm );
 #ifdef DO_MONTECARLO_SEARCH
     double eval_sum = 0;
     long n_eval = 0;
@@ -398,6 +398,13 @@ ActionChainGraph::calculateResultBestFirstSearch( const WorldModel & wm,
                                                   unsigned long * n_evaluated )
 
 {
+    #ifdef ACTION_CHAIN_DEBUG
+        dlog.addText( Logger::ACTION_CHAIN,
+                      "***** Best First Search *****" );
+        dlog.addText( Logger::ACTION_CHAIN,
+                      "max_chain_length=%d, max_evaluate_limit=%d",
+                      M_max_chain_length, M_max_evaluate_limit );
+    #endif
     //
     // initialize
     //
@@ -423,7 +430,7 @@ ActionChainGraph::calculateResultBestFirstSearch( const WorldModel & wm,
     //
     const PredictState current_state( wm );
     const std::vector< ActionStatePair > empty_path;
-    const double current_evaluation = (*M_evaluator)( current_state, empty_path );
+    const double current_evaluation = (*M_evaluator)( current_state, empty_path, wm );
     ++M_chain_count;
     ++(*n_evaluated);
 #ifdef ACTION_CHAIN_DEBUG
@@ -513,10 +520,11 @@ ActionChainGraph::calculateResultBestFirstSearch( const WorldModel & wm,
             std::vector< ActionStatePair > candidate_series = series;
             candidate_series.push_back( *it );
 
-            double ev = (*M_evaluator)( (*it).state(), candidate_series );
+            double ev = (*M_evaluator)( (*it).state(), candidate_series, wm);
 
             auto copy_action = std::make_shared<CooperativeAction>(it->action());
             auto copy_state = std::make_shared<PredictState>(it->state());
+            copy_action->setParentIndex(parent_index);
             auto new_action_state_pair = std::shared_ptr<ActionStatePair>(new ActionStatePair(copy_action, copy_state));
             M_all_results[copy_action->uniqueIndex()] = std::make_pair(new_action_state_pair, ev);
 
@@ -577,7 +585,7 @@ ActionChainGraph::debugPrintCurrentState( const WorldModel & wm )
         }
         else
         {
-            const AbstractPlayerObject * t = wm.teammate( n );
+            const AbstractPlayerObject * t = wm.ourPlayer( n );
 
             if ( t )
             {
@@ -594,20 +602,18 @@ ActionChainGraph::debugPrintCurrentState( const WorldModel & wm )
     dlog.addText( Logger::ACTION_CHAIN, "=====" );
 
 
-    AbstractPlayerCont::const_iterator end = wm.allTeammates().end();
-    for ( AbstractPlayerCont::const_iterator it = wm.allTeammates().begin();
-          it != end;
-          ++it )
+    auto end = wm.teammates().end();
+    for ( auto it : wm.teammates())
     {
-        if ( (*it)->isSelf() )
+        if ( (it)->isSelf() )
         {
             dlog.addText( Logger::ACTION_CHAIN,
-                          "teammate %d, self", (*it)->unum() );
+                          "teammate %d, self", (it)->unum() );
         }
         else
         {
             dlog.addText( Logger::ACTION_CHAIN,
-                          "teammate %d", (*it)->unum() );
+                          "teammate %d", (it)->unum() );
         }
     }
 
@@ -774,6 +780,7 @@ ActionChainGraph::write_chain_log( const std::string & pre_log_message,
     for ( size_t i = 0; i < path.size(); ++i )
     {
         const CooperativeAction & a = path[i].action();
+        int unique_index = a.uniqueIndex();
         const PredictState * s0;
         const PredictState * s1;
 
@@ -793,16 +800,16 @@ ActionChainGraph::write_chain_log( const std::string & pre_log_message,
         case CooperativeAction::Hold:
             {
                 dlog.addText( Logger::ACTION_CHAIN,
-                              "__ %d: hold (%s) t=%d",
-                              i, a.description(), s1->spendTime() );
+                              "__ %d: u%d: hold (%s) t=%d",
+                              i, unique_index, a.description(), s1->spendTime() );
                 break;
             }
 
         case CooperativeAction::Dribble:
             {
                 dlog.addText( Logger::ACTION_CHAIN,
-                              "__ %d: dribble (%s[%d]) t=%d unum=%d target=(%.2f %.2f)",
-                              i, a.description(), a.index(), s1->spendTime(),
+                              "__ %d: u%d: dribble (%s[%d]) t=%d unum=%d target=(%.2f %.2f)",
+                              i, unique_index, a.description(), a.index(), s1->spendTime(),
                               s0->ballHolderUnum(),
                               a.targetPoint().x, a.targetPoint().y );
                 break;
@@ -811,8 +818,8 @@ ActionChainGraph::write_chain_log( const std::string & pre_log_message,
         case CooperativeAction::Pass:
             {
                 dlog.addText( Logger::ACTION_CHAIN,
-                              "__ %d: pass (%s[%d]) t=%d from[%d](%.2f %.2f)-to[%d](%.2f %.2f)",
-                              i, a.description(), a.index(), s1->spendTime(),
+                              "__ %d: u%d: pass (%s[%d]) t=%d from[%d](%.2f %.2f)-to[%d](%.2f %.2f)",
+                              i, unique_index, a.description(), a.index(), s1->spendTime(),
                               s0->ballHolderUnum(),
                               s0->ball().pos().x, s0->ball().pos().y,
                               s1->ballHolderUnum(),
@@ -823,8 +830,8 @@ ActionChainGraph::write_chain_log( const std::string & pre_log_message,
         case CooperativeAction::Shoot:
             {
                 dlog.addText( Logger::ACTION_CHAIN,
-                              "__ %d: shoot (%s) t=%d unum=%d",
-                              i, a.description(), s1->spendTime(),
+                              "__ %d: u%d: shoot (%s) t=%d unum=%d",
+                              i, unique_index, a.description(), s1->spendTime(),
                               s0->ballHolderUnum() );
 
                 break;
@@ -833,18 +840,61 @@ ActionChainGraph::write_chain_log( const std::string & pre_log_message,
         case CooperativeAction::Move:
             {
                 dlog.addText( Logger::ACTION_CHAIN,
-                              "__ %d: move (%s)",
-                              i, a.description(), s1->spendTime() );
+                              "__ %d: u%d: move (%s)",
+                              i, unique_index, a.description(), s1->spendTime() );
                 break;
             }
 
         default:
             {
                 dlog.addText( Logger::ACTION_CHAIN,
-                              "__ %d: ???? (%s)",
-                              i, a.description(), s1->spendTime() );
+                              "__ %d: u%d: ???? (%s)",
+                              i, unique_index, a.description(), s1->spendTime() );
                 break;
             }
         }
+    }
+}
+
+/*-------------------------------------------------------------------*/
+/*!
+
+ */
+void 
+ActionChainGraph::updateBestChain(int unique_index)
+{
+    std::cout<<"updateBestChain"<<std::endl;
+    M_result.clear();
+    M_best_evaluation = -std::numeric_limits< double >::max();
+
+    dlog.addText( Logger::ACTION_CHAIN,
+                  "updateBestChain: unique_index=%d", unique_index );
+
+    std::cout<<"updateBestChain: unique_index="<<unique_index<<std::endl;
+    while (unique_index != -1){
+        if (M_all_results.find(unique_index) == M_all_results.end())
+        {
+            std::cout<<"updateBestChain: not found"<<std::endl;
+            return;
+        }
+        auto result = M_all_results.at(unique_index);
+        auto action_state_pair = result.first;
+        auto eval = result.second;
+        if (M_best_evaluation == -std::numeric_limits< double >::max())
+        {
+            M_best_evaluation = eval;
+        }
+        // push action state pair to front of the vector M_result
+        std::cout<<"updateBestChain: "<<unique_index<<" "<<action_state_pair->action().description()<<" parrentIndex="<<action_state_pair->action().parentIndex()<<std::endl;
+        M_result.insert(M_result.begin(), *action_state_pair);
+        unique_index = action_state_pair->action().parentIndex();
+    }
+
+    for (size_t i = 0; i < M_result.size(); ++i)
+    {
+        dlog.addText( Logger::ACTION_CHAIN,
+                      "updateBestChain: %d: %s",
+                      i, M_result[i].action().description() );
+        std::cout<<"updateBestChain: "<<i<<": "<<M_result[i].action().description()<<std::endl;
     }
 }

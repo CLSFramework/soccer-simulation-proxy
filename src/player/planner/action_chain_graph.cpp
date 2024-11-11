@@ -524,6 +524,7 @@ ActionChainGraph::calculateResultBestFirstSearch( const WorldModel & wm,
 
             auto copy_action = std::make_shared<CooperativeAction>(it->action());
             auto copy_state = std::make_shared<PredictState>(it->state());
+            copy_action->setParentIndex(parent_index);
             auto new_action_state_pair = std::shared_ptr<ActionStatePair>(new ActionStatePair(copy_action, copy_state));
             M_all_results[copy_action->uniqueIndex()] = std::make_pair(new_action_state_pair, ev);
 
@@ -779,6 +780,7 @@ ActionChainGraph::write_chain_log( const std::string & pre_log_message,
     for ( size_t i = 0; i < path.size(); ++i )
     {
         const CooperativeAction & a = path[i].action();
+        int unique_index = a.uniqueIndex();
         const PredictState * s0;
         const PredictState * s1;
 
@@ -798,16 +800,16 @@ ActionChainGraph::write_chain_log( const std::string & pre_log_message,
         case CooperativeAction::Hold:
             {
                 dlog.addText( Logger::ACTION_CHAIN,
-                              "__ %d: hold (%s) t=%d",
-                              i, a.description(), s1->spendTime() );
+                              "__ %d: u%d: hold (%s) t=%d",
+                              i, unique_index, a.description(), s1->spendTime() );
                 break;
             }
 
         case CooperativeAction::Dribble:
             {
                 dlog.addText( Logger::ACTION_CHAIN,
-                              "__ %d: dribble (%s[%d]) t=%d unum=%d target=(%.2f %.2f)",
-                              i, a.description(), a.index(), s1->spendTime(),
+                              "__ %d: u%d: dribble (%s[%d]) t=%d unum=%d target=(%.2f %.2f)",
+                              i, unique_index, a.description(), a.index(), s1->spendTime(),
                               s0->ballHolderUnum(),
                               a.targetPoint().x, a.targetPoint().y );
                 break;
@@ -816,8 +818,8 @@ ActionChainGraph::write_chain_log( const std::string & pre_log_message,
         case CooperativeAction::Pass:
             {
                 dlog.addText( Logger::ACTION_CHAIN,
-                              "__ %d: pass (%s[%d]) t=%d from[%d](%.2f %.2f)-to[%d](%.2f %.2f)",
-                              i, a.description(), a.index(), s1->spendTime(),
+                              "__ %d: u%d: pass (%s[%d]) t=%d from[%d](%.2f %.2f)-to[%d](%.2f %.2f)",
+                              i, unique_index, a.description(), a.index(), s1->spendTime(),
                               s0->ballHolderUnum(),
                               s0->ball().pos().x, s0->ball().pos().y,
                               s1->ballHolderUnum(),
@@ -828,8 +830,8 @@ ActionChainGraph::write_chain_log( const std::string & pre_log_message,
         case CooperativeAction::Shoot:
             {
                 dlog.addText( Logger::ACTION_CHAIN,
-                              "__ %d: shoot (%s) t=%d unum=%d",
-                              i, a.description(), s1->spendTime(),
+                              "__ %d: u%d: shoot (%s) t=%d unum=%d",
+                              i, unique_index, a.description(), s1->spendTime(),
                               s0->ballHolderUnum() );
 
                 break;
@@ -838,16 +840,16 @@ ActionChainGraph::write_chain_log( const std::string & pre_log_message,
         case CooperativeAction::Move:
             {
                 dlog.addText( Logger::ACTION_CHAIN,
-                              "__ %d: move (%s)",
-                              i, a.description(), s1->spendTime() );
+                              "__ %d: u%d: move (%s)",
+                              i, unique_index, a.description(), s1->spendTime() );
                 break;
             }
 
         default:
             {
                 dlog.addText( Logger::ACTION_CHAIN,
-                              "__ %d: ???? (%s)",
-                              i, a.description(), s1->spendTime() );
+                              "__ %d: u%d: ???? (%s)",
+                              i, unique_index, a.description(), s1->spendTime() );
                 break;
             }
         }

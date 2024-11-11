@@ -1,5 +1,22 @@
 # ChangeLog
 
+## [1.0.7] - 2024-11-11
+
+### Added
+- 
+
+### Fixed
+- Performance improvement
+- Fixed bugs in the server side planner
+
+### Changed
+- 
+
+### Developers
+- [NaderZare](https://github.com/naderzare)
+
+=======
+
 ## [1.0.6] - 2024-10-19
 
 ### Added
@@ -11,7 +28,7 @@
 ### Changed
 - 
 
-### Engineers
+### Developers
 - [ErfanFathi](https://github.com/ErfanFathii)
 
 =======
@@ -27,7 +44,7 @@
 ### Changed
 - 
 
-### Engineers
+### Developers
 - [NaderZare](https://github.com/naderzare)
 - [SadraKhanjari](https://github.com/SK2iP)
 - [SoroushMazloum](https://github.com/SoroushMazloum)
@@ -45,7 +62,7 @@
 ### Changed
 - 
 
-### Developer 
+### Developers 
 - [SoroushMazloum](https://github.com/SoroushMazloum)
 
 
@@ -60,7 +77,7 @@
 ### Changed
 - 
 
-### Developer
+### Developers
 - [SadraKhanjari](https://github.com/SK2iP)
 - [SoroushMazloum](https://github.com/SoroushMazloum)
 
@@ -77,7 +94,7 @@
 ### Changed
 - 
 
-### Developer
+### Developers
 - [NaderZare](https://github.com/naderzare)
 - [SadraKhanjari](https://github.com/SK2iP)
 
@@ -94,7 +111,7 @@
 ### Changed
 - 
 
-### Developer
+### Developers
 - [SoroushMazloum](https://github.com/SoroushMazloum)
 - [SadraKhanjari](https://github.com/SK2iP)
 
@@ -111,7 +128,7 @@
 ### Changed
 - changed chain_action messages name to planner
 
-### Developer
+### Developers
 - [NaderZare](https://github.com/naderzare)
 - [SadraKhanjari](https://github.com/SK2iP)
 

@@ -1,5 +1,21 @@
 # ChangeLog
 
+## [1.1.0] - 2024-11-12
+
+### Added
+- 
+
+### Fixed
+- 
+
+### Changed
+- If the server sends some main actions to the proxy like doForceKick, dash, smartkick, etc, the proxy will just run the first action and ignore the rest of the main actions.
+
+### Developers
+- [NaderZare](https://github.com/naderzare)
+  
+=======
+
 ## [1.0.7] - 2024-11-11
 
 ### Added

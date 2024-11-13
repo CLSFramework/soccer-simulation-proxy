@@ -66,8 +66,8 @@ public:
       }
 
 public:
-    void doKick( rcsc::PlayerAgent * agent );
-    void doMove( rcsc::PlayerAgent * agent );
+    bool doKick( rcsc::PlayerAgent * agent );
+    bool doMove( rcsc::PlayerAgent * agent );
 };
 
 

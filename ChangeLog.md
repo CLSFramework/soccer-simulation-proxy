@@ -1,6 +1,6 @@
 # ChangeLog
 
-## [1.1.0] - 2024-11-12
+## [1.1.0] - 2024-11-17
 
 ### Added
 - 
@@ -13,6 +13,7 @@
 
 ### Developers
 - [NaderZare](https://github.com/naderzare)
+- [Sadra Khanjari](https://github.com/sk2ip)
   
 =======
 

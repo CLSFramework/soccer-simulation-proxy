@@ -93,26 +93,39 @@ jobs:
       run: git push
     
     # Step 12: Clone the website repository and push the updated protobuf.md
-    - name: Push to Website Repo
-      env:
-        WEBSITE_TOKEN: ${{ secrets.WEBSITE_TOKEN }}  # Add your Personal Access Token (PAT) as a secret
+    - name: Generate random number for branch name
+      id: random
+      run: echo "::set-output name=random_number::$(shuf -i 1000-9999 -n 1)"
+    - name: Clone the CLSFramework.github.io repository
       run: |
-        # Clone the website repository
-        git clone https://$WEBSITE_TOKEN@github.com/CLSFramework/CLSFramework.github.io.git website
-        
-        # Copy the generated readme.md and rename it to protobuf.md
-        mv ./idl/readme.md ./website/docs/3-idl/protobuf.md
+        git clone https://github.com/CLSFramework/CLSFramework.github.io.git cls-repo
+        cd cls-repo
+          
+        # Copy updated README to target directory in the CLSFramework.github.io repository
+        cp ../idl/readme.md docs/3-idl/protobuf.md
 
-        # Commit and push changes to the website repo only if there are changes
-        cd website
-        git config --global user.name "GitHub Action"
-        git config --global user.email "action@github.com"
-        
-        # Check if there are any changes
-        if git diff --quiet; then
-            echo "No changes detected, skipping commit and push."
+        # Create a new branch with a random number appended
+        git checkout -b update-proto-doc-${{ steps.random.outputs.random_number }}
+    - name: Set up authentication using PAT for CLSFramework.github.io
+      run: |
+        cd cls-repo
+        git remote set-url origin https://x-access-token:${{ secrets.WEBSITE_TOKEN }}@github.com/CLSFramework/CLSFramework.github.io.git
+    - name: Commit and Push Changes to CLSFramework.github.io
+      run: |
+        cd cls-repo
+        if git diff | grep 'protobuf.md'; then
+          echo "protobuf.md has changed"
         else
-            git add ./docs/3-idl/protobuf.md
-            git commit -m "Update protobuf documentation with version and fixed Mermaid symbols"
-            git push
+          echo "protobuf.md has not changed" && exit 0
         fi
+        git add docs/3-idl/protobuf.md
+        git commit -m "Update proto documentation"
+        git push origin update-proto-doc-${{ steps.random.outputs.random_number }}
+    - name: Create Pull Request in CLSFramework.github.io using GitHub API
+      run: |
+        PR_RESPONSE=$(curl -X POST -H "Authorization: token ${{ secrets.WEBSITE_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/CLSFramework/CLSFramework.github.io/pulls \
+          -d '{"title":"Update proto documentation","head":"update-proto-doc-${{ steps.random.outputs.random_number }}","base":"main","body":"This PR updates the proto documentation based on changes made in grpc file."}')
+        echo "Pull request created: $PR_RESPONSE"
+    

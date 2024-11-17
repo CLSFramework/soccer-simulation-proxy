@@ -36,6 +36,16 @@
 #include <memory>
 #include <vector>
 
+#ifdef USE_GRPC
+#include "../../grpc-generated/service.pb.h"
+using protos::PlannerEvaluation;
+#endif
+
+#ifdef USE_THRIFT
+#include "../../thrift-generated/Game.h"
+#include "../../thrift-generated/soccer_service_types.h"
+#endif
+
 /*!
   \class FieldEvaluator
   \brief abstract field evaluator function object class
@@ -67,7 +77,17 @@ public:
      */
     virtual
     double operator() ( const PredictState & state,
-                        const std::vector< ActionStatePair > & path ) const = 0;
+                        const std::vector< ActionStatePair > & path,
+                        const rcsc::WorldModel & wm ) const = 0;
+
+#ifdef USE_GRPC
+    virtual
+    void set_grpc_evalution_method( const PlannerEvaluation & evaluation ) = 0;
+#endif
+#ifdef USE_THRIFT
+    virtual
+    void set_thrift_evalution_method( const soccer::PlannerEvaluation & evaluation ) = 0;
+#endif
 };
 
 #endif

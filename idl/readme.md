@@ -2,11 +2,12 @@
 <a name="top"></a>
 
 
-## Version: 1.6
+## Version: 1.7
 
 ## Table of Contents
 
 - [idl/grpc/service.proto](#idl_grpc_service-proto)
+    - [ActionTypeEffector](#protos-ActionTypeEffector)
     - [AddArc](#protos-AddArc)
     - [AddCircle](#protos-AddCircle)
     - [AddLine](#protos-AddLine)
@@ -73,6 +74,7 @@
     - [HeliosBasicMove](#protos-HeliosBasicMove)
     - [HeliosBasicOffensive](#protos-HeliosBasicOffensive)
     - [HeliosCommunicaion](#protos-HeliosCommunicaion)
+    - [HeliosFieldEvaluator](#protos-HeliosFieldEvaluator)
     - [HeliosGoalie](#protos-HeliosGoalie)
     - [HeliosGoalieKick](#protos-HeliosGoalieKick)
     - [HeliosGoalieMove](#protos-HeliosGoalieMove)
@@ -86,6 +88,8 @@
     - [InterceptTable](#protos-InterceptTable)
     - [Kick](#protos-Kick)
     - [Log](#protos-Log)
+    - [MatrixFieldEvaluator](#protos-MatrixFieldEvaluator)
+    - [MatrixFieldEvaluatorY](#protos-MatrixFieldEvaluatorY)
     - [Move](#protos-Move)
     - [Neck_ScanField](#protos-Neck_ScanField)
     - [Neck_ScanPlayers](#protos-Neck_ScanPlayers)
@@ -99,10 +103,14 @@
     - [Neck_TurnToRelative](#protos-Neck_TurnToRelative)
     - [OffsideLineMessage](#protos-OffsideLineMessage)
     - [OnePlayerMessage](#protos-OnePlayerMessage)
+    - [OpponentEffector](#protos-OpponentEffector)
     - [OpponentMessage](#protos-OpponentMessage)
     - [PassMessage](#protos-PassMessage)
     - [PassRequestMessage](#protos-PassRequestMessage)
     - [PenaltyKickState](#protos-PenaltyKickState)
+    - [PlannerEvaluation](#protos-PlannerEvaluation)
+    - [PlannerEvaluationEffector](#protos-PlannerEvaluationEffector)
+    - [PlannerFieldEvaluator](#protos-PlannerFieldEvaluator)
     - [Player](#protos-Player)
     - [PlayerAction](#protos-PlayerAction)
     - [PlayerActions](#protos-PlayerActions)
@@ -126,6 +134,8 @@
     - [StaminaMessage](#protos-StaminaMessage)
     - [State](#protos-State)
     - [Tackle](#protos-Tackle)
+    - [TeammateEffector](#protos-TeammateEffector)
+    - [TeammateEffector.CoefficientsEntry](#protos-TeammateEffector-CoefficientsEntry)
     - [TeammateMessage](#protos-TeammateMessage)
     - [ThreePlayerMessage](#protos-ThreePlayerMessage)
     - [TrainerAction](#protos-TrainerAction)
@@ -165,6 +175,66 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## idl/grpc/service.proto
+
+
+
+<a name="protos-ActionTypeEffector"></a>
+
+### ActionTypeEffector
+ActionTypeEffector is the message that represents coefficients of the action types in the tree to calculate the predicted state evaluation.
+Each number should start from 0.0. For example, if evaluation of an action-state is 10, the action is direct pass, and value of direct_pass is 0.5, so the final evaluation of the action-state will be 5.
+example in python grpc:
+```python
+actions = []
+action_type_effector = pb2.ActionTypeEffector(
+direct_pass=2.0,
+lead_pass=1.5,
+through_pass=1.0,
+short_dribble=1.0,
+long_dribble=1.0,
+cross=1.0,
+hold=1.0
+)
+planner_evaluation_effector = pb2.PlannerEvaluationEffector(
+# opponent_effector= ...
+# teammate_effector= ...
+action_type_effector= action_type_effector
+)
+planner_evaluation = pb2.PlannerEvaluation(
+effectors=planner_evaluation_effector,
+)
+helios_offensive_planner = pb2.HeliosOffensivePlanner(
+lead_pass=True,
+direct_pass=False,
+through_pass=True,
+simple_pass=True,
+short_dribble=True,
+long_dribble=True,
+simple_shoot=True,
+simple_dribble=False,
+cross=True,
+server_side_decision=False,
+max_depth=5,
+max_nodes=800,
+evalution=planner_evaluation
+)
+actions.append(pb2.PlayerAction(helios_offensive_planner=helios_offensive_planner))
+return pb2.PlayerActions(actions=actions)
+```
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| direct_pass | [float](#float) |  | The coefficient of the direct pass action. |
+| lead_pass | [float](#float) |  | The coefficient of the lead pass action. |
+| through_pass | [float](#float) |  | The coefficient of the through pass action. |
+| short_dribble | [float](#float) |  | The coefficient of the short dribble action. |
+| long_dribble | [float](#float) |  | The coefficient of the long dribble action. |
+| cross | [float](#float) |  | The coefficient of the cross action. |
+| hold | [float](#float) |  | The coefficient of the hold action. |
+
+
+
 
 
 
@@ -1178,6 +1248,59 @@ The rcssserver, calculates the next position and velocity of the agent based on 
 
 
 
+<a name="protos-HeliosFieldEvaluator"></a>
+
+### HeliosFieldEvaluator
+HeliosFieldEvaluator is the message that represents the field evaluator of the proxy agent to evaluate each node (predicted state) in the planner tree.
+If you dont set the field evaluator, the proxy agent will use the default field evaluator (HeliosFieldEvaluator) to evaluate each node in the planner tree.
+This field evaluator calculate the value of the predicted state by using this formula: 
+value = x_coefficient * (ball.x &#43; 52.5) &#43; ball_dist_to_goal_coefficient * max(0.0, effective_max_ball_dist_to_goal - ball.dist(opponent goal center))
+example in python grpc:
+```python
+actions = []
+helios_field_evaluator = pb2.HeliosFieldEvaluator(
+x_coefficient=2.1,
+ball_dist_to_goal_coefficient=1.8,
+effective_max_ball_dist_to_goal=50.0
+)
+field_evaluator = pb2.PlannerFieldEvaluator(
+helios_field_evaluator=helios_field_evaluator,
+# matrix_field_evaluator=...
+)
+planner_evaluation = pb2.PlannerEvaluation(
+field_evaluators=field_evaluator
+)
+helios_offensive_planner = pb2.HeliosOffensivePlanner(
+lead_pass=True,
+direct_pass=False,
+through_pass=True,
+simple_pass=True,
+short_dribble=True,
+long_dribble=True,
+simple_shoot=True,
+simple_dribble=False,
+cross=True,
+server_side_decision=False,
+max_depth=5,
+max_nodes=800,
+evalution=planner_evaluation
+)
+actions.append(pb2.PlayerAction(helios_offensive_planner=helios_offensive_planner))
+return pb2.PlayerActions(actions=actions)
+```
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| x_coefficient | [float](#float) |  | The coefficient of the x-coordinate of the ball in the predicted state. The default value is 1. |
+| ball_dist_to_goal_coefficient | [float](#float) |  | The coefficient of the distance of the ball to the opponent goal center in the predicted state. The default value is 1. |
+| effective_max_ball_dist_to_goal | [float](#float) |  | The effective maximum distance of the ball to the opponent goal center in the predicted state. The default value is 40.0. |
+
+
+
+
+
+
 <a name="protos-HeliosGoalie"></a>
 
 ### HeliosGoalie
@@ -1212,10 +1335,54 @@ The rcssserver, calculates the next position and velocity of the agent based on 
 
 ### HeliosOffensivePlanner
 HeliosOffensivePlanner is the message that represents the offensive planner of the agent in the soccer simulation.
-The offensive planner is responsible for making decisions about the offensive actions of the agent by creating a tree of actions, finding the best chain of actions, and executing the first action in the chain.
+The offensive planner is responsible for making decisions about the offensive actions of the agent by creating a tree of actions, 
+finding the best chain of actions, and executing the first action in the chain, when the agent is ball owner.
 The best action is an action with best incomming predicted state.
-The best predicted state is the state that has the best evalution value by using this formula: value = ball.x &#43; max(0.0, 40.0 - ball.dist(opponent goal center))
+The best predicted state is the state that has the best evaluation value by using this formula: value = ball.x &#43; max(0.0, 40.0 - ball.dist(opponent goal center))
 Due to the complexity of the not simple actions, the agent can not calculate the best action in the first layer of the tree. So, the agent can use the simple actions in the first layer of the tree.
+To create the tree, the planner create all possible edges (actions) and create the next state of the agent by using each action.
+Then the planner starts to create the next layer of the tree by using the next state of the agent. The planner continues to create the tree until 
+the max depth of the tree or number of edges is reached.
+For more information check this paper: [HELIOS Base: An Open Source Package for the RoboCup Soccer 2D Simulation](https://link.springer.com/chapter/10.1007/978-3-662-44468-9_46)
+
+Creating the tree and find best predicted state and action:
+
+```mermaid
+flowchart TD
+wm[World Model]
+s0((PredictState 0))
+wm --> s0
+s1((PredictState 1))
+s2((PredictState 2))
+s3((PredictState 3))
+s4((PredictState 4))
+
+s0 == DirectPass ==> s1
+s0 == DirectPass ==> s2
+s0 == ShortDribble ==> s3
+s0 == Cross:BestAction ==> s4
+
+s5((PredictState 5))
+s6((PredictState 6))
+s7((PredictState 7))
+s8((PredictState 8))
+s9((PredictState 9))
+s10[PredictState 10
+Best State]
+
+s1 -. SimplePass .-> s5
+s1 -- SimpleDribble --> s6
+s2 -. SimplePass .-> s7
+s3 -- SimpleDribble --> s8
+s4 -. SimplePass .-> s9
+s4 -. SimplePass .-> s10
+
+s11((PredictState 11))
+s12((PredictState 12))
+
+s5 -. SimplePass .-> s11
+s5 -- SimpleDribble --> s12
+```
 
 
 | Field | Type | Label | Description |
@@ -1229,7 +1396,10 @@ Due to the complexity of the not simple actions, the agent can not calculate the
 | simple_pass | [bool](#bool) |  | Whether the agent can make a simple pass or not. The simple pass is a pass action that the agent can pass the ball to the position of a teammate player. This action is just used in the second or more layers of the tree. This action is not very accurate. |
 | simple_dribble | [bool](#bool) |  | Whether the agent can make a simple dribble or not. The simple dribble is a dribble action that the agent can dribble the ball to a position. This action is just used in the second or more layers of the tree. This action is not very accurate. |
 | simple_shoot | [bool](#bool) |  | Whether the agent can make a simple shoot or not. The simple shoot is a kick action that the agent can kick the ball to the opponent goal. This action is just used in the second or more layers of the tree. This action is not very accurate. |
-| server_side_decision | [bool](#bool) |  | If this value is true, the proxy agent, will create the tree and send all of the nodes to the playmaker server to choose the best action. If this value is false, the proxy agent will choose the best action by itself. |
+| server_side_decision | [bool](#bool) |  | If this value is true, the proxy agent, will create the tree and send all of the nodes to the playmaker server to choose the best action. If this value is false, the proxy agent will choose the best action by itself. The default value is false. |
+| max_depth | [int32](#int32) |  | The maximum depth of the tree. The agent will create the tree with this depth. To create the first layer of the tree, the agent will use the direct_pass, lead_pass, through_pass, short_dribble, long_dribble, cross actions. The difault value is 4. So, if you do not set this value, the agent will create the tree with 4 depth. Due to the default value of rpc, 0 means the default value. |
+| max_nodes | [int32](#int32) |  | The maximum number of nodes in the tree. The agent will create the tree with this number of nodes. The difault value is 500. So, if you do not set this value, the agent will create the tree with 500 nodes. Due to the default value of rpc, 0 means the default value. |
+| evaluation | [PlannerEvaluation](#protos-PlannerEvaluation) |  | The evaluation methods to evaluate the actions[predicted states] in the tree. |
 
 
 
@@ -1380,6 +1550,80 @@ InterceptTable is the message that represents the intercept table of the agent.
 | add_rectangle | [AddRectangle](#protos-AddRectangle) |  |  |
 | add_sector | [AddSector](#protos-AddSector) |  |  |
 | add_message | [AddMessage](#protos-AddMessage) |  |  |
+
+
+
+
+
+
+<a name="protos-MatrixFieldEvaluator"></a>
+
+### MatrixFieldEvaluator
+MatrixFieldEvaluator is the message that represents the matrix field evaluator of the proxy agent to evaluate each node (predicted state) in the planner tree.
+If you dont set the field evaluator, the proxy agent will use the default field evaluator (HeliosFieldEvaluator) to evaluate each node in the planner tree.
+This field evaluator calculate the value of the predicted state by using a matrix of float values.
+---------------------
+| 10 | 20 | 30 | 40 | 
+| 15 | 25 | 35 | 45 |
+| 10 | 20 | 30 | 40 |
+---------------------
+In this example matrix, the value of each point in the opponent pernaly area is 45.
+example in python grpc:
+```python
+actions = []
+matrix_field_evaluator = pb2.MatrixFieldEvaluator(
+evals=[
+pb2.MatrixFieldEvaluatorY(evals=[10, 15, 10]),
+pb2.MatrixFieldEvaluatorY(evals=[20, 25, 20]),
+pb2.MatrixFieldEvaluatorY(evals=[30, 35, 30]),
+pb2.MatrixFieldEvaluatorY(evals=[40, 45, 40]),
+]
+)
+field_evaluator = pb2.PlannerFieldEvaluator(
+# helios_field_evaluator=...
+matrix_field_evaluator=matrix_field_evaluator
+)
+planner_evaluation = pb2.PlannerEvaluation(
+field_evaluators=field_evaluator
+)
+helios_offensive_planner = pb2.HeliosOffensivePlanner(
+lead_pass=True,
+direct_pass=False,
+through_pass=True,
+simple_pass=True,
+short_dribble=True,
+long_dribble=True,
+simple_shoot=True,
+simple_dribble=False,
+cross=True,
+server_side_decision=False,
+max_depth=5,
+max_nodes=800,
+evalution=planner_evaluation
+)
+actions.append(pb2.PlayerAction(helios_offensive_planner=helios_offensive_planner))
+return pb2.PlayerActions(actions=actions)
+```
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| evals | [MatrixFieldEvaluatorY](#protos-MatrixFieldEvaluatorY) | repeated |  |
+
+
+
+
+
+
+<a name="protos-MatrixFieldEvaluatorY"></a>
+
+### MatrixFieldEvaluatorY
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| evals | [float](#float) | repeated |  |
 
 
 
@@ -1567,6 +1811,64 @@ todo min/max_angle
 
 
 
+<a name="protos-OpponentEffector"></a>
+
+### OpponentEffector
+PlannerEvaluation is the message that represents the evaluation methods to evaluate the actions[predicted states] in the tree.
+Using this method causes the predicted state eval to be decreased based on the distance or reach steps of the opponent players to the position of the ball in the predicted state.
+Each variable in the message is a list of float values.
+For example, if you want to decrease the predicted state eval if the distance of the opponent player to the ball is less than 5,
+You can set the negetive_effect_by_distance variable with the value of [-9.0, -8.5, -7.2, -6.1, -3.8]. It means the predicted state eval will be decreased by 9.0 if the distance is less than 1,
+8.5 if the distance is less than 2, 7.2 if the distance is less than 3, 6.1 if the distance is less than 4, 3.8 if the distance is less than 5.
+Example in python grpc:
+```python
+actions = []
+opponent_effector = pb2.OpponentEffector(
+negetive_effect_by_distance=[-50, -45, -40, -30, -20, -15, -10, -5, -2, -1, -0.5, -0.1],
+negetive_effect_by_distance_based_on_first_layer=False,
+negetive_effect_by_reach_steps=[],
+negetive_effect_by_reach_steps_based_on_first_layer=False
+)
+planner_evaluation_effector = pb2.PlannerEvaluationEffector(
+opponent_effector=opponent_effector,
+# teammate_effector= ...
+# action_type_effector= ...
+)
+planner_evaluation = pb2.PlannerEvaluation(
+effectors=planner_evaluation_effector,
+)
+helios_offensive_planner = pb2.HeliosOffensivePlanner(
+lead_pass=True,
+direct_pass=False,
+through_pass=True,
+simple_pass=True,
+short_dribble=True,
+long_dribble=True,
+simple_shoot=True,
+simple_dribble=False,
+cross=True,
+server_side_decision=False,
+max_depth=5,
+max_nodes=800,
+evalution=planner_evaluation
+)
+actions.append(pb2.PlayerAction(helios_offensive_planner=helios_offensive_planner))
+return pb2.PlayerActions(actions=actions)
+```
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| negetive_effect_by_distance | [float](#float) | repeated | The list of float values that represents the negetive effect of the distance of the opponent player to the ball in the predicted state. The values of this list should be negetive numbers. |
+| negetive_effect_by_distance_based_on_first_layer | [bool](#bool) |  | If this value is true, the negetive_effect_by_distance will be calculated based on the first action of each action chain. For example, if we have a chain of actions like [direct_pass, simple_pass, simple_dribble], the negetive_effect_by_distance will be calculated based on the direct_pass action for all of the actions. |
+| negetive_effect_by_reach_steps | [float](#float) | repeated | The list of float values that represents the negetive effect of the reach steps of the opponent player to the ball in the predicted state. |
+| negetive_effect_by_reach_steps_based_on_first_layer | [bool](#bool) |  | If this value is true, the negetive_effect_by_reach_steps will be calculated based on the first action of each action chain. For example, if we have a chain of actions like [direct_pass, simple_pass, simple_dribble], the negetive_effect_by_reach_steps will be calculated based on the direct_pass action for all of the actions. |
+
+
+
+
+
+
 <a name="protos-OpponentMessage"></a>
 
 ### OpponentMessage
@@ -1632,6 +1934,109 @@ todo min/max_angle
 | our_score | [int32](#int32) |  |  |
 | their_score | [int32](#int32) |  |  |
 | is_kick_taker | [bool](#bool) |  |  |
+
+
+
+
+
+
+<a name="protos-PlannerEvaluation"></a>
+
+### PlannerEvaluation
+PlannerEvaluation is the message that represents the evaluation methods to evaluate the actions[predicted states] in the tree.
+Using this method causes the predicted state eval to be calculated based on field evaluators and effected by effectors.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| effectors | [PlannerEvaluationEffector](#protos-PlannerEvaluationEffector) |  |  |
+| field_evaluators | [PlannerFieldEvaluator](#protos-PlannerFieldEvaluator) |  |  |
+
+
+
+
+
+
+<a name="protos-PlannerEvaluationEffector"></a>
+
+### PlannerEvaluationEffector
+PlannerEvaluationEffector is the message that represents the effectors of the planner evaluation methods.
+The proxy agent will update the predicted state evaluation based on the effectors.
+example in python grpc:
+```python
+actions = []
+teammate_effector = pb2.TeammateEffector(
+coefficients={2: 1.2, 5: 1.6}, # if action target is player 2, multiply by 1.2.
+apply_based_on_first_layer=False
+)
+action_type_effector = pb2.ActionTypeEffector(
+direct_pass=2.0,
+lead_pass=1.5,
+through_pass=1.0,
+short_dribble=1.0,
+long_dribble=1.0,
+cross=1.0,
+hold=1.0
+)
+opponent_effector = pb2.OpponentEffector(
+negetive_effect_by_distance=[-50, -45, -40, -30, -20, -15, -10, -5, -2, -1, -0.5, -0.1],
+negetive_effect_by_distance_based_on_first_layer=False,
+negetive_effect_by_reach_steps=[],
+negetive_effect_by_reach_steps_based_on_first_layer=False
+)
+planner_evaluation_effector = pb2.PlannerEvaluationEffector(
+opponent_effector= opponent_effector,
+teammate_effector= teammate_effector,
+action_type_effector= action_type_effector
+)
+planner_evaluation = pb2.PlannerEvaluation(
+effectors=planner_evaluation_effector,
+)
+helios_offensive_planner = pb2.HeliosOffensivePlanner(
+lead_pass=True,
+direct_pass=False,
+through_pass=True,
+simple_pass=True,
+short_dribble=True,
+long_dribble=True,
+simple_shoot=True,
+simple_dribble=False,
+cross=True,
+server_side_decision=False,
+max_depth=5,
+max_nodes=800,
+evalution=planner_evaluation
+)
+actions.append(pb2.PlayerAction(helios_offensive_planner=helios_offensive_planner))
+return pb2.PlayerActions(actions=actions)
+```
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| opponent_effector | [OpponentEffector](#protos-OpponentEffector) |  | The effector of the opponent players. You can set the negetive effect of the distance or reach steps of the opponent players to the ball in the predicted state. By using this effector, the proxy agent will decrease the predicted state evaluation based on the distance or reach steps of the opponent players to the ball in the predicted state. |
+| action_type_effector | [ActionTypeEffector](#protos-ActionTypeEffector) |  | The effector of the action types. You can set the coefficients of the action types in the tree to calculate the predicted state evaluation. By using this effector, the proxy agent will update the predicted state evaluation based on the coefficients of the action types in the tree. |
+| teammate_effector | [TeammateEffector](#protos-TeammateEffector) |  | The effector of the teammates. You can set the coefficients of the teammates in the tree to calculate the predicted state evaluation. By using this effector, the proxy agent will update the predicted state evaluation based on the coefficients of the teammates in the tree. |
+
+
+
+
+
+
+<a name="protos-PlannerFieldEvaluator"></a>
+
+### PlannerFieldEvaluator
+PlannerFieldEvaluator is the message that represents the field evaluator of the proxy agent to evaluate each node (predicted state) in the planner tree.
+If you dont set the field evaluator, the proxy agent will use the default field evaluator (HeliosFieldEvaluator) to evaluate each node in the planner tree.
+This field evaluator calculate the value of the predicted state by using helios_field_evaluator or/and matrix_field_evaluator.
+Note: if you just use the matrix_field_evaluator, value of all target in each square of the matrix should be the same, so it causes that the player choosing hold ball action instead of dribble in that area.
+To avoid this issue, you can use the helios_field_evaluator with the matrix_field_evaluator together.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| helios_field_evaluator | [HeliosFieldEvaluator](#protos-HeliosFieldEvaluator) |  |  |
+| matrix_field_evaluator | [MatrixFieldEvaluator](#protos-MatrixFieldEvaluator) |  |  |
 
 
 
@@ -1775,6 +2180,8 @@ To get type information of the player, you can use the type_id field and player 
 | ignore_preprocess | [bool](#bool) |  |  |
 | ignore_doforcekick | [bool](#bool) |  |  |
 | ignore_doHeardPassRecieve | [bool](#bool) |  |  |
+| ignore_doIntention | [bool](#bool) |  |  |
+| ignore_shootInPreprocess | [bool](#bool) |  |  |
 
 
 
@@ -2470,6 +2877,73 @@ State is the message that represents the state of the agent in the soccer simula
 
 
 
+<a name="protos-TeammateEffector"></a>
+
+### TeammateEffector
+TeammateEffector is the message that represents the coefficients of the teammates in the tree to calculate the predicted state evaluation.
+Each number should start from 0.0. For example, if evaluation of an action-state is 10, the action is direct pass to player 5, 
+and value of player 5 is 0.5, so the final evaluation of the action-state will be 5.
+example in python grpc:
+```python
+actions = []
+teammate_effector = pb2.TeammateEffector(
+coefficients={2: 1.2, 5: 1.6}, # if action target is player 2, multiply by 1.2.
+apply_based_on_first_layer=False
+)
+planner_evaluation_effector = pb2.PlannerEvaluationEffector(
+# opponent_effector= ...
+teammate_effector= teammate_effector
+# action_type_effector= ...
+)
+planner_evaluation = pb2.PlannerEvaluation(
+effectors=planner_evaluation_effector,
+)
+helios_offensive_planner = pb2.HeliosOffensivePlanner(
+lead_pass=True,
+direct_pass=False,
+through_pass=True,
+simple_pass=True,
+short_dribble=True,
+long_dribble=True,
+simple_shoot=True,
+simple_dribble=False,
+cross=True,
+server_side_decision=False,
+max_depth=5,
+max_nodes=800,
+evalution=planner_evaluation
+)
+actions.append(pb2.PlayerAction(helios_offensive_planner=helios_offensive_planner))
+return pb2.PlayerActions(actions=actions)
+```
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| coefficients | [TeammateEffector.CoefficientsEntry](#protos-TeammateEffector-CoefficientsEntry) | repeated | The map of the coefficients of the teammates. The key of the map is the uniform number of the teammate, and the value is the coefficient of the teammate. The value should be started from 0.0. |
+| apply_based_on_first_layer | [bool](#bool) |  | If this value is true, the coefficients will be calculated based on the first action target of each action chain. For example, if we have a chain of actions like [direct_pass to 5, simple_pass to 6, simple_pass to 7], the coefficients will be calculated based on the coeeficient of the player 5 for all of the actions. |
+
+
+
+
+
+
+<a name="protos-TeammateEffector-CoefficientsEntry"></a>
+
+### TeammateEffector.CoefficientsEntry
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [int32](#int32) |  |  |
+| value | [float](#float) |  |  |
+
+
+
+
+
+
 <a name="protos-TeammateMessage"></a>
 
 ### TeammateMessage
@@ -2789,7 +3263,7 @@ AgentType is the enum that represents the different types of agents.
 <a name="protos-CardType"></a>
 
 ### CardType
-
+Type of player&#39;s card.
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |

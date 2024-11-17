@@ -119,6 +119,8 @@ public:
           return M_result;
       };
 
+    void updateBestChain(int unique_index);
+
     const CooperativeAction & getFirstAction() const
       {
           return (*(M_result.begin())).action();

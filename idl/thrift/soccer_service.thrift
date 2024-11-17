@@ -1,4 +1,4 @@
-// version 1.6
+// version 1.7
 
 namespace cpp soccer
 namespace py soccer
@@ -761,6 +761,58 @@ struct HeliosGoalieKick {}
 
 struct HeliosShoot {}
 
+struct OpponentEffector {
+  1: list<double> negetive_effect_by_distance,
+  2: bool negetive_effect_by_distance_based_on_first_layer,
+  3: list<double> negetive_effect_by_reach_steps,
+  4: bool negetive_effect_by_reach_steps_based_on_first_layer
+}
+
+struct ActionTypeEffector {
+  1: double direct_pass,
+  2: double lead_pass,
+  3: double through_pass,
+  4: double short_dribble,
+  5: double long_dribble,
+  6: double cross,
+  7: double hold
+}
+
+struct TeammateEffector {
+  1: map<i32, double> coefficients,
+  2: bool apply_based_on_first_layer
+}
+
+struct PlannerEvaluationEffector {
+  1: optional OpponentEffector opponent_effector,
+  2: optional ActionTypeEffector action_type_effector,
+  3: optional TeammateEffector teammate_effector
+}
+
+struct HeliosFieldEvaluator {
+  1: double x_coefficient,
+  2: double ball_dist_to_goal_coefficient,
+  3: double effective_max_ball_dist_to_goal
+}
+
+struct MatrixFieldEvaluatorY {
+  1: list<double> evals
+}
+
+struct MatrixFieldEvaluator {
+  1: list<MatrixFieldEvaluatorY> evals
+}
+
+struct PlannerFieldEvaluator {
+  1: optional HeliosFieldEvaluator helios_field_evaluator,
+  2: optional MatrixFieldEvaluator matrix_field_evaluator
+}
+
+struct PlannerEvaluation {
+  1: PlannerEvaluationEffector effectors,
+  2: PlannerFieldEvaluator field_evaluators
+}
+
 struct HeliosOffensivePlanner {
   1: bool direct_pass,
   2: bool lead_pass,
@@ -771,7 +823,10 @@ struct HeliosOffensivePlanner {
   7: bool simple_pass,
   8: bool simple_dribble,
   9: bool simple_shoot
-  10: bool server_side_decision
+  10: bool server_side_decision,
+  11: i32 max_depth,
+  12: i32 max_nodes,
+  13: PlannerEvaluation evaluation
 }
 
 struct HeliosBasicOffensive {}
@@ -861,7 +916,9 @@ struct PlayerActions {
   1: list<PlayerAction> actions,
   2: bool ignore_preprocess,
   3: bool ignore_doforcekick,
-  4: bool ignore_doHeardPassRecieve
+  4: bool ignore_doHeardPassRecieve,
+  5: bool ignore_doIntention,
+  6: bool ignore_shootInPreprocess
 }
 
 struct ChangePlayerType {

@@ -350,11 +350,10 @@ void ThriftClientPlayer::getActions()
                       __FILE__": doMove failed" );
             }
         }
-        else if (action.__isset.turn_neck && !action_performed)
+        else if (action.__isset.turn_neck)
         {
             if (agent->doTurnNeck(action.turn_neck.moment))
             {
-                action_performed = true;
                 rcsc::dlog.addText( rcsc::Logger::TEAM,
                       __FILE__": doTurnNeck performed" );
             }
@@ -364,12 +363,11 @@ void ThriftClientPlayer::getActions()
                         __FILE__": doTurnNeck failed" );
             }
         }
-        else if (action.__isset.change_view && !action_performed)
+        else if (action.__isset.change_view)
         {
             const rcsc::ViewWidth view_width = ThriftAgent::convertViewWidth(action.change_view.view_width);
             if (agent->doChangeView(view_width))
             {
-                action_performed = true;
                 rcsc::dlog.addText( rcsc::Logger::TEAM,
                       __FILE__": doChangeView performed" );
             }
@@ -379,17 +377,16 @@ void ThriftClientPlayer::getActions()
                       __FILE__": doChangeView failed" );
             }
         }
-        else if (action.__isset.say && !action_performed)
+        else if (action.__isset.say)
         {
             addSayMessage(action.say);
             rcsc::dlog.addText( rcsc::Logger::TEAM,
                       __FILE__": addSayMessage called" );
         }
-        else if (action.__isset.point_to && !action_performed)
+        else if (action.__isset.point_to)
         {
             if (agent->doPointto(action.point_to.x, action.point_to.y))
             {
-                action_performed = true;
                 rcsc::dlog.addText( rcsc::Logger::TEAM,
                       __FILE__": doPointto performed" );
             }
@@ -399,11 +396,10 @@ void ThriftClientPlayer::getActions()
                       __FILE__": doPointto failed" );
             }
         }
-        else if (action.__isset.point_to_of && !action_performed)
+        else if (action.__isset.point_to_of)
         {
             if (agent->doPointtoOff())
             {
-                action_performed = true;
                 rcsc::dlog.addText( rcsc::Logger::TEAM,
                       __FILE__": doPointtoOff performed" );
             }
@@ -413,12 +409,11 @@ void ThriftClientPlayer::getActions()
                       __FILE__": doPointtoOff failed" );
             }
         }
-        else if (action.__isset.attention_to && !action_performed)
+        else if (action.__isset.attention_to)
         {
             const rcsc::SideID side = ThriftAgent::convertSideID(action.attention_to.side);
             if (agent->doAttentionto(side, action.attention_to.unum))
             {
-                action_performed = true;
                 rcsc::dlog.addText( rcsc::Logger::TEAM,
                       __FILE__": doAttentionto performed" );
             }
@@ -428,11 +423,10 @@ void ThriftClientPlayer::getActions()
                       __FILE__ ": doAttentionto failed" );
             }
         }
-        else if (action.__isset.attention_to_of && !action_performed)
+        else if (action.__isset.attention_to_of)
         {
             if (agent->doAttentiontoOff())
             {
-                action_performed = true;
                 rcsc::dlog.addText( rcsc::Logger::TEAM,
                       __FILE__": doAttentiontoOff performed" );
             }
@@ -445,6 +439,8 @@ void ThriftClientPlayer::getActions()
         else if (action.__isset.log)
         {
             addDlog(action.log);
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": addDlog called" );
         }
         else if (action.__isset.body_go_to_point && !action_performed)
         {
@@ -525,11 +521,10 @@ void ThriftClientPlayer::getActions()
                       __FILE__": Bhv_BodyNeckToPoint failed" );
             }
         }
-        else if (action.__isset.bhv_emergency && !action_performed)
+        else if (action.__isset.bhv_emergency)
         {
             if (Bhv_Emergency().execute(agent))
             {
-                action_performed = true;
                 rcsc::dlog.addText( rcsc::Logger::TEAM,
                       __FILE__": Bhv_Emergency performed" );
             }

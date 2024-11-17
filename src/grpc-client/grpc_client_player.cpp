@@ -600,6 +600,7 @@ void GrpcClientPlayer::getActions()
             
             const auto &bhvNeckBodyToBall = action.bhv_neck_body_to_ball();
             if (Bhv_NeckBodyToBall(bhvNeckBodyToBall.angle_buf()).execute(agent)) {
+                action_performed = true;
                 rcsc::dlog.addText( rcsc::Logger::TEAM,
                       __FILE__": Bhv_NeckBodyToBall performed" );
             }

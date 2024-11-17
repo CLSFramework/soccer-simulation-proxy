@@ -1,6 +1,6 @@
 # ChangeLog
 
-## [1.0.9] - 2024-1۱-9
+## [1.0.9] - 2024-11-9
 
 ### Added
 - bhv_goalieFreeKick added

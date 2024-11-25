@@ -1,4 +1,4 @@
-// version 1.7
+// version 1.8
 
 namespace cpp soccer
 namespace py soccer
@@ -743,6 +743,8 @@ struct Neck_TurnToRelative {
   1: double angle
 }
 
+struct Neck_OffensiveInterceptNeck {}
+
 struct View_ChangeWidth {
   1: ViewWidth view_width
 }
@@ -839,6 +841,11 @@ struct HeliosPenalty {}
 
 struct HeliosCommunicaion {}
 
+struct HeliosBasicTackle {
+  1: double min_prob,
+  2: double body_thr
+}
+
 struct bhv_doForceKick {}
 
 struct bhv_doHeardPassRecieve {}
@@ -909,7 +916,9 @@ struct PlayerAction {
   63: optional HeliosPenalty helios_penalty,
   64: optional HeliosCommunicaion helios_communication,
   65: optional bhv_doForceKick bhv_do_force_kick,
-  66: optional bhv_doHeardPassRecieve bhv_do_heard_pass_recieve
+  66: optional bhv_doHeardPassRecieve bhv_do_heard_pass_recieve,
+  67: optional HeliosBasicTackle helios_basic_tackle,
+  68: optional Neck_OffensiveInterceptNeck neck_offensive_intercept_neck
 }
 
 struct PlayerActions {

@@ -266,12 +266,14 @@ do
 
     --goalie)
       is_goalie="true"
+      is_player="false"
       ;;
     --player)
       is_player="true"
       ;;
     --coach)
       is_coach="true"
+      is_player="false"
       ;;
     --fullstate)
       if [ $# -lt 2 ]; then

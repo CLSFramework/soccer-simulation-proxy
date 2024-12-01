@@ -58,6 +58,8 @@
 #include "planner/action_chain_holder.h"
 #include "planner/bhv_planned_action.h"
 #include "player/strategy.h"
+#include "player/bhv_basic_tackle.h"
+#include "player/neck_offensive_intercept_neck.h"
 #include <rcsc/player/say_message_builder.h>
 #include <rcsc/common/player_param.h>
 
@@ -1008,6 +1010,16 @@ void ThriftClientPlayer::getActions()
                     __FILE__": Neck_TurnToRelative failed" );
             }                                  
         }
+        else if (action.__isset.neck_offensive_intercept_neck) {
+            if (Neck_OffensiveInterceptNeck().execute(agent))
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_OffensiveInterceptNeck performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_OffensiveInterceptNeck failed" );
+            }
+        }
         else if (action.__isset.view_change_width)
         {
             const auto &viewChangeWidth = action.view_change_width;
@@ -1178,7 +1190,19 @@ void ThriftClientPlayer::getActions()
                 rcsc::dlog.addText( rcsc::Logger::TEAM,
                       __FILE__": sample_communication failed" );
             }
-
+        }
+        else if (action.__isset.helios_basic_tackle && !action_performed) {
+            const auto &helios_basic_tackle = action.helios_basic_tackle;
+            if (Bhv_BasicTackle( helios_basic_tackle.min_prob, helios_basic_tackle.body_thr ).execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_BasicTackle performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_BasicTackle failed" );
+            }
         }
         else if (action.__isset.bhv_do_force_kick && !action_performed)
         {

@@ -1,5 +1,27 @@
 # ChangeLog
 
+## [1.1.1] - 2024-12-01
+
+### Added
+
+- added Neck_OffensiveInterceptNeck into idls
+- added HeliosBasicTackle into idls
+- added start-debug-agent.sh file
+
+### Fixed
+
+- bug fixed in start-agent.sh
+
+### Changed
+
+-
+
+### Developers
+
+- [NaderZare](https://github.com/naderzare)
+  
+=======
+
 ## [1.1.0] - 2024-11-17
 
 ### Added

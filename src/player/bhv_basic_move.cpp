@@ -85,7 +85,8 @@ Bhv_BasicMove::execute( PlayerAgent * agent )
         dlog.addText( Logger::TEAM,
                       __FILE__": intercept" );
         Body_Intercept().execute( agent );
-        agent->setNeckAction( new Neck_TurnToBallOrScan( 0 ) );
+        agent->setNeckAction( new Neck_OffensiveInterceptNeck() );
+
         return true;
     }
 

@@ -1962,6 +1962,7 @@ return pb2.PlayerActions(actions=actions)
 | our_score | [int32](#int32) |  |  |
 | their_score | [int32](#int32) |  |  |
 | is_kick_taker | [bool](#bool) |  |  |
+| cycle | [int32](#int32) |  |  |
 
 
 
@@ -2110,6 +2111,7 @@ To get type information of the player, you can use the type_id field and player 
 | ball_reach_steps | [int32](#int32) |  | How many cycles the player needs to reach the ball. |
 | is_tackling | [bool](#bool) |  | Whether the player is tackling or not. |
 | type_id | [int32](#int32) |  | The type identifier of the player. |
+| inertia_final_point | [RpcVector2D](#protos-RpcVector2D) |  |  |
 
 
 
@@ -2565,6 +2567,7 @@ When an agent send a message to the playmaker server, self is information about 
 | card | [CardType](#protos-CardType) |  | The card type of the agent. It can be NO_CARD, YELLOW, or RED. |
 | catch_time | [int32](#int32) |  | The time when the last catch command is performed. |
 | effort | [float](#float) |  | The effort of the agent. TODO more info |
+| get_safety_dash_power | [float](#float) |  |  |
 
 
 
@@ -2822,6 +2825,7 @@ When an agent send a message to the playmaker server, self is information about 
 | goal_area_length | [float](#float) |  |  |
 | center_circle_r | [float](#float) |  |  |
 | goal_post_radius | [float](#float) |  |  |
+| pitch_margin | [float](#float) |  |  |
 
 
 

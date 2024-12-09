@@ -1,4 +1,4 @@
-// version 1.8
+// version 1.9
 
 syntax = "proto3";
 
@@ -1299,6 +1299,8 @@ message bhv_doForceKick {}
 
 message bhv_doHeardPassRecieve {}
 
+message bhv_goalieFreeKick {}
+
 message PlayerAction {
   oneof action {
       Dash dash = 1;
@@ -1369,6 +1371,7 @@ message PlayerAction {
       bhv_doHeardPassRecieve bhv_do_heard_pass_recieve = 66;
       HeliosBasicTackle helios_basic_tackle = 67;
       Neck_OffensiveInterceptNeck neck_offensive_intercept_neck = 68;
+      bhv_goalieFreeKick bhv_goalie_free_kick = 69;
   }
 }
 

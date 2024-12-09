@@ -58,6 +58,7 @@
 #include "planner/action_chain_holder.h"
 #include "planner/bhv_planned_action.h"
 #include "player/strategy.h"
+#include "player/bhv_goalie_free_kick.h"
 #include "player/bhv_basic_tackle.h"
 #include "player/neck_offensive_intercept_neck.h"
 #include <rcsc/player/say_message_builder.h>
@@ -1228,8 +1229,21 @@ void ThriftClientPlayer::getActions()
             }
             else
             {
+                agent->debugClient().addMessage("doHeardPassReceive failed");
+            }
+        }
+        else if(action.__isset.bhv_goalie_free_kick && !action_performed)
+        {
+            if (Bhv_GoalieFreeKick().execute(agent))
+            {
+                action_performed = true;
                 rcsc::dlog.addText( rcsc::Logger::TEAM,
-                      __FILE__": doHeardPassReceive failed" );
+                      __FILE__": Bhv_GoalieFreeKick performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_GoalieFreeKick failed" );
             }
         }
         else if (action.__isset.helios_offensive_planner && !action_performed)

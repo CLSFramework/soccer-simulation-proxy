@@ -5,6 +5,7 @@
 ### Added
 - ServerParams.pitch_margin
 - Player.inertia_final_point, PenaltyKickState.cycle, self.get_safety_dash_power.
+- bhv_goalieFreeKick added
 
 ### Fixed
 -

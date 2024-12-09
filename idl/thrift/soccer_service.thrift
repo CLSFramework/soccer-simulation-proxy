@@ -1,4 +1,4 @@
-// version 1.8
+// version 1.9
 
 namespace cpp soccer
 namespace py soccer
@@ -853,6 +853,8 @@ struct bhv_doForceKick {}
 
 struct bhv_doHeardPassRecieve {}
 
+struct bhv_goalieFreeKick {}
+
 struct PlayerAction {
   1: optional Dash dash,
   2: optional Turn turn,
@@ -922,6 +924,7 @@ struct PlayerAction {
   66: optional bhv_doHeardPassRecieve bhv_do_heard_pass_recieve,
   67: optional HeliosBasicTackle helios_basic_tackle,
   68: optional Neck_OffensiveInterceptNeck neck_offensive_intercept_neck
+  69: optional bhv_goalieFreeKick bhv_goalie_free_kick
 }
 
 struct PlayerActions {

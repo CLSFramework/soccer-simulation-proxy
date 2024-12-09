@@ -57,6 +57,7 @@
 #include "planner/actgen_action_chain_length_filter.h"
 #include "planner/action_chain_holder.h"
 #include "planner/bhv_planned_action.h"
+#include "player/bhv_goalie_free_kick.h"
 #include "player/strategy.h"
 #include "player/bhv_basic_tackle.h"
 #include "player/neck_offensive_intercept_neck.h"
@@ -897,6 +898,10 @@ void GrpcClientPlayer::getActions()
             {
                 rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_ScanPlayers failed" );
             }
+        }
+        else if (action.action_case() == PlayerAction::kBhvGoalieFreeKick) {
+            Bhv_GoalieFreeKick().execute(agent);
+            agent->debugClient().addMessage("Bhv_GoalieFreeKick");
         }
         else if (action.action_case() == PlayerAction::kNeckTurnToBallAndPlayer) {
             const auto &neckTurnToBallAndPlayer = action.neck_turn_to_ball_and_player();

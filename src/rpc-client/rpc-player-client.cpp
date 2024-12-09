@@ -214,32 +214,6 @@ RpcPlayerClient::doPreprocess(PlayerAgent * agent) {
 
     agent->setViewAction( new View_Tactical() );
 
-    // check queued action
-    //
-    // if ( agent->doIntention() )
-    // {
-    //     std::cout<<"doIntention"<<std::endl;
-    //     dlog.addText( Logger::TEAM,
-    //                   __FILE__": do queued intention" );
-    //     return true;
-    // }
-
-    //
-    // check simultaneous kick
-    //
-    // if ( doForceKick(agent) )
-    // {
-    //     return true;
-    // }
-
-    //
-    // check pass message
-    //
-    // if ( doHeardPassReceive(agent) )
-    // {
-    //     return true;
-    // }
-
     return false;
 }
 

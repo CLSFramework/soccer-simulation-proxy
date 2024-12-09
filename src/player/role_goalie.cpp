@@ -103,26 +103,34 @@ RoleGoalie::execute( PlayerAgent * agent )
 /*!
 
  */
-void
+bool
 RoleGoalie::doKick( PlayerAgent * agent )
 {
-    Body_ClearBall().execute( agent );
-    agent->setNeckAction( new Neck_ScanField() );
+    if (Body_ClearBall().execute( agent ))
+    {
+        agent->setNeckAction( new Neck_ScanField() );
+        return true;
+    }
+    else
+    {
+        agent->setNeckAction( new Neck_ScanField() );
+        return false;
+    }
 }
 
 /*-------------------------------------------------------------------*/
 /*!
 
  */
-void
+bool
 RoleGoalie::doMove( PlayerAgent * agent )
 {
     if ( Bhv_GoalieChaseBall::is_ball_chase_situation( agent ) )
     {
-        Bhv_GoalieChaseBall().execute( agent );
+        return Bhv_GoalieChaseBall().execute( agent );
     }
     else
     {
-        Bhv_GoalieBasicMove().execute( agent );
+        return Bhv_GoalieBasicMove().execute( agent );
     }
 }

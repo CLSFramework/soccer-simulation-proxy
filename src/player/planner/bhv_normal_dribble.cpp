@@ -197,34 +197,34 @@ IntentionNormalDribble::execute( PlayerAgent * agent )
     // compare the current queue with other chain action candidates
     //
 
-    if ( wm.self().isKickable()
-         && M_turn_step <= 0 )
-    {
-        CooperativeAction::Ptr current_action( new Dribble( wm.self().unum(),
-                                                            M_target_point,
-                                                            wm.ball().vel().r(),
-                                                            0,
-                                                            M_turn_step,
-                                                            M_dash_step,
-                                                            "queuedDribble" ) );
-        current_action->setIndex( 0 );
-        current_action->setFirstDashPower( ServerParam::i().maxDashPower() );
+    // if ( wm.self().isKickable()
+    //      && M_turn_step <= 0 )
+    // {
+    //     CooperativeAction::Ptr current_action( new Dribble( wm.self().unum(),
+    //                                                         M_target_point,
+    //                                                         wm.ball().vel().r(),
+    //                                                         0,
+    //                                                         M_turn_step,
+    //                                                         M_dash_step,
+    //                                                         "queuedDribble" ) );
+    //     current_action->setIndex( 0 );
+    //     current_action->setFirstDashPower( ServerParam::i().maxDashPower() );
 
-        ShortDribbleGenerator::instance().setQueuedAction( wm, current_action );
+    //     ShortDribbleGenerator::instance().setQueuedAction( wm, current_action );
 
-        ActionChainHolder::instance().update( wm );
-        const ActionChainGraph & search_result = ActionChainHolder::i().graph();
-        const CooperativeAction & first_action = search_result.getFirstAction();
+    //     ActionChainHolder::instance().update( wm );
+    //     const ActionChainGraph & search_result = ActionChainHolder::i().graph();
+    //     const CooperativeAction & first_action = search_result.getFirstAction();
 
-        if ( first_action.category() != CooperativeAction::Dribble
-             || ! first_action.targetPoint().equals( current_action->targetPoint() ) )
-        {
-            agent->debugClient().addMessage( "CancelDribbleQ" );
-            dlog.addText( Logger::DRIBBLE,
-                          __FILE__": (intention:execute) cancel. select other action." );
-            return false;
-        }
-    }
+    //     if ( first_action.category() != CooperativeAction::Dribble
+    //          || ! first_action.targetPoint().equals( current_action->targetPoint() ) )
+    //     {
+    //         agent->debugClient().addMessage( "CancelDribbleQ" );
+    //         dlog.addText( Logger::DRIBBLE,
+    //                       __FILE__": (intention:execute) cancel. select other action." );
+    //         return false;
+    //     }
+    // }
 
     //
     //

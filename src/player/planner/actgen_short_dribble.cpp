@@ -70,17 +70,6 @@ ActGen_ShortDribble::generate( std::vector< ActionStatePair > * result,
     const std::vector< CooperativeAction::Ptr > &
         cont = ShortDribbleGenerator::instance().courses( wm );
 
-    for (auto & course : cont)
-    {
-        if (path.empty())
-        {
-            course->setParentIndex(-1);
-        }
-        else
-        {
-            course->setParentIndex(( *( path.rbegin() ) ).action().uniqueIndex());
-        }
-    }
     //
     // add dribble candidates
     //

@@ -59,17 +59,6 @@ ActGen_Cross::generate( std::vector< ActionStatePair > * result,
 
     const std::vector< CooperativeAction::Ptr > & courses = CrossGenerator::instance().courses( wm );
 
-    for (auto & course : courses)
-    {
-        if (path.empty())
-        {
-            course->setParentIndex(-1);
-        }
-        else
-        {
-            course->setParentIndex(( *( path.rbegin() ) ).action().uniqueIndex());
-        }
-    }
     
     //
     // add pass course candidates

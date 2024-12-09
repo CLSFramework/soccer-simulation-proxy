@@ -62,17 +62,6 @@ ActGen_StrictCheckPass::generate( std::vector< ActionStatePair > * result,
                                                                 M_generate_direct_pass,
                                                                 M_generate_lead_pass,
                                                                 M_generate_through_pass );
-    for (auto & course : courses)
-    {
-        if (path.empty())
-        {
-            course->setParentIndex(-1);
-        }
-        else
-        {
-            course->setParentIndex(( *( path.rbegin() ) ).action().uniqueIndex());
-        }
-    }
     //
     // add pass course candidates
     //

@@ -58,6 +58,8 @@
 #include "planner/action_chain_holder.h"
 #include "planner/bhv_planned_action.h"
 #include "player/strategy.h"
+#include "player/bhv_basic_tackle.h"
+#include "player/neck_offensive_intercept_neck.h"
 #include <rcsc/player/say_message_builder.h>
 #include <rcsc/common/player_param.h>
 
@@ -105,6 +107,65 @@ void GrpcClientPlayer::init(rcsc::SoccerAgent *agent,
     sample_communication = Communication::Ptr(new SampleCommunication());
 }
 
+void GrpcClientPlayer::updateChainByDefault(const rcsc::WorldModel &wm)
+{
+    FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
+    CompositeActionGenerator *g = new CompositeActionGenerator();
+    
+    g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_StrictCheckPass(), 1));
+    g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_Cross(), 1));
+    g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_ShortDribble(), 1));
+    g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_SelfPass(), 1));
+
+    g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_Shoot(),
+                                                            2, ActGen_RangeActionChainLengthFilter::MAX));
+    ActionGenerator::ConstPtr action_generator = ActionGenerator::ConstPtr(g);
+    ActionChainHolder::instance().setFieldEvaluator(field_evaluator);
+    ActionChainHolder::instance().setActionGenerator(action_generator);
+    ActionChainHolder::instance().update(wm);
+}
+
+void GrpcClientPlayer::updateChainByPlannerAction(const rcsc::WorldModel &wm, const protos::PlayerAction &action)
+{
+    CompositeActionGenerator *g = new CompositeActionGenerator();
+    if (action.helios_offensive_planner().max_depth() > 0)
+        g->max_depth = action.helios_offensive_planner().max_depth();
+    if (action.helios_offensive_planner().max_nodes() > 0)
+        g->max_nodes = action.helios_offensive_planner().max_nodes();
+
+    FieldEvaluator::Ptr field_evaluator = FieldEvaluator::Ptr(new SampleFieldEvaluator);
+    if (action.helios_offensive_planner().has_evaluation())
+        field_evaluator->set_grpc_evalution_method(action.helios_offensive_planner().evaluation());
+    
+    if (action.helios_offensive_planner().lead_pass() 
+        || action.helios_offensive_planner().direct_pass() || action.helios_offensive_planner().through_pass())
+        g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_StrictCheckPass(), 1));
+    if (action.helios_offensive_planner().cross())
+        g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_Cross(), 1));
+    if (action.helios_offensive_planner().simple_pass())
+        g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_DirectPass(),
+                                                                2, ActGen_RangeActionChainLengthFilter::MAX));
+    if (action.helios_offensive_planner().short_dribble())
+        g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_ShortDribble(), 1));
+    if (action.helios_offensive_planner().long_dribble())
+        g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_SelfPass(), 1));
+    if (action.helios_offensive_planner().simple_dribble())
+        g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_SimpleDribble(),
+                                                                2, ActGen_RangeActionChainLengthFilter::MAX));
+    if (action.helios_offensive_planner().simple_shoot())
+        g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_Shoot(),
+                                                                2, ActGen_RangeActionChainLengthFilter::MAX));
+    if (g->M_generators.empty())
+    {
+        return;
+    }
+    ActionGenerator::ConstPtr action_generator = ActionGenerator::ConstPtr(g);
+
+    ActionChainHolder::instance().setFieldEvaluator(field_evaluator);
+    ActionChainHolder::instance().setActionGenerator(action_generator);
+    ActionChainHolder::instance().update(wm);
+}
+
 void GrpcClientPlayer::getActions()
 {
     auto agent = M_agent;
@@ -117,12 +178,21 @@ void GrpcClientPlayer::getActions()
     state.set_allocated_register_response(response);
     protos::PlayerActions actions;
     ClientContext context;
+    // Set the deadline to 1 second from now
+    auto deadline = std::chrono::system_clock::now() + std::chrono::seconds(1);
+    context.set_deadline(deadline);
+
     Status status = M_stub_->GetPlayerActions(&context, state, &actions);
 
     if (!status.ok())
     {
-        std::cout << status.error_code() << ": " << status.error_message()
+        std::cout << "rpcerror:" << status.error_code() << ": " << status.error_message()
                   << std::endl;
+        
+        if (status.error_code() == grpc::StatusCode::DEADLINE_EXCEEDED) {
+            // The call timed out
+            std::cerr << "rpcerror-timeout" << std::endl;
+        }
         return;
     }
 
@@ -135,252 +205,698 @@ void GrpcClientPlayer::getActions()
             return;
         }
     }
+    const rcsc::WorldModel & wm = agent->world();
+
+    if ( !actions.ignore_shootinpreprocess() )
+    {
+        if ( wm.gameMode().type() != rcsc::GameMode::IndFreeKick_
+            && wm.time().stopped() == 0
+            && wm.self().isKickable()
+            && Bhv_StrictCheckShoot().execute( agent ) )
+        {
+            // reset intention
+            agent->setIntention( static_cast< rcsc::SoccerIntention * >( 0 ) );
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": shoot in preprocess performed" );
+            return;
+        }
+    }
+    
+    if ( !actions.ignore_dointention() )
+    {
+        if ( agent->doIntention() )
+        {
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doIntention performed" );
+            return;
+        }
+    }
 
     if (do_forceKick && !actions.ignore_doforcekick())
     {
         if (doForceKick(agent))
         {
             rcsc::dlog.addText( rcsc::Logger::TEAM,
-                      __FILE__": doForceKick done" );
+                      __FILE__": doForceKick performed" );
             return;
         }
     }
-
+    
     if (do_heardPassReceive && !actions.ignore_doheardpassrecieve())
     {
         if (doHeardPassReceive(agent))
         {
             rcsc::dlog.addText( rcsc::Logger::TEAM,
-                      __FILE__": doHeardPassReceive done" );
+                      __FILE__": doHeardPassReceive performed" );
             return;
         }
     }
+    
+    // if (agent->world().gameMode().type() == rcsc::GameMode::PlayOn)
+    // {
+    //     if (agent->world().self().goalie())
+    //     {
+    //         protos::PlayerAction action;
+    //         action.set_allocated_helios_goalie(new protos::HeliosGoalie());
+    //         actions.add_actions()->CopyFrom(action);
+    //     }
+    //     else if (agent->world().self().isKickable())
+    //     {
+    //         const auto &wm = agent->world();
+    //         protos::PlayerAction action;
 
+    //         auto planner = new protos::HeliosOffensivePlanner();
+    //         planner->set_direct_pass(true);
+    //         planner->set_lead_pass(true);
+    //         planner->set_through_pass(true);
+    //         planner->set_short_dribble(true);
+    //         planner->set_long_dribble(true);
+    //         planner->set_cross(true);
+    //         planner->set_simple_pass(false);
+    //         planner->set_simple_dribble(false);
+    //         planner->set_simple_shoot(true);
+
+    //         action.set_allocated_helios_offensive_planner(planner);
+    //         actions.add_actions()->CopyFrom(action);
+    //     }
+    //     else
+    //     {
+    //         protos::PlayerAction action;
+    //         auto move = new protos::HeliosBasicMove();
+    //         action.set_allocated_helios_basic_move(move);
+    //         actions.add_actions()->CopyFrom(action);
+    //     }
+    // }
+    // else
+    // {
+    //     protos::PlayerAction action;
+    //     auto set_play = new protos::HeliosSetPlay();
+    //     action.set_allocated_helios_set_play(set_play);
+    //     actions.add_actions()->CopyFrom(action);
+    // }
+    
+    int planner_action_index = -1;
     for (int i = 0; i < actions.actions_size(); i++)
     {
         auto action = actions.actions(i);
-        if (action.action_case() == PlayerAction::kDash) {
-            agent->doDash(action.dash().power(), action.dash().relative_direction());
+        if (action.action_case() == PlayerAction::kHeliosOffensivePlanner)
+        {
+            planner_action_index = i;
+            break;
         }
-        else if (action.action_case() == PlayerAction::kKick) {
-            agent->doKick(action.kick().power(), action.kick().relative_direction());
+    }
+
+    if (planner_action_index != -1)
+    {
+        rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": updateChainByPlannerAction" );
+        updateChainByPlannerAction(wm, actions.actions(planner_action_index));
+    }
+    else
+    {
+        rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": updateChainByDefault" );
+        updateChainByDefault(wm);
+    }
+
+    // if (agent->world().gameMode().type() == rcsc::GameMode::PlayOn)
+    // {
+    //     if (agent->world().self().goalie())
+    //     {
+    //         RoleGoalie().execute(agent);
+    //         return;
+    //     }
+    //     else if (agent->world().self().isKickable())
+    //     {
+    //         const auto &wm = agent->world();
+    //         if (Bhv_PlannedAction().execute(agent))
+    //         {
+    //             agent->debugClient().addMessage("PlannedAction");
+    //         }
+    //         else
+    //         {
+    //             Body_HoldBall().execute(agent);
+    //             agent->setNeckAction(new Neck_ScanField());        
+    //         }
+    //     }
+    //     else
+    //     {
+    //         Bhv_BasicMove().execute(agent);
+    //         return;
+    //     }
+    // }
+    // else
+    // {
+    //     Bhv_SetPlay().execute(agent);
+    //     return;
+    // }
+
+    bool action_performed = false;
+    for (int i = 0; i < actions.actions_size(); i++)
+    {
+        auto action = actions.actions(i);
+        if (action.action_case() == PlayerAction::kDash && !action_performed) {
+            if (agent->doDash(action.dash().power(), action.dash().relative_direction())) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doDash performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doDash failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kTurn) {
-            agent->doTurn(action.turn().relative_direction());
+        else if (action.action_case() == PlayerAction::kKick && !action_performed) {
+            if (agent->doKick(action.kick().power(), action.kick().relative_direction())) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doKick performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doKick failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kTackle) {
-            agent->doTackle(action.tackle().power_or_dir(), action.tackle().foul());
+        else if (action.action_case() == PlayerAction::kTurn && !action_performed) {
+            if (agent->doTurn(action.turn().relative_direction())) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doTurn performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doTurn failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kCatch) {
-            agent->doCatch();
+        else if (action.action_case() == PlayerAction::kTackle && !action_performed) {
+            if (agent->doTackle(action.tackle().power_or_dir(), action.tackle().foul())) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doTackle performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doTackle failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kMove) {
-            agent->doMove(action.move().x(), action.move().y());
+        else if (action.action_case() == PlayerAction::kCatch && !action_performed) {
+            if (agent->doCatch()) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doCatch performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doCatch failed" );
+            }
+        }
+        else if (action.action_case() == PlayerAction::kMove && !action_performed) {
+            if (agent->doMove(action.move().x(), action.move().y())) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doMove performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doMove failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kTurnNeck) {
-            agent->doTurnNeck(action.turn_neck().moment());
+            if (agent->doTurnNeck(action.turn_neck().moment())) {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doTurnNeck performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doTurnNeck failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kChangeView) {
             const rcsc::ViewWidth view_width = GrpcClient::convertViewWidth(action.change_view().view_width());
-            agent->doChangeView(view_width);
+            if (agent->doChangeView(view_width)) {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doChangeView performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doChangeView failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kSay) {
             addSayMessage(action.say());
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": addSayMessage called" );
         }
         else if (action.action_case() == PlayerAction::kPointTo) {
-            agent->doPointto(action.point_to().x(), action.point_to().y());
+            if (agent->doPointto(action.point_to().x(), action.point_to().y())) {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doPointto performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doPointto failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kPointToOf) {
-
-            agent->doPointtoOff();
+            if (agent->doPointtoOff()) {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doPointtoOff performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doPointtoOff failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kAttentionTo) {
             const rcsc::SideID side = GrpcClient::convertSideID(action.attention_to().side());
-            agent->doAttentionto(side, action.attention_to().unum());
+            if (agent->doAttentionto(side, action.attention_to().unum())) {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doAttentionto performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doAttentionto failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kAttentionToOf) {
-            agent->doAttentiontoOff();
+            if (agent->doAttentiontoOff()) {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doAttentiontoOff performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doAttentiontoOff failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kLog) {
             addDlog(action.log());
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": addDlog called" );
         }
-        else if (action.action_case() == PlayerAction::kBodyGoToPoint) {
+        else if (action.action_case() == PlayerAction::kBodyGoToPoint && !action_performed) {
             const auto &bodyGoToPoint = action.body_go_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(bodyGoToPoint.target_point());
-            Body_GoToPoint(targetPoint, bodyGoToPoint.distance_threshold(), bodyGoToPoint.max_dash_power()).execute(agent);
-            agent->debugClient().addMessage("Body_GoToPoint");
+            if (Body_GoToPoint(targetPoint, bodyGoToPoint.distance_threshold(), bodyGoToPoint.max_dash_power()).execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_GoToPoint performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_GoToPoint failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBodySmartKick) {
+        else if (action.action_case() == PlayerAction::kBodySmartKick && !action_performed) {
             const auto &bodySmartKick = action.body_smart_kick();
             const auto &targetPoint = GrpcClient::convertVector2D(bodySmartKick.target_point());
-            Body_SmartKick(targetPoint, bodySmartKick.first_speed(), bodySmartKick.first_speed_threshold(), bodySmartKick.max_steps()).execute(agent);
-            agent->debugClient().addMessage("Body_SmartKick");
+            if (Body_SmartKick(targetPoint, bodySmartKick.first_speed(), bodySmartKick.first_speed_threshold(), bodySmartKick.max_steps()).execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_SmartKick performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_SmartKick failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBhvBeforeKickOff) {
+        else if (action.action_case() == PlayerAction::kBhvBeforeKickOff && !action_performed) {
             const auto &bhvBeforeKickOff = action.bhv_before_kick_off();
             const auto &point = GrpcClient::convertVector2D(bhvBeforeKickOff.point());
-            Bhv_BeforeKickOff(point).execute(agent);
-                agent->debugClient().addMessage("Bhv_BeforeKickOff");
+            if (Bhv_BeforeKickOff(point).execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_BeforeKickOff performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_BeforeKickOff failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBhvBodyNeckToBall) {
-            Bhv_BodyNeckToBall().execute(agent);
-            agent->debugClient().addMessage("Bhv_BodyNeckToBall");
+        else if (action.action_case() == PlayerAction::kBhvBodyNeckToBall && !action_performed) {
+            if (Bhv_BodyNeckToBall().execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_BodyNeckToBall performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_BodyNeckToBall failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBhvBodyNeckToPoint) {
+        else if (action.action_case() == PlayerAction::kBhvBodyNeckToPoint && !action_performed) {
             const auto &bhvBodyNeckToPoint = action.bhv_body_neck_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(bhvBodyNeckToPoint.point());
-            Bhv_BodyNeckToPoint(targetPoint).execute(agent);
-            agent->debugClient().addMessage("Bhv_BodyNeckToPoint");
+            if (Bhv_BodyNeckToPoint(targetPoint).execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_BodyNeckToPoint performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_BodyNeckToPoint failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kBhvEmergency) {
-            Bhv_Emergency().execute(agent);
-            agent->debugClient().addMessage("Bhv_Emergency");
-
+            if (Bhv_Emergency().execute(agent)) {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_Emergency performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_Emergency failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBhvGoToPointLookBall) {
+        else if (action.action_case() == PlayerAction::kBhvGoToPointLookBall && !action_performed) {
             const auto &bhvGoToPointLookBall = action.bhv_go_to_point_look_ball();
             const auto &targetPoint = GrpcClient::convertVector2D(bhvGoToPointLookBall.target_point());
-            Bhv_GoToPointLookBall(targetPoint, bhvGoToPointLookBall.distance_threshold(), bhvGoToPointLookBall.max_dash_power()).execute(agent);
-                agent->debugClient().addMessage("Bhv_GoToPointLookBall");
+            if (Bhv_GoToPointLookBall(targetPoint, bhvGoToPointLookBall.distance_threshold(), bhvGoToPointLookBall.max_dash_power()).execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_GoToPointLookBall performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_GoToPointLookBall failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBhvNeckBodyToBall) {
+        else if (action.action_case() == PlayerAction::kBhvNeckBodyToBall && !action_performed) {
             
             const auto &bhvNeckBodyToBall = action.bhv_neck_body_to_ball();
-            Bhv_NeckBodyToBall(bhvNeckBodyToBall.angle_buf()).execute(agent);
-            agent->debugClient().addMessage("Bhv_NeckBodyToBall");
+            if (Bhv_NeckBodyToBall(bhvNeckBodyToBall.angle_buf()).execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_NeckBodyToBall performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_NeckBodyToBall failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBhvNeckBodyToPoint) {
+        else if (action.action_case() == PlayerAction::kBhvNeckBodyToPoint && !action_performed) {
             const auto &bhvNeckBodyToPoint = action.bhv_neck_body_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(bhvNeckBodyToPoint.point());
-            Bhv_NeckBodyToPoint(targetPoint, bhvNeckBodyToPoint.angle_buf()).execute(agent);
-            agent->debugClient().addMessage("Bhv_NeckBodyToPoint");
+            if (Bhv_NeckBodyToPoint(targetPoint, bhvNeckBodyToPoint.angle_buf()).execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_NeckBodyToPoint performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_NeckBodyToPoint failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBhvScanField) {
-            Bhv_ScanField().execute(agent);
-            agent->debugClient().addMessage("Bhv_ScanField");
+        else if (action.action_case() == PlayerAction::kBhvScanField && !action_performed) {
+            if (Bhv_ScanField().execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_ScanField performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_ScanField failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBodyAdvanceBall) {
-            Body_AdvanceBall().execute(agent);
-            agent->debugClient().addMessage("Body_AdvanceBall");
+        else if (action.action_case() == PlayerAction::kBodyAdvanceBall && !action_performed) {
+            if (Body_AdvanceBall().execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_AdvanceBall performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_AdvanceBall failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBodyClearBall) {
-            Body_ClearBall().execute(agent);
-            agent->debugClient().addMessage("Body_ClearBall");
+        else if (action.action_case() == PlayerAction::kBodyClearBall && !action_performed) {
+            if (Body_ClearBall().execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_ClearBall performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_ClearBall failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBodyDribble) {
+        else if (action.action_case() == PlayerAction::kBodyDribble && !action_performed) {
             const auto &bodyDribble = action.body_dribble();
             const auto &targetPoint = GrpcClient::convertVector2D(bodyDribble.target_point());
-            Body_Dribble(
+            if (Body_Dribble(
                 targetPoint,
                 bodyDribble.distance_threshold(),
                 bodyDribble.dash_power(),
                 bodyDribble.dash_count(),
                 bodyDribble.dodge())
-                .execute(agent);
-            agent->debugClient().addMessage("Body_Dribble");
+                .execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_Dribble performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_Dribble failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBodyGoToPointDodge) {
+        else if (action.action_case() == PlayerAction::kBodyGoToPointDodge && !action_performed) {
             const auto &bodyGoToPointDodge = action.body_go_to_point_dodge();
             const auto &targetPoint = GrpcClient::convertVector2D(bodyGoToPointDodge.target_point());
-            Body_GoToPointDodge(
+            if (Body_GoToPointDodge(
                 targetPoint,
                 bodyGoToPointDodge.dash_power())
-                .execute(agent);
-            agent->debugClient().addMessage("Body_GoToPointDodge");
+                .execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_GoToPointDodge performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_GoToPointDodge failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBodyHoldBall) {
+        else if (action.action_case() == PlayerAction::kBodyHoldBall && !action_performed) {
             const auto &bodyHoldBall = action.body_hold_ball();
             const auto &turnTargetPoint = GrpcClient::convertVector2D(bodyHoldBall.turn_target_point());
             const auto &kickTargetPoint = GrpcClient::convertVector2D(bodyHoldBall.kick_target_point());
-            Body_HoldBall(
+            if (Body_HoldBall(
                 bodyHoldBall.do_turn(),
                 turnTargetPoint,
                 kickTargetPoint)
-                .execute(agent);
-            agent->debugClient().addMessage("Body_HoldBall");
+                .execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_HoldBall performed" );
+                }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_HoldBall failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBodyIntercept) {
+        else if (action.action_case() == PlayerAction::kBodyIntercept && !action_performed) {
             const auto &bodyIntercept = action.body_intercept();
             const auto &facePoint = GrpcClient::convertVector2D(bodyIntercept.face_point());
-            Body_Intercept(
+            if (Body_Intercept(
                 bodyIntercept.save_recovery(),
                 facePoint)
-                .execute(agent);
-            agent->debugClient().addMessage("Body_Intercept");
+                .execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_Intercept performed" );
+                }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_Intercept failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBodyKickOneStep) {
+        else if (action.action_case() == PlayerAction::kBodyKickOneStep && !action_performed) {
             const auto &bodyKickOneStep = action.body_kick_one_step();
             const auto &targetPoint = GrpcClient::convertVector2D(bodyKickOneStep.target_point());
-            Body_KickOneStep(
+            if (Body_KickOneStep(
                 targetPoint,
                 bodyKickOneStep.first_speed(),
                 bodyKickOneStep.force_mode())
-                .execute(agent);
-            agent->debugClient().addMessage("Body_KickOneStep");
+                .execute(agent))
+            {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_KickOneStep performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_KickOneStep failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBodyStopBall) {
-            Body_StopBall().execute(agent);
-            agent->debugClient().addMessage("Body_StopBall");
+        else if (action.action_case() == PlayerAction::kBodyStopBall && !action_performed) {
+            if (Body_StopBall().execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_StopBall performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_StopBall failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBodyStopDash) {
+        else if (action.action_case() == PlayerAction::kBodyStopDash && !action_performed) {
             const auto &bodyStopDash = action.body_stop_dash();
-            Body_StopDash(
+            if (Body_StopDash(
                 bodyStopDash.save_recovery())
-                .execute(agent);
-            agent->debugClient().addMessage("Body_StopDash");
+                .execute(agent))
+            {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_StopDash performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_StopDash failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBodyTackleToPoint) {
+        else if (action.action_case() == PlayerAction::kBodyTackleToPoint && !action_performed) {
             const auto &bodyTackleToPoint = action.body_tackle_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(bodyTackleToPoint.target_point());
-            Body_TackleToPoint(
+            if (Body_TackleToPoint(
                 targetPoint,
                 bodyTackleToPoint.min_probability(),
                 bodyTackleToPoint.min_speed())
-                .execute(agent);
-            agent->debugClient().addMessage("Body_TackleToPoint");
+                .execute(agent))
+            {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_TackleToPoint performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_TackleToPoint failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBodyTurnToAngle) {
+        else if (action.action_case() == PlayerAction::kBodyTurnToAngle && !action_performed) {
             const auto &bodyTurnToAngle = action.body_turn_to_angle();
-            Body_TurnToAngle(
+            if (Body_TurnToAngle(
                 bodyTurnToAngle.angle())
-                .execute(agent);
-            agent->debugClient().addMessage("Body_TurnToAngle");
+                .execute(agent))
+            {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_TurnToAngle performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_TurnToAngle failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBodyTurnToBall) {
+        else if (action.action_case() == PlayerAction::kBodyTurnToBall && !action_performed) {
             const auto &bodyTurnToBall = action.body_turn_to_ball();
-            Body_TurnToBall(
+            if (Body_TurnToBall(
                 bodyTurnToBall.cycle())
-                .execute(agent);
-            agent->debugClient().addMessage("Body_TurnToBall");
+                .execute(agent))
+            {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_TurnToBall performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_TurnToBall failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBodyTurnToPoint) {
+        else if (action.action_case() == PlayerAction::kBodyTurnToPoint && !action_performed) {
             const auto &bodyTurnToPoint = action.body_turn_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(bodyTurnToPoint.target_point());
-            Body_TurnToPoint(
+            if (Body_TurnToPoint(
                 targetPoint,
                 bodyTurnToPoint.cycle())
-                .execute(agent);
-            agent->debugClient().addMessage("Body_TurnToPoint");
+                .execute(agent))
+            {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_TurnToPoint performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Body_TurnToPoint failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kFocusMoveToPoint) {
             const auto &focusMoveToPoint = action.focus_move_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(focusMoveToPoint.target_point());
-            rcsc::Focus_MoveToPoint(
+            if (rcsc::Focus_MoveToPoint(
                 targetPoint)
-                .execute(agent);
-            agent->debugClient().addMessage("Focus_MoveToPoint");
+                .execute(agent))
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Focus_MoveToPoint performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Focus_MoveToPoint failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kFocusReset) {
-            rcsc::Focus_Reset().execute(agent);
-            agent->debugClient().addMessage("Focus_Reset");
+            if (rcsc::Focus_Reset().execute(agent)) {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Focus_Reset performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Focus_Reset failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kNeckScanField) {
-            Neck_ScanField().execute(agent);
-            agent->debugClient().addMessage("Neck_ScanField");
+            if (Neck_ScanField().execute(agent)) 
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_ScanField performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_ScanField failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kNeckScanPlayers) {
-            Neck_ScanPlayers().execute(agent);
-            agent->debugClient().addMessage("Neck_ScanPlayers");
+            if (Neck_ScanPlayers().execute(agent)) 
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_ScanPlayers performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_ScanPlayers failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kNeckTurnToBallAndPlayer) {
             const auto &neckTurnToBallAndPlayer = action.neck_turn_to_ball_and_player();
@@ -392,39 +908,67 @@ void GrpcClientPlayer::getActions()
                 player = agent->world().theirPlayer(neckTurnToBallAndPlayer.uniform_number());
             }
             if (player != nullptr){
-                Neck_TurnToBallAndPlayer(
+                if (Neck_TurnToBallAndPlayer(
                     player,
                     neckTurnToBallAndPlayer.count_threshold())
-                    .execute(agent);
-                agent->debugClient().addMessage("Neck_TurnToBallAndPlayer");
+                    .execute(agent))
+                {
+                    rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToBallAndPlayer performed" );
+                }
+                else
+                {
+                    rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToBallAndPlayer failed" );
+                }
             }
             else 
             {
-                agent->debugClient().addMessage("Neck_TurnToBallAndPlayer null player");
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToBallAndPlayer failed (no player)" );
             }
         }
         else if (action.action_case() == PlayerAction::kNeckTurnToBallOrScan) {
             const auto &neckTurnToBallOrScan = action.neck_turn_to_ball_or_scan();
-            Neck_TurnToBallOrScan(
-                neckTurnToBallOrScan.count_threshold())
-                .execute(agent);
-            agent->debugClient().addMessage("Neck_TurnToBallOrScan");
+            if (Neck_TurnToBallOrScan(neckTurnToBallOrScan.count_threshold()).execute(agent))
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToBallOrScan performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToBallOrScan failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kNeckTurnToBall) {
-            Neck_TurnToBall().execute(agent);
-            agent->debugClient().addMessage("Neck_TurnToBall");
+            if (Neck_TurnToBall().execute(agent)) 
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToBall performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToBall failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kNeckTurnToGoalieOrScan) {
             const auto &neckTurnToGoalieOrScan = action.neck_turn_to_goalie_or_scan();
-            Neck_TurnToGoalieOrScan(
+            if (Neck_TurnToGoalieOrScan(
                 neckTurnToGoalieOrScan.count_threshold())
-                .execute(agent);
-            agent->debugClient().addMessage("Neck_TurnToGoalieOrScan");
+                .execute(agent))
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToGoalieOrScan performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToGoalieOrScan failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kNeckTurnToLowConfTeammate) {
             const auto &neckTurnToLowConfTeammate = action.neck_turn_to_low_conf_teammate();
-            Neck_TurnToLowConfTeammate().execute(agent);
-            agent->debugClient().addMessage("Neck_TurnToLowConfTeammate");
+            if (Neck_TurnToLowConfTeammate().execute(agent))
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToLowConfTeammate performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToLowConfTeammate failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kNeckTurnToPlayerOrScan) {
             const auto &neckTurnToPlayerOrScan = action.neck_turn_to_player_or_scan();
@@ -436,169 +980,294 @@ void GrpcClientPlayer::getActions()
                 player = agent->world().theirPlayer(neckTurnToPlayerOrScan.uniform_number());
             }
             if (player != nullptr){
-                Neck_TurnToPlayerOrScan(
+                if (Neck_TurnToPlayerOrScan(
                     player,
                     neckTurnToPlayerOrScan.count_threshold())
-                    .execute(agent);
-                agent->debugClient().addMessage("Neck_TurnToPlayerOrScan");
+                    .execute(agent))
+                {
+                    rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToPlayerOrScan performed" );
+                }
+                else
+                {
+                    rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToPlayerOrScan failed" );
+                }
             }
             else 
             {
-                agent->debugClient().addMessage("Neck_TurnToPlayerOrScan null player");
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToPlayerOrScan failed (no player)" );
             }
         }
         else if (action.action_case() == PlayerAction::kNeckTurnToPoint) {
             const auto &neckTurnToPoint = action.neck_turn_to_point();
             const auto &targetPoint = GrpcClient::convertVector2D(neckTurnToPoint.target_point());
-            Neck_TurnToPoint(
+            if (Neck_TurnToPoint(
                 targetPoint)
-                .execute(agent);
-            agent->debugClient().addMessage("Neck_TurnToPoint");
+                .execute(agent))
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToPoint performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToPoint failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kNeckTurnToRelative) {
             const auto &neckTurnToRelative = action.neck_turn_to_relative();
-            Neck_TurnToRelative(
+            if (Neck_TurnToRelative(
                 neckTurnToRelative.angle())
-                .execute(agent);
-            agent->debugClient().addMessage("Neck_TurnToRelative");
+                .execute(agent))
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToRelative performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_TurnToRelative failed" );
+            }
+        }
+        else if (action.action_case() == PlayerAction::kNeckOffensiveInterceptNeck) {
+            if (Neck_OffensiveInterceptNeck().execute(agent))
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_OffensiveInterceptNeck performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_OffensiveInterceptNeck failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kViewChangeWidth) {
             const auto &viewChangeWidth = action.view_change_width();
             const rcsc::ViewWidth view_width = GrpcClient::convertViewWidth(viewChangeWidth.view_width());
-            View_ChangeWidth(
+            if (View_ChangeWidth(
                 view_width)
-                .execute(agent);
-            agent->debugClient().addMessage("View_ChangeWidth");
+                .execute(agent))
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": View_ChangeWidth performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": View_ChangeWidth failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kViewNormal) {
-            View_Normal().execute(agent);
-            agent->debugClient().addMessage("View_Normal");
+            if (View_Normal().execute(agent))
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": View_Normal performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": View_Normal failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kViewWide) {
-            View_Wide().execute(agent);
-            agent->debugClient().addMessage("View_Wide");
+            if (View_Wide().execute(agent))
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": View_Wide performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": View_Wide failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kViewSynch) {
-            View_Synch().execute(agent);
-            agent->debugClient().addMessage("View_Synch");
+            if (View_Synch().execute(agent))
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": View_Synch performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": View_Synch failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kHeliosGoalie) {
+        else if (action.action_case() == PlayerAction::kHeliosGoalie && !action_performed) {
             RoleGoalie roleGoalie = RoleGoalie();
-            roleGoalie.execute(agent);
-            agent->debugClient().addMessage("RoleGoalie - execute");
+            if (roleGoalie.execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": RoleGoalie performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": RoleGoalie failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kHeliosGoalieMove) {
+        else if (action.action_case() == PlayerAction::kHeliosGoalieMove && !action_performed) {
             RoleGoalie roleGoalie = RoleGoalie();
-            roleGoalie.doMove(agent);
-            agent->debugClient().addMessage("RoleGoalie - do Move");
+            if (roleGoalie.doMove(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": RoleGoalie doMove performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": RoleGoalie doMove failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kHeliosGoalieKick) {
+        else if (action.action_case() == PlayerAction::kHeliosGoalieKick && !action_performed) {
             RoleGoalie roleGoalie = RoleGoalie();
-            roleGoalie.doKick(agent);
-            agent->debugClient().addMessage("RoleGoalie - do Kick");
+            if (roleGoalie.doKick(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": RoleGoalie doKick performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": RoleGoalie doKick failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kHeliosShoot) {
+        else if (action.action_case() == PlayerAction::kHeliosShoot && !action_performed) {
             const rcsc::WorldModel &wm = agent->world();
             
             if (wm.gameMode().type() != rcsc::GameMode::IndFreeKick_ && wm.time().stopped() == 0 && wm.self().isKickable() && Bhv_StrictCheckShoot().execute(agent))
-                {
+            {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_StrictCheckShoot performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_StrictCheckShoot failed" );
             }
         }
-        else if (action.action_case() == PlayerAction::kHeliosBasicMove) {
-            Bhv_BasicMove().execute(agent);
-            agent->debugClient().addMessage("Bhv_BasicMove");
+        else if (action.action_case() == PlayerAction::kHeliosBasicMove && !action_performed) {
+            if (Bhv_BasicMove().execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_BasicMove performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_BasicMove failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kHeliosSetPlay) {
-            Bhv_SetPlay().execute(agent);
-            agent->debugClient().addMessage("Bhv_SetPlay");
+        else if (action.action_case() == PlayerAction::kHeliosSetPlay && !action_performed) {
+            if (Bhv_SetPlay().execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_SetPlay performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_SetPlay failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kHeliosPenalty) {
-            Bhv_PenaltyKick().execute(agent);
-            agent->debugClient().addMessage("Bhv_PenaltyKick");
+        else if (action.action_case() == PlayerAction::kHeliosPenalty && !action_performed) {
+            if (Bhv_PenaltyKick().execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_PenaltyKick performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_PenaltyKick failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kHeliosCommunication) {
-                sample_communication->execute(agent);
-                agent->debugClient().addMessage("sample_communication - execute");
+            if (sample_communication->execute(agent)) {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": sample_communication performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": sample_communication failed" );
+            }
         }
-        else if (action.action_case() == PlayerAction::kBhvDoForceKick)
+        else if (action.action_case() == PlayerAction::kHeliosBasicTackle && !action_performed) {
+            const auto &helios_basic_tackle = action.helios_basic_tackle();
+            if (Bhv_BasicTackle( helios_basic_tackle.min_prob(), helios_basic_tackle.body_thr() ).execute(agent)) {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_BasicTackle performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Bhv_BasicTackle failed" );
+            }
+        }
+        else if (action.action_case() == PlayerAction::kBhvDoForceKick && !action_performed)
         {
             if(doForceKick(agent))
             {
-                agent->debugClient().addMessage("doForceKick");
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doForceKick performed" );
             }
             else
             {
-                agent->debugClient().addMessage("doForceKick - false");
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doForceKick failed" );
             }
         }
-        else if (action.action_case() == PlayerAction::kBhvDoHeardPassRecieve)
+        else if (action.action_case() == PlayerAction::kBhvDoHeardPassRecieve && !action_performed)
         {
             if(doHeardPassReceive(agent))
             {
-                agent->debugClient().addMessage("doHeardPassReceive");
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doHeardPassReceive performed" );
             }
             else
             {
-                agent->debugClient().addMessage("doHeardPassReceive - false");
+                rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": doHeardPassReceive failed" );
             }
         }
-        else if (action.action_case() == PlayerAction::kHeliosOffensivePlanner) {
-            FieldEvaluator::ConstPtr field_evaluator = FieldEvaluator::ConstPtr(new SampleFieldEvaluator);
-            CompositeActionGenerator *g = new CompositeActionGenerator();
-            
-            if (action.helios_offensive_planner().lead_pass() 
-                || action.helios_offensive_planner().direct_pass() || action.helios_offensive_planner().through_pass())
-                g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_StrictCheckPass(), 1));
-            if (action.helios_offensive_planner().cross())
-                g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_Cross(), 1));
-            if (action.helios_offensive_planner().simple_pass())
-                g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_DirectPass(),
-                                                                        2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (action.helios_offensive_planner().short_dribble())
-                g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_ShortDribble(), 1));
-            if (action.helios_offensive_planner().long_dribble())
-                g->addGenerator(new ActGen_MaxActionChainLengthFilter(new ActGen_SelfPass(), 1));
-            if (action.helios_offensive_planner().simple_dribble())
-                g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_SimpleDribble(),
-                                                                        2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (action.helios_offensive_planner().simple_shoot())
-                g->addGenerator(new ActGen_RangeActionChainLengthFilter(new ActGen_Shoot(),
-                                                                        2, ActGen_RangeActionChainLengthFilter::MAX));
-            if (g->M_generators.empty())
-            {
-                Body_HoldBall().execute(agent);
-                agent->setNeckAction(new Neck_ScanField());
-                continue;
-            }
-            ActionGenerator::ConstPtr action_generator = ActionGenerator::ConstPtr(g);
-            ActionChainHolder::instance().setFieldEvaluator(field_evaluator);
-            ActionChainHolder::instance().setActionGenerator(action_generator);
-            ActionChainHolder::instance().update(agent->world());
-            
+        else if (action.action_case() == PlayerAction::kHeliosOffensivePlanner && !action_performed) {
             if (action.helios_offensive_planner().server_side_decision())
             {
                 if (GetBestPlannerAction())
                 {
-                    agent->debugClient().addMessage("GetBestPlannerAction");
+                    action_performed = true;
+                    rcsc::dlog.addText( rcsc::Logger::TEAM,
+                          __FILE__": GetBestPlannerAction performed" );
+                }
+                else
+                {
+                    rcsc::dlog.addText( rcsc::Logger::TEAM,
+                          __FILE__": GetBestPlannerAction failed" );
                 }
             }
             else
             {
                 if (Bhv_PlannedAction().execute(agent))
                 {
-                    agent->debugClient().addMessage("PlannedAction");
+                    action_performed = true;
+                    rcsc::dlog.addText( rcsc::Logger::TEAM,
+                          __FILE__": Bhv_PlannedAction performed" );
                 }
-                
+                else
+                {
+                    if (Body_HoldBall().execute(agent))
+                    {
+                        action_performed = true;
+                        agent->setNeckAction(new Neck_ScanField());
+                        rcsc::dlog.addText( rcsc::Logger::TEAM,
+                          __FILE__": Bhv_PlannedAction failed (Hold Ball performed)" );
+                    }
+                    else
+                    {
+                        rcsc::dlog.addText( rcsc::Logger::TEAM,
+                          __FILE__": Bhv_PlannedAction failed (Hold Ball Failed)" );
+                    }
+                }
             }
-
         }
         else 
         {
             #ifdef DEBUG_CLIENT_PLAYER
             std::cout << "Unkown action"<<std::endl;
             #endif
-            Body_HoldBall().execute(agent);
-            agent->setNeckAction(new Neck_ScanField());
+
+            rcsc::dlog.addText( rcsc::Logger::TEAM,
+                      __FILE__": Unkown action or another main action performed");
         }
     }
 }
@@ -609,6 +1278,7 @@ bool GrpcClientPlayer::GetBestPlannerAction()
     protos::RegisterResponse* response = new protos::RegisterResponse(*M_register_response);
     action_state_pairs->set_allocated_register_response(response);
     State state = generateState();
+    state.set_allocated_register_response(response);
     action_state_pairs->set_allocated_state(&state);
     #ifdef DEBUG_CLIENT_PLAYER
     std::cout << "GetBestActionStatePair:" << "c" << M_agent->world().time().cycle() << std::endl;
@@ -629,6 +1299,7 @@ bool GrpcClientPlayer::GetBestPlannerAction()
                   << std::endl;
         return false;
     }
+    ActionChainHolder::instance().updateBestChain(best_action.index());
 
     auto agent = M_agent;
 
@@ -636,7 +1307,7 @@ bool GrpcClientPlayer::GetBestPlannerAction()
     std::cout << "best action index:" << best_action.index() << std::endl;
     #endif
 
-    if (Bhv_PlannedAction().execute(agent, best_action.index()))
+    if (Bhv_PlannedAction().execute(agent))
     {
         #ifdef DEBUG_CLIENT_PLAYER
         std::cout << "PlannedAction" << std::endl;

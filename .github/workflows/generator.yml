@@ -1,0 +1,131 @@
+name: Generate Protobuf Documentation
+
+# Define a manual trigger with input for version
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository code
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    # Step 1.1: Check Version Number
+    - name: Check Version Number
+      run: |
+        pwd
+        PROTO_VERSION=$(grep -oP '(?<=version\s)[0-9]+\.[0-9]+' ./idl/grpc/service.proto)
+        THRIFT_VERSION=$(grep -oP '(?<=version\s)[0-9]+\.[0-9]+' ./idl/thrift/soccer_service.thrift)
+        if [ "$PROTO_VERSION" != "$THRIFT_VERSION" ]; then
+            echo "Version mismatch: Protobuf version is $PROTO_VERSION, Thrift version is $THRIFT_VERSION"
+            exit 1
+        fi
+
+    # Step 2: Install dependencies for protoc
+    - name: Install protoc dependencies
+      run: sudo apt-get update && sudo apt-get install -y protobuf-compiler wget
+
+    # Step 3: Download precompiled protoc-gen-doc binary
+    - name: Download protoc-gen-doc binary
+      run: |
+        # Download the appropriate precompiled binary for Linux
+        wget https://github.com/pseudomuto/protoc-gen-doc/releases/download/v1.5.1/protoc-gen-doc_1.5.1_linux_amd64.tar.gz -O protoc-gen-doc.tar.gz
+
+        # Extract the binary from the tarball
+        tar -xvf protoc-gen-doc.tar.gz
+                     
+        # Ensure it's an executable binary
+        file protoc-gen-doc
+        
+        # Make it executable
+        chmod +x protoc-gen-doc
+        
+        # Move the binary to /usr/local/bin
+        sudo mv protoc-gen-doc /usr/local/bin/
+
+    # Step 4: Generate Markdown from the Protobuf file
+    - name: Generate Protobuf Documentation
+      run: |
+        # Generate markdown from .proto file
+        protoc --doc_out=./idl --doc_opt=markdown,readme.md ./idl/grpc/service.proto
+
+    # Step 5: Extract version from the first line of the .proto file
+    - name: Extract version from .proto file
+      id: extract_version
+      run: |
+        VERSION=$(grep -oP '(?<=version\s)[0-9]+\.[0-9]+' ./idl/grpc/service.proto)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+    # Step 6: Insert version into the generated Markdown file
+    - name: Insert version into markdown
+      run: |
+        sed -i '3a\\n## Version: '"${{ env.VERSION }}"'\n' ./idl/readme.md
+
+    # Step 7: Replace &gt; and &lt; in Mermaid diagrams with > and <
+    - name: Fix Mermaid symbols in readme.md
+      run: |
+        sed -i 's/&gt;/>/g' ./idl/readme.md
+        sed -i 's/&lt;/</g' ./idl/readme.md
+
+    # Step 8: Configure Git and commit the updated readme.md
+    - name: Configure Git
+      run: |
+        git config --global user.name "GitHub Action"
+        git config --global user.email "action@github.com"
+
+    # Step 10: Stage and Commit Changes
+    - name: Stage and Commit Changes
+      run: |
+        ls ./idl
+        git status
+        git add ./idl/readme.md  # Ensure the correct file is added
+        git diff --quiet || git commit -m "Update protobuf documentation with version and fixed Mermaid symbols" || echo "No changes to commit"
+
+    # Step 11: Push the changes
+    - name: Push Changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: git push
+    
+    # Step 12: Clone the website repository and push the updated protobuf.md
+    - name: Generate random number for branch name
+      id: random
+      run: echo "::set-output name=random_number::$(shuf -i 1000-9999 -n 1)"
+    - name: Clone the CLSFramework.github.io repository
+      run: |
+        git clone https://github.com/CLSFramework/CLSFramework.github.io.git cls-repo
+        cd cls-repo
+          
+        # Copy updated README to target directory in the CLSFramework.github.io repository
+        cp ../idl/readme.md docs/3-idl/protobuf.md
+
+        # Create a new branch with a random number appended
+        git checkout -b update-proto-doc-${{ steps.random.outputs.random_number }}
+    - name: Set up authentication using PAT for CLSFramework.github.io
+      run: |
+        cd cls-repo
+        git remote set-url origin https://x-access-token:${{ secrets.WEBSITE_TOKEN }}@github.com/CLSFramework/CLSFramework.github.io.git
+    - name: Commit and Push Changes to CLSFramework.github.io
+      run: |
+        cd cls-repo
+        if git diff | grep 'protobuf.md'; then
+          echo "protobuf.md has changed"
+        else
+          echo "protobuf.md has not changed" && exit 0
+        fi
+        git add docs/3-idl/protobuf.md
+        git commit -m "Update proto documentation"
+        git push origin update-proto-doc-${{ steps.random.outputs.random_number }}
+    - name: Create Pull Request in CLSFramework.github.io using GitHub API
+      run: |
+        PR_RESPONSE=$(curl -X POST -H "Authorization: token ${{ secrets.WEBSITE_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/CLSFramework/CLSFramework.github.io/pulls \
+          -d '{"title":"Update proto documentation","head":"update-proto-doc-${{ steps.random.outputs.random_number }}","base":"main","body":"This PR updates the proto documentation based on changes made in grpc file."}')
+        echo "Pull request created: $PR_RESPONSE"
+    

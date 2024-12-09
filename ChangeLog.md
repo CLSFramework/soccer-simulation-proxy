@@ -1,24 +1,9 @@
 # ChangeLog
 
-## [1.0.8] - 2024-10-24
+## [1.1.2] - 2024-12-08
 
 ### Added
 - ServerParams.pitch_margin
-
-### Fixed
--
-
-### Changed
-- 
-
-### Engineers
-- [SoroushMazloum](https://github.com/SoroushMazloum)
-
-=======
-
-## [1.0.7] - 2024-10-22
-
-### Added
 - Player.inertia_final_point, PenaltyKickState.cycle, self.get_safety_dash_power.
 
 ### Fixed
@@ -27,8 +12,64 @@
 ### Changed
 - 
 
-### Engineers
+### Developers
 - [SoroushMazloum](https://github.com/SoroushMazloum)
+
+=======
+
+## [1.1.1] - 2024-12-01
+
+### Added
+
+- added Neck_OffensiveInterceptNeck into idls
+- added HeliosBasicTackle into idls
+- added start-debug-agent.sh file
+
+### Fixed
+
+- bug fixed in start-agent.sh
+
+### Changed
+
+-
+
+### Developers
+
+- [NaderZare](https://github.com/naderzare)
+  
+=======
+
+## [1.1.0] - 2024-11-17
+
+### Added
+- 
+
+### Fixed
+- 
+
+### Changed
+- If the server sends some main actions to the proxy like doForceKick, dash, smartkick, etc, the proxy will just run the first action and ignore the rest of the main actions.
+
+### Developers
+- [NaderZare](https://github.com/naderzare)
+- [Sadra Khanjari](https://github.com/sk2ip)
+  
+=======
+
+## [1.0.7] - 2024-11-11
+
+### Added
+- 
+
+### Fixed
+- Performance improvement
+- Fixed bugs in the server side planner
+
+### Changed
+- 
+
+### Developers
+- [NaderZare](https://github.com/naderzare)
 
 =======
 
@@ -43,7 +84,7 @@
 ### Changed
 - 
 
-### Engineers
+### Developers
 - [ErfanFathi](https://github.com/ErfanFathii)
 
 =======
@@ -59,7 +100,7 @@
 ### Changed
 - 
 
-### Engineers
+### Developers
 - [NaderZare](https://github.com/naderzare)
 - [SadraKhanjari](https://github.com/SK2iP)
 - [SoroushMazloum](https://github.com/SoroushMazloum)
@@ -77,12 +118,9 @@
 ### Changed
 - 
 
-### Engineers
-- [NaderZare](https://github.com/naderzare)
-- [SadraKhanjari](https://github.com/SK2iP)
+### Developers 
 - [SoroushMazloum](https://github.com/SoroushMazloum)
 
-=======
 
 ## [1.0.3] - 2024-10-7
 
@@ -95,12 +133,10 @@
 ### Changed
 - 
 
-### Engineers
-- [NaderZare](https://github.com/naderzare)
+### Developers
 - [SadraKhanjari](https://github.com/SK2iP)
 - [SoroushMazloum](https://github.com/SoroushMazloum)
 
-=======
 
 ## [1.0.2] - 2024-09-15
 
@@ -114,20 +150,16 @@
 ### Changed
 - 
 
-### Engineers
+### Developers
 - [NaderZare](https://github.com/naderzare)
 - [SadraKhanjari](https://github.com/SK2iP)
 
-# ChangeLog
-
-=======
 ## [1.0.1] - 2024-09-15
 
 ### Added
 - catch_time has been added to the proxy in the self message.
 - kickable_opponent_existance and kickable_teammate_existance has been added to the proxy in the worldmodel message.
 - bhv_doforceKick action has been added as a message and to the actions message.
-=======
 
 ### Fixed
 - 
@@ -135,12 +167,9 @@
 ### Changed
 - 
 
-### Engineers
+### Developers
 - [SoroushMazloum](https://github.com/SoroushMazloum)
 - [SadraKhanjari](https://github.com/SK2iP)
-
-=======
-
 
 ## [1.0.0] - 2024-09-15
 
@@ -155,7 +184,7 @@
 ### Changed
 - changed chain_action messages name to planner
 
-### Engineers
+### Developers
 - [NaderZare](https://github.com/naderzare)
 - [SadraKhanjari](https://github.com/SK2iP)
 

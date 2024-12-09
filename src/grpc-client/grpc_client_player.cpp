@@ -899,9 +899,16 @@ void GrpcClientPlayer::getActions()
                 rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Neck_ScanPlayers failed" );
             }
         }
-        else if (action.action_case() == PlayerAction::kBhvGoalieFreeKick) {
-            Bhv_GoalieFreeKick().execute(agent);
-            agent->debugClient().addMessage("Bhv_GoalieFreeKick");
+        else if (action.action_case() == PlayerAction::kBhvGoalieFreeKick && !action_performed) {
+            if (Bhv_GoalieFreeKick().execute(agent))
+            {
+                action_performed = true;
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Bhv_GoalieFreeKick performed" );
+            }
+            else
+            {
+                rcsc::dlog.addText( rcsc::Logger::TEAM, __FILE__": Bhv_GoalieFreeKick failed" );
+            }
         }
         else if (action.action_case() == PlayerAction::kNeckTurnToBallAndPlayer) {
             const auto &neckTurnToBallAndPlayer = action.neck_turn_to_ball_and_player();

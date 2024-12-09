@@ -2,7 +2,7 @@
 <a name="top"></a>
 
 
-## Version: 1.8
+## Version: 1.9
 
 ## Table of Contents
 
@@ -156,6 +156,7 @@
     - [WorldModel.TheirPlayersDictEntry](#protos-WorldModel-TheirPlayersDictEntry)
     - [bhv_doForceKick](#protos-bhv_doForceKick)
     - [bhv_doHeardPassRecieve](#protos-bhv_doHeardPassRecieve)
+    - [bhv_goalieFreeKick](#protos-bhv_goalieFreeKick)
   
     - [AgentType](#protos-AgentType)
     - [CardType](#protos-CardType)
@@ -2194,6 +2195,7 @@ To get type information of the player, you can use the type_id field and player 
 | bhv_do_heard_pass_recieve | [bhv_doHeardPassRecieve](#protos-bhv_doHeardPassRecieve) |  |  |
 | helios_basic_tackle | [HeliosBasicTackle](#protos-HeliosBasicTackle) |  |  |
 | neck_offensive_intercept_neck | [Neck_OffensiveInterceptNeck](#protos-Neck_OffensiveInterceptNeck) |  |  |
+| bhv_goalie_free_kick | [bhv_goalieFreeKick](#protos-bhv_goalieFreeKick) |  |  |
 
 
 
@@ -3272,6 +3274,16 @@ WorldModel is the message that represents the world model in the soccer simulati
 <a name="protos-bhv_doHeardPassRecieve"></a>
 
 ### bhv_doHeardPassRecieve
+
+
+
+
+
+
+
+<a name="protos-bhv_goalieFreeKick"></a>
+
+### bhv_goalieFreeKick
 
 
 

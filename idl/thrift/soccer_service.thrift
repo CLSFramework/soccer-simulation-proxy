@@ -112,7 +112,8 @@ struct PenaltyKickState {
   4: i32 their_taker_counter,
   5: i32 our_score,
   6: i32 their_score,
-  7: bool is_kick_taker
+  7: bool is_kick_taker,
+  8: i32 cycle
 }
 
 struct Player {
@@ -145,7 +146,8 @@ struct Player {
   27: double angle_from_ball,
   28: i32 ball_reach_steps,
   29: bool is_tackling,
-  30: i32 type_id
+  30: i32 type_id,
+  31: RpcVector2D inertia_final_point
 }
 
 struct Self {
@@ -189,7 +191,8 @@ struct Self {
   38: double stamina_capacity,
   39: CardType card,
   40: i32 catch_time,
-  41: double effort
+  41: double effort,
+  42: double get_safety_dash_power
 }
 
 enum InterceptActionType {
@@ -1215,7 +1218,8 @@ struct ServerParam {
   223: double goal_area_width,
   224: double goal_area_length,
   225: double center_circle_r,
-  226: double goal_post_radius
+  226: double goal_post_radius,
+  227: double pitch_margin
 }
 
 struct PlayerParam {

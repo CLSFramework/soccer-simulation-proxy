@@ -135,6 +135,7 @@ message PenaltyKickState {
   int32 our_score = 5;
   int32 their_score = 6;
   bool is_kick_taker = 7;
+  int32 cycle = 8;
 }
 
 /**
@@ -172,6 +173,7 @@ message Player {
   int32 ball_reach_steps = 28; // How many cycles the player needs to reach the ball.
   bool is_tackling = 29; // Whether the player is tackling or not.
   int32 type_id = 30; // The type identifier of the player.
+  RpcVector2D inertia_final_point = 31;
 }
 
 /**
@@ -220,6 +222,7 @@ message Self {
   CardType card = 39; // The card type of the agent. It can be NO_CARD, YELLOW, or RED.
   int32 catch_time = 40; // The time when the last catch command is performed.
   float effort = 41; // The effort of the agent. TODO more info
+  float get_safety_dash_power = 42;
 }
 
 /**
@@ -1668,6 +1671,7 @@ message ServerParam {
   float goal_area_length = 224;
   float center_circle_r = 225;
   float goal_post_radius = 226;
+  float pitch_margin = 227;
 }
 
 message PlayerParam {

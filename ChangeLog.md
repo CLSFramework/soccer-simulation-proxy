@@ -1,5 +1,22 @@
 # ChangeLog
 
+## [1.1.2] - 2024-12-08
+
+### Added
+- ServerParams.pitch_margin
+- Player.inertia_final_point, PenaltyKickState.cycle, self.get_safety_dash_power.
+
+### Fixed
+-
+
+### Changed
+- 
+
+### Developers
+- [SoroushMazloum](https://github.com/SoroushMazloum)
+
+=======
+
 ## [1.1.1] - 2024-12-01
 
 ### Added

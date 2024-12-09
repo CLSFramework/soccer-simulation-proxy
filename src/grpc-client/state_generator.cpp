@@ -174,6 +174,7 @@ protos::Self *StateGenerator::convertSelf(const rcsc::SelfObject &self, const rc
     res->set_card(convertCardType(self.card()));
     res->set_catch_time(self.catchTime().cycle());
     res->set_effort(static_cast<float>(self.effort()));
+    res->set_get_safety_dash_power(static_cast<float>(self.getSafetyDashPower(rcsc::ServerParam::i().maxDashPower())));
     return res;
 }
 
@@ -246,7 +247,7 @@ protos::PenaltyKickState *StateGenerator::convertPenaltyKickState(const rcsc::Wo
     res->set_our_score(state->ourScore());
     res->set_their_score(state->theirScore());
     res->set_is_kick_taker(state->isKickTaker(wm.ourSide(), wm.self().unum()));
-    
+    res->set_cycle(state->time().cycle());
     return res;
 }
 
@@ -288,6 +289,7 @@ void StateGenerator::updatePlayerObject(protos::Player *p, const rcsc::PlayerObj
     p->set_ball_reach_steps(player->ballReachStep());
     p->set_is_tackling(player->isTackling());
     p->set_type_id(player->playerTypePtr()->id());
+    p->set_allocated_inertia_final_point(convertVector2D(player->inertiaFinalPoint()));
 }
 
 /**

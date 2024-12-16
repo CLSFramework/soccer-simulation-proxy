@@ -65,3 +65,8 @@ file(COPY
   formations-dt formations-keeper formations-taker player.conf coach.conf start-debug.sh start-offline.sh start-debug-agent.sh
   DESTINATION ${PROJECT_BINARY_DIR}/bin
   )
+
+file(COPY
+${PROJECT_SOURCE_DIR}/idl/grpc/service.proto ${PROJECT_SOURCE_DIR}/idl/thrift/soccer_service.thrift
+  DESTINATION ${PROJECT_BINARY_DIR}/bin
+  )

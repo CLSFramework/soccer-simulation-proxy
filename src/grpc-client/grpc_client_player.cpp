@@ -180,7 +180,7 @@ void GrpcClientPlayer::getActions()
     protos::PlayerActions actions;
     ClientContext context;
     // Set the deadline to 1 second from now
-    auto deadline = std::chrono::system_clock::now() + std::chrono::seconds(1);
+    auto deadline = std::chrono::system_clock::now() + std::chrono::seconds(3);
     context.set_deadline(deadline);
 
     Status status = M_stub_->GetPlayerActions(&context, state, &actions);

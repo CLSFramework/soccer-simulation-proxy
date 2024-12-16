@@ -1,5 +1,22 @@
 # ChangeLog
 
+## [1.1.3] - 2024-12-15
+
+### Added
+- 
+
+### Fixed
+-
+
+### Changed
+- Increase gRPC client deadline to 3 seconds 
+- Copy additional proto files to binary directory
+
+### Developers
+- [NaderZare](https://github.com/naderzare)
+
+=======
+
 ## [1.1.2] - 2024-12-08
 
 ### Added

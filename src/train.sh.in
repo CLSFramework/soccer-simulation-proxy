@@ -23,6 +23,7 @@ rpc_port=50051
 rpc_port_step="false"
 rpc_add_20_to_port_for_right="false"
 rpc_type="thrift"
+rpc_timeout=3
 config="${DIR}/player.conf"
 config_dir="${DIR}/formations-dt"
 
@@ -46,6 +47,7 @@ usage()
    echo "  --rpc-port-step              specifies different rpc port for each player (default: false)"
    echo "  --rpc-add-20-to-port-for-right                    add 20 to RPC Port if team run on right side (default: false)"
    echo "  --rpc-type                   type of rpc framework (default: thrift) or grpc"
+   echo "  --rpc-timeout                specifies rpc timeout (default: 3)"
    echo "  -t, --teamname TEAMNAME   specifies team name") 1>&2
 }
 
@@ -105,6 +107,14 @@ do
       rpc_type="${2}"
       shift 1
       ;;
+    --rpc-timeout)
+      if [ $# -lt 2 ]; then
+        usage
+        exit 1
+      fi
+      rpc_timeout="${2}"
+      shift 1
+      ;;
     *)
       usage
       exit 1
@@ -120,6 +130,7 @@ OPT="${OPT} ${debugopt}"
 opt="${opt} --rpc-host ${rpc_host}"
 opt="${opt} --rpc-port ${rpc_port}"
 opt="${opt} --rpc-type ${rpc_type}"
+opt="${opt} --rpc-timeout ${rpc_timeout}"
 if [ "${rpc_port_step}" = "true" ]; then
   opt="${opt} --rpc-port-step"
 fi
@@ -144,6 +155,7 @@ trainer_opt="-h $host -t $teamname"
 trainer_opt="${trainer_opt} --rpc-host ${rpc_host}"
 trainer_opt="${trainer_opt} --rpc-port ${rpc_port}"
 trainer_opt="${trainer_opt} --rpc-type ${rpc_type}"
+trainer_opt="${trainer_opt} --rpc-timeout ${rpc_timeout}"
 if [ "${rpc_port_step}" = "true" ]; then
   trainer_opt="${trainer_opt} --rpc-port-step"
 fi

@@ -1,5 +1,21 @@
 # ChangeLog
 
+## [1.9.1] - 2024-12-15
+
+### Added
+- 
+
+### Fixed
+-
+
+### Changed
+- gRPC client timeout deadline is variable and can be set from start.sh
+- Versioning: Proto Major - Proto Minor - Code
+  
+### Developers
+- [NaderZare](https://github.com/naderzare)
+
+=======
 ## [1.1.3] - 2024-12-15
 
 ### Added

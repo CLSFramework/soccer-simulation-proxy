@@ -13,7 +13,8 @@ class ThriftClientPlayer : public ThriftAgent, public RpcPlayerClient {
               std::string target="localhost",
               int port=50051,
               bool use_same_grpc_port=true,
-              bool add_20_to_grpc_port_if_right_side=false) override;
+              bool add_20_to_grpc_port_if_right_side=false,
+              int rpc_timeout=3) override;
 
     void updateChainByDefault(const rcsc::WorldModel &wm);
     void updateChainByPlannerAction(const rcsc::WorldModel &wm, const soccer::PlayerAction &action);

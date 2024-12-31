@@ -120,7 +120,8 @@ SampleTrainer::actionImpl()
                     M_rpc_server_address,
                     M_first_rpc_port,
                     M_use_same_rpc_port,
-                    M_add_20_to_rpc_port_if_right_side);
+                    M_add_20_to_rpc_port_if_right_side,
+                    M_rpc_timeout);
 #endif
         }
         else
@@ -131,7 +132,8 @@ SampleTrainer::actionImpl()
                     M_rpc_server_address,
                     M_first_rpc_port,
                     M_use_same_rpc_port,
-                    M_add_20_to_rpc_port_if_right_side);
+                    M_add_20_to_rpc_port_if_right_side,
+                    M_rpc_timeout);
 #endif
         }
     }

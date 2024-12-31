@@ -32,9 +32,12 @@ void GrpcClientCoach::init(rcsc::SoccerAgent *agent,
                            std::string target,
                            int port,
                            bool use_same_grpc_port,
-                           bool add_20_to_grpc_port_if_right_side)
+                           bool add_20_to_grpc_port_if_right_side,
+                           int rpc_timeout)
 {
     M_agent = static_cast<rcsc::CoachAgent *>(agent);
+    M_rpc_timeout = rpc_timeout;
+    M_rpc_timeout = rpc_timeout;
     M_unum = 12;
     M_team_name = M_agent->world().ourTeamName();
     if (add_20_to_grpc_port_if_right_side)
@@ -57,6 +60,9 @@ void GrpcClientCoach::getActions()
     state.set_allocated_register_response(response);
     protos::CoachActions actions;
     ClientContext context;
+    // Set the deadline to M_rpc_timeout second from now
+    auto deadline = std::chrono::system_clock::now() + std::chrono::seconds(M_rpc_timeout);
+    context.set_deadline(deadline);
     Status status = M_stub_->GetCoachActions(&context, state, &actions);
     if (!status.ok())
     {

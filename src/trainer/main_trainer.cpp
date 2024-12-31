@@ -83,6 +83,7 @@ main( int argc, char ** argv )
         bool add_20_to_grpc_port_if_right_side = false;
         std::string grpc_ip = "localhost";
         std::string rpc_type = "thrift";
+        int rpc_timeout = 3;
 
         for (int i = 0; i < argc; ++i) {
             if (std::string(argv[i]) == "--rpc-port") {
@@ -97,8 +98,11 @@ main( int argc, char ** argv )
             if (std::string(argv[i]) == "--rpc-host") {
                 grpc_ip = argv[i+1];
             }
-        if (std::string(argv[i]) == "--rpc-type") {
+            if (std::string(argv[i]) == "--rpc-type") {
                 rpc_type = argv[i+1];
+            }
+            if (std::string(argv[i]) == "--rpc-timeout") {
+                rpc_timeout = std::stoi(argv[i+1]);
             }
         }
 
@@ -106,6 +110,7 @@ main( int argc, char ** argv )
         agent.SetUseSameRpcPort(use_same_grpc_port);
         agent.SetAdd20ToRpcPortIfRightSide(add_20_to_grpc_port_if_right_side);
         agent.SetRpcIp(grpc_ip);
+        agent.SetRpcTimeout(rpc_timeout);
 
         bool use_thrift = rpc_type=="thrift";
 #ifndef USE_GRPC

@@ -13,6 +13,7 @@ public:
     int M_unum;
     std::string M_team_name;
     bool M_param_sent = false;
+    int M_rpc_timeout = 3;
 
 
     virtual bool connectToGrpcServer() = 0;
@@ -25,7 +26,8 @@ public:
                         std::string target="localhost",
                         int port=50051,
                         bool use_same_grpc_port=true,
-                        bool add_20_to_grpc_port_if_right_side=false) = 0;
+                        bool add_20_to_grpc_port_if_right_side=false,
+                        int rpc_timeout=3) = 0;
 
     bool isConnected() const{
         return M_is_connected;

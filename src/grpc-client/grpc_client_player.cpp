@@ -90,9 +90,11 @@ void GrpcClientPlayer::init(rcsc::SoccerAgent *agent,
                             std::string target,
                             int port,
                             bool use_same_grpc_port,
-                            bool add_20_to_grpc_port_if_right_side)
+                            bool add_20_to_grpc_port_if_right_side,
+                            int rpc_timeout)
 {
     M_agent = static_cast<rcsc::PlayerAgent *>(agent);
+    M_rpc_timeout = rpc_timeout;
     M_unum = M_agent->world().self().unum();
     M_team_name = M_agent->world().ourTeamName();
     if (add_20_to_grpc_port_if_right_side)
@@ -179,8 +181,8 @@ void GrpcClientPlayer::getActions()
     state.set_allocated_register_response(response);
     protos::PlayerActions actions;
     ClientContext context;
-    // Set the deadline to 1 second from now
-    auto deadline = std::chrono::system_clock::now() + std::chrono::seconds(3);
+    // Set the deadline to M_rpc_timeout second from now
+    auto deadline = std::chrono::system_clock::now() + std::chrono::seconds(M_rpc_timeout);
     context.set_deadline(deadline);
 
     Status status = M_stub_->GetPlayerActions(&context, state, &actions);

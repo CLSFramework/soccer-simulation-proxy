@@ -31,6 +31,7 @@ rpc_port=50051
 rpc_port_step="false"
 rpc_add_20_to_port_for_right="false"
 rpc_type="thrift"
+rpc_timeout=3
 coach_port=""
 debug_server_host=""
 debug_server_port=""
@@ -87,6 +88,7 @@ usage()
    echo "  --rpc-port-step              specifies different rpc port for each player (default: false)"
    echo "  --rpc-add-20-to-port-for-right                    add 20 to RPC Port if team run on right side (default: false)"
    echo "  --rpc-type                   type of rpc framework (default: thrift) or grpc"
+   echo "  --rpc-timeout                specifies rpc timeout (default: 3)"
    echo "  --goalie                     specifies to run as a goalie"
    echo "  --player                     specifies to run as a player"
    echo "  --coach                      specifies to run as a coach"
@@ -129,6 +131,14 @@ do
         exit 1
       fi
       rpc_type="${2}"
+      shift 1
+      ;;
+    --rpc-timeout)
+      if [ $# -lt 2 ]; then
+        usage
+        exit 1
+      fi
+      rpc_timeout="${2}"
       shift 1
       ;;
     -h|--host)
@@ -349,6 +359,7 @@ opt="${opt} ${debugopt}"
 opt="${opt} --rpc-host ${rpc_host}"
 opt="${opt} --rpc-port ${rpc_port}"
 opt="${opt} --rpc-type ${rpc_type}"
+opt="${opt} --rpc-timeout ${rpc_timeout}"
 if [ "${rpc_port_step}" = "true" ]; then
   opt="${opt} --rpc-port-step"
 fi
@@ -379,6 +390,7 @@ if [ "${is_coach}" = "true" ]; then
   coachopt="${coachopt} --rpc-host ${rpc_host}"
   coachopt="${coachopt} --rpc-port ${rpc_port}"
   coachopt="${coachopt} --rpc-type ${rpc_type}"
+  coachopt="${coachopt} --rpc-timeout ${rpc_timeout}"
   if [ "${rpc_port_step}" = "true" ]; then
     coachopt="${coachopt} --rpc-port-step"
   fi

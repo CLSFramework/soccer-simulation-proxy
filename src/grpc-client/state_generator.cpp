@@ -290,6 +290,7 @@ void StateGenerator::updatePlayerObject(protos::Player *p, const rcsc::PlayerObj
     p->set_is_tackling(player->isTackling());
     p->set_type_id(player->playerTypePtr()->id());
     p->set_allocated_inertia_final_point(convertVector2D(player->inertiaFinalPoint()));
+    p->set_body_count(player->bodyCount());
 }
 
 /**

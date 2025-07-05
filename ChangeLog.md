@@ -1,5 +1,21 @@
 # ChangeLog
 
+## [1.1.4] - 2025-07-05
+
+### Added
+- Player.body_count
+
+### Fixed
+-
+
+### Changed
+-
+
+### Developers
+- [SoroushMazloum](https://github.com/SoroushMazloum)
+
+=======
+
 ## [1.1.3] - 2024-12-15
 
 ### Added

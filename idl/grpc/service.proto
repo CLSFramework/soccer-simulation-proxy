@@ -1,4 +1,4 @@
-// version 1.9
+// version 1.10
 
 syntax = "proto3";
 
@@ -173,7 +173,8 @@ message Player {
   int32 ball_reach_steps = 28; // How many cycles the player needs to reach the ball.
   bool is_tackling = 29; // Whether the player is tackling or not.
   int32 type_id = 30; // The type identifier of the player.
-  RpcVector2D inertia_final_point = 31;
+  RpcVector2D inertia_final_point = 31; // Estimate final reach point
+  int32 body_count = 32; // Get global body angle accuracy (count from last observation)
 }
 
 /**

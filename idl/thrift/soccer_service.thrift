@@ -1,4 +1,4 @@
-// version 1.9
+// version 1.10
 
 namespace cpp soccer
 namespace py soccer
@@ -147,7 +147,8 @@ struct Player {
   28: i32 ball_reach_steps,
   29: bool is_tackling,
   30: i32 type_id,
-  31: RpcVector2D inertia_final_point
+  31: RpcVector2D inertia_final_point,
+  32: i32 body_count
 }
 
 struct Self {

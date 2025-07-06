@@ -306,6 +306,7 @@ void ThriftStateGenerator::updatePlayerObject(soccer::Player & p, const rcsc::Pl
         p.type_id = player->playerTypePtr()->id();
     }
     p.inertia_final_point = convertVector2D(player->inertiaFinalPoint());
+    p.body_count = player->bodyCount();
 }
 
 /**

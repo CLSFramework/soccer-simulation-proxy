@@ -2,7 +2,7 @@
 <a name="top"></a>
 
 
-## Version: 1.9
+## Version: 1.10
 
 ## Table of Contents
 
@@ -2112,7 +2112,8 @@ To get type information of the player, you can use the type_id field and player 
 | ball_reach_steps | [int32](#int32) |  | How many cycles the player needs to reach the ball. |
 | is_tackling | [bool](#bool) |  | Whether the player is tackling or not. |
 | type_id | [int32](#int32) |  | The type identifier of the player. |
-| inertia_final_point | [RpcVector2D](#protos-RpcVector2D) |  |  |
+| inertia_final_point | [RpcVector2D](#protos-RpcVector2D) |  | Estimate final reach point |
+| body_count | [int32](#int32) |  | Get global body angle accuracy (count from last observation) |
 
 
 
